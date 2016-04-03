@@ -4,9 +4,8 @@ category : datascience
 tags : [bigdata,tutorial]
 title: Data Mining Thinking
 ---
-{% include JB/setup %}
 
-数据挖掘研究Note
+数据挖掘研究思考
 ------------------------
 
 ### 一.基本定义
