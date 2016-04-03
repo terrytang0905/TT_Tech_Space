@@ -4,8 +4,9 @@ category : virtualization
 tags : [cloud, tutorial]
 title: VMWare vSphere Practice
 ---
-{% include JB/setup %}
 
+VMware vSphere Practice
+------------------------
 
 ### ABSTRACT
 As we all know, VMware vSphere has become the most popular virtualization infrastructure in the world. VMware vSphere virtualizes and aggregates the underlying physical hardware resources across multiple systems and provides pools of virtual resources for the datacenter. The current VMware vSphere 4 includes two critical subsystems: ESX and vCenter Server. The article mainly discusses VMware vSphere 4 practice for performance tuning.
