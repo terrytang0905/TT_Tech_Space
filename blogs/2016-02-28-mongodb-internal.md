@@ -4,8 +4,9 @@ category : bigdata
 tags : [nosql,develop]
 title: MongoDB Internal
 ---
-{% include JB/setup %}
 
+MongoDB核心研究
+------------------------
 
 ### MongoDB NoSQL商业化的开端
 

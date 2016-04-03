@@ -4,7 +4,9 @@ category : bigdata
 tags : [nosql, tutorial]
 title: MongoDB Practice Thoughts
 ---
-{% include JB/setup %}
+
+MongoDB Practice
+------------------------
 
 In the past one year, I have chance to take responsibility for design data storage using MongoDB in mobile internet application.It is very amazing adventure for NoSQL database study.
 Some MongoDB features need to be recognized if you want to adopt it in new product.

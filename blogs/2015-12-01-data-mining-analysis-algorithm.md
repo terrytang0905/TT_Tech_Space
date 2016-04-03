@@ -4,9 +4,11 @@ category : datascience
 tags : [bigdata,develop]
 title: Data Mining Analysis Algorithm
 ---
-{% include JB/setup %}
 
-## 数据挖掘算法研究
+数据挖掘算法研究
+------------------------
+
+### 数据挖掘的十大经典算法
 
 国际权威的学术组织the IEEE International Conference on Data Mining (ICDM) 评选出了数据挖掘领域的十大经典算法：
 C4.5, k-Means, SVM, Apriori, EM, PageRank, AdaBoost, kNN, Naive Bayes, and CART.
@@ -71,5 +73,5 @@ K最近邻(k-Nearest Neighbor，KNN)分类算法，是一个理论上比较成�
 
 CART, Classification and Regression Trees。 在分类树下面有两个关键的思想。第一个是关于递归地划分自变量空间的想法；第二个想法是用验证数据进行剪枝。
 
-a. 决策树
-b. 逻辑回归
+- a. 决策树
+- b. 逻辑回归

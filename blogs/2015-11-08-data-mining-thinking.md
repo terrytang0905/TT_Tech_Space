@@ -6,11 +6,13 @@ title: Data Mining Thinking
 ---
 {% include JB/setup %}
 
-## 数据挖掘研究随想
+数据挖掘研究Note
+------------------------
 
 ### 一.基本定义
 
 #### 数据分析技术分类:
+
 1. 数据处理：自然语言处理技术（NLP）
 2. 统计和分析：A/B test、top N排行榜、地域占比、文本情感分析
 3. 数据挖掘：关联规则分析、分类、聚类
@@ -18,21 +20,19 @@ title: Data Mining Thinking
 
  大数据的“4V”特征
  ● Volume — 数据量大数据量巨大。 从数兆字节 (TB) 1 级别跃升到数十兆亿字节 (PB) 级别 。如一个CT图像含有大约 150MB的数据，而一个基因组序列文件大小约为 750MB，一个标准的病理接近 5 GB。考虑到人口数量和平均寿命等因素，仅一个社区医院就可以生成和累积达数个TB甚至数个 PB级的数据。
-
-
  ● Velocity — 速度快处理速度快，时效性强。 举例来说，检测医疗支付中的欺诈行为可以事后追溯，也可以实时检测；如果能够实现实时检测，即在支付发生前甚至在医疗服务发生前就识别出欺诈行为，则可有效避免重大经济损失。
-
  ● Variety — 种类多数据类型繁多，来源广泛。 既包括数值型数据，也包括文字、图形、图像、音频、视频、网络日志、邮件、等非数值型或者非结构化数据，且预计这些非结构化信息将占未来十年数据产生量的 90%。
-
  ● Value — 价值高价值的体现的是大数据分析应用的目的意义所在。 通过深入的大数据分析挖掘，可以为各方各面的经营决策提供有效支持，创造巨大的经济及社会价值。
 
 #### 数据源提取与存储:
+
 1. 结构化数据：海量数据的查询、统计、更新等操作效率低
 2. 非结构化数据：图片、视频、word、PDF、PPT等文件存储、不利于检索，查询和存储
 3. 半结构化数据：转换为结构化数据存储、按照非结构化存储
 4. 多数据源归整方案
 
 #### 数据定义属性:
+
 分类(定性属性) - 维度
 数值(定量属性) - 度量
 MetaData - 数据描述数据
@@ -40,14 +40,15 @@ MainData - 主数据
 RefData - 时间/空间维度数据
 
 #### 批处理/实时数据分析:
+
 基于传统数据仓库,批处理离线数据分析
 基于实时大数据处理,敏捷商务智能BI
 
-批量数据 - ETL - DataWarehouse
-                        II
+批量数据 - ETL - DataWarehouse                      
 实时数据 - 信息交换 - OPDM 操作型数据集市
 
 #### 解决方案思考:
+
 1. 数据存储：MPP(Vertica/Greenplum),HDFS,HBase,MongoDB,Cassandra等
 2. 并行计算：Spark, Hive(SQL查询), MapReduce批处理技术
 3. 实时流式计算：Apache Storm,Apache Spark
@@ -55,6 +56,7 @@ RefData - 时间/空间维度数据
 ### 二.数据仓库/数据平台设计
 
 #### BI数据仓库设计
+
 1.Bill Inmon的企业信息化工厂 ETL->企业数据仓库->数据集市(主题区域)->探索&挖掘
   第三范式
 2.Ralph kilmball维度数据仓库
@@ -79,6 +81,7 @@ lazily propagate updates / 一致性协议(Gossip协议)
 ### 三.数据预处理
 
 #### 数据预处理-ETL
+
 聚集:aggregation
 抽样
 维归约:维归约的线性代数
@@ -88,11 +91,13 @@ lazily propagate updates / 一致性协议(Gossip协议)
 >特征加权
 特征创建
 >特征提取
+
 *离散化和二元化
 >发现关联模式的算法要求数据是二元属性形式
 变量变换
 
 #### Summary Statistics汇总统计
+
 frequency(Vi)=属性值Vi的对象数/m
 分类属性的众数(mode)是具有最高频率的值
 均值(mean)
@@ -109,7 +114,7 @@ correlation matrix相关矩阵
 
 #### 数据清理Data cleaning
 
-a.数据抽样
+a. 数据抽样
 建模样本: TrainingSet，ValidationSet，TestingSet
 数据缺失值和异常值
 
@@ -131,6 +136,7 @@ d. 共线性问题
 建立数据模型为Data cleaning 指定清洗规则、为源数据与目标提供ETL mapping支持、 理清数据与数据之间的关系
 
 ####业务数据规则
+
 星型模式与雪花模式
  代理键SK与自然键NK
  代理键可以基于单一的列实现事实表和维度表之间的连接操作
@@ -154,6 +160,7 @@ d. 共线性问题
 ### 五.数据挖掘技术 - 建模
 
 #### 预测响应(分类)建模
+
 决策树归纳:
      CHAID:Chi-square Automatic Interaction Detector
      依据局部最优原则,利用卡方检验来选择对因变量(Category)最有影响的自变量
@@ -184,6 +191,7 @@ d. 共线性问题
 细分建模:针对细分群体分别建模是建模过程中常用的，有效模型优化
 
 #### 关联规则分析
+
 1.找出所有频繁项集(Frequent Pattern)
 2.由频繁项集产生强关联规则
 3.OLAP如何支持关联规则数据挖掘
@@ -195,6 +203,7 @@ d. 共线性问题
 6.协同过滤 CF - 推荐系统技术
 
 #### 聚类分析
+
 针对目标群体进行多指标的群体划分，精细化运营，个性化运营
 不同产品的价值组合
 探测,发现孤立点和异常值
@@ -234,10 +243,12 @@ RFM
 #### 运营效果分析
 
 #### 文本处理算法
+
 PLSA\LDA\HMM
-http://www.52nlp.cn/%E6%A6%82%E7%8E%87%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8F%98%E5%BD%A2%E7%B3%BB%E5%88%971-plsa%E5%8F%8Aem%E7%AE%97%E6%B3%95
+[相关文档](http://www.52nlp.cn/%E6%A6%82%E7%8E%87%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8F%98%E5%BD%A2%E7%B3%BB%E5%88%971-plsa%E5%8F%8Aem%E7%AE%97%E6%B3%95)
 
 #### 评价模型
+
 针对二元变量的分类模型的评价体系
 1.系列指标
 TP:True Positive
@@ -268,6 +279,7 @@ Receiver Operating Characteristic 曲线
 ### 七.OLAP多维数据查询分析
 
 #### 多维数据分析定义:
+
 分析多维数据 （产品ID-日期-地方-销售额）
 切片,切块，维归约,上卷, 下钻
 数据立方体 :计算聚集量
@@ -277,6 +289,7 @@ Receiver Operating Characteristic 曲线
 上卷(roll up)和下钻(drill down): 与聚集相关
 
 #### OLAP详细设计内容:
+
 Aggregation Query
 OLAP缓存
 ANTLR开源语法分析器
@@ -284,14 +297,17 @@ http://www.ibm.com/developerworks/cn/java/j-lo-antlr/
 自动构造自定义语言的识别器（recognizer），编译器（parser）和解释器（translator）的框架
 
 #### 支持SQL查询的分布式计算:
+
 Hive:
 Impala:
 SparkSQL:
-Storm & Stream Computing:
+Spark Streamming:
+Storm:
 
 ### 八.敏捷BI产品设计
 
 #### 常规BI产品设计
+
 数据提取: 网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
 数据处理 ETL / ELT + Data Cleaning
 数据建模

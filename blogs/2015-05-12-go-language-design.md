@@ -4,9 +4,11 @@ category : programming
 tags : [develop,internet]
 title: Go Language Design Note
 ---
-{% include JB/setup %}
 
-## Go语言编程
+Go语言编程笔记
+------------------------
+
+### Go使用规则
 
 1.Compile go files to .a file according to package name
 2.协程与channel, goruntine

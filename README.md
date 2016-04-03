@@ -16,7 +16,7 @@ This automatic page generator is the easiest way to create beautiful pages for a
 
 ##### Data Science
 
-- [MongoDB内核研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
+- [MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-analysis-algorithm.md)
 - [数据挖掘研究随想](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
 - [MongoDB 3.0 Major Change (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)

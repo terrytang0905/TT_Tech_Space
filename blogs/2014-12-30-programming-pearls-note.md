@@ -4,7 +4,9 @@ category : programming
 tags : [develop, readnote]
 title: Programming Pearls Study Note
 ---
-{% include JB/setup %}
+
+编程珠玑 - 读书笔记
+------------------------
 
 #### Thinking about 
 

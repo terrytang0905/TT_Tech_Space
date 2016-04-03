@@ -4,7 +4,6 @@ category : programming
 tags : [programming,readnote]
 title: The Clean Coder - Professional Programmer
 ---
-{% include JB/setup %}
 
 程序员的职业素养 - 读书笔记
 ------------------------

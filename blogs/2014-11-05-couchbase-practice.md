@@ -4,31 +4,34 @@ category : bigdata
 tags : [nosql, tutorial]
 title: Couchbase NoSQL Database Notes
 ---
-{% include JB/setup %}
 
-### Summary ###
+Couchbase Practice
+------------------------
+
+
+### Summary
 
 As we all know, Memcached is very successful open-source caching technology for a period of time in the past. But all of data in Memcached server just is stored in memory level and the memory data couldn’t keep persistence in disk. Now Couchbase NoSQL database becomes a near-perfect replacement for Memcached that provides high performance data store in memory/disk level. We choose Couchbase to take Cache service and store massive frequent queries data efficiently. The following contents are about some thought how to use Couchbase correctly according to our daily use experience.
 
-### High-Level Architecture ###
+### High-Level Architecture 
 
 Couchbase Server has a true shared-nothing architecture. It is setup as a cluster of multiple servers behind an application server. At the highest level, each node in a Couchbase cluster is identical and has two main components: the data manager and the cluster manager. This architecture scales out linearly without any single point of failure. Other important architectural elements are a powerful map reduce engine to incrementally index and query documents, and cross datacenter replication technology to replicate documents across geographical data centers.
 
 Data is consistently hashed by the client to shards, which are evenly spread across all server nodes. The cluster map keeps track of which nodes store what data, and knows when nodes are added or go down.
 
-### Auto-Sharding (Hash key sharding) ###
+### Auto-Sharding (Hash key sharding) 
 
 Couchbase Server in cluster environment is support to auto-sharding feature. The basic unit of data manipulation in Couchbase Server is a document (JSON or binary data). Each document is associated with a key. The key space in Couchbase Server is partitioned based on a dynamically computed hash function (CRC32) into logical storage units called vBuckets. VBuckets are mapped to nodes across a cluster and stored in a lookup structure called the cluster map. Once a vBucket identifier has been calculated, a current copy of the cluster map is consulted within the client library to lookup the Couchbase Server node currently storing the active document associated with the key. The cluster map is shared among all the nodes in the Couchbase cluster as well as the Couchbase clients.The number of vBuckets always remains constant (1024 by design) regardless of the server topology.
 
 When the number of nodes in the cluster changes (scaling-out or due to failures), redistribution of vBuckets is required to ensure that data is evenly distributed throughout the cluster and that application access to the data is load-balanced evenly across all the cluster nodes. This is triggered through a rebalance operation.
 
-### High-availability and Failover  ###
+### High-availability and Failover  
 
 High availability in the Couchbase Server cluster is achieved through replication at the vBucket level. Replication of data and failover in a Couchbase Server cluster provides consistent performance eliminating cold cache and sudden load shifts to the RDBMS layer. Couchbase also supports scale-out flexibility. It means that the synchronous speed is much faster between multi-node servers as server node is increased in cluster environment.
 
 Couchbase maintains multiple copies of data within the cluster by replicating the active vBuckets (represented by A) on one node to its replica vBuckets on other nodes (represented by R). If a machine in the cluster crashes or becomes unavailable, the current cluster orchestrator will notify all the other machines in the cluster and, the replica vBuckets corresponding to the vBuckets on the down server node are made active. The cluster map is then updated on all the cluster nodes and the clients. This process of activating the replicas is known as failover, and is completed immediately once initiated. Based on Couchbase architecture limitation, auto-failover could be triggered in three more server nodes. If server nodes are less than three nodes, failover has to be triggered manually when a node crashes.
 
-### Cluster Management and Monitoring ###
+### Cluster Management and Monitoring 
 
 The cluster manager supervises server configuration and interaction between servers within a Couchbase cluster. It is a critical component that manages replication and rebalancing operations in Couchbase. Although the cluster manager executes locally on each cluster node, it elects a clusterwide orchestrator node to oversee cluster conditions and carry out appropriate cluster management functions. If the orchestrator node crashes, existing nodes will detect that it is no longer available and will elect a new orchestrator immediately so that the cluster continues to operate without disruption. The cluster manager is built on Erlang/OTP, a proven environment for building and operating fault- tolerant distributed systems.
 
@@ -42,7 +45,7 @@ At a high level, there are three primary cluster manager components on each Couc
 
 The Couchbase Server administration web console provides a unified view of the cluster health as well as the ability to perform granular drill-down analysis of operational statistics and information. Additionally, programmatic monitoring is possible using the REST API and a suite of command-line tools supporting integration capabilities with external monitoring systems. This simplifies your system management, monitoring and operations, enabling you to focus on the differentiating parts of your application.
 
-### Data Management ###
+### Data Management 
 
 Every server in a Couchbase cluster includes a built-in multi-threaded object-managed cache, which provides consistent low-latency for read and write operations. Your application can access it using memcached compatible APIs such as get, set, delete, append, and prepend.
 
@@ -60,7 +63,7 @@ The user can store JSON documents or binary data in Couchbase Server. Documents 
 
 To keep memory usage per bucket under control, Couchbase Server periodically runs a background task called the item pager. The high and low watermark limits for the item pager is determined by the bucket memory quota. The default high watermark value is 75 percent of the bucket memory quota, and the low watermark is 60 percent of the bucket memory quota. These watermarks are also configurable at runtime. If the high watermark is reached, the item pager scans the hashtable, ejecting items that are not recently used.
 
-### Storage Engine ###
+### Storage Engine 
 
 In order to provide the above Couchbase features, Couchbase Server requires about 150 bytes of meta-data per item stored (memcached requires about 80). Additionally, the optional addition of replica copies of the data means RAM being taken up to store them as well.
 
@@ -70,7 +73,7 @@ Couchbase Server uses multiple files for storage. It has a data file per partiti
 
 As shown in the above picture, Couchbase Server organizes data files as b-trees. The root nodes shown in red contain pointers to intermediate nodes. These intermediate nodes contain pointers to the leaf nodes shown in blue. The root and intermediate nodes also track the sizes of documents under their sub-tree. The leaf nodes store the document ID, document metadata and pointers to document content. For index files the root and intermediate nodes track index items under their sub-tree.
 
-### Query and Views ###
+### Query and Views 
 
 With Couchbase Server, you can easily index and query JSON documents. Secondary indexes are defined using design documents and views.Each design document can have multiple views, and each Couchbase bucket can have multiple design documents. Design documents allow you to group views together. Views within a design document are processed sequentially and different design documents can be processed in parallel at different times.  
 
@@ -97,11 +100,11 @@ Please see the sample Couchbase Client Query SDK from this link: https://github.
 
 New generation Couchbase query language, known as N1QL or ‘Nickel’. N1QL is similar to the standard SQL language for relational databases, but it is also includes some additional features which are suited for document-oriented databases. N1QL will be published in Couchbase version 3.0. It optimizes the usability of query document effectively.
 
-### Cross Datacenter Replication ###
+### Cross Datacenter Replication 
 
 Cross datacenter replication provides an easy way to replicate active data to multiple, geographically diverse datacenters either for disaster recovery or to bring data closer to its users. XDCR and intra-cluster replication occurs simultaneously. Intra-cluster replication is taking place within the clusters at both Datacenter 1 and Datacenter 2, while at the same time XDCR is replicating documents across datacenters. On each node, after a document is persisted to disk, XDCR pushes the replica documents to other clusters. On the destination cluster, replica documents received will be stored in the Couchbase object managed cache so that replica data on the destination cluster can undergo low latency read/ write operations.
 
-### Best Practice ###
+### Best Practice
 
 1.  The key-value document in the different content type couldn’t optimize the query/index performance through creating multiple different buckets like other RDBMS or NoSQL. So the single bucket could gain the optimal read/write performance.
 
@@ -116,17 +119,17 @@ Cross datacenter replication provides an easy way to replicate active data to mu
     $ cat /proc/sys/vm/swappiness 
     $ sudo sysctl vm.swappiness=10 or vm.swappiness=0
 
-### Limitation ###
+### Limitation
 
 In order to keep high performance, Couchbase always occupy high volume memory size and disk size exclusively. In this circumstance, Couchbase requires the competent hardware configuration and the low hardware configuration will cause Couchbase down or OOM exception.
 
 Currently the Couchbase query function is very hard to use for developer or DBA even if Couchbase view could help query document and support map/reduce function. Because Couchbase query usage is very different from the common SQL query language. Besides that, view query impacts performance very deeply whatever is development view or product view. The product view isn’t support to update. If trying to execute dynamic view query, the customer must design the development view on demand firstly and publish it to product view mode.
 
-### Conclusion ###
+### Conclusion 
 
 At a word, the design philosophy of Couchbase substitutes memory and disk space for speed time and performance. Due to this philosophy, Couchbase architecture is unique compare with other NoSQL such as mongoDB. Couchbase simple query performance is much better than mongoDB but the query usage is much more elusive than mongoDB. In the conclusion, Couchbase is a special NoSQL database that has the outstanding advantage and the distinct disadvantage. It’s the wise choice to adopt Couchbase in the specific not most situation.
 
-### Reference: ###
+### Reference
 
 [http://docs.couchbase.com/](http://docs.couchbase.com/admin/admin/Couchbase-intro.html)
 
