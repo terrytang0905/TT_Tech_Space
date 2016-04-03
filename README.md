@@ -1,4 +1,5 @@
-# TT_Tech_Space
+TT Tech Space - 技术资源中心
+--------------------------
 
 ### Welcome to TT Tech Space Pages.
 The GitHub automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here [using GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/), select a template crafted by a designer, and publish. After your page is generated, you can check out the new `gh-pages` branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.
@@ -29,7 +30,7 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 - [VMware Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/edit/resource/blogs/2012-05-23-vmware-practice.md)
 
 ### TT Resources Site
-[GitHub Page Website](https://terrytang0905/github.io/TT_Tech_Space)
+- [GitHub Page Website](http://terrytang0905.github.io/TT_Tech_Space/)
 
 ### Authors and Contributors
 Since 2012, TerryTang ([@terrytang0905](https://github.com/terrytang0905)) founded GitHub. 
