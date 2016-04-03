@@ -57,22 +57,23 @@ title: Data Mining Thinking
 
 #### BI数据仓库设计
 
-1.Bill Inmon的企业信息化工厂 ETL->企业数据仓库->数据集市(主题区域)->探索&挖掘 
-    `第三范式`
-2.Ralph kilmball维度数据仓库
-    `集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用`
-    `维度格式 可直接访问`
+1.Bill Inmon的企业信息化工厂 <br />
+    `ETL->企业数据仓库->数据集市(主题区域)->探索&挖掘` <br />
+    `第三范式` <br />
+2.Ralph kilmball维度数据仓库 <br />
+    `集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用` <br />
+    `维度格式 可直接访问` <br />
 3.独立型数据集市
 
 #### 数据仓库&数据平台选型
 
 _MPP分析型数据库_:
->Greenplum 分布式集群列式数据库
+>Greenplum 分布式集群列式数据库 <br />
 >Vertica 列式数据库
 
 _分布式存储与NoSQL_:
->Hadoop / HDFS / HBase
->MongoDB / Couchbase / Cassandra
+>Hadoop / HDFS / HBase <br />
+>MongoDB / Couchbase / Cassandra <br />
 >Yahoo PNUTS/Google BigTable/Amazon Dynamo
 
 _分布式存储设计_:
@@ -86,14 +87,14 @@ _分布式存储设计_:
 - 抽样
 - 维归约:维归约的线性代数
 - 特征子集选择
-`用于降低维度,除去冗余和不相关的特征`
-`特征选择方法:embeded approach/filter approach/wrapper approach`
-`特征加权`
-`特征创建`
-`特征提取`
--离散化和二元化
-`发现关联模式的算法要求数据是二元属性形式`
-`变量变换`
+`用于降低维度,除去冗余和不相关的特征` <br />
+`特征选择方法:embeded approach/filter approach/wrapper approach` <br />
+`特征加权` <br />
+`特征创建` <br />
+`特征提取` <br />
+- 离散化和二元化
+`发现关联模式的算法要求数据是二元属性形式` <br />
+`变量变换` 
 
 #### Summary Statistics汇总统计
 
@@ -182,12 +183,14 @@ _神经网络/DeepLearning_
 _贝叶斯分类算法_
      检索算法Lucene
      朴素贝叶斯
+
 _支持向量机算法(Support Vector Machine)_
      最优分类线
 
-模型过拟合
+_模型过拟合_
 
 `为了得到一致假设而使假设变得过度复杂称为过拟合`
+
 `一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少`
 
 细分建模:针对细分群体分别建模是建模过程中常用的，有效模型优化
@@ -210,10 +213,15 @@ _支持向量机算法(Support Vector Machine)_
 不同产品的价值组合进行探测,发现孤立点和异常值
 
 _划分方法(Partitioning Methods)_
+
 _K-Means聚类算法-数据平均值_
+
 _K-Medoids算法_
+
 _层次方法(Hierarchical Methods)_
+
 _基于密度的方法(Density-Based Methods)_
+
 _基于网格的方法(Grid-Based Methods)_
 
 数据标准化是聚类分析中最重要的一个数据预处理步骤
@@ -272,10 +280,10 @@ Receiver Operating Characteristic 曲线
 
 ### 六.电商/零售数据建模
 
-目标客户的特征分析
-用户特征分析
-预测（响应,分类）模型
-主成分分析
+- 目标客户的特征分析
+- 用户特征分析
+- 预测（响应,分类）模型
+- 主成分分析
 
 ### 七.OLAP多维数据查询分析
 
@@ -290,39 +298,39 @@ Receiver Operating Characteristic 曲线
 
 #### OLAP详细设计内容:
 
-Aggregation Query &nbsp
-OLAP缓存 &nbsp
-ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) &nbsp
-自动构造自定义语言的识别器（recognizer），编译器（parser）和解释器（translator）的框架
+Aggregation Query <br />
+OLAP缓存 <br />
+ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
+自动构造自定义语言的识别器（recognizer），编译器（parser）和解释器（translator）的框架 
 
 #### 支持SQL查询的分布式计算:
 
-Hive:&nbsp
-Impala:&nbsp
-SparkSQL:&nbsp
-Spark Streamming:&nbsp
-Storm:&nbsp
+Hive: <br />
+Impala: <br />
+SparkSQL: <br />
+Spark Streamming: <br />
+Storm: <br />
 
 ### 八.敏捷BI产品设计
 
 #### 常规BI产品设计
 
-- 数据提取
-&nbsp 网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
-- 数据预处理 
-&nbsp ETL / ELT + Data Cleaning
+- 数据提取 <br /> 
+    网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
+- 数据预处理 <br /> 
+    ETL / ELT + Data Cleaning
 - 数据建模
 - 数据存储
-- 数据挖掘与分析
-&nbsp OLAP Query Engine (SQL查询)
-&nbsp 列式存储计算
-&nbsp 内存计算
-&nbsp 分布式实时流式计算
-- 数据可视化
-&nbsp 仪表盘
-&nbsp 可视化时间空间数据 - 全局时间空间数据过滤
+- 数据挖掘与分析 <br /> 
+   OLAP Query Engine (SQL查询) <br />
+   列式存储计算 <br />
+   内存计算 <br />
+   分布式实时流式计算 <br />
+- 数据可视化 <br />
+    仪表盘 <br />
+    可视化时间空间数据 - 全局时间空间数据过滤 <br />
 
-![](_includes/DataMiningThinking.jpg)
+[数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 #### 敏捷BI竞品分析
 
