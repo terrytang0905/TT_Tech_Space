@@ -29,10 +29,11 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 - [VMware Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/edit/resource/blogs/2012-05-23-vmware-practice.md)
 
 ### TT Resources Site
-
+[GitHub Page Website](https://terrytang0905/github.io/TT_Tech_Space)
 
 ### Authors and Contributors
-Since 2012, TerryTang ([@terrytang0905](https://github.com/terrytang0905)) founded GitHub.
+Since 2012, TerryTang ([@terrytang0905](https://github.com/terrytang0905)) founded GitHub. 
+
 
 ### Support or Contact
 Having trouble with Pages? Check out our [documentation](https://help.github.com/pages) or [contact support](https://github.com/contact) and we’ll help you sort it out.
