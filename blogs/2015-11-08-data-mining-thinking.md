@@ -281,59 +281,60 @@ Receiver Operating Characteristic 曲线
 
 #### 多维数据分析定义:
 
-分析多维数据 （产品ID-日期-地方-销售额）
-切片,切块，维归约,上卷, 下钻
-数据立方体 :计算聚集量
-维归约: 在一个维上聚集将数据的维度从3归约2  维归约与PCA的区别
-转轴(Pivoting): 在除两个维以外的所有维上聚集
-切片(Slicing)和切块(dicing) - 穿透/查看明细
-上卷(roll up)和下钻(drill down): 与聚集相关
+- 分析多维数据 （产品ID-日期-地方-销售额）
+- 数据立方体:计算聚集量
+- 维归约: 在一个维上聚集将数据的维度从3归约2  维归约与PCA的区别
+- 转轴(Pivoting): 在除两个维以外的所有维上聚集
+- 切片(Slicing)和切块(dicing) - 穿透/查看明细
+- 上卷(roll up)和下钻(drill down): 与聚集相关
 
 #### OLAP详细设计内容:
 
-Aggregation Query
-OLAP缓存
-ANTLR开源语法分析器
-http://www.ibm.com/developerworks/cn/java/j-lo-antlr/
+Aggregation Query &nbsp
+OLAP缓存 &nbsp
+ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) &nbsp
 自动构造自定义语言的识别器（recognizer），编译器（parser）和解释器（translator）的框架
 
 #### 支持SQL查询的分布式计算:
 
-Hive:
-Impala:
-SparkSQL:
-Spark Streamming:
-Storm:
+Hive:&nbsp
+Impala:&nbsp
+SparkSQL:&nbsp
+Spark Streamming:&nbsp
+Storm:&nbsp
 
 ### 八.敏捷BI产品设计
 
 #### 常规BI产品设计
 
-数据提取: 网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
-数据处理 ETL / ELT + Data Cleaning
-数据建模
-数据存储
+- 数据提取
+&nbsp 网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
+- 数据预处理 
+&nbsp ETL / ELT + Data Cleaning
+- 数据建模
+- 数据存储
+- 数据挖掘与分析
+&nbsp OLAP Query Engine (SQL查询)
+&nbsp 列式存储计算
+&nbsp 内存计算
+&nbsp 分布式实时流式计算
+- 数据可视化
+&nbsp 仪表盘
+&nbsp 可视化时间空间数据 - 全局时间空间数据过滤
 
-数据挖掘与分析:
-OLAP Query Engine (SQL查询)
-列式存储计算
-内存计算
-分布式实时流式计算
-
-数据可视化/仪表盘
-可视化时间空间数据 - 全局时间空间数据过滤
+![](_includes/DataMiningThinking.jpg)
 
 #### 敏捷BI竞品分析
 
-新一代实时敏捷BI,不同于传统BI的特性
-http://wiki.yunat.com/pages/viewpage.action?pageId=38618144
-Tableau
-永洪BI
-Looker
+- 新一代实时敏捷BI,不同于传统BI的特性 [NewBI相关文档](http://wiki.yunat.com/pages/viewpage.action?pageId=38618144)
+- Tableau
+- 永洪BI
+- Looker
 
 #### 电商零售BI的数据挖掘方法
 
 数据发现数据
+
 1.观察的存在和可用性
 2.能够从观察中提取特征并对特征进行分类
 3.能够有效地发现相关的历史背景 - 持久性上下文
