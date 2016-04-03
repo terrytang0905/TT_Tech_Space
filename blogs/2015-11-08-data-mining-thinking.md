@@ -16,8 +16,7 @@ title: Data Mining Thinking
 2. 统计和分析：A/B test、top N排行榜、地域占比、文本情感分析
 3. 数据挖掘：关联规则分析、分类、聚类
 4. 模型预测：预测模型、机器学习、建模仿真
-
- 大数据的“4V”特征
+x. 大数据的“4V”特征
  - Volume — 数据量大数据量巨大。 从数兆字节 (TB) 1 级别跃升到数十兆亿字节 (PB) 级别 。如一个CT图像含有大约 150MB的数据，而一个基因组序列文件大小约为 750MB，一个标准的病理接近 5 GB。考虑到人口数量和平均寿命等因素，仅一个社区医院就可以生成和累积达数个TB甚至数个 PB级的数据。
  - Velocity — 速度快处理速度快，时效性强。 举例来说，检测医疗支付中的欺诈行为可以事后追溯，也可以实时检测；如果能够实现实时检测，即在支付发生前甚至在医疗服务发生前就识别出欺诈行为，则可有效避免重大经济损失。
  - Variety — 种类多数据类型繁多，来源广泛。 既包括数值型数据，也包括文字、图形、图像、音频、视频、网络日志、邮件、等非数值型或者非结构化数据，且预计这些非结构化信息将占未来十年数据产生量的 90%。
@@ -40,9 +39,8 @@ title: Data Mining Thinking
 
 #### 批处理/实时数据分析:
 
-基于传统数据仓库,批处理离线数据分析
-
-基于实时大数据处理,敏捷商务智能BI
+基于传统数据仓库,批处理离线数据分析 <br />
+基于实时大数据处理,敏捷商务智能BI <br />
 
 批量数据 - ETL - DataWarehouse                      
 实时数据 - 信息交换 - OPDM 操作型数据集市
@@ -86,7 +84,7 @@ _分布式存储设计_:
 - 聚集:aggregation
 - 抽样
 - 维归约:维归约的线性代数
-- 特征子集选择
+- 特征子集选择 <br />
 `用于降低维度,除去冗余和不相关的特征` <br />
 `特征选择方法:embeded approach/filter approach/wrapper approach` <br />
 `特征加权` <br />
@@ -94,46 +92,42 @@ _分布式存储设计_:
 `特征提取` <br />
 - 离散化和二元化
 `发现关联模式的算法要求数据是二元属性形式` <br />
-`变量变换` 
+`变量变换` <br />
 
 #### Summary Statistics汇总统计
 
-frequency(Vi)=属性值Vi的对象数/m
-分类属性的众数(mode)是具有最高频率的值
-均值(mean)
-中位数(median)
-散步度量:极差与方差
-range(x)=max(x)-min(x)
-variance(x)
+- frequency(Vi)=属性值Vi的对象数/m
+- 分类属性的众数(mode)是具有最高频率的值
+- 均值(mean)
+- 中位数(median)
+- 散步度量:极差与方差
+- range(x)=max(x)-min(x)
+- variance(x)
 
-多元汇总统计
-covariance matrix协方差矩阵
-correlation matrix相关矩阵
+- 多元汇总统计 <br />
+covariance matrix协方差矩阵 <br />
+correlation matrix相关矩阵 <br />
 
-值集的倾斜度(skewness)
+- 值集的倾斜度(skewness)
 
 #### 数据清理Data cleaning
 
-a. 数据抽样
-建模样本: TrainingSet，ValidationSet，TestingSet
-数据缺失值和异常值
-
-b. 数据转换
-数据标准化(Normalization)
-
-c. 数据筛选/特征筛选
-R平方
-卡方检验(Chi-Square Statistics):
-     适用于类别型变量的检验
-数据降维:主成分分析和变量聚类
-
-d. 共线性问题
-自变量间存在较强的，甚至完全的线性相关关系
+a. 数据抽样 <br />
+建模样本: TrainingSet，ValidationSet，TestingSet <br />
+数据缺失值和异常值 <br />
+b. 数据转换 <br />
+数据标准化(Normalization) <br />
+c. 数据筛选/特征筛选 <br />
+R平方 <br />
+卡方检验(Chi-Square Statistics):适用于类别型变量的检验 <br />
+数据降维:主成分分析和变量聚类 <br />
+d. 共线性问题 <br />
+自变量间存在较强的，甚至完全的线性相关关系 <br />
 
 ### 四.数据建模与Cube
 
-定义Meta数据模型
-建立数据模型为Data cleaning 指定清洗规则、为源数据与目标提供ETL mapping支持、 理清数据与数据之间的关系
+定义Meta数据模型 <br />
+建立数据模型为DataCleaning指定清洗规则,为源数据与目标提供ETL mapping支持,理清数据与数据之间的关系
 
 #### 数据建模规则
 
@@ -154,6 +148,7 @@ d. 共线性问题
      f.用于定义主从结构,分组,分类汇总,汇总等
  雪花模式及支架表
  需要采用雪花模式和支架表的情况是一种特例而不能当做规则来使用
+ 
  分析型环境,预先计算和存储这些冗余数据元素具有三个优点:性能，可用性和一致性
  事实表粒度
 
@@ -168,7 +163,7 @@ _决策树归纳_
      分类与回归树,检验标准为Gini等不纯度指标
 - ID3: Iterative Dichotomiser 
      迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
-- C4.5
+- C4.5 <br />
 其核心的贪心算法指向局部最优选择，而非整体最优。
 不适用于连续型变量。需用线性回归算法解决
 
@@ -176,9 +171,9 @@ _逻辑回归Logistic Regression_
 
 _多元线性回归Linear Regression_
 
-_神经网络/DeepLearning_
-     前向型网络，反馈型网络
-     Backpropagation 反馈传播
+_神经网络/DeepLearning_ <br />
+     前向型网络，反馈型网络 <br />
+     Backpropagation 反馈传播 <br />
 
 _贝叶斯分类算法_
      检索算法Lucene
@@ -187,30 +182,29 @@ _贝叶斯分类算法_
 _支持向量机算法(Support Vector Machine)_
      最优分类线
 
-_模型过拟合_
+_模型过拟合_ <br />
+为了得到一致假设而使假设变得过度复杂称为过拟合 <br />
+一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少 <br />
 
-`为了得到一致假设而使假设变得过度复杂称为过拟合`
-
-`一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少`
-
-细分建模:针对细分群体分别建模是建模过程中常用的，有效模型优化
+细分建模 <br />
+针对细分群体分别建模是建模过程中常用的，有效模型优化
 
 #### 关联规则分析
 
-1.找出所有频繁项集(Frequent Pattern)
-2.由频繁项集产生强关联规则
-3.OLAP如何支持关联规则数据挖掘
-4.Apriori算法-频繁项集
-5.多层关联规则
-  置信度+支持度: 衡量关联规则强度的重要指标
-  一致支持度（设置困难）
-  多维关联规则
-6.协同过滤 CF - 推荐系统技术
+1. 找出所有频繁项集(Frequent Pattern)
+2. 由频繁项集产生强关联规则
+3. OLAP如何支持关联规则数据挖掘
+4. Apriori算法-频繁项集
+5. 多层关联规则 <br />
+  置信度+支持度: 衡量关联规则强度的重要指标 <br />
+  一致支持度（设置困难）<br />
+  多维关联规则 <br />
+6. 协同过滤 CF - 推荐系统技术
 
 #### 聚类分析
 
-针对目标群体进行多指标的群体划分，精细化运营，个性化运营
-不同产品的价值组合进行探测,发现孤立点和异常值
+针对目标群体进行多指标的群体划分,精细化运营,个性化运营 <br />
+不同产品的价值组合进行探测,发现孤立点和异常值 <br />
 
 _划分方法(Partitioning Methods)_
 
@@ -230,13 +224,16 @@ _基于网格的方法(Grid-Based Methods)_
 
 3.1.MATLAB
 
-利用其简单的矩阵语言加工具箱函数来实现数据挖掘算法的示例。
-Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。上述工具箱是一些通用的工具，而下面这几个函数的"挖掘味儿"则似乎更浓一些。
-kmeans() k-均值聚类
-treefit() 决策树回归或分类
-svmclassify() 支持向量机分类
-knnclassify() k-近邻分类
-crossvalind() 交叉验证试验
+利用其简单的矩阵语言加工具箱函数来实现数据挖掘算法的示例。<br />
+Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；
+Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br /> 
+Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。<br />
+上述工具箱是一些通用的工具，而下面这几个函数的"挖掘味儿"则似乎更浓一些。<br />
+> kmeans() k-均值聚类 <br />
+> treefit() 决策树回归或分类 <br />
+> svmclassify() 支持向量机分类 <br />
+> knnclassify() k-近邻分类 <br />
+> crossvalind() 交叉验证试验 <br />
 
 3.2.WEKA
 
@@ -259,24 +256,22 @@ PLSA\LDA\HMM
 #### 评价模型
 
 针对二元变量的分类模型的评价体系
-1.系列指标
-TP:True Positive
-TN:True Negative
-FP:False Positive
-FN:False Negative
+1. 系列指标 <br />
+> TP:True Positive <br />
+> TN:True Negative <br />
+> FP:False Positive <br />
+> FN:False Negative <br />
 
-Accuracy
-Error rate
-Sensitivity
-Specificity
-Accuracy=Sensitivity+Specificity
+> Accuracy <br />
+> Error rate <br />
+> Sensitivity <br />
+> Specificity <br />
+> Accuracy=Sensitivity+Specificity <br />
 
-2. ROC曲线
-Receiver Operating Characteristic 曲线
-
-3.KS值
-
-4.Lift值
+2. ROC曲线 <br />
+Receiver Operating Characteristic 曲线 <br />
+3. KS值
+4. Lift值
 
 ### 六.电商/零售数据建模
 
@@ -322,15 +317,14 @@ Storm: <br />
 - 数据建模
 - 数据存储
 - 数据挖掘与分析 <br /> 
-   OLAP Query Engine (SQL查询) <br />
-   列式存储计算 <br />
-   内存计算 <br />
-   分布式实时流式计算 <br />
+    OLAP Query Engine (SQL查询) <br />
+    列式存储计算 <br />
+    内存计算 <br />
+    分布式实时流式计算 <br />
 - 数据可视化 <br />
     仪表盘 <br />
     可视化时间空间数据 - 全局时间空间数据过滤 <br />
-
-[数据挖掘导图](_includes/DataMiningThinking.jpg)
+- [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 #### 敏捷BI竞品分析
 
@@ -343,14 +337,14 @@ Storm: <br />
 
 数据发现数据
 
-1.观察的存在和可用性
-2.能够从观察中提取特征并对特征进行分类
-3.能够有效地发现相关的历史背景 - 持久性上下文
-4.能够对新的观察作出判断
-5.当新的观察推翻先前的判断时，能够做出识别
-6.能够积累和坚持主张
-7.能够识别相关性/洞察力如何形成
-8.能够通知相应实体的洞察力
+1. 观察的存在和可用性
+2. 能够从观察中提取特征并对特征进行分类
+3. 能够有效地发现相关的历史背景 - 持久性上下文
+4. 能够对新的观察作出判断
+5. 当新的观察推翻先前的判断时，能够做出识别
+6. 能够积累和坚持主张
+7. 能够识别相关性/洞察力如何形成
+8. 能够通知相应实体的洞察力
 
 ### Reference
 
