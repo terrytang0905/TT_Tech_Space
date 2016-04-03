@@ -18,10 +18,10 @@ title: Data Mining Thinking
 4. 模型预测：预测模型、机器学习、建模仿真
 
  大数据的“4V”特征
- ● Volume — 数据量大数据量巨大。 从数兆字节 (TB) 1 级别跃升到数十兆亿字节 (PB) 级别 。如一个CT图像含有大约 150MB的数据，而一个基因组序列文件大小约为 750MB，一个标准的病理接近 5 GB。考虑到人口数量和平均寿命等因素，仅一个社区医院就可以生成和累积达数个TB甚至数个 PB级的数据。
- ● Velocity — 速度快处理速度快，时效性强。 举例来说，检测医疗支付中的欺诈行为可以事后追溯，也可以实时检测；如果能够实现实时检测，即在支付发生前甚至在医疗服务发生前就识别出欺诈行为，则可有效避免重大经济损失。
- ● Variety — 种类多数据类型繁多，来源广泛。 既包括数值型数据，也包括文字、图形、图像、音频、视频、网络日志、邮件、等非数值型或者非结构化数据，且预计这些非结构化信息将占未来十年数据产生量的 90%。
- ● Value — 价值高价值的体现的是大数据分析应用的目的意义所在。 通过深入的大数据分析挖掘，可以为各方各面的经营决策提供有效支持，创造巨大的经济及社会价值。
+ - Volume — 数据量大数据量巨大。 从数兆字节 (TB) 1 级别跃升到数十兆亿字节 (PB) 级别 。如一个CT图像含有大约 150MB的数据，而一个基因组序列文件大小约为 750MB，一个标准的病理接近 5 GB。考虑到人口数量和平均寿命等因素，仅一个社区医院就可以生成和累积达数个TB甚至数个 PB级的数据。
+ - Velocity — 速度快处理速度快，时效性强。 举例来说，检测医疗支付中的欺诈行为可以事后追溯，也可以实时检测；如果能够实现实时检测，即在支付发生前甚至在医疗服务发生前就识别出欺诈行为，则可有效避免重大经济损失。
+ - Variety — 种类多数据类型繁多，来源广泛。 既包括数值型数据，也包括文字、图形、图像、音频、视频、网络日志、邮件、等非数值型或者非结构化数据，且预计这些非结构化信息将占未来十年数据产生量的 90%。
+ - Value — 价值高价值的体现的是大数据分析应用的目的意义所在。 通过深入的大数据分析挖掘，可以为各方各面的经营决策提供有效支持，创造巨大的经济及社会价值。
 
 #### 数据源提取与存储:
 
@@ -32,15 +32,16 @@ title: Data Mining Thinking
 
 #### 数据定义属性:
 
-分类(定性属性) - 维度
-数值(定量属性) - 度量
-MetaData - 数据描述数据
-MainData - 主数据
-RefData - 时间/空间维度数据
+- 分类(定性属性) - 维度
+- 数值(定量属性) - 度量
+- MetaData - 数据描述数据
+- MainData - 主数据
+- RefData - 时间/空间维度数据
 
 #### 批处理/实时数据分析:
 
 基于传统数据仓库,批处理离线数据分析
+
 基于实时大数据处理,敏捷商务智能BI
 
 批量数据 - ETL - DataWarehouse                      
@@ -56,44 +57,43 @@ RefData - 时间/空间维度数据
 
 #### BI数据仓库设计
 
-1.Bill Inmon的企业信息化工厂 ETL->企业数据仓库->数据集市(主题区域)->探索&挖掘
-  第三范式
+1.Bill Inmon的企业信息化工厂 ETL->企业数据仓库->数据集市(主题区域)->探索&挖掘 
+    `第三范式`
 2.Ralph kilmball维度数据仓库
-  集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用
-  维度格式 可直接访问
+    `集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用`
+    `维度格式 可直接访问`
 3.独立型数据集市
 
 #### 数据仓库&数据平台选型
 
-MPP分析型数据库:
-Greenplum 分布式集群列式数据库
-Vertica 列式数据库
+_MPP分析型数据库_:
+>Greenplum 分布式集群列式数据库
+>Vertica 列式数据库
 
-分布式存储与NoSQL:
-Hadoop / HDFS / HBase
-MongoDB / Couchbase / Cassandra
-Yahoo PNUTS/Google BigTable/Amazon Dynamo
+_分布式存储与NoSQL_:
+>Hadoop / HDFS / HBase
+>MongoDB / Couchbase / Cassandra
+>Yahoo PNUTS/Google BigTable/Amazon Dynamo
 
-分布式存储设计:
-lazily propagate updates / 一致性协议(Gossip协议)
+_分布式存储设计_:
+>lazily propagate updates / 一致性协议(Gossip协议)
 
 ### 三.数据预处理
 
 #### 数据预处理-ETL
 
-聚集:aggregation
-抽样
-维归约:维归约的线性代数
-*特征子集选择
->用于降低维度,除去冗余和不相关的特征
->特征选择方法:embeded approach/filter approach/wrapper approach
->特征加权
-特征创建
->特征提取
-
-*离散化和二元化
->发现关联模式的算法要求数据是二元属性形式
-变量变换
+- 聚集:aggregation
+- 抽样
+- 维归约:维归约的线性代数
+- 特征子集选择
+`用于降低维度,除去冗余和不相关的特征`
+`特征选择方法:embeded approach/filter approach/wrapper approach`
+`特征加权`
+`特征创建`
+`特征提取`
+-离散化和二元化
+`发现关联模式的算法要求数据是二元属性形式`
+`变量变换`
 
 #### Summary Statistics汇总统计
 
@@ -134,7 +134,7 @@ d. 共线性问题
 定义Meta数据模型
 建立数据模型为Data cleaning 指定清洗规则、为源数据与目标提供ETL mapping支持、 理清数据与数据之间的关系
 
-####业务数据规则
+#### 数据建模规则
 
 星型模式与雪花模式
  代理键SK与自然键NK
@@ -156,36 +156,39 @@ d. 共线性问题
  分析型环境,预先计算和存储这些冗余数据元素具有三个优点:性能，可用性和一致性
  事实表粒度
 
-### 五.数据挖掘技术 - 建模
+### 五.数据挖掘技术设计
 
 #### 预测响应(分类)建模
 
-决策树归纳:
-     CHAID:Chi-square Automatic Interaction Detector
+_决策树归纳_
+- CHAID:Chi-square Automatic Interaction Detector
      依据局部最优原则,利用卡方检验来选择对因变量(Category)最有影响的自变量
-     CART: Classification and Regression Tree
+- CART: Classification and Regression Tree
      分类与回归树,检验标准为Gini等不纯度指标
-     ID3: Iterative Dichotomiser - > C4.5
+- ID3: Iterative Dichotomiser 
      迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
+- C4.5
 其核心的贪心算法指向局部最优选择，而非整体最优。
 不适用于连续型变量。需用线性回归算法解决
 
-逻辑回归Logistic Regression
-多元线性回归Linear Regression
+_逻辑回归Logistic Regression_
 
-神经网络/DeepLearning
+_多元线性回归Linear Regression_
+
+_神经网络/DeepLearning_
      前向型网络，反馈型网络
      Backpropagation 反馈传播
 
-贝叶斯分类算法
+_贝叶斯分类算法_
      检索算法Lucene
      朴素贝叶斯
-支持向量机算法(Support Vector Machine/SVM)
+_支持向量机算法(Support Vector Machine)_
      最优分类线
 
-为了得到一致假设而使假设变得过度复杂称为过拟合。
 模型过拟合
-一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少。
+
+`为了得到一致假设而使假设变得过度复杂称为过拟合`
+`一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少`
 
 细分建模:针对细分群体分别建模是建模过程中常用的，有效模型优化
 
@@ -204,15 +207,14 @@ d. 共线性问题
 #### 聚类分析
 
 针对目标群体进行多指标的群体划分，精细化运营，个性化运营
-不同产品的价值组合
-探测,发现孤立点和异常值
+不同产品的价值组合进行探测,发现孤立点和异常值
 
-划分方法(Partitioning Methods)
-K-Means聚类算法-数据平均值
-K-Medoids算法
-层次方法(Hierarchical Methods)
-基于密度的方法(Density-Based Methods)
-基于网格的方法(Grid-Based Methods)
+_划分方法(Partitioning Methods)_
+_K-Means聚类算法-数据平均值_
+_K-Medoids算法_
+_层次方法(Hierarchical Methods)_
+_基于密度的方法(Density-Based Methods)_
+_基于网格的方法(Grid-Based Methods)_
 
 数据标准化是聚类分析中最重要的一个数据预处理步骤
 
@@ -349,4 +351,4 @@ Looker
 - The Data Warehouse ETL Toolkit (Kimball著)
 - 数据之美
 - 大数据日知录
-- 机器学习与数据挖掘[加州理工学院公开课](http://open.163.com/special/opencourse/learningfromdata.html)
+- 机器学习与数据挖掘-[加州理工学院公开课](http://open.163.com/special/opencourse/learningfromdata.html)
