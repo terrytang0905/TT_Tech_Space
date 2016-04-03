@@ -8,17 +8,17 @@ title: MongoDB Internal
 MongoDB核心研究
 ------------------------
 
-### MongoDB NoSQL商业化的开端
+### 1.MongoDB NoSQL商业化的开端
 
 提供最类似SQL查询的NoSQL数据库，应用最广泛的NoSQL数据库
 当然也是现有商业NoSQL数据库中性能最差
  
-### MongoDB 背景
+### 2.MongoDB 背景
 
 - 基于内容Document的数据存储方式
 - 消息/留言/日记/多媒体数据
 
-### CAP & BASE 理论
+### 3.CAP & BASE 理论
 
 - CAP原则：最终一致性/高可用性/分区容忍性
 - CAP的trade off - 最多支持其中两个属性。常见解决方案为AP模式
@@ -26,7 +26,7 @@ MongoDB核心研究
 - 不支持Transaction(ACID)的MongoDB
 - WorkAround:Two-phase commit(2PC)二段式提交
 
-### MongoDB 架构特点
+### 4.MongoDB 架构特点
 
 1.data model from relational to document-based
 文档大小限制16M
@@ -35,7 +35,7 @@ capped collection 固定长度Collection，滚动更新，可用于log统计
 3.agile development with dynamic schemas
 4.easier horizontal scalability because joins aren’t as important
 
-#### Storage Engine (内存杀手的原因)
+#### 4.1.Storage Engine (内存杀手的原因)
 
 1.MMAP (默认存储引擎)
 它会把数据文件映射到内存中，如果是读操作，内存中的数据起到缓存的作用，如果是写操作，内存还可以把随机的写操作转换成顺序的写操作，总之可以大幅度提升性能。
@@ -50,9 +50,10 @@ capped collection 固定长度Collection，滚动更新，可用于log统计
 3.2.The WiredTiger journal ensures that writes are persisted to disk between checkpoints.
 WiredTiger uses checkpoints to flush data to disk by default every 60 seconds or after 2GB of data has been written.
 
-#### 内存模型
+#### 4.2.内存模型
 
-#### 分布式
+#### 4.3.分布式架构
+
 * 主从模式
 * ReplSet复制集
    	 The size of the oplog is configurable and by default is 5% of the available free disk space
@@ -64,12 +65,12 @@ WiredTiger uses checkpoints to flush data to disk by default every 60 seconds or
 * 读写分离
  
 
-#### MongoDB 数据结构
+#### 4.4.MongoDB数据结构
 
 BSON (Binary JSON). 
 The BSON encoding extends the popular JSON (JavaScript Object Notation) representation to include additional types such as int, long, and floating point.
 
-#### 树状结构设计
+#### 4.5.树状结构设计
 
 MongoDB schemaless文档存储不限制表/Collection格式，可支持TreeModel design
 1.1  单文档存储整根树(Full Tree in Signle Document)
@@ -79,7 +80,7 @@ MongoDB schemaless文档存储不限制表/Collection格式，可支持TreeModel
 1.5  物化路径(Materialized Path[Full Path in Each Node])
 注意:虽然MongoDB支持嵌套文档格式，但其插入与更新性能较差，不建议设计过于复杂的嵌套格式
 
-#### MongoDB 查询与聚合
+#### 4.6.MongoDB 查询与聚合
 
 强查询弱更新
 - Key-value queries
@@ -97,7 +98,7 @@ $push
 $pop
 $pull
 
-#### 索引Index
+#### 4.7.索引Index
 
 - Unique Indexes
 - Compound Indexes
@@ -107,12 +108,12 @@ $pull
 - Sparse Indexes
 - Text Search Indexes
 
-### MongoDB 性能限制
+### 5.MongoDB 性能限制
 
 Because MongoDB provides in-memory performance, for most applications there is no need for a separate caching layer.
 由于MongoDB所提供的内存层数据管理，常规应用中并不需要提供另外独立的缓存层处理
 
-### MongoDB 3.0 新特性
+### 6.MongoDB 3.0 新特性
 
 >	WiredTiger特性  
 >	支持文档级别并发控制  
@@ -132,9 +133,9 @@ Because MongoDB provides in-memory performance, for most applications there is n
 >	增加均衡器状态显示
 
 
-查看比较1: [MongoDB响应延迟](../_includes/MongoLatency.png).
+查看比较1: [MongoDB响应延迟](_includes/MongoLatency.png).
 
-查看比较2: [MongoDB并发量](../_includes/MongoDBOpsSec.png).
+查看比较2: [MongoDB并发量](_includes/MongoDBOpsSec.png).
 
 
 ### MongoDB 实践

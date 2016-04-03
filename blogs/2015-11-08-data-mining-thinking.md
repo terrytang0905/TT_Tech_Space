@@ -343,11 +343,10 @@ Looker
 
 ### Reference
 
-> 数据挖掘导论
-> 数据挖掘概念与技术
-> STAR SCHEMA:数据仓库维度设计权威指南
-> The Data Warehouse ETL Toolkit (Kimball著)
-> 数据之美
-> 大数据日知录
-> 机器学习与数据挖掘
-> (加州理工学院公开课http://open.163.com/special/opencourse/learningfromdata.html)
+- 数据挖掘导论
+- 数据挖掘概念与技术
+- STAR SCHEMA:数据仓库维度设计权威指南
+- The Data Warehouse ETL Toolkit (Kimball著)
+- 数据之美
+- 大数据日知录
+- 机器学习与数据挖掘[加州理工学院公开课](http://open.163.com/special/opencourse/learningfromdata.html)
