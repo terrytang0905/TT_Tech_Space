@@ -10,7 +10,7 @@ title: Data Mining Thinking
 
 ### I.基本定义
 
-#### A.数据分析技术分类:
+#### 1.1.数据分析技术分类:
 
 1. 数据处理：自然语言处理技术（NLP）
 2. 统计和分析：A/B test、top N排行榜、地域占比、文本情感分析
@@ -22,14 +22,14 @@ title: Data Mining Thinking
  - Variety — 种类多数据类型繁多，来源广泛。 既包括数值型数据，也包括文字、图形、图像、音频、视频、网络日志、邮件、等非数值型或者非结构化数据，且预计这些非结构化信息将占未来十年数据产生量的 90%。
  - Value — 价值高价值的体现的是大数据分析应用的目的意义所在。 通过深入的大数据分析挖掘，可以为各方各面的经营决策提供有效支持，创造巨大的经济及社会价值。
 
-#### B.数据源提取与存储:
+#### 1.2.数据源提取与存储:
 
 1. 结构化数据：海量数据的查询、统计、更新等操作效率低
 2. 非结构化数据：图片、视频、word、PDF、PPT等文件存储、不利于检索，查询和存储
 3. 半结构化数据：转换为结构化数据存储、按照非结构化存储
 4. 多数据源归整方案
 
-#### C.数据定义属性:
+#### 1.3.数据定义属性:
 
 - 分类(定性属性) - 维度
 - 数值(定量属性) - 度量
@@ -37,7 +37,7 @@ title: Data Mining Thinking
 - MainData - 主数据
 - RefData - 时间/空间维度数据
 
-#### D.批处理/实时数据分析:
+#### 1.4.批处理/实时数据分析:
 
 基于传统数据仓库,批处理离线数据分析 <br />
 基于实时大数据处理,敏捷商务智能BI <br />
@@ -45,7 +45,7 @@ title: Data Mining Thinking
 批量数据 - ETL - DataWarehouse                      
 实时数据 - 信息交换 - OPDM 操作型数据集市
 
-#### E.解决方案思考:
+#### 1.5.解决方案思考:
 
 1. 数据存储：MPP(Vertica/Greenplum),HDFS,HBase,MongoDB,Cassandra等
 2. 并行计算：Spark, Hive(SQL查询), MapReduce批处理技术
@@ -114,16 +114,19 @@ correlation matrix相关矩阵 <br />
 
 #### 3.3.数据清理Data cleaning
 
-A. 数据抽样 <br />
-建模样本: TrainingSet，ValidationSet，TestingSet <br />
-数据缺失值和异常值 <br />
-B. 数据转换 <br />
+A. _数据抽样_ <br />
+    建模样本: TrainingSet，ValidationSet，TestingSet <br />
+    数据缺失值和异常值 <br />
+
+B. _数据转换_ <br />
 数据标准化(Normalization) <br />
-C. 数据筛选/特征筛选 <br />
+
+C. _数据筛选/特征筛选_ <br />
 R平方 <br />
 卡方检验(Chi-Square Statistics):适用于类别型变量的检验 <br />
 数据降维:主成分分析和变量聚类 <br />
-D. 共线性问题 <br />
+
+D. _共线性问题_ <br />
 自变量间存在较强的，甚至完全的线性相关关系 <br />
 
 ### IV.数据建模与Cube
@@ -302,11 +305,11 @@ ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-
 
 #### 7.3.支持SQL查询的分布式计算:
 
-A. Hive: <br />
-B. Impala: <br />
-C. SparkSQL: <br />
-D. Spark Streamming: <br />
-E. Storm: <br />
+    A. Hive: <br />
+    B. Impala: <br />
+    C. SparkSQL: <br />
+    D. Spark Streamming: <br />
+    E. Storm: <br />
 
 ### VIII.敏捷BI产品设计
 
