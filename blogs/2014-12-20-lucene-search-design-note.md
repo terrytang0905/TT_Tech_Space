@@ -379,12 +379,12 @@ G. Lucene如何在搜索阶段读取索引信息
 所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。<br />
 我们这里主要讨论隔离性,Lucene的IndexReader和IndexWriter具有隔离性。<br />
 
-• 当IndexReader.open一个索引的时候,相对于给当前索引进行了一次snapshot,此后的任何修改 都不会被看到。
-• 仅当IndexReader.close一个索引后,才有可能看到从上次打开后对索引的修改。
-• 当IndexWriter没有调用Commit的时候,其修改的内容是不能够被看到的,哪怕IndexReader被重新
-打开。
-• 欲使最新的修改被看到,一方面IndexWriter需要commit,一方面IndexReader重新打开。
-• 由于lucene Transaction特性，原生不支持实时查询。需要借助Cache保存Index信息
+	• 当IndexReader.open一个索引的时候,相对于给当前索引进行了一次snapshot,此后的任何修改 都不会被看到。
+	• 仅当IndexReader.close一个索引后,才有可能看到从上次打开后对索引的修改。
+	• 当IndexWriter没有调用Commit的时候,其修改的内容是不能够被看到的,哪怕IndexReader被重新
+	打开。
+	• 欲使最新的修改被看到,一方面IndexWriter需要commit,一方面IndexReader重新打开。
+	• 由于lucene Transaction特性，原生不支持实时查询。需要借助Cache保存Index信息
 
 
 ### III.FullText Search Function Analysis
@@ -392,22 +392,22 @@ G. Lucene如何在搜索阶段读取索引信息
 ### IV.xDB lucene Multi-path Index Search Design
 
 xDB represents the tokens by a list of posting and each posting has one or more keys and a position value of the key in the node. <br />
-All type keys will be converted into strings eventually because Lucene index only can store string. 
+All type keys will be converted into strings eventually because Lucene index only can store string. <br />
 
-Here are some samples of path value index definitions.
-/dmftdoc[content<FULL_TEXT::GET_ALL_TEXT>] defines one full text key on path /dmftdoc/content and will be used when a query like /dmftdoc/content[. ftcontains ‘value’]. The element value at path /dmftdoc/content will be first tokenized and sent to Lucene Plug-in. 
+Here are some samples of path value index definitions.<br />
+	/dmftdoc[content<FULL_TEXT::GET_ALL_TEXT>] defines one full text key on path /dmftdoc/content and will be used when a query like /dmftdoc/content[. ftcontains ‘value’]. The element value at path /dmftdoc/content will be first tokenized and sent to Lucene Plug-in. 
 
 Explicit index / Implicit composite key index 
 
 Overall, LMPI system is divided into two major layers.
-- Transaction layer, including transaction management and cached data inside transaction.
-- Lucene MultiPath Index layer, which encapsulates the native Lucene Indexes (SubIndexes), provides index view to transaction layer.
+	+ Transaction layer, including transaction management and cached data inside transaction.
+	+ Lucene MultiPath Index layer, which encapsulates the native Lucene Indexes (SubIndexes), provides index view to transaction layer.
 
 Only one read-write transaction can update one LMPI and this concurrent access is controlled in xDB by a read-write lock. In another word, LMPI is designed as a non-concurrent index. It follows the lucene instruction.
 Here is Lucene’s concurrency rules are simple but should be strictly followed:
-- Any number of read-only operations may be executed concurrently. 
-- Any number of read-only operations may be executed while an index is being modified.
-- Only a single index-modifying operation may execute at a time.
+	+ Any number of read-only operations may be executed concurrently. 
+	+ Any number of read-only operations may be executed while an index is being modified.
+	+ Only a single index-modifying operation may execute at a time.
 The transaction has a snapshot of a visible part of the index
 
 IndexReader works like a snapshot and the entire query on this index in this transaction will search this snapshot. 
@@ -418,11 +418,11 @@ Each read-write transaction creates two data structures, one Lucene SubIndex and
 There is only one concurrent index for all blacklists of LMPI.
 
 SubIndex merging
-The merging policy will strongly impact the overall system performance.
+	The merging policy will strongly impact the overall system performance.
 
 The sub-indexes are classified into two categories.
-1.	Final indexes(Final merge), which are created by initialization
-2.	Non-final indexes(Clean merge), which are created by a transaction committing or merging non final indexes.
+	1.	Final indexes(Final merge), which are created by initialization
+	2.	Non-final indexes(Clean merge), which are created by a transaction committing or merging non final indexes.
 Every transaction creates a separate sub-indexes which are sorted as a list by ascending order of the transaction least LSN. This order reflects the sequence of transactions because the LMPI is a non-concurrent index. 
 
 The sub-index lists as well as in-memory cache are concurrently accessed by multiple threads and some operations like index snapshot view construction need iterate all sub-indexes. 
@@ -431,13 +431,13 @@ In order to support cross-index merging of LMPI, each compression mapping struct
 
 Lucene multipath indexes list
 Two Sub-indexes can be merged if the following criteria is met.
-1.	Two sub-indexes have continuous minimum LSN or no other sub-index has the minimum LSN in the middle.
-2.	There are some tuning parameters for merging to reduce the performance impact of merging.
+	1.	Two sub-indexes have continuous minimum LSN or no other sub-index has the minimum LSN in the middle.
+	2.	There are some tuning parameters for merging to reduce the performance impact of merging.
 
 xDB Lucene Index Limitation
-- xDB xml document convert to Lucene document object
-- lucene index process performance
-- lucene sub-merge performance (non-final merge/final merge)
+	+ xDB xml document convert to Lucene document object
+	+ lucene index process performance
+	+ lucene sub-merge performance (non-final merge/final merge)
 
 
 ### V.ElasticSearch & MongoDB Search Design
