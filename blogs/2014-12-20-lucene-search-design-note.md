@@ -395,34 +395,39 @@ xDB represents the tokens by a list of posting and each posting has one or more 
 All type keys will be converted into strings eventually because Lucene index only can store string. <br />
 
 Here are some samples of path value index definitions.<br />
+
 	/dmftdoc[content<FULL_TEXT::GET_ALL_TEXT>] defines one full text key on path /dmftdoc/content and will be used when a query like /dmftdoc/content[. ftcontains ‘value’]. The element value at path /dmftdoc/content will be first tokenized and sent to Lucene Plug-in. 
 
 Explicit index / Implicit composite key index 
 
 Overall, LMPI system is divided into two major layers.
-	+ Transaction layer, including transaction management and cached data inside transaction.
-	+ Lucene MultiPath Index layer, which encapsulates the native Lucene Indexes (SubIndexes), provides index view to transaction layer.
+
+	• Transaction layer, including transaction management and cached data inside transaction.
+	• Lucene MultiPath Index layer, which encapsulates the native Lucene Indexes (SubIndexes), provides index view to transaction layer.
 
 Only one read-write transaction can update one LMPI and this concurrent access is controlled in xDB by a read-write lock. In another word, LMPI is designed as a non-concurrent index. It follows the lucene instruction.
 Here is Lucene’s concurrency rules are simple but should be strictly followed:
-	+ Any number of read-only operations may be executed concurrently. 
-	+ Any number of read-only operations may be executed while an index is being modified.
-	+ Only a single index-modifying operation may execute at a time.
+
+	• Any number of read-only operations may be executed concurrently. 
+	• Any number of read-only operations may be executed while an index is being modified.
+	• Only a single index-modifying operation may execute at a time.
 The transaction has a snapshot of a visible part of the index
 
-IndexReader works like a snapshot and the entire query on this index in this transaction will search this snapshot. 
-There is a private black list to record the deleted document’s xDB node ID.
+IndexReader works like a snapshot and the entire query on this index in this transaction will search this snapshot. <br / >
+There is a private black list to record the deleted document’s xDB node ID.<br / >
 Before committing, all data is kept private to this transaction.The commit operation does not flush any pages and only transaction log records will be flushed on disk.
 
-Each read-write transaction creates two data structures, one Lucene SubIndex and one black list. 
+Each read-write transaction creates two data structures, one Lucene SubIndex and one black list. <br / >
 There is only one concurrent index for all blacklists of LMPI.
 
-SubIndex merging
+SubIndex merging <br / >
 	The merging policy will strongly impact the overall system performance.
 
 The sub-indexes are classified into two categories.
+
 	1.	Final indexes(Final merge), which are created by initialization
 	2.	Non-final indexes(Clean merge), which are created by a transaction committing or merging non final indexes.
+
 Every transaction creates a separate sub-indexes which are sorted as a list by ascending order of the transaction least LSN. This order reflects the sequence of transactions because the LMPI is a non-concurrent index. 
 
 The sub-index lists as well as in-memory cache are concurrently accessed by multiple threads and some operations like index snapshot view construction need iterate all sub-indexes. 
@@ -431,13 +436,15 @@ In order to support cross-index merging of LMPI, each compression mapping struct
 
 Lucene multipath indexes list
 Two Sub-indexes can be merged if the following criteria is met.
+
 	1.	Two sub-indexes have continuous minimum LSN or no other sub-index has the minimum LSN in the middle.
 	2.	There are some tuning parameters for merging to reduce the performance impact of merging.
 
 xDB Lucene Index Limitation
-	+ xDB xml document convert to Lucene document object
-	+ lucene index process performance
-	+ lucene sub-merge performance (non-final merge/final merge)
+
+	• xDB xml document convert to Lucene document object
+	• lucene index process performance
+	• lucene sub-merge performance (non-final merge/final merge)
 
 
 ### V.ElasticSearch & MongoDB Search Design
