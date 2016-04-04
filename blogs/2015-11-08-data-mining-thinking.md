@@ -112,7 +112,7 @@ correlation matrix相关矩阵 <br />
 
 - 值集的倾斜度(skewness)
 
-#### 3.3.数据清理Data cleaning
+#### 3.3.数据清理DataCleaning
 
 A. _数据抽样_ <br />
     建模样本: TrainingSet，ValidationSet，TestingSet <br />
