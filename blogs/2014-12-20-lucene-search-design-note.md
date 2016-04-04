@@ -121,7 +121,8 @@ Y. _Indexer_
 
 1.7. ScoreAlgrithm:
 
-	`score(q,d) = coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d) ) ` <br />
+	`score(q,d) = 
+	coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d) ) ` <br />
 	* t:Term,这里的Term是指包含域信息的Term,也即title:hello和content:hello是不同的Term
 	* coord(q,d):一次搜索可能包含多个搜索词,而一篇文档中也可能包含多个搜索词,此项表示,当一篇
 	    文档中包含的搜索词越多,则此文档则打分越高。
@@ -151,7 +152,8 @@ Y. _Indexer_
 
 	* Customize Similarity.lengthNorm / Document Score Customization
 	继承并实现自己的Similarity
-	Similariy是计算Lucene打分的最主要的类,实现其中的很多借口可以干预打分的过程。 (1) float computeNorm(String field, FieldInvertState state)
+	Similariy是计算Lucene打分的最主要的类,实现其中的很多借口可以干预打分的过程。<br />
+	(1) float computeNorm(String field, FieldInvertState state)
 	(2) float lengthNorm(String fieldName, int numTokens)
 	(3) float queryNorm(float sumOfSquaredWeights)
 	(4) float tf(float freq)
@@ -217,8 +219,8 @@ Payload信息就是存储在倒排表中的,同文档号一起存放,多用于�
 
 2.6. Search API <br />
 
-	TopDocs docs = searcher.search(query, 50);
-	• 创建weight树,计算term weight
+	`TopDocs docs = searcher.search(query, 50);
+	//创建weight树,计算term weight
 	//重写Query对象树
 	Query query = searcher.rewrite(this);
 	//创建Weight对象树
@@ -226,34 +228,40 @@ Payload信息就是存储在倒排表中的,同文档号一起存放,多用于�
 	//计算Term Weight分数
 	idf(t)=1+log(numDocs/(docFreq+1))
 	float sum = weight.sumOfSquaredWeights();
-	float norm = getSimilarity(searcher).queryNorm(sum); weight.normalize(norm);
+	float norm = getSimilarity(searcher).queryNorm(sum); 
+	weight.normalize(norm);`
 
 2.7. Score Generate
 
-ConstantScoreAutoRewrite.rewrite
-• 创建scorer及SumScorer树,为合并倒排表做准备
-• 用SumScorer进行倒排表合并
-• 收集文档结果集合及计算打分
+	`ConstantScoreAutoRewrite.rewrite`
 
-ConstantScoreQuery.createWeight(Searcher) 
-sumOfSquaredWeights
-queryNorm
+A. 创建scorer及SumScorer树,为合并倒排表做准备
+B. 用SumScorer进行倒排表合并
+C. 收集文档结果集合及计算打分
 
-得到了Scorer对象树以及SumScorer对象树
-Scorer scorer = weight.scorer(subReaders[i], !collector.acceptsDocsOutOfOrder(), true);
-if (scorer != null) {
-￼￼//(d)合并倒排表,(e)收集文档号
-	scorer.score(collector); 
-}
+	`ConstantScoreQuery.createWeight(Searcher) 
+	sumOfSquaredWeights
+	queryNorm`
 
-倒排表的合并以及打分计算
+D. 得到了Scorer对象树以及SumScorer对象树
 
-收集文档结果集合及计算打分
-TopScoreDocCollector collector = TopScoreDocCollector.create(nDocs, !weight.scoresDocsOutOfOrder());
-search(weight, filter, collector); 
-return collector.topDocs();
+	`Scorer scorer = 
+	weight.scorer(subReaders[i], !collector.acceptsDocsOutOfOrder(), true);
+	if (scorer != null) {
+	￼￼//(d)合并倒排表,(e)收集文档号
+	  scorer.score(collector); 
+	}`
 
-Lucene如何在搜索阶段读取索引信息
+E. 倒排表的合并以及打分计算
+F. 收集文档结果集合及计算打分
+
+	`TopScoreDocCollector collector = 
+	TopScoreDocCollector.create(nDocs, !weight.scoresDocsOutOfOrder());
+	search(weight, filter, collector); 
+	return collector.topDocs();`
+
+G. Lucene如何在搜索阶段读取索引信息
+
 	读取词典信息
 	读取倒排表信息
 
@@ -266,7 +274,7 @@ Lucene如何在搜索阶段读取索引信息
 
 3.2. JavaCC
 
-3.3. QueryParser <br />
+3.3. QueryParser
 
 	• 声明QueryParser类
 	• 声明词法分析器
@@ -326,12 +334,12 @@ Lucene如何在搜索阶段读取索引信息
 
 4.2. TokenFilter->TokenStream
 
-	`public abstract class TokenFilter extends TokenStream { `
-	`protected final TokenStream input;`
-	`protected TokenFilter(TokenStream input) {`
-	`super(input);`
-	`this.input = input; }`
-	`}`
+	`public abstract class TokenFilter extends TokenStream { 
+	  protected final TokenStream input;
+	  protected TokenFilter(TokenStream input) {
+	   super(input);
+	  this.input = input; }
+	 }`
 
 	PorterStemFilter
 
