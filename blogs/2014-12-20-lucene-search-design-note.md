@@ -56,13 +56,14 @@ Y. _Indexer_
 #### 1.Lucene Index
 
 1.1. Index processing:
-a. 创建一个IndexWriter用来写索引文件,它有几个参数,INDEX_DIR就是索引文件所存放的位
-置,Analyzer便是用来对文档进行词法分析和语言处理的.
-b. 创建一个Document代表我们要索引的文档.
-c. 将不同的Field加入到文档中。我们知道,一篇文档有多种信息,如题目,作者,修改时间,内
-容等。不同类型的信息用不同的Field来表示,在本例子中,一共有两类信息进行了索引,一个
-是文件路径,一个是文件内容。其中FileReader的SRC_FILE就表示要索引的源文件.
-d. IndexWriter调用函数addDocument将索引写到索引文件夹中.
+
+	A. 创建一个IndexWriter用来写索引文件,它有几个参数,INDEX_DIR就是索引文件所存放的位
+	置,Analyzer便是用来对文档进行词法分析和语言处理的.
+	B. 创建一个Document代表我们要索引的文档.
+	C. 将不同的Field加入到文档中。我们知道,一篇文档有多种信息,如题目,作者,修改时间,内
+	容等。不同类型的信息用不同的Field来表示,在本例子中,一共有两类信息进行了索引,一个
+	是文件路径,一个是文件内容。其中FileReader的SRC_FILE就表示要索引的源文件.
+	D. IndexWriter调用函数addDocument将索引写到索引文件夹中.
 
 1.2. Inverted Index:
 
@@ -92,12 +93,14 @@ d. IndexWriter调用函数addDocument将索引写到索引文件夹中.
 	DocFieldProcessorPerField:
 
 1.5. DocumentWriter:
-RAMBuffer management for CharBlockPool/ByteBlockPool/IntBlockPool <br />
-term -> CharBlockPool <br />
-docID/freq/prox -> ByteBlockPool <br />
-IntBlockPool中保存的是主要用来写入的信息:分别指向docid+freq及prox信息在ByteBlockPool中的偏移量 <br />
+
+	RAMBuffer management for CharBlockPool/ByteBlockPool/IntBlockPool <br />
+	term -> CharBlockPool <br />
+	docID/freq/prox -> ByteBlockPool <br />
+	IntBlockPool中保存的是主要用来写入的信息:分别指向docid+freq及prox信息在ByteBlockPool中的偏移量 <br />
 
 1.6. SegmentMerge:
+
 	* HashSet<SegmentInfo> mergingSegments = new HashSet<SegmentInfo>(); //保存正在合并的 段,以防止合并期间再次选中被合并。
 	* MergePolicy mergePolicy = new LogByteSizeMergePolicy(this);//合并策略,也即选取哪些段来进 行合并。
 	* MergeScheduler mergeScheduler = new ConcurrentMergeScheduler();//段合并器,背后有一个 线程负责合并。
@@ -117,7 +120,8 @@ IntBlockPool中保存的是主要用来写入的信息:分别指向docid+freq及
 		merge TermDictionary/PostingList
 
 1.7. ScoreAlgrithm:
-`score(q,d) = coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d) ) ` <br />
+
+	`score(q,d) = coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d) ) ` <br />
 	* t:Term,这里的Term是指包含域信息的Term,也即title:hello和content:hello是不同的Term
 	* coord(q,d):一次搜索可能包含多个搜索词,而一篇文档中也可能包含多个搜索词,此项表示,当一篇
 	    文档中包含的搜索词越多,则此文档则打分越高。
@@ -163,23 +167,25 @@ IntBlockPool中保存的是主要用来写入的信息:分别指向docid+freq及
 	计算Levenshtein distance:edit distance,对于两个字符串,从一个转换成为另一个所需 要的最少基本操作(添加,删除,替换)数。
 
 1.8. Payload
+
 Payload信息就是存储在倒排表中的,同文档号一起存放,多用于存储与每篇文档相关的一些信息。当然这部分信息也可以存储域里(stored Field),两者从功能上基本是一样的,然而当要存储的信息很多的时候,存放在倒排表里,利用跳跃表,有利于大大提高搜索速度。
 
 #### 2.Lucene Search
 
 2.1. Search processing:
-a. IndexReader将磁盘上的索引信息读入到内存,INDEX_DIR就是索引文件存放的位置。 <br />
-   创建IndexSearcher准备进行搜索。<br />
-b. 用户输入查询语句   
-c. 创建Analyer用来对查询语句进行词法分析和语言处理。
-d. 创建QueryParser用来对查询语句进行语法分析。
-e. QueryParser调用parser进行语法分析,形成查询语法树,放到Query中。
-f. IndexSearcher调用search对查询语法树Query进行搜索 <br />
-   构造Weight对象树,用于计算词的权重Term <br />Weight,也即计算打分公式中与仅与搜索语句相关与文档无关的部分(红色部分)。<br />
-   构造Scorer对象树,用于计算打分(TermScorer.score())。<br />
-   在构造Scorer对象树的过程中,其叶子节点的TermScorer会将词典和倒排表从索引中读出来。<br />
-   构造SumScorer对象树,其是为了方便合并倒排表对Scorer对象树的从新组织,它的叶子节点仍为 TermScorer,包含词典和倒排表。此步将倒排表合并后得到结果文档集,并对结果文档计算打分公式 中的蓝色部分。打分公式中的求和符合,并非简单的相加,而是根据子查询倒排表的合并方式(与或非) 来对子查询的打分求和,计算出父查询的打分。<br />
-g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
+
+	a. IndexReader将磁盘上的索引信息读入到内存,INDEX_DIR就是索引文件存放的位置。 <br />
+	   创建IndexSearcher准备进行搜索。<br />
+	b. 用户输入查询语句   
+	c. 创建Analyer用来对查询语句进行词法分析和语言处理。
+	d. 创建QueryParser用来对查询语句进行语法分析。
+	e. QueryParser调用parser进行语法分析,形成查询语法树,放到Query中。
+	f. IndexSearcher调用search对查询语法树Query进行搜索 <br />
+	   构造Weight对象树,用于计算词的权重Term <br />Weight,也即计算打分公式中与仅与搜索语句相关与文档无关的部分(红色部分)。<br />
+	   构造Scorer对象树,用于计算打分(TermScorer.score())。<br />
+	   在构造Scorer对象树的过程中,其叶子节点的TermScorer会将词典和倒排表从索引中读出来。<br />
+	   构造SumScorer对象树,其是为了方便合并倒排表对Scorer对象树的从新组织,它的叶子节点仍为 TermScorer,包含词典和倒排表。此步将倒排表合并后得到结果文档集,并对结果文档计算打分公式 中的蓝色部分。打分公式中的求和符合,并非简单的相加,而是根据子查询倒排表的合并方式(与或非) 来对子查询的打分求和,计算出父查询的打分。<br />
+	g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
 
 2.2. IndexReader: <br />
 	Find out segment_N file <br />
@@ -189,6 +195,7 @@ g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
 	IndexSearcher searcher = new IndexSearcher(reader);
 
 2.4. QueryParser(Query语法树): <br />
+
  	◦ BooleanQuery <br />
  	◦ PrefixQuery <br />
  	◦ TermQuery <br />
@@ -196,6 +203,7 @@ g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
  	◦ MultiTermQuery <br />
 
 2.5. Query Object Specification: <br />
+
 	• BooleanQuery即所有的子语句按照布尔关系合并
 	◦ +也即MUST表示必须满足的语句
 	◦ SHOULD表示可以满足的,minNrShouldMatch表示在SHOULD中必须满足的最小语句个数,
@@ -208,16 +216,17 @@ g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
 	个词,而是多个词,因而他们都有rewriteMethod对象指向MultiTermQuery的Inner Class, 表示对应多个词,在查询过程中会得到特殊处理。
 
 2.6. Search API <br />
-TopDocs docs = searcher.search(query, 50);
-• 创建weight树,计算term weight
-//重写Query对象树
-Query query = searcher.rewrite(this);
-//创建Weight对象树
-Weight weight = query.createWeight(searcher);
-//计算Term Weight分数
-idf(t)=1+log(numDocs/(docFreq+1))
-float sum = weight.sumOfSquaredWeights();
-float norm = getSimilarity(searcher).queryNorm(sum); weight.normalize(norm);
+
+	TopDocs docs = searcher.search(query, 50);
+	• 创建weight树,计算term weight
+	//重写Query对象树
+	Query query = searcher.rewrite(this);
+	//创建Weight对象树
+	Weight weight = query.createWeight(searcher);
+	//计算Term Weight分数
+	idf(t)=1+log(numDocs/(docFreq+1))
+	float sum = weight.sumOfSquaredWeights();
+	float norm = getSimilarity(searcher).queryNorm(sum); weight.normalize(norm);
 
 2.7. Score Generate
 
@@ -252,46 +261,51 @@ Lucene如何在搜索阶段读取索引信息
 #### 3.Lucene Query Language
 
 3.1. Query API <br />
-BooleanQuery,FuzzyQuery, MatchAllDocsQuery,MultiTermQuery,MultiPhraseQuery,PhraseQuery,PrefixQuery, TermRangeQuery,TermQuery,WildcardQuery
+
+	BooleanQuery,FuzzyQuery, MatchAllDocsQuery,MultiTermQuery,MultiPhraseQuery,PhraseQuery,PrefixQuery, TermRangeQuery,TermQuery,WildcardQuery
 
 3.2. JavaCC
 
 3.3. QueryParser <br />
-• 声明QueryParser类
-• 声明词法分析器
-• 声明语法分析器
+
+	• 声明QueryParser类
+	• 声明词法分析器
+	• 声明语法分析器
 
 3.4. Advanced Query
-• BoostingQuery
-• CustomScoreQuery
-• MoreLikeThisQuery
-• MultiTermQuery
-	◦ NumericRangeQuery<T>
-	◦ TermRangeQuery
-• SpanQuery 位置查询
-	◦ FieldMaskingSpanQuery 
-	◦ SpanFirstQuery
-	◦ SpanNearQuery
-		▪ PayloadNearQuery 
-	◦ SpanNotQuery
-	◦ SpanOrQuery
-	◦ SpanRegexQuery 
-	◦ FieldMaskingSpanQuery
-	◦ SpanTermQuery
-		▪ PayloadTermQuery
-• FilteredQuery
-	◦ Query/Filter
-	◦ DuplicateFilter
-	◦ FieldCacheRangeFilter<T>及FieldCacheTermsFilter
-	◦ MultiTermQueryWrapperFilter<Q>
-	◦ QueryWrapperFilter
-	◦ SpanFilter/CachingSpanFilter
+
+	• BoostingQuery
+	• CustomScoreQuery
+	• MoreLikeThisQuery
+	• MultiTermQuery
+		◦ NumericRangeQuery<T>
+		◦ TermRangeQuery
+	• SpanQuery 位置查询
+		◦ FieldMaskingSpanQuery 
+		◦ SpanFirstQuery
+		◦ SpanNearQuery
+			▪ PayloadNearQuery 
+		◦ SpanNotQuery
+		◦ SpanOrQuery
+		◦ SpanRegexQuery 
+		◦ FieldMaskingSpanQuery
+		◦ SpanTermQuery
+			▪ PayloadTermQuery
+	• FilteredQuery
+		◦ Query/Filter
+		◦ DuplicateFilter
+		◦ FieldCacheRangeFilter<T>及FieldCacheTermsFilter
+		◦ MultiTermQueryWrapperFilter<Q>
+		◦ QueryWrapperFilter
+		◦ SpanFilter/CachingSpanFilter
 
 #### 4.Lucene Analyzer
+
 	• TokenStream tokenStream(String fieldName, Reader reader);
 	• TokenStream reusableTokenStream(String fieldName, Reader reader) ;
 
 4.1. TokenStream
+
 	• boolean incrementToken()用于得到下一个Token。
 	• public void reset() 使得此TokenStrean可以重新开始返回各个分词。
 
@@ -311,31 +325,34 @@ BooleanQuery,FuzzyQuery, MatchAllDocsQuery,MultiTermQuery,MultiPhraseQuery,Phras
 		• StandardTokenizer
 
 4.2. TokenFilter->TokenStream
-	public abstract class TokenFilter extends TokenStream { protected final TokenStream input;
-	protected TokenFilter(TokenStream input) {
-	super(input);
-	this.input = input; }
-	}
+
+	`public abstract class TokenFilter extends TokenStream { `
+	`protected final TokenStream input;`
+	`protected TokenFilter(TokenStream input) {`
+	`super(input);`
+	`this.input = input; }`
+	`}`
 
 	PorterStemFilter
 
 4.3. Anlayzer = (Tokenizer + TokenFilter) -> TokenStream
 
-ChineseAnalyzer
-CJKAnalyzer
-PorterStemAnalyzer
-SmartChineseAnalyzer
-SnowballAnalyzer
+	ChineseAnalyzer
+	CJKAnalyzer
+	PorterStemAnalyzer
+	SmartChineseAnalyzer
+	SnowballAnalyzer
 
 4.4. Lucene Standard Tokenizer <br />
-StandardTokenizerImpl.jflex
-jflex也是一个词法及语法分析器的生成器,它主要包括三部分,由%%分隔:
-• 用户代码部分:多为package或者import • 选项及词法声明
-• 语法规则声明
 
-StandardTokenizer
-StandardFilter
-StandardAnalyzer
+	StandardTokenizerImpl.jflex
+	jflex也是一个词法及语法分析器的生成器,它主要包括三部分,由%%分隔:
+	• 用户代码部分:多为package或者import • 选项及词法声明
+	• 语法规则声明
+
+	StandardTokenizer
+	StandardFilter
+	StandardAnalyzer
 
 4.5. PerFieldAnalyzerWrapper
 
