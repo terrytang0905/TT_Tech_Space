@@ -240,26 +240,26 @@ A. 创建scorer及SumScorer树,为合并倒排表做准备
 B. 用SumScorer进行倒排表合并
 C. 收集文档结果集合及计算打分
 
-	`ConstantScoreQuery.createWeight(Searcher) 
+	ConstantScoreQuery.createWeight(Searcher) 
 	sumOfSquaredWeights
-	queryNorm`
+	queryNorm
 
 D. 得到了Scorer对象树以及SumScorer对象树
 
-	`Scorer scorer = 
+	Scorer scorer = 
 	weight.scorer(subReaders[i], !collector.acceptsDocsOutOfOrder(), true);
 	if (scorer != null) {
 	￼￼//(d)合并倒排表,(e)收集文档号
 	  scorer.score(collector); 
-	}`
+	}
 
 E. 倒排表的合并以及打分计算
 F. 收集文档结果集合及计算打分
 
-	`TopScoreDocCollector collector = 
+	TopScoreDocCollector collector = 
 	TopScoreDocCollector.create(nDocs, !weight.scoresDocsOutOfOrder());
 	search(weight, filter, collector); 
-	return collector.topDocs();`
+	return collector.topDocs();
 
 G. Lucene如何在搜索阶段读取索引信息
 
@@ -271,7 +271,16 @@ G. Lucene如何在搜索阶段读取索引信息
 
 2.3.1. Query API <br />
 
-	BooleanQuery,FuzzyQuery, MatchAllDocsQuery,MultiTermQuery,MultiPhraseQuery,PhraseQuery,PrefixQuery, TermRangeQuery,TermQuery,WildcardQuery
+	BooleanQuery,
+	FuzzyQuery, 
+	MatchAllDocsQuery,
+	MultiTermQuery,
+	MultiPhraseQuery,
+	PhraseQuery,
+	PrefixQuery, 
+	TermRangeQuery,
+	TermQuery,
+	WildcardQuery
 
 2.3.2. JavaCC
 
