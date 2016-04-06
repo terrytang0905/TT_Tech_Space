@@ -162,32 +162,45 @@ D. _共线性问题_ <br />
 #### 5.1.预测响应(分类)建模
 
 A. _决策树归纳_
-- CHAID:Chi-square Automatic Interaction Detector
-     依据局部最优原则,利用卡方检验来选择对因变量(Category)最有影响的自变量
-- CART: Classification and Regression Tree
+
+- CHAID:Chi-square Automatic Interaction Detector(卡方自动相互关系检测)<br />
+     依据局部最优原则,利用*卡方检验*来选择对因变量(Category)最有影响的自变量
+- CART: Classification and Regression Tree <br />
      分类与回归树,检验标准为Gini等不纯度指标
-- ID3: Iterative Dichotomiser 
+- ID3: Iterative Dichotomiser <br />你你你你你你
      迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
-- C4.5 <br />
+- C4.5: ID3的后继版 <br />
+     其自变量的挑选标准是基于信息增益率(GainRatio)
+
 其核心的贪心算法指向局部最优选择，而非整体最优。
 不适用于连续型变量。需用线性回归算法解决
 
 B. _逻辑回归Logistic Regression_
 
+- 针对二元的目标变量,预测一组自变量数值相对应得因变量'是'的概率.确保二元目标变量的预测概率P是介于[0,1]之间的
+- 变量筛选方法:向前引入法,向后剔除法,逐步回归法
+
 C. _多元线性回归Linear Regression_
 
-D. _神经网络/DeepLearning_ <br />
-     前向型网络，反馈型网络 <br />
-     Backpropagation 反馈传播 <br />
+D. _神经网络/DeepLearning_ 
+
+- 前向型网络，反馈型网络 <br />
+  从输入端传向输出端
+- Backpropagation 反馈传播 <br />
+  从输入端传向输出端 + 有回环或反馈存在
+
+大多数神经网络模型的学习过程,都是通过不断地改变权重来使误差达到总误差的最小绝对值
 
 E. _贝叶斯分类算法_
+
      检索算法Lucene
      朴素贝叶斯
 
 F. _支持向量机算法(Support Vector Machine)_
+
      最优分类线
 
-G. _模型过拟合_ <br />
+G. _模型过拟合OverFitting_ <br />
 为了得到一致假设而使假设变得过度复杂称为过拟合 <br />
 一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少 <br />
 
@@ -334,9 +347,10 @@ ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-
 #### 8.2.敏捷BI竞品分析
 
 - 新一代实时敏捷BI,不同于传统BI的特性 [NewBI相关文档](http://wiki.yunat.com/pages/viewpage.action?pageId=38618144)
-- Tableau
+- [Tableau](http://www.tableau.com/products/cloud-bi)
 - 永洪BI
-- Looker
+- [Looker](http://www.looker.com/)
+- [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 
 #### 8.3.电商零售BI的数据挖掘方法
 
