@@ -10,18 +10,18 @@ Core Java Concurrency Analysis Notes
 
 *The Reason of Thread Goodness*
 
-• More responsive user interfaces
-• Exploiting multiple processors.
-• Simplicity of modeling. 
-• Asynchronous or background processing.
+- More responsive user interfaces
+- Exploiting multiple processors.
+- Simplicity of modeling. 
+- Asynchronous or background processing.
 
 *Thread Safety*
 
-Must-be Thread Safety Application
-• GUI toolkits and background thread
-• TimerTask
-• Serlvet and JSP
-• RMI
+Must-be Thread Safety Application <br />
+- GUI toolkits and background thread
+- TimerTask
+- Serlvet and JSP
+- RMI
 
 *The improvements for concurrency in JDK 5*
 
@@ -163,9 +163,11 @@ public class SynchronizedMutex {
 使用锁定还有一些其他危险，如死锁（当以不一致的顺序获得多个锁定时会发生死锁）。甚至没有这种危险，锁定也仅是相对的粗粒度协调机制，同样非常适合管理简单操作，如增加计数器或更新互斥拥有者。如果有更细粒度的机制来可靠管理对单独变量的并发更新，则会更好一些；在大多数现代处理器都有这种机制。
 
 _硬件同步原语_
+
 如前所述，大多数现代处理器都包含对多处理的支持。当然这种支持包括多处理器可以共享外部设备和主内存，同时它通常还包括对指令系统的增加来支持多处理的特殊要求。特别是，几乎每个现代处理器都有通过可以检测或阻止其他处理器的并发访问的方式来更新共享变量的指令。
 
 _CAS(compare-and-swap)_ 
+
 支持并发的第一个处理器提供原子的测试并设置操作，通常在单位上运行这项操作。现在的处理器（包括 Intel 和 Sparc 处理器）使用的最通用的方法是实现名为 比较并转换或 CAS 的原语。（在 Intel 处理器中，比较并交换通过指令的 cmpxchg 系列实现。PowerPC 处理器有一对名为“加载并保留”和“条件存储”的指令，它们实现相同的目地；MIPS 与 PowerPC 处理器相似，除了第一个指令称为“加载链接”。）
 
 CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和 新值(B)。如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作。无论哪种情况，它都会在 CAS 指令之前返回该位置的值。（在 CAS 的一些特殊情况下将仅返回 CAS 是否成功，而不提取当前值。）CAS 有效地说明了“我认为位置 V 应该包含值 A；如果包含该值，则将 B 放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”
@@ -210,10 +212,12 @@ public class CasCounter {
 ```   
 
 _无锁定且无等待算法_
+
 如果每个线程在其他线程任意延迟（或甚至失败）时都将持续进行操作，就可以说该算法是 无等待的。与此形成对比的是， 无锁定算法要求仅 某个线程总是执行操作。（无等待的另一种定义是保证每个线程在其有限的步骤中正确计算自己的操作，而不管其他线程的操作、计时、交叉或速度。这一限制可以是系统中线程数的函数；例如，如果有 10 个线程，每个线程都执行一次CasCounter.increment() 操作，最坏的情况下，每个线程将必须重试最多九次，才能完成增加。）
 再过去的 15 年里，人们已经对无等待且无锁定算法（也称为 无阻塞算法）进行了大量研究，许多人通用数据结构已经发现了无阻塞算法。无阻塞算法被广泛用于操作系统和 JVM 级别，进行诸如线程和进程调度等任务。虽然它们的实现比较复杂，但相对于基于锁定的备选算法，它们有许多优点：可以避免优先级倒置和死锁等危险，竞争比较便宜，协调发生在更细的粒度级别，允许更高程度的并行机制等等。
 
 _原子变量类_
+
 在 JDK 5.0 之前，如果不使用本机代码，就不能用 Java 语言编写无等待、无锁定的算法。在 java.util.concurrent.atomic 包中添加原子变量类之后，这种情况才发生了改变。所有原子变量类都公开比较并设置原语（与比较并交换类似），这些原语都是使用平台上可用的最快本机结构（比较并交换、加载链接/条件存储，最坏的情况下是旋转锁）来实现的。 java.util.concurrent.atomic 包中提供了原子变量的 9 种风格（ AtomicInteger； AtomicLong； AtomicReference； AtomicBoolean；原子整型；长型；引用；及原子标记引用和戳记引用类的数组形式，其原子地更新一对值）。
 原子变量类可以认为是 volatile 变量的泛化，它扩展了可变变量的概念，来支持原子条件的比较并设置更新。读取和写入原子变量与读取和写入对可变变量的访问具有相同的存取语义。
 虽然原子变量类表面看起来与清单 1 中的 SynchronizedCounter 例子一样，但相似仅是表面的。在表面之下，原子变量的操作会变为平台提供的用于并发访问的硬件原语，比如比较并交换。
@@ -221,13 +225,16 @@ _原子变量类_
 调整具有竞争的并发应用程序的可伸缩性的通用技术是降低使用的锁定对象的粒度，希望更多的锁定请求从竞争变为不竞争。从锁定转换为原子变量可以获得相同的结果，通过切换为更细粒度的协调机制，竞争的操作就更少，从而提高了吞吐量。
 
 _ABA 问题_
+
 因为在更改 V 之前，CAS 主要询问“V 的值是否仍为 A”，所以在第一次读取 V 以及对 V 执行 CAS 操作之前，如果将值从 A 改为 B，然后再改回 A，会使基于 CAS 的算法混乱。在这种情况下，CAS 操作会成功，但是在一些情况下，结果可能不是您所预期的。（注意， 清单 1 和 清单 2 中的计数器和互斥例子不存在这个问题，但不是所有算法都这样。）这类问题称为 ABA 问题，通常通过将标记或版本编号与要进行 CAS 操作的每个值相关联，并原子地更新值和标记，来处理这类问题。 AtomicStampedReference 类支持这种方法。
 
-java.util.concurrent 中的原子变量
+_java.util.concurrent 中的原子变量_
+
 无论是直接的还是间接的，几乎 java.util.concurrent 包中的所有类都使用原子变量，而不使用同步。类似 ConcurrentLinkedQueue 的类也使用原子变量直接实现无等待算法，而类似 ConcurrentHashMap 的类使用 ReentrantLock 在需要时进行锁定。然后， ReentrantLock 使用原子变量来维护等待锁定的线程队列。
 如果没有 JDK 5.0 中的 JVM 改进，将无法构造这些类，这些改进暴露了（向类库，而不是用户类）接口来访问硬件级的同步原语。然后，java.util.concurrent 中的原子变量类和其他类向用户类公开这些功能。
 
 Performance is a measure of "how fast can you execute this task." Scalability describes how an application's throughput behaves as its workload and available computing resources increase.
+
 使用原子变量获得更高的吞吐量
 之前介绍了 ReentrantLock 如何相对于同步提供可伸缩性优势，以及构造通过伪随机数生成器模拟旋转骰子的简单、高竞争示例基准。我向您显示了通过同步、 ReentrantLock 和公平 ReentrantLock 来进行协调的实现，并显示了结果。本月，我将向该基准添加其他实现，使用 AtomicLong 更新 PRNG 状态的实现。
 清单 5 显示了使用同步的 PRNG 实现和使用 CAS 备选实现。注意，要在循环中执行 CAS，因为它可能会失败一次或多次才能获得成功，使用 CAS 的代码总是这样。
@@ -599,16 +606,19 @@ For example, ConcurrentHashMap
 ##### 5.6.ConcurrentHashMap
 
 _针对吞吐量进行优化_
+
 ConcurrentHashMap 使用了几个技巧来获得高程度的并发以及避免锁定，包括为不同的32 hash buckets（桶）使用多个写锁和使用 JMM 的不确定性来最小化锁被保持的时间――或者根本避免获取锁。对于大多数一般用法来说它是经过优化的，这些用法往往会检索一个很可能在 map 中已经存在的值。事实上，多数成功的get()操作根本不需要任何锁定就能运行。
 (警告：不要自己试图这样做！想比 JMM 聪明不像看上去的那么容易。Java.util.concurrent 类是由并发专家编写的，并且在 JMM 安全性方面经过了严格的同行评审。）
 
 _多个写锁_
+
 我们可以回想一下,Hashtable(或者替代方案Collections.synchronizedMap)的可伸缩性的主要障碍是它使用了一个 map 范围（map-wide）的锁，为了保证插入、删除或者检索操作的完整性必须保持这样一个锁，而且有时候甚至还要为了保证迭代遍历操作的完整性保持这样一个锁。这样一来，只要锁被保持，就从根本上阻止了其他线程访问 Map，即使处理器有空闲也不能访问，这样大大地限制了并发性。
 ConcurrentHashMap摒弃了单一的map范围的锁，取而代之的是由32个锁组成的集合，其中每个锁负责保护 hash bucket 的一个子集。锁主要由变化性操作（put() 和 remove()）使用。具有 32 个独立的锁意味着最多可以有 32 个线程可以同时修改 map。这并不一定是说在并发地对 map 进行写操作的线程数少于 32 时，另外的写操作不会被阻塞――32 对于写线程来说是理论上的并发限制数目，但是实际上可能达不到这个值。但是，32 依然比 1 要好得多，而且对于运行于目前这一代的计算机系统上的大多数应用程序来说已经足够了。&#160
 map 范围的操作
 有 32 个独立的锁，其中每个锁保护 hash bucket 的一个子集，这样需要独占访问 map 的操作就必须获得所有32个锁。一些 map 范围的操作，比如说size() 和 isEmpty()，也许能够不用一次锁整个 map（通过适当地限定这些操作的语义），但是有些操作，比如 map 重排（扩大 hash bucket 的数量，随着 map 的增长重新分布元素），则必须保证独占访问。Java 语言不提供用于获取可变大小的锁集合的简便方法。必须这么做的情况很少见，一旦碰到这种情况，可以用递归方法来实现。
 
 _JMM概述_
+
 在进入 put()、get() 和 remove() 的实现之前，让我们先简单地看一下 JMM。JMM 掌管着一个线程对内存的动作 （读和写）影响其他线程对内存的动作的方式。由于使用处理器寄存器和预处理 cache 来提高内存访问速度带来的性能提升，Java 语言规范（JLS）允许一些内存操作并不对于所有其他线程立即可见。有两种语言机制可用于保证跨线程内存操作的一致性
 ――*synchronized(同步块与同步方法)和volatile*。
 按照 JLS 的说法，“在没有显式同步的情况下，一个实现可以自由地更新主存，更新时所采取的顺序可能是出人意料的。”其意思是说，如果没有同步的话，在一个给定线程中某种顺序的写操作对于另外一个不同的线程来说可能呈现出不同的顺序， 并且对内存变量的更新从一个线程传播到另外一个线程的时间是不可预测的。
@@ -679,7 +689,34 @@ public Object get(Object key) {
 清单3. ConcurrentHashMap.remove() 实现
 
 ```java
-protected Object remove(Object key, Object value) {/*  Find the entry, then 1. Set value field to null, to force get() to retry2. Rebuild the list without this entry.   All entries following removed node can stay in list, but   all preceding ones need to be cloned.  Traversals rely   on this strategy to ensure that elements will not be  repeated during iteration.*/int hash = hash(key);Segment seg = segments[hash & SEGMENT_MASK];synchronized(seg) {  Entry[] tab = table;  int index = hash & (tab.length-1);  Entry first = tab[index];  Entry e = first;  for (;;) {if (e == null)  return null;if (e.hash == hash && eq(key, e.key))   break;e = e.next;  }  Object oldValue = e.value;  if (value != null && !value.equals(oldValue))return null;   e.value = null;  Entry head = e.next;  for (Entry p = first; p != e; p = p.next) head = new Entry(p.hash, p.key, p.value, head);  tab[index] = head;  seg.count--;  return oldValue;}  }
+protected Object remove(Object key, Object value) {
+    /*  Find the entry, then 
+    1. Set value field to null, to force get() to retry
+    2. Rebuild the list without this entry.   
+    All entries following removed node can stay in list, but   all preceding ones need to be cloned.  Traversals rely   on this strategy to ensure that elements will not be  repeated during iteration.*/
+    int hash = hash(key);
+    Segment seg = segments[hash & SEGMENT_MASK];
+    synchronized(seg) {  
+        Entry[] tab = table;  
+        int index = hash & (tab.length-1);  
+        Entry first = tab[index];  
+        Entry e = first;  
+        for (;;) {
+            if (e == null)  return null;
+            if (e.hash == hash && eq(key, e.key))  
+                 break;e = e.next;  
+        }  
+        Object oldValue = e.value;  
+        if (value != null && !value.equals(oldValue)) return null;   
+        e.value = null;  
+        Entry head = e.next;  
+        for (Entry p = first; p != e; p = p.next) 
+            head = new Entry(p.hash, p.key, p.value, head);  
+            tab[index] = head;  
+            seg.count--;  
+            return oldValue;
+        }  
+    }
 ```
 
 图1为删除一个元素之前的 hash 链：
@@ -701,6 +738,7 @@ put() 的实现很简单。像 remove() 一样，put() 会在执行期间保持 
 
 
 *Task Management*
+
 By reusing threads for multiple tasks, the thread-creation overhead is spread over many tasks.
 
 ##### 5.7.Executor (Thread Pool)
@@ -1457,7 +1495,7 @@ public Object getObject() {
 
 Proposed Solutions and Patterns below
 
-
+```java
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -1593,9 +1631,10 @@ class Once2 {
         }
     }
 }
+```
 
 // Example test. Others removed due to length restrictions.
-
+```java
 public class Main {
     private Object oncePerObj = null;
     
@@ -1658,4 +1697,5 @@ public class Main {
         }
     }
 }
+```
 
