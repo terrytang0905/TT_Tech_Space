@@ -184,9 +184,9 @@ C. _多元线性回归Linear Regression_
 
 D. _神经网络/DeepLearning_ 
 
-- 前向型网络，反馈型网络 <br />
+- 前向型网络 <br />
   从输入端传向输出端
-- Backpropagation 反馈传播 <br />
+- Backpropagation反馈型网络 <br />
   从输入端传向输出端 + 有回环或反馈存在
 
 大多数神经网络模型的学习过程,都是通过不断地改变权重来使误差达到总误差的最小绝对值
