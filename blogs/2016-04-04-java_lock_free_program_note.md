@@ -58,7 +58,7 @@ CAS是一组原语指令，用来实现多线程下的变量同步。
 在 x86 下的指令CMPXCHG实现了CAS，前置LOCK既可以达到原子性操作。截止2013，大部分多核处理器均支持CAS。
 CAS操作系统同步原语有三个参数，内存地址，期望值，新值。如果内存地址的值==期望值，表示该值未修改，此时可以修改成新值。否则表示修改失败，返回false，由用户决定后续操作。
 
-
+```C++
 Bool CAS(T* addr, T expected, T newValue)
 {
       if( *addr == expected )
@@ -69,7 +69,7 @@ Bool CAS(T* addr, T expected, T newValue)
     else
           return false;
 }
-
+```
 
 
 
@@ -88,12 +88,16 @@ ABAʹ：添加额外的标记用来指示是否被修改。
 语言实现
 
 Java demo
+```java
 AtomicInteger atom = new AtomicInteger(1);
 boolean r = atom.compareAndSet(1, 2);
+```
 
 C# demo
+```C#
 int i=1;
 Interlocked.Increment(ref i);
+```
 
 CAS原理
 
@@ -105,18 +109,18 @@ CAS原理
 
  下面是sun.misc.Unsafe类的compareAndSwapInt()方法的源代码：
 
-
+```java
 public final native boolean compareAndSwapInt(Object o, long offset,
                                               int expected,
                                               int x);
-
+```
 
 
 
 可以看到这是个本地方法调用。这个本地方法在openjdk中依次调用的c++代码为：unsafe.cpp，atomic.cpp和atomicwindowsx86.inline.hpp。这个本地方法的最终实现在openjdk的如下位置：openjdk-7-fcs-src-b147-27jun2011\openjdk\hotspot\src\oscpu\windowsx86\vm\ atomicwindowsx86.inline.hpp（对应于windows操作系统，X86处理器）。下面是对应于intel x86处理器的源代码的片段：
 
 
-
+```
 // Adding a lock prefix to an instruction on MP machine
 // VC++ doesn't like the lock prefix to be on a single line
 // so we can't insert a label after the lock prefix.
@@ -137,7 +141,7 @@ inline jint    Atomic::cmpxchg    (jint    exchange_value, volatile jint*    des
     cmpxchg dword ptr [edx], ecx
   }
 }
-
+```
 
 
 
