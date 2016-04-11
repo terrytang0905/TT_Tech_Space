@@ -12,6 +12,9 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 
 - [程序员的职业素养 - 读书笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-07-professional-programmer.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
+- [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
+- [Core Java Concurrency Analysis Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-09-java_concurrent_analysis_note.md)
+- [Java多线程与并发-分析索引](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-11-java_concurrent_analysis_map.md)
 
 ##### Data Science
 
