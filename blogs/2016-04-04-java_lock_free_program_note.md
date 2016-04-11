@@ -2,13 +2,11 @@
 layout: post
 category : programming
 tags : [develop,java]
-title: Java CAS Research Note
+title: Java Lock-free Programming Note
 ---
 
-Java CAS 研究笔记(1)
+Java多线程与并发 - Lock-free无锁编程
 ------------------------
-
-Lock-Free数据结构及CAS（Compare-and-Swap）集
 
 无锁编程 / lock-free / 非阻塞同步
 

@@ -12,9 +12,10 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 
 - [程序员的职业素养 - 读书笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-07-professional-programmer.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
-- [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
+- [Go语言研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-12-go-language-design.md)
 - [Core Java Concurrency Analysis Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-09-java_concurrent_analysis_note.md)
 - [Java多线程与并发-分析索引](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-11-java_concurrent_analysis_map.md)
+- [Java多线程与并发-Lock-free无锁编程](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-04-java_lock_free_program_note.md)
 
 ##### Data Science
 
@@ -24,7 +25,6 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 - [MongoDB 3.0 Major Change (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - [FullText搜索设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-lucene-search-design-note.md)
-- [Go语言研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-12-go-language-design.md)
 - [Couchbase Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
 - [MongoDB Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
 
