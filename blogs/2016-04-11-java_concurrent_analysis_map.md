@@ -31,4 +31,5 @@ Java多线程与并发 - 分析索引
 7. Lock-free 与 Lock 使用比较
 
    - Lock原理分析
+   - Optimistic Locking / Pessimistic Locking
    - 数据库ACID中的锁管理/死锁/乐观锁
