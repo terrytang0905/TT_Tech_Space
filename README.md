@@ -19,6 +19,7 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 
 ##### Data Science
 
+- [Greenplum命令操作手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_manage_guide.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-analysis-algorithm.md)
 - [数据挖掘研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
 - [MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
@@ -27,6 +28,7 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 - [FullText搜索设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-lucene-search-design-note.md)
 - [Couchbase Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
 - [MongoDB Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
+
 
 ##### Research
 

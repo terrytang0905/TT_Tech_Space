@@ -2,10 +2,10 @@
 layout: post
 category : guide
 tags : [bigdata,database]
-title: Greenplum Database Manage Guide
+title: Greenplum Database Command Guide
 ---
 
-Greenplum 管理手册
+Greenplum 命令操作手册
 ------------------------------------
 
 ### 1.Greenplum初始化
@@ -32,91 +32,91 @@ gpssh -f hostlist
 
 ### 3.psql登陆与退出
 
-#### 正常登陆
+- 正常登陆
 
 > psql gpdb
 > psql -d gpdb -h gphostm -p 5432 -U gpadmin
 > psql -d yunyingADB  -h 127.0.0.1 -p 2345 -U gpadmin
 
-#### 使用 utility 方式
+- 使用 utility 方式
 
 > PGOPTIONS="-c gp_session_role=utility"
 > psql -h -d dbname hostname -p port
 
-#### 退出
+- 退出
 
 > 在psql命令行执行\q
 
-#### 参数查询
+- 参数查询
 
 > psql -c 'SHOW ALL;' -d gpdb
 > gpconfig --show max_connections
 
-#### 创建数据库
+- 创建数据库
 
 > createdb -h localhost -p 5432 dhdw
 
 ### 4.GP文件系统管理
 
-#### 文件系统名
+- 文件系统名
 
-gpfsdw
+> gpfsdw
 
-#### 子节点，视 segment 数创建目录
+- 子节点，视 segment 数创建目录
 
 > mkdir -p /gpfsdw/seg1
 > mkdir -p /gpfsdw/seg2
 > chown -R gpadmin:gpadmin /gpfsdw
 
-#### 主节点
+- 主节点
 
 > mkdir -p /gpfsdw/master
 > chown -R gpadmin:gpadmin /gpfsdw
 > gpfilespace -o gpfilespace_config
 > gpfilespace -c gpfilespace_config
 
-#### 创建GP表空间
+- 创建GP表空间
 
 > psql gpdb
 > create tablespace TBS_DW_DATA filespace gpfsdw;
 > SET default_tablespace = TBS_DW_DATA;
 
-#### 删除GP数据库
+- 删除GP数据库
 
 > gpdeletesystem -d /gpmaster/gpseg-1 -f
 
-#### 查看segment配置
+- 查看segment配置
 
 > select * from gp_segment_configuration;
 
-#### 文件系统
+- 文件系统
 
 > select * from pg_filespace_entry;
 
-#### 磁盘、数据库空间
+- 磁盘、数据库空间
 
 > SELECT * FROM gp_toolkit.gp_disk_free ORDER BY dfsegment;
 > SELECT * FROM gp_toolkit.gp_size_of_database ORDER BY sodddatname;
 
-#### 日志
+- 日志
 
 > SELECT * FROM gp_toolkit.__gp_log_master_ext;
 > SELECT * FROM gp_toolkit.__gp_log_segment_ext;
 
-#### 索引占用空间
+- 索引占用空间
 
 > SELECT soisize/1024/1024 as size_MB, relname as indexname
 > FROM pg_class, gp_toolkit.gp_size_of_index
 > WHERE pg_class.oid = gp_size_of_index.soioid
 >  AND pg_class.relkind='i';
 
-#### OBJECT 的操作统计
+- OBJECT 的操作统计
 
 > SELECT schemaname as schema, objname as table, usename as role, actionname as action, subtype as type, statime as time
 > FROM pg_stat_operations
 > WHERE objname = '<name>';
 
-#### 锁
+- 锁
 
 > SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query
 > FROM pg_locks l, pg_class c, pg_stat_activity a
@@ -124,25 +124,25 @@ gpfsdw
 > AND l.pid=a.procpid
 > ORDER BY c.relname;
 
-#### 队列
+- 队列
 
 > SELECT * FROM pg_resqueue_status;
 
 ### 5.GP表管理
 
-#### 表描述
+- 表描述
 
 > /d+ <tablename>
 
-#### 表分析
+- 表分析
 
 > VACUUM ANALYZE tablename;
 
-#### 表数据分布
+- 表数据分布
 
 > SELECT gp_segment_id, count(*) FROM <table_name> GROUP BY gp_segment_id;
 
-#### 表占用空间
+- 表占用空间
 
 > SELECT relname as name, sotdsize/1024/1024 as size_MB, sotdtoastsize as toast, sotdadditionalsize as other FROM gp_toolkit.gp_size_of_table_disk as sotd, pg_class WHERE sotd.sotdoid = pg_class.oid ORDER BY relname;
 
@@ -356,7 +356,7 @@ Schema是Database中逻辑组织object和data.
 在同一Database中，不同schema的对象可以使用相同的名称。
 例如：A schema 中表叫tab1， B schema中表也可以叫tab1.  但是在同一个schema中就会报错
 
-> SELECT * FROM myschema.mytable;
+> SELECT * FROM myschema.mytable;<br/>
 > 注意：如果sql中指定了schema名字的话，就查询指定schema，否则查询search path中配置参数。
 
 _管理命令_
