@@ -38,13 +38,13 @@ no new variables on left side of :=)
 value:=&Person{} 
 ```
 
-8. 多重赋值功能 <br />
+8.多重赋值功能 <br />
 
 ```Go
 i, j = j, i 
 ```
 
-9. Go有两种创建数据结构的方法 <br />
+9.Go有两种创建数据结构的方法 <br />
 
 > new和make <br />
 > new返回指针 / make返回初始化后的(非零)值 <br />
@@ -53,10 +53,10 @@ i, j = j, i
 
 返回一个原始的T，它并不是一个指针。T中常有写隐性的指针（如图中的灰色指针）
 
-10. 在Go中字符串是不可变的 <br />
+10.在Go中字符串是不可变的 <br />
 可变字符串需赋值 s := "hello"
 
-12. array、slice、map 
+11.array、slice、map 
 
 ```Go
 var myArray [10]int = [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} 
@@ -82,7 +82,7 @@ Slice支持Go语言内置的cap()/len()/append()/copy()
     }
 ```
 
-13. Go内置有一个error类型
+12.Go内置有一个error类型
 
 ```Go
     type error interface 
@@ -94,8 +94,8 @@ Slice支持Go语言内置的cap()/len()/append()/copy()
     }
 ```
 
-14. panic()和recover() <br />
-15. Go类型都是基于值传递的。要想修改变量的值,只能传递指针。<br />
+13.panic()和recover() <br />
+14.Go类型都是基于值传递的。要想修改变量的值,只能传递指针。<br />
 
 - slice:指向数组(array)的一个区间。
 - map:极其常见的数据结构,提供键值查询能力。
