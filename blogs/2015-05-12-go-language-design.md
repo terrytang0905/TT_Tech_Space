@@ -18,12 +18,15 @@ Go语言编程笔记
 6. go run: cannot run non-main package
 7. :=用于明确表达同时进行变量声明和初始化的工作 <br />
 
-> var v1 int = 10
-> v1 = 10
-> Equals
-> v1:=10
+```Go
+var v1 int = 10
+v1 = 10
+Equals
+v1:=10
+```
 
 出现在:=左侧的变量不应该是已经被声明过的,否则会导致编译错误
+
 ```Go
 (var i int 
 i := 2
@@ -31,10 +34,16 @@ i := 2
 会导致类似如下的编译错误: <br/>
 no new variables on left side of :=)
 
-value:=&Person{} <br />
+```Go
+value:=&Person{} 
+```
 
 8. 多重赋值功能 <br />
-i, j = j, i <br />
+
+```Go
+i, j = j, i 
+```
+
 9. Go有两种创建数据结构的方法 <br />
 
 > new和make <br />
@@ -47,7 +56,8 @@ i, j = j, i <br />
 10. 在Go中字符串是不可变的 <br />
 可变字符串需赋值 s := "hello"
 
-12. array、slice、map <br />
+12. array、slice、map 
+
 ```Go
 var myArray [10]int = [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} 
 var mySlice []int = myArray[:5]
@@ -60,6 +70,7 @@ fmt.Println("mySlice[", i, "] =", v)
 ```
 
 Slice支持Go语言内置的cap()/len()/append()/copy()
+
 ```Go
     var myMap map[string] PersonInfo
     myMap = make(map[string] PersonInfo)
