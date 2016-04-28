@@ -34,11 +34,11 @@ BlockingQueue作为线程容器，可以为线程同步提供有力的保障。
 | 移除  | remove() | poll()   | take() | poll(time, unit)     |
 | 检查  | element()| peek()   | 不可用  | 不可用                |
 
-- add(anObject:把anObject加到BlockingQueue里,即如果BlockingQueue可以容纳,则返回true,否则招聘异常
-- offer(anObject):表示如果可能的话,将anObject加到BlockingQueue里,即如果BlockingQueue可以容纳,则返回true,否则返回false.
-- put(anObject):把anObject加到BlockingQueue里,如果BlockQueue没有空间,则调用此方法的线程被阻断直到BlockingQueue里面有空间再继续.
-- poll(time):取走BlockingQueue里排在首位的对象,若不能立即取出,则可以等time参数规定的时间,取不到时返回null
-- take():取走BlockingQueue里排在首位的对象,若BlockingQueue为空,阻断进入等待状态直到Blocking有新的对象被加入为止
+- add(anObject): 把anObject加到BlockingQueue里,即如果BlockingQueue可以容纳,则返回true,否则招聘异常
+- offer(anObject): 表示如果可能的话,将anObject加到BlockingQueue里,即如果BlockingQueue可以容纳,则返回true,否则返回false.
+- put(anObject): 把anObject加到BlockingQueue里,如果BlockQueue没有空间,则调用此方法的线程被阻断直到BlockingQueue里面有空间再继续.
+- poll(time): 取走BlockingQueue里排在首位的对象,若不能立即取出,则可以等time参数规定的时间,取不到时返回null
+- take(): 取走BlockingQueue里排在首位的对象,若BlockingQueue为空,阻断进入等待状态直到Blocking有新的对象被加入为止
 
 其中：BlockingQueue 不接受null 元素。试图add、put 或offer 一个null 元素时，某些实现会抛出NullPointerException。null 被用作指示poll 操作失败的警戒值。 
 
@@ -62,10 +62,10 @@ BlockingQueue作为线程容器，可以为线程同步提供有力的保障。
 
 #### 4.概述BlockingQueue常用四个实现类
 
-- ArrayBlockingQueue:规定大小的BlockingQueue,其构造函数必须带一个int参数来指明其大小.其所含的对象是以FIFO(先入先出)顺序排序的.
-- LinkedBlockingQueue:大小不定的BlockingQueue,若其构造函数带一个规定大小的参数,生成的BlockingQueue有大小限制,若不带大小参数,所生成的BlockingQueue的大小由Integer.MAX_VALUE来决定.其所含的对象是以FIFO(先入先出)顺序排序的
-- PriorityBlockingQueue:类似于LinkedBlockQueue,但其所含对象的排序不是FIFO,而是依据对象的自然排序顺序或者是构造函数的Comparator决定的顺序.
-- SynchronousQueue:特殊的BlockingQueue,对其的操作必须是放和取交替完成的.
+- ArrayBlockingQueue: 规定大小的BlockingQueue,其构造函数必须带一个int参数来指明其大小.其所含的对象是以FIFO(先入先出)顺序排序的.
+- LinkedBlockingQueue: 大小不定的BlockingQueue,若其构造函数带一个规定大小的参数,生成的BlockingQueue有大小限制,若不带大小参数,所生成的BlockingQueue的大小由Integer.MAX_VALUE来决定.其所含的对象是以FIFO(先入先出)顺序排序的
+- PriorityBlockingQueue: 类似于LinkedBlockQueue,但其所含对象的排序不是FIFO,而是依据对象的自然排序顺序或者是构造函数的Comparator决定的顺序.
+- SynchronousQueue: 特殊的BlockingQueue,对其的操作必须是放和取交替完成的.
 
 其中LinkedBlockingQueue和ArrayBlockingQueue比较起来,它们背后所用的数据结构不一样,导致LinkedBlockingQueue的数据吞吐量要大于ArrayBlockingQueue,但在线程数量很大时其性能的可预见性低于ArrayBlockingQueue.  
 
@@ -327,11 +327,11 @@ BlockingDeque为阻塞双端队列接口,实现类有LinkedBlockingDeque。<br/>
 
 _参考：_
 
-[Java线程(十三):BlockingQueue-线程的阻塞队列](http://blog.csdn.net/zzp_403184692/article/details/8021615)
-[多线程与并发库之java5阻塞队列(BlockingQueue)的应用----子线程循环10次，接着主线程循环100次，接着又回到子线程循环10次，接着再回到主线程循环100次，如此循环50次](http://blog.csdn.net/itm_hadf/article/details/7538083) 
-[线程----BlockingQueue(转)](http://www.cnblogs.com/likwo/archive/2010/07/01/1769199.html)
-[并发容器——BlockingQueue相关类](http://developer.51cto.com/art/201104/256805.htm)
-[Java Concurrent包学习之BlockingQueue](http://blog.csdn.net/derekjiang/article/details/5330019)
+- [Java线程(十三):BlockingQueue-线程的阻塞队列](http://blog.csdn.net/zzp_403184692/article/details/8021615)
+- [多线程与并发库之java5阻塞队列(BlockingQueue)的应用----子线程循环10次，接着主线程循环100次，接着又回到子线程循环10次，接着再回到主线程循环100次，如此循环50次](http://blog.csdn.net/itm_hadf/article/details/7538083) 
+- [线程----BlockingQueue(转)](http://www.cnblogs.com/likwo/archive/2010/07/01/1769199.html)
+- [并发容器——BlockingQueue相关类](http://developer.51cto.com/art/201104/256805.htm)
+- [Java Concurrent包学习之BlockingQueue](http://blog.csdn.net/derekjiang/article/details/5330019)
 
 使用PriorityBlockingQueue进行任务按优先级同步执行,摘自Think in Java
 
