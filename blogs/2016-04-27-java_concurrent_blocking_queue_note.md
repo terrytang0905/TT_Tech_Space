@@ -10,15 +10,16 @@ Java BlockingQueue 数据结构API
 
 _Queue_ 
 ----------------- 
-1.ArrayDeque, （数组双端队列） 
-2.PriorityQueue, （优先级队列） 
-3.ConcurrentLinkedQueue, （基于链表的并发队列） 
-4.DelayQueue, （延期阻塞队列）（阻塞队列实现了BlockingQueue接口） 
-5.ArrayBlockingQueue, （基于数组的并发阻塞队列） 
-6.LinkedBlockingQueue, （基于链表的FIFO阻塞队列） 
-7.LinkedBlockingDeque, （基于链表的FIFO双端阻塞队列） 
-8.PriorityBlockingQueue, （带优先级的无界阻塞队列） 
-9.SynchronousQueue （并发同步阻塞队列） 
+- 1.ArrayDeque（数组双端队列） 
+- 2.PriorityQueue(优先级队列） 
+- 3.ConcurrentLinkedQueue(基于链表的并发队列) 
+- 4.DelayQueue(延期阻塞队列)
+- 5.BlockingQueue接口(阻塞队列)
+- 5.1.ArrayBlockingQueue(基于数组的并发阻塞队列） 
+- 5.2.LinkedBlockingQueue(基于链表的FIFO阻塞队列)
+- 5.3.LinkedBlockingDeque(基于链表的FIFO双端阻塞队列)
+- 5.4.PriorityBlockingQueue(带优先级的无界阻塞队列) 
+- 5.5.SynchronousQueue(并发同步阻塞队列)
 ------------------
 
 #### 1.BlockingQueue定义
@@ -27,10 +28,11 @@ BlockingQueue作为线程容器，可以为线程同步提供有力的保障。
 
 #### 2.BlockingQueue定义的常用方法:
 
-| 抛出异常 | 特殊值 | 阻塞 | 超时 |
-| 插入 | add(e) | offer(e) | put(e) | offer(e, time, unit) |
-| 移除 | remove() | poll() | take() | poll(time, unit) |
-| 检查 | element() | peek() | 不可用 | 不可用 |
+|操作类型| 抛出异常  | 特殊值    | 阻塞    | 超时                  |
+|:-----:|:--------:|:--------:|:------:|:--------------------:|
+| 插入  | add(e)   | offer(e) | put(e) | offer(e, time, unit) |
+| 移除  | remove() | poll()   | take() | poll(time, unit)     |
+| 检查  | element()| peek()   | 不可用  | 不可用                |
 
 - add(anObject:把anObject加到BlockingQueue里,即如果BlockingQueue可以容纳,则返回true,否则招聘异常
 - offer(anObject):表示如果可能的话,将anObject加到BlockingQueue里,即如果BlockingQueue可以容纳,则返回true,否则返回false.
