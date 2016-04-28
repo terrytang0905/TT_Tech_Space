@@ -108,7 +108,7 @@ ArrayBlockingQueue是一个由数组支持的有界阻塞队列。<br/>
 这是一个典型的“有界缓存区”，固定大小的数组在其中保持生产者插入的元素和使用者提取的元素。一旦创建了这样的缓存区，就不能再增加其容量。试图向已满队列中放入元素会导致操作受阻塞；试图从空队列中提取元素将导致类似阻塞。<br/>
 此类支持对等待的生产者线程和消费者线程进行排序的可选公平策略。默认情况下，不保证是这种排序。然而，通过将公平性 (fairness) 设置为 true 而构造的队列允许按照FIFO顺序访问线程。公平性通常会降低吞吐量，但也减少了可变性和避免了“不平衡性”。 
 
-#### 4.SynchronousQueues
+##### 3.2.SynchronousQueues
 
 根据 Javadoc，SynchronousQueue 是个有趣的东西：
 这是一个阻塞队列，其中，每个插入操作必须等待另一个线程的对应移除操作，反之亦然。
@@ -186,14 +186,14 @@ public class SynQApp
 实现代码看起来几乎相同,但是应用程序有额外获益:SynchronousQueue 允许在队列进行一个插入，只要有一个线程等着使用它。
 在实践中，SynchronousQueue 类似于 Ada 和 CSP 等语言中可用的 “会合通道”。这些通道有时在其他环境中也称为 “连接”，这样的环境包括 .NET （见 参考资料）。
 
-#### 5.ConcurrentMap (New thread-safe Map)
+#### 4.ConcurrentMap(New thread-safe Map)
 
 Map 有一个微妙的并发 bug，这个 bug 将许多不知情的 Java 开发人员引入歧途。ConcurrentMap 是最容易的解决方案。
 当一个 Map 被从多个线程访问时，通常使用 containsKey() 或者 get() 来查看给定键是否在存储键/值对之前出现。但是即使有一个同步的 Map，线程还是可以在这个过程中潜入，然后夺取对 Map 的控制权。问题是，在对 put() 的调用中，锁在 get() 开始时获取，然后在可以再次获取锁之前释放。它的结果是个竞争条件：这是两个线程之间的竞争，结果也会因谁先运行而不同。
 如果两个线程几乎同时调用一个方法，两者都会进行测试，调用put，在处理中丢失第一线程的值。幸运的是，ConcurrentMap 接口支持许多附加方法，它们设计用于在一个锁下进行两个任务：putIfAbsent()，例如，首先进行测试，然后仅当键没有存储在 Map 中时进行 put。
 For example, ConcurrentHashMap
 
-##### 5.1.ConcurrentHashMap
+##### 4.1.ConcurrentHashMap
 
 _针对吞吐量进行优化_
 
@@ -340,11 +340,11 @@ _不锁定？_
 
 要说不用锁定就可以成功地完成 get() 操作似乎有点言过其实，因为 Entry 的 value 字段是易变的，这是用来检测更新和删除的。在机器级，易变的和同步的内容通常在最后会被翻译成相同的缓存一致原语，所以这里会有 一些 锁定，虽然只是细粒度的并且没有调度，或者没有获取和释放监视器的 JVM 开销。但是，除语义之外，在很多通用的情况下，检索的次数大于插入和删除的次数，所以说由 ConcurrentHashMap 取得的并发性是相当高的。
 
-#### 6. CompletionService
+#### 5. CompletionService
 
 Synchronizer classes
 
-#### 7. Semaphore (信号量) (a classic Dijkstra counting semaphore)
+#### 6. Semaphore (信号量) (a classic Dijkstra counting semaphore)
 
 在一些企业系统中，开发人员经常需要限制未处理的特定资源请求（线程/操作）数量，事实上，限制有时候能够提高系统的吞吐量，因为它们减少了对特定资源的争用。尽管完全可以手动编写限制代码，但使用 Semaphore类可以更轻松地完成此任务，它将帮您执行限制，如清单 1 所示：
 
@@ -396,11 +396,11 @@ public class SemApp
 
 即使本例中的 10 个线程都在运行(您可以对运行 SemApp 的 Java 进程执行 jstack 来验证),但只有 3 个线程是活跃的。在一个信号计数器释放之前，其他 7 个线程都处于空闲状态。(实际上，Semaphore 类支持一次获取和释放多个 permit，但这不适用于本场景。)
 
-#### 8. CyclicBarrier
+#### 7.CyclicBarrier
 
 The CyclicBarrier class is a synchronization aid that allows a set of threads to wait for the entire set of threads to reach a common barrier point.
 
-#### 9. CountDownLatch
+#### 8.CountDownLatch
 
 如果Semaphore是允许一次进入一个（这可能会勾起一些流行夜总会的保安的记忆）线程的并发性类，那么 CountDownLatch就像是赛马场的起跑门栅。此类持有所有空闲线程，直到满足特定条件，这时它将会一次释放所有这些线程。
 
@@ -509,7 +509,7 @@ public class CDLApp
 
 注意，在 清单2 中，CountDownLatch有两个用途:首先，它同时释放所有线程，模拟马赛的起点，但随后会设置一个门闩模拟马赛的终点。这样，“主” 线程就可以输出结果。 为了让马赛有更多的输出注释，可以在赛场的 “转弯处” 和 “半程” 点，比如赛马跨过跑道的四分之一、二分之一和四分之三线时，添加 CountDownLatch。
 
-#### 10. Timeout 方法
+#### 9.Timeout 方法
 
 为阻塞操作设置一个具体的超时值（以避免死锁）的能力是java.util.concurrent 库相比起早期并发特性的一大进步，比如监控锁定。
 

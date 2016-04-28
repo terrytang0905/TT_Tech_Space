@@ -18,8 +18,9 @@ _Queue_
 - 5.1.ArrayBlockingQueue(基于数组的并发阻塞队列） 
 - 5.2.LinkedBlockingQueue(基于链表的FIFO阻塞队列)
 - 5.3.LinkedBlockingDeque(基于链表的FIFO双端阻塞队列)
-- 5.4.PriorityBlockingQueue(带优先级的无界阻塞队列) 
+- 5.4.PriorityBlockingQueue(带优先级的无界阻塞队列)
 - 5.5.SynchronousQueue(并发同步阻塞队列)
+
 ------------------
 
 #### 1.BlockingQueue定义
