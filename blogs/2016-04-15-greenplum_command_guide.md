@@ -367,6 +367,13 @@ copy  nb_base_trade_new from '/data/greenplum/sourcedata/nb_base_trade/total_1'
 delimiter as '\001' null as '\\N'；
 ```
 
+_容错导入_
+```SQL
+COPY shop_order_detail FROM '/data/hd_data/hd_order.csv' WITH DELIMITER E'\t' NULL as '' LOG ERRORS INTO err_order SEGMENT REJECT LIMIT 10000 ROWS; 
+```
+```SQL
+COPY nb_base_trade FROM '/data/greenplum/sourcedata/nb_base_trade_exp/000003_0' WITH DELIMITER E'\001' NULL as '\\N' LOG ERRORS INTO err_order SEGMENT REJECT LIMIT 1000 ROWS; 
+```
 ##### 6.4.2. COPY数据库导出
 
 ```SQL
