@@ -186,6 +186,11 @@ CREATE INDEX idx_test ON test USING bitmap (ip);
 
 select ip , count(*) from test group by ip order by count(*);
 
+- 强制更新表字段类型
+
+ALTER TABLE shop_order_detail ALTER COLUMN payment SET DEFAULT 0;
+ALTER TABLE shop_order_detail ALTER COLUMN payment TYPE FLOAT USING payment::FLOAT
+
 #### 6.2.外部表数据服务
 
 - 启动gpfdist服务
