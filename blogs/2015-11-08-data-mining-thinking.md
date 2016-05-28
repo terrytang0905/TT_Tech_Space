@@ -368,7 +368,7 @@ _数据发现数据_
 ### IX.Reference
 
 - 数据挖掘导论
-- 数据挖掘概念与技术
+- 机器学习
 - STAR SCHEMA:数据仓库维度设计权威指南
 - The Data Warehouse ETL Toolkit (Kimball著)
 - 数据之美
