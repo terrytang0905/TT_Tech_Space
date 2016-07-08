@@ -178,6 +178,30 @@ SELECT relname as name, sotdsize/1024/1024 as size_MB, sotdtoastsize as toast, s
 
 create table test select * from TD_APP_LOG_BUYER;
 
+- 创建分区表
+
+```SQL
+create table nb_rfm_freq (
+    dp_id varchar(255),
+    buyer_nick varchar(255),
+    dp_buyer varchar(255),
+    frequency bigint,
+    total_payment double precision,
+    total_num bigint,
+    max_payment double precision,
+    last_interval varchar(255),
+    last_created_date varchar(255),
+    last_payment double precision,
+    first_interval varchar(255),
+    first_created_date varchar(255),
+    first_payment double precision,
+    avg_interval varchar(255),
+    member_grade bigint,
+    curr_date varchar(255),
+    period integer
+)DISTRIBUTED BY (period);
+```
+
 - 索引
 
 CREATE INDEX idx_test ON test USING bitmap (ip);
