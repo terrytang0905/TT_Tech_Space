@@ -247,17 +247,16 @@ _基于网格的方法(Grid-Based Methods)_
 A. MATLAB
 
 利用其简单的矩阵语言加工具箱函数来实现数据挖掘算法的示例。<br />
-
 - Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；<br />
 - Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br />
 - Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。<br />
 
 上述工具箱是一些通用的工具，而下面这几个函数的"挖掘味儿"则似乎更浓一些。<br />
-> kmeans() k-均值聚类 <br />
-> treefit() 决策树回归或分类 <br />
-> svmclassify() 支持向量机分类 <br />
-> knnclassify() k-近邻分类 <br />
-> crossvalind() 交叉验证试验 <br />
+- kmeans() k-均值聚类 <br />
+- treefit() 决策树回归或分类 <br />
+- svmclassify() 支持向量机分类 <br />
+- knnclassify() k-近邻分类 <br />
+- crossvalind() 交叉验证试验 <br />
 
 B.WEKA
 
