@@ -42,14 +42,14 @@ title: Data Mining Thinking
 基于传统数据仓库,批处理离线数据分析 <br />
 基于实时大数据处理,敏捷商务智能BI <br />
 
-批量数据 - ETL - DataWarehouse                      
+批量数据 - ETL - DataWarehouse
 实时数据 - 信息交换 - OPDM 操作型数据集市
 
 #### 1.5.解决方案思考:
 
 1. 数据存储：MPP(Vertica/Greenplum),HDFS,HBase,MongoDB,Cassandra等
 2. 并行计算：Spark, Hive(SQL查询), MapReduce批处理技术
-3. 实时流式计算：Apache Storm,Apache Spark
+3. 实时流式计算：Apache Storm,Apache SparkStreaming
 
 ### II.数据仓库/数据平台设计
 
@@ -57,9 +57,9 @@ title: Data Mining Thinking
 
 A. Bill Inmon的企业信息化工厂 <br />
 > ETL->企业数据仓库->数据集市(主题区域)->探索&挖掘 <br />
-> 第三范式` <br />
+> 支持第三范式` <br />
 
-B. Ralph kilmball维度数据仓库 <br />
+B. Ralph Kilmball维度数据仓库 <br />
 > 集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用 <br />
 > 维度格式 可直接访问 <br />
 
@@ -81,9 +81,8 @@ C._分布式存储设计_:
 
 ### III.数据预处理
 
-#### 3.1.数据预处理
+#### 3.1.数据预处理-ETL
 
-目标是维度降维
 - 聚集:aggregation
 - 抽样
 - 维归约:维归约的线性代数
@@ -125,17 +124,17 @@ B. _数据转换_ <br />
 C. _数据筛选/特征筛选_ <br />
 R平方 <br />
 卡方检验(Chi-Square Statistics):适用于类别型变量的检验 <br />
-数据降维:主成分分析PCA维归约,变量聚类 <br />
+数据降维:主成分分析和变量聚类 <br />
 
 D. _共线性问题_ <br />
 自变量间存在较强的，甚至完全的线性相关关系 <br />
 
-### IV.数据探索
+### IV.数据建模与Cube
 
 定义Meta数据模型 <br />
 建立数据模型为DataCleaning指定清洗规则,为源数据与目标提供ETL mapping支持,理清数据与数据之间的关系 <br />
 
-#### 4.1.数据建模与Cube
+#### 4.1.数据建模规则
 
 星型模式与雪花模式
  代理键SK与自然键NK
@@ -154,26 +153,9 @@ D. _共线性问题_ <br />
      f.用于定义主从结构,分组,分类汇总,汇总等
  雪花模式及支架表
  需要采用雪花模式和支架表的情况是一种特例而不能当做规则来使用
- 
+
  分析型环境,预先计算和存储这些冗余数据元素具有三个优点:性能，可用性和一致性
  事实表粒度
-
-#### 4.2.OLAP与多维数据分析
-
-A. 聚合计算
-
-B. 维归约(降维)和转轴
-> 聚集维归约
-> 主成分分析(PCA)
-> 奇异值分解(SVD)
-> 非负矩阵分解(NMF)
-
-C. 切片与切块
-   通过对一个或多个维指定特定的值，从整个多维数组中选择一组单元
-   通过指定属性区间选择单元子集
-
-D. 上卷与下钻
-   
 
 ### V.数据挖掘技术设计
 
@@ -200,7 +182,7 @@ B. _逻辑回归Logistic Regression_
 
 C. _多元线性回归Linear Regression_
 
-D. _神经网络/DeepLearning_ 
+D. _神经网络/DeepLearning_
 
 - 前向型网络 <br />
   从输入端传向输出端
@@ -262,7 +244,7 @@ A. MATLAB
 
 利用其简单的矩阵语言加工具箱函数来实现数据挖掘算法的示例。<br />
 Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；
-Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br /> 
+Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br />
 Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。<br />
 上述工具箱是一些通用的工具，而下面这几个函数的"挖掘味儿"则似乎更浓一些。<br />
 > kmeans() k-均值聚类 <br />
@@ -281,6 +263,7 @@ RFM <br />
 - 客户消费新鲜度 (Recency)
 - 客户消费频度 (Frequency)
 - 客户消费金额 (Monetary)
+- [NewBI RFM设计](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
 
 #### 5.6.运营效果分析
 
@@ -329,36 +312,39 @@ Receiver Operating Characteristic 曲线 <br />
 
 #### 7.2.OLAP详细设计
 
-Aggregation Query <br />
-OLAP缓存 <br />
+- 多维OLAP查询
+- Aggregation Query
+- OLAP数据缓存设计
+- 查询语义分析设计
 ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
-自动构造自定义语言的识别器（recognizer），编译器（parser）和解释器（translator）的框架 
+自动构造自定义语言的识别器（recognizer），编译器（parser）和解释器（translator）的框架
 
 #### 7.3.支持SQL查询的分布式计算:
 
-    A. Hive: <br />
-    B. Impala: <br />
-    C. SparkSQL: <br />
-    D. Spark Streamming: <br />
-    E. Storm: <br />
+    A. Hive: SQL on Hadoop/HDFS
+    B. Impala: OLAP SQL on Hadoop/HDFS
+    C. SparkSQL: OLAP SQL on Hadoop/HDFS
+    D. Spark Streamming: 实时流式计算
+    E. Storm: 实时流式计算
 
 ### VIII.敏捷BI产品设计
 
 #### 8.1.常规BI产品设计
 
-- 数据提取 <br /> 
+- 数据提取 <br />
     网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
-- 数据预处理 <br /> 
+- 数据预处理 <br />
     ETL / ELT + Data Cleaning
 - 数据建模
 - 数据存储
-- 数据挖掘与分析 <br /> 
+- 数据挖掘与分析 <br />
     OLAP Query Engine (SQL查询) <br />
     列式存储计算 <br />
     内存计算 <br />
     分布式实时流式计算 <br />
 - 数据可视化 <br />
     仪表盘 <br />
+    可视化图表展示 <br />
     可视化时间空间数据 - 全局时间空间数据过滤 <br />
 - [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
