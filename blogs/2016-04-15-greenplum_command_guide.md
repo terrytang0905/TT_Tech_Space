@@ -202,9 +202,40 @@ create table nb_rfm_freq (
 )DISTRIBUTED BY (period);
 ```
 
+- 创建查询优化表
+
+```SQL
+CREATE TABLE "nb_analysis"."nb_rfm_freq" (
+  "dp_id" varchar(255),
+  "buyer_nick" varchar(255),
+  "dp_buyer" varchar(255),
+  "frequency" int8,
+  "total_payment" float8,
+  "total_num" int8,
+  "max_payment" float8,
+  "last_interval" varchar(255),
+  "last_created_date" varchar(255),
+  "last_payment" float8,
+  "first_interval" varchar(255),
+  "first_created_date" varchar(255),
+  "first_payment" float8,
+  "avg_interval" varchar(255),
+  "member_grade" int8,
+  "curr_date" varchar(255),
+  "period" int4
+)
+WITH (appendonly=true,ORIENTATION=column,compresslevel=5)
+distributed by (curr_date,period);
+ALTER TABLE "nb_analysis"."nb_rfm_freq" OWNER TO "gpadmin";
+```
+
 - 索引
 
-CREATE INDEX idx_test ON test USING bitmap (ip);
+CREATE INDEX idx1 on test (id); //B-tree Index 默认
+
+CREATE INDEX idx_test ON test USING bitmap (ip); //Bitmap Index 位图索引
+
+CREATE UNIQUE INDEX idx1 on test (id);
 
 - 查询数据
 
