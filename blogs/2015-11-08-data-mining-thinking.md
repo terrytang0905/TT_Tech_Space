@@ -41,7 +41,6 @@ title: Data Mining Thinking
 
 - 基于传统数据仓库,批处理离线数据分析 
 - 基于实时大数据处理,敏捷商务智能BI 
-
 - 批量数据 - ETL - DataWarehouse
 - 实时数据 - 信息交换 - OPDM 操作型数据集市
 
@@ -107,6 +106,7 @@ C._分布式存储设计_:
 - variance(x)
 
 - 多元汇总统计 <br />
+
 `covariance matrix协方差矩阵 <br />
 `correlation matrix相关矩阵 <br />
 
@@ -138,23 +138,23 @@ D. _共线性问题_ <br />
 
 - 星型模式与雪花模式
 
- >代理键SK与自然键NK
- >代理键可以基于单一的列实现事实表和维度表之间的连接操作
- >自然键可能包含多个列,历史记录等多条信息通过代理键来唯一对应
- >代理键的替代方案:
-     `a.客户维度表的主键可能包含'customer_id'和一个包含序列号的'version_number',允许表中存储一个客户的多个版本
-     `b.为自然键增加一个时间戳
- >缓慢变化维度（lowly changing dimension）
+ `代理键SK与自然键NK <br />
+ `代理键可以基于单一的列实现事实表和维度表之间的连接操作 <br />
+ `自然键可能包含多个列,历史记录等多条信息通过代理键来唯一对应 <br />
+ `代理键的替代方案: <br />
+     `a.客户维度表的主键可能包含'customer_id'和一个包含序列号的'version_number',允许表中存储一个客户的多个版本 <br />
+     `b.为自然键增加一个时间戳 <br />
+ `缓慢变化维度（lowly changing dimension）<br />
 
 - 通过维度环境使事实具有实际意义
 
-  a.用于过滤查询或报表
-  b.用于控制聚集事实的范围
-  c.用于确定信息的顺序与排序
-  d.与事实一起构成提供报表的环境
-  f.用于定义主从结构,分组,分类汇总,汇总等
+  a.用于过滤查询或报表 <br />
+  b.用于控制聚集事实的范围 <br />
+  c.用于确定信息的顺序与排序 <br />
+  d.与事实一起构成提供报表的环境 <br />
+  f.用于定义主从结构,分组,分类汇总,汇总等 <br />
  
-- 雪花模式及支架表
+- 雪花模式及支架表 <br />
  需要采用雪花模式和支架表的情况是一种特例而不能当做规则来使用
 
 - 分析型环境,预先计算和存储这些冗余数据元素具有三个优点:性能，可用性和一致性
@@ -247,9 +247,11 @@ _基于网格的方法(Grid-Based Methods)_
 A. MATLAB
 
 利用其简单的矩阵语言加工具箱函数来实现数据挖掘算法的示例。<br />
-Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；
-Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br />
-Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。<br />
+
+- Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；<br />
+- Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br />
+- Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。<br />
+
 上述工具箱是一些通用的工具，而下面这几个函数的"挖掘味儿"则似乎更浓一些。<br />
 > kmeans() k-均值聚类 <br />
 > treefit() 决策树回归或分类 <br />
