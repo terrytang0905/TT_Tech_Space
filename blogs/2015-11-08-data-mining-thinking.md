@@ -54,15 +54,18 @@ title: Data Mining Thinking
 
 #### 2.1.BI数据仓库设计
 
-A. Bill Inmon的企业信息化工厂 <br />
-> ETL -> 企业数据仓库 -> 数据集市(主题区域) -> 探索&挖掘 <br />
+A. _Bill Inmon的企业信息化工厂_ <br />
+> ETL -> 企业数据仓库 -> 数据集市(多维物理数据) -> 用户探索&挖掘 <br />
 > 支持第三范式 <br />
 
-B. Ralph Kilmball维度数据仓库 <br />
+B. _Ralph Kilmball维度数据仓库_ <br />
+> ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域) -> 用户探索&挖掘 <br />
 > 集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用 <br />
 > 维度格式 可直接访问 <br />
 
-C. 独立型数据集市
+C. _独立型数据集市_
+> ETL -> 数据集市(关注维度/主题区域) -> 用户探索&挖掘 <br />
+> 脱离企业环境,只关注主题区域
 
 #### 2.2.数据仓库&数据平台选型
 
@@ -141,8 +144,10 @@ D. _共线性问题_ <br />
  b. 代理键可以基于单一的列实现事实表和维度表之间的连接操作 <br />
  c. 自然键可能包含多个列,历史记录等多条信息通过代理键来唯一对应 <br />
  d. 代理键的替代方案: <br />
-     >1.客户维度表的主键可能包含'customer_id'和一个包含序列号的'version_number',允许表中存储一个客户的多个版本 <br />
-     >2.为自然键增加一个时间戳 <br />
+
+    >1.客户维度表的主键可能包含'customer_id'和一个包含序列号的'version_number',允许表中存储一个客户的多个版本 
+    >2.为自然键增加一个时间戳 
+
  e. 缓慢变化维度（lowly changing dimension）<br />
 
 - 通过维度环境使事实具有实际意义
@@ -276,16 +281,16 @@ PLSA\LDA\HMM
 针对二元变量的分类模型的评价体系
 1. 系列指标 <br />
 
-    > TP:True Positive <br />
-    > TN:True Negative <br />
-    > FP:False Positive <br />
-    > FN:False Negative <br />
+    > TP:True Positive 
+    > TN:True Negative 
+    > FP:False Positive 
+    > FN:False Negative 
 
-    > Accuracy <br />
-    > Error rate <br />
-    > Sensitivity <br />
-    > Specificity <br />
-    > Accuracy=Sensitivity+Specificity <br />
+    > Accuracy 
+    > Error rate 
+    > Sensitivity 
+    > Specificity 
+    > Accuracy=Sensitivity+Specificity 
 
 2. ROC曲线 <br />
 Receiver Operating Characteristic 曲线 <br />
