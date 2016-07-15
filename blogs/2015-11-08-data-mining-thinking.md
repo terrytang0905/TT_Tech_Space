@@ -106,7 +106,6 @@ C._分布式存储设计_:
 - variance(x)
 
 - 多元汇总统计 <br />
-
 `covariance matrix协方差矩阵 <br />
 `correlation matrix相关矩阵 <br />
 
@@ -138,21 +137,21 @@ D. _共线性问题_ <br />
 
 - 星型模式与雪花模式
 
- `代理键SK与自然键NK <br />
- `代理键可以基于单一的列实现事实表和维度表之间的连接操作 <br />
- `自然键可能包含多个列,历史记录等多条信息通过代理键来唯一对应 <br />
- `代理键的替代方案: <br />
-     `a.客户维度表的主键可能包含'customer_id'和一个包含序列号的'version_number',允许表中存储一个客户的多个版本 <br />
-     `b.为自然键增加一个时间戳 <br />
- `缓慢变化维度（lowly changing dimension）<br />
+ a. 代理键SK与自然键NK <br />
+ b. 代理键可以基于单一的列实现事实表和维度表之间的连接操作 <br />
+ c. 自然键可能包含多个列,历史记录等多条信息通过代理键来唯一对应 <br />
+ d. 代理键的替代方案: <br />
+     >1.客户维度表的主键可能包含'customer_id'和一个包含序列号的'version_number',允许表中存储一个客户的多个版本 <br />
+     >2.为自然键增加一个时间戳 <br />
+ e. 缓慢变化维度（lowly changing dimension）<br />
 
 - 通过维度环境使事实具有实际意义
 
-  a.用于过滤查询或报表 <br />
-  b.用于控制聚集事实的范围 <br />
-  c.用于确定信息的顺序与排序 <br />
-  d.与事实一起构成提供报表的环境 <br />
-  f.用于定义主从结构,分组,分类汇总,汇总等 <br />
+ a. 用于过滤查询或报表 <br />
+ b. 用于控制聚集事实的范围 <br />
+ c. 用于确定信息的顺序与排序 <br />
+ d. 与事实一起构成提供报表的环境 <br />
+ f. 用于定义主从结构,分组,分类汇总,汇总等 <br />
  
 - 雪花模式及支架表 <br />
  需要采用雪花模式和支架表的情况是一种特例而不能当做规则来使用
@@ -228,17 +227,12 @@ H. _细分建模_ <br />
 针对目标群体进行多指标的群体划分,精细化运营,个性化运营 <br />
 不同产品的价值组合进行探测,发现孤立点和异常值 <br />
 
-_划分方法(Partitioning Methods)_
-
-_K-Means聚类算法-数据平均值_
-
-_K-Medoids算法_
-
-_层次方法(Hierarchical Methods)_
-
-_基于密度的方法(Density-Based Methods)_
-
-_基于网格的方法(Grid-Based Methods)_
+    _划分方法(Partitioning Methods)_
+    _K-Means聚类算法-数据平均值_
+    _K-Medoids算法_
+    _层次方法(Hierarchical Methods)_
+    _基于密度的方法(Density-Based Methods)_
+    _基于网格的方法(Grid-Based Methods)_
 
 数据标准化是聚类分析中最重要的一个数据预处理步骤
 
@@ -281,16 +275,17 @@ PLSA\LDA\HMM
 
 针对二元变量的分类模型的评价体系
 1. 系列指标 <br />
-> TP:True Positive <br />
-> TN:True Negative <br />
-> FP:False Positive <br />
-> FN:False Negative <br />
 
-> Accuracy <br />
-> Error rate <br />
-> Sensitivity <br />
-> Specificity <br />
-> Accuracy=Sensitivity+Specificity <br />
+    > TP:True Positive <br />
+    > TN:True Negative <br />
+    > FP:False Positive <br />
+    > FN:False Negative <br />
+
+    > Accuracy <br />
+    > Error rate <br />
+    > Sensitivity <br />
+    > Specificity <br />
+    > Accuracy=Sensitivity+Specificity <br />
 
 2. ROC曲线 <br />
 Receiver Operating Characteristic 曲线 <br />
@@ -322,8 +317,8 @@ Receiver Operating Characteristic 曲线 <br />
 - OLAP数据缓存设计
 - 查询语义分析设计 
 
-ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
-自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架
+    ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
+    自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架
 
 #### 7.3.支持SQL查询的分布式计算:
 
