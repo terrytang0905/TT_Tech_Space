@@ -49,6 +49,8 @@ title: Data Mining Thinking
 1. 数据存储：MPP(Vertica/Greenplum),HDFS,HBase,MongoDB,Cassandra等
 2. 并行计算：Spark, Hive(SQL查询), MapReduce批处理技术
 3. 实时流式计算：Apache Storm,Apache SparkStreaming
+4. 内存数据计算
+5. 数据可视化趋势
 
 ### II.数据仓库/数据平台设计
 
