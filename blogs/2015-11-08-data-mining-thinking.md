@@ -72,17 +72,17 @@ C. _独立型数据集市_
 #### 2.2.数据仓库&数据平台选型
 
 A._MPP分析型数据库_:
->Greenplum 分布式集群列式数据库 <br />
->Vertica 列式数据库
+> Greenplum 分布式集群列式数据库 <br />
+> Vertica 列式数据库
 
 B._分布式存储与NoSQL_:
->Hadoop / HDFS / HBase <br />
->MongoDB / Couchbase / Cassandra <br />
->Yahoo PNUTS/Google BigTable/Amazon Dynamo
+> Hadoop / HDFS / HBase <br />
+> MongoDB / Couchbase / Cassandra <br />
+> Yahoo PNUTS/Google BigTable/Amazon Dynamo
 
 C._分布式存储设计_:
->CAP / lazily propagate in Segment Tree / 最终一致性协议(Gossip算法)
->Lazy propagation means updating only when required
+> CAP / lazily propagate in Segment Tree / 最终一致性协议(Gossip算法) <br />
+> Lazy propagation means updating only when required
 
 ### III.数据预处理
 
@@ -170,6 +170,7 @@ D. _共线性问题_ <br />
           `标准差-standard deviation` <br />
 - 多元汇总统计 <br />
 `covariance matrix协方差矩阵` <br />
+`两个不同参数之间的方差就是协方差` <br />
 `correlation matrix相关矩阵` <br />
           `值集的倾斜度(skewness)` <br />
 
@@ -186,7 +187,8 @@ D. _共线性问题_ <br />
 
 #### 5.3.多维数据分析定义
 
-- 分析多维数据 （产品ID-日期-地方-销售额）
+- 分析多维数据
+          (产品ID-日期-地方-销售额)
 - 数据立方体:计算聚集量
 - 维归约: 在一个维上聚集将数据的维度从3归约2 <br />
           `维归约与PCA的区别` <br />
@@ -218,50 +220,80 @@ D. _共线性问题_ <br />
 
 A. _决策树归纳_
 
-- CHAID:Chi-square Automatic Interaction Detector(卡方自动相互关系检测)<br />
-     依据局部最优原则,利用*卡方检验*来选择对因变量(Category)最有影响的自变量
-- CART: Classification and Regression Tree <br />
-     分类与回归树,检验标准为Gini等不纯度指标
-- ID3: Iterative Dichotomiser <br />你你你你你你
-     迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
-- C4.5: ID3的后继版 <br />
-     其自变量的挑选标准是基于信息增益率(GainRatio)
+- 构建分类模型
+- 最佳决策树:NP完全问题 <br />
+     多项式复杂程度的非确定性问题 <br />
+- 决策树时间复杂度O(w)
+- 大多数决策树采用自顶向下的递归划分方法
+
+x.决策树算法
+
+    1.CHAID:Chi-square Automatic Interaction Detector(卡方自动相互关系检测)<br />
+         依据局部最优原则,利用*卡方检验*来选择对因变量(Category)最有影响的自变量
+    2.CART: Classification and Regression Tree <br />
+         分类与回归树,检验标准为Gini等不纯度指标
+    3.ID3: Iterative Dichotomiser <br />你你你你你你
+         迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
+    4.C4.5: ID3的后继版 <br />
+         其自变量的挑选标准是基于信息增益率(GainRatio)
 
 其核心的贪心算法指向局部最优选择，而非整体最优。
 不适用于连续型变量。需用线性回归算法解决
 
-B. _模型过拟合OverFitting_ <br />
+B. _模型过拟合OverFitting_ 
 
-为了得到一致假设而使假设变得过度复杂称为过拟合 <br />
-一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少 <br />
+- 训练误差与泛化误差
+- 模型拟合不足与模型过分拟合(model overfitting)
+- 训练误差低(训练场景)/泛化误差高(真实场景)
+- 一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少 <br />
+- 过分拟合场景
+- 解决决策树过分拟合 <br />
+     先剪枝/后剪枝
 
-C. _逻辑回归Logistic Regression_
+C._规则分类器与最近邻分类器_
+
+- 规则分类与分组维度
+- 计算测试样例和所有训练样例的距离(或相似度),以确定最近邻列表Dz
+
+D. _Logistic Regression&Linear Regression_
+
+- 设计原理 <br />
+     构造预测函数
+     构造Cost函数
+     找到J(θ)函数的最小值 - 梯度下降法
 
 - 针对二元的目标变量,预测一组自变量数值相对应得因变量'是'的概率.确保二元目标变量的预测概率P是介于[0,1]之间的
 - 变量筛选方法:向前引入法,向后剔除法,逐步回归法
 
-D. _多元线性回归Linear Regression_
-
 E. _贝叶斯分类算法_
 
-     检索算法Lucene
-     朴素贝叶斯
+- 属性集与类变量的概率关系建模
+- 朴素贝叶斯分类器(属性间条件独立)
+- 检索算法Lucene - 权重定义
 
 F. _神经网络 / DeepLearning_
 
+- 感知器:多个输入结点/一个输出结点/隐藏层与隐藏结点
 - 前向型网络 <br />
-  从输入端传向输出端
+       从输入端传向输出端
 - Backpropagation反馈型网络 <br />
-  从输入端传向输出端 + 有回环或反馈存在
-
-大多数神经网络模型的学习过程,都是通过不断地改变权重来使误差达到总误差的最小绝对值
+       从输入端传向输出端 + 有回环或反馈存在
+- 大多数神经网络模型的学习过程,都是通过不断地改变权重来使误差达到总误差的最小绝对值
 
 G. _支持向量机算法(Support Vector Machine)_
 
-     最优分类线
+- 最大边缘超平面
+- 具有较大边缘的决策边界比那些具有较小边缘的决策边界具有更好的泛化误差
+- 最优分类线
+- 结构风险最小化SRM
+- 线性SVM-最大化决策边界边缘的线性分类器
+- 非线性SVM
 
-H. _细分建模_ <br />
-针对细分群体分别建模是建模过程中常用的，有效模型优化
+H. _组合方法_
+
+I. _细分建模_ <br />
+
+- 针对细分群体分别建模是建模过程中常用的，有效模型优化
 
 #### 6.2.关联规则分析
 
@@ -349,8 +381,7 @@ Receiver Operating Characteristic 曲线 <br />
 
 ### VII.电商/零售数据建模
 
-- 目标客户的特征分析
-- 用户特征分析
+- 目标客户特征分析
 - 预测（响应,分类）模型
 - 主成分分析PCA
 
@@ -359,7 +390,10 @@ Receiver Operating Characteristic 曲线 <br />
 #### 8.1.常规BI产品设计
 
 - 数据提取 <br />
-    网络Scrapy/电商数据平台API/数据库数据/Deep Web表单处理
+    > 网络Scrapy <br />
+    > 电商数据平台API <br />
+    > 数据库数据 <br />
+    > Deep Web表单处理 <br />
 - 数据预处理 <br />
     ETL / ELT + Data Cleaning
 - 数据挖掘建模设计
