@@ -391,10 +391,10 @@ Receiver Operating Characteristic 曲线 <br />
 
 - 数据提取 
 
-    *. 网络Scrapy 
-    *. 电商数据平台API 
-    *. 数据库数据 
-    *. Deep Web表单处理 
+    网络Scrapy 
+    电商数据平台API 
+    数据库数据 
+    Deep Web表单处理 
 
 - 数据预处理 
 
@@ -406,17 +406,17 @@ Receiver Operating Characteristic 曲线 <br />
 
 - OLAP查询分析
 
-    *. OLAP Query Engine (SQL查询)
-    *. 列式存储计算 
-    *. 内存计算 
-    *. 分布式实时流式计算 
+    OLAP Query Engine (SQL查询)
+    列式存储计算 
+    内存计算 
+    分布式实时流式计算 
 
 - 数据可视化
 
-    *. 仪表盘设计 
-    *. 可视化图表展示 
-    *. 可视化时间空间数据 - 全局时间空间数据过滤 
-    *. 多维图表可视化
+    仪表盘设计 
+    可视化图表展示 
+    可视化时间空间数据 - 全局时间空间数据过滤 
+    多维图表可视化
 
 - [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
