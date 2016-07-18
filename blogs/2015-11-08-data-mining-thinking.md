@@ -86,14 +86,11 @@ C._分布式存储设计_:
 
 ### III.数据预处理
 
-#### 3.1.数据预处理-ETL
+#### 3.1.数据预处理&探索
 
 - 聚集:aggregation
 - 抽样
 - 维归约  <br />
-`维归约的线性代数` <br />
-`Principal Components Analysis - PCA` <br />
-`Singular Value Decomposition - SVD` <br />
 - 特征子集选择 <br />
 `用于降低维度,除去冗余和不相关的特征` <br />
 `特征选择方法: embedded approach / filter approach / wrapper approach` <br />
@@ -187,11 +184,16 @@ D. _共线性问题_ <br />
 
 #### 5.3.多维数据分析定义
 
-- 分析多维数据
-          (产品ID-日期-地方-销售额)
+- 分析多维数据 <br />
+    (产品ID-日期-地方-销售额)
 - 数据立方体:计算聚集量
-- 维归约: 在一个维上聚集将数据的维度从3归约2 <br />
-          `维归约与PCA的区别` <br />
+- 维归约: 在一个维上聚集将数据的维度从3维归约2维 <br />
+    `维归约的线性代数` <br />
+    `主成分分析Principal Components Analysis - PCA` <br />
+        PCA把原先的n个特征用数目更少的m个特征取代,新特征是旧特征的线性组合,这些线性组合最大化样本方差,尽量使新的m个特征互不相关. <br />
+    `奇异值分解Singular Value Decomposition - SVD` <br />
+    `特征值分解和奇异值分解` <br />
+    `维归约与PCA的区别` <br />
 - 转轴(Pivoting): 在除两个维以外的所有维上聚集
 - 切片(Slicing)和切块(dicing) - 穿透/查看明细
 - 上卷(roll up)和下钻(drill down): 与聚集相关
