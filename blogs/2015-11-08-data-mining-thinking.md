@@ -300,7 +300,7 @@ I. _细分建模_ <br />
 1. 找出所有 *频繁项集frequent itemset*
 2. 由频繁项集产生强 *关联规则assoiation rule*
 3. OLAP如何支持关联规则数据挖掘
-4. Apriori算法-频繁项集
+4. Apriori算法-频繁项集 <br />
     基于支持度的剪枝技术
 5. 多层关联规则 <br />
     支持度(有无意义)+置信度(相关可靠性): 衡量关联规则强度的重要指标 <br />
@@ -313,20 +313,20 @@ I. _细分建模_ <br />
 1. 针对目标群体进行多指标的群体划分,精细化运营,个性化运营 <br />
 2. 不同产品的价值组合进行探测,发现孤立点和异常值 <br />
 
-    _划分方法(Partitioning Methods)_
-    _K-Means聚类算法-数据平均值_ 
+    - _划分方法(Partitioning Methods)_
+    - _K-Means聚类算法-数据平均值_ 
       K个初始质心(中心点),K为所期望的cluster个数 <br />
       在K-means中，我们将中心点取为当前cluster中所有数据点的平均值 <br />
       二分K-Means <br />
-    _K-Medoids算法_
+    - _K-Medoids算法_
       从当前cluster中选取这样一个点——它到其他所有（当前cluster中的）点的距离之和最小——作为中心点 <br />
-    _层次方法(Hierarchical Methods)_
+    - _层次方法(Hierarchical Methods)_
       凝聚层次聚类 <br />
       分裂层次聚类 <br />
-    _基于密度的方法(Density-Based Methods)_
+    - _基于密度的方法(Density-Based Methods)_
        DBSCAN - 基于中心的密度进行点分类
-    _Cluster评估_
-    _基于网格的方法(Grid-Based Methods)_
+    - _Cluster评估_
+    - _基于网格的方法(Grid-Based Methods)_
 
 3. 数据,Cluster和聚类算法的特性
 4. 基于原型的聚类
