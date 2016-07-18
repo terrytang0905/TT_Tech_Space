@@ -389,36 +389,36 @@ Receiver Operating Characteristic 曲线 <br />
 
 #### 8.1.常规BI产品设计
 
-- 数据提取 
+1. 数据提取 
 
-    网络Scrapy 
-    电商数据平台API 
-    数据库数据 
-    Deep Web表单处理 
+    网络Scrapy <br />
+    电商数据平台API <br />
+    数据库数据 <br />
+    Deep Web表单处理 <br />
 
-- 数据预处理 
+2. 数据预处理 
 
     ETL / ELT + Data Cleaning
 
-- 数据挖掘&建模预测
+3. 数据挖掘&建模预测
 
-- 数据存储
+4. 数据存储
 
-- OLAP查询分析
+5. OLAP查询分析
 
-    OLAP Query Engine (SQL查询)
-    列式存储计算 
-    内存计算 
-    分布式实时流式计算 
+    OLAP Query Engine (SQL查询) <br />
+    列式存储计算 <br />
+    内存计算 <br />
+    分布式实时流式计算 <br />
 
-- 数据可视化
+6. 数据可视化
 
-    仪表盘设计 
-    可视化图表展示 
-    可视化时间空间数据 - 全局时间空间数据过滤 
-    多维图表可视化
+    仪表盘设计 <br />
+    可视化图表展示 <br />
+    可视化时间空间数据 - 全局时间空间数据过滤 <br />
+    多维图表可视化 <br />
 
-- [数据挖掘导图](_includes/DataMiningThinking.jpg)
+x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 #### 8.2.敏捷BI竞品分析
 
