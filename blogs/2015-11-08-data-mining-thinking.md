@@ -314,16 +314,16 @@ I. _细分建模_ <br />
 2. 不同产品的价值组合进行探测,发现孤立点和异常值 <br />
 
     - _划分方法(Partitioning Methods)_
-    - _K-Means聚类算法-数据平均值_ 
+    - _K-Means聚类算法-数据平均值_ <br />
       K个初始质心(中心点),K为所期望的cluster个数 <br />
       在K-means中，我们将中心点取为当前cluster中所有数据点的平均值 <br />
       二分K-Means <br />
-    - _K-Medoids算法_
+    - _K-Medoids算法_ <br />
       从当前cluster中选取这样一个点——它到其他所有（当前cluster中的）点的距离之和最小——作为中心点 <br />
-    - _层次方法(Hierarchical Methods)_
+    - _层次方法(Hierarchical Methods)_ <br />
       凝聚层次聚类 <br />
       分裂层次聚类 <br />
-    - _基于密度的方法(Density-Based Methods)_
+    - _基于密度的方法(Density-Based Methods)_ <br />
        DBSCAN - 基于中心的密度进行点分类
     - _Cluster评估_
     - _基于网格的方法(Grid-Based Methods)_
