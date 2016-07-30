@@ -125,7 +125,7 @@ Select row_number() over(
        );
 ```
 
-3. 从员工表中查询每个部门的工资排名,并且给每个部门中工资排名在第三名的员工加20%的奖金
+4.3. 从员工表中查询每个部门的工资排名,并且给每个部门中工资排名在第三名的员工加20%的奖金
 
 ```SQL
 update emp
@@ -145,7 +145,7 @@ update emp
        );
 ```
 
-4. 从员工表中查询每个部门的员工的工资从大到小排序，并且计算前后两名的工资差值。
+4.4. 从员工表中查询每个部门的员工的工资从大到小排序，并且计算前后两名的工资差值。
 
 ```SQL
 select ename,
@@ -176,7 +176,7 @@ select ename,
   from emp order by dept_no,sal asc;
 ```
 
-5. 查询学生表中每一个学生按照科目的分数排序。
+4.5. 查询学生表中每一个学生按照科目的分数排序。
 
 ```SQL
   select id,stu_name,course,point_,first_value(point_)over(partition by id order by point_ desc ) from (
