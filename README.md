@@ -1,8 +1,10 @@
 TT Tech Space - 技术资源中心
 --------------------------
 
-### Welcome to TT Tech Space Pages.
-The GitHub automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here [using GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/), select a template crafted by a designer, and publish. After your page is generated, you can check out the new `gh-pages` branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.
+### Welcome to TT Tech Resource Pages.
+Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
+Currently he focuses on data mining and big data analysis technology included bi,olap,greenplum,hadoop,spark,impala.Welcome to connect with he and discuss any 
+tech topic.
 
 ### TT Blog Site
 
@@ -10,6 +12,7 @@ The GitHub automatic page generator is the easiest way to create beautiful pages
 
 ##### Data Science
 
+- [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum_analysis_function.md)
 - [Greenplum命令操作手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_command_guide.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-analysis-algorithm.md)
 - [数据挖掘研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
