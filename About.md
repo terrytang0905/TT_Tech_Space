@@ -6,8 +6,9 @@ group: navigation
 ---
 
 ### Terry Tang
-Data Product Architect. Product design, software design, programming, big data solution, data mining, distribute computering.
+Data Product Architect. 
 
+- Product design, software design, programming, big data solution, data mining, distribute computering.
 - Email: zhenjietang@hotmail.com
 
 
