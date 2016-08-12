@@ -28,11 +28,12 @@ Data Product Architect. Product design, software design, programming, big data s
 
 ### Work Experience
 
-|| Time 			 || Company  		 || Position 						 ||
+|| Time 			 || Company  		 || Position 						 ||   <br/>
 || 2015/10--Now.     || *Startup*        || Data Product Architect                   ||
 
-- Product: Agile BI for big data
-- Responsibility: Design and develop data analysis & OLAP service as software architect.
+- Product: Agile BI data product based on big data 
+- Responsibility: Overall take technology responsibility for big data/BI product included architect/development/continueDelivery based on MPP/Hadoop/Spark data centre.
+- Deeply research E-commerce data mining & data analysis solution.
 
 || 2013/07--2015/09. || *Lenovo* 		 || Senior Researcher&Data Architect ||
 
