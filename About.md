@@ -17,7 +17,7 @@ Data Product Architect.
 - NoSQL & RDB database design and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
 - Full-Text Content Search Engine Solution (xPlore based on Lucene and XML database / ElasticSearch solution)
 - Internet mobile product design and product architect
-- - Content Management Enterprise Product design and implementation (Documentum)
+- Content Management Enterprise Product design and implementation (Documentum)
 
 - Big Data tech solution & Data mining(Hadoop / HBase / Mahout / Kafka / Spark)
 - Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
