@@ -6,19 +6,20 @@ group: navigation
 ---
 
 ### Terry Tang
-Software Architect/Engineer, programming, database, automation testing, distribute computering.
+Data Product Architect. Product design, software design, programming, big data solution, data mining, distribute computering.
 
 - Email: zhenjietang@hotmail.com
 
 
 ### Technology skills
-- Content Management Enterprise Product design and implementation (Documentum)
-- Full-Text Content Search Engine Solution (xPlore based on Lucene and XML database / ElasticSearch solution)
+- Data product design and technology architect for big data center
 - NoSQL & RDB database design and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
-- Internet mobile product design and system architecture
+- Full-Text Content Search Engine Solution (xPlore based on Lucene and XML database / ElasticSearch solution)
+- Internet mobile product design and product architect
+- - Content Management Enterprise Product design and implementation (Documentum)
 
-- Java/J2EE/Go/Python, automation testing and performance analysis/tuning.
-- Big Data (Hadoop / HBase / Mahout / Kafka / Spark)
+- Big Data tech solution & Data mining(Hadoop / HBase / Mahout / Kafka / Spark)
+- Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
 - Open Source Tech: Lucene/ElasticSearch, Spring,Struts,Hibernate,iBatis,Ant,Maven,JBoss,Tomcat.
 - Linux and Unix administration skill and shell language.
@@ -28,13 +29,11 @@ Software Architect/Engineer, programming, database, automation testing, distribu
 ### Work Experience
 
 || Time 			 || Company  		 || Position 						 ||
-||:------------------||:-----------------||:---------------------------------||
-|| 2015/10--Now.     || *Startup*        || Data Architect                   ||
+|| 2015/10--Now.     || *Startup*        || Data Product Architect                   ||
 
 - Product: Agile BI for big data
 - Responsibility: Design and develop data analysis & OLAP service as software architect.
 
-||:------------------||:-----------------||:---------------------------------||
 || 2013/07--2015/09. || *Lenovo* 		 || Senior Researcher&Data Architect ||
 
 - Product: SuperNote (Personal Cloud Note MobileApp), Smart Gadget Service Platform
@@ -53,7 +52,6 @@ Software Architect/Engineer, programming, database, automation testing, distribu
 >	Develop web data crawler solution based on Scrapy.  
 
 
-||:------------------||:-----------------||:---------------------------------||
 || 2008/08--2013/07. || *EMC R&D Center* || Senior Software Engineer 		 ||
 
 - Product: EMC Documentum Content Server, xPlore(FullTextSearchEngine), xDB(XML Database), xTestPerformanceAnalyzer 
@@ -69,7 +67,6 @@ Software Architect/Engineer, programming, database, automation testing, distribu
 >	He had become Top Performance Employee in 2011.  
 
 
-||:------------------||:-----------------||:---------------------------------||
 || 2006/07--2008/08. || *Cognizant* 	 || Software Engineer 				 ||
 
 - Product: J2EE web products for MNC companies
