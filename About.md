@@ -34,7 +34,7 @@ Data Product Architect.
 || Time 			 || Company  		 || Position 						 ||   <br/>
 || 2015/10--Now.     || *Shuyun*        || Data Product Architect                   ||
 
-- Product: Agile BI data product based on big data 
+- Product: Agile BI data product based on big data (The best CRM data analysis product for e-commerce)
 - Responsibility: Overall take technology responsibility for big data/BI product included architect/development/continueDelivery based on MPP/Hadoop/Spark data centre.
 - Deeply research E-commerce data mining & data analysis solution.
 
