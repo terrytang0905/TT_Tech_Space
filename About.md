@@ -18,7 +18,7 @@ Data Product Architect.
 - Full-Text Content Search Engine Solution (xPlore based on Lucene and XML database / ElasticSearch solution)
 - Internet mobile product design and product architect
 - Content Management Enterprise Product design and implementation (Documentum)
-
+<br/>
 - Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
 - DataStorage: NoSQL/RDB database/MPP architect and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
