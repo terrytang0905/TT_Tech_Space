@@ -23,7 +23,7 @@ Data Product Architect.
 ### Technology skills
 
 - Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
-- DataStorage: NoSQL/RDB database/MPP architect and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
+- DataStorage: NoSQL/RDB database/MPP architect and utilization (Greenplum,Vertica,HBase,MongoDB,Couchbase,MySQL,EMC Documentum xDB)
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
 - Open Source Tech: Lucene/ElasticSearch, Spring,Struts,Hibernate,iBatis,Ant,Maven,JBoss,Tomcat.
 - Linux and Unix administration skill and shell language.
