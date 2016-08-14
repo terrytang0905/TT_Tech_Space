@@ -34,7 +34,7 @@ Data Product Architect.
 || Time 			 || Company  		 || Position 						 ||   <br/>
 || 2015/10--Now.     || *Shuyun*        || Data Product Architect                   ||
 
-- Product: Agile BI data product based on big data (The best CRM data analysis product for e-commerce)
+- Product: Agile BI data product based on big data - The best CRM data analysis product for e-commerce in China
 - Responsibility: Overall take technology responsibility for big data/BI product included architect/development/continueDelivery based on MPP/Hadoop/Spark data centre.
 - Deeply research E-commerce data mining & data analysis solution.
 
@@ -58,7 +58,7 @@ Data Product Architect.
 
 || 2008/08--2013/07. || *EMC R&D Center* || Senior Software Engineer 		 ||
 
-- Product: EMC Documentum Content Server, xPlore(FullTextSearchEngine), xDB(XML Database), xTestPerformanceAnalyzer 
+- Product: EMC Documentum xPlore(FullTextSearchEngine) - The best content management enterprise product all over the world.
 - Responsibility: 
 
 >	Take responsibility for xDB database fulltext search automation testing and performance testing.  
