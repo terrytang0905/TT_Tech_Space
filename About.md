@@ -25,7 +25,7 @@ Data Product Architect.
 - Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
 - DataStorage: NoSQL/RDB database/MPP architect and utilization (Greenplum,Vertica,HBase,MongoDB,Couchbase,MySQL,EMC Documentum xDB)
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
-- Open Source Tech: Lucene/ElasticSearch, Spring,Struts,Hibernate,iBatis,Ant,Maven,JBoss,Tomcat.
+- Open Source Tech: Lucene/ElasticSearch,Spring,Anltr,Hadoop,Spark,iBatis,Maven,Jetty,Tomcat,Netty.
 - Linux and Unix administration skill and shell language.
 - Virtualization: VMWare vSphere Administrator and Configuration.
 
