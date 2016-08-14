@@ -8,19 +8,19 @@ group: navigation
 ### Terry Tang
 Data Product Architect. 
 
-- Product design, software design, programming, big data solution, data mining, distribute computering.
+- Software product design, programming, big data solution, data mining, distribute computering.
 - Email: zhenjietang@hotmail.com
 
 
 ### Technology skills
-- Data product design and technology architect for big data center
-- NoSQL & RDB database design and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
+- Data product technology architect design and dig Data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
+- Data mining and data analysis
 - Full-Text Content Search Engine Solution (xPlore based on Lucene and XML database / ElasticSearch solution)
 - Internet mobile product design and product architect
 - Content Management Enterprise Product design and implementation (Documentum)
 
-- Big Data tech solution & Data mining(Hadoop / HBase / Mahout / Kafka / Spark)
 - Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
+- DataStorage: NoSQL/RDB database/MPP architect and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
 - Open Source Tech: Lucene/ElasticSearch, Spring,Struts,Hibernate,iBatis,Ant,Maven,JBoss,Tomcat.
 - Linux and Unix administration skill and shell language.
