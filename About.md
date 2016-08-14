@@ -12,13 +12,15 @@ Data Product Architect.
 - Email: zhenjietang@hotmail.com
 
 
-### Technology skills
+### Speciality
 
 - Data product technology architect design and dig Data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
 - Data mining and data analysis
-- Full-Text Content Search Engine Solution (xPlore based on Lucene and XML database / ElasticSearch solution)
+- Full-Text Content Search Engine Solution (Lucene / XML database / ElasticSearch solution)
 - Internet mobile product design and product architect
 - Content Management Enterprise Product design and implementation (Documentum)
+
+### Technology skills
 
 - Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
 - DataStorage: NoSQL/RDB database/MPP architect and utilization (MongoDB, Couchbase, MySQL, EMC Documentum xDB)
@@ -26,7 +28,6 @@ Data Product Architect.
 - Open Source Tech: Lucene/ElasticSearch, Spring,Struts,Hibernate,iBatis,Ant,Maven,JBoss,Tomcat.
 - Linux and Unix administration skill and shell language.
 - Virtualization: VMWare vSphere Administrator and Configuration.
-
 
 ### Work Experience
 
