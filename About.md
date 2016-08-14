@@ -14,11 +14,11 @@ Data Product Architect.
 
 ### Speciality
 
-- Data product technology architect design and dig Data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
+- Data product technology architect design and dig data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
 - Data mining and data analysis for e-commerce
-- Full-Text Content Search Engine Solution (Lucene / XML database / ElasticSearch solution)
+- Full-Text content search engine solution (Lucene / XML database / ElasticSearch solution)
 - Internet mobile product design and product architect
-- Content Management Enterprise Product design and implementation (Documentum)
+- Content management enterprise product design and implementation (Documentum)
 
 ### Technology skills
 
