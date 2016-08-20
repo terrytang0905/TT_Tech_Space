@@ -497,32 +497,37 @@ _mount_
 
 #### E.Linux系统调试
 
-1) & 最经常被用到
-   这个用在一个命令的最后，可以把这个命令放到后台执行
-   & 后台运行程序
-  Example: tar -zxvf 123.tar.gz & --------->后台运行
-  Example2: command  >out.file 2>&1 & (1 is stdout. 2 is stderr.)
+1) & 后台运行程序
 
-2) ctrl + z - 可以将一个正在前台执行的命令放到后台，并且暂停
+   这个用在一个命令的最后，可以把这个命令放到后台执行
+   Example: tar -zxvf 123.tar.gz & --------->后台运行
+   Example2: command  >out.file 2>&1 & (1 is stdout. 2 is stderr.)
+
+2) ctrl + z - 可以将一个正在前台执行的命令放到后台，并且暂停 <br/>
    ctrl + c - 前台进程的终止
 
 3) jobs - 查看当前有多少在后台运行的命令
+
    jobs观看后台暂停的程序 jobs -l
 
 4) fg(Foreground)- 将后台中的命令调至前台继续运行
+
    fg 将后台程序调到前台 fg n ------>n是数字,可以指定进行那个程序
    如果后台中有多个命令，可以用 fg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
 
 5) bg(Background) - 将一个在后台暂停的命令，变成继续执行
+
    bg让工作在后台运行
    如果后台中有多个命令，可以用bg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
 
 6) ps aux 查看后台程序:
+
    pstree 以树状图显示程序 [A]以 ASCII 來連接, [u]列出PID, [p]列出帐号
    Example: ps -ef|grep java
    Example2: 查看port:  ps -aux|grep 11311
 
 7) top查看后台程序
+
     Example: top -d 2 每两秒更新一次
     Example: top -d 2 -p10604 观看某个PID
     Example: top -b -n 2 > /tmp/top.txt ----->將 top 的資訊進行 2 次，然後將結果輸出到  /tmp/top.txt
@@ -694,9 +699,11 @@ pstree -p 可以帮你显示进程树。（读过我的那篇《一个fork的面
 
 在bash的脚本中，你可以使用 set -x 来debug输出。使用 set -e 来当有错误发生的时候abort执行。考虑使用 set -o pipefail 来限制错误。还可以使用trap来截获信号（如截获ctrl+c）。
 在bash脚本中，subshells (写在圆括号里的) 是一个很方便的方式来组合一些命令。一个常用的例子是临时地到另一个目录中，例如：
+
         # do something in current dir
         (cd /some/other/dir; other-command)
         # continue in original dir
+
 在 bash 中，注意那里有很多的变量展开。如：检查一个变量是否存在: ${name:?error message}。如果一个bash的脚本需要一个参数，也许就是这样一个表达式 input_file=${1:?usage: $0 input_file}。一个计算表达式： i=$(( (i + 1) % 5 ))。一个序列： {1..10}。 截断一个字符串： ${var%suffix} 和 ${var#prefix}。 示例： if var=foo.pdf, then echo ${var%.pdf}.txt prints “foo.txt”.
 通过 <(some command) 可以把某命令当成一个文件。示例：比较一个本地文件和远程文件 /etc/hosts： diff /etc/hosts <(ssh somehost cat /etc/hosts)
 了解什么叫 “here documents” ，就是诸如 cat <<EOF 这样的东西。
@@ -712,12 +719,14 @@ pstree -p 可以帮你显示进程树。（读过我的那篇《一个fork的面
 在 ssh中，知道怎么来使用ssh隧道。通过 -L or -D (还有-R) ，翻墙神器。
 Mac: ssh username@server -p port
 你还可以对你的ssh 做点优化。比如，.ssh/config 包含着一些配置：避免链接被丢弃，链接新的host时不需要确认，转发认证，以前使用压缩（如果你要使用scp传文件）：
+
         TCPKeepAlive=yes
         ServerAliveInterval=15
         ServerAliveCountMax=6
         StrictHostKeyChecking=no
         Compression=yes
         ForwardAgent=yes
+
 如果你有输了个命令行，但是你改变注意了，但你又不想删除它，因为你要在历史命令中找到它，但你也不想执行它。那么，你可以按下 Alt-# ，于是这个命令关就被加了一个#字符，于是就被注释掉了。
 
 _数据处理_
@@ -725,9 +734,11 @@ _数据处理_
 了解 sort 和 uniq 命令 (包括 uniq 的 -u 和 -d 选项).
 了解用 cut, paste, 和 join 命令来操作文本文件。很多人忘了在cut前使用join。
 如果你知道怎么用sort/uniq来做集合交集、并集、差集能很大地促进你的工作效率。假设有两个文本文件a和b已解被 uniq了，那么，用sort/uniq会是最快的方式，无论这两个文件有多大（sort不会被内存所限，你甚至可以使用-T选项，如果你的/tmp目录很小）
+
         cat a b | sort | uniq > c   # c is a union b 并集
         cat a b | sort | uniq -d > c   # c is a intersect b 交集
         cat a b b | sort | uniq -u > c   # c is set difference a - b 差集
+
 了解和字符集相关的命令行工具，包括排序和性能。很多的Linux安装程序都会设置LANG 或是其它和字符集相关的环境变量。这些东西可能会让一些命令（如：sort）的执行性能慢N多倍（注：就算是你用UTF-8编码文本文件，你也可以很安全地使用ASCII来对其排序）。如果你想Disable那个i18n 并使用传统的基于byte的排序方法，那就设置export LC_ALL=C （实际上，你可以把其放在 .bashrc）。如果这设置这个变量，你的sort命令很有可能会是错的。
 了解 awk 和 sed，并用他们来做一些简单的数据修改操作。例如：求第三列的数字之和： awk ‘{ x += $3 } END { print x }’。这可能会比Python快3倍，并比Python的代码少三倍。
 使用 shuf 来打乱一个文件中的行或是选择文件中一个随机的行。
@@ -757,6 +768,7 @@ Apache的一个叫 ab 的工具是一个很有用的，用quick-and-dirty的方�
 使用 dmesg 来查看一些硬件或驱动程序的信息或问题。
 sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
 在命令行中，n 和t 两个参数组合起来定义采样间隔和次数，t为采样间隔，是必须有的参数，n为采样次数，是可选的，默认值是1，-o file表示将命令结果以二进制格式存放在文件中，file 在此处不是关键字，是文件名。options 为命令行选项，sar命令的选项很多，下面只列出常用选项：
+
         -A：所有报告的总和。
         -u：CPU利用率
         -v：进程、I节点、文件和锁表状态。
@@ -775,6 +787,7 @@ sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
 例如，每5秒采样一次，连续采样5次，观察CPU 的使用情况，并将采样结果以二进制形式存入当前目录下的文件filename中，需键入如下命令：
 # sar -u -o filename 5 5
 屏幕显示：
+
         Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
         09:58:17 AM       CPU     %user     %nice   %system   %iowait    %steal     %idle
         09:58:22 AM       all      2.25      0.00      1.62      0.33      0.00     95.80
@@ -785,16 +798,19 @@ sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
         Average:          all      2.01      0.00      1.43      0.28      0.00     96.28
 
 在显示内容包括：
+
         %usr：CPU处在用户模式下的时间百分比。
         %system：CPU处在系统模式下的时间百分比。
         %iowait：CPU等待输入输出完成时间的百分比。
         %idle：CPU空闲时间百分比。
+
 在所有的显示中，我们应主要注意%iowait和%idle，%wio的值过高，表示硬盘存在I/O瓶颈， %idle值高，表示CPU较空闲，如果%idle值高但系统响应慢时，有可能是CPU等待分配内存， 此时应加大内存容量。%idle值如果持续低于10，那么系统的CPU处理能力相对较低，表 明系统中最需要解决的资源是CPU。
 如果要查看二进制文件filename中的内容，则需键入如下sar命令：#sar -u -f filename
 可见，sar命令即可以实时采样，又可以对以往的采样结果进行查询。
 
 例二：使用命行sar -v t n
 例如，每5秒采样一次，连续采样5次，观察核心表的状态，需键入如下命令：
+
         # sar -v 5 5
         屏幕显示：
         Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
@@ -808,6 +824,7 @@ sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
         Average:       380193      3570    393159         0      0.00         0      0.00         0      0.00
 
 显示内容包括：
+
         inode-sz：目前核心中正在使用或分配的i节点表的表项数，由核心参数 MAX-INODE控制。
         file-sz： 目前核心中正在使用或分配的文件表的表项数，由核心参数MAX-FILE控 制。
         super-sz：溢出出现的次数。
