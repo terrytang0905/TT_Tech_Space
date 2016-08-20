@@ -75,18 +75,6 @@ title: Linux System Management Guide
     cat /etc/passwd | sort 排序显示
     cat /etc/passwd | wc 显示『行、字数、字节数』正规表示法
 
-    ifconfig 显示或设置网络设备
-    service network {start/stop/restart/reload/status}
-    ifdown eth0 关闭网卡
-    ifup eth0 开启网卡
-    netstat 显示网络状态
-    netstat -tulnp------>找出目前系統上已在監聽的網路連線及其PID
-    netstat –nat -----查询Active Internet Connection
-    service iptables start/stop 开启/关闭防火墙
-
-    开启：service iptables start
-    关闭：service iptables stop
-
     clear 清屏
     history 历史记录 !55 执行第55个指令
     stty 设置终端 stty -a
@@ -468,79 +456,81 @@ Quota 從開始準備 filesystem 的支援到整個設定結束的主要的步�
 4、重新掃瞄與啟動 quota ：
 設定好 quota 之後，建議可以再進行一次 quotacheck ，然後再以 quotaon 來啟動吧！
 
-Disk 查询
-df -h 显示分区空间(数据块大小)
-df -i 显示index分区空间
-du 显示目录或文件的大小
-du -h //显示文件夹及文件大小
-du -sh  // -s指定目录下不显示子目录或文件大小
-du -sh * // 指定目录下文件或目录大小
+_Disk查询_
 
-fdisk 分区设置 fdisk -l /dev/hda 显示硬盘分区状态
-mkfs 建立各种文件系统 mkfs -t ext3 /dev/ram15
-fsck 检查和修复LINUX档案
-Disk setting
+    df -h 显示分区空间(数据块大小)
+    df -i 显示index分区空间
+    du 显示目录或文件的大小
+    du -h //显示文件夹及文件大小
+    du -sh  // -s指定目录下不显示子目录或文件大小
+    du -sh * // 指定目录下文件或目录大小
 
-/etc/fstab
-ls -l /dev/disk/by-uuid/
-blkid /dev/sdb2
+    fdisk 分区设置 fdisk -l /dev/hda 显示硬盘分区状态
+    mkfs 建立各种文件系统 mkfs -t ext3 /dev/ram15
+    fsck 检查和修复LINUX档案
+    Disk setting
 
-mke2fs 格式化 mkfs -t ext3
-dd if=/etc/passwd of=/tmp/passwd.bak 备份
+    /etc/fstab
+    ls -l /dev/disk/by-uuid/
+    blkid /dev/sdb2
 
-mount 列出系统所有的分区
-mount -t iso9660 /dev/cdrom /mnt/cdrom 挂载光盘
-mount -t vfat /dev/fd0 /mnt/floppy 挂载软盘
-mount -t vfat -o iocharset=utf8,umask=000 /dev/hda2 /mnt/hda2 挂载fat32分区
-mount -t ntfs -o nls=utf8,umask=000 /dev/hda3 /mnt/hda3 挂载ntfs分区
-mount -t cifs //<MachineName>/<SharedFolder> /mnt/Shared -o username=  <DomainName>/<username>,password=<password>
-mount //10.32.122.151/team /mnt/builds 挂载shared folder分区
-mount -t nfs -o rw bajie.lss.emc.com:/nfs/backup_mysql /mnt/bajie/ 挂载NFS分区
-umount /mnt/hda3 缷载device
-转移disk 绑定的路径
-sudo umount /media/Dev
-sudo mount /dev/sda2 /home
-Linux-NTFS File System Project:http://www.tuxera.com/
+    mke2fs 格式化 mkfs -t ext3
+    dd if=/etc/passwd of=/tmp/passwd.bak 备份
+
+    Linux-NTFS File System Project:http://www.tuxera.com/
+
+_mount_
+
+    mount 列出系统所有的分区
+    mount -t iso9660 /dev/cdrom /mnt/cdrom 挂载光盘
+    mount -t vfat /dev/fd0 /mnt/floppy 挂载软盘
+    mount -t vfat -o iocharset=utf8,umask=000 /dev/hda2 /mnt/hda2 挂载fat32分区
+    mount -t ntfs -o nls=utf8,umask=000 /dev/hda3 /mnt/hda3 挂载ntfs分区
+    mount -t cifs //<MachineName>/<SharedFolder> /mnt/Shared -o username=  <DomainName>/<username>,password=<password>
+    mount //10.32.122.151/team /mnt/builds 挂载shared folder分区
+    mount -t nfs -o rw bajie.lss.emc.com:/nfs/backup_mysql /mnt/bajie/ 挂载NFS分区
+    umount /mnt/hda3 缷载device
+    转移disk 绑定的路径
+    sudo umount /media/Dev
+    sudo mount /dev/sda2 /home
+
 
 #### E.Linux系统调试
 
-& 后台运行程序
-Example: tar -zxvf 123.tar.gz & --------->后台运行
-Example2: command  >out.file 2>&1 & (1 is stdout. 2 is stderr.)
+1) & 最经常被用到
+   这个用在一个命令的最后，可以把这个命令放到后台执行
+   & 后台运行程序
+  Example: tar -zxvf 123.tar.gz & --------->后台运行
+  Example2: command  >out.file 2>&1 & (1 is stdout. 2 is stderr.)
+
+2) ctrl + z - 可以将一个正在前台执行的命令放到后台，并且暂停
+   ctrl + c - 前台进程的终止
+
+3) jobs - 查看当前有多少在后台运行的命令
+   jobs观看后台暂停的程序 jobs -l
+
+4) fg(Foreground)- 将后台中的命令调至前台继续运行
+   fg 将后台程序调到前台 fg n ------>n是数字,可以指定进行那个程序
+   如果后台中有多个命令，可以用 fg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
+
+5) bg(Background) - 将一个在后台暂停的命令，变成继续执行
+   bg让工作在后台运行
+   如果后台中有多个命令，可以用bg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
+
+6) ps aux 查看后台程序:
+   pstree 以树状图显示程序 [A]以 ASCII 來連接, [u]列出PID, [p]列出帐号
+   Example: ps -ef|grep java
+   Example2: 查看port:  ps -aux|grep 11311
+
+7) top查看后台程序
+    Example: top -d 2 每两秒更新一次
+    Example: top -d 2 -p10604 观看某个PID
+    Example: top -b -n 2 > /tmp/top.txt ----->將 top 的資訊進行 2 次，然後將結果輸出到  /tmp/top.txt
+    Example:  top -b -n $sampleNUMs -d $interval  >> $logdir/top.log &
 
 In a unix shell, if I want to combine stderr and stdout into the stdout stream for further manipulation, I can append the following on the end of my command:
 2>&1
 
-jobs观看后台暂停的程序 jobs -l
-fg 将后台程序调到前台 fg n ------>n是数字,可以指定进行那个程序
-bg 让工作在后台运行
-一。& 最经常被用到
-
-   这个用在一个命令的最后，可以把这个命令放到后台执行
-二。ctrl + z
-     可以将一个正在前台执行的命令放到后台，并且暂停
-      ctrl + c
-      前台进程的终止
-三。jobs
-     查看当前有多少在后台运行的命令
-四。fg （Foreground）
-     将后台中的命令调至前台继续运行
-   如果后台中有多个命令，可以用 fg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
-五。bg（Background）
-     将一个在后台暂停的命令，变成继续执行
-   如果后台中有多个命令，可以用bg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
-
-ps aux 查看后台程序:
-     Example: ps -ef|grep java
-     Example2: 查看port:  ps -aux|grep 11311
-
-top 查看后台程序
-     Example: top -d 2 每两秒更新一次
-     Example: top -d 2 -p10604 观看某个PID
-    Example: top -b -n 2 > /tmp/top.txt ----->將 top 的資訊進行 2 次，然後將結果輸出到  /tmp/top.txt
-    Example:  top -b -n $sampleNUMs -d $interval  >> $logdir/top.log &
-
-pstree 以树状图显示程序 [A]以 ASCII 來連接, [u]列出PID, [p]列出帐号
 kill 结束进程 kill -9 PID [9]强制结束,[15]正常结束,[l]列出可用的kill信号
 killall 要刪除某個服務 killall -9 httpd
 free 显示内存状态 free -m -------->以M为单位显示
@@ -560,77 +550,91 @@ ntsysv 设置系统的各种服务
 cpio 备份文件
 ftp
 
-Linux 内存释放
-#先看看内存使用状况
-[root@node1 ~]# free -m
-total used free shared buffers cached
-Mem: 8004 6557 1446 0 163 5630
--/+ buffers/cache: 763 7240
-Swap: 1983 0 1983
-#把内存里的数据暂时写到硬盘里
-[root@node1 ~]# sync
-#修改 /proc/sys/vm/drop_caches文件
-[root@node1 ~]# echo 3 > /proc/sys/vm/drop_caches
-[root@node1 ~]# cat /proc/sys/vm/drop_caches
-#再看内存
-[root@node1 ~]# free -m
-total used free shared buffers cached
-Mem: 8004 631 7372 0 0 60
--/+ buffers/cache: 570 7433
-Swap: 1983 0 1983
-终于释放出来了
+_Linux内存释放_
+
+    #先看看内存使用状况
+    [root@node1 ~]# free -m
+    total used free shared buffers cached
+    Mem: 8004 6557 1446 0 163 5630
+    -/+ buffers/cache: 763 7240
+    Swap: 1983 0 1983
+    #把内存里的数据暂时写到硬盘里
+    [root@node1 ~]# sync
+    #修改 /proc/sys/vm/drop_caches文件
+    [root@node1 ~]# echo 3 > /proc/sys/vm/drop_caches
+    [root@node1 ~]# cat /proc/sys/vm/drop_caches
+    #再看内存
+    [root@node1 ~]# free -m
+    total used free shared buffers cached
+    Mem: 8004 631 7372 0 0 60
+    -/+ buffers/cache: 570 7433
+    Swap: 1983 0 1983
+    终于释放出来了
 
 #### F.Linux网络管理
 
-1）统计80端口连接数
-netstat -nat | grep -i "80" | wc -l
-2）统计httpd协议连接数
-ps -ef | grep httpd | wc -l
-3）统计已连接上的，状态为“established'
-netstat -na | grep ESTABLISHED | wc -l
-4）查出哪个IP地址连接最多，将其封了。
-netstat -na | grep ESTABLISHED | awk '{print$5}' | awk -F : '{print$1}' | sort | uniq -c | sort -r +0n
-netstat - na | grep SYN | awk '{print$5}' | awk -F : '{print$1}' | sort | uniq -c | sort -r +0n
+    ifconfig 显示或设置网络设备
+    service network {start/stop/restart/reload/status}
+    ifdown eth0 关闭网卡
+    ifup eth0 开启网卡
+    netstat 显示网络状态
+    netstat -tulnp------>找出目前系統上已在監聽的網路連線及其PID
+    netstat –nat -----查询Active Internet Connection
+    service iptables start/stop 开启/关闭防火墙
+    开启：service iptables start
+    关闭：service iptables stop
 
-Linux SSH(Secure Shell) 服务
+_IP端口探测_
 
-启动命令：
-RedHat and Fedora Core Linux
-/sbin/service sshd restart
+    1）统计80端口连接数
+    netstat -nat | grep -i "80" | wc -l
+    2）统计httpd协议连接数
+    ps -ef | grep httpd | wc -l
+    3）统计已连接上的，状态为“established'
+    netstat -na | grep ESTABLISHED | wc -l
+    4）查出哪个IP地址连接最多，将其封了。
+    netstat -na | grep ESTABLISHED | awk '{print$5}' | awk -F : '{print$1}' | sort | uniq -c | sort -r +0n
+    netstat - na | grep SYN | awk '{print$5}' | awk -F : '{print$1}' | sort | uniq -c | sort -r +0n
 
-Suse linux
-/etc/rc.d/sshd restart
+_LinuxSSH(SecureShell)服务_
 
-Debian/Ubuntu
-/etc/init.d/sshd restart | service ssh start
+    启动命令：
+    RedHat and Fedora Core Linux
+    /sbin/service sshd restart
 
-Solaris 9 and below
-/etc/init.d/sshd stop
-/etc/init.d/sshd start
+    Suse linux
+    /etc/rc.d/sshd restart
 
-Solaris 10
-svcadm disable ssh
-svcadm enable ssh
+    Debian/Ubuntu
+    /etc/init.d/sshd restart | service ssh start
 
-AIX
-stopsrc -s sshd
-startsrc -s sshd
+    Solaris 9 and below
+    /etc/init.d/sshd stop
+    /etc/init.d/sshd start
 
-HP-UX
-/sbin/init.d/secsh stop
-/sbin/init.d/secsh start
+    Solaris 10
+    svcadm disable ssh
+    svcadm enable ssh
 
-安装启动ssh服务
-#rpm -qa |grep ssh 检查是否装了SSH包
+    AIX
+    stopsrc -s sshd
+    startsrc -s sshd
 
-没有的话yum install openssh-server
+    HP-UX
+    /sbin/init.d/secsh stop
+    /sbin/init.d/secsh start
 
-#chkconfig --list sshd 检查SSHD是否在本运行级别下设置为开机启动
-#chkconfig --level 2345 sshd on  如果没设置启动就设置下.
-#service sshd restart  重新启动
-#netstat -antp |grep sshd  看是否启动了22端口.确认下.
-#iptables -nL  看看是否放行了22口.
-#setup---->防火墙设置   如果没放行就设置放行.
+    安装启动ssh服务
+    #rpm -qa |grep ssh 检查是否装了SSH包
+
+    没有的话yum install openssh-server
+
+    #chkconfig --list sshd 检查SSHD是否在本运行级别下设置为开机启动
+    #chkconfig --level 2345 sshd on  如果没设置启动就设置下.
+    #service sshd restart  重新启动
+    #netstat -antp |grep sshd  看是否启动了22端口.确认下.
+    #iptables -nL  看看是否放行了22口.
+    #setup---->防火墙设置   如果没放行就设置放行.
 
 
 #### X.Linux高级研究
