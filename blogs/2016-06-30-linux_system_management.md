@@ -7,197 +7,198 @@ title: Linux System Management Guide
 
 #### A.常用的shell命令
 
-  uname -a 查看内核版本/
-  lsb_release -a 查看OS版本
-  ls -al 显示所有文件的属性
-  pwd 显示当前路径
-  cd - 返回上一次目录 cd ~ 返回主目录
-  date s 设置时间、日期
-  cal 显示日历 cal 2006
-  bc 计算器具
-  man & info 帮助手册
-  locale 显示当前字体 locale -a 所有可用字体 /etc/sysconfig/i18n设置文件
-  LANG=en 使用英文字体
-  sync 将数据同步写入硬盘
-  shutdown -h now & half & poweroff 关机
-  reboot 重启
-  startx & init 5 进入图形介面
-  /work & ?work 向上、下查找文档内容
-  chgrp 改变档案群组 chgrp testing install.log
-  chown 改变所属人/组 chown root:root install.log /chown -R couchbase:couchbase couchbase
-  chmod 改变文件属性 chmod 777 install.log read=4 write=2 execute=1
-  cp 复制 cp filename
-  rm 删除文件
-  rm -rf filename 强制删除文件夹及文件
-  rename 字符串1 字符串2 文件名
-  rmdir 删除文件夹
-  mv 移动 mv 123.txt 222.txt 重命名
-  mkdir 创建文件夹
-  touch 创建文件 更新当前时间
-  cat 由第一行开始显示 cat |more 分页
-  nl 在内容前加行号
-  more & less 一面一面翻动
-  head -n filename 显示第N行内容
-  tail -n filename 显示后N行内容
-  od 显示非纯文档
-  whereis 查找命令
-  locate 查找
-  find 查找 find / -name "***.***"
-  which 查看工具
-  ln 硬链接
-  ln -s 软件链接
-  sudo clock —hctosys 设置系统时间
+    uname -a 查看内核版本/
+    lsb_release -a 查看OS版本
+    ls -al 显示所有文件的属性
+    pwd 显示当前路径
+    cd - 返回上一次目录 cd ~ 返回主目录
+    date s 设置时间、日期
+    cal 显示日历 cal 2006
+    bc 计算器具
+    man & info 帮助手册
+    locale 显示当前字体 locale -a 所有可用字体 /etc/sysconfig/i18n设置文件
+    LANG=en 使用英文字体
+    sync 将数据同步写入硬盘
+    shutdown -h now & half & poweroff 关机
+    reboot 重启
+    startx & init 5 进入图形介面
+    /work & ?work 向上、下查找文档内容
+    chgrp 改变档案群组 chgrp testing install.log
+    chown 改变所属人/组 chown root:root install.log /chown -R couchbase:couchbase couchbase
+    chmod 改变文件属性 chmod 777 install.log read=4 write=2 execute=1
+    cp 复制 cp filename
+    rm 删除文件
+    rm -rf filename 强制删除文件夹及文件
+    rename 字符串1 字符串2 文件名
+    rmdir 删除文件夹
+    mv 移动 mv 123.txt 222.txt 重命名
+    mkdir 创建文件夹
+    touch 创建文件 更新当前时间
+    cat 由第一行开始显示 cat |more 分页
+    nl 在内容前加行号
+    more & less 一面一面翻动
+    head -n filename 显示第N行内容
+    tail -n filename 显示后N行内容
+    od 显示非纯文档
+    whereis 查找命令
+    locate 查找
+    find 查找 find / -name "***.***"
+    which 查看工具
+    ln 硬链接
+    ln -s 软件链接
+    sudo clock —hctosys 设置系统时间
 
-  whoami 显示当前用户 who 所有用户
-  gcc -v 查看GCC版本
-  chattr +i filename 禁止删除 chattr -i filename 取消禁止
-  lsattr 显示隐藏档属性
-  updatedb 更新资料库
+    whoami 显示当前用户 who 所有用户
+    gcc -v 查看GCC版本
+    chattr +i filename 禁止删除 chattr -i filename 取消禁止
+    lsattr 显示隐藏档属性
+    updatedb 更新资料库
 
-  alias 显示当前所有的命令别名
-  alias lm="ls -al" 命令别名
-  unalias lm 取消命令别名
-  type 类似which
-  bash 进入子程序
+    alias 显示当前所有的命令别名
+    alias lm="ls -al" 命令别名
+    unalias lm 取消命令别名
+    type 类似which
+    bash 进入子程序
 
-  PS1='[\u@\h \w \A #\#]\$ ' 提示字元的設定
-  read [-pt] variable -----------读取键盘输入的变量
-  參數：-p ：後面可以接提示字元
-       -t ：後面可以接等待的seconds
+    PS1='[\u@\h \w \A #\#]\$ ' 提示字元的設定
+    read [-pt] variable -----------读取键盘输入的变量
+    參數：-p ：後面可以接提示字元
+         -t ：後面可以接等待的seconds
 
-  declare 声明 shell 变量
-  set 设置SHELL
-  ulimit -a 显示所有限制资料
-  ulimit -n 显示打开文件上限
-  ls /tmp/yang && echo "exist" || echo "not exist"
-  意思是說，當 ls /tmp/yang 執行後，若正確，就執行echo "exist" ,若有問題，就執行echo "not exist"
-  last | grep 'root' 搜索有root的一行,加[-v]反向搜索
-  cat /etc/passwd | sort 排序显示
-  cat /etc/passwd | wc 显示『行、字数、字节数』正规表示法
+    declare 声明 shell 变量
+    set 设置SHELL
+    ulimit -a 显示所有限制资料
+    ulimit -n 显示打开文件上限
+    ls /tmp/yang && echo "exist" || echo "not exist"
+    意思是說，當 ls /tmp/yang 執行後，若正確，就執行echo "exist" ,若有問題，就執行echo "not exist"
+    last | grep 'root' 搜索有root的一行,加[-v]反向搜索
+    cat /etc/passwd | sort 排序显示
+    cat /etc/passwd | wc 显示『行、字数、字节数』正规表示法
 
-  ifconfig 显示或设置网络设备
-  service network {start/stop/restart/reload/status}
-  ifdown eth0 关闭网卡
-  ifup eth0 开启网卡
-  netstat 显示网络状态
-  netstat -tulnp------>找出目前系統上已在監聽的網路連線及其PID
-  netstat –nat -----查询Active Internet Connection
-  service iptables start/stop 开启/关闭防火墙
+    ifconfig 显示或设置网络设备
+    service network {start/stop/restart/reload/status}
+    ifdown eth0 关闭网卡
+    ifup eth0 开启网卡
+    netstat 显示网络状态
+    netstat -tulnp------>找出目前系統上已在監聽的網路連線及其PID
+    netstat –nat -----查询Active Internet Connection
+    service iptables start/stop 开启/关闭防火墙
 
-  开启：service iptables start
-  关闭：service iptables stop
+    开启：service iptables start
+    关闭：service iptables stop
 
-  clear 清屏
-  history 历史记录 !55 执行第55个指令
-  stty 设置终端 stty -a
-  fdisk /mbr 删除GRUB
-  at 僅進行一次的Schedule Task
-  crontab 循環執行的例行性命令 [e]编辑,[l]显示,[r]删除任务
+    clear 清屏
+    history 历史记录 !55 执行第55个指令
+    stty 设置终端 stty -a
+    fdisk /mbr 删除GRUB
+    at 僅進行一次的Schedule Task
+    crontab 循環執行的例行性命令 [e]编辑,[l]显示,[r]删除任务
 
 _grep_
 
-  grep [-acinv] '搜尋正则表达式字串' filename
-  參數說明：-a ：將 binary 檔案以 text 檔案的方式搜尋資料
-           -c ：計算找到 '搜尋字串' 的次數
-           -i ：忽略大小寫的不同，所以大小寫視為相同
-           -n ：順便輸出行號
-           -v ：反向選擇，亦即顯示出沒有 '搜尋字串' 內容的那一行！
-  grep -n 'the' 123.txt 搜索the字符 -----------搜尋特定字串
-  grep -n 't[ea]st' 123.txt 搜索test或taste两个字符---------利用 [] 來搜尋集合字元
-  grep -n '[^g]oo' 123.txt 搜索前面不为g的oo-----------向選擇 [^]
-  grep -n '[0-9]' 123.txt 搜索有0-9的数字
-  grep -n '^the' 123.txt 搜索以the为行首-----------行首搜索^
-  grep -n '^[^a-zA-Z]' 123.txt 搜索不以英文字母开头
-  grep -n '[a-z]$' 123.txt 搜索以a-z结尾的行---------- 行尾搜索$
-  grep -n 'g..d' 123.txt 搜索开头g结尾d字符----------任意一個字元 .
-  grep -n 'ooo*' 123.txt 搜索至少有两个oo的字符---------重複字元 *
-  sed 文本流编辑器 利用脚本命令来处理文本文件
-  awd 模式扫描和处理语言
-  nl 123.txt | sed '2,5d' 删除第二到第五行的内容
-  diff 比较文件的差异
-  cmp 比较两个文件是否有差异
-  patch 修补文件
-  pr 要打印的文件格式化
+    grep [-acinv] '搜尋正则表达式字串' filename
+    參數說明：-a ：將 binary 檔案以 text 檔案的方式搜尋資料
+             -c ：計算找到 '搜尋字串' 的次數
+             -i ：忽略大小寫的不同，所以大小寫視為相同
+             -n ：順便輸出行號
+             -v ：反向選擇，亦即顯示出沒有 '搜尋字串' 內容的那一行！
+    grep -n 'the' 123.txt 搜索the字符 -----------搜尋特定字串
+    grep -n 't[ea]st' 123.txt 搜索test或taste两个字符---------利用 [] 來搜尋集合字元
+    grep -n '[^g]oo' 123.txt 搜索前面不为g的oo-----------向選擇 [^]
+    grep -n '[0-9]' 123.txt 搜索有0-9的数字
+    grep -n '^the' 123.txt 搜索以the为行首-----------行首搜索^
+    grep -n '^[^a-zA-Z]' 123.txt 搜索不以英文字母开头
+    grep -n '[a-z]$' 123.txt 搜索以a-z结尾的行---------- 行尾搜索$
+    grep -n 'g..d' 123.txt 搜索开头g结尾d字符----------任意一個字元 .
+    grep -n 'ooo*' 123.txt 搜索至少有两个oo的字符---------重複字元 *
+    sed 文本流编辑器 利用脚本命令来处理文本文件
+    awd 模式扫描和处理语言
+    nl 123.txt | sed '2,5d' 删除第二到第五行的内容
+    diff 比较文件的差异
+    cmp 比较两个文件是否有差异
+    patch 修补文件
+    pr 要打印的文件格式化
 
 _vi一般用法:_
 
-  一般模式 编辑模式 指令模式
-  h 左 a,i,r,o,A,I,R,O :w 保存
-  j 下 进入编辑模式 :w! 强制保存
-  k 上 dd 删除光标当前行 :q! 不保存离开
-  l 右 ndd 删除n行 :wq! 保存后离开
-  0 移动到行首 yy 复制当前行 :e! 还原原始档
-  $ 移动到行尾 nyy 复制n行 :w filename 另存为
-  H 屏幕最上 p,P 粘贴 :set nu 设置行号
-  M 屏幕中央 u 撤消 :set nonu 取消行号
-  L 屏幕最下 [Ctrl]+r 重做上一个动作 ZZ 保存离开
-  [shift] + G 档案最后一行
-  [ctrl]+z 暂停退出 :set nohlsearch 永久地关闭高亮显示
-  /work 向下搜索 :sp 同时打开两个文档
-  ?work 向上搜索 [Ctrl]+w 两个文档设换
-  gg 移动到档案第一行 :nohlsearch 暂时关闭高亮显示
+    一般模式 编辑模式 指令模式
+    h 左 a,i,r,o,A,I,R,O :w 保存
+    j 下 进入编辑模式 :w! 强制保存
+    k 上 dd 删除光标当前行 :q! 不保存离开
+    l 右 ndd 删除n行 :wq! 保存后离开
+    0 移动到行首 yy 复制当前行 :e! 还原原始档
+    $ 移动到行尾 nyy 复制n行 :w filename 另存为
+    H 屏幕最上 p,P 粘贴 :set nu 设置行号
+    M 屏幕中央 u 撤消 :set nonu 取消行号
+    L 屏幕最下 [Ctrl]+r 重做上一个动作 ZZ 保存离开
+    [shift] + G 档案最后一行
+    [ctrl]+z 暂停退出 :set nohlsearch 永久地关闭高亮显示
+    /work 向下搜索 :sp 同时打开两个文档
+    ?work 向上搜索 [Ctrl]+w 两个文档设换
+    gg 移动到档案第一行 :nohlsearch 暂时关闭高亮显示
 
 _帐号管理_
 
-  /etc/passwd 系统帐号信息
-  /etc/shadow 帐号密码信息 经MD5 32位加密
-  在密码栏前面加『 * 』『 ! 』禁止使用某帐号
-  /etc/group 系统群组信息
-  /etc/gshadow
-  newgrp 改变登陆组
-  useradd & adduser 建立新用户 ---------> useradd -m test 自动建立用户的登入目录
-  useradd -m -g pgroup test --------->指定所属级
-  /etc/default/useradd 相关设定
-  /etc/login.defs UID/GID 有關的設定
-  passwd 更改密码 -----------> passwd test
-  usermod 修改用户帐号
-  userdel 删除帐号 ----------->userdel -r test
-  chsh 更换登陆系统时使用的SHELL [-l]显示可用的SHELL;[-s]修改自己的SHELL
-  chfn 改变finger指令显示的信息
-  finger 查找并显示用户信息
-  id 显示用户的ID -----------> id test
-  groupadd 添加组
-  groupmod 与usermod类似
-  groupdel 删除组
-  su - test 更改用户 su - 进入root,且使用root的环境变量
-  sudo 以其他身份来执行指令 –u username /-k kill /-e edit file
-  visudo 编辑/etc/sudoers 加入一行『 test ALL=(ALL) ALL 』
-  %wheel ALL = (ALL) ALL 系统里所有wheel群组的用户都可用sudo
-  %wheel ALL = (ALL) NOPASSWD: ALL wheel群组所有用户都不用密码NOPASSWD
-  User_Alias ADMPW = vbird, dmtsai, vbird1, vbird3 加入ADMPW组
-  ADMPW ALL = NOPASSWD: !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, \
-  !/usr/bin/passwd root 可以更改使用者密码,但不能更改root密码 (在指令前面加入 ! 代表不可)
-  PAM (Pluggable Authentication Modules, 嵌入式模組)
-  who & w 看谁在线
-  last 最近登陆主机的信息
-  lastlog 最近登入的時間 读取 /var/log/lastlog
-  talk 与其他用户交谈
-  write 发送信息 write test [ctrl]+d 发送
-  mesg 设置终端机的写入权限 mesg n 禁止接收 mesg y
-  wall 向所有用户发送信息 wall this is q test
-  mail 写mail
-  /etc/default/useradd 家目录默认设置
+    /etc/passwd 系统帐号信息
+    /etc/shadow 帐号密码信息 经MD5 32位加密
+    在密码栏前面加『 * 』『 ! 』禁止使用某帐号
+    /etc/group 系统群组信息
+    /etc/gshadow
+    newgrp 改变登陆组
+    useradd & adduser 建立新用户 ---------> useradd -m test 自动建立用户的登入目录
+    useradd -m -g pgroup test --------->指定所属级
+    /etc/default/useradd 相关设定
+    /etc/login.defs UID/GID 有關的設定
+    passwd 更改密码 -----------> passwd test
+    usermod 修改用户帐号
+    userdel 删除帐号 ----------->userdel -r test
+    chsh 更换登陆系统时使用的SHELL [-l]显示可用的SHELL;[-s]修改自己的SHELL
+    chfn 改变finger指令显示的信息
+    finger 查找并显示用户信息
+    id 显示用户的ID -----------> id test
+    groupadd 添加组
+    groupmod 与usermod类似
+    groupdel 删除组
+    su - test 更改用户 su - 进入root,且使用root的环境变量
+    sudo 以其他身份来执行指令 –u username /-k kill /-e edit file
+    visudo 编辑/etc/sudoers 加入一行『 test ALL=(ALL) ALL 』
+    %wheel ALL = (ALL) ALL 系统里所有wheel群组的用户都可用sudo
+    %wheel ALL = (ALL) NOPASSWD: ALL wheel群组所有用户都不用密码NOPASSWD
+    User_Alias ADMPW = vbird, dmtsai, vbird1, vbird3 加入ADMPW组
+    ADMPW ALL = NOPASSWD: !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, \
+    !/usr/bin/passwd root 可以更改使用者密码,但不能更改root密码 (在指令前面加入 ! 代表不可)
+    PAM (Pluggable Authentication Modules, 嵌入式模組)
+    who & w 看谁在线
+    last 最近登陆主机的信息
+    lastlog 最近登入的時間 读取 /var/log/lastlog
+    talk 与其他用户交谈
+    write 发送信息 write test [ctrl]+d 发送
+    mesg 设置终端机的写入权限 mesg n 禁止接收 mesg y
+    wall 向所有用户发送信息 wall this is q test
+    mail 写mail
+    /etc/default/useradd 家目录默认设置
 
 _其他_
 
-  1.Error: /bin/sh^M: bad interpreter: No such file or directory.
-  Solution:dos2unix (The software is used to convert file to unix format)
+    1.Error: /bin/sh^M: bad interpreter: No such file or directory.
+    Solution:dos2unix (The software is used to convert file to unix format)
 
 #### B.Linux环境变量设置
 
-1、总结背景
-在linux系统下，如果你下载并安装了应用程序，很有可能在键入它的名称时出现“command not found”的提示内容。如果每次都到安装目标文件夹内，找到可执行文件来进行操作就太繁琐了。这涉及到环境变量PATH的设置问题，而PATH的设置也是在linux下定制环境变量的一个组成部分。
-Linux是一个多用户的操作系统。每个用户登录系统后，都会有一个专用的运行环境。通常每个用户默认的环境都是相同的，这个默认环境实际上就是一组环境变量的定义。用户可以对自己的运行环境进行定制，其方法就是修改相应的系统环境变量。
+  1.总结背景
 
-2、设置环境变量
-环境变量是和Shell紧密相关的，用户登录系统后就启动了一个Shell。对于Linux来说一般是bash，但也可以重新设定或切换到其它的Shell（使用chsh命令）。
+    > 在linux系统下，如果你下载并安装了应用程序，很有可能在键入它的名称时出现“command not found”的提示内容。如果每次都到安装目标文件夹内，找到可执行文件来进行操作就太繁琐了。这涉及到环境变量PATH的设置问题，而PATH的设置也是在linux下定制环境变量的一个组成部分。
+    > Linux是一个多用户的操作系统。每个用户登录系统后，都会有一个专用的运行环境。通常每个用户默认的环境都是相同的，这个默认环境实际上就是一组环境变量的定义。用户可以对自己的运行环境进行定制，其方法就是修改相应的系统环境变量。
 
-根据发行版本的情况，bash有两个基本的系统级配置文件：/etc/bashrc和/etc/profile。这些配置文件包含两组不同的变量：shell变量和环境变量。前者只是在特定的shell中固定（如bash），后者在不同shell中固定。很明显，shell变量是局部的，而环境变量是全局的。环境变量是通过Shell命令来设置的，设置好的环境变量又可以被所有当前用户所运行的程序所使用。对于bash这个Shell程序来说，可以通过变量名来访问相应的环境变量，通过export来设置环境变量。
+  2、设置环境变量
+    
+    > 环境变量是和Shell紧密相关的，用户登录系统后就启动了一个Shell。对于Linux来说一般是bash，但也可以重新设定或切换到其它的Shell（使用chsh命令）。
+    > 根据发行版本的情况，bash有两个基本的系统级配置文件：/etc/bashrc和/etc/profile。这些配置文件包含两组不同的变量：shell变量和环境变量。前者只是在特定的shell中固定（如bash），后者在不同shell中固定。很明显，shell变量是局部的，而环境变量是全局的。环境变量是通过Shell命令来设置的，设置好的环境变量又可以被所有当前用户所运行的程序所使用。对于bash这个Shell程序来说，可以通过变量名来访问相应的环境变量，通过export来设置环境变量。
 
-按变量的生存周期来划分，Linux变量可分为两类：
-a.永久的：需要修改配置文件，变量永久生效。
-b.临时的：使用export命令行声明即可，变量在关闭shell时失效。
-注：Linux的环境变量名称一般使用大写字母
+    > 按变量的生存周期来划分，Linux变量可分为两类：
+    > a.永久的：需要修改配置文件，变量永久生效。
+    > b.临时的：使用export命令行声明即可，变量在关闭shell时失效。
+    > 注：Linux的环境变量名称一般使用大写字母
 
 c.使用命令echo显示环境变量
 本例使用echo显示常见的变量HOME
@@ -300,6 +301,7 @@ source命令(从 C Shell 而来)是bash shell的内置命令。
 比如您在一个脚本里export $KKK=111 ,假如您用./a.sh执行该脚本，执行完毕后，您运行 echo $KKK,发现没有值，假如您用source来执行 ，然后再echo,就会发现KKK=111。因为调用./a.sh来执行shell是在一个子shell里运行的，所以执行后，结构并没有反应到父shell里，但是
 source不同点命令，就是在本shell中执行的，所以能够看到结果
 
+
 ##### Linux安装命令：
 
 ./configure 检查系统信息
@@ -325,115 +327,117 @@ gedit /usr/bin/eclipse
 添加应用初始化service
 /etc/init.d/XXX
 
+
 #### C.解压命令：
 
-*.Z compress 程式壓縮的檔案；
-*.bz2 bzip2 程式壓縮的檔案；
-*.gz gzip 程式壓縮的檔案；
-*.tar tar 程式打包的資料，並沒有壓縮過；
-*.tar.gz tar 程式打包的檔案，其中並且經過 gzip 的壓縮
-compress filename 压缩文件 加[-d]解压 uncompress
-gzip filename 压缩 加[-d]解压 zcat 123.gz 查看压缩文件内容
-bzip2 -z filename 压缩 加[-d]解压 bzcat filename.bz2 查看压缩文件内容
-tar xvfz myfile.tar.bz2
-x 是解压
-v 是复杂输出
-f 是指定文件
-z gz格式
-tar -cvf /home/123.tar /etc 打包，不压缩
-tar -xvf 123.tar 解开包
-tar -zxvf /home/123.tar.gz 以gzip解压
-tar zxvf a.tgz -C ./test
-tar -jxvf /home/123.tar.bz2 以bzip2解压
-tar -ztvf /tmp/etc.tar.gz 查看tar内容
-cpio -covB > [file|device] 份份
-cpio -icduv < [file|device] 还原
+    *.Z compress 程式壓縮的檔案；
+    *.bz2 bzip2 程式壓縮的檔案；
+    *.gz gzip 程式壓縮的檔案；
+    *.tar tar 程式打包的資料，並沒有壓縮過；
+    *.tar.gz tar 程式打包的檔案，其中並且經過 gzip 的壓縮
+    compress filename 压缩文件 加[-d]解压 uncompress
+    gzip filename 压缩 加[-d]解压 zcat 123.gz 查看压缩文件内容
+    bzip2 -z filename 压缩 加[-d]解压 bzcat filename.bz2 查看压缩文件内容
+    tar xvfz myfile.tar.bz2
+    x 是解压
+    v 是复杂输出
+    f 是指定文件
+    z gz格式
+    tar -cvf /home/123.tar /etc 打包，不压缩
+    tar -xvf 123.tar 解开包
+    tar -zxvf /home/123.tar.gz 以gzip解压
+    tar zxvf a.tgz -C ./test
+    tar -jxvf /home/123.tar.bz2 以bzip2解压
+    tar -ztvf /tmp/etc.tar.gz 查看tar内容
+    cpio -covB > [file|device] 份份
+    cpio -icduv < [file|device] 还原
 
-Example：
-把/usr目录并包括它的子目录在内的全部文件做一备份，备份文件名为usr.tar
-tar cvf usr.tar /home
-把/usr 目录内的全部文件做一备份并进行压缩，备份文件名usr.tar.gz
-tar czvf usr.tar.gz /usr
-压缩一组文件，文件的后缀为tar.gz
-#tar cvf back.tar /back/
-#gzip -q back.tar
-or
-#tar cvfz back.tar.gz /back/
-释放一个后缀为tar.gz的文件。
-#tar zxvf back.tar.gz
-#gzip back.tar.gz
-#tar xvf back.tar
+    Example：
+    把/usr目录并包括它的子目录在内的全部文件做一备份，备份文件名为usr.tar
+    tar cvf usr.tar /home
+    把/usr 目录内的全部文件做一备份并进行压缩，备份文件名usr.tar.gz
+    tar czvf usr.tar.gz /usr
+    压缩一组文件，文件的后缀为tar.gz
+    #tar cvf back.tar /back/
+    #gzip -q back.tar
+    or
+    #tar cvfz back.tar.gz /back/
+    释放一个后缀为tar.gz的文件。
+    #tar zxvf back.tar.gz
+    #gzip back.tar.gz
+    #tar xvf back.tar
 
-1.以.a为扩展名的文件:
-#tar xv file.a
-2.以.z为扩展名的文件:
-#uncompress file.Z
-3.以.gz为扩展名的文件:
-#gunzip file.gz
-4.以.bz2为扩展名的文件:
-#bunzip2 file.bz2
-5.以.tar.Z为扩展名的文件:
-#tar xvZf file.tar.Z
-或 #compress -dc file.tar.Z | tar xvf -
-6.以.tar.gz/.tgz为扩展名的文件:
-#tar xvzf file.tar.gz
-或 gzip -dc file.tar.gz | tar xvf -
-7.以.tar.bz2为扩展名的文件:
-#tar xvIf file.tar.bz2
-或 bzip2 -dc file.tar.bz2 | xvf -
-8.以.cpio.gz/.cgz为扩展名的文件:
-#gzip -dc file.cgz | cpio -div
-9.以.cpio/cpio为扩展名的文件:
-#cpio -div file.cpio
-或cpio -divc file.cpio
-10.以.rpm为扩展名的文件安装:
-#rpm -i file.rpm
-11.以.rpm为扩展名的文件解压缩：
-#rpm2cpio file.rpm | cpio -div
-12.以.deb为扩展名的文件安装：
-#dpkg -i file.deb
-13.以.deb为扩展名的文件解压缩:
-#dpkg-deb --fsys-tarfile file.deb | tar xvf - ar p
-file.deb data.tar.gz | tar xvzf -
-14.以.zip为扩展名的文件:
-#unzip file.zip
-在linux下解压Winzip格式的文件
-　　要是装了jdk的话，可以用jar命令；还可以使用unzip命令。
-直接解压.tar.gz文件
-　　xxxx.tar.gz文件使用tar带zxvf参数，可以一次解压开。XXXX为文件名。 例如：
-$tar zxvf xxxx.tar.gz 各种压缩文件的解压（安装方法）
+    1.以.a为扩展名的文件:
+    #tar xv file.a
+    2.以.z为扩展名的文件:
+    #uncompress file.Z
+    3.以.gz为扩展名的文件:
+    #gunzip file.gz
+    4.以.bz2为扩展名的文件:
+    #bunzip2 file.bz2
+    5.以.tar.Z为扩展名的文件:
+    #tar xvZf file.tar.Z
+    或 #compress -dc file.tar.Z | tar xvf -
+    6.以.tar.gz/.tgz为扩展名的文件:
+    #tar xvzf file.tar.gz
+    或 gzip -dc file.tar.gz | tar xvf -
+    7.以.tar.bz2为扩展名的文件:
+    #tar xvIf file.tar.bz2
+    或 bzip2 -dc file.tar.bz2 | xvf -
+    8.以.cpio.gz/.cgz为扩展名的文件:
+    #gzip -dc file.cgz | cpio -div
+    9.以.cpio/cpio为扩展名的文件:
+    #cpio -div file.cpio
+    或cpio -divc file.cpio
+    10.以.rpm为扩展名的文件安装:
+    #rpm -i file.rpm
+    11.以.rpm为扩展名的文件解压缩：
+    #rpm2cpio file.rpm | cpio -div
+    12.以.deb为扩展名的文件安装：
+    #dpkg -i file.deb
+    13.以.deb为扩展名的文件解压缩:
+    #dpkg-deb --fsys-tarfile file.deb | tar xvf - ar p
+    file.deb data.tar.gz | tar xvzf -
+    14.以.zip为扩展名的文件:
+    #unzip file.zip
+    在linux下解压Winzip格式的文件
+    　　要是装了jdk的话，可以用jar命令；还可以使用unzip命令。
+    直接解压.tar.gz文件
+    　　xxxx.tar.gz文件使用tar带zxvf参数，可以一次解压开。XXXX为文件名。 例如：
+    $tar zxvf xxxx.tar.gz 各种压缩文件的解压（安装方法）
 
-文件扩展名 解压
-.a ar xv file.a
-.Z uncompress file.Z
-.gz gunzip file.gz
-.bz2 bunzip2 file.bz2
-.tar.Z tar xvZf file.tar.Z
-compress -dc file.tar.Z | tar xvf -
-.tar.gz/.tgz tar xvzf file.tar.gz
-gzip -dc file.tar.gz | tar xvf -
-.tar.bz2 tar xvIf file.tar.bz2
-bzip2 -dc file.tar.bz2 | xvf -
-.cpio.gz/.cgz gzip -dc file.cgz | cpio -div
-.cpio/cpio cpio -div file.cpio
-cpio -divc file.cpio
-.rpm/install rpm -i file.rpm
-.rpm/extract rpm2cpio file.rpm | cpio -div
-.deb/install dpkg -i file.deb
-.deb/exrtact dpkg-deb --fsys-tarfile file.deb | tar xvf -
-ar p file.deb data.tar.gz | tar xvzf -
-.zip unzip file.zip
-bzip2 -d myfile.tar.bz2 | tar xvf
+    文件扩展名 解压
+    .a ar xv file.a
+    .Z uncompress file.Z
+    .gz gunzip file.gz
+    .bz2 bunzip2 file.bz2
+    .tar.Z tar xvZf file.tar.Z
+    compress -dc file.tar.Z | tar xvf -
+    .tar.gz/.tgz tar xvzf file.tar.gz
+    gzip -dc file.tar.gz | tar xvf -
+    .tar.bz2 tar xvIf file.tar.bz2
+    bzip2 -dc file.tar.bz2 | xvf -
+    .cpio.gz/.cgz gzip -dc file.cgz | cpio -div
+    .cpio/cpio cpio -div file.cpio
+    cpio -divc file.cpio
+    .rpm/install rpm -i file.rpm
+    .rpm/extract rpm2cpio file.rpm | cpio -div
+    .deb/install dpkg -i file.deb
+    .deb/exrtact dpkg-deb --fsys-tarfile file.deb | tar xvf -
+    ar p file.deb data.tar.gz | tar xvzf -
+    .zip unzip file.zip
+    bzip2 -d myfile.tar.bz2 | tar xvf
 
-gzip
-gzip[选项]要压缩（或解压缩）的文件名
--c将输出写到标准输出上，并保留原有文件。
--d将压缩文件压缩。
--l对每个压缩文件，显示下列字段：压缩文件的大小，未压缩文件的大小、压缩比、未压缩文件的名字
--r递归式地查找指定目录并压缩或压缩其中的所有文件。
--t测试压缩文件是正完整。
--v对每一个压缩和解压缩的文件，显示其文件名和压缩比。
--num-用指定的数字调整压缩的速度。
+    gzip
+    gzip[选项]要压缩（或解压缩）的文件名
+    -c将输出写到标准输出上，并保留原有文件。
+    -d将压缩文件压缩。
+    -l对每个压缩文件，显示下列字段：压缩文件的大小，未压缩文件的大小、压缩比、未压缩文件的名字
+    -r递归式地查找指定目录并压缩或压缩其中的所有文件。
+    -t测试压缩文件是正完整。
+    -v对每一个压缩和解压缩的文件，显示其文件名和压缩比。
+    -num-用指定的数字调整压缩的速度。
+
 
 #### D.Linux磁盘文件管理
 
@@ -450,6 +454,7 @@ edquota -a yang edquota -p yang -u young ----->复制
 quotaon 开启磁盘空间限制 quotaon -auvg -------->啟動所有的具有 quota 的 filesystem
 quotaoff 关闭磁盘空间限制 quotaoff -a -------->關閉了 quota 的限制
 repquota -av 查閱系統內所有的具有 quota 的 filesystem 的限值狀態
+
 Quota 從開始準備 filesystem 的支援到整個設定結束的主要的步驟大概是：
 1、設定 partition 的 filesystem 支援 quota 參數：
 由於 quota 必須要讓 partition 上面的 filesystem 支援才行，一般來說， 支援度最好的是 ext2/ext3 ，
@@ -581,9 +586,9 @@ Swap: 1983 0 1983
 netstat -nat | grep -i "80" | wc -l
 2）统计httpd协议连接数
 ps -ef | grep httpd | wc -l
-3）、统计已连接上的，状态为“established'
+3）统计已连接上的，状态为“established'
 netstat -na | grep ESTABLISHED | wc -l
-4）、查出哪个IP地址连接最多，将其封了。
+4）查出哪个IP地址连接最多，将其封了。
 netstat -na | grep ESTABLISHED | awk '{print$5}' | awk -F : '{print$1}' | sort | uniq -c | sort -r +0n
 netstat - na | grep SYN | awk '{print$5}' | awk -F : '{print$1}' | sort | uniq -c | sort -r +0n
 
@@ -626,6 +631,7 @@ HP-UX
 #netstat -antp |grep sshd  看是否启动了22端口.确认下.
 #iptables -nL  看看是否放行了22口.
 #setup---->防火墙设置   如果没放行就设置放行.
+
 
 #### X.Linux高级研究
 
@@ -707,6 +713,7 @@ ForwardAgent=yes
 如果你有输了个命令行，但是你改变注意了，但你又不想删除它，因为你要在历史命令中找到它，但你也不想执行它。那么，你可以按下 Alt-# ，于是这个命令关就被加了一个#字符，于是就被注释掉了。
 
 数据处理
+
 了解 sort 和 uniq 命令 (包括 uniq 的 -u 和 -d 选项).
 了解用 cut, paste, 和 join 命令来操作文本文件。很多人忘了在cut前使用join。
 如果你知道怎么用sort/uniq来做集合交集、并集、差集能很大地促进你的工作效率。假设有两个文本文件a和b已解被 uniq了，那么，用sort/uniq会是最快的方式，无论这两个文件有多大（sort不会被内存所限，你甚至可以使用-T选项，如果你的/tmp目录很小）
