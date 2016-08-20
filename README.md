@@ -3,8 +3,7 @@ TT Tech Space - 技术资源中心
 
 ### Welcome to TT Tech Resource Pages.
 Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
-Currently he focuses on data mining and big data analysis technology included bi,olap,greenplum,hadoop,spark,impala.Welcome to connect with he and discuss any 
-tech topic.
+Currently he focuses on data mining and big data analysis technology included bi,olap,mpp,hadoop,spark,impala.Welcome to contact with him and discuss any tech topic with him.
 
 ### TT Blog Site
 
