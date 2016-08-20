@@ -237,44 +237,51 @@ $ TEMP_KEVIN ="tom"        #修改变量值为tom会提示此变量只读不能�
 
 h.设置环境变量的三种方法
 
-env 列出所有环境变量
-export 设置或显示环境变量
-export PATH="$PATH":/sbin 添加/sbin入PATH路
-name=yang 设定变量
-unset name 取消变量
-myname="$name its me" & myname='$name its me' 单引号时$name失去变量内容
-ciw=/etc/sysconfig/network-scripts/ 设置路径
-echo $PATH 显示PATH路径
-echo $name 显示变量的内容
-echo $RANDOM 显示随意产生的数
-echo $PATH | cut -d ':' -f 5 以:为分隔符,读取第5段内容
-export | cut -c 10-20 读取第10到20个字节的内容
+a).在/etc/profile文件中添加变量(对所有用户永久生效)
 
- a). 在/etc/profile文件中添加变量(对所有用户永久生效)
-用VI在文件/etc/profile文件中增加变量，该变量将会对Linux下所有用户有效，并且是“永久的”。
-# vi /etc/profile
-unset i
-unset pathmunge
+用VI在文件/etc/profile文件中增加变量，该变量将会对Linux下所有用户有效，并且是“永久的”.
 
-JAVA_HOME=/home/download/jdk1.6.0_27
-export JAVA_HOME
-ANT_HOME=/home/download/apache-ant-1.8.2
-export ANT_HOME
-PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$PATH
-export PATH
-CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
-export CLASSPATH
-#. /etc/profile 修改立即生效
-注：修改文件后要想马上生效还要运行# source /etc/profile不然只能在下次重启此用户时生效。
- b). 在用户目录下的 /home/user/.bashrc or /root/.bashrc/ or /home/user/.bash_profile 文件中增加变量(对单一用户永久生效)
+        # vi /etc/profile
+        unset i
+        unset pathmunge
+
+        JAVA_HOME=/home/download/jdk1.6.0_27
+        export JAVA_HOME
+        ANT_HOME=/home/download/apache-ant-1.8.2
+        export ANT_HOME
+        PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$PATH
+        export PATH
+        CLASSPATH=.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+        export CLASSPATH
+        #. /etc/profile 修改立即生效
+        注：修改文件后要想马上生效还要运行# source /etc/profile不然只能在下次重启此用户时生效。
+
+b).在用户目录下的 /home/user/.bashrc or /root/.bashrc/ or /home/user/.bash_profile 文件中增加变量(对单一用户永久生效)
+
 用VI在用户目录下的.bash_profile文件中增加变量，改变量仅会对当前用户有效,是“永久的”。
 例如：编辑guok用户目录（/home/guok）下的.bash_profile
-$ vi /home/guok/.bash_profile
-添加如下内容：
-export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib
-注：修改文件后要想马上生效还要运行$ source /home/guok/.bash_profile不然只能在下次重进此用户时生效。
- c). 直接运行export命令定义变量(只对当前shell（BASH）session有效)
+
+        $ vi /home/guok/.bash_profile
+        添加如下内容：
+        export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib
+        注：修改文件后要想马上生效还要运行$ source /home/guok/.bash_profile不然只能在下次重进此用户时生效。
+
+c).直接运行export命令定义变量(只对当前shell（BASH）session有效)
+
 在shell的命令行下直接使用[export变量名=变量值]定义变量，该变量只在当前的shell（BASH）或其子shell（BASH）下是有效的，shell关闭了，变量也就失效了，再打开新shell时就没有这个变量，需要使用的话还需要重新定义
+
+        env 列出所有环境变量
+        export 设置或显示环境变量
+        export PATH="$PATH":/sbin 添加/sbin入PATH路
+        name=yang 设定变量
+        unset name 取消变量
+        myname="$name its me" & myname='$name its me' 单引号时$name失去变量内容
+        ciw=/etc/sysconfig/network-scripts/ 设置路径
+        echo $PATH 显示PATH路径
+        echo $name 显示变量的内容
+        echo $RANDOM 显示随意产生的数
+        echo $PATH | cut -d ':' -f 5 以:为分隔符,读取第5段内容
+        export | cut -c 10-20 读取第10到20个字节的内容
 
 3. source命令用法
 
@@ -811,7 +818,7 @@ sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
 例二：使用命行sar -v t n
 例如，每5秒采样一次，连续采样5次，观察核心表的状态，需键入如下命令：
 
-        # sar -v 5 5
+        #sar -v 5 5
         屏幕显示：
         Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
 
