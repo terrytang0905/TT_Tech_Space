@@ -641,9 +641,10 @@ _LinuxSSH(SecureShell)服务_
 
 这篇文章来源于Quroa的一个问答《What are some time-saving tips that every Linux user should know?》—— Linux用户有哪些应该知道的提高效率的技巧。我觉得挺好的，总结得比较好，把其转过来，并加了一些自己的理解。 首先，我想告诉大家，在Unix/Linux下，最有效率技巧的不是操作图形界面，而是命令行操作，因为命令行意味着自动化。如果你看过《你可能不知道的Shell》以及《28个Unix/Linux的命令行神器》你就会知道Linux有多强大，这个强大完全来自于命令行，于是，就算你不知道怎么去做一个环保主义的程序员，至少他们可以让你少熬点夜，从而有利于你的身体健康和性生活。下面是一个有点长的列表，正如作者所说，你并不需要知道所有的这些东西，但是如果你还在很沉重地在使用Linux的话，这些东西都值得你看一看。 （注：如果你想知道下面涉及到的命令的更多的用法，你一定要man一点。对于一些命令，你可以需要先yum或apt-get来安装一下，如果有什么问题，别忘了Google。如果你要Baidu的话，我仅代表这个地球上所有的生物包括微生物甚至细菌病毒和小强BS你到宇宙毁灭）
 
-基础
-学习 Bash 。你可以man bash来看看bash的东西，并不复杂也并不长。你用别的shell也行，但是bash是很强大的并且也是系统默认的。（学习zsh或tsch只会让你在很多情况下受到限制）
-学习 vim 。在Linux下，基本没有什么可与之竞争的编译辑器（就算你是一个Emacs或Eclipse的重度用户）。你可以看看《简明vim攻略》和 《Vim的冒险游戏》以及《给程序员的Vim速查卡》还有《把Vim变成一个编程的IDE》等等。
+_基础_
+
+学习Bash：你可以man bash来看看bash的东西，并不复杂也并不长。你用别的shell也行，但是bash是很强大的并且也是系统默认的。（学习zsh或tsch只会让你在很多情况下受到限制）
+学习vim：在Linux下，基本没有什么可与之竞争的编译辑器（就算你是一个Emacs或Eclipse的重度用户）。你可以看看《简明vim攻略》和 《Vim的冒险游戏》以及《给程序员的Vim速查卡》还有《把Vim变成一个编程的IDE》等等。
 了解 ssh。明白不需要口令的用户认证（通过ssh-agent, ssh-add），学会用ssh翻墙，用scp而不是ftp传文件，等等。你知道吗？scp 远端的时候，你可以按tab键来查看远端的目录和文件（当然，需要无口令的用户认证），这都是bash的功劳。
 scp -r root@10.37.10.24:/root/Desktop/linux64 /root/Desktop/ (remote copy between2Linux)
 
@@ -653,7 +654,8 @@ scp -r root@10.37.10.24:/root/Desktop/linux64 /root/Desktop/ (remote copy betwee
 理解正则表达式，还有grep/egrep的各种选项。比如： -o, -A, 和 -B 这些选项是很值得了解的。
 学习使用 apt-get 和 yum 来查找和安装软件（前者的经典分发包是Ubuntu，后者的经典分发包是Redhat），我还建议你试着从源码编译安装软件。
 
-开机流程简介
+_开机流程简介_
+
 1、載入 BIOS 的硬體資訊，並取得第一個開機裝置的代號；
 2、讀取第一個開機裝置的 MBR 的 boot Loader (亦即是 lilo, grub, spfdisk 等等) 的開機資訊；
 3、載入 Kernel 作業系統核心資訊， Kernel 開始解壓縮，並且嘗試驅動所有硬體裝置；
@@ -672,9 +674,10 @@ GRUB vga设定
 65536 785 788 791 794 16 bit
 16.8M 786 789 792 795 32 bit
 
-日常
-在 bash 里，使用 Ctrl-R 而不是上下光标键来查找历史命令。
-在 bash里，使用 Ctrl-W 来删除最后一个单词，使用 Ctrl-U 来删除一行。请man bash后查找Readline Key Bindings一节来看看bash的默认热键，比如：Alt-. 把上一次命令的最后一个参数打出来，而Alt-* 则列出你可以输入的命令。
+_日常_
+
+在bash里，使用 Ctrl-R 而不是上下光标键来查找历史命令。
+在bash里，使用 Ctrl-W 来删除最后一个单词，使用 Ctrl-U 来删除一行。请man bash后查找Readline Key Bindings一节来看看bash的默认热键，比如：Alt-. 把上一次命令的最后一个参数打出来，而Alt-* 则列出你可以输入的命令。
 回到上一次的工作目录： cd –  （回到home是 cd ~）
 使用 xargs。这是一个很强大的命令。你可以使用-L来限定有多少个命令，也可以用-P来指定并行的进程数。如果你不知道你的命令会变成什么样，你可以使用xargs echo来看看会是什么样。当然， -I{} 也很好用。示例：
 find . -name \*.py | xargs grep some_function
@@ -690,17 +693,18 @@ pstree -p 可以帮你显示进程树。（读过我的那篇《一个fork的面
 查看某一端口的占用情况： lsof -i:端口号
 
 在bash的脚本中，你可以使用 set -x 来debug输出。使用 set -e 来当有错误发生的时候abort执行。考虑使用 set -o pipefail 来限制错误。还可以使用trap来截获信号（如截获ctrl+c）。
-在bash 脚本中，subshells (写在圆括号里的) 是一个很方便的方式来组合一些命令。一个常用的例子是临时地到另一个目录中，例如：
-# do something in current dir
-(cd /some/other/dir; other-command)
-# continue in original dir
+在bash脚本中，subshells (写在圆括号里的) 是一个很方便的方式来组合一些命令。一个常用的例子是临时地到另一个目录中，例如：
+        # do something in current dir
+        (cd /some/other/dir; other-command)
+        # continue in original dir
 在 bash 中，注意那里有很多的变量展开。如：检查一个变量是否存在: ${name:?error message}。如果一个bash的脚本需要一个参数，也许就是这样一个表达式 input_file=${1:?usage: $0 input_file}。一个计算表达式： i=$(( (i + 1) % 5 ))。一个序列： {1..10}。 截断一个字符串： ${var%suffix} 和 ${var#prefix}。 示例： if var=foo.pdf, then echo ${var%.pdf}.txt prints “foo.txt”.
 通过 <(some command) 可以把某命令当成一个文件。示例：比较一个本地文件和远程文件 /etc/hosts： diff /etc/hosts <(ssh somehost cat /etc/hosts)
 了解什么叫 “here documents” ，就是诸如 cat <<EOF 这样的东西。
-在 bash中，使用重定向到标准输出和标准错误。如： some-command >logfile 2>&1。另外，要确认某命令没有把某个打开了的文件句柄重定向给标准输入，最佳实践是加上 “</dev/null”，把/dev/null重定向到标准输入。
+在 bash中，使用重定向到标准输出和标准错误。
+        如： some-command >logfile 2>&1。另外，要确认某命令没有把某个打开了的文件句柄重定向给标准输入，最佳实践是加上 “</dev/null”，把/dev/null重定向到标准输入。
+
 使用 man ascii 来查看 ASCII 表。
-在远端的 ssh 会话里，使用 screen 或 dtach 来保存你的会话。（参看《28个Unix/Linux的命令行神器》）
-http://en.flossmanuals.net/gnulinux/index.php
+在远端的 ssh 会话里，使用 screen 或 dtach 来保存你的会话。-参看[28个Unix/Linux的命令行神器](http://en.flossmanuals.net/gnulinux/index.php)
 要来debug Web，试试curl 和 curl -I 或是 wget 。我觉得debug Web的利器是firebug，curl和wget是用来抓网页的，呵呵。
 把 HTML 转成文本： lynx -dump -stdin
 如果你要处理XML，使用 xmlstarlet
@@ -708,22 +712,22 @@ http://en.flossmanuals.net/gnulinux/index.php
 在 ssh中，知道怎么来使用ssh隧道。通过 -L or -D (还有-R) ，翻墙神器。
 Mac: ssh username@server -p port
 你还可以对你的ssh 做点优化。比如，.ssh/config 包含着一些配置：避免链接被丢弃，链接新的host时不需要确认，转发认证，以前使用压缩（如果你要使用scp传文件）：
-TCPKeepAlive=yes
-ServerAliveInterval=15
-ServerAliveCountMax=6
-StrictHostKeyChecking=no
-Compression=yes
-ForwardAgent=yes
+        TCPKeepAlive=yes
+        ServerAliveInterval=15
+        ServerAliveCountMax=6
+        StrictHostKeyChecking=no
+        Compression=yes
+        ForwardAgent=yes
 如果你有输了个命令行，但是你改变注意了，但你又不想删除它，因为你要在历史命令中找到它，但你也不想执行它。那么，你可以按下 Alt-# ，于是这个命令关就被加了一个#字符，于是就被注释掉了。
 
-数据处理
+_数据处理_
 
 了解 sort 和 uniq 命令 (包括 uniq 的 -u 和 -d 选项).
 了解用 cut, paste, 和 join 命令来操作文本文件。很多人忘了在cut前使用join。
 如果你知道怎么用sort/uniq来做集合交集、并集、差集能很大地促进你的工作效率。假设有两个文本文件a和b已解被 uniq了，那么，用sort/uniq会是最快的方式，无论这两个文件有多大（sort不会被内存所限，你甚至可以使用-T选项，如果你的/tmp目录很小）
-cat a b | sort | uniq > c   # c is a union b 并集
-cat a b | sort | uniq -d > c   # c is a intersect b 交集
-cat a b b | sort | uniq -u > c   # c is set difference a - b 差集
+        cat a b | sort | uniq > c   # c is a union b 并集
+        cat a b | sort | uniq -d > c   # c is a intersect b 交集
+        cat a b b | sort | uniq -u > c   # c is set difference a - b 差集
 了解和字符集相关的命令行工具，包括排序和性能。很多的Linux安装程序都会设置LANG 或是其它和字符集相关的环境变量。这些东西可能会让一些命令（如：sort）的执行性能慢N多倍（注：就算是你用UTF-8编码文本文件，你也可以很安全地使用ASCII来对其排序）。如果你想Disable那个i18n 并使用传统的基于byte的排序方法，那就设置export LC_ALL=C （实际上，你可以把其放在 .bashrc）。如果这设置这个变量，你的sort命令很有可能会是错的。
 了解 awk 和 sed，并用他们来做一些简单的数据修改操作。例如：求第三列的数字之和： awk ‘{ x += $3 } END { print x }’。这可能会比Python快3倍，并比Python的代码少三倍。
 使用 shuf 来打乱一个文件中的行或是选择文件中一个随机的行。
@@ -735,7 +739,7 @@ Stable sort (sort -s) 会很有用。例如：如果你要想对两例排序，�
 对于文本文件转码，你可以试一下 iconv。或是试试更强的 uconv 命令（这个命令支持更高级的Unicode编码）
 如果你要分隔一个大文件，你可以使用split命令（split by size）和csplit命令（split by a pattern）。
 
-系统调试
+_系统调试_
 
 如果你想知道磁盘、CPU、或网络状态，你可以使用 iostat, netstat, top (或更好的 htop), 还有 dstat 命令。你可以很快地知道你的系统发生了什么事。关于这方面的命令，还有iftop, iotop等（参看《28个Unix/Linux的命令行神器》）
 要了解内存的状态，你可以使用free和vmstat命令。具体来说，你需要注意 “cached” 的值，这个值是Linux内核占用的内存。还有free的值。
@@ -753,73 +757,73 @@ Apache的一个叫 ab 的工具是一个很有用的，用quick-and-dirty的方�
 使用 dmesg 来查看一些硬件或驱动程序的信息或问题。
 sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
 在命令行中，n 和t 两个参数组合起来定义采样间隔和次数，t为采样间隔，是必须有的参数，n为采样次数，是可选的，默认值是1，-o file表示将命令结果以二进制格式存放在文件中，file 在此处不是关键字，是文件名。options 为命令行选项，sar命令的选项很多，下面只列出常用选项：
--A：所有报告的总和。
--u：CPU利用率
--v：进程、I节点、文件和锁表状态。
--d：硬盘使用报告。
--r：没有使用的内存页面和硬盘块。
--g：串口I/O的情况。
--b：缓冲区使用情况。
--a：文件读写情况。
--c：系统调用情况。
--R：进程的活动情况。
--y：终端设备活动情况。
--w：系统交换活动。
+        -A：所有报告的总和。
+        -u：CPU利用率
+        -v：进程、I节点、文件和锁表状态。
+        -d：硬盘使用报告。
+        -r：没有使用的内存页面和硬盘块。
+        -g：串口I/O的情况。
+        -b：缓冲区使用情况。
+        -a：文件读写情况。
+        -c：系统调用情况。
+        -R：进程的活动情况。
+        -y：终端设备活动情况。
+        -w：系统交换活动。
 
 下面将举例说明。
 例一：使用命令行 sar -u t n
 例如，每5秒采样一次，连续采样5次，观察CPU 的使用情况，并将采样结果以二进制形式存入当前目录下的文件filename中，需键入如下命令：
 # sar -u -o filename 5 5
 屏幕显示：
-Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
-09:58:17 AM       CPU     %user     %nice   %system   %iowait    %steal     %idle
-09:58:22 AM       all      2.25      0.00      1.62      0.33      0.00     95.80
-09:58:27 AM       all      2.55      0.00      1.92      0.27      0.00     95.25
-09:58:32 AM       all      1.77      0.00      1.30      0.42      0.00     96.50
-09:58:37 AM       all      1.65      0.00      0.93      0.33      0.00     97.10
-09:58:42 AM       all      1.82      0.00      1.40      0.05      0.00     96.73
-Average:          all      2.01      0.00      1.43      0.28      0.00     96.28
+        Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
+        09:58:17 AM       CPU     %user     %nice   %system   %iowait    %steal     %idle
+        09:58:22 AM       all      2.25      0.00      1.62      0.33      0.00     95.80
+        09:58:27 AM       all      2.55      0.00      1.92      0.27      0.00     95.25
+        09:58:32 AM       all      1.77      0.00      1.30      0.42      0.00     96.50
+        09:58:37 AM       all      1.65      0.00      0.93      0.33      0.00     97.10
+        09:58:42 AM       all      1.82      0.00      1.40      0.05      0.00     96.73
+        Average:          all      2.01      0.00      1.43      0.28      0.00     96.28
 
 在显示内容包括：
-%usr：CPU处在用户模式下的时间百分比。
-%system：CPU处在系统模式下的时间百分比。
-%iowait：CPU等待输入输出完成时间的百分比。
-%idle：CPU空闲时间百分比。
+        %usr：CPU处在用户模式下的时间百分比。
+        %system：CPU处在系统模式下的时间百分比。
+        %iowait：CPU等待输入输出完成时间的百分比。
+        %idle：CPU空闲时间百分比。
 在所有的显示中，我们应主要注意%iowait和%idle，%wio的值过高，表示硬盘存在I/O瓶颈， %idle值高，表示CPU较空闲，如果%idle值高但系统响应慢时，有可能是CPU等待分配内存， 此时应加大内存容量。%idle值如果持续低于10，那么系统的CPU处理能力相对较低，表 明系统中最需要解决的资源是CPU。
 如果要查看二进制文件filename中的内容，则需键入如下sar命令：#sar -u -f filename
 可见，sar命令即可以实时采样，又可以对以往的采样结果进行查询。
 
 例二：使用命行sar -v t n
 例如，每5秒采样一次，连续采样5次，观察核心表的状态，需键入如下命令：
-# sar -v 5 5
-屏幕显示：
-Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
+        # sar -v 5 5
+        屏幕显示：
+        Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
 
-10:00:04 AM dentunusd   file-sz  inode-sz  super-sz %super-sz  dquot-sz %dquot-sz  rtsig-sz %rtsig-sz
-10:00:09 AM    380230      4080    393279         0      0.00         0      0.00         0      0.00
-10:00:14 AM    380214      3570    393152         0      0.00         0      0.00         0      0.00
-10:00:19 AM    380183      3570    393167         0      0.00         0      0.00         0      0.00
-10:00:24 AM    380164      3060    393050         0      0.00         0      0.00         0      0.00
-10:00:29 AM    380176      3570    393148         0      0.00         0      0.00         0      0.00
-Average:       380193      3570    393159         0      0.00         0      0.00         0      0.00
+        10:00:04 AM dentunusd   file-sz  inode-sz  super-sz %super-sz  dquot-sz %dquot-sz  rtsig-sz %rtsig-sz
+        10:00:09 AM    380230      4080    393279         0      0.00         0      0.00         0      0.00
+        10:00:14 AM    380214      3570    393152         0      0.00         0      0.00         0      0.00
+        10:00:19 AM    380183      3570    393167         0      0.00         0      0.00         0      0.00
+        10:00:24 AM    380164      3060    393050         0      0.00         0      0.00         0      0.00
+        10:00:29 AM    380176      3570    393148         0      0.00         0      0.00         0      0.00
+        Average:       380193      3570    393159         0      0.00         0      0.00         0      0.00
 
 显示内容包括：
-inode-sz：目前核心中正在使用或分配的i节点表的表项数，由核心参数 MAX-INODE控制。
-file-sz： 目前核心中正在使用或分配的文件表的表项数，由核心参数MAX-FILE控 制。
-super-sz：溢出出现的次数。
-rrqm/s:   每秒进行 merge 的读操作数目.即 delta(rmerge)/s
-wrqm/s:  每秒进行 merge 的写操作数目.即 delta(wmerge)/s
-r/s:           每秒完成的读 I/O 设备次数.即 delta(rio)/s
-w/s:         每秒完成的写 I/O 设备次数.即 delta(wio)/s
-rsec/s:    每秒读扇区数.即 delta(rsect)/s
-wsec/s:  每秒写扇区数.即 delta(wsect)/s
-rkB/s:      每秒读K字节数.是 rsect/s 的一半,因为每扇区大小为512字节.(需要计算)
-wkB/s:    每秒写K字节数.是 wsect/s 的一半.(需要计算)
-avgrq-sz: 平均每次设备I/O操作的数据大小 (扇区).delta(rsect+wsect)/delta(rio+wio)
-avgqu-sz: 平均I/O队列长度.即 delta(aveq)/s/1000 (因为aveq的单位为毫秒).
-await:    平均每次设备I/O操作的等待时间 (毫秒).即 delta(ruse+wuse)/delta(rio+wio)
-svctm:   平均每次设备I/O操作的服务时间 (毫秒).即 delta(use)/delta(rio+wio)
-%util:      一秒中有百分之多少的时间用于 I/O 操作,或者说一秒中有多少时间 I/O 队列是非空的.即 delta(use)/s/1000 (因为use的单位为毫秒)
+        inode-sz：目前核心中正在使用或分配的i节点表的表项数，由核心参数 MAX-INODE控制。
+        file-sz： 目前核心中正在使用或分配的文件表的表项数，由核心参数MAX-FILE控 制。
+        super-sz：溢出出现的次数。
+        rrqm/s:   每秒进行 merge 的读操作数目.即 delta(rmerge)/s
+        wrqm/s:  每秒进行 merge 的写操作数目.即 delta(wmerge)/s
+        r/s:           每秒完成的读 I/O 设备次数.即 delta(rio)/s
+        w/s:         每秒完成的写 I/O 设备次数.即 delta(wio)/s
+        rsec/s:    每秒读扇区数.即 delta(rsect)/s
+        wsec/s:  每秒写扇区数.即 delta(wsect)/s
+        rkB/s:      每秒读K字节数.是 rsect/s 的一半,因为每扇区大小为512字节.(需要计算)
+        wkB/s:    每秒写K字节数.是 wsect/s 的一半.(需要计算)
+        avgrq-sz: 平均每次设备I/O操作的数据大小 (扇区).delta(rsect+wsect)/delta(rio+wio)
+        avgqu-sz: 平均I/O队列长度.即 delta(aveq)/s/1000 (因为aveq的单位为毫秒).
+        await:    平均每次设备I/O操作的等待时间 (毫秒).即 delta(ruse+wuse)/delta(rio+wio)
+        svctm:   平均每次设备I/O操作的服务时间 (毫秒).即 delta(use)/delta(rio+wio)
+        %util:      一秒中有百分之多少的时间用于 I/O 操作,或者说一秒中有多少时间 I/O 队列是非空的.即 delta(use)/s/1000 (因为use的单位为毫秒)
 
 tps：该设备每秒的传输次数（Indicate the number of transfers per second that were issued to the device.）。“一次传输”意思是“一次I/O请求”。多个逻辑请求可能会被合并为“一次I/O请求”。“一次传输”请求的大小是未知的。
 
