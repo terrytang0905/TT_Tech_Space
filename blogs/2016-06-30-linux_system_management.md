@@ -188,58 +188,60 @@ _其他_
     > b.临时的：使用export命令行声明即可，变量在关闭shell时失效。
     > 注：Linux的环境变量名称一般使用大写字母
 
-c.使用命令echo显示环境变量
-本例使用echo显示常见的变量HOME
-$ echo $HOME
-/home/kevin
-d.设置一个新的环境变量
-$ export MYNAME=”my name is kevin”
-$ echo $ MYNAME
-my name is Kevin
-e.修改已存在的环境变量
-接上个示例
-$ MYNAME=”change name to jack”
-$ echo $MYNAME
-change name to jack
-f.使用env命令显示所有的环境变量
-$ env
-HOSTNAME=localhost.localdomain
-SHELL=/bin/bash
-TERM=xterm
-HISTSIZE=1000
-SSH_CLIENT=192.168.136.151 1740 22
-QTDIR=/usr/lib/qt-3.1
-SSH_TTY=/dev/pts/0
-……
-g.使用set命令显示所有本地定义的Shell变量
-$ set  asd
-BASH=/bin/bash
-BASH_ENV=/root/.bashrc
-……
+    1)使用命令echo显示环境变量
+    $ echo $HOME
+    /home/kevin 
 
-f.使用unset命令来清除环境变量
-$ export TEMP_KEVIN=”kevin”     #增加一个环境变量TEMP_KEVIN
-$ env | grep TEMP_KEVIN          #查看环境变量TEMP_KEVIN是否生效（存在即生效）
-TEMP_KEVIN=kevin #证明环境变量TEMP_KEVIN已经存在
-$ unset TEMP_KEVIN            #删除环境变量TEMP_KEVIN
-$ env | grep TEMP_KEVIN       #查看环境变量TEMP_KEVIN是否被删除，没有输出显示，证明TEMP_KEVIN被清除了。
+    2)设置一个新的环境变量
+    $ export MYNAME=”my name is kevin”
+    $ echo $ MYNAME
+    my name is Kevin
 
-g.使用readonly命令设置只读变量
-注：如果使用了readonly命令的话，变量就不可以被修改或清除了。
-$ export TEMP_KEVIN ="kevin"      #增加一个环境变量TEMP_KEVIN
-$ readonly TEMP_KEVIN                  #将环境变量TEMP_KEVIN设为只读
-$ env | grep TEMP_KEVIN          #查看环境变量TEMP_KEVIN是否生效
-TEMP_KEVIN=kevin        #证明环境变量TEMP_KEVIN已经存在
-$ unset TEMP_KEVIN          #会提示此变量只读不能被删除
--bash: unset: TEMP_KEVIN: cannot unset: readonly variable
-$ TEMP_KEVIN ="tom"        #修改变量值为tom会提示此变量只读不能被修改
--bash: TEMP_KEVIN: readonly variable
+    3)修改已存在的环境变量
+    接上个示例
+    $ MYNAME=”change name to jack”
+    $ echo $MYNAME
+    change name to jack
 
-h.设置环境变量的三种方法
+    4)使用env命令显示所有的环境变量
+    $ env
+    HOSTNAME=localhost.localdomain
+    SHELL=/bin/bash
+    TERM=xterm
+    HISTSIZE=1000
+    SSH_CLIENT=192.168.136.151 1740 22
+    QTDIR=/usr/lib/qt-3.1
+    SSH_TTY=/dev/pts/0
 
-a).在/etc/profile文件中添加变量(对所有用户永久生效)
+    5)使用set命令显示所有本地定义的Shell变量
+    $ set  asd
+    BASH=/bin/bash
+    BASH_ENV=/root/.bashrc
 
-用VI在文件/etc/profile文件中增加变量，该变量将会对Linux下所有用户有效，并且是“永久的”.
+    6)使用unset命令来清除环境变量
+    $ export TEMP_KEVIN=”kevin”     #增加一个环境变量TEMP_KEVIN
+    $ env | grep TEMP_KEVIN          #查看环境变量TEMP_KEVIN是否生效（存在即生效）
+    TEMP_KEVIN=kevin #证明环境变量TEMP_KEVIN已经存在
+    $ unset TEMP_KEVIN            #删除环境变量TEMP_KEVIN
+    $ env | grep TEMP_KEVIN       #查看环境变量TEMP_KEVIN是否被删除，没有输出显示，证明TEMP_KEVIN被清除了。
+
+    7)使用readonly命令设置只读变量
+    注：如果使用了readonly命令的话，变量就不可以被修改或清除了。
+    $ export TEMP_KEVIN ="kevin"      #增加一个环境变量TEMP_KEVIN
+    $ readonly TEMP_KEVIN                  #将环境变量TEMP_KEVIN设为只读
+    $ env | grep TEMP_KEVIN          #查看环境变量TEMP_KEVIN是否生效
+    TEMP_KEVIN=kevin        #证明环境变量TEMP_KEVIN已经存在
+    $ unset TEMP_KEVIN          #会提示此变量只读不能被删除
+    -bash: unset: TEMP_KEVIN: cannot unset: readonly variable
+    $ TEMP_KEVIN ="tom"        #修改变量值为tom会提示此变量只读不能被修改
+    -bash: TEMP_KEVIN: readonly variable
+
+
+  3.设置环境变量的三种方法
+
+    a).在/etc/profile文件中添加变量(对所有用户永久生效)
+
+    用VI在文件/etc/profile文件中增加变量，该变量将会对Linux下所有用户有效，并且是“永久的”.
 
         # vi /etc/profile
         unset i
@@ -256,19 +258,19 @@ a).在/etc/profile文件中添加变量(对所有用户永久生效)
         #. /etc/profile 修改立即生效
         注：修改文件后要想马上生效还要运行# source /etc/profile不然只能在下次重启此用户时生效。
 
-b).在用户目录下的 /home/user/.bashrc or /root/.bashrc/ or /home/user/.bash_profile 文件中增加变量(对单一用户永久生效)
+    b).在用户目录下的 /home/user/.bashrc or /root/.bashrc/ or /home/user/.bash_profile 文件中增加变量(对单一用户永久生效)
 
-用VI在用户目录下的.bash_profile文件中增加变量，改变量仅会对当前用户有效,是“永久的”。
-例如：编辑guok用户目录（/home/guok）下的.bash_profile
+        用VI在用户目录下的.bash_profile文件中增加变量，改变量仅会对当前用户有效,是“永久的”。
+        例如：编辑guok用户目录（/home/guok）下的.bash_profile
 
         $ vi /home/guok/.bash_profile
         添加如下内容：
         export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib
         注：修改文件后要想马上生效还要运行$ source /home/guok/.bash_profile不然只能在下次重进此用户时生效。
 
-c).直接运行export命令定义变量(只对当前shell（BASH）session有效)
+    c).直接运行export命令定义变量(只对当前shell（BASH）session有效)
 
-在shell的命令行下直接使用[export变量名=变量值]定义变量，该变量只在当前的shell（BASH）或其子shell（BASH）下是有效的，shell关闭了，变量也就失效了，再打开新shell时就没有这个变量，需要使用的话还需要重新定义
+        在shell的命令行下直接使用[export变量名=变量值]定义变量，该变量只在当前的shell（BASH）或其子shell（BASH）下是有效的，shell关闭了，变量也就失效了，再打开新shell时就没有这个变量，需要使用的话还需要重新定义
 
         env 列出所有环境变量
         export 设置或显示环境变量
@@ -283,44 +285,49 @@ c).直接运行export命令定义变量(只对当前shell（BASH）session有效
         echo $PATH | cut -d ':' -f 5 以:为分隔符,读取第5段内容
         export | cut -c 10-20 读取第10到20个字节的内容
 
-3. source命令用法
+  4. source命令用法
 
-source FileName
-作用:在当前bash环境下读取并执行FileName中的命令。
-注：该命令通常用命令“.”来替代。
-如：source .bash_rc 与 . .bash_rc 是等效的。
+        source FileName
+        作用:在当前bash环境下读取并执行FileName中的命令。
+        注：该命令通常用命令“.”来替代。
+        如：source .bash_rc 与 . .bash_rc 是等效的。
 
-source命令(从 C Shell 而来)是bash shell的内置命令。
-点命令，就是个点符号，(从Bourne Shell而来)是source的另一名称。
-同样的，当前脚本中配置的变量也将作为脚本的环境，source(或点)命令通常用于重新执行刚修改的初始化文档，如 .bash_profile 和 .profile 等等。例如，假如在登录后对 .bash_profile 中的 EDITER 和TERM 变量做了修改，则能够用source命令重新执行 .bash_profile 中的命令而不用注销并重新登录。
-比如您在一个脚本里export $KKK=111 ,假如您用./a.sh执行该脚本，执行完毕后，您运行 echo $KKK,发现没有值，假如您用source来执行 ，然后再echo,就会发现KKK=111。因为调用./a.sh来执行shell是在一个子shell里运行的，所以执行后，结构并没有反应到父shell里，但是
-source不同点命令，就是在本shell中执行的，所以能够看到结果
+        source命令(从C Shell而来)是bash shell的内置命令。
+        点命令，就是个点符号，(从Bourne Shell而来)是source的另一名称。
+        同样的，当前脚本中配置的变量也将作为脚本的环境，source(或点)命令通常用于重新执行刚修改的初始化文档，如 .bash_profile 和 .profile 等等。例如，假如在登录后对 .bash_profile 中的 EDITER 和TERM 变量做了修改，则能够用source命令重新执行 .bash_profile 中的命令而不用注销并重新登录。
+        比如您在一个脚本里export $KKK=111 ,假如您用./a.sh执行该脚本，执行完毕后，您运行 echo $KKK,发现没有值，假如您用source来执行,然后再echo,就会发现KKK=111。
+        因为调用./a.sh来执行shell是在一个子shell里运行的，所以执行后，结构并没有反应到父shell里，但是
+        source不同点命令，就是在本shell中执行的，所以能够看到结果
 
 
 ##### Linux安装命令：
 
-./configure 检查系统信息
-./configure --help | more 帮助信息
-make clean 清除之前留下的文件
-make 编译
-make install 安装
-alternatives --install /usr/bin/java java /home/software/JDK/bin/java 300
+_./configure_ 
 
-rpm
-rpm -q ----->查询是否安装 rpm -ql ------>查询该套件所有的目录
-rpm -qi ----->查询套件的说明资料 rpm -qc[d] ----->设定档与说明档
-rpm -ivh ---->安装 rpm -V -------->查看套件有否更动过
-rpm -e ------>删除 rpm -Uvh ------->升级安装
---nodeps ----->强行安装 --test ----->测试安装
+        检查系统信息
+        ./configure --help | more 帮助信息
+        make clean 清除之前留下的文件
+        make 编译
+        make install 安装
+        alternatives --install /usr/bin/java java /home/software/JDK/bin/java 300
 
-Linux应用创建快捷方式
-/usr/bin/mongo
-touch /usr/bin/eclipse
-chmod 755 /usr/bin/eclipse
-gedit /usr/bin/eclipse
+_rpm_
 
-添加应用初始化service
-/etc/init.d/XXX
+        rpm -q ----->查询是否安装 rpm -ql ------>查询该套件所有的目录
+        rpm -qi ----->查询套件的说明资料 rpm -qc[d] ----->设定档与说明档
+        rpm -ivh ---->安装 rpm -V -------->查看套件有否更动过
+        rpm -e ------>删除 rpm -Uvh ------->升级安装
+        --nodeps ----->强行安装 --test ----->测试安装
+
+_Linux应用创建快捷方式_
+
+        /usr/bin/mongo
+        touch /usr/bin/eclipse
+        chmod 755 /usr/bin/eclipse
+        gedit /usr/bin/eclipse
+
+        添加应用初始化service
+        /etc/init.d/XXX
 
 
 #### C.解压命令：
@@ -450,7 +457,7 @@ quotaon 开启磁盘空间限制 quotaon -auvg -------->啟動所有的具有 qu
 quotaoff 关闭磁盘空间限制 quotaoff -a -------->關閉了 quota 的限制
 repquota -av 查閱系統內所有的具有 quota 的 filesystem 的限值狀態
 
-Quota 從開始準備 filesystem 的支援到整個設定結束的主要的步驟大概是：
+Quota從開始準備filesystem的支援到整個設定結束的主要的步驟大概是：
 1、設定 partition 的 filesystem 支援 quota 參數：
 由於 quota 必須要讓 partition 上面的 filesystem 支援才行，一般來說， 支援度最好的是 ext2/ext3 ，
 其他的 filesystem 類型鳥哥我是沒有試過啦！ 啟動 filesystem 支援 quota 最簡單就是編輯 /etc/fstab ，
@@ -690,7 +697,7 @@ _日常_
 
 在bash里，使用 Ctrl-R 而不是上下光标键来查找历史命令。
 在bash里，使用 Ctrl-W 来删除最后一个单词，使用 Ctrl-U 来删除一行。请man bash后查找Readline Key Bindings一节来看看bash的默认热键，比如：Alt-. 把上一次命令的最后一个参数打出来，而Alt-* 则列出你可以输入的命令。
-回到上一次的工作目录： cd –  （回到home是 cd ~）
+回到上一次的工作目录: cd – (回到home是 cd ~)
 使用 xargs。这是一个很强大的命令。你可以使用-L来限定有多少个命令，也可以用-P来指定并行的进程数。如果你不知道你的命令会变成什么样，你可以使用xargs echo来看看会是什么样。当然， -I{} 也很好用。示例：
 find . -name \*.py | xargs grep some_function
 
