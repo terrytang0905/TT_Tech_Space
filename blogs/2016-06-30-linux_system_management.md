@@ -285,7 +285,7 @@ _其他_
         echo $PATH | cut -d ':' -f 5 以:为分隔符,读取第5段内容
         export | cut -c 10-20 读取第10到20个字节的内容
 
-  4. source命令用法
+  4.source命令用法
 
         source FileName
         作用:在当前bash环境下读取并执行FileName中的命令。
