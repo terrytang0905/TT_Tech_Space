@@ -443,32 +443,36 @@ _Linux应用创建快捷方式_
 
 #### D.Linux磁盘文件管理
 
-quota 显示磁盘已使用的空间与限制
-quota -guvs ----->秀出目前 root 自己的 quota 限制值
-quota -vu 查询
-quotacheck 检查磁盘的使用空间与限制 quotacheck -avug ----->將所有的在 /etc/mtab 內，含有 quota 支援的 partition 進行掃瞄
-[-m] 强制扫描
-quota一定要是独立的分区,要有quota.user和quota.group两件文件,在/etc/fstab添加一句:
-/dev/hda3 /home ext3 defaults,usrquota,grpquota 1 2
-chmod 600 quota* 设置完成,重启生效
-edquota 编辑用户或群组的quota [u]用户,[g]群组,[p]复制,[t]设置宽限期限
-edquota -a yang edquota -p yang -u young ----->复制
-quotaon 开启磁盘空间限制 quotaon -auvg -------->啟動所有的具有 quota 的 filesystem
-quotaoff 关闭磁盘空间限制 quotaoff -a -------->關閉了 quota 的限制
-repquota -av 查閱系統內所有的具有 quota 的 filesystem 的限值狀態
+_quota显示磁盘已使用的空间与限制_
 
-Quota從開始準備filesystem的支援到整個設定結束的主要的步驟大概是：
-1、設定 partition 的 filesystem 支援 quota 參數：
-由於 quota 必須要讓 partition 上面的 filesystem 支援才行，一般來說， 支援度最好的是 ext2/ext3 ，
-其他的 filesystem 類型鳥哥我是沒有試過啦！ 啟動 filesystem 支援 quota 最簡單就是編輯 /etc/fstab ，
-使得準備要開放的 quota 磁碟可以支援 quota 囉；
-2、建立 quota 記錄檔：
-剛剛前面講過，整個 quota 進行磁碟限制值記錄的檔案是 aquota.user/aquota.group，
-要建立這兩個檔案就必須要先利用 quotacheck 掃瞄才行喔！
-3、編輯 quota 限制值資料：
-再來就是使用 edquota 來編輯每個使用者或群組的可使用空間囉；
-4、重新掃瞄與啟動 quota ：
-設定好 quota 之後，建議可以再進行一次 quotacheck ，然後再以 quotaon 來啟動吧！
+        quota -guvs ----->秀出目前root自己的quota限制值
+        quota -vu 查询
+        quotacheck检查磁盘的使用空间与限制 
+        quotacheck -avug ----->將所有的在 /etc/mtab 內，含有quota支援的partition進行掃瞄
+        [-m] 强制扫描
+        quota一定要是独立的分区,要有quota.user和quota.group两件文件,在/etc/fstab添加一句:
+        /dev/hda3 /home ext3 defaults,usrquota,grpquota 1 2
+        chmod 600 quota* 设置完成,重启生效
+        edquota 编辑用户或群组的quota [u]用户,[g]群组,[p]复制,[t]设置宽限期限
+        edquota -a yang edquota -p yang -u young ----->复制
+        quotaon 开启磁盘空间限制 quotaon -auvg -------->啟動所有的具有 quota 的 filesystem
+        quotaoff 关闭磁盘空间限制 quotaoff -a -------->關閉了 quota 的限制
+        repquota -av 查閱系統內所有的具有quota的filesystem的限值狀態
+
+Quota主要的步驟大概是：
+
+        步骤-從開始準備filesystem的支援到整個設定結束
+        1、設定 partition 的 filesystem 支援 quota 參數：
+        由於 quota 必須要讓 partition 上面的 filesystem 支援才行，一般來說， 支援度最好的是 ext2/ext3 ，
+        其他的 filesystem 類型鳥哥我是沒有試過啦！ 啟動 filesystem 支援 quota 最簡單就是編輯 /etc/fstab ，
+        使得準備要開放的 quota 磁碟可以支援 quota 囉；
+        2、建立 quota 記錄檔：
+        剛剛前面講過，整個 quota 進行磁碟限制值記錄的檔案是 aquota.user/aquota.group，
+        要建立這兩個檔案就必須要先利用 quotacheck 掃瞄才行喔！
+        3、編輯 quota 限制值資料：
+        再來就是使用 edquota 來編輯每個使用者或群組的可使用空間囉；
+        4、重新掃瞄與啟動 quota ：
+        設定好quota之後，建議可以再進行一次quotacheck ，然後再以quotaon來啟動吧！
 
 _Disk查询_
 
@@ -550,24 +554,24 @@ _mount_
 In a unix shell, if I want to combine stderr and stdout into the stdout stream for further manipulation, I can append the following on the end of my command:
 2>&1
 
-kill 结束进程 kill -9 PID [9]强制结束,[15]正常结束,[l]列出可用的kill信号
-killall 要刪除某個服務 killall -9 httpd
-free 显示内存状态 free -m -------->以M为单位显示
-uptime 显示目前系统开机时间
-dmesg 显示开机信息 demsg | more
-nice 设置优先权 nice -n -5 vi & ----->用 root 給一個 nice 植為 -5 ，用於執行 vi
-renice 调整已存在优先权
-runlevel 显示目前的runlevel
-depmod 分析可载入模块的相依性
-lsmod 显示已载入系统的模块
-modinfo 显示kernel模块的信息
-insmod 载入模块
-modprobe 自动处理可载入模块
-rmmod 删除模块
-chkconfig 检查，设置系统的各种服务 chkconfig --list ----->列出各项服务状态
-ntsysv 设置系统的各种服务
-cpio 备份文件
-ftp
+        kill 结束进程 kill -9 PID [9]强制结束,[15]正常结束,[l]列出可用的kill信号
+        killall 要刪除某個服務 killall -9 httpd
+        free 显示内存状态 free -m -------->以M为单位显示
+        uptime 显示目前系统开机时间
+        dmesg 显示开机信息 demsg | more
+        nice 设置优先权 nice -n -5 vi & ----->用 root 給一個 nice 植為 -5 ，用於執行 vi
+        renice 调整已存在优先权
+        runlevel 显示目前的runlevel
+        depmod 分析可载入模块的相依性
+        lsmod 显示已载入系统的模块
+        modinfo 显示kernel模块的信息
+        insmod 载入模块
+        modprobe 自动处理可载入模块
+        rmmod 删除模块
+        chkconfig 检查，设置系统的各种服务 chkconfig --list ----->列出各项服务状态
+        ntsysv 设置系统的各种服务
+        cpio 备份文件
+        ftp
 
 _Linux内存释放_
 
@@ -825,8 +829,7 @@ sar 命令行的常用格式： sar [options] [-A] [-o file] t [n]
 例二：使用命行sar -v t n
 例如，每5秒采样一次，连续采样5次，观察核心表的状态，需键入如下命令：
 
-        > # sar -v 5 5
-        
+        > sar -v 5 5
         屏幕显示：
         Linux 2.6.18-164.el5 (zjm_242_97)       03/28/2011
 
