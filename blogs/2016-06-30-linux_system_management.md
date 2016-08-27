@@ -82,6 +82,8 @@ title: Linux System Management Guide
     at 僅進行一次的Schedule Task
     crontab 循環執行的例行性命令 [e]编辑,[l]显示,[r]删除任务
 
+    find . "( -name "*.java" -or -name "*.xml" -or -name "*.properties")" -print | xargs wc -l
+
 _grep_
 
     grep [-acinv] '搜尋正则表达式字串' filename
