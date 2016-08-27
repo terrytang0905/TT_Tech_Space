@@ -8,17 +8,17 @@ group: navigation
 ### Terry Tang
 Data Product Architect. 
 
-- Software product designer, programming, big data solution, data mining, distribute computering.
+- Data product designer,big data solution, data mining, database design and fulltext search.
 - Email: zhenjietang@hotmail.com
 
 
 ### Speciality
 
-- Data product technology architect design and dig data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
+- Software product architect design and dig data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
 - Data mining and data analysis for e-commerce
+- Internet mobile product design and data architect
 - Full-Text content search engine solution (Lucene / XML database / ElasticSearch solution)
-- Internet mobile product design and product architect
-- Content management enterprise product design and implementation (Documentum)
+- NoSQL Database product design
 
 ### Technology skills
 
