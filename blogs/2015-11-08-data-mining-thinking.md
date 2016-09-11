@@ -52,7 +52,7 @@ title: Data Mining Thinking
 4. 内存数据计算
 5. 数据可视化趋势
 
-### II.数据仓库/数据平台设计
+### II.数据仓库/大数据架构设计
 
 #### 2.1.BI数据仓库设计
 
@@ -69,18 +69,19 @@ C. _独立型数据集市_
 > ETL -> 数据集市(关注维度/主题区域) -> 用户探索&挖掘 <br />
 > 脱离企业环境,只关注主题区域
 
-#### 2.2.数据仓库&数据平台选型
+#### 2.2.数据仓库&大数据选型
 
 A._MPP分析型数据库_:
 > Greenplum 分布式集群列式数据库 <br />
 > Vertica 列式数据库
 
-B._分布式存储与NoSQL_:
+B._大数据分布式存储(NoSQL)_:
 > Hadoop / HDFS / HBase <br />
+> Cloudera / Kudu / Impala <br />
 > MongoDB / Couchbase / Cassandra <br />
 > Yahoo PNUTS/Google BigTable/Amazon Dynamo
 
-C._分布式存储设计_:
+C._分布式存储技术_:
 > CAP / lazily propagate in Segment Tree / 最终一致性协议(Gossip算法) <br />
 > Lazy propagation means updating only when required
 
