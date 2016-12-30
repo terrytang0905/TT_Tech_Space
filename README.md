@@ -9,15 +9,14 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### Content
 
-##### Data Science
+##### BigData & Data Science 
 
+- [Kafka&Storm流式处理笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-14-kafka-storm-research-note.md)
+- [Impala&Kudu研究笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-kudu-research-note.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-analysis-algorithm.md)
-- [数据挖掘研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
+- [大数据分析研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - [FullText搜索设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-lucene-search-design-note.md)
-
-##### BigData Solution
-
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum_analysis_function.md)
 - [Greenplum命令操作手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_command_guide.md)
 - [MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
