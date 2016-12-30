@@ -36,7 +36,7 @@ Solution: Lucene multiple index(Concurrent Index / Parallel Query) <br />
 - Space consumption performance
 1.7. BigData storage & analysis. <br />
 1.8. Store any index meta data or source contents. <br />
-Solution: FileSystem / Hadoop or GFS or TFS / NoSQL DB (xDB & MongoDB) <br />
+Solution: HDFS or TFS / NoSQL DB (xDB / MongoDB / HBase) <br />
 
 ### II.Lucene Design Principle & Architecture
 
@@ -447,7 +447,8 @@ xDB Lucene Index Limitation
 	• lucene sub-merge performance (non-final merge/final merge)
 
 
-### V.ElasticSearch & MongoDB Search Design
+### V.ElasticSearch Search Design
+
 
 ### VI.Limitation
 

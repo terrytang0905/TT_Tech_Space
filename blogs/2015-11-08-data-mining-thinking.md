@@ -5,7 +5,7 @@ tags : [bigdata,tutorial]
 title: Data Mining Thinking
 ---
 
-数据挖掘研究思考
+大数据分析研究思考
 ------------------------
 
 ### I.基本定义
@@ -27,7 +27,7 @@ title: Data Mining Thinking
 1. 结构化数据：海量数据的查询、统计、更新等操作效率低
 2. 非结构化数据：图片、视频、word、PDF、PPT等文件存储、不利于检索，查询和存储
 3. 半结构化数据：转换为结构化数据存储、按照非结构化存储
-4. 多数据源归整方案
+4. 多数据源归整方案 - Hadoop等分布式存储
 
 #### 1.3.数据定义属性:
 
@@ -69,21 +69,31 @@ C. _独立型数据集市_
 > ETL -> 数据集市(关注维度/主题区域) -> 用户探索&挖掘 <br />
 > 脱离企业环境,只关注主题区域
 
-#### 2.2.数据仓库&大数据技术选型
+#### 2.2.大数据&数据仓库技术选型
 
-A._MPP分析型数据库_:
-> Greenplum 分布式集群列式数据库 <br />
-> Vertica 列式数据库
+A._分布式算法_:
+> CAP 
+> 2PC(Two-Phrase Commit)
+> Vector Clock向量时钟
+> RWN协议
+> Paxos协议
+> Raft协议
+> Bloom Filter
+> SkipList
+> LSM树
+> Merkle哈希树
+> Snappy&LZSS数据压缩算法
+> Cuckoo哈希
+> Gossip协议
+
+B._分布式大数据查询_:
+> Greenplum / Vertica 分析型数据仓库 <br />
+> Hive / Dremel / Impala / Presto 
 
 B._大数据分布式存储(NoSQL)_:
-> Hadoop / HDFS / HBase <br />
-> Cloudera / Kudu / Impala <br />
-> MongoDB / Couchbase / Cassandra <br />
-> Yahoo PNUTS/Google BigTable/Amazon Dynamo
-
-C._分布式存储技术_:
-> CAP / lazily propagate in Segment Tree / 最终一致性协议(Gossip算法) <br />
-> Lazy propagation means updating only when required
+> HDFS / GFS <br />
+> Google BigTable / HBase / Kudu / Cassandra /Amazon Dynamo / LevelDB / RocksDB <br />
+> MongoDB / Couchbase / Redis <br />
 
 ### III.数据预处理
 
@@ -119,6 +129,9 @@ C. _数据筛选/特征筛选_ <br />
 
 D. _共线性问题_ <br />
      自变量间存在较强的，甚至完全的线性相关关系 <br />
+
+E. _数据完整性验证_
+     介于大多数数据来源的不稳定性, 数据完整性是极为重要的
 
 ### IV.数据建模与Cube
 
@@ -201,7 +214,7 @@ D. _共线性问题_ <br />
 
 #### 5.4.OLAP详细设计
 
-- 多维OLAP查询
+- 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
 - Aggregation Query
 - OLAP数据缓存设计
 - 查询语义分析设计
@@ -211,11 +224,18 @@ D. _共线性问题_ <br />
 
 #### 5.5.支持SQL查询的分布式计算
 
-    A. Hive: SQL on Hadoop/HDFS
-    B. Impala: OLAP SQL on Hadoop/HDFS
-    C. SparkSQL: OLAP SQL on Hadoop/HDFS
-    D. Spark Streamming: 实时流式计算
-    E. Storm: 实时流式计算
+    A. Hive: SQL-on-Hadoop
+    B. Impala: OLAP SQL-on-Hadoop
+    C. Spark: OLAP SQL-on-Hadoop
+    D. Druid: 分布式OLAP
+    E. Presto: OLAP SQL-on-Hadoop
+
+
+#### 5.6.支持SQL查询的分布式计算
+     
+    大数据实时数据查询
+    F. Spark Streamming: 实时流式计算
+    G. Storm: 实时流式计算
 
 ### VI.数据挖掘技术设计
 
