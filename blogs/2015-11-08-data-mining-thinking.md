@@ -72,19 +72,20 @@ C. _独立型数据集市_
 #### 2.2.大数据&数据仓库技术选型
 
 A._分布式算法_:
-> CAP 
-> 2PC(Two-Phrase Commit)
-> Vector Clock向量时钟
-> RWN协议
-> Paxos协议
-> Raft协议
-> Bloom Filter
-> SkipList
-> LSM树
-> Merkle哈希树
-> Snappy&LZSS数据压缩算法
-> Cuckoo哈希
-> Gossip协议
+
+- CAP 
+- 2PC(Two-Phrase Commit)
+- Vector Clock向量时钟
+- RWN协议
+- Paxos协议
+- Raft协议
+- Bloom Filter
+- SkipList
+- LSM树
+- Merkle哈希树
+- Snappy&LZSS数据压缩算法
+- Cuckoo哈希
+- Gossip协议
 
 B._分布式大数据查询_:
 > Greenplum / Vertica 分析型数据仓库 <br />
