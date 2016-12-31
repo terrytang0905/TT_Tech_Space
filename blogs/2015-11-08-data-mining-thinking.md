@@ -47,10 +47,10 @@ title: Data Mining Thinking
 #### 1.5.解决方案思考:
 
 1. 数据存储：MPP(Vertica/Greenplum),HDFS,HBase,MongoDB,Cassandra等
-2. 并行计算：Spark, Hive(SQL查询), MapReduce批处理技术
+2. OLAP计算：SparkSQL, Hive, Impala, Presto, Druid, Kylin
 3. 实时流式计算：Apache Storm,Apache SparkStreaming
-4. 内存数据计算
-5. 数据可视化趋势
+4. 大数据计算平台: Spark, Flink, MapReduce批处理技术
+5. 数据可视化趋势: D3, E-Charts
 
 ### II.数据仓库/大数据架构设计
 
