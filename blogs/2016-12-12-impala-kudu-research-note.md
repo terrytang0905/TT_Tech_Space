@@ -41,24 +41,27 @@ Impala is massively-parallel query execution engine,which runs on hundreds of ma
 
 Query compilation process: Query parsing,semantic analysis and query planing/optimization
 
-An executable query plan is constructed in two phases: (1) Single node planning and (2) plan parallelization and fragmentation.
-1)A non- executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.
-2)Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality.
-All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.
+An executable query plan is constructed in two phases: (1) Single node planning and (2) plan parallelization and fragmentation.<br/>
 
-The impala backend is writ- ten in C++ and uses code generation at runtime to produce e cient codepaths (with respect to instruction count) and small memory overhead.
-Impala employs a partitioning approach for the hash join and aggregation operators.
+	> 1)A non- executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.<br/>
+	> 2)Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality.<br/>
+    All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.
+
+The impala backend is written in C++ and uses code generation at runtime to produce e cient codepaths (with respect to instruction count) and small memory overhead.<br/>
+Impala employs a partitioning approach for the hash join and aggregation operators.<br/>
 When building the hash tables for the hash joins and there is reduction in cardinality of the build-side relation, impala constructs a Bloom-filter which is then passed on to the probe side scanner, implementing a simple version of a semi-join.
 
 ##### About Code Generation
 
-Virtual function calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the vir- tual function call with a call directly to the correct function, which can then be inlined.
-JIT compilation has an e↵ect similar to custom- coding a query. For example, it eliminates branches, unrolls loops, propagates constants, o↵sets and pointers, inlines functions
+Virtual function calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
+JIT compilation has an effect similar to custom-coding a query. For example, it eliminates branches, unrolls loops, propagates constants, offsets and pointers, inlines functions.<br/>
 Code generation has a dramatic impact on performance - Speed up 5.7x
 
-Runtime Code Generation
+* Runtime Code Generation *
+
 In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk.
 Avro,RC,Sequence,plain text,Parquet(Recommend)
+
 Resource Management:YARN Llama
 
 #### Physical schema design 
@@ -69,7 +72,7 @@ We could build time PARTITION for source table as the extend time items.
 
 ### Kudu
 
-
+hybrid architectures(HDFS+HBase)
 
 
 
