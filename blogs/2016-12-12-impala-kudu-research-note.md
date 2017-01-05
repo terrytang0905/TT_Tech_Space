@@ -15,15 +15,15 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 - Impala SQL doesn't support UPDATE or DELETE like Hive.Impala supports ALTER TABLE DROP PARTITION.
 - The key point of the impala design of an MPP database is how to run on hundrens of nodes is the coordination and synchronization of cluster-wide metadata.For example,up-to-date versions of the system catalog
 - Designed a simple publish-subscribe service called the statestore to disseminate metadata changes to a set of subscribers,not establish a TCP connection or create synchronous RPCs(avoid network connection cost).
-- Impala’s catalog service serves catalog metadata to Impala daemons via the statestore broadcast mechanism, and exe- cutes DDL operations on behalf of Impala daemons.
-- The catalog service pulls information from third-party metadata stores (for example, the Hive Metastore or the HDFS Namenode), and aggregates that information into an Impala- compatible catalog structure.The default third-party metadata store is Hive Metastore and could be replaced by HBase.
+- Impala’s catalog service serves catalog metadata to Impala daemons via the statestore broadcast mechanism, and executes DDL operations on behalf of Impala daemons.
+- The catalog service pulls information from third-party metadata stores(for example, the Hive Metastore or the HDFS Namenode), and aggregates that information into an Impala-compatible catalog structure.The default third-party metadata store is Hive Metastore and could be replaced by HBase.
 - Impala supports inline views, uncorrelated and correlated subqueries (that are rewritten as joins), all variants of outer joins as well as explicit left/right semi- and anti-joins, and analytic window functions.
 - Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.The design is similar to Greenplum.
-- Runtime code generation using LLVM is one of the techniques employed extensively by Impala's backend to improve execution times.
-- In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk.
+- Runtime code generation using LLVM in Impala's backend is one of the techniques to improve execution times.LLVM is a compiler library and collection of related tools which is designed to be modular and reusable. It allows applications like Impala to perform just-in-time (JIT) compilation within a running process.
+- Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk in order to perform data scans from both disk and memory at or near hardware speed.
 - HDFS caching allows Impala to access memory-resident data at memory bus speed and also saves CPU cycles as there is no need to copy data blocks and/or checksum them.
 - Impala supports most popular file formats:Avro,RC,Sequence,TEXTFILE and Parquet.Recommend using Apache Parquet because Parquet offer both high compression and scan efficency.
--Compared to YARN resource management,Impala support mixed-workload resource management through a single mechanism that supports both the low latency decision making of admission control & Llama for Low-Latency Application Master, and the cross-framework support of YARN.
+- 
 
 #### Impala Architect
 
@@ -51,6 +51,8 @@ The impala backend is written in C++ and uses code generation at runtime to prod
 Impala employs a partitioning approach for the hash join and aggregation operators.<br/>
 When building the hash tables for the hash joins and there is reduction in cardinality of the build-side relation, impala constructs a Bloom-filter which is then passed on to the probe side scanner, implementing a simple version of a semi-join.
 
+Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
+
 * Code Generation Design & Performance *
 
 Virtual function calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
@@ -62,7 +64,13 @@ Code generation has a dramatic impact on performance - Speed up 5.7x
 In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk.
 Avro,RC,Sequence,plain text,Parquet(Recommend)
 
-* Resource Management:YARN Llama *
+* Resource Management:YARN & Llama *
+
+YARN has a centralized architecture, where frameworks make requests for CPU and memory resources which are arbitrated by the central Resource Manager service,but it also imposes a significant latency on resource acquisition.<br/>
+Impala implemented a complementary but independent admission control mechanism that allowed users to control their workloads without costly centralized decision-making.<br/>
+Llama for Low-Latency Appli- cation MAster, implements resource caching, gang scheduling and incremental allocation changes while still deferring the actual scheduling decisions to YARN for resource requests.
+
+The long-term goal of Impala is to support mixed-workload resource management through a single mechanism that supports both the low latency decision making of admission control & Llama(Low-Latency Application Master), and the cross-framework support of YARN.
 
 #### Physical schema design 
 
