@@ -23,7 +23,7 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 - Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk in order to perform data scans from both disk and memory at or near hardware speed.
 - HDFS caching allows Impala to access memory-resident data at memory bus speed and also saves CPU cycles as there is no need to copy data blocks and/or checksum them.
 - Impala supports most popular file formats:Avro,RC,Sequence,TEXTFILE and Parquet.Recommend using Apache Parquet because Parquet offer both high compression and scan efficency.
-- 
+
 
 #### Impala Architect
 
@@ -31,11 +31,12 @@ Impala is massively-parallel query execution engine,which runs on hundreds of ma
 
 ![Impala Architecture](_includes/Impala_arch.png).
 
+* Impala main components: *
+
 > Impala daemon(impalad) <br/> 
 > Statestore daemon(statestored) <br/>
 > Catalog daemon(catalogd) <br/>
-> Hive Metastore <br/>
-> HDFS 
+> HDFS + Hive Metastore <br/>
 
 #### Impala SQL Query:
 
