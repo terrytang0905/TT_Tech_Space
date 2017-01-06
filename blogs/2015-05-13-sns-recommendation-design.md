@@ -13,7 +13,7 @@ title: SNS Recommendation Design Note
  根据现有OpenSource框架，Mahout是相对比较成熟的Machine Learning框架，其中的Taste是支持多种预测算法的推荐模块。其算法有基于MapReduce和pure 
  Java的两种实现。数据存储可选择Memory，File, 
  DB和Hadoop。Hadoop的批处理数据处理特性导致Mahout无法很好地支持实时数据分析与处理。不过现行需求下对实时性的需求不高，现有Mahout与Lucene/Hadoop的集成度较高, 
- 且已提供足够成功的机器学习案例。因此我们首选Mahout作为IFLY推荐核心框架。
+ 且已提供足够成功的机器学习案例。因此我们首选Mahout作为社交类产品推荐核心框架。
  同时密切关注PredictionIO Solution (创业公司)，其方案是基于Mahout的Machine 
  Learning改进方案,且支持Spark，HBase等大数据分析工具。之后如Mahout无法满足现有需求，可选择切换到PredictionIO。
 
