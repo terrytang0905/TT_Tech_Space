@@ -11,6 +11,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### BigData & Data Science 
 
+- [ElasticSearch分布式搜索引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-solution.md)
 - [Kafka&Storm流式处理笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-14-kafka-storm-research-note.md)
 - [Impala&Kudu研究笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-kudu-research-note.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-analysis-algorithm.md)
@@ -20,7 +21,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum_analysis_function.md)
 - [Greenplum命令操作手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_command_guide.md)
 - [MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
-- [MongoDB 3.0 Major Change (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
+- [MongoDB3.0 MajorChange (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [Couchbase Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
 - [MongoDB Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
 
@@ -30,8 +31,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [Java多线程与并发-BlockingQueue API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_blocking_queue_note.md)
 - [Java多线程与并发-java.util.concurrent API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_api_note.md)
 - [Java多线程与并发-Lock-free无锁编程](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-11-java_lock_free_program_note.md)
+- [Java多线程与并发-分析索引](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-11-java_concurrent_analysis_map.md)
 - [Java多线程与并发-Concurrent Analysis Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-09-java_concurrent_analysis_note.md)
-- [Java多线程与并发-分析索引](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-04-java_concurrent_analysis_map.md)
 - [程序员的职业素养-读书笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-07-professional-programmer.md)
 - [Go语言研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-12-go-language-design.md)
 - [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux_system_management.md)

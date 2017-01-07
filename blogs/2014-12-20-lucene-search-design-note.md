@@ -14,8 +14,8 @@ Beginning from Aug in 2009, I have involved into one fulltext search engine proj
 Here are the following main function aspects for fulltext search engine. I will explain every function step by step later.
 
 1.1. Index/Information Crawler: Data comes from database / webpage / document. <br />
-Solution: Scrapy <br />
-1.2. Content Extractor/Text Extractor: extract fulltext from any media. <br />
+Solution: Scrapy / network crawler <br />
+1.2. Content Extractor/Text Extractor: extract fulltext from any media(e.g.PDF/Word/Test). <br />
 Solution: Oracle OutSide In <br />
 1.3. Content Analysis/Tokenization: automatic language detection, stemming, lemmatization. <br />
 Solution: Basis / Tika / Snowball / Lucene Analysis  <br />
@@ -53,53 +53,123 @@ Y. _Indexer_
 - Term Weight
 - TF-IDF module
 
-#### 2.1.Lucene Index
+• Lucene index process is to write index document as inverted index table according to full text process. 
+• Lucene search process is to read data from index documents and take score for every document.
 
-2.1.1. Index processing:
 
-	A. 创建一个IndexWriter用来写索引文件,它有几个参数,INDEX_DIR就是索引文件所存放的位
+#### III.Lucene Index Data 
+
+3.1. Index过程:
+
+	A. Create one IndexWriter instance in order to write index files.它有几个参数,INDEX_DIR就是索引文件所存放的位
 	置,Analyzer便是用来对文档进行词法分析和语言处理的.
 	B. 创建一个Document代表我们要索引的文档.
 	C. 将不同的Field加入到文档中。我们知道,一篇文档有多种信息,如题目,作者,修改时间,内
 	容等。不同类型的信息用不同的Field来表示,在本例子中,一共有两类信息进行了索引,一个
 	是文件路径,一个是文件内容。其中FileReader的SRC_FILE就表示要索引的源文件.
 	D. IndexWriter调用函数addDocument将索引写到索引文件夹中.
+   
 
-2.1.2. Inverted Index:
+3.2. Index data structure:
 
-    Term->Fields->Segments->Index
-    Term->TermPostingList (DocumentID/TF/Position/Payload)
-	Segment 
-	Write.lock (Sync index info during merging)
-	Field: .fdt .fdx
-	TermVector .tvx .tvd
-	Term Dictionary  .tis .tii .frq .prx 
-	Term Weight & Score: .nrm (Normalization Factor:Document boost/Field boost/lengthNorm(field))
-	Blacklist/Delete Document: .del
-	Merge and compound file(.cfs) / ConcurrentMergeScheduler
+	Positive path:Index -> Segment(segments.gen,segments_N) -> Document -> Field(fnm,fdx,fdt) -> Term(tvx,tvd,tvf)
 
-2.1.3. IndexWriter:
+		Segment: segments.gen segment_N
+		Field-XXX.fnm(元数据信息)
+			> 位置(Position)和偏移量(Offset)的区别
+			> 索引域(Indexed)和存储域(Stored)的区别
+			> payload的使用
+		Field-.fdt+.fdx
+			> 域数据文件(fdt)
+			> 域索引文件(fdx)
+		TermVector词向量: .tvx .tvd .tvf
+		词向量信息是从索引(index)到文档(document)到域(field)到词(term)的正向信息,由此得到一篇文档包含那些词的信息
 
-2.1.4. IndexChain:
+	Negative path(Inverted Index structure):Term -> Fields -> Segments -> Index
+				  
+		TermDictonary(tii,tis) -> TermPostingList (DocumentID/TF/Position/Payload跳跃表存储)
+		TermDictionary: .tis / .tii / Fequencies(.frq) / Postions词位置(.prx) 
 
-	DocFieldProcessor:
-		DocConsumer consumer 
-		deletesInRAM and deletesFlushed
-		RAMBuffer management
-		Multi-thread concurrent indexING (sync index docID)
-		Add document into Index synchronizely
-		DocumentsWriterThreadState
-	DocFieldProcessorPerThread:
-	DocFieldProcessorPerField:
+		Term Weight & Score: .nrm (Normalization Factor:Document boost/Field boost/lengthNorm(field))
+		相关性打分(score)使用<向量空间模型>(Vector Space Model),在计算相关性之前,要计算TermWeight
+		Lucene在计算Term Weight时,都会乘上一个标准化因子(Normalization Factor),用于调整Term权重
+		
+		Blacklist/Delete Document: .del
+		Merge and compound file(.cfs) / ConcurrentMergeScheduler
+		Write.lock(Sync index info during merging)写入锁
 
-2.1.5. DocumentWriter:
+3.3.数据存储规则
+
+	1)Prefix+Suffix
+	2)Delta差值规则
+	3)或然跟随规则
+	4)SkipList跳跃表
+
+#### IV.Lucene Index code anlaysis 
+
+4.1. Index Process Architect
+    
+  	The key point is index chain
+
+4.2. Index Process Details
+
+	1. 创建IndexWriter
+	2. 创建文档Document对象,并加入域(Field)
+	3. 将文档加入IndexWriter
+	4. 将文档加入DocumentsWriter
+
+4.2.1. IndexWrite
+	
+	包含以下信息
+	- 用于索引文档
+	- 用于合并段,在合并段的文章中将详细描述
+	- 为保持索引完整性,一致性和事务性
+	- 配置信息
+
+4.2.2. IndexChain:
+
+	DocFieldProcessor(索引链的开端):
+		DocConsumer consumer(索引链对象)内容:
+			- 对索引域的处理
+			- 对存储域的处理
+			- 删除文档:deletesInRAM -> deletesFlushed
+			- 缓存管理RAMBuffer management
+			- 多线程并发索引Multi-thread concurrent indexING (sync index docID)
+			- Add document into Index synchronizely
+				得到当前线程对应的文档集处理对象(DocumentsWriterThreadState)
+				用得到的DocumentsWriterThreadState处理文档processDocument()
+				用DocumentsWriter.finishDocument结束本次文档添加
+	
+	DocFieldProcessorPerThread(线程索引链):
+		由于要多线程进行索引,因而每个线程都要有自己的索引链,称为线程索引链 
+		每一个DocumentsWriterThreadState都有一个文档及域处理对象DocFieldProcessorPerThread(线程索引链的开端)
+	
+	DocFieldProcessorPerField(域索引链):
+		每个域也有自己的索引链,称为域索引链,每个域的索引链也有同线程索引链有相似的树形结构
+
+4.2.3. About DocumentWriter:
 
 	RAMBuffer management for CharBlockPool/ByteBlockPool/IntBlockPool
-	term -> CharBlockPool 
-	docID/freq/prox -> ByteBlockPool 
-	IntBlockPool中保存的是主要用来写入的信息:分别指向docid+freq及prox信息在ByteBlockPool中的偏移量 
+	• 在索引的过程中,DocumentsWriter将词信息(term)存储在CharBlockPool中,将文档号(doc ID),词 频(freq)和位置(prox)信息存储在ByteBlockPool中 
+    • 在ByteBlockPool中,缓存是分块(slice)分配的,块(slice)是分层次的,层次越高,此层的块越大,每一 层的块大小事相同的 
+    	◦ nextLevelArray表示的是当前层的下一层是第几层,可见第9层的下一层还是第9层,也就是说 最高有9层 
+		◦ levelSizeArray表示每一层的块大小,第一层是5个byte,第二层是14个byte以此类推 
+	CharBlockPool-保存Term
+	ByteBlockPool-保存docID/freq/prox 
+	IntBlockPool-保存的是主要用来写入的信息:分别指向docid+freq及prox信息在ByteBlockPool中的偏移量 
 
-2.1.6. SegmentMerge:
+4.2.4. About IndexWriter close:
+
+	将索引写入磁盘包括以下几个过程:
+	• 得到要写入的段名:String segment = docWriter.getSegment();
+	• DocumentsWriter将缓存的信息写入段:docWriter.flush(flushDocStores);
+	• 生成新的段信息对象:newSegment = new SegmentInfo(segment, flushedDocCount, directory,
+	false, true, docStoreOffset, docStoreSegment, docStoreIsCompoundFile, docWriter.hasProx());
+	• 准备删除文档:docWriter.pushDeletes();
+	• 生成cfs段:docWriter.createCompoundFile(segment);
+	• 删除文档:applyDeletes();
+
+4.2.5. About SegmentMerge:
 
 	* HashSet<SegmentInfo> mergingSegments = new HashSet<SegmentInfo>(); //保存正在合并的 段,以防止合并期间再次选中被合并。
 	* MergePolicy mergePolicy = new LogByteSizeMergePolicy(this);//合并策略,也即选取哪些段来进 行合并。
@@ -108,7 +178,11 @@ Y. _Indexer_
 	* LinkedList<MergePolicy.OneMerge> pendingMerges = new LinkedList<MergePolicy.OneMerge>();//等待被合并的任务
 	* Set<MergePolicy.OneMerge> runningMerges = new HashSet<MergePolicy.OneMerge>();//正 在被合并的任务
 
-    * mergeFactor
+	SegmentMerge parameters:
+	* mergeFactor:当大小几乎相当的段的数量达到此值的时候,开始合并 
+	* minMergeSize:所有大小小于此值的段,都被认为是大小几乎相当,一同参与合并  
+	* maxMergeSize:当一个段的大小大于此值的时候,就不再参与合并 
+	* maxMergeDocs:当一个段包含的文档数大于此值的时候,就不再参与合并 
 
 	* Inverted Info merge:
 		SegmentMergeInfo
@@ -119,7 +193,7 @@ Y. _Indexer_
 		merge TermVector
 		merge TermDictionary/PostingList
 
-2.1.7. ScoreAlgrithm:
+4.2.6. ScoreAlgrithm:
 
 	score(q,d) = 
 	coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d) ) 
@@ -169,13 +243,13 @@ Y. _Indexer_
 
 	计算Levenshtein distance:edit distance,对于两个字符串,从一个转换成为另一个所需 要的最少基本操作(添加,删除,替换)数。
 
-2.1.8. Payload
+4.2.7. Payload
 
 Payload信息就是存储在倒排表中的,同文档号一起存放,多用于存储与每篇文档相关的一些信息。当然这部分信息也可以存储域里(stored Field),两者从功能上基本是一样的,然而当要存储的信息很多的时候,存放在倒排表里,利用跳跃表,有利于大大提高搜索速度。
 
-#### 2.2. Lucene Search
+#### V.Lucene Search
 
-2.2.1. Search processing:
+5.1. Search processing:
 
 	a. IndexReader将磁盘上的索引信息读入到内存,INDEX_DIR就是索引文件存放的位置。 
 	   创建IndexSearcher准备进行搜索。
@@ -190,14 +264,14 @@ Payload信息就是存储在倒排表中的,同文档号一起存放,多用于�
 	   构造SumScorer对象树,其是为了方便合并倒排表对Scorer对象树的从新组织,它的叶子节点仍为 TermScorer,包含词典和倒排表。此步将倒排表合并后得到结果文档集,并对结果文档计算打分公式 中的蓝色部分。打分公式中的求和符合,并非简单的相加,而是根据子查询倒排表的合并方式(与或非) 来对子查询的打分求和,计算出父查询的打分。
 	g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
 
-2.2.2. IndexReader: <br />
+5.2. IndexReader: <br />
 	Find out segment_N file <br />
 	snapshot <br />
 
-2.2.3. IndexSearcher: <br />
+5.3. IndexSearcher: <br />
 	IndexSearcher searcher = new IndexSearcher(reader);
 
-2.2.4. QueryParser(Query语法树): <br />
+5.4. QueryParser(Query语法树): <br />
 
  	◦ BooleanQuery 
  	◦ PrefixQuery 
@@ -205,7 +279,7 @@ Payload信息就是存储在倒排表中的,同文档号一起存放,多用于�
  	◦ FuzzyQuery 
  	◦ MultiTermQuery 
 
-2.2.5. Query Object Specification: <br />
+5.5. Query Object Specification: <br />
 
 	• BooleanQuery即所有的子语句按照布尔关系合并
 	◦ +也即MUST表示必须满足的语句
@@ -218,7 +292,7 @@ Payload信息就是存储在倒排表中的,同文档号一起存放,多用于�
 	◦ 当然也可以是PrefixQuery和FuzzyQuery,这些查询语句由于特殊的语法,可能对应的不是一
 	个词,而是多个词,因而他们都有rewriteMethod对象指向MultiTermQuery的Inner Class, 表示对应多个词,在查询过程中会得到特殊处理。
 
-2.2.6. Search API <br />
+5.6. Search API <br />
 
 	TopDocs docs = searcher.search(query, 50);
 	//创建weight树,计算term weight
@@ -232,7 +306,7 @@ Payload信息就是存储在倒排表中的,同文档号一起存放,多用于�
 	float norm = getSimilarity(searcher).queryNorm(sum); 
 	weight.normalize(norm);
 
-2.2.7. Score Generate
+5.7. Score Generate
 
 	ConstantScoreAutoRewrite.rewrite
 
@@ -267,9 +341,9 @@ G. Lucene如何在搜索阶段读取索引信息
 	读取倒排表信息
 
 
-#### 2.3.Lucene Query Language
+#### VI.Lucene Query Language
 
-2.3.1. Query API <br />
+6.1. Query API <br />
 
 	BooleanQuery,
 	FuzzyQuery, 
@@ -282,15 +356,15 @@ G. Lucene如何在搜索阶段读取索引信息
 	TermQuery,
 	WildcardQuery
 
-2.3.2. JavaCC
+6.2. JavaCC
 
-2.3.3. QueryParser
+6.3. QueryParser
 
 	• 声明QueryParser类
 	• 声明词法分析器
 	• 声明语法分析器
 
-2.3.4. Advanced Query
+6.4. Advanced Query
 
 	• BoostingQuery
 	• CustomScoreQuery
@@ -317,12 +391,12 @@ G. Lucene如何在搜索阶段读取索引信息
 		◦ QueryWrapperFilter
 		◦ SpanFilter/CachingSpanFilter
 
-#### 2.4.Lucene Analyzer
+#### VII.Lucene Analyzer
 
 	• TokenStream tokenStream(String fieldName, Reader reader);
 	• TokenStream reusableTokenStream(String fieldName, Reader reader) ;
 
-2.4.1. TokenStream
+7.1. TokenStream
 
 	• boolean incrementToken()用于得到下一个Token。
 	• public void reset() 使得此TokenStrean可以重新开始返回各个分词。
@@ -342,7 +416,7 @@ G. Lucene如何在搜索阶段读取索引信息
 		• SentenceTokenizer
 		• StandardTokenizer
 
-2.4.2. TokenFilter->TokenStream
+7.2. TokenFilter->TokenStream
 
 	`public abstract class TokenFilter extends TokenStream { 
 	  protected final TokenStream input;
@@ -353,7 +427,7 @@ G. Lucene如何在搜索阶段读取索引信息
 
 	PorterStemFilter
 
-2.4.3. Anlayzer = (Tokenizer + TokenFilter) -> TokenStream
+7.3. Anlayzer = (Tokenizer + TokenFilter) -> TokenStream
 
 	ChineseAnalyzer
 	CJKAnalyzer
@@ -361,7 +435,7 @@ G. Lucene如何在搜索阶段读取索引信息
 	SmartChineseAnalyzer
 	SnowballAnalyzer
 
-2.4.4. Lucene Standard Tokenizer <br />
+7.4. Lucene Standard Tokenizer <br />
 
 	StandardTokenizerImpl.jflex
 	jflex也是一个词法及语法分析器的生成器,它主要包括三部分,由%%分隔:
@@ -372,9 +446,9 @@ G. Lucene如何在搜索阶段读取索引信息
 	StandardFilter
 	StandardAnalyzer
 
-2.4.5. PerFieldAnalyzerWrapper
+7.5. PerFieldAnalyzerWrapper
 
-#### 2.5.Lucene Transactions
+#### VIII.Lucene Transactions
 
 所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。<br />
 我们这里主要讨论隔离性,Lucene的IndexReader和IndexWriter具有隔离性。<br />
@@ -387,9 +461,9 @@ G. Lucene如何在搜索阶段读取索引信息
 	• 由于lucene Transaction特性，原生不支持实时查询。需要借助Cache保存Index信息
 
 
-### III.FullText Search Function Analysis
+### IX. FullText Search Function Analysis
 
-### IV.xDB lucene Multi-path Index Search Design
+#### xDB lucene Multi-path Index Search Design
 
 xDB represents the tokens by a list of posting and each posting has one or more keys and a position value of the key in the node. <br />
 All type keys will be converted into strings eventually because Lucene index only can store string. <br />
@@ -413,14 +487,14 @@ Here is Lucene’s concurrency rules are simple but should be strictly followed:
 	• Only a single index-modifying operation may execute at a time.
 The transaction has a snapshot of a visible part of the index
 
-IndexReader works like a snapshot and the entire query on this index in this transaction will search this snapshot. <br / >
-There is a private black list to record the deleted document’s xDB node ID.<br / >
+IndexReader works like a snapshot and the entire query on this index in this transaction will search this snapshot. <br />
+There is a private black list to record the deleted document’s xDB node ID.<br />
 Before committing, all data is kept private to this transaction.The commit operation does not flush any pages and only transaction log records will be flushed on disk.
 
-Each read-write transaction creates two data structures, one Lucene SubIndex and one black list. <br / >
+Each read-write transaction creates two data structures, one Lucene SubIndex and one black list. <br />
 There is only one concurrent index for all blacklists of LMPI.
 
-SubIndex merging <br / >
+SubIndex merging <br />
 	The merging policy will strongly impact the overall system performance.
 
 The sub-indexes are classified into two categories.
@@ -447,9 +521,12 @@ xDB Lucene Index Limitation
 	• lucene sub-merge performance (non-final merge/final merge)
 
 
-### V.ElasticSearch Search Design
+### XI. Limitation
 
+#### Lucene 6.x research
 
-### VI.Limitation
+#### Lucene limitation
 
-### VII.Conclusion
+#### Lucene vs xDB Lucene Index
+
+### XII.Conclusion
