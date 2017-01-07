@@ -40,7 +40,10 @@ Solution: HDFS or TFS / NoSQL DB (xDB / MongoDB / HBase) <br />
 
 ### II.Lucene Design Principle & Architecture
 
-Quick search repeatly based on one index
+	• Lucene index process is to write index document as inverted index table according to full text process. 
+	• Lucene search process is to read data from index documents and take score for every document.
+
+	Quick search repeatly based on one index
 
 X. _Tokenizer_
 - Stop Word
@@ -52,10 +55,6 @@ Y. _Indexer_
 - Query Analyer / QueryParser
 - Term Weight
 - TF-IDF module
-
-• Lucene index process is to write index document as inverted index table according to full text process. 
-• Lucene search process is to read data from index documents and take score for every document.
-
 
 #### III.Lucene Index Data 
 
