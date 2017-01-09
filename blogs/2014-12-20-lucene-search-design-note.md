@@ -13,18 +13,19 @@ Beginning from Aug in 2009, I have involved into one fulltext search engine proj
 ### I.FullText Search Architecture
 Here are the following main function aspects for fulltext search engine. I will explain every function step by step later.
 
-1.1. Index/Information Crawler: Data comes from database / webpage / document. <br />
+1.1. _Index/Information Crawler_: Data comes from database / webpage / document. <br />
 Solution: Scrapy / network crawler <br />
-1.2. Content Extractor/Text Extractor: extract fulltext from any media(e.g.PDF/Word/Test). <br />
+1.2. _Content Extractor/Text Extractor_: extract fulltext from any media(e.g.PDF/Word/Test). <br />
 Solution: Oracle OutSide In <br />
-1.3. Content Analysis/Tokenization: automatic language detection, stemming, lemmatization. <br />
+1.3. _Content Analysis/Tokenization_: automatic language detection, stemming, lemmatization. <br />
 Solution: Basis / Tika / Snowball / Lucene Analysis  <br />
-1.4. Search Engine Management: It used to call and manage the index/query task accordingly and included that Index/Search/Query Modules. <br />
+1.4. _Search Engine Management_: It used to call and manage the index/query task accordingly and included that Index/Search/Query Modules. <br />
 Solution: xPlore IndexServer/ElasticSearch/Sphinx(for SQL) <br />
-1.5. Core Index & Search Design: lucene <br />
+1.5. _Core Index & Search Library_: lucene <br />
 Transform any fulltext data to lucene document format (XML to lucene document) <br />
 Solution: Lucene multiple index(Concurrent Index / Parallel Query) <br />
-1.6. Quality of Search <br />
+1.6. _Quality of Search_ 
+
 - Scoring(Similarity & Relevance)/ Sorting & Ranking
 - Summary result / Highlighting keyword
 - Possible Query language for Advanced operators
@@ -34,16 +35,17 @@ Solution: Lucene multiple index(Concurrent Index / Parallel Query) <br />
 - Scale out / Horizontal scaling (Multi-Node / SharedIndex / Sharding & Share Nothing)
 - Ingest/Query Time Performance
 - Space consumption performance
-1.7. BigData storage & analysis. <br />
-1.8. Store any index meta data or source contents. <br />
-Solution: HDFS or TFS / NoSQL DB (xDB / MongoDB / HBase) <br />
+
+1.7. _BigData storage & analysis_ <br />
+1.8. _Data Storage_: Store any index meta data or source contents. <br />
+Solution: FileSystem (HDFS/TFS) / NoSQL DB (xDB / MongoDB / HBase) / Greenplum <br />
 
 ### II.Lucene Design Principle & Architecture
 
-	• Lucene index process is to write index document as inverted index table according to full text process. 
-	• Lucene search process is to read data from index documents and take score for every document.
+• Lucene index process is to write index document as inverted index table according to full text process. 
+• Lucene search process is to read data from index documents and take score for every document.
 
-	Quick search repeatly based on one index
+Quick search repeatly based on one index
 
 X. _Tokenizer_
 - Stop Word
