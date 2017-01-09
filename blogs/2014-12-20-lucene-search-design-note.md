@@ -526,9 +526,28 @@ G. Lucene如何在搜索阶段读取索引信息
 
 #### VII.Lucene Analyzer
 
-	用于生成TokenStream的两个接口:
+	Analyzer中用于生成TokenStream的两个接口:
 	• TokenStream tokenStream(String fieldName, Reader reader);
-	• TokenStream reusableTokenStream(String fieldName, Reader reader) ;
+	• TokenStream reusableTokenStream(String fieldName, Reader reader);
+
+ ```java
+public final class SimpleAnalyzer extends Analyzer {
+	@Override
+	public TokenStream tokenStream(String fieldName, Reader reader) {
+		//返回的是将字符串最小化,并且按照空格分隔的Token
+		return new LowerCaseTokenizer(reader); 
+	}
+	@Override
+	public TokenStream reusableTokenStream(String fieldName, Reader reader) throws IOException {
+		//得到上一次使用的TokenStream,如果没有则生成新的,并且用setPreviousTokenStream放入成员变量, 使得下一个可用。
+		Tokenizer tokenizer = (Tokenizer) getPreviousTokenStream(); if (tokenizer == null) {
+		tokenizer = new LowerCaseTokenizer(reader);
+		setPreviousTokenStream(tokenizer); } else
+		//如果上一次生成过TokenStream,则reset。
+		tokenizer.reset(reader); return tokenizer;
+	} 
+}
+ ```
 
 7.1. TokenStream Abstract Class
 
@@ -536,21 +555,23 @@ G. Lucene如何在搜索阶段读取索引信息
 	public void reset() 使得此TokenStrean可以重新开始返回各个分词。
 
 	• NumericTokenStream
-	• SingleTokenTokenStream
+	• SingleTokenTokenStream:包含一个Token,多用于保存一篇文档仅有一个的信息,如id,如time等
 	• Tokenizer extends TokenStream
-		• CharTokenizer
+		• CharTokenizer:用于对字符串进行分词
 			◦ LetterTokenizer
 			▪ LowerCaseTokenizer 
 			◦ WhitespaceTokenizer
 		• ChineseTokenizer
 		• CJKTokenizer
 		• EdgeNGramTokenizer 
-		• KeywordTokenizer
+		• KeywordTokenizer:将整个字符作为一个Token返回的
 		• NGramTokenizer
-		• SentenceTokenizer
+		• SentenceTokenizer:按照如下的标点来拆分句子:"。,!?;,!?;"
 		• StandardTokenizer
 
-7.2. TokenFilter->TokenStream
+7.2. TokenFilter extends TokenStream
+
+对Tokenizer后的Token作过滤,其使用的是Decorator模式
 
 ```java
 	public abstract class TokenFilter extends TokenStream { 
@@ -560,33 +581,44 @@ G. Lucene如何在搜索阶段读取索引信息
 	  this.input = input; }
 	 }
 ```
+• ChineseFilter
+• LengthFilter	
+• LowerCaseFilter
+• NumericPayloadTokenFilter
+• PorterStemFilter
+	Porter's Stemming Algorithm
+• ReverseStringFilter
+• SnowballFilter:包含成员变量SnowballProgram stemmer,其是一个抽象类,其子类有EnglishStemmer和PorterStemmer等
+• TeeSinkTokenFilter:使得已经分好词的Token全部或者部分的被保存下来,用于生成另一个TokenStream可以保存在其他的域中 
 
-	PorterStemFilter
+7.3. Anlayzer(Tokenizer + TokenFilter) = TokenStream
 
-7.3. Anlayzer = (Tokenizer + TokenFilter) -> TokenStream
+• ChineseAnalyzer
+• CJKAnalyzer
+• PorterStemAnalyzer
+• SmartChineseAnalyzer
+• SnowballAnalyzer
 
-	• ChineseAnalyzer
-	• CJKAnalyzer
-	• PorterStemAnalyzer
-	• SmartChineseAnalyzer
-	• SnowballAnalyzer
+7.4. Lucene Standard Tokenizer(标准分词器)
 
-7.4. Lucene Standard Tokenizer <br />
+标准分词器需要词法分析,类似于QueryParser,使用生成器jflex.<br/>
+jflex也是一个词法及语法分析器的生成器,它主要包括三部分,由%%分隔:
 
-	StandardTokenizerImpl.jflex
-	jflex也是一个词法及语法分析器的生成器,它主要包括三部分,由%%分隔:
-	• 用户代码部分:多为package或者import • 选项及词法声明
-	• 语法规则声明
+- 用户代码部分:多为package或者import 
+- 选项及词法声明
+- 语法规则声明
 
-	StandardTokenizer
-	StandardFilter
-	StandardAnalyzer
+• StandardTokenizer:StandardTokenizerImpl.jflex
+• StandardFilter
+• StandardAnalyzer
 
-7.5. PerFieldAnalyzerWrapper
+7.5. Field -> Tokenizer(不同域对应不同分词器)
+
+• PerFieldAnalyzerWrapper
 
 #### VIII.Lucene Transactions
 
-所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。<br />
+所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。从根本上说,搜索引擎也是一种数据存储方式。<br />
 我们这里主要讨论隔离性,Lucene的IndexReader和IndexWriter具有隔离性。<br />
 
 	• 当IndexReader.open一个索引的时候,相对于给当前索引进行了一次snapshot,此后的任何修改 都不会被看到。
@@ -657,7 +689,7 @@ xDB Lucene Index Limitation
 	• lucene sub-merge performance (non-final merge/final merge)
 
 
-### XI. Limitation
+### XI. Lucene Extend
 
 #### Lucene 6.x research
 
