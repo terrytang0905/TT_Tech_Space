@@ -240,6 +240,10 @@ E. _数据完整性验证_
 
 ### VI.数据挖掘技术设计
 
+- 趋势分析
+- 回归分析
+- 指数平滑
+
 #### 6.1.预测响应(分类)建模
 
 A. _决策树归纳_
@@ -279,7 +283,9 @@ C._规则分类器与最近邻分类器_
 - 规则分类与分组维度
 - 计算测试样例和所有训练样例的距离(或相似度),以确定最近邻列表Dz
 
-D. _Logistic Regression&Linear Regression_
+D1. _Linear Regression线性回归_
+
+D2. _Logistic Regression逻辑回归_
 
 - 设计原理 <br />
      构造预测函数
@@ -361,6 +367,8 @@ x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
 
 #### 6.4.异常检验
 
+对于数据异常的验证非常重要
+
 #### 6.5.数据挖掘算法技术实现
 
 A. MATLAB
@@ -436,11 +444,15 @@ Receiver Operating Characteristic 曲线 <br />
 
 2. 数据预处理 
 
-    ETL / ELT + Data Cleaning
+    ETL / ELT + Data Cleaning(数据质量)
 
 3. 数据挖掘&建模预测
 
+   R / Python / Spark / Weka
+
 4. 数据存储
+
+    大数据平台Hadoop-HDFS&HBase等 / Greenplum / Vertica
 
 5. OLAP查询分析
 
@@ -461,13 +473,21 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 #### 8.2.敏捷BI竞品分析
 
+*敏捷BI-行业数据分析*
+
 - 新一代实时敏捷BI,不同于传统BI的特性 [NewBI相关文档](http://wiki.yunat.com/pages/viewpage.action?pageId=38618144)
 - [Tableau](http://www.tableau.com/products/cloud-bi)
 - GoodData
 - [Looker](http://www.looker.com/)
+- 永洪BI
+- PowerBI
+- 星环科技
+
+*日志分析与用户行为分析*
+
 - [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 - GrowingIO
-- 永洪BI
+- 魔窗MagicWindow
 
 #### 8.3.数据发现数据
 

@@ -695,6 +695,17 @@ xDB Lucene Index Limitation
 
 #### Lucene 6.x research
 
+Highlights of this Lucene release include:
+
+• Java 8 is the minimum Java version required.
+• Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering. This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints. See this blog post for details. Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
+• Lucene classification module now works on Lucene Documents using a KNearestNeighborClassifier or SimpleNaiveBayesClassifier.
+• he spatial module no longer depends on third-party libraries. Previous spatial classes have been moved to a new spatial-extras module.
+• Spatial4j has been updated to a new 0.6 version hosted by locationtech.
+• TermsQuery performance boost by a more aggressive default query caching policy.
+• IndexSearcher’s default Similarity is now changed to BM25Similarity.
+• Easier method of defining custom CharTokenizer instances.
+
 #### Lucene limitation
 
 #### Lucene vs xDB Lucene Index
