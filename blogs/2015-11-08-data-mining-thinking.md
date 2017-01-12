@@ -448,7 +448,13 @@ Receiver Operating Characteristic 曲线 <br />
 
 3. 数据挖掘&建模预测
 
-   R / Python / Spark / Weka
+   - SQL / R / Python / Spark / Weka
+   - 相关性分析等
+   - 特征提取
+   - 设计建模
+   - 数据训练
+   - 模型评估
+   - 循环迭代
 
 4. 数据存储
 
