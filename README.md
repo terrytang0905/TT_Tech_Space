@@ -11,8 +11,9 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### BigData & Data Science 
 
+- [Storm流式处理笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
+- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [ElasticSearch分布式搜索引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-solution.md)
-- [Kafka&Storm流式处理笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-14-kafka-storm-research-note.md)
 - [Impala&Kudu研究笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-kudu-research-note.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-analysis-algorithm.md)
 - [大数据分析研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
