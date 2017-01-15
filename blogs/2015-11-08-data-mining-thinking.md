@@ -186,7 +186,7 @@ E. _数据完整性验证_
 `correlation matrix相关矩阵` <br />
           `值集的倾斜度(skewness)` <br />
 
-#### 5.2.可视化
+#### 5.2.数据可视化
 
 - selection: 删除或不突出某些对象和属性
 - 少量属性的可视化 - 单维图表
@@ -218,25 +218,22 @@ E. _数据完整性验证_
 - 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
 - Aggregation Query
 - OLAP数据缓存设计
-- 查询语义分析设计
+- 查询语义分析设计(计算字段)
 
     ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
     自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架
 
 #### 5.5.支持SQL查询的分布式计算
 
-    A. Hive: SQL-on-Hadoop
-    B. Impala: OLAP SQL-on-Hadoop
-    C. Spark: OLAP SQL-on-Hadoop
-    D. Druid: 分布式OLAP
-    E. Presto: OLAP SQL-on-Hadoop
-
-
-#### 5.6.支持SQL查询的分布式计算
-     
-    大数据实时数据查询
+    
+    A. Impala: 交互式OLAP SQL-on-Hadoop
+    B. Presto: OLAP SQL-on-Hadoop
+    C. Druid: 分布式实时OLAP
+    D. SparkSQL: OLAP SQL-on-Hadoop
+    E. Hive: 离线数据分析SQL-on-Hadoop
     F. Spark Streamming: 实时流式计算
     G. Storm: 实时流式计算
+
 
 ### VI.数据挖掘技术设计
 
@@ -395,7 +392,7 @@ RFM <br />
 - 客户消费新鲜度 (Recency)
 - 客户消费频度 (Frequency)
 - 客户消费金额 (Monetary)
-- [NewBI RFM设计](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
+- [客户RFM设计](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
 
 #### 6.7.运营效果分析
 
@@ -458,14 +455,15 @@ Receiver Operating Characteristic 曲线 <br />
 
 4. 数据存储
 
-    大数据平台Hadoop-HDFS&HBase等 / Greenplum / Vertica
+    大数据平台Hadoop-HDFS&HBase等 / MPP(Greenplum&Vertica) / NoSQL / File
 
 5. OLAP查询分析
 
-    OLAP Query Engine (SQL查询) <br />
-    列式存储计算 <br />
+    OLAP Query Engine (支持SQL查询) <br />
+    交互式MPP计算 <br />
     内存计算 <br />
     分布式实时流式计算 <br />
+    分布式批处理计算 <br />
 
 6. 数据可视化
 
@@ -488,6 +486,7 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 - 永洪BI
 - PowerBI
 - 星环科技
+- 魔镜MagicWindow
 
 *日志分析与用户行为分析*
 
