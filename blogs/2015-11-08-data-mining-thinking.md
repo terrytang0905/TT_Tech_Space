@@ -389,17 +389,20 @@ B.WEKA
 
 开源数据挖掘工具包,支持Java,Python
 
-#### 6.6.用户特征分析
+#### 6.6.客户画像与特征分析
 
-RFM <br />
-- 客户消费新鲜度 (Recency)
-- 客户消费频度 (Frequency)
-- 客户消费金额 (Monetary)
-- [客户RFM设计](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
+- 客户RFM消费新鲜度 (Recency)
+- 客户RFM消费频度 (Frequency)
+- 客户RFM消费金额 (Monetary)
+- [客户RFM设计实例](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
 
-#### 6.7.运营效果分析
+*客户画像分析*
+
 
 #### 6.8.文本处理算法
+
+- 用户评价文本分析
+- 商品类目内容分析
 
 PLSA \ LDA \ HMM
 [相关文档](http://www.52nlp.cn/%E6%A6%82%E7%8E%87%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8F%98%E5%BD%A2%E7%B3%BB%E5%88%971-plsa%E5%8F%8Aem%E7%AE%97%E6%B3%95)
