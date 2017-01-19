@@ -2,8 +2,14 @@
 layout: post
 category : datascience
 tags : [search, bigdata, develop]
-title: Network Crawler Scrapy Design
+title: Impala & Kudu Big Data OLAP Architect
 ---
+
+## Impala & Kudu Big Data OLAP Architect
+
+------------------------------------------------------------------------
+
+Big Data Analysis Framework = OLAP(SQL on Hadoop/Impala) + Big Data Storage(HDFS/Kudu) 
 
 ### Impala
 
@@ -80,8 +86,16 @@ We could build time PARTITION for source table as the extend time items.
 
 
 ### Kudu
+ 
+Kudu is the hybrid architecture in order to replace HBase+HDFS/Parquet storage architect.
 
-hybrid architectures(HDFS+HBase)
+#### Kudu Feature:
+
+- Kudu is a new storage system designed and implemented from the ground up to fill this gap between high-throughput sequential-access storage systems such as HDFS and low-latency random-access systems such as HBase or Cassandra.
+- Kudu offers a simple API for row-level inserts, updates, and deletes, while providing table scans at throughputs similar to Parquet, a commonly-used columnar format for static data.
+- Each such column has a name, type (e.g INT32 or STRING) and optional nullability.The primary key enforces a uniqueness constraint (at most one row may have a given primary key tuple) and acts as the sole index by which rows may be efficiently updated or deleted.
+- Kudu does not currently offer secondary indexes or uniqueness constraints other than the primary key.
+
 
 
 
@@ -89,4 +103,5 @@ hybrid architectures(HDFS+HBase)
 
 - [Impala Documents](http://www.cloudera.com/documentation/enterprise/latest/topics/impala.html)
 - [Impala Code](https://github.com/cloudera/Impala/wiki)
-- [Impala Paper]()
+- [Impala Paper]
+- [Kudu Paper]
