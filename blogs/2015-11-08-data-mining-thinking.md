@@ -90,14 +90,14 @@ A._分布式算法_:
 B._分布式大数据查询_:
 
 > Greenplum / Vertica 分析型数据仓库 <br />
-> Hive / Dremel / Impala / Presto 
-> ElasticSearch
+> Hive / Dremel / Presto/ [Impala](2016-12-12-impala-kudu-research-note.md)  <br />
+> [ElasticSearch](2017-01-06-elasticsearch-search-engine-architect-note.md)
 
 B._大数据分布式存储_:
 
 > GFS / HDFS <br />
 > Google BigTable / HBase / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
-> MongoDB / Couchbase / Redis <br />
+> [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 
 ### III.数据预处理
 
@@ -305,7 +305,7 @@ D2. _Logistic Regression逻辑回归_
 
 E. _贝叶斯分类算法_
 
-- 概率统计算法
+- 核心为概率统计算法
 - 属性集与类变量的概率关系建模
 - 朴素贝叶斯分类器(属性间条件独立)
 - 检索算法Lucene - 权重定义
