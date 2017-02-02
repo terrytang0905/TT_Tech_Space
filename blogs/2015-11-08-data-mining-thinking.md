@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [bigdata,tutorial]
+tags : [bigdata,datamining,tutorial]
 title: Data Mining Thinking
 ---
 
@@ -173,18 +173,18 @@ E. _数据完整性验证_
 #### 5.1.Summary Statistics汇总统计
 
 - 频率与众数 <br />
-`frequency(Vi)=属性值Vi的对象数/m` <br />
-`分类属性的众数(mode)是具有最高频率的值` <br />
+        `frequency(Vi)=属性值Vi的对象数/m` <br />
+        `分类属性的众数(mode)是具有最高频率的值` <br />
 - 均值(mean) & 中位数(median)
 - 散步度量:极差与方差 <br />
           `极差-range(x)=max(x)-min(x)` <br />
           `方差-variance(x)` <br />
           `标准差-standard deviation` <br />
 - 多元汇总统计 <br />
-`covariance matrix协方差矩阵` <br />
-`两个不同参数之间的方差就是协方差` <br />
-`correlation matrix相关矩阵` <br />
-          `值集的倾斜度(skewness)` <br />
+        `covariance matrix协方差矩阵` <br />
+        `两个不同参数之间的方差就是协方差` <br />
+        `correlation matrix相关矩阵` <br />
+        `值集的倾斜度(skewness)` <br />
 
 #### 5.2.数据可视化
 
@@ -216,16 +216,20 @@ E. _数据完整性验证_
 #### 5.4.OLAP详细设计
 
 - 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
-- Aggregation Query
+- Aggregation Query聚合查询与非聚合查询
 - OLAP数据缓存设计
-- 查询语义分析设计(计算字段)
+- 查询语义分析设计(复杂计算设计)
 
     ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
     自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架
+    Lucene中的语义分析比较:JavaCC+jflex
+
+- 影响OLAP性能的因素
+- Druid-OLAP引擎研究
+- OLAP与SearchEngine的差异
 
 #### 5.5.支持SQL查询的分布式计算
 
-    
     A. Impala: 交互式OLAP SQL-on-Hadoop
     B. Presto: OLAP SQL-on-Hadoop
     C. Druid: 分布式实时OLAP
@@ -233,7 +237,6 @@ E. _数据完整性验证_
     E. Hive: 离线数据分析SQL-on-Hadoop
     F. Spark Streamming: 实时流式计算
     G. Storm: 实时流式计算
-
 
 ### VI.数据挖掘分析设计
 
@@ -297,6 +300,7 @@ D2. _Logistic Regression逻辑回归_
 
 E. _贝叶斯分类算法_
 
+- 概率统计算法
 - 属性集与类变量的概率关系建模
 - 朴素贝叶斯分类器(属性间条件独立)
 - 检索算法Lucene - 权重定义
@@ -488,7 +492,7 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 *敏捷BI-行业数据分析*
 
-- 新一代实时敏捷BI,不同于传统BI的特性 [NewBI相关文档](http://wiki.yunat.com/pages/viewpage.action?pageId=38618144)
+- 新一代实时敏捷BI[NewBI相关文档](http://wiki.yunat.com/pages/viewpage.action?pageId=38618144)
 - [Tableau](http://www.tableau.com/products/cloud-bi)
 - GoodData
 - [Looker](http://www.looker.com/)

@@ -1,8 +1,8 @@
 ---
 layout: post
 category : datascience
-tags : [bigdata, framework, develop]
-title: Apache Beam Bigdata Framework Research Note
+tags : [bigdata, database, architect]
+title: Database Architect Research Note
 ---
 
 

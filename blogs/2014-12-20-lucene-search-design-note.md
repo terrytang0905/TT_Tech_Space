@@ -108,7 +108,7 @@ Y. _Indexer_
 
 	1)Prefix+Suffix
 	2)Delta差值规则
-	3)或然跟随规则
+	3)或然跟随规则(A,B?)
 	4)SkipList跳跃表
 
 #### IV.Lucene Index code anlaysis 
@@ -691,12 +691,13 @@ xDB Lucene Index Limitation
 	• lucene sub-merge performance (non-final merge/final merge)
 
 
-### XI. Lucene Extend
+### X. Lucene Extend
 
 #### Lucene 6.x research
 
-Highlights of this Lucene release include:
+10.1. Highlights of Lucene release include:
 
+_6.x_ 
 • Java 8 is the minimum Java version required.
 • Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering. This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints. See this blog post for details. Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
 • Lucene classification module now works on Lucene Documents using a KNearestNeighborClassifier or SimpleNaiveBayesClassifier.
@@ -706,8 +707,24 @@ Highlights of this Lucene release include:
 • IndexSearcher’s default Similarity is now changed to BM25Similarity.
 • Easier method of defining custom CharTokenizer instances.
 
+_5.x_
+• JoinUtil.createJoinQuery can now join on numeric doc values fields
+• BlendedInfixSuggester now has an exponential reciprocal scoring model, to more strongly favor suggestions with matches closer to the beginning
+• CustomAnalyzer has improved (compile time) type safety
+• DFISimilarity implements the divergence from independence scoring model
+• Fully wrap any other merge policy using MergePolicyWrapper
+• Sandbox geo point queries have graduated into the spatial module, and now use a more efficient binary term encoding for smaller index size, • faster indexing, and decreased search-time heap usage
+• BooleanQuery performs some new query optimizations
+• TermsQuery constructors are more GC efficient
+
+
+10.2. Lucene 6.x architect
+
+Faster geo-spatial indexing and searching for LatLonPoint
+
+
 #### Lucene limitation
 
 #### Lucene vs xDB Lucene Index
 
-### XII.Conclusion
+### XI.Conclusion
