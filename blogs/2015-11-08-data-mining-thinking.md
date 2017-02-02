@@ -88,12 +88,15 @@ A._分布式算法_:
 - Gossip协议
 
 B._分布式大数据查询_:
+
 > Greenplum / Vertica 分析型数据仓库 <br />
 > Hive / Dremel / Impala / Presto 
+> ElasticSearch
 
-B._大数据分布式存储(NoSQL)_:
-> HDFS / GFS <br />
-> Google BigTable / HBase / Kudu / Cassandra /Amazon Dynamo / LevelDB / RocksDB <br />
+B._大数据分布式存储_:
+
+> GFS / HDFS <br />
+> Google BigTable / HBase / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
 > MongoDB / Couchbase / Redis <br />
 
 ### III.数据预处理
@@ -221,12 +224,14 @@ E. _数据完整性验证_
 - 查询语义分析设计(复杂计算设计)
 
     ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
-    自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架
+    自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架 <br />
     Lucene中的语义分析比较:JavaCC+jflex
 
 - 影响OLAP性能的因素
+- 实时OLAP技术设计
 - Druid-OLAP引擎研究
 - OLAP与SearchEngine的差异
+- [深度研究](2017-02-01-olap-search-engine-research-note.md)
 
 #### 5.5.支持SQL查询的分布式计算
 
@@ -505,6 +510,7 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 - [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 - GrowingIO
+- Splunk
 - 魔窗MagicWindow
 
 #### 8.3.数据发现数据
