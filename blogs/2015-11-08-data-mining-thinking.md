@@ -93,11 +93,13 @@ B._分布式大数据查询_:
 > Hive / Dremel / Presto/ [Impala](2016-12-12-impala-kudu-research-note.md)  <br />
 > [ElasticSearch](2017-01-06-elasticsearch-search-engine-architect-note.md)
 
-B._大数据分布式存储_:
+C._大数据分布式存储_:
 
 > GFS / HDFS <br />
 > Google BigTable / HBase / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
+
+D.[数据存储深度研究](2017-01-22-database-architect-research-note.md)
 
 ### III.数据预处理
 
@@ -527,9 +529,9 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 ### IX.Reference
 
 - 数据挖掘导论
-- 机器学习
 - STAR SCHEMA:数据仓库维度设计权威指南
 - The Data Warehouse ETL Toolkit (Kimball著)
 - 数据之美
 - 大数据日知录
 - 机器学习与数据挖掘-[加州理工学院公开课](http://open.163.com/special/opencourse/learningfromdata.html)
+- [机器学习](http://open.163.com/special/opencourse/machinelearning.html)

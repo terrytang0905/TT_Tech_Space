@@ -87,7 +87,7 @@ We could build time PARTITION for source table as the extend time items.
 
 ### Kudu
  
-Kudu is the hybrid architecture in order to replace HBase+HDFS/Parquet storage architect.
+Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage architect.
 
 #### Kudu Feature:
 
