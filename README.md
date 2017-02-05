@@ -12,7 +12,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 ##### Big data & Data science 
 
 - [通用数据检索查询设计-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-olap-search-engine-research-note.md)
-- [数据存储架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-database-architect-research-note.md)
+- *[大数据存储架构分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-database-architect-research-note.md)
 - [Beam大数据框架笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-12-apache-beam-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
 - [Kafka分布式MQ笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
