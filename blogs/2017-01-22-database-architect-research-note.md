@@ -8,9 +8,9 @@ title: Database Architect Research Note
 Database Architect Research Note
 ----------------------------------------------
 
-### 数据库架构分析
+### 数据库架构
 
-#### 通用数据库架构
+#### 通用数据库架构分析
 
 -[How does a relational database work](http://coding-geek.com/how-databases-work/)
 
@@ -44,3 +44,10 @@ Database Architect Research Note
 - Gossip协议
 
 #### 分布式存储产品分析
+
+
+### 区块链
+
+#### 区块链结构
+
+

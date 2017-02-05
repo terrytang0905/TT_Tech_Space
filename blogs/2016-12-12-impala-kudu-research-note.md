@@ -25,7 +25,7 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 - The catalog service pulls information from third-party metadata stores(for example, the Hive Metastore or the HDFS Namenode), and aggregates that information into an Impala-compatible catalog structure.The default third-party metadata store is Hive Metastore and could be replaced by HBase.
 - Impala supports inline views, uncorrelated and correlated subqueries (that are rewritten as joins), all variants of outer joins as well as explicit left/right semi- and anti-joins, and analytic window functions.
 - Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.The design is similar to Greenplum.
-- Runtime code generation using LLVM in Impala's backend is one of the techniques to improve execution times.LLVM is a compiler library and collection of related tools which is designed to be modular and reusable. It allows applications like Impala to perform just-in-time (JIT) compilation within a running process.
+- Runtime code generation using LLVM in Impala's backend is one of the techniques to improve execution times._LLVM_ is a compiler library and collection of related tools which is designed to be modular and reusable. It allows applications like Impala to perform just-in-time (JIT) compilation within a running process.
 - Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk in order to perform data scans from both disk and memory at or near hardware speed.
 - HDFS caching allows Impala to access memory-resident data at memory bus speed and also saves CPU cycles as there is no need to copy data blocks and/or checksum them.
 - Impala supports most popular file formats:Avro,RC,Sequence,TEXTFILE and Parquet.Recommend using Apache Parquet because Parquet offer both high compression and scan efficency.
@@ -111,12 +111,44 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage
 	* A hash-partitioning rule consists of a subset of the primary key columns and a number of buckets.
 	* A range-partitioning rule consists of an ordered subset of the primary key columns.
 - Kudu replicates all of its table data across multiple machines. When creating a table, the user specifies a replication factor, typically 3 or 5, depending on the application’s availability SLAs. Kudu’s master strives to ensure that the requested number of replicas are maintained at all times.
-	* Kudu employs the Raft consensus algorithm to repli- cate its tablets. In particular, Kudu uses Raft to agree upon a logical log of operations (e.g. insert/update/delete) for each tablet.
+	* Kudu employs the Raft consensus algorithm to replicate its tablets. In particular, Kudu uses Raft to agree upon a logical log of operations (e.g. insert/update/delete) for each tablet.
 	* If the replica is in fact still acting as the leader, it employs a local lock manager to serialize the operation against other concurrent operations, picks an MVCC timestamp, and proposes the operation via Raft to its followers.
 	* Note that there is no restriction that the leader must write an operation to its local log before it may be com- mitted: this provides good latency-smoothing properties even if the leader’s disk is performing poorly.
-	* If the leader itself fails, the Raft algorithm quickly elects a new leader. By default, Kudu uses a 500- millisecond heartbeat interval and a 1500-millisecond election timeout; thus, after a leader fails, a new leader is typically elected within a few seconds.
-- Kudu does not replicate the on-disk storage of a tablet, but rather just its operation log.
-- Because the storage layer is _decoupled_ across replicas, none of these race conditions resulted in unrecoverable data loss:
+	* If the leader itself fails, the Raft algorithm quickly elects a new leader. By default, Kudu uses a 500-millisecond heartbeat interval and a 1500-millisecond election timeout; thus, after a leader fails, a new leader is typically elected within a few seconds.
+- Kudu does not replicate the on-disk storage of a tablet, but rather just its operation log.The physical storage of each replica of a tablet is fully decoupled.
+- Because the storage layer is _decoupled_ across replicas, none of these race conditions resulted in unrecoverable data loss.
+- Kudu implements Raft configuration change following the one-by-one algorithm.
+- Kudu’s central master process has several key responsibilitie:
+	* Act as a _catalog manager_, keeping track of which tables and tablets exist, as well as their schemas, desired replica- tion levels, and other metadata.
+	* Act as a _cluster coordinator_, keeping track of which servers in the cluster are alive and coordinating redis- tribution of data after server failures.
+	* Act as a _tablet directory_, keeping track of which tablet servers are hosting replicas of each tablet.
+
+##### Tablet storage
+
+- Within a tablet server, each tablet replica operates as an entirely separate entity, significantly decoupled from the partitioning and replication systems.
+	* Fast columnar scans
+	* Low-latency random updates
+	* Consistency of performance
+- Kudu chooses to implement a new hybrid columnar store architecture.
+- Tablets in Kudu are themselves subdivided into smaller units called RowSets. Some RowSets exist in memory only, termed MemRowSets, while others exist in a combination of disk and memory, termed DiskRowSets. 
+- At any point in time, a tablet has a single MemRowSet which stores all recently-inserted rows. Because these stores are entirely in-memory, a background thread periodically flushes MemRowSets to disk.
+- MemRowSets are implemented by an in-memory concurrent B-tree with optimistic locking, broadly based off the design of MassTree.
+- Kudu links together leaf nodes with a next pointer, as in the B+-tree. This improves our sequential scan performance, a critical operation.
+- In order to optimize for scan performance over random ac- cess, we use slightly larger internal and leaf nodes sized at four cache-lines (256 bytes) each.
+- MemRowSets store rows in a row-wise layout(行式存储于内存).To maximize through- put despite the choice of row storage, we utilize SSE2 mem- ory prefetch instructions to prefetch one leaf node ahead of our scanner, and JIT-compile record projection operations using LLVM.
+- While flushing a MemRowSet, Kudu roll the DiskRowSet after each 32 MB of IO. Because a MemRowSet is in sorted order, the flushed DiskRowSets will themselves also be in sorted order, and each rolled segment will have a disjoint interval of primary keys.
+- A DiskRowSet is made up of two main components: base data and delta stores.The column itself is subdivided into small pages to al- low for granular random reads, and an embedded B-tree index allows efficient seeking to each page based on its ordinal offset within the rowset.
+- Several of the page formats supported by Kudu are common with those supported by Parquet, and our implementation shares much code with Impala’s Parquet library.
+- Delta stores are ei- ther in-memory DeltaMemStores, or on-disk DeltaFiles. A DeltaMemStore is a concurrent B-tree which shares the im- plementation described above. A DeltaFile is a binary-typed column block. 
+- Delta Flushes
+- INSERT path
+- Read path
+- Lazy Materialization
+- Delta Compaction
+- RowSet Compaction
+- Scheduling maintenance
+
+
 
 
 ### Reference
