@@ -255,24 +255,24 @@ Product API 是给两个底层生产者的再封装 -kafka.producer.SyncProducer
 
 该API的目的是将生产者的所有功能通过一个单个的API公开给其消费者consumer。新建的生产者可以：
 
-	* 对多个生产者请求进行排队/缓冲并异步发送批量数据 —— kafka.producer.Producer提供了在将多个生产请求序列化并发送给适当的Kafka代理分区之前，对这些生产请求进行批量处理的能力（producer.type=async）。批量的大小可以通过一些配置参数进行控制。当事件进入队列时会先放入队列进行缓冲，直到时间到了queue.time或者批量大小到达batch.size为止，后台线程（kafka.producer.async.ProducerSendThread）会将这批数据从队列中取出，交给kafka.producer.EventHandler进行序列化并发送给适当的kafka代理分区。通过event.handler这个配置参数，可以在系统中插入一个自定义的事件处理器。在该生产者队列管道中的各个不同阶段，为了插入自定义的日志/跟踪代码或者自定义的监视逻辑，如能注入回调函数会非常有用。通过实现kafka.producer.asyn.CallbackHandler接口并将配置参数callback.handler设置为实现类就能够实现注入。
-	* 使用用户指定的Encoder处理数据的序列化（serialization),Encoder的缺省值是一个什么活都不干的kafka.serializer.DefaultEncoder。
+	* 对多个生产者请求进行排队/缓冲并异步发送批量数据 —— kafka.producer.Producer提供了在将多个生产请求序列化并发送给适当的Kafka代理分区之前，对这些生产请求进行批量处理的能力(producer.type=async)。批量的大小可以通过一些配置参数进行控制。当事件进入队列时会先放入队列进行缓冲，直到时间到了queue.time或者批量大小到达batch.size为止，后台线程(kafka.producer.async.ProducerSendThread)会将这批数据从队列中取出，交给kafka.producer.EventHandler进行序列化并发送给适当的kafka代理分区。通过event.handler这个配置参数，可以在系统中插入一个自定义的事件处理器。在该生产者队列管道中的各个不同阶段，为了插入自定义的日志/跟踪代码或者自定义的监视逻辑，如能注入回调函数会非常有用。通过实现kafka.producer.asyn.CallbackHandler接口并将配置参数callback.handler设置为实现类就能够实现注入。
+	* 使用用户指定的Encoder处理数据的序列化(serialization),Encoder的缺省值是一个什么活都不干的kafka.serializer.DefaultEncoder。
 
-	```java
-	1	interface Encoder<T> {
-	2	  public Message toMessage(T data);
-	3	}
-	```
+```java
+1	interface Encoder<T> {
+2	  public Message toMessage(T data);
+3	}
+```
 
 	* 提供基于zookeeper的代理自动发现功能 —— 通过使用zk.connect配置参数指定zookeeper的连接url，就能够使用基于zookeeper的代理发现和负载均衡功能。在有些应用场合，可能不太适合于依赖zookeeper。在这种情况下,生产者可以从broker.list这个配置参数中获得一个代理的静态列表,每个生产请求会被随即的分配给各代理分区。如果相应的代理宕机，那么生产请求就会失败。
 	* 通过使用一个可选性的、由用户指定的Partitioner,提供由软件实现的负载均衡功能 —— 数据发送路径选择决策受kafka.producer.Partitioner的影响。
 
-	```java
-	1	interface Partitioner<T> {
-	2	   int partition(T key, int numPartitions);
-	3	}
-	```
-
+```java
+1	interface Partitioner<T> {
+2	   int partition(T key, int numPartitions);
+3	}
+```
+	
 	分区API根据相关的键值以及系统中具有的代理分区的数量返回一个分区id。将该id用作索引，在broker_id和partition组成的经过排序的列表中为相应的生产者请求找出一个代理分区。缺省的分区策略是hash(key)%numPartitions。如果key为null，那就进行随机选择。使用partitioner.class这个配置参数也可以插入自定义的分区策略。
 
 *Consumer API*
@@ -384,7 +384,7 @@ _消费者ID的注册_
 
 /consumers/[group_id]/ids/[consumer_id] --> {"topic1": #streams, ..., "topicN": #streams} (ephemeral node)
 
-小组内的每个消费者都要在它所属的小组中进行注册并采用consumer_id创建一个z节点。z节点的值包含了一个<topic, #streams>的map。 consumer_id只是用来识别小组内活跃的每个消费者。消费者建立的z节点是个临时性的节点，因此如果这个消费者进程终止了，注册信息也将随之消失。
+小组内的每个消费者都要在它所属的小组中进行注册并采用consumer_id创建一个z节点。z节点的值包含了一个< topic, #streams>的map。consumer_id只是用来识别小组内活跃的每个消费者。消费者建立的z节点是个临时性的节点，因此如果这个消费者进程终止了，注册信息也将随之消失。
 
 
 _数据消费者偏移追踪_
@@ -395,7 +395,7 @@ _数据消费者偏移追踪_
 
 _分区拥有者注册表_
 
-每个代理分区都被分配给了指定消费者小组中的单个数据消费者。数据消费者必须在耗用给定分区前确立对其的所有权。要确立其所有权，数据消费者需要将其 id 写入到特定代理分区中的一个临时节点(ephemeral node)中。
+每个代理分区都被分配给了指定消费者小组中的单个数据消费者。数据消费者必须在耗用给定分区前确立对其的所有权。要确立其所有权,数据消费者需要将其id 写入到特定代理分区中的一个临时节点(ephemeral node)中。
 
 /consumers/[group_id]/owners/[topic]/[broker_id-partition_id] --> consumer_node_id (ephemeral node)
 
@@ -408,7 +408,7 @@ _消费者注册算法_
 当消费者启动时，它要做以下这些事情：
 
 	1. 将自己注册到它属小组下的消费者id注册表。
-	2. 注册一个监视消费者id列的表变化情况（有新的消费者加入或者任何现有消费者的离开）的变化监视器。(每个变化都会触发一次对发生变化的消费者所属的小组内的所有消费者进行负载均衡。)
+	2. 注册一个监视消费者id列的表变化情况（有新的消费者加入或者任何现有消费者的离开）的变化监视器.(每个变化都会触发一次对发生变化的消费者所属的小组内的所有消费者进行负载均衡.)
 	3. 主次一个监视代理id注册表的变化情况（有新的代理加入或者任何现有的代理的离开）的变化监视器。（每个变化都会触发一次对所有小组内的所有消费者负载均衡。）
 	4. 如果消费者使用某话题过滤器创建了一个消息流，它还要注册一个监视代理话题变化情况（添加了新话题）的变化监视器。（每个变化都会触发一次对所有可用话题的评估，以找出话题过滤器过滤出哪些话题。新过滤出来的话题将触发一次对该消费者所在的小组内所有的消费者负载均衡。）
 	5. 迫使自己在小组内进行重新负载均衡。
@@ -440,7 +440,7 @@ _消费者重新负载均衡的算法_
 
 _消息_
 
-消息由一个固定大小的消息头和一个变长不透明字节数字的有效载荷构成（opaque byte array payload）。消息头包含格式的版本信息和一个用于探测出坏数据和不完整数据的CRC32校验。让有效载荷保持不透明是个非常正确的决策：在用于序列化的代码库方面现在正在取得非常大的进展，任何特定的选择都不可能适用于所有的使用情况。都不用说，在Kafka的某特定应用中很有可能在它的使用中需要采用某种特殊的序列化类型。MessageSet接口就是一个使用特殊的方法对NIOChannel进行大宗数据读写（bulk reading and writing to an NIOChannel）的消息迭代器。
+消息由一个固定大小的消息头和一个变长不透明字节数字的有效载荷构成(opaque byte array payload)。消息头包含格式的版本信息和一个用于探测出坏数据和不完整数据的CRC32校验。让有效载荷保持不透明是个非常正确的决策：在用于序列化的代码库方面现在正在取得非常大的进展，任何特定的选择都不可能适用于所有的使用情况。都不用说，在Kafka的某特定应用中很有可能在它的使用中需要采用某种特殊的序列化类型。MessageSet接口就是一个使用特殊的方法对NIOChannel进行大宗数据读写（bulk reading and writing to an NIOChannel）的消息迭代器。
 
 
 _消息的格式_
