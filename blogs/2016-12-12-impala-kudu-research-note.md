@@ -37,12 +37,12 @@ Impala is massively-parallel query execution engine,which runs on hundreds of ma
 
 ![Impala Architecture](_includes/Impala_arch.png).
 
-* Impala main components: *
+* Impala main components:
 
-> Impala daemon(impalad) <br/> 
-> Statestore daemon(statestored) <br/>
-> Catalog daemon(catalogd) <br/>
-> HDFS + Hive Metastore <br/>
+	> Impala daemon(impalad) <br/> 
+	> Statestore daemon(statestored) <br/>
+	> Catalog daemon(catalogd) <br/>
+	> HDFS + Hive Metastore <br/>
 
 #### Impala SQL Query:
 
@@ -60,18 +60,18 @@ When building the hash tables for the hash joins and there is reduction in cardi
 
 Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
 
-* Code Generation Design & Performance *
+* Code Generation Design & Performance
 
 Virtual function calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
 JIT compilation has an effect similar to custom-coding a query. For example, it eliminates branches, unrolls loops, propagates constants, offsets and pointers, inlines functions.<br/>
 Code generation has a dramatic impact on performance - Speed up 5.7x
 
-* Runtime Code Generation *
+* Runtime Code Generation
 
 In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk.
 Avro,RC,Sequence,plain text,Parquet(Recommend)
 
-* Resource Management:YARN & Llama *
+* Resource Management:YARN & Llama
 
 YARN has a centralized architecture, where frameworks make requests for CPU and memory resources which are arbitrated by the central Resource Manager service,but it also imposes a significant latency on resource acquisition.<br/>
 Impala implemented a complementary but independent admission control mechanism that allowed users to control their workloads without costly centralized decision-making.<br/>
