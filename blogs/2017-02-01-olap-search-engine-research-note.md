@@ -2,13 +2,13 @@
 layout: post
 category : datascience
 tags : [bigdata,search,develop]
-title: Data Retrieval Research Note
+title: Data Search Research Note
 ---
 
 OLAP & Search Engine Research Note
 --------------------------------------------------
 
-### 通用数据检索设计
+### 数据检索设计
 
 ### OLAP通用设计
 
