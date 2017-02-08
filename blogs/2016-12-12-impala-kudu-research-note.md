@@ -95,9 +95,9 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage
 - Kudu offers a simple API for row-level _inserts_, _updates_, and _deletes_, while providing table scans at throughputs similar to Parquet, a commonly-used columnar format for static data.
 - Each such column has a name, type (e.g INT32 or STRING) and optional nullability.The primary key enforces a uniqueness constraint (at most one row may have a given primary key tuple) and acts as the sole index by which rows may be efficiently updated or deleted.
 - Kudu does not currently offer secondary indexes or uniqueness constraints other than the primary key.
-- Kudu does not offer any multi-row transactional APIs: each mutation conceptu- ally executes as its own transaction, despite being automatically batched with other mutations for better performance.
+- Kudu does not offer any multi-row transactional APIs: each mutation conceptually executes as its own transaction, despite being automatically batched with other mutations for better performance.
 - Kudu offers only a Scan operation to retrieve data from a table.Currently, we offer only two types of predicates: comparisons between a column and a constant value, and composite primary key ranges.
-- Kudu provides APIs for callers to determine the map- ping of data ranges to particular servers to aid distributed execution frameworks such as Spark, MapReduce, or Impala in scheduling.
+- Kudu provides APIs for callers to determine the mapping of data ranges to particular servers to aid distributed execution frameworks such as Spark, MapReduce, or Impala in scheduling.
 - Kudu provides clients the choice between two consistency modes. The default consistency mode is snapshot consistency.
 - Although Kudu uses _timestamps_ internally to implement concurrency control, Kudu does not allow the user to manually set the timestamp of a write operation. 
 
@@ -107,20 +107,20 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage
 - The master server can be replicated for fault tolerance, supporting very fast failover of all responsibilities in the event of an outage.
 - The tables in Kudu are horizontally partitioned. Kudu, like BigTable, calls these horizontal partitions tablets. 
 - For large tables where throughput is important, we recommend on the order of 10-100 tablets per machine. Each tablet can be tens of gigabytes.
-- Kudu supports a flexi- ble array of partitioning schemes,unlike Bigdata or Cassandra.The partition schema is made up of zero or more hash- partitioning rules followed by an optional range-partitioning rule:
+- Kudu supports a flexible array of partitioning schemes,unlike Bigdata or Cassandra.The partition schema is made up of zero or more hash-partitioning rules followed by an optional range-partitioning rule:
 	* A hash-partitioning rule consists of a subset of the primary key columns and a number of buckets.
 	* A range-partitioning rule consists of an ordered subset of the primary key columns.
 - Kudu replicates all of its table data across multiple machines. When creating a table, the user specifies a replication factor, typically 3 or 5, depending on the application’s availability SLAs. Kudu’s master strives to ensure that the requested number of replicas are maintained at all times.
 	* Kudu employs the Raft consensus algorithm to replicate its tablets. In particular, Kudu uses Raft to agree upon a logical log of operations (e.g. insert/update/delete) for each tablet.
 	* If the replica is in fact still acting as the leader, it employs a local lock manager to serialize the operation against other concurrent operations, picks an MVCC timestamp, and proposes the operation via Raft to its followers.
-	* Note that there is no restriction that the leader must write an operation to its local log before it may be com- mitted: this provides good latency-smoothing properties even if the leader’s disk is performing poorly.
+	* Note that there is no restriction that the leader must write an operation to its local log before it may be committed: this provides good latency-smoothing properties even if the leader’s disk is performing poorly.
 	* If the leader itself fails, the Raft algorithm quickly elects a new leader. By default, Kudu uses a 500-millisecond heartbeat interval and a 1500-millisecond election timeout; thus, after a leader fails, a new leader is typically elected within a few seconds.
 - Kudu does not replicate the on-disk storage of a tablet, but rather just its operation log.The physical storage of each replica of a tablet is fully decoupled.
 - Because the storage layer is _decoupled_ across replicas, none of these race conditions resulted in unrecoverable data loss.
 - Kudu implements Raft configuration change following the one-by-one algorithm.
 - Kudu’s central master process has several key responsibilitie:
-	* Act as a _catalog manager_, keeping track of which tables and tablets exist, as well as their schemas, desired replica- tion levels, and other metadata.
-	* Act as a _cluster coordinator_, keeping track of which servers in the cluster are alive and coordinating redis- tribution of data after server failures.
+	* Act as a _catalog manager_, keeping track of which tables and tablets exist, as well as their schemas, desired replication levels, and other metadata.
+	* Act as a _cluster coordinator_, keeping track of which servers in the cluster are alive and coordinating redis-tribution of data after server failures.
 	* Act as a _tablet directory_, keeping track of which tablet servers are hosting replicas of each tablet.
 
 ##### Tablet storage
@@ -157,3 +157,4 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage
 - [Impala Code](https://github.com/cloudera/Impala/wiki)
 - [Impala Paper]
 - [Kudu Paper]
+- [NewBI Impala&Kudu arch](http://wiki.yunat.com/pages/viewpage.action?pageId=42516427)

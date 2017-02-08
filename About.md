@@ -14,31 +14,34 @@ Data Product Architect.
 
 ### Speciality
 
-- Software product architect design and dig data tech solution(Hadoop / HBase / Mahout / Kafka / Spark)
-- Data mining and data analysis for e-commerce
-- Internet mobile product design and data architect
-- Full-Text content search engine solution (Lucene / XML database / ElasticSearch solution)
-- NoSQL Database product design
+- Big data product design(agile BI) & data mining tech solution (NewBI product)
+- Product development management and team driver
+- Full-text content search engine solution (xPlore search engine owned by EMC/Lenovo search engine)
+- Database product research and utilization (Greenplum/Vertica/HBase/MySQL/EMC xDB / MongoDB / Couchbase / Redis)
+- Content Management Enterprise Product design and implementation (Documentum / SuperNote)
+- Internet mobile product design and system architecture
 
 ### Technology skills
 
-- Software architect:Java/J2EE/Go/Python, automation testing, performance analysis/tuning and continue delivery.
-- DataStorage: NoSQL/RDB database/MPP architect and utilization (Greenplum,Vertica,HBase,MongoDB,Couchbase,MySQL,EMC Documentum xDB)
+- Java/J2EE/Go/Python, automation testing and performance analysis/tuning.
+- DateMining development: OLAP/ DataWarehouse / 数据挖掘算法 
+- BigData Solution: Hadoop / HBase / Impala&Kudu / Kafka / Storm / Spark / Lucene&ElasticSearch / Greenplum / Vertica / SQL 
+- Database development: EMC xDB / MySQL / MongoDB / Couchbase /Data structure design.
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
-- Open Source Tech: Lucene/ElasticSearch,Spring,Anltr,Hadoop,Spark,iBatis,Maven,Jetty,Tomcat,Netty.
+- Open Source Tech: Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx, Docker.
 - Linux and Unix administration skill and shell language.
 - Virtualization: VMWare vSphere Administrator and Configuration.
 
 ### Work Experience
 
-|| Time 			 || Company  		 || Position 						 ||   <br/>
-|| 2015/10--Now.     || *Shuyun*        || Data Product Architect                   ||
+|| Time 			 || Company  		|| Position 						        ||   <br/>
+|| 2015/10--Now.     || *Shuyun*        || Data Product Architect & Technical leader     ||
 
 - Product: Agile BI data product based on big data - The best CRM data analysis product for e-commerce in China
 - Responsibility: Overall take technology responsibility for big data/BI product included architect/development/continueDelivery based on MPP/Hadoop/Spark data centre.
 - Deeply research E-commerce data mining & data analysis solution.
 
-|| 2013/07--2015/09. || *Lenovo* 		 || Senior Researcher&Data Architect ||
+|| 2013/07--2015/09. || *Lenovo* 		 || Senior Researcher & Data Architect ||
 
 - Product: SuperNote (Personal Cloud Note MobileApp), Smart Gadget Service Platform
 - Responsibility: 
