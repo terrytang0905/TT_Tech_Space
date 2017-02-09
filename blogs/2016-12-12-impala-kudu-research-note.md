@@ -9,7 +9,9 @@ title: Impala & Kudu Big Data OLAP Architect
 
 ------------------------------------------------------------------------
 
-Big Data Analysis Framework = OLAP(SQL on Hadoop/Impala) + Big Data Storage(HDFS/Kudu) 
+Big Data Analysis Solution = OLAP(SQL on Hadoop/Impala) + Big Data Storage(HDFS/Kudu) 
+
+BI Product = Data Visualization + Distributed OLAP + Big Data Storage
 
 ### Impala
 
