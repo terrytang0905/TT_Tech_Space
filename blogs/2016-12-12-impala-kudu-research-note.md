@@ -60,14 +60,14 @@ Query compilation process: Query parsing,semantic analysis and query planing/opt
 
 An executable query plan is constructed in two phases: (1) Single node planning (2) plan parallelization and fragmentation.<br/>
 
-	1)A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.<br/>
-	Cost estimation is based on table/partition cardinalities plus distinct value counts for each column.
+1) A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.
+1.1) Cost estimation is based on table/partition cardinalities plus distinct value counts for each column.
 
-	2)Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality: in HDFS, remote reads are considerably slower than local ones. <br/>
-	The supported join strategies are broadcast and partitioned. Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.<br/>
-    All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.<br/>
-    For grouping aggregations, the pre-aggregation output is partitioned on the grouping expressions and the merge aggregation is done
-	in parallel on all participating nodes. For non-grouping aggregations, the merge aggregation is done on a single node.
+2) Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality: in HDFS, remote reads are considerably slower than local ones.
+2.1) The supported join strategies are broadcast and partitioned. Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.
+2.2) All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.<br/>
+2.3) For grouping aggregations, the pre-aggregation output is partitioned on the grouping expressions and the merge aggregation is done
+in parallel on all participating nodes. For non-grouping aggregations, the merge aggregation is done on a single node.
 
 
 _partitioned hash join_
