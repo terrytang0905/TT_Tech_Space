@@ -36,29 +36,54 @@ Impala is massively-parallel query execution engine,which runs on hundreds of ma
 
 ![Impala Architecture](_includes/Impala_arch.png).
 
+SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordinator -> SQLResult
+
 * Impala main components:
 
-	> Impala daemon(impalad) <br/> 
-	> Statestore daemon(statestored) <br/>
-	> Catalog daemon(catalogd) <br/>
-	> Hive Metastore <br/>
-	> DataStorage:HDFS / Kudu 
+	- Impala daemon(impalad) <br/> 
+	- Statestore daemon(statestored) - Impala’s metadata publish-subscribe service(broadcast). <br/>
+	- Catalog daemon(catalogd) - serves as Impala’s catalog repository and metadata access gateway. <br/>
+	- Hive Metastore - metadata database <br/>
+	- DataStorage:HDFS / Kudu 
 
-#### Impala SQL Query:
+* Impala daemon(impalad) module:
+
+	- Query Planer
+	- Query Coordinator
+	- Query Executor
+
+#### Frontend - Impala SQL Query
 
 Query compilation process: Query parsing,semantic analysis and query planing/optimization
 
+#### Logical query optimization for Impala
+
 An executable query plan is constructed in two phases: (1) Single node planning (2) plan parallelization and fragmentation.<br/>
 
-	1)A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.
-	2)Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality.
-    All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.
+	1)A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.<br/>
+	Cost estimation is based on table/partition cardinalities plus distinct value counts for each column.
 
-The impala backend is written in C++ and uses code generation at runtime to produce a cient codepaths(with respect to instruction count) and small memory overhead.<br/>
+	2)Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality: in HDFS, remote reads are considerably slower than local ones. <br/>
+	The supported join strategies are broadcast and partitioned. Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.<br/>
+    All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.<br/>
+    For grouping aggregations, the pre-aggregation output is partitioned on the grouping expressions and the merge aggregation is done
+	in parallel on all participating nodes. For non-grouping aggregations, the merge aggregation is done on a single node.
+
+
+_partitioned hash join_
+
 Impala employs a partitioning approach for the hash join and aggregation operators.<br/>
 When building the hash tables for the hash joins and there is reduction in cardinality of the build-side relation, impala constructs a Bloom-filter which is then passed on to the probe side scanner, implementing a simple version of a semi-join.
 
-> Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
+* About Hadoop Join Optimizer
+
+* Impala Query Cache
+
+Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
+
+#### Backend
+
+The impala backend is written in C++ and uses code generation at runtime to produce a cient codepaths(with respect to instruction count) and small memory overhead.<br/>
 
 * Code Generation Design & Performance
 
@@ -90,7 +115,7 @@ We could build time PARTITION for source table as the extend time items.
 
 ### Kudu Data Storage
  
-Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage architect.
+Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage architect.
 
 #### Kudu Feature:
 
