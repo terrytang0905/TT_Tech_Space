@@ -9,11 +9,8 @@ title: Impala & Kudu Big Data OLAP Architect
 
 ------------------------------------------------------------------------
 
-Big Data Analysis Solution = OLAP(SQL on Hadoop/Impala) + Big Data Storage(HDFS/Kudu) 
 
-BI Product = Data Visualization + Distributed OLAP + Big Data Storage
-
-### Impala
+### Impala OLAP
 
 #### Impala Feature:
 
@@ -44,23 +41,24 @@ Impala is massively-parallel query execution engine,which runs on hundreds of ma
 	> Impala daemon(impalad) <br/> 
 	> Statestore daemon(statestored) <br/>
 	> Catalog daemon(catalogd) <br/>
-	> HDFS + Hive Metastore <br/>
+	> Hive Metastore <br/>
+	> DataStorage:HDFS / Kudu 
 
 #### Impala SQL Query:
 
 Query compilation process: Query parsing,semantic analysis and query planing/optimization
 
-An executable query plan is constructed in two phases: (1) Single node planning and (2) plan parallelization and fragmentation.<br/>
+An executable query plan is constructed in two phases: (1) Single node planning (2) plan parallelization and fragmentation.<br/>
 
-	1)A non- executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.
+	1)A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.
 	2)Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality.
     All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.
 
-The impala backend is written in C++ and uses code generation at runtime to produce e cient codepaths (with respect to instruction count) and small memory overhead.<br/>
+The impala backend is written in C++ and uses code generation at runtime to produce a cient codepaths(with respect to instruction count) and small memory overhead.<br/>
 Impala employs a partitioning approach for the hash join and aggregation operators.<br/>
 When building the hash tables for the hash joins and there is reduction in cardinality of the build-side relation, impala constructs a Bloom-filter which is then passed on to the probe side scanner, implementing a simple version of a semi-join.
 
-Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
+> Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
 
 * Code Generation Design & Performance
 
@@ -70,8 +68,9 @@ Code generation has a dramatic impact on performance - Speed up 5.7x
 
 * Runtime Code Generation
 
-In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk.
-Avro,RC,Sequence,plain text,Parquet(Recommend)
+In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called *short-circuit local reads* to bypass the DataNode protocol when reading from local disk.
+
+Impala support data file formats include Avro,RC,Sequence,plain text,Parquet(Recommend) and Kudu.
 
 * Resource Management:YARN & Llama
 
@@ -87,7 +86,8 @@ CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' S
 We could build time PARTITION for source table as the extend time items.  
 
 
-### Kudu
+
+### Kudu Data Storage
  
 Kudu is the hybrid architecture in order to replace HBase + HDFS&Parquet storage architect.
 
