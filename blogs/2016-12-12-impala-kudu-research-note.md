@@ -82,10 +82,11 @@ The long-term goal of Impala is to support mixed-workload resource management th
 
 #### Physical schema design 
 
+```sql
 CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' STORED AS PARQUET;
-We could build time PARTITION for source table as the extend time items.  
+```
 
-
+We could build time PARTITION for source table as the extend time items. 
 
 ### Kudu Data Storage
  
