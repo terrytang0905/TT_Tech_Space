@@ -18,7 +18,7 @@ The system catalog, optimizer, query executor, and transaction manager component
 
 Greenplum Database also includes features designed to optimize PostgreSQL for business intelligence (BI) workloads.
 
-![High Architecture](_includes/highlevel_arch.png).
+![High Architecture](_includes/highlevel_arch.jpg).
 
 _About the Greenplum Master_
 
@@ -275,13 +275,93 @@ _Queries Against Partitioned Tables_
 	* Query plan can contain the Partition selector operator.
 	* Partitions are not enumerated in EXPLAIN plans.
 
+Pivotal Query Optimizer has introduced three new query operators that work together in a producer/consumer model to perform scans over partitioned tables: PartitionSelector, DynamicScan, and Sequence.
+
+	* PartitionSelector computes all the child partition OIDs that satisfy the partition selection conditions given to it.
+	* DynamicScan is responsible for passing tuples from the partitions identified by the PartitionSelector.
+	* Sequence is an operator that executes its child operators and then returns the result of the last one.
+
 _Queries that Contain Subqueries_
+
+SubQuery Unnesting is probably the most significant enhancement in the Pivotal Query Optimizer, because of the heavy use of subqueries by the major BI/Reporting tools in the industry. A subquery is a query that is nested inside an outer query block, such as:
+
+```sql
+SELECT * FROM part
+ WHERE price > (SELECT avg(price) FROM part)
+ GROUP BY year;
+
+```
+
+	* Removing Unnecessary Nesting. 
+	* Subquery Decorrelation.
+	* Conversion of Subqueries into Joins.
 
 _Queries that Contain Common Table Expressions_
 
+CTEs are temporary tables that are used for just one query, and are typically heavily utilized in analytical workloads. <br/>
+Pivotal Query Optimizer introduces a new producer-consumer model for WITH clause, much like the model introduced for Dynamic Partition Elimination. The model allows evaluating a complex expression once, and consuming its output by multiple operators. 
+
 _DML Operation Enhancements with Pivotal Query Optimizer_
 
-#### V.Managing Performance
+
+[Query Profiling](http://gpdb.docs.pivotal.io/43110/admin_guide/query/topics/query-profiling.html#topic39)
+
+_Reading EXPLAIN Output_
+
+A query plan is a tree of nodes. Each node in the plan represents a single operation, such as a table scan, join, aggregation, or sort.
+The bottom nodes of a plan are usually table scan operations: sequential, index, or bitmap index scans.
+
+The topmost plan nodes are usually Greenplum Database motion nodes: redistribute, explicit redistribute, broadcast, or gather motions. These operations move rows between segment instances during query processing.
+
+_Examining Query Plans to Solve Problems_
+
+Examine its query plan and ask the following questions:
+
+- Do operations in the plan take an exceptionally long time? 
+- Are the optimizer's estimates close to reality?
+- Are selective predicates applied early in the plan?
+- Does the optimizer choose the best join order?When you have a query that joins multiple tables, make sure that the optimizer chooses the most selective join order. Joins that eliminate the largest number of rows should be done earlier in the plan so fewer rows move up the plan tree.
+- Does the optimizer selectively scan partitioned tables?
+- Does the optimizer choose hash aggregate and hash join operations where applicable? Hash operations are typically much faster than other types of joins or aggregations. Row comparison and sorting is done in memory rather than reading/writing from disk.
 
 
+#### V. Greenplum SQL Definition
+
+_SQL Lexicon_
+
+_SQL Value Expressions_
+
+
+#### VI.Managing Performance
+
+Pivotal Query Optimizer introduces a new producer-consumer model for WITH clause, much like the model introduced for Dynamic Partition Elimination. The model allows evaluating a complex expression once, and consuming its output by multiple operators. 
+
+- Dynamic Partition Elimination
+- Memory Optimizations
+
+Greenplum measures database performance based on the rate at which the database management system (DBMS) supplies information to requesters.
+
+_Understanding the Performance Factors_
+
+Database performance relies heavily on disk I/O and memory usage.
+
+_Workload_
+
+The total workload is a combination of user queries, applications, batch jobs, transactions, and system commands directed through the DBMS at any given time.
+
+_Throughput_
+
+_Contention_
+
+_Optimization_
+
+_Maintaining Database Statistcs_
+
+Greenplum Database uses a cost-based query optimizer that relies on database statistics. Accurate statistics allow the query optimizer to better estimate the number of rows retrieved by a query to choose the most efficient query plan. 
+
+_Optimizing Data Distribution_
+
+When you create a table in Greenplum Database, you must declare a distribution key that allows for even data distribution across all segments in the system. If the data is unbalanced, the segments that have more data will return their results slower and therefore slow down the entire system.
+
+_Workload Management with Resource Queues_
 
