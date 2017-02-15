@@ -10,9 +10,9 @@ title: Impala & Kudu Big Data OLAP Architect
 ------------------------------------------------------------------------
 
 
-### Impala OLAP
+### A.Impala OLAP
 
-#### Impala Feature:
+#### 1.Impala Feature:
 
 Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 
@@ -30,7 +30,7 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 - Impala supports most popular file formats:Avro,RC,Sequence,TEXTFILE and Parquet.Recommend using Apache Parquet because Parquet offer both high compression and scan efficency.
 
 
-#### Impala Architect
+#### 2.Impala Architect
 
 Impala is massively-parallel query execution engine,which runs on hundreds of machines in existing Hadoop clusters.
 
@@ -52,7 +52,7 @@ SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordina
 	- Query Coordinator
 	- Query Executor
 
-#### Frontend - Impala SQL Query
+#### 3.Frontend - Impala SQL Query
 
 Query compilation process: Query parsing,semantic analysis and query planing/optimization
 
@@ -80,7 +80,7 @@ When building the hash tables for the hash joins and there is reduction in cardi
 
 Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
 
-#### Backend
+#### 4.Backend
 
 The impala backend is written in C++ and uses code generation at runtime to produce a cient codepaths(with respect to instruction count) and small memory overhead.<br/>
 
@@ -104,7 +104,7 @@ Llama for Low-Latency Appli- cation MAster, implements resource caching, gang sc
 
 The long-term goal of Impala is to support mixed-workload resource management through a single mechanism that supports both the low latency decision making of admission control & Llama(Low-Latency Application Master), and the cross-framework support of YARN.
 
-#### Physical schema design 
+#### 5.Physical schema design 
 
 ```sql
 CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' STORED AS PARQUET;
@@ -112,11 +112,13 @@ CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' S
 
 We could build time PARTITION for source table as the extend time items. 
 
-### Kudu Data Storage
+
+
+### B.Kudu Data Storage
  
 Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage architect.
 
-#### Kudu Feature:
+#### 1.Kudu Feature:
 
 - Kudu is a new storage system designed and implemented from the ground up to fill this gap between high-throughput sequential-access storage systems such as HDFS and low-latency random-access systems such as HBase or Cassandra.
 - Kudu offers a simple API for row-level _inserts_, _updates_, and _deletes_, while providing table scans at throughputs similar to Parquet, a commonly-used columnar format for static data.
@@ -128,7 +130,7 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 - Kudu provides clients the choice between two consistency modes. The default consistency mode is snapshot consistency.
 - Although Kudu uses _timestamps_ internally to implement concurrency control, Kudu does not allow the user to manually set the timestamp of a write operation. 
 
-#### Kudu Architecture:
+#### 2.Kudu Architecture:
 
 - Following the design of BigTable/GFS/HDFS,Kudu relies on a single Master server, responsible for metadata, and an arbitrary number of Tablet Servers, responsible for data.
 - The master server can be replicated for fault tolerance, supporting very fast failover of all responsibilities in the event of an outage.
@@ -150,7 +152,7 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 	* Act as a _cluster coordinator_, keeping track of which servers in the cluster are alive and coordinating redis-tribution of data after server failures.
 	* Act as a _tablet directory_, keeping track of which tablet servers are hosting replicas of each tablet.
 
-##### Tablet storage
+#### 3.Tablet storage
 
 - Within a tablet server, each tablet replica operates as an entirely separate entity, significantly decoupled from the partitioning and replication systems.
 	* Fast columnar scans
@@ -177,8 +179,7 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 
 
 
-
-### Reference
+### x.Reference
 
 - [Impala Documents](http://www.cloudera.com/documentation/enterprise/latest/topics/impala.html)
 - [Impala Code](https://github.com/cloudera/Impala/wiki)
