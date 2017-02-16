@@ -60,7 +60,7 @@ Query compilation process: Query parsing,semantic analysis and query planing/opt
 
 An executable query plan is constructed in two phases: (1) Single node planning (2) plan parallelization and fragmentation.<br/>
 
-1) A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n and analysis evaluation.<br/>
+1) A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n,EXCHANGE and analysis evaluation.<br/>
 1.1) Cost estimation is based on table/partition cardinalities plus distinct value counts for each column.
 
 2) Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality: in HDFS, remote reads are considerably slower than local ones.<br/>
@@ -112,6 +112,31 @@ CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' S
 
 We could build time PARTITION for source table as the extend time items. 
 
+
+#### 6.Impala Performance Tuning
+
+* Choose the appropriate file format for the data.
+* Avoid data ingestion processes that produce many small files.
+
+	Always use INSERT ... SELECT to copy significant volumes of data from table to table within Impala. Avoid INSERT ... VALUES for any substantial volume of data or performance-critical tables, because each such statement produces a separate tiny data file. 
+
+* Choose partitioning granularity based on actual data volume.	
+
+	When deciding which column(s) to use for partitioning, choose the right level of granularity. For example, should you partition by year, month, and day, or only by year and month? Choose a partitioning strategy that puts at least 256 MB of data in each partition, to take advantage of HDFS bulk I/O and Impala distributed queries.
+
+	Over-partitioning can also cause query planning to take longer than necessary, as Impala prunes the unnecessary partitions. Ideally, keep the number of partitions in the table under 30 thousand.
+
+* Use smallest appropriate integer types for partition key columns.
+* Choose an appropriate Parquet/Kudu block size.
+	
+	By default, the Impala INSERT ... SELECT statement creates Parquet files with a 256 MB block size. 
+	You can set the PARQUET_FILE_SIZE query option before doing an INSERT ... SELECT statement to reduce the size of each generated Parquet file.
+
+* Gather statistics for all tables used in performance-critical or high-volume join queries.
+* Minimize the overhead of transmitting results back to the client.
+* Verify that your queries are planned in an efficient logical manner
+* Verify performance characteristics of queries.
+* Use appropriate operating system settings.
 
 
 ### B.Kudu Data Storage
