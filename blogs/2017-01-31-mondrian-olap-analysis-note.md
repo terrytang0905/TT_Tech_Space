@@ -122,9 +122,9 @@ SQL分析: Mondrian收到MDX查询请求后，如果缓存中没有对应的内�
 
 为了提高海量数据下的查询响应速度，Mondrian自动将首次查询的结果缓存到内存中，之后的查询如果命中缓存内容，则不再访问数据库。这种实现方式有点自不必说，但是在实现实时OLAP时会存在问题，实时OLAP中数据变化频繁导致缓存中的数据不是最新的。
 
-缓存控制接口:为了做到不重启OLAP Server也能更新缓存，Mondrian提供了一系列的刷新缓存的接口，支持指定清除指定schema的元数据缓存、查询结果缓存；清除动作可以是全部清除 也可以是 部分清除（可以指定清除某个维度下某级别成员的相关内容）。
+缓存控制接口:为了做到不重启OLAP Server也能更新缓存，Mondrian提供了一系列的刷新缓存的接口，支持指定清除指定schema的元数据缓存、查询结果缓存；清除动作可以是全部清除 也可以是部分清除(可以指定清除某个维度下某级别成员的相关内容)。
 
-数据变化监听:Mondrian提供了缓存控制接口（被动响应），但对于实现我们的目标“实时OLAP”来说我们就需要自己实现一个数据变更监听的模块，来监听数据变化，一旦数据有变化就发起变更事件，更新Mondrian引擎的缓存。
+数据变化监听:Mondrian提供了缓存控制接口(被动响应),但对于实现我们的目标“实时OLAP”来说我们就需要自己实现一个数据变更监听的模块，来监听数据变化，一旦数据有变化就发起变更事件，更新Mondrian引擎的缓存。
 
 目前初步考虑实现方案为ETL工具在数据处理结束后通知OLAP引擎。引擎收到数据变更通知后做清理缓存的动作。
 
@@ -156,22 +156,23 @@ SQL分析: Mondrian收到MDX查询请求后，如果缓存中没有对应的内�
 
 #### package解释
 
-mondrian.calc 提供编译好的表达式。
-mondrian.gui 设计Mondrianschema的图形接口
-mondrian.i18n 国际化和本地化工具
-mondrian.mdx 为mdx表达式定义解析树
-mondrian.olap 核心包，定义了连接和schema的元模型，用来执行查询
-mondrian.olap4j 中间层，olap服务器的驱动，用来代替jolly的
-mondrian.recorder 任务处理记录接口
-mondrian.rolap olap包的数据访问层的实现
-mondrian.spi用户自定义扩展的服务端支持接口
-mondrian.tui Mondrian文本用户接口
-mondrian.udf 用户定义方法
-mondrian.util Mondrian工具包
-mondrian.web Mondrian的servlet和tag库
-mondrian.xmla xmlforanalysisAPI的实现
+	mondrian.calc 提供编译好的表达式
+	mondrian.i18n 国际化和本地化工具
+	mondrian.mdx 为mdx表达式定义解析树
+	mondrian.olap 核心包，定义了连接和schema的元模型，用来执行查询
+	mondrian.olap4j 中间层，olap服务器的驱动，用来代替jolly的
+	mondrian.parser 解析器
+	mondrian.recorder 任务处理记录接口
+	mondrian.rolap olap包的数据访问层的实现
+	mondrian.server 服务端注册/监控数据变更/事件服务
+	mondrian.spi用户自定义扩展的服务端支持接口
+	mondrian.tui Mondrian文本用户接口
+	mondrian.udf 用户定义方法
+	mondrian.util Mondrian工具包
+	mondrian.web Mondrian的servlet和tag库
+	mondrian.xmla xmlforanalysisAPI的实现
 
-#### Schemamanger Module
+#### Schema manager Module
 
 Mondrian.rolap.RolapSchema类是mondrianschema的核心类，该类在在建立RolapConnection时被建立，但是有个schemaPool维护着schema的缓存，参见
 RolapSchema.Pool内部类。
@@ -180,8 +181,8 @@ RolapSchema.Pool内部类。
 
 Calc是所有可计算表达式的基接口。在mondrian中关于表达式有如下两个概念：
 
-- ThelogicallanguageofparsedMDXfragments(Exp).
-- Thephyiscallanguageofcompiledexpressions(Calc).
+- The logical language of parsed MDX fragments(Exp).
+- The phyiscal language of compiled expressions(Calc).
 
 > 两种语言的优势在于可以允许我们将逻辑语言(即mdx语言)和物理语言(how it is to be evaluated)分开.物理语言可以是SQL,也可以是类SQL(例如NoSQ语句)
 
@@ -283,7 +284,7 @@ MondiranModel中的monQuery对象已经创建好
 	- 时间维度
 	- 度量维度的默认成员是没有所有的××的，约定成俗的是第一个度量。
 
-	RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取一个member，每个member是hierarchy的默认成员。对于大多数hierarchy，这个默认成员就是所有成员。可能有两种例外：1）hierarchy没有所有成员；2）hierarchy有所有成员但是它不是默认成员。
+RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取一个member，每个member是hierarchy的默认成员。对于大多数hierarchy，这个默认成员就是所有成员。可能有两种例外：1）hierarchy没有所有成员；2）hierarchy有所有成员但是它不是默认成员。
 
 3.1.Determine axes步骤
 3.2.execute axes步骤
@@ -293,3 +294,9 @@ MondiranModel中的monQuery对象已经创建好
 
 4.执行完execute后，将mondrian的result转换成JPivot的result
 
+
+### 4.Mondrian优化设计
+
+#### 聚合预加载
+
+#### 实时OLAP支持
