@@ -289,9 +289,9 @@ Y. _Indexer_
 
 4.2.8. Payload
 
-Payload指Term相关的元数据信息
-存储在倒排表中的,同文档号一起存放,多用于存储与每篇文档相关的一些信息。
-当然这部分信息也可以存储域里(storedField),两者从功能上基本是一样的,然而当要存储的信息很多的时候,存放在倒排表里,利用跳跃表,有利于大大提高搜索速度。
+Payload指Term相关的元数据信息<br/>
+存储在倒排链表中的,同文档号DocId一起存放,多用于存储与每篇文档相关的一些信息。
+当然这部分信息也可以存储域里(storedField),两者从功能上基本是一样的,然而当要存储的信息很多的时候,存放在倒排表里,利用跳跃表SkipList,有利于大大提高搜索速度。
 
 
 #### V.Lucene Search
@@ -389,7 +389,7 @@ D. 得到了Scorer对象树以及SumScorer对象树
 	  scorer.score(collector); 
 	}
 
-E. 倒排表的合并以及打分计算
+E. 倒排链表的合并以及打分计算
 F. 收集文档结果集合及计算打分
 
 	TopScoreDocCollector collector = 
@@ -409,7 +409,7 @@ G. Lucene如何在搜索阶段读取索引信息
 - 查询词(Term):TermQuery/PhraseQuery/MultiTermQuery/MultiPhraseQuery
 - 查询域(Field):getFieldQuery
 - 通配符查询:WildcardQuery / MatchAllDocsQuery
-- 模糊查询:FuzzyQuery,Levenshtein Distance算法
+- 模糊查询:FuzzyQuery,Levenshtein Distance最小编辑距离算法(动态规划算法)
 - Prefix查询:PrefixQuery
 - 临近查询(Proximity)
 - 区间查询:TermRangeQuery
