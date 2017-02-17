@@ -91,8 +91,8 @@ Y. _Indexer_
 
 	Negative path(Inverted Index structure):Term -> Fields -> Segments -> Index
 				  
-		TermDictonary(tii,tis) -> TermPostingList (DocumentID/TF/Position/Payload跳跃表存储)
-		TermDictionary: .tis / .tii / Fequencies(.frq) / Postions词位置(.prx) 
+		TermDictonary(tii,tis) -> TermPostingList (DocumentID/TF/Position/Payload,跳跃表存储)
+		tis(term infos) / .tii(term infos Index) / Fequencies(.frq) / Postions词位置(.prx) 
 
 		Term Weight & Score: .nrm (Normalization Factor:Document boost/Field boost/lengthNorm(field))
 		相关性打分(score)使用<向量空间模型>(Vector Space Model),在计算相关性之前,要计算TermWeight
@@ -102,9 +102,14 @@ Y. _Indexer_
 		Merge and compound file(.cfs) / ConcurrentMergeScheduler
 		Write.lock(Sync index info during merging)写入锁
 
-![LuceneIndex文件结构](_includes/lucene_data_file.png).
+![LuceneIndex文件列表](_includes/lucene_data_file.png).
 
 3.3.数据存储规则
+
+
+![LuceneIndex数据结构](_includes/lucene_index_data_structure.jpg)
+
+TermDictionary DataStructure: Term | DocFreq | FreqDelta | ProxDelta | SkipDelta
 
 	1)Prefix+Suffix
 	2)Delta差值规则
