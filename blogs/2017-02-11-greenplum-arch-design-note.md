@@ -72,7 +72,7 @@ Each transaction is assigned a unique transaction ID (XID), an incrementing 32-b
 
 Multi-statement transactions must also record which command within a transaction inserted a row (cmin) or deleted a row (cmax) so that the transaction can see changes made by previous commands in the transaction. The command sequence is only relevant during the transaction, so the sequence is reset to 0 at the beginning of a transaction. 
 
-The master coordinates distributed transactions with the segments using a cluster-wide session ID number, called gp_session_id. The segments maintain a mapping of distributed transaction IDs with their local XIDs. The master coordinates distributed transactions across all of the segment with the two-phase commit protocol. 
+The master coordinates distributed transactions with the segments using a cluster-wide session ID number, called *gp_session_id*. The segments maintain a mapping of distributed transaction IDs with their local XIDs. The master coordinates distributed transactions across all of the segment with the two-phase commit protocol. 
 
 _Transaction ID Wraparound_
 
@@ -89,7 +89,14 @@ The SQL standard describes three phenomena that can occur when database transact
 	- Non-repeatable read – a row read twice in a transaction can change because another concurrent transaction committed changes after the transaction began.
 	- Phantom read – a query executed twice in the same transaction can return two different sets of rows because another concurrent transaction added rows.
 
-The Greenplum Database SQL commands allow you to request READ UNCOMMITTED, READ COMITTED, or SERIALIZABLE. Greenplum Database treats READ UNCOMMITTED the same as READ COMMITTED. Requesting REPEATABLE READ produces an error; use SERIALIZABLE instead. The default isolation mode is READ COMMITTED.
+The Greenplum Database SQL commands allow you to request 
+
+- READ UNCOMMITTED
+- READ COMITTED
+- REPEATABLE READ 
+- SERIALIZABLE 
+
+Greenplum Database treats READ UNCOMMITTED the same as READ COMMITTED. Requesting REPEATABLE READ produces an error; use SERIALIZABLE instead. The default isolation mode is READ COMMITTED.
 
 The MVCC snapshot isolation model prevents dirty reads, non-repeatable reads, and phantom reads without expensive locking, but there are other interactions that can occur between some SERIALIZABLE transactions in Greenplum Database that prevent them from being truly serializable.
 
@@ -164,9 +171,10 @@ If the Pivotal Query Optimizer is enabled, you also need to run ANALYZE ROOTPART
 _Automatic Statistics Collection_
 
 Automatic statistics collection has three modes:
-	- none disables automatic statistics collection.
-	- on_no_stats triggers an analyze operation for a table with no existing statistics when any of the commands CREATE TABLE AS SELECT, INSERT, or COPY are executed on the table.
-	- on_change triggers an analyze operation when any of the commands CREATE TABLE AS SELECT, UPDATE, DELETE, INSERT, or COPY are executed on the table and the number of rows affected exceeds the threshold defined by the gp_autostats_on_change_threshold configuration parameter.
+
+- none disables automatic statistics collection.
+- on_no_stats triggers an analyze operation for a table with no existing statistics when any of the commands CREATE TABLE AS SELECT, INSERT, or COPY are executed on the table.
+- on_change triggers an analyze operation when any of the commands CREATE TABLE AS SELECT, UPDATE, DELETE, INSERT, or COPY are executed on the table and the number of rows affected exceeds the threshold defined by the gp_autostats_on_change_threshold configuration parameter.
 
 
 ##### Enabling High Availability Features
@@ -181,7 +189,7 @@ _Dual Clusters_
 
 An additional level of redundancy can be provided by maintaining two Greenplum Database clusters, both storing the same data.
 
-> Two methods for keeping data synchronized on dual clusters are "dual ETL" and "backup/restore."
+> Two methods for keeping data synchronized on dual clusters are "dual ETL" and "backup/restore".
 
 _Backup and Restore_
 
