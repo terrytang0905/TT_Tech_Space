@@ -33,3 +33,5 @@ Java多线程与并发 - 分析索引
    - Lock原理分析
    - Optimistic Locking / Pessimistic Locking
    - 数据库ACID中的锁管理/死锁/乐观锁
+
+![Java多线程](_includes/java_multithread.jpg)   
