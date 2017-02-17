@@ -263,7 +263,7 @@ RolapStar中含有aggregation(聚合)，一个aggregation是针对一组columns�
 
 #### 缓存失效控制 - CacheControl
 
-mondrian.olap.CacheControl接口，可以很精细地由应用控制缓存。为此mondrian引入了cellregion的概念，region是由一个或多个成员定义出的多维空间(定义时可以指定是否包含这些成员的子成员)。为了使缓存失效，你需要首先定义一个region，然后告诉mondrian失效该region内的所有cells;为了确保一致性，mondrian还会自动地把这些cell的聚合单元也一起失效。具体参见CacheControl.CellRegion类.最终调用cacheControl.flush(cellRegion).
+mondrian.olap.CacheControl接口，可以很精细地由应用控制缓存。为此mondrian引入了*cellregion*的概念，region是由一个或多个成员定义出的多维空间(定义时可以指定是否包含这些成员的子成员)。为了使缓存失效，你需要首先定义一个region，然后告诉mondrian失效该region内的所有cells;为了确保一致性，mondrian还会自动地把这些cell的聚合单元也一起失效。具体参见CacheControl.CellRegion类.最终调用cacheControl.flush(cellRegion).
 
 在创建RolapConnection对象的构造函数中，会用对象池技术建立mondrian.rolap.RolapSchema对象。该对象会被缓存在对象池中，只会创建一次(RolapSchema对象中还有一个大对象xmlSchema，是纯定义性质的，Mondrian.olap.MondrianDef.Schema)
 
@@ -297,6 +297,8 @@ RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取
 
 ### 4.Mondrian优化设计
 
-#### 聚合预加载
+#### 聚合表预加载-Cache
 
-#### 实时OLAP支持
+#### 结果表数据Cube模型
+
+#### 实时OLAP优化
