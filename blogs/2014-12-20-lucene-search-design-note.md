@@ -630,7 +630,7 @@ jflex也是一个词法及语法分析器的生成器,它主要包括三部分,�
 所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。从根本上说,搜索引擎也是一种数据存储方式。<br />
 我们这里主要讨论隔离性,Lucene的IndexReader和IndexWriter具有隔离性。<br />
 
-	• 当IndexReader.open一个索引的时候,相对于给当前索引进行了一次snapshot,此后的任何修改 都不会被看到。
+	• 当IndexReader.open一个索引的时候,相对于给当前索引进行了一次snapshot,此后的任何修改都不会被看到。
 	• 仅当IndexReader.close一个索引后,才有可能看到从上次打开后对索引的修改。
 	• 当IndexWriter没有调用Commit的时候,其修改的内容是不能够被看到的,哪怕IndexReader被重新
 	打开。
