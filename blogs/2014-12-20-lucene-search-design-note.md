@@ -91,7 +91,8 @@ Y. _Indexer_
 
 	Negative path(Inverted Index structure):Term -> Fields -> Segments -> Index
 				  
-		TermDictonary(tii,tis) -> TermPostingList (DocumentID/TF/Position/Payload,跳跃表存储)
+		TermDictonary词典(tii,tis) -指向-> TermPostingList倒排链表(DocumentID|TFreq|Position|Payload,跳跃表存储)
+		索引保存从字符串到文件的映射
 		tis(term infos) / .tii(term infos Index) / Fequencies(.frq) / Postions词位置(.prx) 
 
 		Term Weight & Score: .nrm (Normalization Factor:Document boost/Field boost/lengthNorm(field))
@@ -109,7 +110,8 @@ Y. _Indexer_
 
 ![LuceneIndex数据结构](_includes/lucene_index_data_structure.jpg)
 
-TermDictionary DataStructure: Term | DocFreq | FreqDelta | ProxDelta | SkipDelta
+- tis data structure: TermInfo = Term | DocFreq | FreqDelta | ProxDelta | SkipDelta
+- tii data structure: TermIndex = TermInfo | IndexDelta
 
 	1)Prefix+Suffix
 	2)Delta差值规则
