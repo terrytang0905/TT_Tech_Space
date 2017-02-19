@@ -12,9 +12,9 @@ Currently he focuses on data mining and big data analysis technology and solutio
 ##### Big data & Data science 
 
 - [Greenplum架构分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
-- [大数据实时OLAP设计-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-realtime-olap-design-note.md)
-- [Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
-- *[大数据存储架构分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-database-architect-research-note.md)
+- *[大数据实时OLAP设计-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-realtime-olap-design-note.md)
+- *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
+- *[大数据分布式存储架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-database-architect-research-note.md)
 - [Beam大数据框架笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-12-apache-beam-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
 - [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
