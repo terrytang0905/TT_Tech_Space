@@ -32,7 +32,7 @@ A segment host typically executes from two to eight Greenplum segments, dependin
 _About the Greenplum Interconnect_
 
 The interconnect is the networking layer of the Greenplum Database architecture.<br/>
-The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies. The Greenplum interconnect uses a standard 10-Gigabit Ethernet switching fabric.
+The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies. The Greenplum interconnect uses a standard *10-Gigabit Ethernet switching fabric*.
 
 By default, the interconnect uses User Datagram Protocol (UDP) with flow control for interconnect traffic to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP. 
 
