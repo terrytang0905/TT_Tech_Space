@@ -11,7 +11,6 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Big data & Data science 
 
-- [Greenplum架构分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
 - *[大数据实时OLAP设计-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-realtime-olap-design-note.md)
 - *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
 - *[大数据分布式存储架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-database-architect-research-note.md)
@@ -24,8 +23,13 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[大数据分析研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-data-mining-thinking.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - *[FullText&Lucene搜索设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-lucene-search-design-note.md)
+
+
+##### Distributed Data Storage Solution
+
+- *[Greenplum架构分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum_analysis_function.md)
-- [Greenplum命令操作手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_command_guide.md)
+- [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_system_admin_guide.md)
 - *[MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
 - [MongoDB3.0 MajorChange (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [Couchbase Practice (EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
