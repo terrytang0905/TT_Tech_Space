@@ -44,7 +44,7 @@ SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordina
 	- Statestore daemon(statestored) - Impala’s metadata publish-subscribe service(broadcast). <br/>
 	- Catalog daemon(catalogd) - serves as Impala’s catalog repository and metadata access gateway. <br/>
 	- Hive Metastore - metadata database <br/>
-	- DataStorage:HDFS / Kudu 
+	- DataStorage:HDFS / HBase / Kudu 
 
 * Impala daemon(impalad) module:
 
