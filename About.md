@@ -6,7 +6,7 @@ group: navigation
 ---
 
 ### Terry Tang
-Data Product Architect. 
+Data Product Architect/Tech Lead. 
 
 - Data product designer,big data solution, data mining, database design and fulltext search.
 - Email: zhenjietang@hotmail.com
@@ -23,12 +23,11 @@ Data Product Architect.
 
 ### Technology skills
 
+- Data analysis design: OLAP (Mondriad / Druid / ElasticSearch)/ DataWarehouse / DataMining(数据挖掘算法) 
+- BigData Solution/Distributed data storage: Hadoop / HBase / Impala&Kudu / Greenplum / MongoDB / Couchbase / Kafka / Storm / Spark  
 - Java/J2EE/Go/Python, automation testing and performance analysis/tuning.
-- DateMining development: OLAP/ DataWarehouse / 数据挖掘算法 
-- BigData Solution: Hadoop / HBase / Impala&Kudu / Kafka / Storm / Spark / Lucene&ElasticSearch / Greenplum / Vertica / SQL 
-- Database development: EMC xDB / MySQL / MongoDB / Couchbase /Data structure design.
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
-- Open Source Tech: Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx, Docker.
+- Open Source Tech: Lucene,Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx,Docker.
 - Linux and Unix administration skill and shell language.
 - Virtualization: VMWare vSphere Administrator and Configuration.
 
