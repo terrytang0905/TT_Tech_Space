@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [search, bigdata, develop]
+tags : [search, bigdata, database]
 title: Impala & Kudu Big Data OLAP Architect
 ---
 
@@ -219,25 +219,70 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 	* Low-latency random updates
 	* Consistency of performance
 - Kudu chooses to implement a new hybrid columnar store architecture.
-- Tablets in Kudu are themselves subdivided into smaller units called RowSets. Some RowSets exist in memory only, termed MemRowSets, while others exist in a combination of disk and memory, termed DiskRowSets. 
+
+* 3.1.RowSets
+
+- Tablets in Kudu are themselves subdivided into smaller units called **RowSets**. Some RowSets exist in memory only, termed MemRowSets, while others exist in a combination of disk and memory, termed DiskRowSets. 
+
+* 3.2.MemRowSet
 - At any point in time, a tablet has a single MemRowSet which stores all recently-inserted rows. Because these stores are entirely in-memory, a background thread periodically flushes MemRowSets to disk.
 - MemRowSets are implemented by an in-memory concurrent B-tree with optimistic locking, broadly based off the design of MassTree.
-- Kudu links together leaf nodes with a next pointer, as in the B+-tree. This improves our sequential scan performance, a critical operation.
+- Kudu links together leaf nodes with a next pointer, as in the B+tree. This improves our sequential scan performance, a critical operation.
 - In order to optimize for scan performance over random ac- cess, we use slightly larger internal and leaf nodes sized at four cache-lines (256 bytes) each.
 - MemRowSets store rows in a row-wise layout(行式存储于内存).To maximize through- put despite the choice of row storage, we utilize SSE2 mem- ory prefetch instructions to prefetch one leaf node ahead of our scanner, and JIT-compile record projection operations using LLVM.
+
+* 3.3.DiskRowSet
+
 - While flushing a MemRowSet, Kudu roll the DiskRowSet after each 32 MB of IO. Because a MemRowSet is in sorted order, the flushed DiskRowSets will themselves also be in sorted order, and each rolled segment will have a disjoint interval of primary keys.
 - A DiskRowSet is made up of two main components: base data and delta stores.The column itself is subdivided into small pages to al- low for granular random reads, and an embedded B-tree index allows efficient seeking to each page based on its ordinal offset within the rowset.
 - Several of the page formats supported by Kudu are common with those supported by Parquet, and our implementation shares much code with Impala’s Parquet library.
-- Delta stores are ei- ther in-memory DeltaMemStores, or on-disk DeltaFiles. A DeltaMemStore is a concurrent B-tree which shares the im- plementation described above. A DeltaFile is a binary-typed column block. 
-- Delta Flushes
-- INSERT path
-- Read path
-- Lazy Materialization
-- Delta Compaction
-- RowSet Compaction
-- Scheduling maintenance
+
+- Delta stores are either in-memory DeltaMemStores, or on-disk DeltaFiles. A DeltaMemStore is a concurrent B-tree which shares the implementation described above. A DeltaFile is a binary-typed column block. 
+
+* 3.4.Delta Flushes
+
+* 3.5.INSERT path
+
+* 3.6.Read path
+
+* 3.7.Lazy Materialization
+
+* 3.8.Delta Compaction
+
+* 3.9.RowSet Compaction
+
+* 3.10.Scheduling maintenance
 
 
+#### 4.Hadoop Integration
+
+* 4.1 MapReduce and Spark
+
+_Locality_
+
+_Columnar Projectio_
+
+_Predicate pushdown_
+
+* 4.2 Impala
+
+_Locality_
+
+_Predicate pushdown support_
+
+_DDL extensions_
+
+_DML extensions_
+
+
+
+#### 5.Performance evaluation
+
+* 5.1.Comparison with Parquet
+
+* 5.2.Comparison with Phoenix
+
+* 5.3.Random access performance
 
 ### x.Reference
 
