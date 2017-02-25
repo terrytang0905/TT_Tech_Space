@@ -8,7 +8,7 @@ group: navigation
 ### Terry Tang
 Data Product Architect/Tech Lead. 
 
-- Data product designer,big data solution, data mining, database design and fulltext search.
+- Data product designer,big data solution and product management/team driver.
 - Email: zhenjietang@hotmail.com
 
 
@@ -17,7 +17,7 @@ Data Product Architect/Tech Lead.
 - Big data product design(agile BI) & data mining tech solution (NewBI product)
 - Product development management and team driver
 - Full-text content search engine solution (xPlore search engine owned by EMC/Lenovo search engine)
-- Database product research and utilization (Greenplum/Vertica/HBase/MySQL/EMC xDB / MongoDB / Couchbase / Redis)
+- Distributed database product research and utilization.
 - Content Management Enterprise Product design and implementation (Documentum / SuperNote)
 - Internet mobile product design and system architecture
 
