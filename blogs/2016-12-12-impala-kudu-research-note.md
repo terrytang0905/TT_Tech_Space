@@ -44,7 +44,7 @@ SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordina
 	- Statestore daemon(statestored) - Impala’s metadata publish-subscribe service(broadcast). <br/>
 	- Catalog daemon(catalogd) - serves as Impala’s catalog repository and metadata access gateway. <br/>
 	- Hive Metastore - metadata database <br/>
-	- DataStorage:HDFS / HBase / Kudu 
+	- DataStorage - HDFS / HBase / Kudu 
 
 * Impala daemon(impalad) module:
 
@@ -175,13 +175,19 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 
 #### 2.Kudu Architecture:
 
-- Following the design of BigTable/GFS/HDFS,Kudu relies on a single Master server, responsible for metadata, and an arbitrary number of Tablet Servers, responsible for data.
+- Following the design of BigTable(HBase)/GFS(HDFS),Kudu relies on a single Master server, responsible for metadata, and an arbitrary number of Tablet Servers, responsible for data.
 - The master server can be replicated for fault tolerance, supporting very fast failover of all responsibilities in the event of an outage.
-- The tables in Kudu are horizontally partitioned. Kudu, like BigTable, calls these horizontal partitions tablets. 
-- For large tables where throughput is important, we recommend on the order of 10-100 tablets per machine. Each tablet can be tens of gigabytes.
-- Kudu supports a flexible array of partitioning schemes,unlike Bigdata or Cassandra.The partition schema is made up of zero or more hash-partitioning rules followed by an optional range-partitioning rule:
+
+* 2.1.Partition in Kudu
+
+- The tables in Kudu are **horizontally partitioned**. Kudu, like BigTable, calls these **horizontal partitions tablets**. For large tables where throughput is important, we recommend on the order of 10-100 tablets per machine. Each tablet can be tens of gigabytes.
+- Kudu supports a flexible array of partitioning schemes,unlike Bigdata(key-range-based partitioning) or Cassandra(hash-based partitioning).The partition schema acts as a function which can map from a primary key tuple into a binary partition key.The partition schema is made up of zero or more hash-partitioning rules followed by an optional range-partitioning rule:
 	* A hash-partitioning rule consists of a subset of the primary key columns and a number of buckets.
 	* A range-partitioning rule consists of an ordered subset of the primary key columns.
+- By employing these partitioning rules, users can easily trade off between query parallelism and query concurrency based on their particular workload. time series=range partition,host/metric=hash partition.
+
+* 2.2.Replication
+
 - Kudu replicates all of its table data across multiple machines. When creating a table, the user specifies a replication factor, typically 3 or 5, depending on the application’s availability SLAs. Kudu’s master strives to ensure that the requested number of replicas are maintained at all times.
 	* Kudu employs the Raft consensus algorithm to replicate its tablets. In particular, Kudu uses Raft to agree upon a logical log of operations (e.g. insert/update/delete) for each tablet.
 	* If the replica is in fact still acting as the leader, it employs a local lock manager to serialize the operation against other concurrent operations, picks an MVCC timestamp, and proposes the operation via Raft to its followers.
@@ -189,11 +195,22 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 	* If the leader itself fails, the Raft algorithm quickly elects a new leader. By default, Kudu uses a 500-millisecond heartbeat interval and a 1500-millisecond election timeout; thus, after a leader fails, a new leader is typically elected within a few seconds.
 - Kudu does not replicate the on-disk storage of a tablet, but rather just its operation log.The physical storage of each replica of a tablet is fully decoupled.
 - Because the storage layer is _decoupled_ across replicas, none of these race conditions resulted in unrecoverable data loss.
+
+
 - Kudu implements Raft configuration change following the one-by-one algorithm.
+
+* 2.3.Kudu Master
+
 - Kudu’s central master process has several key responsibilitie:
-	* Act as a _catalog manager_, keeping track of which tables and tablets exist, as well as their schemas, desired replication levels, and other metadata.
-	* Act as a _cluster coordinator_, keeping track of which servers in the cluster are alive and coordinating redis-tribution of data after server failures.
-	* Act as a _tablet directory_, keeping track of which tablet servers are hosting replicas of each tablet.
+	* Act as a **catalog manager**, keeping track of which tables and tablets exist, as well as their schemas, desired replication levels, and other metadata.
+	* Act as a **cluster coordinator**, keeping track of which servers in the cluster are alive and coordinating redis-tribution of data after server failures.
+	* Act as a **tablet directory**, keeping track of which tablet servers are hosting replicas of each tablet.
+- Catalog manager:The master itself hosts a single-tablet table which is restricted from direct access by users. The master internally writes catalog information to this tablet, while keeping a full write-through cache of the catalog in memory at all times. The catalog table maintains a small amount of state for each table in the system. In particular, it keeps the current version of the table schema, the state of the table (creating, running, deleting, etc), and the set of tablets which comprise the table.
+- Because the catalog table is itself persisted in a Kudu tablet, the Master supports using Raft to replicate its persis- tent state to backup master processes. 
+- Cluster Coordination:Each of the tablet servers in a Kudu cluster is statically con- figured with a list of host names for the Kudu masters. Upon startup, the tablet servers register with the Masters and pro- ceed to send tablet reports indicating the total set of tablets which they are hosting.(processed a schema change or Raft configuration change)
+- A critical design point of Kudu is that, while the Master is the source of truth about catalog information, it is only an ob- server of the dynamic cluster state.
+
+
 
 #### 3.Tablet storage
 
@@ -226,6 +243,6 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 
 - [Impala Documents](http://www.cloudera.com/documentation/enterprise/latest/topics/impala.html)
 - [Impala Code](https://github.com/cloudera/Impala/wiki)
+- [Impala&Kudu architect note](http://wiki.yunat.com/pages/viewpage.action?pageId=42516427)
 - [Impala Paper]
 - [Kudu Paper]
-- [NewBI Impala&Kudu arch](http://wiki.yunat.com/pages/viewpage.action?pageId=42516427)

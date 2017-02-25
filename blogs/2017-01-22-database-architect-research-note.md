@@ -8,7 +8,7 @@ title: Database Architect Research Note
 Database Architect Research Note
 ----------------------------------------------
 
-### 数据库架构
+### I.数据库架构
 
 #### 通用数据库架构分析
 
@@ -279,7 +279,7 @@ Append-only Columnar Scan
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
 
-### 分布式数据存储架构
+### II.分布式数据存储架构
 
 #### 分布式算法
 
@@ -320,6 +320,8 @@ Append-only Columnar Scan
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
 - Gossip协议
 
+#### 分布式存储架构分析
+
 #### 分析数据库设计
 
 	- 分布式架构设计-MPP
@@ -345,13 +347,15 @@ Append-only Columnar Scan
 	- Batch历史数据查询
 	- 数据排序处理
 	- 格式化处理
-	- 可视化数据展示 - e-chart
+	- 可视化数据展示 - e-chart/D3
 
-OceanBase数据库与分析数据库差别
+1.OceanBase数据库与分析数据库差别
 
-Impala与Greenplum性能差异成因
+2.Google Dremel大数据分析数据库分析
 
-[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
+3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
+
+4.Impala与Greenplum性能差异成因
 
 
 ### 区块链
