@@ -250,9 +250,9 @@ Append-only Columnar Scan
 
 * WAL规则
 
-	1) 每个对数据库的修改都产生一条日志记录，在数据写入磁盘之前日志记录必须写入事务日志。
-	2) 日志记录必须按顺序写入；记录 A 发生在记录 B 之前，则 A 必须写在 B 之前。
-	3) 当一个事务提交时，在事务成功之前，提交顺序必须写入到事务日志。
+	1)每个对数据库的修改都产生一条日志记录，在数据写入磁盘之前日志记录必须写入事务日志。
+	2)日志记录必须按顺序写入；记录 A 发生在记录 B 之前，则 A 必须写在 B 之前。
+	3)当一个事务提交时，在事务成功之前，提交顺序必须写入到事务日志。
 
 * ARIES数据库恢复原型算法(Algorithms for Recovery and Isolation Exploiting Semantics) 
 
@@ -349,21 +349,21 @@ Append-only Columnar Scan
 	- 格式化处理
 	- 可视化数据展示 - e-chart/D3
 
-1.OceanBase数据库与分析数据库差别
 
-2.Google Dremel大数据分析数据库分析
+1.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
-3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
+2.Impala与Greenplum性能差异成因
 
-4.Impala与Greenplum性能差异成因
+3.Google Dremel大数据分析数据库分析
 
+4.OceanBase数据库与分析数据库差别
 
-### 区块链
+### III.区块链
 
 #### 区块链结构
-
 
 ### x.Ref
 
 [BigTable]()
+[Dremel]()
 
