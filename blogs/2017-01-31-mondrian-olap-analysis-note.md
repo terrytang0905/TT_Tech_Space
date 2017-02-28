@@ -46,7 +46,6 @@ Mondrian项目逻辑模块分层结构图：
 ![High Architecture](_includes/mondrian_arch.jpg)
 
 
-
 上图为整体的项目架构，图中所示Mondrian分成了四个大部分Schema manager、Session Manager、Dimension Manager、Aggregate Manager，而实际上各个部分有着更为紧密的联系。对于Dimensional Layer、Star Layer和SQL Layer的划分，更多是处于总体逻辑分层的考虑，具体在源码中，逻辑分层的概念比较模糊。
 
 下面是四个Manager的简介：
@@ -122,7 +121,7 @@ SQL分析: Mondrian收到MDX查询请求后，如果缓存中没有对应的内�
 
 为了提高海量数据下的查询响应速度，Mondrian自动将首次查询的结果缓存到内存中，之后的查询如果命中缓存内容，则不再访问数据库。这种实现方式有点自不必说，但是在实现实时OLAP时会存在问题，实时OLAP中数据变化频繁导致缓存中的数据不是最新的。
 
-缓存控制接口:为了做到不重启OLAP Server也能更新缓存，Mondrian提供了一系列的刷新缓存的接口，支持指定清除指定schema的元数据缓存、查询结果缓存；清除动作可以是全部清除 也可以是部分清除(可以指定清除某个维度下某级别成员的相关内容)。
+缓存控制接口:为了做到不重启OLAP Server也能更新缓存,Mondrian提供了一系列的刷新缓存的接口,支持指定清除指定schema的元数据缓存、查询结果缓存;清除动作可以是全部清除 也可以是部分清除(可以指定清除某个维度下某级别成员的相关内容)。
 
 数据变化监听:Mondrian提供了缓存控制接口(被动响应),但对于实现我们的目标“实时OLAP”来说我们就需要自己实现一个数据变更监听的模块，来监听数据变化，一旦数据有变化就发起变更事件，更新Mondrian引擎的缓存。
 
@@ -273,9 +272,9 @@ mondrian.olap.CacheControl接口，可以很精细地由应用控制缓存。为
 MondiranModel中的monQuery对象已经创建好
 
 
-1.首先执行MondrianQueryAdapter对象queryAdapter的onExecute(),得到mdx语句。
-2.调用monConnection.execute(monQuery)获取mondrianresult对象
-3.内部进行Evaluator算法
+1.首先执行MondrianQueryAdapter对象queryAdapter的onExecute(),得到mdx语句。<br/>
+2.调用monConnection.execute(monQuery)获取mondrianresult对象 <br/>
+3.内部进行Evaluator算法 <br/>
 
 	- 显式成员：在轴上的成员。
 	- 隐式成员：不在轴上的成员，可能是在函数中。
@@ -286,8 +285,8 @@ MondiranModel中的monQuery对象已经创建好
 
 RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取一个member，每个member是hierarchy的默认成员。对于大多数hierarchy，这个默认成员就是所有成员。可能有两种例外：1）hierarchy没有所有成员；2）hierarchy有所有成员但是它不是默认成员。
 
-3.1.Determine axes步骤
-3.2.execute axes步骤
+3.1.Determine axes步骤 <br/>
+3.2.execute axes步骤 <br/>
 3.3.get cell步骤:根据轴上的成员值计算并存储每个单元值(结果集的cell值部分),参见executeBody()方法,内部主要调用executeStripe()方法
 
 	从aggregation缓存中获取单元值:原来executeBody第一次调用ExecuteStripe()时，从缓存中获得的值都只是空值，但同时会记录下所有的cellRequest信息；然后执行完executeBody后紧接着就会调用FastBatchingCellReader的另一个方法loadAggregation,该方法内部会根据刚才设定的cellRequest信息实际从数据库中读取信息并赋予这些cells。再之后会第二次执行ExecuteStripe从而获取到真正的cell值，循环往复，直至没有新的cellRequest产生为止。参见executeBody主体代码
@@ -297,7 +296,7 @@ RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取
 
 ### 4.Mondrian优化设计
 
-#### 聚合表预加载-Cache
+#### 聚合表预加载-AggregateCache
 
 #### 结果表数据Cube模型
 
