@@ -133,17 +133,24 @@ SQL分析: Mondrian收到MDX查询请求后，如果缓存中没有对应的内�
 #### 3.1.架构层级
 
 * a.presentation layer
+
 	The presentation layer determines what the end-user sees on his or her monitor, and how he or she can interact to ask new questions.
+
 * b.dimensional layer
+
 	The dimensional layer parses, validates and executes MDX queries
+
 * c.star layer
+
 	The star layer is responsible for maintaining an aggregate cache. An aggregation is a set of measure values ('cells') in memory, qualified by a set of dimension column values.
+
 * d.storage layer
+
 	It is responsible for providing aggregated cell data, and members from dimension tables. 
 
 #### 3.2.数据存储与策略-Storage and aggregation strategies 
 
-- Three kinds of data need to be stored: fact table data (the transactional records), aggregates, and dimensions.
+- Three kinds of data need to be stored:**fact table data (the transactional records), aggregates, and dimensions**.
 - Pre-computed aggregates are necessary for large data sets, otherwise certain queries could not be answered without reading the entire contents of the fact table. 
 - In some ROLAP systems these are explicitly managed by the OLAP server; in other systems, the tables are declared as materialized views, and they are implicitly used when the OLAP server issues a query with the right combination of columns in the group by clause.
 - The final component of the aggregation strategy is the cache. The cache holds pre-computed aggregations in memory so subsequent queries can access cell values without going to disk. 
@@ -179,16 +186,16 @@ Mondrian's aggregation strategy is as follows:
 
 There are three main strategies for increasing performance: **tuning the database, aggregate tables, and caching**.  
 
-> Aggregate tables(聚合结果表)
+_Aggregate tables(聚合结果表)_
 
-Dropping a dimension means it’s left out of the aggregate table completely. (仅保留需使用的维度度量在聚合表中)
-The physical aggregate tables are created in the database and populated as part of the ETL process.  
+> Dropping a dimension means it’s left out of the aggregate table completely.(仅保留需使用的维度度量在聚合表中)
+> The physical aggregate tables are created in the database and populated as part of the ETL process.  
 
 	- Choosing aggregate tables 
 	- Aggregate Generator 
 	- Optimizing Calculations with the Expression Cache 
 
-> Caching
+_Caching_
 
 	- Schema Cache
 	- Member Cache - Dimension Member
@@ -211,11 +218,12 @@ In order to run the MDX fragments in this section, you’ll need to use Saiku.
 
 * 3.4.2.Ratio and growth - 衍生度量计算
 
-This calculation is aggregation-safe so it’ll work the same if it’s at the [Product Family] level, or one level below at the [Product Department] level. For instance, here is the exact same calculation working at the [Product Department] level; 
+This calculation is aggregation-safe so it’ll work the same if it’s at the [Product Family] level, or one level below at the [Product Department] level. <br/>
+For instance, here is the exact same calculation working at the [Product Department] level; 
 
 * 3.4.3.Time-specific MDX
 
-Prior Period is useful when you’re trying to calculate the classic month-over-month growth.  
+Prior Period is useful when you’re trying to calculate the classic month-over-month growth.  <br/>
 MDX YTD() shortcut function returns all periods from the beginning of the year right up to the current period and aggregates the totals to give the total year-to-date value.  
 
 * 3.4.4.Advanced MDX
@@ -240,10 +248,11 @@ This common approach makes sense: most of a company’s investment in building a
 Data mining purists may disagree that the star schema, cleaned and loaded from original source, represents the best data to perform machine learning and data mining on.DM practitioners often do some level of data preparation themselves for their modeling and do some similar things. Though not perfect, DM on star schemas (and their various aggregations/samples) is common, especially when the DM tool is to be used alongside Mondrian. 
 
 F1.R
+
 F2.Weka
 
-Weka is a machine learning framework and tool.Weka can use the star schema that any DM tool can access (like R), but it also has the advantage of being integrated into PDI as a series of useful plugins for doing common tasks.Weka excels and is best known for its capabilities on machine learning algorithms.  
-By using the PDI plugins to do some time-series forecasting and market-basket analysis, you’ll learn the basics of DM without extensive training. 
+Weka is a machine learning framework and tool.Weka can use the star schema that any DM tool can access (like R), but it also has the advantage of being integrated into PDI as a series of useful plugins for doing common tasks.Weka excels and is best known for its capabilities on machine learning algorithms.  <br/>
+By using the PDI plugins to do some time-series forecasting and market-basket analysis, you’ll learn the basics of DM without extensive training. <br/>
 With PDI’s ability to query Mondrian (http:// wiki.pentaho.com/display/EAI/Mondrian+Input) and stream results to further steps, this is the closest direct integration between Mondrian and a DM tool. 
 
 * 3.4.7.BigData & SQL
@@ -254,6 +263,7 @@ Calcite is a highly customizable engine for parsing and planning queries on data
 * 3.4.8.Hadoop and Hive and NoSQL
 
 Couchbase is a popular document-based storage service for mobile developers. There’s an important technique that integrates NoSQL technology into Mondrian, but not as the primary storage and aggregation engine. NoSQL systems have been used by the pluggable cache API to allow Mondrian to share its cache among individual servers in a multi-server environment. 
+
 以下方案与我方案不谋而合,HAHA
 
 ![NoSQLplusDBArch](_includes/NoSQLplusDBArch.png)
