@@ -29,12 +29,14 @@ _About the Greenplum Segments_
 Greenplum Database segment instances are independent PostgreSQL databases that each store a portion of the data and perform the majority of query processing.
 A segment host typically executes from two to eight Greenplum segments, depending on the CPU cores, RAM, storage, network interfaces, and workloads.
 
-_About the Greenplum Interconnect_
+_About the Greenplum Interconnect(Greenplum Core Value)_
 
 The interconnect is the networking layer of the Greenplum Database architecture.<br/>
-The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies. The Greenplum interconnect uses a standard *10-Gigabit Ethernet switching fabric*.
+The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies.<br/>
+The contents of communication include data scan,query execution,redistribute,broadcast and so on.
+The Greenplum interconnect uses a standard **10-Gigabit Ethernet switching fabric**.
 
-By default, the interconnect uses User Datagram Protocol (UDP) with flow control for interconnect traffic to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP. 
+By default, the interconnect uses User Datagram Protocol(UDP) with flow control for interconnect traffic to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP. 
 
 ##### About Management and Monitoring Utilities
 

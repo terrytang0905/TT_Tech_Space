@@ -128,7 +128,140 @@ SQL分析: Mondrian收到MDX查询请求后，如果缓存中没有对应的内�
 目前初步考虑实现方案为ETL工具在数据处理结束后通知OLAP引擎。引擎收到数据变更通知后做清理缓存的动作。
 
 
-### 3.Mondrian源码分析
+### 3.Mondrian架构分析
+
+#### 3.1.架构层级
+
+* a.presentation layer
+	The presentation layer determines what the end-user sees on his or her monitor, and how he or she can interact to ask new questions.
+* b.dimensional layer
+	The dimensional layer parses, validates and executes MDX queries
+* c.star layer
+	The star layer is responsible for maintaining an aggregate cache. An aggregation is a set of measure values ('cells') in memory, qualified by a set of dimension column values.
+* d.storage layer
+	It is responsible for providing aggregated cell data, and members from dimension tables. 
+
+#### 3.2.数据存储与策略-Storage and aggregation strategies 
+
+- Three kinds of data need to be stored: fact table data (the transactional records), aggregates, and dimensions.
+- Pre-computed aggregates are necessary for large data sets, otherwise certain queries could not be answered without reading the entire contents of the fact table. 
+- In some ROLAP systems these are explicitly managed by the OLAP server; in other systems, the tables are declared as materialized views, and they are implicitly used when the OLAP server issues a query with the right combination of columns in the group by clause.
+- The final component of the aggregation strategy is the cache. The cache holds pre-computed aggregations in memory so subsequent queries can access cell values without going to disk. 
+
+	The cache is arguably the most important part of the aggregation strategy because it is adaptive. It is difficult to choose a set of aggregations to pre-compute which speed up the system without using huge amounts of disk, particularly those with a high dimensionality or if the users are submitting unpredictable queries.
+
+Mondrian's aggregation strategy is as follows:
+
+	- Fact data is stored in the RDBMS. Why develop a storage manager when the RDBMS already has one?
+	- Read aggregate data into the cache by submitting group by queries. Again, why develop an aggregator when the RDBMS has one?
+	- If the RDBMS supports materialized views, and the database administrator chooses to create materialized views for particular aggregations, then Mondrian will use them implicitly. Ideally, Mondrian's aggregation manager should be aware that these materialized views exist and that those particular aggregations are cheap to compute. It should even offer tuning suggesting to the database administrator.
+
+#### 3.3.详细设计
+
+* 3.3.1.Cube Schema定义
+
+* 3.3.2.Time Dimension Query(借助TimeDimensionTable进行聚合查询)
+
+* 3.3.3.Mondrian Schema Extend
+
+	Multiple cubes in a schema
+	Shared dimensions
+	Conformed dimensions
+	Star dimensions & Snowflake dimensions
+	Calculated members(Expression)
+
+* 3.3.4.QueryAPI-MDX
+
+- Mondrian uses a language called MDX ('Multi-Dimensional eXpressions') to specify queries, where JDBC would use SQL.
+- The API also presents the database schema as a set of objects: Schema, Cube, Dimension, Hierarchy, Level, Member. 
+
+* 3.3.5.Maximun Performance 
+
+There are three main strategies for increasing performance: **tuning the database, aggregate tables, and caching**.  
+
+> Aggregate tables(聚合结果表)
+
+Dropping a dimension means it’s left out of the aggregate table completely. (仅保留需使用的维度度量在聚合表中)
+The physical aggregate tables are created in the database and populated as part of the ETL process.  
+
+	- Choosing aggregate tables 
+	- Aggregate Generator 
+	- Optimizing Calculations with the Expression Cache 
+
+> Caching
+
+	- Schema Cache
+	- Member Cache - Dimension Member
+	- Segment Cache
+
+The segment cache holds data from the fact table, usually the largest table by an order of magnitude or so, and it has aggregated data. <br/>
+Segment cache need to store all of the related dimension and measure meta data.<br/>
+The external segment cache stores data in a data grid.In some cases, it also provides in-memory failover of the cache.For example,Couchbase.
+
+![External Segment Arch](_includes/ExternalSegmentCacheArch.png)
+
+How to reuse segment cache?
+
+#### 3.4.高级分析-Advanced Analysis
+
+* 3.4.1.About MDX
+
+MDX stands for Multidimensional Expressions; it was made popular by Microsoft as part of their SQL Server Analysis Services.
+In order to run the MDX fragments in this section, you’ll need to use Saiku. 
+
+* 3.4.2.Ratio and growth - 衍生度量计算
+
+This calculation is aggregation-safe so it’ll work the same if it’s at the [Product Family] level, or one level below at the [Product Department] level. For instance, here is the exact same calculation working at the [Product Department] level; 
+
+* 3.4.3.Time-specific MDX
+
+Prior Period is useful when you’re trying to calculate the classic month-over-month growth.  
+MDX YTD() shortcut function returns all periods from the beginning of the year right up to the current period and aggregates the totals to give the total year-to-date value.  
+
+* 3.4.4.Advanced MDX
+
+Ranking (via the MDX Rank() function) allows you to order and rank results and determine sets of performers. 
+Rank与排序密切相关
+
+* 3.4.5.What-if analysis(Scenarios query)
+
+In fact, Mondrian’s term for such what-if analysis is scenarios. <br/>
+Scenarios query allow users to make nonpermanent changes to values in the cube for the purpose of seeing how those changes affect totals, other ratios, and other metrics.  <br/>
+Saiku Sales Scenario cube. 
+
+![Saiku Sales Scenario Query](_includes/DynamicQuery.png)
+
+SCENARIO SUPPORT IN SAIKU AND OLAP4J  <br/>
+Currently Saiku is the only visual client to Mondrian that supports Scenarios. Only OLAP4J has support for using scenarios. 
+
+* 3.4.6.Statistics and machine learning
+
+This common approach makes sense: most of a company’s investment in building an analytic solution involves data integration, restructuring, and loading (ETL and modeling) into the database.  <br/>
+Data mining purists may disagree that the star schema, cleaned and loaded from original source, represents the best data to perform machine learning and data mining on.DM practitioners often do some level of data preparation themselves for their modeling and do some similar things. Though not perfect, DM on star schemas (and their various aggregations/samples) is common, especially when the DM tool is to be used alongside Mondrian. 
+
+F1.R
+F2.Weka
+
+Weka is a machine learning framework and tool.Weka can use the star schema that any DM tool can access (like R), but it also has the advantage of being integrated into PDI as a series of useful plugins for doing common tasks.Weka excels and is best known for its capabilities on machine learning algorithms.  
+By using the PDI plugins to do some time-series forecasting and market-basket analysis, you’ll learn the basics of DM without extensive training. 
+With PDI’s ability to query Mondrian (http:// wiki.pentaho.com/display/EAI/Mondrian+Input) and stream results to further steps, this is the closest direct integration between Mondrian and a DM tool. 
+
+* 3.4.7.BigData & SQL
+
+Apache Calcite(SQL Parser) by julianhyde. <br/>
+Calcite is a highly customizable engine for parsing and planning queries on data in a wide variety of formats. It allows database-like access, and in particular a SQL interface and advanced query optimization, for data not residing in a traditional database.
+
+* 3.4.8.Hadoop and Hive and NoSQL
+
+Couchbase is a popular document-based storage service for mobile developers. There’s an important technique that integrates NoSQL technology into Mondrian, but not as the primary storage and aggregation engine. NoSQL systems have been used by the pluggable cache API to allow Mondrian to share its cache among individual servers in a multi-server environment. 
+以下方案与我方案不谋而合,HAHA
+
+![NoSQLplusDBArch](_includes/NoSQLplusDBArch.png)
+
+SQL ACCESS TO NOSQL SYSTEMS is the less common used approach because of the complexity.
+
+
+### 4.Mondrian源码分析
 
 #### 依赖的JAR包
 
@@ -294,10 +427,6 @@ RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取
 4.执行完execute后，将mondrian的result转换成JPivot的result
 
 
-### 4.Mondrian优化设计
+### 5.Mondrian深度优化
 
-#### 聚合表预加载-AggregateCache
 
-#### 结果表数据Cube模型
-
-#### 实时OLAP优化
