@@ -35,7 +35,7 @@ The interconnect is the networking layer of the Greenplum Database architecture.
 The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies.<br/>
 The interconnect tasks include query plan,data scan,query execution,redistribute,broadcast and so on.
 
-	interconnect承载了并行查询计划生产和Dispatch分发（QD）、协调节点上QE执行器的并行工作、负责数据分布、Pipeline计算、镜像复制、健康探测等等诸多任务。
+> interconnect承载了并行查询计划生产和Dispatch分发（QD）、协调节点上QE执行器的并行工作、负责数据分布、Pipeline计算、镜像复制、健康探测等等诸多任务。
 
 The Greenplum interconnect uses a standard **10-Gigabit Ethernet switching fabric**.<br/>
 By default, the interconnect uses User Datagram Protocol(UDP) with flow control for interconnect traffic to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP. 
