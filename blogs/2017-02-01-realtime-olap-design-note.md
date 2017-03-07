@@ -53,5 +53,4 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - 大数据实时OLAP设计
 - 多维查询表达式MDX(Mutil Dimensional Expressions) 
 
-设计多维查询表达式MDX。通过多维报表设计生成多维查询表达式MDX,在MDX通用结构底层下,转换成SQL解析器,实现多重情况下的复杂数据查询(实时查询+离线查询)。
-
+[NewBI OLAP Design](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
