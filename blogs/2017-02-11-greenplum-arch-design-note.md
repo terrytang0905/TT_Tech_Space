@@ -5,7 +5,7 @@ tags : [bigdata,database,architect]
 title: Greenplum Architect Design Note
 ---
 
-Greenplum架构设计 Note
+Greenplum Architect Design Note
 --------------------------------------------------
 
 #### I.Greenplum Architecture
