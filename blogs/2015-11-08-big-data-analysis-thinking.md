@@ -46,9 +46,9 @@ title: Data Mining Thinking
 
 #### 1.5.解决方案思考:
 
-1. 数据存储：MPP(Vertica/Greenplum),HDFS,HBase,MongoDB,Cassandra等
-2. OLAP计算：SparkSQL, Hive, Impala, Presto, Druid, Kylin
-3. 实时流式计算：Apache Storm,Apache SparkStreaming
+1. 大数据存储：MPP(Vertica/Greenplum),HDFS,HBase,Kudu,Cassandra等
+2. OLAP查询计算：SparkSQL, Hive, GoogleDremel, Impala, Presto, Druid, Kylin
+3. 实时流式计算：Apache Storm,Apache SparkStreaming(内存占用过大)
 4. 大数据计算平台: Spark, Flink, MapReduce批处理技术
 5. 数据可视化趋势: D3, E-Charts
 
@@ -89,17 +89,18 @@ A._分布式算法_:
 
 B._分布式大数据查询_:
 
-> Greenplum / Vertica 分析型数据仓库 <br />
-> Hive / Dremel / Presto/ [Impala](2016-12-12-impala-kudu-research-note.md)  <br />
+> Hive / Dremel / PrestoDB / [Impala&Kudu](2016-12-12-impala-kudu-research-note.md)  <br />
 > [ElasticSearch](2017-01-06-elasticsearch-search-engine-architect-note.md)
 
 C._大数据分布式存储_:
 
-> GFS / HDFS <br />
-> Google BigTable / HBase / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
+> [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
+> HDFS(GFS) / HBase(Google BigTable) / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 
 D.[数据存储深度研究](2017-01-22-database-architect-research-note.md)
+
+D1.[分布式存储架构分析](http://wiki.yunat.com/pages/viewpage.action?pageId=45851500)
 
 ### III.数据预处理
 
@@ -137,11 +138,19 @@ D. _共线性问题_ <br />
      自变量间存在较强的，甚至完全的线性相关关系 <br />
 
 E. _数据完整性验证_
-     介于大多数数据来源的不稳定性, 数据完整性是极为重要的
+     介于大多数数据来源的不稳定性, 数据完整性是极为重要的<br />
+     **设计独立数据质量监控组件**
+
+#### 3.3.ETL解决方案
+
+* ETL Kettle开源工具
+* 任务队列与任务规则
+* 基于SQL/存储过程/UDF数据处理组件
+* 大数据MQ-[Kafka应用](2017-01-10-kafka-research-note.md)
 
 ### IV.数据建模与Cube
 
-定义Meta数据模型 <br />
+定义Meta元数据模型 <br />
 建立数据模型为DataCleaning指定清洗规则,为源数据与目标提供ETL mapping支持,理清数据与数据之间的关系 <br />
 
 #### 4.1.数据建模规则
@@ -171,7 +180,7 @@ E. _数据完整性验证_
 
 - 分析型环境,预先计算和存储这些冗余数据元素具有三个优点:性能，可用性和一致性
 
-- 事实表粒度设计
+- 事实表粒度设计/宽表设计
 
 ### V.多维数据查询分析
 
@@ -230,20 +239,24 @@ E. _数据完整性验证_
     Lucene中的语义分析比较:JavaCC+jflex
 
 - 影响OLAP性能的因素
-- 实时OLAP技术设计
-- Druid-OLAP引擎研究
-- OLAP与SearchEngine的差异
-- [深度研究](2017-02-01-olap-search-engine-research-note.md)
 
-#### 5.5.支持SQL查询的分布式计算
+- [实时OLAP技术设计](2017-02-01-realtime-olap-design-note.md)
+- Druid-OLAP引擎研究
+- OLAP与全文检索的组合应用
+- [Mondriad研究](2017-01-31-mondrian-olap-analysis-note.md)
+- [Druid研究]()
+
+#### 5.5.OLAP查询的分布式计算
 
     A. Impala: 交互式OLAP SQL-on-Hadoop
     B. Presto: OLAP SQL-on-Hadoop
     C. Druid: 分布式实时OLAP
     D. SparkSQL: OLAP SQL-on-Hadoop
     E. Hive: 离线数据分析SQL-on-Hadoop
-    F. Spark Streamming: 实时流式计算
-    G. Storm: 实时流式计算
+    F. Dremel: 大规模交互式查询引擎(非SQL)
+
+    G. Spark Streamming: 实时流式计算
+    H. Storm: 实时流式计算
 
 ### VI.数据挖掘分析设计
 
@@ -400,50 +413,69 @@ B.WEKA
 
 开源数据挖掘工具包,支持Java,Python
 
-#### 6.6.客户画像与特征分析
+#### 6.6.客户划分与画像分析
 
 - 客户RFM消费新鲜度 (Recency)
 - 客户RFM消费频度 (Frequency)
 - 客户RFM消费金额 (Monetary)
 - [客户RFM设计实例](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
+- [双十一RFM分析设计](http://wiki.yunat.com/pages/viewpage.action?pageId=43854085)
+- 零售新老客分析
+- 客户洞察新老客分析
 
-*客户画像分析*
+- **客户画像分析**
 
 
-#### 6.7.文本处理算法
+#### 6.7.文本分析算法
+
+根据语义分析算法与分词策略,针对文本进行标签分析
 
 - 用户评价文本分析
+
+- 评价模型
+
+	针对二元变量的分类模型的评价体系,例如用户评价分析
+
+	1. 系列指标 <br />
+
+	    > TP:True Positive
+	    > TN:True Negative
+	    > FP:False Positive
+	    > FN:False Negative
+
+	    > Accuracy
+	    > Error rate
+	    > Sensitivity
+	    > Specificity
+	    > Accuracy=Sensitivity+Specificity
+
+	2. ROC曲线 <br />
+	Receiver Operating Characteristic 曲线 <br />
+	3. KS值
+	4. Lift值
+
 - 商品类目内容分析
 
 PLSA \ LDA \ HMM
 [相关文档](http://www.52nlp.cn/%E6%A6%82%E7%8E%87%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8F%98%E5%BD%A2%E7%B3%BB%E5%88%971-plsa%E5%8F%8Aem%E7%AE%97%E6%B3%95)
 
-#### 6.9.评价模型
 
-针对二元变量的分类模型的评价体系
-1. 系列指标 <br />
+### VII.垂直业务数据建模
 
-    > TP:True Positive
-    > TN:True Negative
-    > FP:False Positive
-    > FN:False Negative
-
-    > Accuracy
-    > Error rate
-    > Sensitivity
-    > Specificity
-    > Accuracy=Sensitivity+Specificity
-
-2. ROC曲线 <br />
-Receiver Operating Characteristic 曲线 <br />
-3. KS值
-4. Lift值
-
-### VII.电商/零售数据建模
+#### 7.1.电商零售分析模型
 
 - 目标客户特征分析
 - 预测（响应,分类）模型
 - 主成分分析PCA
+
+[NewBI新零售分析模型设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47515295)
+
+#### 7.2.互联网用户行为分析模型
+
+* GrowingIO
+* 诸葛IO
+* 神策数据
+
 
 ### VIII.敏捷BI产品设计
 
@@ -451,36 +483,42 @@ Receiver Operating Characteristic 曲线 <br />
 
 1. 数据提取 
 
-    网络Scrapy <br />
-    电商数据平台API <br />
-    数据库数据 <br />
-    Deep Web表单处理 <br />
+    - 网络Scrapy <br />
+    - 云平台数据API <br />
+    - 数据库数据 <br />
+    - 大数据平台数据 <br />
+    - 实时数据处理 <br />
+    - Deep Web表单处理 <br />
 
-2. 数据预处理 
+2. 数据建模
 
-    ETL / ELT + Data Cleaning(数据质量)
+    - 数据表关联信息定义
+    - Cube数据建模    
 
-3. 数据挖掘&建模预测
+3. 数据预处理 
 
-   - SQL / R / Python / Spark / Weka
-   - 相关性分析等
-   - 特征提取
-   - 设计建模
-   - 数据训练
-   - 模型评估
-   - 循环迭代
+    - ETL + Data Cleaning(数据质量监控)
+    - SQL/存储过程/UDF
+    - 数据同步
+    - 定时任务
 
-4. 数据存储
+    - 分布式实时流式计算 
+    - 分布式批处理计算 
 
-    大数据平台Hadoop-HDFS&HBase等 / MPP(Greenplum&Vertica) / NoSQL / File
+> 当前数据分析产品将环节1,2,3打包进行敏捷可视化实现    
+
+4. 大数据存储平台
+
+    - 大数据平台Hadoop-HDFS&HBase等 / MPP(Greenplum&Vertica) / NoSQL数据库
+    - 动态生成宽表
+    - 数据库优化/Index创建/数据仓库设计
 
 5. OLAP查询分析
 
-    OLAP Query Engine (支持SQL查询) <br />
-    交互式MPP计算 <br />
-    内存计算 <br />
-    分布式实时流式计算 <br />
-    分布式批处理计算 <br />
+    - OLAP Query Engine (支持SQL查询) <br />
+    - 交互式MPP计算 <br />
+    - 内存计算 - Spark <br />
+    - 缓存查询AggregateCache
 
 6. 数据可视化
 
@@ -490,7 +528,19 @@ Receiver Operating Characteristic 曲线 <br />
     多维图表可视化 <br />
     [D3](https://d3js.org/) <br />
 
-7. [NewBI技术架构](_includes/NewBI-Platform.png)
+7. 数据挖掘&建模预测
+
+   - SQL / R / Python / Spark / Weka
+   - 相关性分析等
+   - 特征提取
+   - 设计建模
+   - 数据训练
+   - 模型评估
+   - 循环迭代
+
+8. [OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
+
+9. [NewBI技术架构](_includes/NewBI-Platform.png)
 
 
 x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
@@ -499,21 +549,20 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
 *敏捷BI-行业数据分析*
 
-- 新一代实时敏捷BI[NewBI相关文档](http://wiki.yunat.com/pages/viewpage.action?pageId=38618144)
-- [Tableau](http://www.tableau.com/products/cloud-bi)
-- GoodData
+- [Tableau分析](http://www.tableau.com/products/cloud-bi)
 - [Looker](http://www.looker.com/)
-- 永洪BI
+- [永洪BI](http://wiki.yunat.com/pages/viewpage.action?pageId=47515985)
 - PowerBI
-- 星环科技
-- 魔镜MagicWindow
+- [星环科技](http://wiki.yunat.com/pages/viewpage.action?pageId=45850523)
+- [魔镜MagicWindow](http://wiki.yunat.com/pages/viewpage.action?pageId=46766678)
+- [QuickBI](http://wiki.yunat.com/pages/viewpage.action?pageId=46766762)
 
 *日志分析与用户行为分析*
 
 - [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 - GrowingIO
+- 诸葛IO
 - Splunk
-- 魔窗MagicWindow
 
 #### 8.3.数据发现数据
 
