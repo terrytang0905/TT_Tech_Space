@@ -438,16 +438,16 @@ B.WEKA
 
 	1. 系列指标 <br />
 
-	    > TP:True Positive
-	    > TN:True Negative
-	    > FP:False Positive
-	    > FN:False Negative
+    - TP:True Positive
+    - TN:True Negative
+    - FP:False Positive
+    - FN:False Negative
 
-	    > Accuracy
-	    > Error rate
-	    > Sensitivity
-	    > Specificity
-	    > Accuracy=Sensitivity+Specificity
+    - Accuracy
+    - Error rate
+    - Sensitivity
+    - Specificity
+    - Accuracy=Sensitivity+Specificity
 
 	2. ROC曲线 <br />
 	Receiver Operating Characteristic 曲线 <br />
