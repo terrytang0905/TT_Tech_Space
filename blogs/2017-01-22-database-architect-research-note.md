@@ -16,6 +16,31 @@ Database Architect Research Note
 
 1._合并排序算法_
 
+```java
+array mergeSort(array a)
+
+   if(length(a)==1)
+
+      return a[0];
+
+   end if
+
+   //recursive calls
+
+   [left_array right_array] := split_into_2_equally_sized_arrays(a);
+
+   array new_left_array := mergeSort(left_array);
+
+   array new_right_array := mergeSort(right_array);
+
+
+   //merging the 2 small ordered arrays into a big one
+
+   array result := merge(new_left_array,new_right_array);
+
+   return result;
+```
+
 整体成本是 N*log(N) 次运算
 
 2._Array与二维表_
@@ -338,7 +363,7 @@ Append-only Columnar Scan
 	- 支持事务管理
 	- 物化视图设计
 
-	- 大数据量数据ETL接口
+	- 大数据量数据Load接口
 	- 多维数据分析 - ROLAP - Cube模型定义
 	- MDX转换SQL/NoSQL解析器
 	- 缓存管理器-聚合Cache设计
@@ -356,9 +381,14 @@ Append-only Columnar Scan
 
 3.Google Dremel大数据分析数据库分析
 
-4.OceanBase数据库与分析数据库差别
 
-### III.区块链
+### III.BigTable&HBase架构
+
+1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
+
+2.OceanBase数据库与分析数据库差别
+
+### IV.区块链
 
 #### 区块链结构
 
