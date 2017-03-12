@@ -205,7 +205,7 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	_SQLite优化器_
 
 		使用Nested嵌套联接
-		使用[N最近邻居](https://www.sqlite.org/queryplanner-ng.html)贪婪算法
+		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
 
 	_DB2优化器_
 
@@ -345,7 +345,7 @@ Append-only Columnar Scan
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
 - Gossip协议
 
-#### 分布式存储架构分析
+### III.分布式存储架构分析
 
 #### 分析数据库设计
 
@@ -382,18 +382,18 @@ Append-only Columnar Scan
 3.Google Dremel大数据分析数据库分析
 
 
-### III.BigTable&HBase架构
+### IV.BigTable&HBase架构
 
 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
 
 2.OceanBase数据库与分析数据库差别
 
-### IV.区块链
+### V.区块链
 
 #### 区块链结构
 
 ### x.Ref
 
-[BigTable]()
-[Dremel]()
+- [BigTable]()
+- [Dremel]()
 
