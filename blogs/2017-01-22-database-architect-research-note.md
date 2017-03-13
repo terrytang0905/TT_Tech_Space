@@ -332,7 +332,7 @@ Append-only Columnar Scan
 	bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的
 
 - SkipList:跳跃表
-- LSM树
+- LSM树 & LSM映射
 - Merkle哈希树
 - Snappy&LZSS数据压缩算法
 - 一致性哈希(ConsistentHashing)
@@ -344,35 +344,43 @@ Append-only Columnar Scan
 
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
 - Gossip协议
+- [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
+- [Avro序列化组件](https://avro.apache.org/docs/current/)
+- [Thrift](http://thrift.apache.org/)
 
 ### III.分布式存储架构分析
 
 #### 分析数据库设计
 
+1.分析型数据库
+
 	- 分布式架构设计-MPP
 	- 一致性协调器(Paxos/Raft) - 类Zookeeper
-	- LSM-Tree存储
-	- 索引设计 - 倒排索引/Bitmap
+	- LSM-Tree&LSM映射存储
+	- 索引设计 - B+Tree/Bitmap
 	- 查询管理器
 	- meta管理与存储
 	- SQL查询解析器(是否需要支持JOIN)/查询重写
-	- 查询优化器
-	- 数据存储格式 - Column存储
+	- 查询优化器(JOIN优化/数据重分布/broadcast)
+	- 数据结构存储 - Column存储/倒排PostingList
 	- 数据压缩算法 - Snappy等
 	- 统计优化
-	- 支持事务管理
-	- 物化视图设计
+	- 支持事务管理(原子锁/跨行事务/跨表)
+	- 物化视图设计(view/project)
+	- In-Database FullText/Data mining support(UDF)
+
+2.OLAP设计
 
 	- 大数据量数据Load接口
 	- 多维数据分析 - ROLAP - Cube模型定义
 	- MDX转换SQL/NoSQL解析器
 	- 缓存管理器-聚合Cache设计
+	- 内存计算/RealTime实时计算
 	- 过滤器管理器
-	- RealTime查询
 	- Batch历史数据查询
 	- 数据排序处理
 	- 格式化处理
-	- 可视化数据展示 - e-chart/D3
+	- 可视化数据展示 - E-chart/D3
 
 
 1.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
