@@ -266,7 +266,7 @@ Couchbase is a popular document-based storage service for mobile developers. The
 
 以下方案与我方案不谋而合,HAHA
 
-![NoSQLplusDBArch](_includes/NoSQLplusDBArch.png)
+![NoSQLplusDBArch](_includes/NoSQL_database_arch.png)
 
 SQL ACCESS TO NOSQL SYSTEMS is the less common used approach because of the complexity.
 
