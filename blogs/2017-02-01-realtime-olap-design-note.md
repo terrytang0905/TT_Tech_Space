@@ -8,7 +8,7 @@ title: Big Data RealTime OLAP Design Note
 大数据实时OLAP 设计Note
 ------------------------------------------------------------
 
-**Big Data Analysis Product = Data Visualization + OLAP(SQLonHadoop/Spark) + Big Data Storage(Greenplum/HDFS/Kudu)**
+**Bigdata Analysis Product=DataVisualization + OLAP(SQLonHadoop/Spark) + Bigdata Storage(Greenplum/HDFS/Kudu)**
 
 RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化方案已不再受到关注。
 
@@ -57,9 +57,9 @@ Druid's native query language is JSON over HTTP. Apache Calcite - SQL parser, pl
 Druid is designed to perform single table operations and does not currently support joins. Many production setups do joins at ETL because data must be denormalized before loading into Druid.
 Druid is designed to have no single point of failure. Different node types are able to fail without impacting the services of the other node types. 
 
-* A.Storage 
+**A.Storage** 
 
-**Segment:Druid倒排索引+时间分片**
+* Segment:Druid倒排索引+时间分片
 
 	Segments contain the various dimensions and metrics in a data set, stored in a column orientation, as well as the indexes for those columns.
 	Segments are stored in a "deep storage" LOB store/file system.
@@ -68,7 +68,7 @@ Druid is designed to have no single point of failure. Different node types are a
 
 Sharding Data to Create Segments	
 
-**Dimensions:Bitmap Index**
+* Dimensions:Bitmap Index
 
 	Dimensions columns are different because they support filter and group-by operations, so each dimension requires the following three data structures:
 	1.A dictionary that maps values (which are always treated as strings) to integer IDs,
@@ -78,41 +78,41 @@ Sharding Data to Create Segments
 The bitmaps in 3 -- also known as inverted indexes allow for quick filtering operations(specifically, bitmaps are convenient for quickly applying AND and OR operators). 
 The list of values in 2 is needed for group by and TopN queries. 
 
-**Multi-value columns**
+* Multi-value columns
 
 
-* B.核心模块
+**B.核心模块**
 
-**Broker模块:**
+* Broker模块:
 
 route queries to if you want to run a distributed cluster. This node also merges the result sets from all of the individual nodes together. 
 Broker nodes employ a cache with a LRU cache invalidation strategy. 
 类似分布式搜索引擎中的meta元搜索引擎，他不负责任何Segment的查询，他只是一个代理，从Zookeeper中获取TimeLine，这个 TimeLine记录了intervals->List(Server)的mapping关系，接收到Client的请求以后，按照时间段在TimeLine查找Segment分布在那些 Server上。
 
-**Coordinator模块:**
+* Coordinator模块:
 
 responsible for loading new segments, dropping outdated segments, managing segment replication, and balancing segment load.
 负责协调Segment的均衡分发加载，Coordinator从meta数据存储mysql/postgreSQL中获取那些还未被加载的Segment，根据当前所有Historical的负载能力均衡地分配到其LoadQueue。
 
-**Historical模块:**
+* Historical模块:
 
 从Deep Storage中下载Segment,采用mmap(内存映射)的方式加载Segment,并负责来自broker对这些Segment的查询.
 Historical nodes do not communicate directly with each other or with the coordinator nodes but instead rely on Zookeeper for coordination. 
 
-**Indexing Service模块:**
+* Indexing Service模块:
 
 The indexing service is a highly-available, distributed service that runs indexing related tasks.Indexing service tasks create (and sometimes destroy) Druid segments.
 The indexing service is composed of three main components: a peon component that can run a single task, a Middle Manager component that manages peons, and an overlord component that manages task distribution to middle managers.
 Druid的索引结构布局由字典，正排(列存储)以及倒排索引组成，其中倒排的PostingList采用压缩LZ4的BitMap位图索引。支持Consice和Roaring两种BitMap方式
 
-**Realtime process模块:**
+* Realtime process模块:
 
 Realtime nodes will periodically build segments representing the data they’ve collected over some span of time and transfer these segments off to Historical nodes.
 
 > Realtime Node负责提供实时数据索引，生成realtime Index(Segment),并定期推送到Historical Node。在Realtime中采用LSM-Tree的模型
 
 
-* C.外部模块
+**C.外部模块**
 
 - Zookeeper: discovery and maintenance of current data topology
 	Zookeeper maintains information about Historical and Realtime nodes and the segments they are serving. 
@@ -122,35 +122,37 @@ Realtime nodes will periodically build segments representing the data they’ve 
 
 #### 2.3.详细设计
 
-** 2.3.1.Quering **
+**2.3.1.Quering**
 
 GroupBy is the most flexible Druid query, but also has the poorest performance. Timeseries are significantly faster than groupBy queries for aggregations that don't require grouping over dimensions. For grouping and sorting over a single dimension, topN queries are much more optimized than groupBys.
 
-** 2.3.2.TopN queries() **
+**2.3.2.TopN queries**
 
 Conceptually, TopN queries can be thought of as an approximate GroupByQuery over a single dimension with an Ordering spec. 
 TopNs are approximate in that each node will rank their top K results and only return those top K results to the broker. 
 
-** 2.3.3.groupBy Queries("queryType": "groupBy"): **
+**2.3.3.groupBy Queries:**
+
+("queryType": "groupBy")
 
 "v1", the default, generates per-segment results on data nodes (historical, realtime, middleManager) using a map which is partially on-heap (dimension keys and the map itself) and partially off-heap (the aggregated values). 
 "v2" (experimental) is designed to offer better performance and memory management. This strategy generates per-segment results using a fully off-heap map.
 时间维度分析-Timeseries query will generally be faster than groupBy. 
 For queries with a single "dimensions" element (i.e. grouping by one string dimension), the TopN query will sometimes be faster than groupBy. 
 
-** 2.3.4.Nested groupBys **
+**2.3.4.Nested groupBys**
 
-** 2.3.5.Time Boundary Queries **
+**2.3.5.Time Boundary Queries**
 
-** 2.3.6.Search Queries(搜索查询功能) **
+**2.3.6.Search Queries(搜索查询功能)**
 
 A search query returns dimension values that match the search specification.(DimensionMember查询)
 
-** 2.3.7.Select Queries **
+**2.3.7.Select Queries**
 
 Select queries return raw Druid rows and support pagination.
 
-** 2.3.8.druid-lookup与join联接 **
+**2.3.8.druid-lookup与join联接**
 
 Lookup is an experimental feature.
 Lookups are a concept in Druid where dimension values are (optionally) replaced with new values.(内存计算探测)
@@ -161,14 +163,14 @@ A join query is essentially the merging of two or more streams of data based on 
 
 #### 2.4.Components
 
-2.4.1.Datasources - Table
+**2.4.1.Datasources - Table**
 
 A data source is the Druid equivalent of a database table. However, a query can also masquerade as a data source, providing subquery-like functionality. Query data sources are currently supported only by GroupBy queries.
 Table Data Source
 Union Data Source
 Query Data Source
 
-2.4.2.Query Filters
+**2.4.2.Query Filters**
 
 A filter is a JSON object indicating which rows of data should be included in the computation for a query. It’s essentially the equivalent of the WHERE clause in SQL. 
 
@@ -182,7 +184,7 @@ A filter is a JSON object indicating which rows of data should be included in th
 - Interval filter
 - Filter with Extraction Functions
 
-2.4.3.Aggregations
+**2.4.3.Aggregations**
 
 Aggregations can be provided at ingestion time as part of the ingestion spec as a way of summarizing data before it enters Druid.(数据预处理)
 Aggregations can also be specified as part of many queries at query time.
@@ -195,7 +197,7 @@ Aggregations can also be specified as part of many queries at query time.
 - HyperUnique aggregator
 - Filter Aggregator
 
-2.4.4.Post-Aggregations
+**2.4.4.Post-Aggregations**
 
 Post-aggregations are specifications of processing that should happen on aggregated values as they come out of Druid. If you include a post aggregation as part of a query, make sure to include all aggregators the post-aggregator requires.
 
@@ -222,11 +224,12 @@ Druid supports query result caching through an LRU cache. Results are stored on 
 #### 2.8.Sorting Order
 
 These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's LimitSpec, and BoundFilter.
-Lexicographic
-Alphanumeric
-Numeric
-Strlen
-不支持具体维度按度量排序功能
+
+- Lexicographic
+- Alphanumeric
+- Numeric
+- Strlen
+- 不支持具体维度按度量排序功能
 
 #### 2.x.参考
 
@@ -239,13 +242,14 @@ Strlen
 
 ### 3.ROLAP引擎 - Mondrian
 
-特点:多维数据建模+无查询引擎
+特点:多维数据建模+外接查询引擎
 
 - [Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
 
 ### 4.关于Kylin
 
 特点:查询预处理
+
 
 ### 5.[NewBI实时OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
