@@ -259,6 +259,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 特点:查询预处理
 
+![Kylin架构](_includes/kylin_arch.png)
 
 ### 5.[NewBI实时OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
