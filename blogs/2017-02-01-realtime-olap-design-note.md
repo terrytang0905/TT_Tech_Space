@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [bigdata,search,develop]
+tags : [bigdata,search,olap]
 title: Big Data RealTime OLAP Design Note
 ---
 
