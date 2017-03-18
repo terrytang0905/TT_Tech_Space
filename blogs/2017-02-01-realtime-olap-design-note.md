@@ -8,9 +8,9 @@ title: Big Data RealTime OLAP Design Note
 大数据实时OLAP 设计Note
 ------------------------------------------------------------
 
-RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化方案已不再受到关注。
+** Big Data Analysis Product = Data Visualization + OLAP(SQLonHadoop/Spark) + Big Data Storage(Greenplum/HDFS/Kudu) **
 
-**Big Data Analysis Product = Data Visualization + OLAP(SQLonHadoop/Spark) + Big Data Storage(Greenplum/HDFS/Kudu) 
+RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化方案已不再受到关注。
 
 
 ### 1.RT(RealTime)OLAP引擎 - Impala/Presto
@@ -121,35 +121,35 @@ Realtime nodes will periodically build segments representing the data they’ve 
 
 #### 2.3.详细设计
 
-2.3.1.Quering
+** 2.3.1.Quering **
 
 GroupBy is the most flexible Druid query, but also has the poorest performance. Timeseries are significantly faster than groupBy queries for aggregations that don't require grouping over dimensions. For grouping and sorting over a single dimension, topN queries are much more optimized than groupBys.
 
-2.3.2.TopN queries():
+** 2.3.2.TopN queries() **
 
 Conceptually, TopN queries can be thought of as an approximate GroupByQuery over a single dimension with an Ordering spec. 
 TopNs are approximate in that each node will rank their top K results and only return those top K results to the broker. 
 
-2.3.3.groupBy Queries("queryType": "groupBy"):
+** 2.3.3.groupBy Queries("queryType": "groupBy"): **
 
 "v1", the default, generates per-segment results on data nodes (historical, realtime, middleManager) using a map which is partially on-heap (dimension keys and the map itself) and partially off-heap (the aggregated values). 
 "v2" (experimental) is designed to offer better performance and memory management. This strategy generates per-segment results using a fully off-heap map.
 时间维度分析-Timeseries query will generally be faster than groupBy. 
 For queries with a single "dimensions" element (i.e. grouping by one string dimension), the TopN query will sometimes be faster than groupBy. 
 
-2.3.4.Nested groupBys
+** 2.3.4.Nested groupBys **
 
-2.3.5.Time Boundary Queries
+** 2.3.5.Time Boundary Queries **
 
-2.3.6.Search Queries(搜索查询功能)
+** 2.3.6.Search Queries(搜索查询功能) **
 
 A search query returns dimension values that match the search specification.(DimensionMember查询)
 
-2.3.7.Select Queries
+** 2.3.7.Select Queries **
 
 Select queries return raw Druid rows and support pagination.
 
-2.3.8.druid-lookup与join联接
+** 2.3.8.druid-lookup与join联接 **
 
 Lookup is an experimental feature.
 Lookups are a concept in Druid where dimension values are (optionally) replaced with new values.(内存计算探测)
@@ -229,14 +229,12 @@ Strlen
 
 #### 2.x.参考
 
-http://druid.io/ 
-http://static.druid.io/api/0.9.2/
-http://druid.io/docs/0.9.2/design/
-
-Refer：
-[1Druid驱动海量实时多维分析](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466138703723.html)
-[2Druid:一个用于大数据实时处理的开源分布式系统](http://www.infoq.com/cn/news/2015/04/druid-data)
-[3数果科技王劲：如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
+- [http://druid.io/](http://druid.io/) 
+- [http://static.druid.io/api/0.9.2/](http://static.druid.io/api/0.9.2/)
+- [http://druid.io/docs/0.9.2/design/](http://druid.io/docs/0.9.2/design/)
+- [Druid驱动海量实时多维分析](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466138703723.html)
+- [Druid:一个用于大数据实时处理的开源分布式系统](http://www.infoq.com/cn/news/2015/04/druid-data)
+- [数果科技王劲：如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
 ### 3.ROLAP引擎 - Mondrian
 
