@@ -5,7 +5,7 @@ tags : [bigdata,search,develop]
 title: Mondrian ROLAP Analysis Note
 ---
 
-Mondrian OLAP Analysis Note
+## Mondrian OLAP Analysis Note
 ------------------------------------------------------------
 
 

@@ -5,7 +5,7 @@ tags : [bigdata,search,develop]
 title: Spark Research Note
 ---
 
-Spark 实时计算Note
+## Spark 实时计算Note
 ------------------------------------------------------------
 
 Lambda架构作为最常见的实时数据处理框架,通过离线查询+流式处理方式实现实时数据查询的需求。但是如果是基于大数据实时的OLAP查询该如何实现呢?

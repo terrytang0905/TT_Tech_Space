@@ -5,7 +5,7 @@ tags : [bigdata, database, architect]
 title: Database Architect Research Note
 ---
 
-Database Architect Research Note
+## Database Architect Research Note
 ----------------------------------------------
 
 ### I.数据库架构

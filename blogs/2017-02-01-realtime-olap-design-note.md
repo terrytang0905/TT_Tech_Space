@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [bigdata,search,olap]
-title: Big Data RealTime OLAP Design Note
+title: Big Data RealTime OLAP Research Note
 ---
 
-大数据实时OLAP 设计Note
+## 大数据实时OLAP 研究Note
 ------------------------------------------------------------
 
 **Bigdata Analysis Product=DataVisualization + OLAP(SQLonHadoop/Spark) + Bigdata Storage(Greenplum/HDFS/Kudu)**

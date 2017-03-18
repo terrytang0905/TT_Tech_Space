@@ -5,6 +5,9 @@ tags : [development,os]
 title: Linux System Management Guide
 ---
 
+## Linux系统管理文档
+--------------------------------------------------
+
 #### A.常用的shell命令
 
     uname -a 查看内核版本/

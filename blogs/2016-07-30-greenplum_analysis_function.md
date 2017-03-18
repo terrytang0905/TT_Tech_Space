@@ -5,6 +5,9 @@ tags : [bigdata,database]
 title: Greenplum Analysis Function Guide
 ---
 
+## Greenplum 分析函数文档
+------------------------------------------------------
+
 #### 1.窗口函数的语法
 
 窗口函数的基本结构：
