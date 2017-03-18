@@ -28,11 +28,11 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 #### 1.1.Impala
 
-- [Impala架构分析](2016-12-12-impala-kudu-research-note.md)
+[Impala架构分析](2016-12-12-impala-kudu-research-note.md)
 
 #### 1.2.PrestoDB
 
-- [Presto](https://prestodb.io/)
+[Presto](https://prestodb.io/)
 
 ### 2.MOLAP引擎 - Druid/Pinot
 
@@ -253,7 +253,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 特点:多维数据建模+外接查询引擎
 
-- [Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
+[Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
 
 ### 4.关于Kylin
 
