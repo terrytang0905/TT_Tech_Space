@@ -13,6 +13,16 @@ title: Big Data RealTime OLAP Design Note
 RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化方案已不再受到关注。
 
 
+OLAP     | Type 	| Link 					   | Desc
+-------- |----------|--------------------------|----------------
+Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
+Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
+Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
+Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SOLonHadoop
+PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SOLonHadoop
+Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
+
+
 ### 1.RT(RealTime)OLAP引擎 - Impala/Presto
 
 特点:SQL on Hadoop+实时查询引擎
