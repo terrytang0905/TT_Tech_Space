@@ -13,8 +13,8 @@ title: Big Data RealTime OLAP Design Note
 
 OLAP     | Type 	| Link 					   | Desc
 -------- |----------|--------------------------|----------------
-Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SOLonHadoop
-PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SOLonHadoop
+Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop
+PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
 Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
 Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
