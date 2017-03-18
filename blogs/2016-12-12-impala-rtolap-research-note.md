@@ -2,16 +2,16 @@
 layout: post
 category : datascience
 tags : [olap, bigdata, database]
-title: Impala & Kudu Realtime OLAP Architect Note
+title: Impala Realtime OLAP Architect Note
 ---
 
 ## Impala Realtime OLAP Architect Note
 
 ------------------------------------------------------------------------
 
-** Impala + Kudu Solution
+**Impala + Kudu Solution**
 
-### Impala Realtime OLAP
+### Impala Realtime OLAP Engine
 
 #### 1.Impala Feature:
 
