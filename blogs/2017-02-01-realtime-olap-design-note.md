@@ -28,7 +28,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 #### 1.1.Impala
 
-[Impala-实时OLAP分析](2016-12-12-impala-kudu-research-note.md)
+[Impala-实时OLAP分析](2016-12-12-impala-rtolap-research-note.md)
 
 #### 1.2.PrestoDB
 
