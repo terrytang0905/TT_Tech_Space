@@ -1,16 +1,17 @@
 ---
 layout: post
 category : datascience
-tags : [search, bigdata, database]
-title: Impala & Kudu Big Data OLAP Architect
+tags : [olap, bigdata, database]
+title: Impala & Kudu Realtime OLAP Architect Note
 ---
 
-## Impala & Kudu Big Data OLAP Architect
+## Impala Realtime OLAP Architect Note
 
 ------------------------------------------------------------------------
 
+** Impala + Kudu Solution
 
-### A.Impala OLAP
+### Impala Realtime OLAP
 
 #### 1.Impala Feature:
 
@@ -157,7 +158,8 @@ Join order have a large impact for query optimization.
 
 [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
-### B.Kudu Data Storage
+
+### Kudu Bigdata Storage
  
 Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage architect.
 
