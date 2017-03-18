@@ -8,7 +8,7 @@ title: Big Data RealTime OLAP Design Note
 大数据实时OLAP 设计Note
 ------------------------------------------------------------
 
-** Big Data Analysis Product = Data Visualization + OLAP(SQLonHadoop/Spark) + Big Data Storage(Greenplum/HDFS/Kudu) **
+**Big Data Analysis Product = Data Visualization + OLAP(SQLonHadoop/Spark) + Big Data Storage(Greenplum/HDFS/Kudu)**
 
 RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化方案已不再受到关注。
 
@@ -59,7 +59,7 @@ Druid is designed to have no single point of failure. Different node types are a
 
 * A.Storage 
 
-** Segment:Druid倒排索引+时间分片.
+**Segment:Druid倒排索引+时间分片**
 
 	Segments contain the various dimensions and metrics in a data set, stored in a column orientation, as well as the indexes for those columns.
 	Segments are stored in a "deep storage" LOB store/file system.
@@ -68,7 +68,8 @@ Druid is designed to have no single point of failure. Different node types are a
 
 Sharding Data to Create Segments	
 
-** Dimensions:Bitmap Index
+**Dimensions:Bitmap Index**
+
 	Dimensions columns are different because they support filter and group-by operations, so each dimension requires the following three data structures:
 	1.A dictionary that maps values (which are always treated as strings) to integer IDs,
 	2.A list of the column’s values, encoded using the dictionary in 1
@@ -77,34 +78,34 @@ Sharding Data to Create Segments
 The bitmaps in 3 -- also known as inverted indexes allow for quick filtering operations(specifically, bitmaps are convenient for quickly applying AND and OR operators). 
 The list of values in 2 is needed for group by and TopN queries. 
 
-** Multi-value columns
+**Multi-value columns**
 
 
 * B.核心模块
 
-** Broker模块:
+**Broker模块:**
 
 route queries to if you want to run a distributed cluster. This node also merges the result sets from all of the individual nodes together. 
 Broker nodes employ a cache with a LRU cache invalidation strategy. 
 类似分布式搜索引擎中的meta元搜索引擎，他不负责任何Segment的查询，他只是一个代理，从Zookeeper中获取TimeLine，这个 TimeLine记录了intervals->List(Server)的mapping关系，接收到Client的请求以后，按照时间段在TimeLine查找Segment分布在那些 Server上。
 
-** Coordinator模块:
+**Coordinator模块:**
 
 responsible for loading new segments, dropping outdated segments, managing segment replication, and balancing segment load.
 负责协调Segment的均衡分发加载，Coordinator从meta数据存储mysql/postgreSQL中获取那些还未被加载的Segment，根据当前所有Historical的负载能力均衡地分配到其LoadQueue。
 
-** Historical模块:
+**Historical模块:**
 
 从Deep Storage中下载Segment,采用mmap(内存映射)的方式加载Segment,并负责来自broker对这些Segment的查询.
 Historical nodes do not communicate directly with each other or with the coordinator nodes but instead rely on Zookeeper for coordination. 
 
-** Indexing Service模块: 生成Index
+**Indexing Service模块:**
 
 The indexing service is a highly-available, distributed service that runs indexing related tasks.Indexing service tasks create (and sometimes destroy) Druid segments.
 The indexing service is composed of three main components: a peon component that can run a single task, a Middle Manager component that manages peons, and an overlord component that manages task distribution to middle managers.
 Druid的索引结构布局由字典，正排(列存储)以及倒排索引组成，其中倒排的PostingList采用压缩LZ4的BitMap位图索引。支持Consice和Roaring两种BitMap方式
 
-** Realtime process模块:
+**Realtime process模块:**
 
 Realtime nodes will periodically build segments representing the data they’ve collected over some span of time and transfer these segments off to Historical nodes.
 
