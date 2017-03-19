@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [bigdata, database, architect]
-title: Database Architect Research Note
+title: Bigdata Database Architect Research Note
 ---
 
-## Database Architect Research Note
+## Bigdata Database Architect Research Note
 ----------------------------------------------
 
 ### I.数据库架构
@@ -334,7 +334,6 @@ Append-only Columnar Scan
 - SkipList:跳跃表
 - LSM树 & LSM映射
 - Merkle哈希树
-- Snappy&LZSS数据压缩算法
 - 一致性哈希(ConsistentHashing)
 - 虚拟桶哈希(VirtualBucketsHashing)
 
@@ -344,9 +343,15 @@ Append-only Columnar Scan
 
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
 - Gossip协议
-- [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
-- [Avro序列化组件](https://avro.apache.org/docs/current/)
-- [Thrift](http://thrift.apache.org/)
+- 数据文件格式
+	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
+- 数据压缩算法
+	Snappy
+	LZSS
+	GZ
+- 数据传输与序列化
+	[Avro序列化组件](https://avro.apache.org/docs/current/)
+	[Thrift](http://thrift.apache.org/)
 
 ### III.分布式存储架构分析
 
