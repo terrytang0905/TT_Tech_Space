@@ -344,12 +344,17 @@ Append-only Columnar Scan
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
 - Gossip协议
 - 数据文件格式
+
 	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
+
 - 数据压缩算法
+
 	Snappy
 	LZSS
 	GZ
+
 - 数据传输与序列化
+
 	[Avro序列化组件](https://avro.apache.org/docs/current/)
 	[Thrift](http://thrift.apache.org/)
 
