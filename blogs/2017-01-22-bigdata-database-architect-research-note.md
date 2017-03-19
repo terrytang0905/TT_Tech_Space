@@ -349,14 +349,15 @@ Append-only Columnar Scan
 
 - 数据压缩算法
 
-	Snappy
-	LZSS
-	GZ
+	Snappy <br/>
+	LZSS <br/>
+	GZ <br/>
 
 - 数据传输与序列化
 
-	[Avro序列化组件](https://avro.apache.org/docs/current/)
-	[Thrift](http://thrift.apache.org/)
+	[Avro序列化组件](https://avro.apache.org/docs/current/) <br/>
+	[Thrift](http://thrift.apache.org/) <br/>
+	[ProtocalBuffer]() <br/>
 
 ### III.分布式存储架构分析
 
