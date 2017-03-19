@@ -143,20 +143,22 @@ We could build time PARTITION for source table as the extend time items.
 #### 7.Performance Considerations for Join Queries
 
 * COMPUTE STATS statement, and then let Impala automatically optimize the query based on the size of each table, number of distinct values of each column, and so on
-* Use STRAIGHT_JOIN-override the automatic join order optimization by specifying the STRAIGHT_JOIN keyword immediately after the SELECT keyword
-推荐的join查询顺序为 the logical join order to try would be BIG, TINY, SMALL, MEDIUM Tables.(这样的顺序可以最大限度的缩小查询结果)
+* Use STRAIGHT_JOIN-override the automatic join order optimization by specifying the STRAIGHT_JOIN keyword immediately after the SELECT keyword.
 
-The STRAIGHT_JOIN keyword turns off the reordering of join clauses that Impala does internally, and produces a plan that relies on the join clauses being ordered optimally in the query text. 
-```sql
-select straight_join x from medium join small join (select * from big where c1 < 10) as big
-  where medium.id = small.id and small.id = big.id;
-```
+	The logical join order to try would be BIG, TINY, SMALL, MEDIUM Tables.(这样推荐的join查询顺序可以最大限度的缩小查询结果)
+
+	The STRAIGHT_JOIN keyword turns off the reordering of join clauses that Impala does internally, and produces a plan that relies on the join clauses being ordered optimally in the query text. 
+
+	```sql
+	select straight_join x from medium join small join (select * from big where c1 < 10) as big
+	  where medium.id = small.id and small.id = big.id;
+	```
 * The Impala query planner chooses between different techniques for performing join queries, depending on the absolute and relative sizes of the tables.
 * Broadcast joins are the default, where the right-hand table is considered to be smaller than the left-hand table, and its contents are sent to all the other nodes involved in the query. 
 * Partitioned join(not related to a partitioned table) is more suitable for large tables of roughly equal size(相似表容量join查询).This join technique is that portions of each table are sent to appropriate other nodes where those subsets of rows can be processed in parallel.
 Join order have a large impact for query optimization.
+* [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
-[Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
 
 ### Kudu Bigdata Storage
@@ -275,7 +277,6 @@ _Predicate pushdown support_
 _DDL extensions_
 
 _DML extensions_
-
 
 
 #### 5.Performance evaluation
