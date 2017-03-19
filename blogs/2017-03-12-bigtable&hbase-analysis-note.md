@@ -251,8 +251,24 @@ TableInputFormat -> TableMapper -> TableReducer -> TableOutputFormat
 
 ![HBase存储在HDFS](_includes/HBase存储在HDFS.png).
 
+HBase主要处理两种文件:一种是预写日志WAL,另一种是实际的数据文件。这两种文件主要由HRegionServer管理。
 
+- 写路径
+- 文件
+	
+	根级文件
+	表级文件
+	region级文件
+	region拆分
+	合并Merge
 
+- HFile格式
+
+	有效地存储HBase的数据,基于Hadoop的TFile类
+
+- KeyValue格式
+
+8.4.WAL
 
 ### Ref
 

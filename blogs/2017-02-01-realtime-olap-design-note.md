@@ -257,9 +257,16 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 4.关于Kylin
 
-特点:查询预处理
+特点:Cube预处理+极速查询性能
 
 ![Kylin架构](_includes/kylin_arch.png)
+
+4.1.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
+
+- Cube
+- DIMENSION & MEASURE
+- CUBE ACTIONS
+
 
 ### 5.[NewBI实时OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
