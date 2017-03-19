@@ -189,9 +189,69 @@ LSM树将多页块(multipage block)中的数据存储在磁盘中,其存储结�
 
 6.1.REST
 
+	- XML:text/xml
+	- JSON:application/json
+	- RawBinary:application/octet-stream
+
 6.2.Thrift
 
+跨语言模式定义文件
+
 6.3.Avro
+
+跨语言模式定义文件
+
+6.4.批处理客户端
+
+* MapReduce
+* Hive数据仓库
+* Pig数据分析
+* [Cascading](http://www.cascading.org/):Data Processing API for Hadoop MapReduce
+* Shell:HBase Shell是HBase集群的命令行接口
+
+#### 7.MapReduce与HBase
+
+7.1.MapReduce概要
+
+![MapReduce过程](_includes/MapReduce过程.png).
+
+InputFormat -> Mapper -> Reducer -> OutputFormat
+
+```java
+TableInputFormat -> TableMapper -> TableReducer -> TableOutputFormat
+```
+
+7.2.HBase上的MapReduce
+
+- 配置
+- 数据流向:MapReduce文件到HBase
+- 数据源
+- 数据源与数据流向
+- 自定义处理
+
+
+#### 8.架构
+
+8.1.B+树
+
+- 通过主键对记录进行高效插入,查找以及删除。表示为一个动态,多层并有上下界的索引。
+- 注意维护每一段(PageTable)所包含的主键数目,分段B+树的效果远好于二叉树的数据划分。
+- 在B+树上有两个头指针,一个指向根结点,一个指向关键字最小的叶子结点.
+- B+树支持高效的范围Scan功能。得益于它的叶节点相关连接并且按主键有序,扫描时避免了耗时的遍历树操作。
+
+8.2.LSM树
+
+- 输入数据首先被存储在日志文件,这些文件内的数据完全有序。当有日志文件被修改时,对应的更新会被先保存在内存中来加速查询
+- Merge:经过许多数据修改后,且内存空间被占满后,LSM树会把有序的'键-记录'对写到磁盘中,同时创建一个新的数据存储文件
+- 所有节点都是满的并按页存储.修改数据文件的操作通过滚动Merge完成
+- 删除是一种特殊的更改,当删除标记被存储之后,查找会跳过这些删除过的键。当页被重写时,有删除标记的键会被丢弃。删除请求由TTL触发。
+- 使用内存存储与日志文件来将随机写转换成顺序写
+
+8.3.存储
+
+![HBase存储在HDFS](_includes/HBase存储在HDFS.png).
+
+
 
 
 ### Ref
