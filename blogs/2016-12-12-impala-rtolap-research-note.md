@@ -75,9 +75,9 @@ _partitioned hash join_
 Impala employs a partitioning approach for the hash join and aggregation operators.<br/>
 When building the hash tables for the hash joins and there is reduction in cardinality of the build-side relation, impala constructs a Bloom-filter which is then passed on to the probe side scanner, implementing a simple version of a semi-join.
 
-* About Hadoop Join Optimizer
+** About Hadoop Join Optimizer **
 
-* Impala Query Cache
+** Impala Query Cache **
 
 Impala query cache could evidently improve execute times.Compare with the first query,next query speeds up the execution by 2-6x.
 
@@ -85,19 +85,19 @@ Impala query cache could evidently improve execute times.Compare with the first 
 
 The impala backend is written in C++ and uses code generation at runtime to produce a cient codepaths(with respect to instruction count) and small memory overhead.<br/>
 
-* Code Generation Design & Performance
+** Code Generation Design & Performance **
 
 Virtual function calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
 JIT compilation has an effect similar to custom-coding a query. For example, it eliminates branches, unrolls loops, propagates constants, offsets and pointers, inlines functions.<br/>
 Code generation has a dramatic impact on performance - Speed up 5.7x
 
-* Runtime Code Generation
+** Runtime Code Generation **
 
 In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called *short-circuit local reads* to bypass the DataNode protocol when reading from local disk.
 
 Impala support data file formats include Avro,RC,Sequence,plain text,Parquet(Recommend) and Kudu.
 
-* Resource Management:YARN & Llama
+** Resource Management:YARN & Llama **
 
 YARN has a centralized architecture, where frameworks make requests for CPU and memory resources which are arbitrated by the central Resource Manager service,but it also imposes a significant latency on resource acquisition.<br/>
 Impala implemented a complementary but independent admission control mechanism that allowed users to control their workloads without costly centralized decision-making.<br/>
@@ -160,7 +160,6 @@ Join order have a large impact for query optimization.
 * [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
 
-
 ### Kudu Bigdata Storage
  
 Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage architect.
@@ -182,7 +181,7 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 - Following the design of BigTable(HBase)/GFS(HDFS),Kudu relies on a single Master server, responsible for metadata, and an arbitrary number of Tablet Servers, responsible for data.
 - The master server can be replicated for fault tolerance, supporting very fast failover of all responsibilities in the event of an outage.
 
-* 2.1.Partition in Kudu
+##### 2.1.Partition in Kudu
 
 - The tables in Kudu are **horizontally partitioned**. Kudu, like BigTable, calls these **horizontal partitions tablets**. For large tables where throughput is important, we recommend on the order of 10-100 tablets per machine. Each tablet can be tens of gigabytes.
 - Kudu supports a flexible array of partitioning schemes,unlike Bigdata(key-range-based partitioning) or Cassandra(hash-based partitioning).The partition schema acts as a function which can map from a primary key tuple into a binary partition key.The partition schema is made up of zero or more hash-partitioning rules followed by an optional range-partitioning rule:
@@ -190,7 +189,7 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 	* A range-partitioning rule consists of an ordered subset of the primary key columns.
 - By employing these partitioning rules, users can easily trade off between query parallelism and query concurrency based on their particular workload. time series=range partition,host/metric=hash partition.
 
-* 2.2.Replication
+##### 2.2.Replication
 
 - Kudu replicates all of its table data across multiple machines. When creating a table, the user specifies a replication factor, typically 3 or 5, depending on the application’s availability SLAs. Kudu’s master strives to ensure that the requested number of replicas are maintained at all times.
 	* Kudu employs the Raft consensus algorithm to replicate its tablets. In particular, Kudu uses Raft to agree upon a logical log of operations (e.g. insert/update/delete) for each tablet.
@@ -203,7 +202,7 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 
 - Kudu implements Raft configuration change following the one-by-one algorithm.
 
-* 2.3.Kudu Master
+##### 2.3.Kudu Master
 
 - Kudu’s central master process has several key responsibilitie:
 	* Act as a **catalog manager**, keeping track of which tables and tablets exist, as well as their schemas, desired replication levels, and other metadata.
@@ -224,18 +223,18 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 	* Consistency of performance
 - Kudu chooses to implement a new hybrid columnar store architecture.
 
-* 3.1.RowSets
+##### 3.1.RowSets
 
 - Tablets in Kudu are themselves subdivided into smaller units called **RowSets**. Some RowSets exist in memory only, termed MemRowSets, while others exist in a combination of disk and memory, termed DiskRowSets. 
 
-* 3.2.MemRowSet
+##### 3.2.MemRowSet
 - At any point in time, a tablet has a single MemRowSet which stores all recently-inserted rows. Because these stores are entirely in-memory, a background thread periodically flushes MemRowSets to disk.
 - MemRowSets are implemented by an in-memory concurrent B-tree with optimistic locking, broadly based off the design of MassTree.
 - Kudu links together leaf nodes with a next pointer, as in the B+tree. This improves our sequential scan performance, a critical operation.
 - In order to optimize for scan performance over random ac- cess, we use slightly larger internal and leaf nodes sized at four cache-lines (256 bytes) each.
 - MemRowSets store rows in a row-wise layout(行式存储于内存).To maximize through- put despite the choice of row storage, we utilize SSE2 mem- ory prefetch instructions to prefetch one leaf node ahead of our scanner, and JIT-compile record projection operations using LLVM.
 
-* 3.3.DiskRowSet
+##### 3.3.DiskRowSet
 
 - While flushing a MemRowSet, Kudu roll the DiskRowSet after each 32 MB of IO. Because a MemRowSet is in sorted order, the flushed DiskRowSets will themselves also be in sorted order, and each rolled segment will have a disjoint interval of primary keys.
 - A DiskRowSet is made up of two main components: base data and delta stores.The column itself is subdivided into small pages to al- low for granular random reads, and an embedded B-tree index allows efficient seeking to each page based on its ordinal offset within the rowset.
@@ -243,24 +242,24 @@ Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage
 
 - Delta stores are either in-memory DeltaMemStores, or on-disk DeltaFiles. A DeltaMemStore is a concurrent B-tree which shares the implementation described above. A DeltaFile is a binary-typed column block. 
 
-* 3.4.Delta Flushes
+##### 3.4.Delta Flushes
 
-* 3.5.INSERT path
+##### 3.5.INSERT path
 
-* 3.6.Read path
+##### 3.6.Read path
 
-* 3.7.Lazy Materialization
+##### 3.7.Lazy Materialization
 
-* 3.8.Delta Compaction
+##### 3.8.Delta Compaction
 
-* 3.9.RowSet Compaction
+##### 3.9.RowSet Compaction
 
-* 3.10.Scheduling maintenance
+##### 3.10.Scheduling maintenance
 
 
 #### 4.Hadoop Integration
 
-* 4.1 MapReduce and Spark
+##### 4.1 MapReduce and Spark
 
 _Locality_
 
@@ -268,7 +267,7 @@ _Columnar Projectio_
 
 _Predicate pushdown_
 
-* 4.2 Impala
+##### 4.2 Impala
 
 _Locality_
 
@@ -281,11 +280,11 @@ _DML extensions_
 
 #### 5.Performance evaluation
 
-* 5.1.Comparison with Parquet
+##### 5.1.Comparison with Parquet
 
-* 5.2.Comparison with Phoenix
+##### 5.2.Comparison with Phoenix
 
-* 5.3.Random access performance
+##### 5.3.Random access performance
 
 ### x.Reference
 

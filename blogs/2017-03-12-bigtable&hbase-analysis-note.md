@@ -262,7 +262,7 @@ HBase主要处理两种文件:一种是预写日志WAL,另一种是实际的数�
 	region拆分
 	合并Merge
 
-- HFile格式
+- HFile格式:默认64K
 
 	有效地存储HBase的数据,基于Hadoop的TFile类
 

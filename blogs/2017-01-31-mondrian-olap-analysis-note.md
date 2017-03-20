@@ -165,11 +165,11 @@ Mondrian's aggregation strategy is as follows:
 
 #### 3.3.详细设计
 
-* 3.3.1.Cube Schema定义
+** 3.3.1.Cube Schema定义 **
 
-* 3.3.2.Time Dimension Query(借助TimeDimensionTable进行聚合查询)
+** 3.3.2.Time Dimension Query(借助TimeDimensionTable进行聚合查询) **
 
-* 3.3.3.Mondrian Schema Extend
+** 3.3.3.Mondrian Schema Extend **
 
 	Multiple cubes in a schema
 	Shared dimensions
@@ -177,12 +177,12 @@ Mondrian's aggregation strategy is as follows:
 	Star dimensions & Snowflake dimensions
 	Calculated members(Expression)
 
-* 3.3.4.QueryAPI-MDX
+** 3.3.4.QueryAPI-MDX **
 
 - Mondrian uses a language called MDX ('Multi-Dimensional eXpressions') to specify queries, where JDBC would use SQL.
 - The API also presents the database schema as a set of objects: Schema, Cube, Dimension, Hierarchy, Level, Member. 
 
-* 3.3.5.Maximun Performance 
+** 3.3.5.Maximun Performance **
 
 There are three main strategies for increasing performance: **tuning the database, aggregate tables, and caching**.  
 
@@ -211,27 +211,27 @@ How to reuse segment cache?
 
 #### 3.4.高级分析-Advanced Analysis
 
-* 3.4.1.About MDX
+** 3.4.1.About MDX **
 
 MDX stands for Multidimensional Expressions; it was made popular by Microsoft as part of their SQL Server Analysis Services.
 In order to run the MDX fragments in this section, you’ll need to use Saiku. 
 
-* 3.4.2.Ratio and growth - 衍生度量计算
+** 3.4.2.Ratio and growth - 衍生度量计算 **
 
 This calculation is aggregation-safe so it’ll work the same if it’s at the [Product Family] level, or one level below at the [Product Department] level. <br/>
 For instance, here is the exact same calculation working at the [Product Department] level; 
 
-* 3.4.3.Time-specific MDX
+** 3.4.3.Time-specific MDX **
 
 Prior Period is useful when you’re trying to calculate the classic month-over-month growth.  <br/>
 MDX YTD() shortcut function returns all periods from the beginning of the year right up to the current period and aggregates the totals to give the total year-to-date value.  
 
-* 3.4.4.Advanced MDX
+** 3.4.4.Advanced MDX **
 
 Ranking (via the MDX Rank() function) allows you to order and rank results and determine sets of performers. 
 Rank与排序密切相关
 
-* 3.4.5.What-if analysis(Scenarios query)
+** 3.4.5.What-if analysis(Scenarios query) **
 
 In fact, Mondrian’s term for such what-if analysis is scenarios. <br/>
 Scenarios query allow users to make nonpermanent changes to values in the cube for the purpose of seeing how those changes affect totals, other ratios, and other metrics.  <br/>
@@ -242,7 +242,7 @@ Saiku Sales Scenario cube.
 SCENARIO SUPPORT IN SAIKU AND OLAP4J  <br/>
 Currently Saiku is the only visual client to Mondrian that supports Scenarios. Only OLAP4J has support for using scenarios. 
 
-* 3.4.6.Statistics and machine learning
+** 3.4.6.Statistics and machine learning **
 
 This common approach makes sense: most of a company’s investment in building an analytic solution involves data integration, restructuring, and loading (ETL and modeling) into the database.  <br/>
 Data mining purists may disagree that the star schema, cleaned and loaded from original source, represents the best data to perform machine learning and data mining on.DM practitioners often do some level of data preparation themselves for their modeling and do some similar things. Though not perfect, DM on star schemas (and their various aggregations/samples) is common, especially when the DM tool is to be used alongside Mondrian. 
@@ -255,12 +255,12 @@ Weka is a machine learning framework and tool.Weka can use the star schema that 
 By using the PDI plugins to do some time-series forecasting and market-basket analysis, you’ll learn the basics of DM without extensive training. <br/>
 With PDI’s ability to query Mondrian (http:// wiki.pentaho.com/display/EAI/Mondrian+Input) and stream results to further steps, this is the closest direct integration between Mondrian and a DM tool. 
 
-* 3.4.7.BigData & SQL
+** 3.4.7.BigData & SQL **
 
 Apache Calcite(SQL Parser) by julianhyde. <br/>
 Calcite is a highly customizable engine for parsing and planning queries on data in a wide variety of formats. It allows database-like access, and in particular a SQL interface and advanced query optimization, for data not residing in a traditional database.
 
-* 3.4.8.Hadoop and Hive and NoSQL
+** 3.4.8.Hadoop and Hive and NoSQL **
 
 Couchbase is a popular document-based storage service for mobile developers. There’s an important technique that integrates NoSQL technology into Mondrian, but not as the primary storage and aggregation engine. NoSQL systems have been used by the pluggable cache API to allow Mondrian to share its cache among individual servers in a multi-server environment. 
 
@@ -291,7 +291,7 @@ SQL ACCESS TO NOSQL SYSTEMS is the less common used approach because of the comp
 	eigenbase-resgen.jar
 	javacup.jar
 
-* 扩展功能引入JAR:
+** 扩展功能引入JAR: **
 
 	mysql-connector-java-3.1.12-bin.jar
 	xstream-1.2.2.jar
