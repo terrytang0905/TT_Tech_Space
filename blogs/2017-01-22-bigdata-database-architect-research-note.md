@@ -396,16 +396,14 @@ Append-only Columnar Scan
 
 1.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
-2.Impala与Greenplum性能差异成因
-
-3.Google Dremel大数据分析数据库分析
+2.Impala与Dremel大数据分析设计
 
 
-### IV.BigTable&HBase架构
+### IV.BigTable数据库架构
 
 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
 
-2.OceanBase数据库与分析数据库差别
+2.OceanBase数据库与分析数据库差异
 
 ### V.区块链
 
