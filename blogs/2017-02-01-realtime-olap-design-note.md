@@ -34,6 +34,10 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 [Presto](https://prestodb.io/)
 
+- MPP
+- Hive Metadata
+- 内存计算
+
 ### 2.MOLAP引擎 - Druid/Pinot
 
 Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的整体提升,缺点在于数据多维分析的局限性
@@ -259,9 +263,19 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 特点:Cube预处理+极速查询性能
 
+4.1.Kylin架构
+
 ![Kylin架构](_includes/kylin_arch.png)
 
-4.1.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
+
+- DataSource:Hive
+- MapReduce聚合计算
+- Spark内存计算
+- AggregateTable:HBase
+- 增量CubeSegment/CubeSegmentMerge
+- Trie树维度值编码
+
+4.2.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
 
 - Cube
 - DIMENSION & MEASURE
