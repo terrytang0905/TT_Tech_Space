@@ -368,7 +368,7 @@ Append-only Columnar Scan
 	- 分布式架构设计-MPP
 	- 一致性协调器(Paxos/Raft) - 类Zookeeper
 	- LSM-Tree&LSM映射存储
-	- 索引设计 - B+Tree/Bitmap
+	- 索引设计 - B+Tree/Bitmap/FullText Index
 	- 查询管理器
 	- meta管理与存储
 	- SQL查询解析器(是否需要支持JOIN)/查询重写
@@ -378,15 +378,18 @@ Append-only Columnar Scan
 	- 统计优化
 	- 支持事务管理(原子锁/跨行事务/跨表)
 	- 物化视图设计(view/project)
-	- In-Database FullText/Data mining support(UDF)
+	- In-Database FullText Engine
+	- Data mining support(UDF)
 
 2.OLAP设计
 
-	- 大数据量数据Load接口
-	- 多维数据分析 - ROLAP - Cube模型定义
-	- MDX转换SQL/NoSQL解析器
+	- 多数据源数据接入
+	- 逻辑建模与数据预处理(数据Load)
+	- 多维数据分析 - 通用Cube模型定义
+	- MDX转换SQL解析器
+	- QueryEngine
+	- 内存计算Spark(RealTime实时计算)
 	- 缓存管理器-聚合Cache设计
-	- 内存计算/RealTime实时计算
 	- 过滤器管理器
 	- Batch历史数据查询
 	- 数据排序处理
