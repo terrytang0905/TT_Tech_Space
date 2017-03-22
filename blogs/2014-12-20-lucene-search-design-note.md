@@ -726,27 +726,27 @@ xDB Lucene Index Limitation
 
 #### 10.1. Highlights of Lucene release include:
 
-_6.x_ 
+_6.x Release_ 
 
-• Java 8 is the minimum Java version required.
-• Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering. This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints. See this blog post for details. Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
-• Lucene classification module now works on Lucene Documents using a KNearestNeighborClassifier or SimpleNaiveBayesClassifier.
-• he spatial module no longer depends on third-party libraries. Previous spatial classes have been moved to a new spatial-extras module.
-• Spatial4j has been updated to a new 0.6 version hosted by locationtech.
-• TermsQuery performance boost by a more aggressive default query caching policy.
-• IndexSearcher’s default Similarity is now changed to BM25Similarity.
-• Easier method of defining custom CharTokenizer instances.
+- Java 8 is the minimum Java version required.
+- Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering. This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints. See this blog post for details. Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
+- Lucene classification module now works on Lucene Documents using a KNearestNeighborClassifier or SimpleNaiveBayesClassifier.
+- he spatial module no longer depends on third-party libraries. Previous spatial classes have been moved to a new spatial-extras module.
+- Spatial4j has been updated to a new 0.6 version hosted by locationtech.
+- TermsQuery performance boost by a more aggressive default query caching policy.
+- IndexSearcher’s default Similarity is now changed to BM25Similarity.
+- Easier method of defining custom CharTokenizer instances.
 
-_5.x_
+_5.x Release_
 
-• JoinUtil.createJoinQuery can now join on numeric doc values fields
-• BlendedInfixSuggester now has an exponential reciprocal scoring model, to more strongly favor suggestions with matches closer to the beginning
-• CustomAnalyzer has improved (compile time) type safety
-• DFISimilarity implements the divergence from independence scoring model
-• Fully wrap any other merge policy using MergePolicyWrapper
-• Sandbox geo point queries have graduated into the spatial module, and now use a more efficient binary term encoding for smaller index size, • faster indexing, and decreased search-time heap usage
-• BooleanQuery performs some new query optimizations
-• TermsQuery constructors are more GC efficient
+- JoinUtil.createJoinQuery can now join on numeric doc values fields
+- BlendedInfixSuggester now has an exponential reciprocal scoring model, to more strongly favor suggestions with matches closer to the beginning
+- CustomAnalyzer has improved (compile time) type safety
+- DFISimilarity implements the divergence from independence scoring model
+- Fully wrap any other merge policy using MergePolicyWrapper
+- Sandbox geo point queries have graduated into the spatial module, and now use a more efficient binary term encoding for smaller index size, • faster indexing, and decreased search-time heap usage
+- BooleanQuery performs some new query optimizations
+- TermsQuery constructors are more GC efficient
 
 
 #### 10.2. Lucene 6.x architect
