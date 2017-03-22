@@ -11,6 +11,7 @@ FullText Search Design Note - Lucene
 Beginning from Aug in 2009, I have involved into one fulltext search engine project in EMC content management division. The search engine is based on lucene tech as the core architecture and adopt xDB NoSQL DB (The XML analysis database occupied by EMC) to store big unstructured data. After this project,I also took other related cross research about full text implementation (ElasticSearch) and the popular NoSQL DB MongoDB and adopt the related tech to design and implement open source search engine in one mobile internet project from Lenovo. At the end I try to reorganize my understanding for fulltext search and write down the principle of designing and architecture for common fulltext search engine. All contents follow lucene design philosophy and use lucene as the main example.
 
 ### I.FullText Search Architecture
+
 Here are the following main function aspects for fulltext search engine. I will explain every function step by step later.
 
 #### 1.1.Index/Information Crawler: 
@@ -124,7 +125,6 @@ Y. _Indexer_
 
 #### 3.3.数据存储规则
 
-
 ![LuceneIndex数据结构](_includes/lucene_index_data_structure.jpg)
 
 - tis data structure: TermInfo = Term | DocFreq | FreqDelta | ProxDelta | SkipDelta
@@ -235,6 +235,7 @@ Y. _Indexer_
 	* Inverted Info merge:
 	• 对字典的合并,词典中的Term是按照字典顺序排序的,需要对词典中的Term进行重新排序 
 	• 对于相同的Term,对包含此Term的文档号列表进行合并,需要对文档号重新编号 
+
 	词典的合并
 	SegmentMergeInfo:保存要合并的段的词典及倒排表信息
 	SegmentMergeQueue extends PriorityQueue<SegmentMergeInfo>:用来排序的key是它代表的段中的第一个Term 
@@ -254,6 +255,7 @@ Y. _Indexer_
 	打分算法:score(q,d) = coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d)) 
 	
 	_Score公式参数_:
+
 	* t:Term,这里的Term是指包含域信息的Term,也即title:hello和content:hello是不同的Term
 	* coord(q,d):一次搜索可能包含多个搜索词,而一篇文档中也可能包含多个搜索词,此项表示,当一篇
 	    文档中包含的搜索词越多,则此文档则打分越高。
@@ -607,6 +609,7 @@ public final class SimpleAnalyzer extends Analyzer {
 	  this.input = input; }
 	 }
 ```
+
 • ChineseFilter
 • LengthFilter	
 • LowerCaseFilter
@@ -642,7 +645,8 @@ jflex也是一个词法及语法分析器的生成器,它主要包括三部分,�
 
 • PerFieldAnalyzerWrapper
 
-#### VIII.Lucene Transactions
+
+### VIII.Lucene Transactions
 
 所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。从根本上说,搜索引擎也是一种数据存储方式。<br />
 我们这里主要讨论隔离性,Lucene的IndexReader和IndexWriter具有隔离性。<br />
@@ -679,6 +683,7 @@ Here is Lucene’s concurrency rules are simple but should be strictly followed:
 	• Any number of read-only operations may be executed concurrently. 
 	• Any number of read-only operations may be executed while an index is being modified.
 	• Only a single index-modifying operation may execute at a time.
+
 The transaction has a snapshot of a visible part of the index
 
 IndexReader works like a snapshot and the entire query on this index in this transaction will search this snapshot. <br />
@@ -693,8 +698,8 @@ SubIndex merging <br />
 
 The sub-indexes are classified into two categories.
 
-	1.	Final indexes(Final merge), which are created by initialization
-	2.	Non-final indexes(Clean merge), which are created by a transaction committing or merging non final indexes.
+	1.Final indexes(Final merge), which are created by initialization
+	2.Non-final indexes(Clean merge), which are created by a transaction committing or merging non final indexes.
 
 Every transaction creates a separate sub-indexes which are sorted as a list by ascending order of the transaction least LSN. This order reflects the sequence of transactions because the LMPI is a non-concurrent index. 
 
@@ -705,8 +710,8 @@ In order to support cross-index merging of LMPI, each compression mapping struct
 Lucene multipath indexes list
 Two Sub-indexes can be merged if the following criteria is met.
 
-	1.	Two sub-indexes have continuous minimum LSN or no other sub-index has the minimum LSN in the middle.
-	2.	There are some tuning parameters for merging to reduce the performance impact of merging.
+	1.Two sub-indexes have continuous minimum LSN or no other sub-index has the minimum LSN in the middle.
+	2.There are some tuning parameters for merging to reduce the performance impact of merging.
 
 xDB Lucene Index Limitation
 
@@ -722,6 +727,7 @@ xDB Lucene Index Limitation
 #### 10.1. Highlights of Lucene release include:
 
 _6.x_ 
+
 • Java 8 is the minimum Java version required.
 • Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering. This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints. See this blog post for details. Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
 • Lucene classification module now works on Lucene Documents using a KNearestNeighborClassifier or SimpleNaiveBayesClassifier.
@@ -732,6 +738,7 @@ _6.x_
 • Easier method of defining custom CharTokenizer instances.
 
 _5.x_
+
 • JoinUtil.createJoinQuery can now join on numeric doc values fields
 • BlendedInfixSuggester now has an exponential reciprocal scoring model, to more strongly favor suggestions with matches closer to the beginning
 • CustomAnalyzer has improved (compile time) type safety
