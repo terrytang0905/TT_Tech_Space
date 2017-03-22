@@ -381,7 +381,10 @@ Append-only Columnar Scan
 	- In-Database FullText Engine
 	- Data mining support(UDF)
 
-2.OLAP设计
+2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
+
+
+3.OLAP设计
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -394,12 +397,10 @@ Append-only Columnar Scan
 	- Batch历史数据查询
 	- 数据排序处理
 	- 格式化处理
-	- 可视化数据展示 - E-chart/D3
 
+4.[RealTimeOLAP分析](2017-02-01-realtime-olap-design-note.md)
 
-1.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
-
-2.Impala与Dremel大数据分析设计
+5.Impala与Dremel大数据分析设计
 
 
 ### IV.BigTable数据库架构
