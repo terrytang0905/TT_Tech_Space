@@ -13,18 +13,32 @@ Beginning from Aug in 2009, I have involved into one fulltext search engine proj
 ### I.FullText Search Architecture
 Here are the following main function aspects for fulltext search engine. I will explain every function step by step later.
 
-1.1. _Index/Information Crawler_: Data comes from database / webpage / document. <br />
-Solution: Scrapy / network crawler <br />
-1.2. _Content Extractor/Text Extractor_: extract fulltext from any media(e.g.PDF/Word/Test). <br />
-Solution: Oracle OutSide In <br />
-1.3. _Content Analysis/Tokenization_: automatic language detection, stemming, lemmatization. <br />
-Solution: Basis / Tika / Snowball / Lucene Analysis  <br />
-1.4. _Search Engine Management_: It used to call and manage the index/query task accordingly and included that Index/Search/Query Modules. <br />
-Solution: xPlore IndexServer/ElasticSearch/Sphinx(for SQL) <br />
-1.5. _Core Index & Search Library_: lucene <br />
-Transform any fulltext data to lucene document format (XML to lucene document) <br />
-Solution: Lucene multiple index(Concurrent Index / Parallel Query) <br />
-1.6. _Quality of Search_ 
+#### 1.1.Index/Information Crawler: 
+
+	Data comes from database / webpage / document.
+	Solution: Scrapy / network crawler
+
+#### 1.2.Content Extractor/Text Extractor: 
+
+	extract fulltext from any media(e.g.PDF/Word/Test).
+	olution: Oracle OutSide In 
+
+#### 1.3.Content Analysis/Tokenization: 
+
+	automatic language detection, stemming, lemmatization. 
+	Solution: Basis / Tika / Snowball / Lucene Analysis 
+
+#### 1.4.Search Engine Management: 
+
+	It used to call and manage the index/query task accordingly and included that Index/Search/Query Modules.
+	Solution: xPlore IndexServer/ElasticSearch/Sphinx(for SQL)
+
+#### 1.5.Core Index & Search Library: lucene
+
+	Transform any fulltext data to lucene document format (XML to lucene document)
+	Solution: Lucene multiple index(Concurrent Index / Parallel Query)
+
+#### 1.6.Quality of Search
 
 - Scoring(Similarity & Relevance)/ Sorting & Ranking
 - Summary result / Highlighting keyword
@@ -32,13 +46,16 @@ Solution: Lucene multiple index(Concurrent Index / Parallel Query) <br />
 - Possible Query language for structured searches
 - MoreLikeThis / Fuzzy Search
 - Spell check / Recommendation
-- Scale out / Horizontal scaling (Multi-Node / SharedIndex / Sharding & Share Nothing)
+- Scale out / Horizontal scaling (Multi-node / SharedIndex / Shareding Nothing)
 - Ingest/Query Time Performance
 - Space consumption performance
 
-1.7. _BigData storage & analysis_ <br />
-1.8. _Data Storage_: Store any index meta data or source contents. <br />
-Solution: FileSystem (HDFS/TFS) / NoSQL DB (xDB / MongoDB / HBase) / Greenplum <br />
+#### 1.7.BigData storage & analysis
+
+#### 1.8.Data Storage: 
+
+	Store any index meta data or source contents.
+	Solution: FileSystem(HDFS/GFS) / NoSQL(xDB,MongoDB,HBase,Kudu) / Greenplum(GPText)
 
 ### II.Lucene Design Principle & Architecture
 
@@ -61,9 +78,9 @@ Y. _Indexer_
 ![LuceneIntroduce](_includes/lucene_intro.png).
 
 
-#### III.Lucene Index Data 
+### III.Lucene Index Data 
 
-3.1. Index过程:
+#### 3.1.Index过程:
 
 	A. Create one IndexWriter instance in order to write index files.它有几个参数,INDEX_DIR就是索引文件所存放的位
 	置,Analyzer便是用来对文档进行词法分析和语言处理的.
@@ -74,7 +91,7 @@ Y. _Indexer_
 	D. IndexWriter调用函数addDocument将索引写到索引文件夹中.
    
 
-3.2. Index data structure:
+#### 3.2.Index data structure:
 
 	Positive path:Index -> Segment(segments.gen,segments_N) -> Document -> Field(fnm,fdx,fdt) -> Term(tvx,tvd,tvf)
 
@@ -105,7 +122,7 @@ Y. _Indexer_
 
 ![LuceneIndex文件列表](_includes/lucene_data_file.png).
 
-3.3.数据存储规则
+#### 3.3.数据存储规则
 
 
 ![LuceneIndex数据结构](_includes/lucene_index_data_structure.jpg)
@@ -118,20 +135,20 @@ Y. _Indexer_
 	3)或然跟随规则(A,B?)
 	4)SkipList跳跃表
 
-#### IV.Lucene Index code anlaysis 
+### IV.Lucene Index code anlaysis 
 
-4.1. Index Process Architect
+#### 4.1.Index Process Architect
     
   	The key point is index chain
 
-4.2. Index Process Details
+#### 4.2.Index Process Details
 
 	1. 创建IndexWriter
 	2. 创建文档Document对象,并加入域(Field)
 	3. 将文档加入IndexWriter
 	4. 将文档加入DocumentsWriter
 
-4.2.1. IndexWrite
+#### 4.2.1.IndexWrite
 	
 	包含以下信息
 	- 用于索引文档
@@ -139,7 +156,7 @@ Y. _Indexer_
 	- 为保持索引完整性,一致性和事务性
 	- 配置信息
 
-4.2.2. IndexChain:
+#### 4.2.2.IndexChain:
 
 	DocFieldProcessor(索引链的开端):
 		DocConsumer consumer(索引链对象)内容:
@@ -160,7 +177,7 @@ Y. _Indexer_
 	DocFieldProcessorPerField(域索引链):
 		每个域也有自己的索引链,称为域索引链,每个域的索引链也有同线程索引链有相似的树形结构
 
-4.2.3. About DocumentWriter:
+#### 4.2.3.About DocumentWriter:
 
 	RAMBuffer management for CharBlockPool/ByteBlockPool/IntBlockPool
 	• 在索引的过程中,DocumentsWriter将词信息(term)存储在CharBlockPool中,将文档号(doc ID),词 频(freq)和位置(prox)信息存储在ByteBlockPool中 
@@ -171,7 +188,7 @@ Y. _Indexer_
 	ByteBlockPool-保存docID/freq/prox 
 	IntBlockPool-保存的是主要用来写入的信息:分别指向docid+freq及prox信息在ByteBlockPool中的偏移量 
 
-4.2.4. About IndexWriter close:
+#### 4.2.4.About IndexWriter close:
 
 	将索引写入磁盘包括以下几个过程:
 	• 得到要写入的段名:String segment = docWriter.getSegment();
@@ -182,7 +199,7 @@ Y. _Indexer_
 	• 生成cfs段:docWriter.createCompoundFile(segment);
 	• 删除文档:applyDeletes();
 
-4.2.5. About SegmentMerge:
+#### 4.2.5.About SegmentMerge:
 
 	Common SegmentMerge process:
 	* HashSet<SegmentInfo> mergingSegments = new HashSet<SegmentInfo>(); //保存正在合并的 段,以防止合并期间再次选中被合并。
@@ -204,7 +221,7 @@ Y. _Indexer_
 		◦ 对正向信息的合并,如存储域,词向量,标准化因子等  
 		◦ 对反向信息的合并,如词典,倒排表 
 
-4.2.5.1. Merge stragery for segment choice
+##### 4.2.5.1.Merge stragery for segment choice
 
 	* LogMergePolicy
 	• 选择的可以合并的段都是在硬盘上的,不再存在内存中的段,也不是像早期的版本一样每添加一个 Document就生成一个段,然后进行内存中的段合并,然后再合并到硬盘中 
@@ -213,7 +230,7 @@ Y. _Indexer_
 	• 在硬盘上的段基本应该是大段在前,小段在后,因为大段总是由小段合并而成的,当小段凑够 mergeFactor个的时候,就合并成一个大段,小段就被删除了,然后新来的一定是新的小段 
 	• 比如mergeFactor=3,开始来的段大小为10M,当凑够3个10M的时候,0.cfs, 1.cfs, 2.cfs则合并成一 个新的段3.cfs,大小为30M,然后再来4.cfs, 5.cfs, 6.cfs,合并成7.cfs,大小为30M,然后再来8.cfs, 9.cfs, a.cfs合并成b.cfs, 大小为30M,这时候又凑够了3个30M的,合并成90M的c.cfs,然后又来d.cfs, e.cfs, f.cfs合并成10.cfs,大小为30M,然后11.cfs大小为10M,这时候硬盘上的段为:c.cfs(90M) 10.cfs(30M),11.cfs(10M) 
 
-4.2.5.2. Inverted Index Merge
+##### 4.2.5.2.Inverted Index Merge
 
 	* Inverted Info merge:
 	• 对字典的合并,词典中的Term是按照字典顺序排序的,需要对词典中的Term进行重新排序 
@@ -222,7 +239,7 @@ Y. _Indexer_
 	SegmentMergeInfo:保存要合并的段的词典及倒排表信息
 	SegmentMergeQueue extends PriorityQueue<SegmentMergeInfo>:用来排序的key是它代表的段中的第一个Term 
 
-4.2.6. SegmentMerge detailed process
+#### 4.2.6.SegmentMerge detailed process
 
 	* Store Field merge:
 	1)将缓存写入新的段
@@ -232,7 +249,7 @@ Y. _Indexer_
 		合并词向量:mergeTermVector
 		合并词典和倒排表:mergeTermDictionary/PostingList倒排表
 
-4.2.7. ScoreAlgrithm(Vector Space Model):
+#### 4.2.7.ScoreAlgrithm(Vector Space Model):
 
 	打分算法:score(q,d) = coord(q,d)·queryNorm(q)·∑( tf(t in d)·idf(t)^2·t.getBoost()·norm(t,d)) 
 	
@@ -287,16 +304,16 @@ Y. _Indexer_
 	计算Levenshtein distance:
 		edit distance,对于两个字符串,从一个转换成为另一个所需 要的最少基本操作(添加,删除,替换)数。
 
-4.2.8. Payload
+#### 4.2.8.Payload
 
 Payload指Term相关的元数据信息<br/>
 存储在倒排链表中的,同文档号DocId一起存放,多用于存储与每篇文档相关的一些信息。
 当然这部分信息也可以存储域里(storedField),两者从功能上基本是一样的,然而当要存储的信息很多的时候,存放在倒排表里,利用跳跃表SkipList,有利于大大提高搜索速度。
 
 
-#### V.Lucene Search
+### V.Lucene Search
 
-5.1. Search processing:
+#### 5.1. Search processing:
 
 	a. IndexReader将磁盘上的索引信息读入到内存,INDEX_DIR就是索引文件存放的位置。 
 	   创建IndexSearcher准备进行搜索
@@ -311,7 +328,7 @@ Payload指Term相关的元数据信息<br/>
 	   构造SumScorer对象树,其是为了方便合并倒排表对Scorer对象树的从新组织,它的叶子节点仍为 TermScorer,包含词典和倒排表。此步将倒排表合并后得到结果文档集,并对结果文档计算打分公式 中的蓝色部分。打分公式中的求和符合,并非简单的相加,而是根据子查询倒排表的合并方式(与或非) 来对子查询的打分求和,计算出父查询的打分。
 	g. 将收集的结果集合TopScoreDocCollector及打分返回给用户。
 
-5.2. IndexReader: 
+#### 5.2. IndexReader: 
 
 	Find out segment_N file <br />
 	snapshot <br />
@@ -323,11 +340,11 @@ Payload指Term相关的元数据信息<br/>
 	• 以上三点保证了IndexReader的snapshot的性质,也即一个IndexReader打开一个索引,就好像对此索 引照了一张像,无论背后索引如何改变,此IndexReader在被重新打开之前,看到的信息总是相同的 
 	• 严格的来讲,Lucene的文档号仅仅对打开的某个reader有效,当索引发生了变化,再打开另外一个 reader的时候,前面reader的文档0就不一定是后面reader的文档0了,因而我们进行查询的时候,从 结果中得到文档号的时候,一定要在reader关闭之前应用,从存储域中得到真正能够唯一标识你的业务 逻辑中的文档的信息,如url,md5等等,一旦reader关闭了,则文档号已经无意义,如果用其他的 reader查询这些文档号,得到的可能是不期望的文档 
 
-5.3. IndexSearcher:
+#### 5.3. IndexSearcher:
 
 	IndexSearcher searcher = new IndexSearcher(reader);
 
-5.4. QueryParser(Query语法树): 
+#### 5.4. QueryParser(Query语法树): 
 
  	◦ BooleanQuery 
  	◦ PrefixQuery 
@@ -348,7 +365,7 @@ Payload指Term相关的元数据信息<br/>
 		◦ 当然也可以是PrefixQuery和FuzzyQuery,这些查询语句由于特殊的语法,可能对应的不是一
 		个词,而是多个词,因而他们都有rewriteMethod对象指向MultiTermQuery的Inner Class, 表示对应多个词,在查询过程中会得到特殊处理。
 
-5.6. Search API <br />
+#### 5.6. Search API <br />
 
 	Search索引过程包含以下子过程:
 	• 创建weight树,计算term weight
@@ -368,7 +385,7 @@ Payload指Term相关的元数据信息<br/>
 	float norm = getSimilarity(searcher).queryNorm(sum); 
 	weight.normalize(norm);
 
-5.7. Score Generate
+#### 5.7. Score Generate
 
 	ConstantScoreAutoRewrite.rewrite
 
@@ -401,9 +418,9 @@ G. Lucene如何在搜索阶段读取索引信息
 
 	TermDictionary词典信息的读取是在Scorer对象树生成的时候进行的,真正读取这些信息的是叶子节点TermScorer  PostingList倒排表信息的读取时在合并倒排表的时候进行的,真正读取这些信息的也是叶子节点TermScorer.nextDoc() 
 
-#### VI.Lucene Query Syntax
+### VI.Lucene Query Syntax
 
-6.1. Query API <br />
+#### 6.1. Query API <br />
 
 - 语法关键字:+ - && || ! ( ) { } [ ] ^ " ~ * ? : \
 - 查询词(Term):TermQuery/PhraseQuery/MultiTermQuery/MultiPhraseQuery
@@ -417,7 +434,7 @@ G. Lucene如何在搜索阶段读取索引信息
 - 布尔操作符:BooleanQuery
 - 查询组合(使用操作符)
 
-6.2. JavaCC(语法分析生成器)
+#### 6.2. JavaCC(语法分析生成器)
 
 	1)QueryParser是通过JavaCC来生成词法分析器和语法分析器的.
 	其设计方式类似于SQLParser等类似的语法解析器需要借助Anltr类似语法生成器生成符合SQL语法的语法分析树.
@@ -429,7 +446,7 @@ G. Lucene如何在搜索阶段读取索引信息
 		• (1):向前看一个输入符号(lookahead)
 	JavaCC还提供LOOKAHEAD(n),也即当仅读入下一个符号时,不足以判断接下来的如何解析,会出现Choice Conflict,则需要多读入几个符号,来进一步判断
 
-6.3. QueryParser internal
+#### 6.3. QueryParser internal
 
 	• 声明QueryParser类
 	• 声明词法分析器
@@ -438,7 +455,7 @@ G. Lucene如何在搜索阶段读取索引信息
 		Query ::= ( Clause )*
 		Clause ::= ["+", "-"] [<TERM> ":"] ( <TERM> | "(" Query ")" )
 
-6.4. Advanced Query Objects
+#### 6.4. Advanced Query Objects
 
 • BoostingQuery:Query match / Query context / float boost,生成BooleanQuery 
 • CustomScoreQuery:Query subQuery / ValueSourceQuery[] valSrcQueries
@@ -533,7 +550,7 @@ G. Lucene如何在搜索阶段读取索引信息
 		SpanQueryFilter
 		CachingSpanFilter
 
-#### VII.Lucene Analyzer
+### VII.Lucene Analyzer
 
 	Analyzer中用于生成TokenStream的两个接口:
 	• TokenStream tokenStream(String fieldName, Reader reader);
@@ -558,7 +575,7 @@ public final class SimpleAnalyzer extends Analyzer {
 }
  ```
 
-7.1. TokenStream Abstract Class
+#### 7.1. TokenStream Abstract Class
 
 	boolean incrementToken()用于得到下一个Token。
 	public void reset() 使得此TokenStrean可以重新开始返回各个分词。
@@ -578,7 +595,7 @@ public final class SimpleAnalyzer extends Analyzer {
 		• SentenceTokenizer:按照如下的标点来拆分句子:"。,!?;,!?;"
 		• StandardTokenizer
 
-7.2. TokenFilter extends TokenStream
+#### 7.2. TokenFilter extends TokenStream
 
 对Tokenizer后的Token作过滤,其使用的是Decorator模式
 
@@ -600,7 +617,7 @@ public final class SimpleAnalyzer extends Analyzer {
 • SnowballFilter:包含成员变量SnowballProgram stemmer,其是一个抽象类,其子类有EnglishStemmer和PorterStemmer等
 • TeeSinkTokenFilter:使得已经分好词的Token全部或者部分的被保存下来,用于生成另一个TokenStream可以保存在其他的域中 
 
-7.3. Anlayzer(Tokenizer + TokenFilter) = TokenStream
+#### 7.3. Anlayzer(Tokenizer + TokenFilter) = TokenStream
 
 • ChineseAnalyzer
 • CJKAnalyzer
@@ -608,7 +625,7 @@ public final class SimpleAnalyzer extends Analyzer {
 • SmartChineseAnalyzer
 • SnowballAnalyzer
 
-7.4. Lucene Standard Tokenizer(标准分词器)
+#### 7.4. Lucene Standard Tokenizer(标准分词器)
 
 标准分词器需要词法分析,类似于QueryParser,使用生成器jflex.<br/>
 jflex也是一个词法及语法分析器的生成器,它主要包括三部分,由%%分隔:
@@ -621,7 +638,7 @@ jflex也是一个词法及语法分析器的生成器,它主要包括三部分,�
 • StandardFilter
 • StandardAnalyzer
 
-7.5. Field -> Tokenizer(不同域对应不同分词器)
+#### 7.5. Field -> Tokenizer(不同域对应不同分词器)
 
 • PerFieldAnalyzerWrapper
 
@@ -700,9 +717,9 @@ xDB Lucene Index Limitation
 
 ### X. Lucene Extend
 
-#### Lucene 6.x research
+** Lucene 6.x research **
 
-10.1. Highlights of Lucene release include:
+#### 10.1. Highlights of Lucene release include:
 
 _6.x_ 
 • Java 8 is the minimum Java version required.
@@ -725,7 +742,7 @@ _5.x_
 • TermsQuery constructors are more GC efficient
 
 
-10.2. Lucene 6.x architect
+#### 10.2. Lucene 6.x architect
 
 Faster geo-spatial indexing and searching for LatLonPoint
 
