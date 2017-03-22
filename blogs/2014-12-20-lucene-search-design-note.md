@@ -744,7 +744,7 @@ _5.x Release_
 - CustomAnalyzer has improved (compile time) type safety
 - DFISimilarity implements the divergence from independence scoring model
 - Fully wrap any other merge policy using MergePolicyWrapper
-- Sandbox geo point queries have graduated into the spatial module, and now use a more efficient binary term encoding for smaller index size, • faster indexing, and decreased search-time heap usage
+- Sandbox geo point queries have graduated into the spatial module, and now use a more efficient binary term encoding for smaller index size, faster indexing, and decreased search-time heap usage
 - BooleanQuery performs some new query optimizations
 - TermsQuery constructors are more GC efficient
 
