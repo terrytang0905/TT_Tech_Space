@@ -20,15 +20,15 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 - Impala is the highest performing SQL-on-Hadoop system,especially under multi-user workloads.(nearly three times on average for multi-user)
 - Impala SQL doesn't support UPDATE or DELETE like Hive.Impala supports ALTER TABLE DROP PARTITION.
 - The key point of the impala design of an MPP database is how to run on hundrens of nodes is the coordination and synchronization of cluster-wide metadata.For example,up-to-date versions of the system catalog
-- Designed a simple publish-subscribe service called the statestore to disseminate metadata changes to a set of subscribers,not establish a TCP connection or create synchronous RPCs(avoid network connection cost).
+- Designed a simple **publish-subscribe** service called the statestore to disseminate metadata changes to a set of subscribers,not establish a TCP connection or create synchronous RPCs (avoid network connection cost).
 - Impala’s catalog service serves catalog metadata to Impala daemons via the statestore broadcast mechanism, and executes DDL operations on behalf of Impala daemons.
 - The catalog service pulls information from third-party metadata stores(for example, the Hive Metastore or the HDFS Namenode), and aggregates that information into an Impala-compatible catalog structure.The default third-party metadata store is Hive Metastore and could be replaced by HBase.
 - Impala supports inline views, uncorrelated and correlated subqueries (that are rewritten as joins), all variants of outer joins as well as explicit left/right semi- and anti-joins, and analytic window functions.
 - Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.The design is similar to Greenplum.
-- Runtime code generation using LLVM in Impala's backend is one of the techniques to improve execution times._LLVM_ is a compiler library and collection of related tools which is designed to be modular and reusable. It allows applications like Impala to perform just-in-time (JIT) compilation within a running process.
-- Impala uses an HDFS feature called short-circuit local reads to bypass the DataNode protocol when reading from local disk in order to perform data scans from both disk and memory at or near hardware speed.
+- Runtime code generation using LLVM in Impala's backend is one of the techniques to improve execution times(Presto has the similar design).**LLVM** is a compiler library and collection of related tools which is designed to be modular and reusable. It allows applications like Impala to perform just-in-time (JIT) compilation within a running process.
+- Impala uses an HDFS feature called **short-circuit** local reads to bypass the DataNode protocol when reading from local disk in order to perform data scans from both disk and memory at or near hardware speed.
 - HDFS caching allows Impala to access memory-resident data at memory bus speed and also saves CPU cycles as there is no need to copy data blocks and/or checksum them.
-- Impala supports most popular file formats:Avro,RC,Sequence,TEXTFILE and Parquet.Recommend using Apache Parquet because Parquet offer both high compression and scan efficency.
+- Impala supports most popular file formats: Avro,RC,Sequence,TEXTFILE and Parquet.Recommend using Apache Parquet because Parquet offer both high compression and scan efficency.
 
 
 #### 2.Impala Architect
@@ -44,8 +44,8 @@ SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordina
 	- Impala daemon(impalad) <br/> 
 	- Statestore daemon(statestored) - Impala’s metadata publish-subscribe service(broadcast). <br/>
 	- Catalog daemon(catalogd) - serves as Impala’s catalog repository and metadata access gateway. <br/>
-	- Hive Metastore - metadata database <br/>
-	- DataStorage - HDFS / HBase / Kudu 
+	- Hive Metastore - datastorage metadata info <br/>
+	- DataStorage - Hive&HDFS / HBase / Kudu 
 
 * Impala daemon(impalad) module:
 
@@ -59,15 +59,26 @@ Query compilation process: Query parsing,semantic analysis and query planing/opt
 
 #### Logical query optimization for Impala
 
-An executable query plan is constructed in two phases: (1) Single node planning (2) plan parallelization and fragmentation.<br/>
+An executable query plan is constructed in two phases: 
 
-1) A non-executable single-node plan tree consists of HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n,EXCHANGE and analysis evaluation.<br/>
+	(1) Single node planning 
+	(2) plan parallelization and fragmentation.
+
+1) A non-executable single-node plan tree consists of 
+
+	HDFS/HBase scan,hash join,cross join,union,hash aggregation,sort,top-n,EXCHANGE and analysis evaluation.
+
 1.1) Cost estimation is based on table/partition cardinalities plus distinct value counts for each column.
 
-2) Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan locality: in HDFS, remote reads are considerably slower than local ones.<br/>
-2.1) The supported join strategies are broadcast and partitioned. Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.<br/>
-2.2) All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.<br/>
-2.3) For grouping aggregations, the pre-aggregation output is partitioned on the grouping expressions and the merge aggregation is done
+2) Takes the single-node plan as input and produces a distributed execution plan in order to to minimize data movement and maximize scan
+
+	locality: in HDFS, remote reads are considerably slower than local ones.
+
+2.1) The supported join strategies are **broadcast** and **partitioned**. Impala chooses whichever strategy is estimated to minimize the amount of data exchanged over the network, also exploiting existing data partitioning of the join inputs.
+
+2.2) All aggregation is currently executed as a local pre-aggregation followed by a merge aggregation operation.
+
+2.3) For grouping aggregations(分组聚合), the pre-aggregation output is partitioned on the grouping expressions and the merge aggregation is done
 in parallel on all participating nodes. For non-grouping aggregations, the merge aggregation is done on a single node.
 
 _partitioned hash join_
@@ -87,7 +98,8 @@ The impala backend is written in C++ and uses code generation at runtime to prod
 
 ** Code Generation Design & Performance **
 
-Virtual function calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
+_Virtual function_ calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
+
 JIT compilation has an effect similar to custom-coding a query. For example, it eliminates branches, unrolls loops, propagates constants, offsets and pointers, inlines functions.<br/>
 Code generation has a dramatic impact on performance - Speed up 5.7x
 
@@ -125,7 +137,7 @@ We could build time PARTITION for source table as the extend time items.
 
 	When deciding which column(s) to use for partitioning, choose the right level of granularity. For example, should you partition by year, month, and day, or only by year and month? Choose a partitioning strategy that puts at least 256 MB of data in each partition, to take advantage of HDFS bulk I/O and Impala distributed queries.
 
-	Over-partitioning can also cause query planning to take longer than necessary, as Impala prunes the unnecessary partitions. Ideally, keep the number of partitions in the table under 30 thousand.
+	Over-partitioning(过度分区) can also cause query planning to take longer than necessary, as Impala prunes the unnecessary partitions. Ideally, keep the number of partitions in the table under 30 thousand.
 
 * Use smallest appropriate integer types for partition key columns.
 * Choose an appropriate Parquet/Kudu block size.
@@ -142,8 +154,8 @@ We could build time PARTITION for source table as the extend time items.
 
 #### 7.Performance Considerations for Join Queries
 
-* COMPUTE STATS statement, and then let Impala automatically optimize the query based on the size of each table, number of distinct values of each column, and so on
-* Use STRAIGHT_JOIN-override the automatic join order optimization by specifying the STRAIGHT_JOIN keyword immediately after the SELECT keyword.
+- COMPUTE STATS statement, and then let Impala automatically optimize the query based on the size of each table, number of distinct values of each column, and so on
+- Use STRAIGHT_JOIN-override the automatic join order optimization by specifying the STRAIGHT_JOIN keyword immediately after the SELECT keyword.
 
 	The logical join order to try would be BIG, TINY, SMALL, MEDIUM Tables.(这样推荐的join查询顺序可以最大限度的缩小查询结果)
 
@@ -153,11 +165,11 @@ We could build time PARTITION for source table as the extend time items.
 	select straight_join x from medium join small join (select * from big where c1 < 10) as big
 	  where medium.id = small.id and small.id = big.id;
 	```
-* The Impala query planner chooses between different techniques for performing join queries, depending on the absolute and relative sizes of the tables.
-* Broadcast joins are the default, where the right-hand table is considered to be smaller than the left-hand table, and its contents are sent to all the other nodes involved in the query. 
-* Partitioned join(not related to a partitioned table) is more suitable for large tables of roughly equal size(相似表容量join查询).This join technique is that portions of each table are sent to appropriate other nodes where those subsets of rows can be processed in parallel.
+- The Impala query planner chooses between different techniques for performing join queries, depending on the absolute and relative sizes of the tables.
+- **Broadcast joins** are the default, where the right-hand table is considered to be smaller than the left-hand table, and its contents are sent to all the other nodes involved in the query. 
+- **Partitioned join** (not related to a partitioned table) is more suitable for large tables of roughly equal size(相似表容量join查询).This join technique is that portions of each table are sent to appropriate other nodes where those subsets of rows can be processed in parallel.
 Join order have a large impact for query optimization.
-* [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
+- [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
 
 ### Kudu Bigdata Storage

@@ -79,6 +79,12 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 ![PrestoPluggableBackends](_includes/PrestoPluggableBackends.png)
 
+Plugin API:
+
+- Metadata API(Coordinator)
+- Data Location API(Coordinator)
+- Data Stream API(Worker)
+
 
 #### Presto执行过程
 
@@ -86,6 +92,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 ![Presto执行过程](_includes/Presto执行过程.png)
 
+* Client -> Coordinator -> 3Worker -> FinalWorker -> Client
 
 * 提交查询:用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,如下图:示例SQL如下
 
@@ -100,9 +107,10 @@ select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id wher
 ![Presto逻辑执行计划图](_includes/Presto逻辑执行计划图.png)
 
 * 上图逻辑执行计划图中的虚线就是Presto对逻辑执行计划的切分点,逻辑计划Plan生成的SubPlan分为四个部分,每一个SubPlan都会提交到一个或者多个Worker节点上执行
+(可能由于ORDER BY排序任务损耗性能,因此在执行计划中未有采用)
 
 
-SubPlan有几个重要的属性planDistribution、outputPartitioning、partitionBy属性整个执行过程的流程图如下：
+SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、**partitionBy**属性整个执行过程的流程图如下：
 
 1.PlanDistribution:表示一个查询阶段的分发方式,上图中的4个SubPlan共有3种不同的PlanDistribution方式
 
@@ -119,7 +127,7 @@ SubPlan有几个重要的属性planDistribution、outputPartitioning、partition
 
 ![PrestoSubPlan3](_includes/PrestoSubPlan3.png)
 
-	* SubPlan1和SubPlan0  作为Source节点，它们读取HDFS文件数据的方式就是调用的HDFS InputSplit API，然后每个InputSplit分配一个Worker节点去执行，每个Worker节点分配的InputSplit数目上限是参数可配置的，Config中的query.max-pending-splits-per-node参数配置，默认是100
+	* SubPlan1和SubPlan0 作为Source节点,它们读取HDFS文件数据的方式就是调用的HDFS InputSplit API,然后每个InputSplit分配一个Worker节点去执行,每个Worker节点分配的InputSplit数目上限是参数可配置的,Config中的query.max-pending-splits-per-node参数配置,默认是100
 	* SubPlan1的每个节点读取一个Split的数据并过滤后将数据分发给每个SubPlan0节点进行Join操作和Partial Aggr操作
 	* SubPlan0的每个节点计算完成后按GroupBy Key的Hash值将数据分发到不同的SubPlan2节点
 	* 所有SubPlan2节点计算完成后将数据分发到SubPlan3节点
@@ -132,11 +140,40 @@ SubPlan有几个重要的属性planDistribution、outputPartitioning、partition
 ![PrestoHiveSparkSQL比较](_includes/PrestoHiveSparkSQL比较.png)
 
 
-### 2.MOLAP引擎 - Druid/Pinot
+### 2.关于Kylin
+
+特点:Cube预处理+极速查询性能(QueryEngine应弱于Impala/Presto)
+
+2.1.Kylin架构
+
+![Kylin架构](_includes/kylin_arch.png)
+
+
+- DataSource:Hive
+- MapReduce聚合计算
+- Spark内存计算
+- AggregateTable:HBase
+- 增量CubeSegment/CubeSegmentMerge
+- Trie树维度值编码
+
+2.2.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
+
+- Cube
+- DIMENSION & MEASURE
+- CUBE ACTIONS
+
+### 3.ROLAP引擎 - Mondrian
+
+特点:多维数据建模+外接查询引擎
+
+[Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
+
+
+### 4.MOLAP引擎 - Druid/Pinot
 
 Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的整体提升,缺点在于数据多维分析的局限性
 
-#### 2.1.Druid特点
+#### 4.1.Druid特点
 
 特点:搜索引擎+增量计算
 
@@ -149,7 +186,7 @@ Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的�
 - 不支持大表之间的Join，但其lookup功能满足和维度表的Join
 - 列存储,倒排索引,RollUP(汇总/上卷),roaring或conciseBitmap位图索引+LZ4数据压缩
 
-#### 2.2.Druid架构分析
+#### 4.2.Druid架构分析
 
 ![Druid架构](_includes/Druid架构.png)
 
@@ -227,18 +264,18 @@ Realtime nodes will periodically build segments representing the data they’ve 
 	Segments Table/ Rule Table/ Config Table/ Task-related Tables/ Audit Table
 - Deep Storage: HDFS or Kudu 
 
-#### 2.3.详细设计
+#### 4.3.详细设计
 
-**2.3.1.Quering**
+**4.3.1.Quering**
 
 GroupBy is the most flexible Druid query, but also has the poorest performance. Timeseries are significantly faster than groupBy queries for aggregations that don't require grouping over dimensions. For grouping and sorting over a single dimension, topN queries are much more optimized than groupBys.
 
-**2.3.2.TopN queries**
+**4.3.2.TopN queries**
 
 Conceptually, TopN queries can be thought of as an approximate GroupByQuery over a single dimension with an Ordering spec. 
 TopNs are approximate in that each node will rank their top K results and only return those top K results to the broker. 
 
-**2.3.3.groupBy Queries:**
+**4.3.3.groupBy Queries:**
 
 ("queryType": "groupBy")
 
@@ -247,19 +284,19 @@ TopNs are approximate in that each node will rank their top K results and only r
 时间维度分析-Timeseries query will generally be faster than groupBy. 
 For queries with a single "dimensions" element (i.e. grouping by one string dimension), the TopN query will sometimes be faster than groupBy. 
 
-**2.3.4.Nested groupBys**
+**4.3.4.Nested groupBys**
 
-**2.3.5.Time Boundary Queries**
+**4.3.5.Time Boundary Queries**
 
-**2.3.6.Search Queries(搜索查询功能)**
+**4.3.6.Search Queries(搜索查询功能)**
 
 A search query returns dimension values that match the search specification.(DimensionMember查询)
 
-**2.3.7.Select Queries**
+**4.3.7.Select Queries**
 
 Select queries return raw Druid rows and support pagination.
 
-**2.3.8.druid-lookup与join联接**
+**4.3.8.druid-lookup与join联接**
 
 Lookup is an experimental feature.
 Lookups are a concept in Druid where dimension values are (optionally) replaced with new values.(内存计算探测)
@@ -268,16 +305,16 @@ Joins
 Druid has limited support for joins through query-time lookups. The common use case of query-time lookups is to replace one dimension value (e.g. a String ID) with another value (e.g. a human-readable String value). This is similar to a star-schema join.
 A join query is essentially the merging of two or more streams of data based on a shared set of keys. The primary high-level strategies for join queries we are aware of are a hash-based strategy or a sorted-merge strategy.
 
-#### 2.4.Components
+#### 4.4.Components
 
-**2.4.1.Datasources - Table**
+**4.4.1.Datasources - Table**
 
 A data source is the Druid equivalent of a database table. However, a query can also masquerade as a data source, providing subquery-like functionality. Query data sources are currently supported only by GroupBy queries.
 Table Data Source
 Union Data Source
 Query Data Source
 
-**2.4.2.Query Filters**
+**4.4.2.Query Filters**
 
 A filter is a JSON object indicating which rows of data should be included in the computation for a query. It’s essentially the equivalent of the WHERE clause in SQL. 
 
@@ -291,7 +328,7 @@ A filter is a JSON object indicating which rows of data should be included in th
 - Interval filter
 - Filter with Extraction Functions
 
-**2.4.3.Aggregations**
+**4.4.3.Aggregations**
 
 Aggregations can be provided at ingestion time as part of the ingestion spec as a way of summarizing data before it enters Druid.(数据预处理)
 Aggregations can also be specified as part of many queries at query time.
@@ -304,16 +341,16 @@ Aggregations can also be specified as part of many queries at query time.
 - HyperUnique aggregator
 - Filter Aggregator
 
-**2.4.4.Post-Aggregations**
+**4.4.4.Post-Aggregations**
 
 Post-aggregations are specifications of processing that should happen on aggregated values as they come out of Druid. If you include a post aggregation as part of a query, make sure to include all aggregators the post-aggregator requires.
 
-#### 2.5.Druid Adapter & SQL Parser
+#### 4.5.Druid Adapter & SQL Parser
 
 Full SQL is currently not supported with Druid. (当前SQL支持无法与Druid原生查询语言一样灵活)
 [Calcite’s Druid adapter](https://calcite.apache.org/docs/druid_adapter.html) allows you to query the data using SQL, combining it with data in other Calcite schemas.
 
-#### 2.6.Multitenancy Consideration
+#### 4.6.Multitenancy Consideration
 
 Multitenant workloads can either use a separate datasource for each tenant, or can share one or more datasources between tenants using a "tenant_id" dimension. When deciding which path to go down, consider that each path has pros and cons.
 Shared datasources or datasource-per-tenant
@@ -324,11 +361,11 @@ Supporting high query concurrency
 Druid's fundamental unit of computation is a segment. Nodes scan segments in parallel and a given node can scan druid.processing.numThreads concurrently. 
 Druid internally stores requests to scan segments in a priority queue.
 
-#### 2.7.Query Caching
+#### 4.7.Query Caching
 
 Druid supports query result caching through an LRU cache. Results are stored on a per segment basis, along with the parameters of a given query. 
 
-#### 2.8.Sorting Order
+#### 4.8.Sorting Order
 
 These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's LimitSpec, and BoundFilter.
 
@@ -338,7 +375,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - Strlen
 - 不支持具体维度按度量排序功能
 
-#### 2.x.参考
+#### 4.x.参考
 
 - [http://druid.io/](http://druid.io/) 
 - [http://static.druid.io/api/0.9.2/](http://static.druid.io/api/0.9.2/)
@@ -347,33 +384,6 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - [Druid:一个用于大数据实时处理的开源分布式系统](http://www.infoq.com/cn/news/2015/04/druid-data)
 - [数果科技王劲：如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
-### 3.ROLAP引擎 - Mondrian
-
-特点:多维数据建模+外接查询引擎
-
-[Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
-
-### 4.关于Kylin
-
-特点:Cube预处理+极速查询性能
-
-4.1.Kylin架构
-
-![Kylin架构](_includes/kylin_arch.png)
-
-
-- DataSource:Hive
-- MapReduce聚合计算
-- Spark内存计算
-- AggregateTable:HBase
-- 增量CubeSegment/CubeSegmentMerge
-- Trie树维度值编码
-
-4.2.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
-
-- Cube
-- DIMENSION & MEASURE
-- CUBE ACTIONS
 
 
 ### 5.[NewBI实时OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
