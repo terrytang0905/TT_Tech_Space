@@ -44,11 +44,16 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 *Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:*
 
-1.一个Coordinator节点(Master)
+- 1.一个Coordinator节点(Master)
+
 	Coordinator: 负责解析SQL语句，生成执行计划，分发执行任务给Worker节点执行
-2.一个Discovery Server节点
+
+- 2.一个Discovery Server节点
+
 	Discovery Server: 通常内嵌于Coordinator节点中
-3.多个Worker节点(Slave)
+
+- 3.多个Worker节点(Slave)
+
 	- Worker节点: 负责实际执行查询任务,负责与HDFS交互读取数据
 	- Worker节点启动后,向Discovery Server服务注册,Coordinator从Discovery Server获得可以正常工作的Worker节点。如果配置了Hive Connector，需要配置一个HiveMetaStore服务为Presto提供Hive元信息
 
