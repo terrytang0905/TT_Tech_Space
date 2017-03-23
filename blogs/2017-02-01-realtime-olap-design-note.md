@@ -26,17 +26,105 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 特点:SQL on Hadoop+实时查询引擎
 
-#### 1.1.Impala
+### 1.1.Impala
 
 [Impala-实时OLAP分析](2016-12-12-impala-rtolap-research-note.md)
 
-#### 1.2.PrestoDB
+### 1.2.PrestoDB
 
-[Presto](https://prestodb.io/)
+[Presto](https://prestodb.io/docs/current/)
+
+#### Presto架构
 
 - MPP
 - Hive Metadata
 - 内存计算
+
+![Presto架构](_includes/Presto架构.png)
+
+** Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:
+
+1.一个Coordinator节点(Master)
+	Coordinator: 负责解析SQL语句，生成执行计划，分发执行任务给Worker节点执行
+2.一个Discovery Server节点
+	Discovery Server: 通常内嵌于Coordinator节点中
+3.多个Worker节点(Slave)
+	- Worker节点: 负责实际执行查询任务,负责与HDFS交互读取数据
+	- Worker节点启动后,向Discovery Server服务注册,Coordinator从Discovery Server获得可以正常工作的Worker节点。如果配置了Hive Connector，需要配置一个HiveMetaStore服务为Presto提供Hive元信息
+
+** 更形象架构图如下：**
+
+![PrestoArchPipeline](_includes/PrestoArchPipeline.png)
+
+#### Presto低延迟原理
+
+- 完全基于内存的并行计算
+- Pipeline流水线式计算作业
+- 本地化计算
+- 动态编译执行计划(Impala有类似设计)
+- GC控制
+
+#### Presto存储插件
+
+- Presto设计了一个简单的数据存储的抽象层,来满足在不同数据存储系统之上都可以使用SQL进行查询。
+- 存储插件(连接器connector)只需要提供实现以下操作的接口,包括对元数据(metadata)的提取,获得数据存储的位置,获取数据本身的操作等。
+- 除了我们主要使用的Hive/HDFS后台系统之外,我们也开发了一些连接其他系统的Presto连接器,包括HBase,Scribe和定制开发的系统
+
+插件结构图如下:
+
+![PrestoPluggableBackends](_includes/PrestoPluggableBackends.png)
+
+
+#### Presto执行过程
+
+* 执行过程示意图:
+
+![Presto执行过程](_includes/Presto执行过程.png)
+
+
+* 提交查询: 用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,如下图:示例SQL如下
+
+![PrestoSQL解析](_includes/PrestoSQL解析.png)
+
+```SQL
+select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id where c1.id > 10 group by c1.rank limit 10;
+```
+
+* 逻辑执行过程示意图如下:
+
+![Presto逻辑执行计划图](_includes/Presto逻辑执行计划图.png)
+
+* 上图逻辑执行计划图中的虚线就是Presto对逻辑执行计划的切分点,逻辑计划Plan生成的SubPlan分为四个部分,每一个SubPlan都会提交到一个或者多个Worker节点上执行
+
+
+SubPlan有几个重要的属性planDistribution、outputPartitioning、partitionBy属性整个执行过程的流程图如下：
+
+1.PlanDistribution:表示一个查询阶段的分发方式,上图中的4个SubPlan共有3种不同的PlanDistribution方式
+
+	* Source:表示这个SubPlan是数据源，Source类型的任务会按照数据源大小确定分配多少个节点进行执行
+	* Fixed:表示这个SubPlan会分配固定的节点数进行执行（Config配置中的query.initial-hash-partitions参数配置，默认是8）
+	* None:表示这个SubPlan只分配到一个节点进行执行
+	
+2.OutputPartitioning:表示这个SubPlan的输出是否按照partitionBy的key值对数据进行Shuffle(洗牌),只有两个值HASH和NONE
+
+![PrestoSubPlan](_includes/PrestoSubPlan.png)
+
+	* 在上图的执行计划中,SubPlan1和SubPlan0 PlanDistribution=Source,这两个SubPlan都是提供数据源的节点,SubPlan1所有节点的读取数据都会发向SubPlan0的每一个节点;SubPlan2分配8个节点执行最终的聚合操作;SubPlan3只负责输出最后计算完成的数据;如下图:
+
+![PrestoSubPlan3](_includes/PrestoSubPlan3.png)
+
+	* SubPlan1和SubPlan0  作为Source节点，它们读取HDFS文件数据的方式就是调用的HDFS InputSplit API，然后每个InputSplit分配一个Worker节点去执行，每个Worker节点分配的InputSplit数目上限是参数可配置的，Config中的query.max-pending-splits-per-node参数配置，默认是100
+	* SubPlan1的每个节点读取一个Split的数据并过滤后将数据分发给每个SubPlan0节点进行Join操作和Partial Aggr操作
+	* SubPlan0的每个节点计算完成后按GroupBy Key的Hash值将数据分发到不同的SubPlan2节点
+	* 所有SubPlan2节点计算完成后将数据分发到SubPlan3节点
+	* SubPlan3节点计算完成后通知Coordinator结束查询，并将数据发送给Coordinator
+
+#### presto引擎对比
+
+* 与hive、SparkSQL对比结果图
+
+![PrestoHiveSparkSQL比较](_includes/PrestoHiveSparkSQL比较.png)
+
 
 ### 2.MOLAP引擎 - Druid/Pinot
 
