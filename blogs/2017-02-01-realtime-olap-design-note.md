@@ -42,7 +42,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 ![Presto架构](_includes/Presto架构.png)
 
-** Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:
+*Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:*
 
 1.一个Coordinator节点(Master)
 	Coordinator: 负责解析SQL语句，生成执行计划，分发执行任务给Worker节点执行
@@ -52,7 +52,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 	- Worker节点: 负责实际执行查询任务,负责与HDFS交互读取数据
 	- Worker节点启动后,向Discovery Server服务注册,Coordinator从Discovery Server获得可以正常工作的Worker节点。如果配置了Hive Connector，需要配置一个HiveMetaStore服务为Presto提供Hive元信息
 
-** 更形象架构图如下：**
+*更形象架构图如下:*
 
 ![PrestoArchPipeline](_includes/PrestoArchPipeline.png)
 
@@ -82,7 +82,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 ![Presto执行过程](_includes/Presto执行过程.png)
 
 
-* 提交查询: 用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,如下图:示例SQL如下
+* 提交查询:用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,如下图:示例SQL如下
 
 ![PrestoSQL解析](_includes/PrestoSQL解析.png)
 
@@ -109,7 +109,8 @@ SubPlan有几个重要的属性planDistribution、outputPartitioning、partition
 
 ![PrestoSubPlan](_includes/PrestoSubPlan.png)
 
-	* 在上图的执行计划中,SubPlan1和SubPlan0 PlanDistribution=Source,这两个SubPlan都是提供数据源的节点,SubPlan1所有节点的读取数据都会发向SubPlan0的每一个节点;SubPlan2分配8个节点执行最终的聚合操作;SubPlan3只负责输出最后计算完成的数据;如下图:
+	* 在上图的执行计划中,SubPlan1和SubPlan0 PlanDistribution=Source,这两个SubPlan都是提供数据源的节点,SubPlan1所有节点的读取数据都会发向SubPlan0的每一个节点;
+	* SubPlan2分配8个节点执行最终的聚合操作;SubPlan3只负责输出最后计算完成的数据;如下图:
 
 ![PrestoSubPlan3](_includes/PrestoSubPlan3.png)
 
