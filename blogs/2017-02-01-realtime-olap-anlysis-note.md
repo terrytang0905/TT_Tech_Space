@@ -15,6 +15,7 @@ OLAP     | Type 	| Link 					   | Desc
 -------- |----------|--------------------------|----------------
 Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop
 PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
+Drill    | RTOLAP   | http://drill.apache.org/ | 多数据源SQL查询
 Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
 Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
@@ -22,13 +23,13 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 * RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化的轻量级方案(Mondrian)不再受到关注
 
-### 1.RT(RealTime)OLAP引擎 - Impala/Presto
+### 1.RT(RealTime)查询引擎 - Impala/Presto/Drill
 
-特点:SQL on Hadoop+实时查询引擎
+特点:RealTimeQueryEngine + SQL on Hadoop
 
 ### 1.1.Impala
 
-[Impala-实时OLAP分析](2016-12-12-impala-rtolap-research-note.md)
+[Impala-实时查询分析](2016-12-12-impala-rtolap-research-note.md)
 
 ### 1.2.PrestoDB
 
@@ -139,6 +140,11 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 
 ![PrestoHiveSparkSQL比较](_includes/PrestoHiveSparkSQL比较.png)
 
+### 1.3.Drill
+
+支持多数据源查询
+
+[DrillArch](http://drill.apache.org/docs/architecture/)
 
 ### 2.关于Kylin
 
@@ -175,7 +181,7 @@ Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的�
 
 #### 4.1.Druid特点
 
-特点:搜索引擎+增量计算
+特点:搜索引擎+增量计算+数据实时写入
 
 - 亚秒响应的交互式查询。支持较高并发，为面向用户的平台提供Olap查询(注意这是相比其他OLAP的强大优势)。
 - 支持实时导入,导入即可被查询。支持高并发导入。
@@ -388,6 +394,10 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.[NewBI实时OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
+Query性能差异
+- Scan Query
+- Aggregation Query
+- Join Query
 
 ### x.技术参考
 
