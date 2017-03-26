@@ -39,6 +39,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Programming
 
+- [高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
 - [Java多线程与并发-BlockingQueue API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_blocking_queue_note.md)
 - [Java多线程与并发-java.util.concurrent API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_api_note.md)
