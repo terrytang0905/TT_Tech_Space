@@ -8,6 +8,8 @@ title: Bigdata Database Architect Research Note
 ## Bigdata Database Architect Research Note
 ----------------------------------------------
 
+![BigDataDBMap](_includes/BigData&CAP.jpg)
+
 ### I.数据库架构
 
 #### 通用数据库架构分析
