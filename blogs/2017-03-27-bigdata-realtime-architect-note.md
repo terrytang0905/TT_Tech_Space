@@ -24,7 +24,7 @@ The book describes the Lambda architecture as a clear set of principles for arch
 
 The premise behind the Lambda architecture is you should be able to run ad-hoc queries against all of your data to get results, but doing so is unreasonably expensive in terms of resource. Technically it is now feasible to run ad-hoc queries against your Big Data (Cloudera Impala), but querying a petabyte dataset everytime you want to compute the number of pageviews for a URL may not always be the most efficient approach. So the idea is to precompute the results as a set of views, and you query the views. I tend to call these **Question Focused Datasets** (e.g. pageviews QFD).
 
-** The Lambda architecture **
+**The Lambda architecture**
 
 The Lambda architecture is split into three layers, the batch layer, the serving layer, and the speed layer.
 
@@ -38,7 +38,7 @@ The views should be computed from the entire dataset and therefore the batch lay
 
 **Serving layer (Impala)**
 
-The output from the batch layer is a set of flat files containing the precomputed views. The serving layer is responsible for indexing and exposing the views so that they can be queried.
+The output from the batch layer is a set of flat files containing the precomputed views. The serving layer is responsible for indexing and exposing the views so that they can be queried for end users.
 
 As the batch views are static, the serving layer only needs to provide batch updates and random reads, and for this I would use Cloudera Impala. To expose the views using Impala all the serving layer would have to do is create a table in the Hive Metastore that points to the files in the HDFS. Users would then be able to use Impala to query the views immediately.
 
@@ -59,7 +59,7 @@ Whilst the batch layer is designed to continuously recompute the batch views fro
 
 **Query merge in memory**
 
-The final piece of the puzzle is exposing the realtime views so that they can be queried and merged with the batch views to get the complete results. As the realtime views are incremental, the speed layer requires both random reads and writes, and for this I would use Apache HBase. HBase provides the ability for Storm to continuously increment the realtime views and at the same time can be queried by Impala for merging with the batch views. Impala’s ability to query both the batch views stored in the HDFS and the realtime views stored in HBase make it the perfect tool for the job.
+The final piece of the puzzle is exposing the realtime views so that they can be queried and merged with the batch views to get the complete results. As the realtime views are incremental, the speed layer requires both random reads and writes, and for this I would use Apache HBase. HBase provides the ability for Storm to continuously increment the realtime views and at the same time can be queried by Impala for merging with the batch views. Impala’s ability to query both the batch views stored in the HDFS and the realtime views stored in HBase make it the perfect tool for the job(Impala could query both HDFS and HBase).The aggregate query merge calculation in memory is very important key for the final result.
 
 **Thoughts** 
 
@@ -80,7 +80,7 @@ As a precursor to this post I’ve been working on a HBase connector for Storm. 
 #### Links
 
 - [http://www.cloudera.com/content/cloudera/en/products/cdh.html](http://www.cloudera.com/content/cloudera/en/products/cdh.html)
-- [https://github.com/nathanmarz/storm](https://github.com/nathanmarz/storm()
+- [https://github.com/nathanmarz/storm](https://github.com/nathanmarz/storm)
 - [http://www.manning.com/marz/](http://www.manning.com/marz/)
 - [http://www.slideshare.net/nathanmarz/runaway-complexity-in-big-data-and-a-plan-to-stop-it](http://www.slideshare.net/nathanmarz/runaway-complexity-in-big-data-and-a-plan-to-stop-it)
 
@@ -90,3 +90,7 @@ As a precursor to this post I’ve been working on a HBase connector for Storm. 
 
 ![kappa架构](_includes/Kappa_arch.png)
 
+
+- Spark
+- Spark Streaming
+- StreamSQL
