@@ -30,13 +30,13 @@ The Lambda architecture is split into three layers, the batch layer, the serving
 
 ![Lambda架构](_includes/lambda_arch.png)
 
-** Batch layer (Apache Hadoop + HDFS/Impala) ** 
+**Batch layer (Apache Hadoop + HDFS/Impala)** 
 
 The batch layer is responsible for two things. The first is to store the immutable, constantly growing master dataset (HDFS), and the second is to compute arbitrary views from this dataset (MapReduce). Computing the views is a continuous operation, so when new data arrives it will be aggregated into the views when they are recomputed during the next MapReduce iteration.
 
 The views should be computed from the entire dataset and therefore the batch layer is not expected to update the views frequently. Depending on the size of your dataset and cluster, each iteration could take hours.
 
-** Serving layer (Impala) **
+**Serving layer (Impala)**
 
 The output from the batch layer is a set of flat files containing the precomputed views. The serving layer is responsible for indexing and exposing the views so that they can be queried.
 
@@ -44,9 +44,12 @@ As the batch views are static, the serving layer only needs to provide batch upd
 
 Hadoop and Impala are perfect tools for the batch and serving layers. Hadoop can store and process petabytes of data, and Impala can query this data quickly and interactively. Although, the batch and serving layers alone do not satisfy any realtime requirement because MapReduce (by design) is high latency and it could take a few hours for new data to be represented in the views and propagated to the serving layer. This is why we need the speed layer.
 
-	Just a note about the use of the term ‘realtime’. When I say realtime, I actually mean near-realtime (NRT) and the time delay between the occurrence of an event and the availability of any processed data from that event. In the Lambda architecture, realtime is the ability to process the delta of data that has been captured after the start of the batch layers current iteration and now.
+	Just a note about the use of the term ‘realtime’. When I say realtime, I actually mean near-realtime (NRT) and the time delay 
+	between the occurrence of an event and the availability of any processed data from that event. 
+	In the Lambda architecture, realtime is the ability to process the delta of data that has been captured 
+	after the start of the batch layers current iteration and now.
 
-** Speed layer (Storm + Apache HBase) **
+**Speed layer (Storm + Apache HBase)**
 
 In essence the speed layer is the same as the batch layer in that it computes views from the data it receives. The speed layer is needed to compensate for the high latency of the batch layer and it does this by computing realtime views in Storm. The realtime views contain only the delta results to supplement the batch views.
 
@@ -54,11 +57,11 @@ Whilst the batch layer is designed to continuously recompute the batch views fro
 
 ![实时增量计算](_includes/realtime_query.png)
 
-** Query merge in memory **
+**Query merge in memory**
 
 The final piece of the puzzle is exposing the realtime views so that they can be queried and merged with the batch views to get the complete results. As the realtime views are incremental, the speed layer requires both random reads and writes, and for this I would use Apache HBase. HBase provides the ability for Storm to continuously increment the realtime views and at the same time can be queried by Impala for merging with the batch views. Impala’s ability to query both the batch views stored in the HDFS and the realtime views stored in HBase make it the perfect tool for the job.
 
-** Thoughts ** 
+**Thoughts** 
 
 The book describes some great architectural principles that can be applied to any Big Data architecture, specifically immutability and recomputation. Hadoop gives you a platform for storing all of your data and you don’t need a complex system for finding and updating individual records at scale, you can simply append new immutable records to your master dataset. An immutable record is a version of a record at a point in time. Newer versions of a record can be added, but a particular version can never be overridden, meaning that you can always revert to a previous state. In the Lambda architecture this means that if you accidentally added some bad records, they can simply be deleted and the views recomputed to fix the problem. If the data was mutable then its much more difficult - and sometimes impossible - to revert to a previous state. The book describes this as having “human fault-tolerance”.
 
@@ -70,7 +73,7 @@ I think the reasons for implementing this architecture lie in your perception an
 
 What I’ve learnt the most from the Big Data book (or at least the first 6 chapters of it) is the architectural principles. The importance of immutability and human fault-tolerance, and the benefits of precomputation and recomputation. If you’re considering implementing the Lambda architecture in its entirety, ask yourself one question: how realtime do I need to be? If your answer is in the tens of seconds then the complete Lambda architecture maybe overkill, but if your answer is milliseconds then I think the Lambda architecture is your answer.
 
-** storm-hbase connector ** 
+**storm-hbase connector** 
 
 As a precursor to this post I’ve been working on a HBase connector for Storm. The connector provides a number of Storm Bolt and Trident state implementations for creating realtime views in a Lambda architecture. Please check it out on my [GitHub page](https://github.com/jrkinley/storm-hbase).
 
