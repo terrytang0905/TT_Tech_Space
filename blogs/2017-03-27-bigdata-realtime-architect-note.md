@@ -5,7 +5,7 @@ tags : [bigdata,realtime,develop]
 title: Bigdata realtime Architect Note
 ---
 
-## Bigdata realtime 架构设计Note
+## Bigdata Realtime Architect Note
 ------------------------------------------------------------
 
 Lambda & Kappa Architect
