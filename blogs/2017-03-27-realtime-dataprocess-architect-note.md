@@ -2,17 +2,22 @@
 layout: post
 category : architect
 tags : [bigdata,realtime,develop]
-title: Bigdata realtime Architect Note
+title: Realtime Data Process Architect Note
 ---
 
-## Bigdata Realtime Architect Note
+## Realtime Data Process Architect Note
 ------------------------------------------------------------
 
 Lambda & Kappa Architect
 
-### Lambda Architect
+### I.Lambda Architect
 
 The Lambda architecture: principles for architecting realtime Big Data systems.
+
+DataLoad | MixComputer 	     | DataStorage 			    | QueryType
+-------- |-------------------|--------------------------|----------------
+Kafka    | Hadoop/MapReduce  | HDFS/Impala              | Impala
+Kafka    | Storm             | HBase                    | Impala
 
 ```java
 query = function(all data)
@@ -85,12 +90,27 @@ As a precursor to this post I’ve been working on a HBase connector for Storm. 
 - [http://www.slideshare.net/nathanmarz/runaway-complexity-in-big-data-and-a-plan-to-stop-it](http://www.slideshare.net/nathanmarz/runaway-complexity-in-big-data-and-a-plan-to-stop-it)
 
 
-### Kappa Architect
-
+### II.Kappa Architect
 
 ![kappa架构](_includes/Kappa_arch.png)
 
+DataLoad | MixComputer 	     | DataStorage 			    | QueryType
+-------- |-------------------|--------------------------|----------------
+Kafka    | Spark             | HDFS/SparkSQL            | Presto
+Kafka    | SparkStreaming    | Cassandra                | Presto
 
-- Spark
-- Spark Streaming
-- StreamSQL
+#### Spark
+
+1.Spark realtime query
+
+2.SparkSQL
+
+StreamSQL
+
+3.Spark Streaming
+
+4.SparkMLlib
+
+#### Presto 
+
+#### OLAP In-Memory Computing
