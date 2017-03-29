@@ -21,11 +21,13 @@ Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
 
-* RTOLAP/MOLAP/ROLAP/Kylin,当前OLAP技术领域不包含查询计算与数据存储优化的轻量级方案(Mondrian)不再受到关注
+* OLAP类型:RTOLAP/MOLAP/Kylin/ROLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
+* 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
+* Tableau作为优秀可视化分析工具对大数据量分析能力有所欠缺
 
 ### 1.RT(RealTime)查询引擎 - Impala/Presto/Drill
 
-特点:RealTimeQueryEngine + SQL on Hadoop
+**特点:RealTimeQueryEngine + SQL on Hadoop**
 
 ### 1.1.Impala
 
@@ -148,12 +150,11 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 
 ### 2.关于Kylin
 
-特点:Cube预处理+极速查询性能(QueryEngine应弱于Impala/Presto)
+**特点:Cube预处理+多维数据查询(QueryEngine应弱于Impala/Presto)**
 
 2.1.Kylin架构
 
 ![Kylin架构](_includes/kylin_arch.png)
-
 
 - DataSource:Hive
 - MapReduce聚合计算
@@ -170,7 +171,7 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 
 ### 3.ROLAP引擎 - Mondrian
 
-特点:多维数据建模+外接查询引擎
+**特点:多维数据建模+无内置查询引擎**
 
 [Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
 
@@ -181,7 +182,7 @@ Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的�
 
 #### 4.1.Druid特点
 
-特点:搜索引擎+增量计算+数据实时写入
+**特点:类搜索引擎+增量计算+数据实时写入**
 
 - 亚秒响应的交互式查询。支持较高并发，为面向用户的平台提供Olap查询(注意这是相比其他OLAP的强大优势)。
 - 支持实时导入,导入即可被查询。支持高并发导入。
