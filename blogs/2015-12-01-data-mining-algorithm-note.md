@@ -10,8 +10,8 @@ title: Data Mining Analysis Algorithm
 
 ### 数据挖掘的十大经典算法
 
-国际权威的学术组织the IEEE International Conference on Data Mining (ICDM) 评选出了数据挖掘领域的十大经典算法：
-C4.5, k-Means, SVM, Apriori, EM, PageRank, AdaBoost, kNN, Naive Bayes, and CART.
+国际权威的学术组织The IEEE International Conference on Data Mining (ICDM) 评选出了数据挖掘领域的十大经典算法：
+C4.5, K-Means, SVM, Apriori, EM, PageRank, AdaBoost, KNN, Naive Bayes, and CART.
 
 不仅仅是选中的十大算法，其实参加评选的18种算法，实际上随便拿出一种来都可以称得上是经典算法，它们在数据挖掘领域都产生了极为深远的影响。
 
