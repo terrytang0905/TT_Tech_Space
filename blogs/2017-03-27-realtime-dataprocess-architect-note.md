@@ -101,16 +101,55 @@ Kafka    | SparkStreaming    | Cassandra                | Presto
 
 #### Spark
 
-1.Spark realtime query
+##### 1.Spark 
 
-2.SparkSQL
+1.1.定义
+
+* RDD(Resilient Distributed Datasets)
+
+Spark常见存储数据的格式是Key-Value
+也支持类似Parquet这样的列存格式
+Key-Value格式数据一般是原始数据大小的2倍左右，而列存一般是原始数据的1/3到1/4
+
+* Operation
+
+Transformation/Action
+
+1.2.作业提交
+
+RDD之间的依赖性分析, DAGScheduler
+根据DAG的分析结果将一个作业分成多个Stage
+DAGScheduler在确定完Stage之后,会向TaskScheduler提交任务集Taskset
+
+1.3.Spark集群
+
+Driver/Master/Worker/Executor
+
+1.4.ActorModel和Akka
+
+ActorModel适合用于解决并发编程问题。Actor的行为规范定义:1)消息接收,2)消息处理,3)消息发送
+
+
+
+1.2.BlinkDB
+
+
+##### 2.SparkSQL
 
 StreamSQL
 
-3.Spark Streaming
+##### 3.Spark Streaming
 
-4.SparkMLlib
+##### 4.SparkMLlib
 
 #### Presto 
 
 #### OLAP In-Memory Computing
+
+* 表计算/数据透视
+* 临时内存计算规则
+* 增量内存计算
+* 上下文筛选查询(数据查询联动更新)
+* 实时数据计算
+* 内存计算结果保存
+
