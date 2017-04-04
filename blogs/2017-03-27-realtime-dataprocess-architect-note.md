@@ -14,10 +14,10 @@ Lambda & Kappa Architect
 
 The Lambda architecture: principles for architecting realtime Big Data systems.
 
-DataLoad | MixComputer 	     | DataStorage 			    | QueryType
--------- |-------------------|--------------------------|----------------
-Kafka    | Hadoop/MapReduce  | HDFS/Impala              | Impala
-Kafka    | Storm             | HBase                    | Impala
+|DataLoad | MixComputer 	  | DataStorage 			 | QueryType |
+|:--------|:------------------|:-------------------------|:----------|
+|Kafka    | Hadoop/MapReduce  | HDFS/Impala              | Impala    |
+|Kafka    | Storm             | HBase                    | Impala    |
 
 ```java
 query = function(all data)
@@ -94,10 +94,10 @@ As a precursor to this post I’ve been working on a HBase connector for Storm. 
 
 ![kappa架构](_includes/Kappa_arch.png)
 
-DataLoad | MixComputer 	     | DataStorage 			    | QueryType
--------- |-------------------|--------------------------|----------------
-Kafka    | Spark             | HDFS/SparkSQL            | Presto
-Kafka    | SparkStreaming    | Cassandra                | Presto
+|DataLoad | MixComputer 	  | DataStorage      | QueryType  |
+|:--------|:------------------|:-----------------|:-----------|
+|Kafka    | Spark             | HDFS/SparkSQL    | Presto     |
+|Kafka    | SparkStreaming    | Cassandra        | Presto     |
 
 #### A.Spark(迭代计算)
 
@@ -277,8 +277,9 @@ A massively parallel, approximate query engine for running interactive SQL queri
 - 上下文筛选查询(数据查询联动更新)
 - 内存计算结果保存
 
-#### 2.[NewBI内存架构设计](http://wiki.yunat.com/pages/viewpage.action?pageId=42515508)
+#### 2.Spark实时计算应用
 
-#### 3.Spark实时计算应用
+#### 3.[NewBI内存架构设计](http://wiki.yunat.com/pages/viewpage.action?pageId=42515508)
 
 #### 4.Presto设计参考
+
