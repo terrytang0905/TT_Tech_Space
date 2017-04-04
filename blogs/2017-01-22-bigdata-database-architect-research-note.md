@@ -322,7 +322,8 @@ Append-only Columnar Scan
 
 	[介绍](http://www.jdon.com/artichect/paxos.html)
 	Paxos是一个解决共识问题consensus problem的算法
-	Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和 propose/accept
+	Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和propose/accept
+	基于Paxos的数据一致性同步Zookeeper
 
 - 一致性协议-Raft协议:一致性>可用性.
 
@@ -345,6 +346,11 @@ Append-only Columnar Scan
 
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
 - Gossip协议
+- 消息机制
+
+	消息的编解码方式
+	消息传递机制(ZeroMQ/RabbitMQ)
+
 - 数据文件格式
 
 	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)

@@ -119,27 +119,47 @@ RDD的action从RDD中返回值,transformations可以转换成一个新的RDD并�
                                                               
 1.2.作业提交
 
-RDD之间的依赖性分析, DAGScheduler
-根据DAG的分析结果将一个作业分成多个Stage
-DAGScheduler在确定完Stage之后,会向TaskScheduler提交任务集Taskset
+- RDD之间的依赖性分析, DAGScheduler
+- 根据DAG的分析结果将一个作业分成多个Stage
+- DAGScheduler在确定完Stage之后,会向TaskScheduler提交任务集Taskset
 
-1.3.Spark集群
+Executor Task:ShuffleMapTask,ResultTask
+
+中间结果存储:
+
+	- Checkpoint:计算结果存储在HDFS
+	- Cache:数据存储到内存,内存不足时存储在磁盘
+
+1.3.消息传递-ActorModel和Akka
+
+Akka作为Spark集群间通信框架
+
+ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规范定义:
+
+	1)消息接收
+	2)消息处理
+	3)消息发送
+
+1.4.Memory Store
+
+* CacheManager
+* BlockManager
+* MemoryStore
+* DiskStore
+* BlockManagerWorker
+* ConnectionManager
+* BlockManagerMaster
+
+1.5.Spark集群
 
 - Driver
 - Master
 - Worker
 - Executor
 
+1.6.部署方式
+
 local/local-cluster/standalone cluster/SparkonYARN
-
-1.4.ActorModel和Akka
-
-ActorModel适合用于解决并发编程问题。Actor的行为规范定义:1)消息接收,2)消息处理,3)消息发送
-
-Akka作为Spark集群间通信框架
-
-
-1.5.BlinkDB
 
 
 ##### 2.Spark Streaming
@@ -168,7 +188,7 @@ BlockRDD
 - 在JVM进程中各线程之间的消息传递使用DisruptorPattern(高效线程间消息发送机制)
 - Storm的TridentTopology与SparkStreaming的DStream
 
-##### 3.SparkSQL
+##### 3.SparkSQL(ac-hoc即席查询)
 
 3.1.SQL执行顺序
 
@@ -221,10 +241,11 @@ Parquet和JSON
 
 HiveContext
 
-##### 4. GraphX
 
-- Pregel
-- PageRank
+##### 4.BlinkDB
+
+A massively parallel, approximate query engine for running interactive SQL queries on large volumes of data
+
 
 ##### 5. SparkMLlib
 
@@ -240,6 +261,12 @@ HiveContext
 5.3.拟牛顿法
 
 
+##### 6. GraphX
+
+- Pregel
+- PageRank
+
+
 ### III.OLAP In-Memory Computing
 
 #### 1.应用场景
@@ -252,4 +279,6 @@ HiveContext
 
 #### 2.[NewBI内存架构设计](http://wiki.yunat.com/pages/viewpage.action?pageId=42515508)
 
-#### 3.Presto设计参考
+#### 3.Spark实时计算应用
+
+#### 4.Presto设计参考
