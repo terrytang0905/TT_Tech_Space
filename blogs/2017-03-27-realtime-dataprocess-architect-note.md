@@ -130,25 +130,114 @@ DAGScheduler在确定完Stage之后,会向TaskScheduler提交任务集Taskset
 - Worker
 - Executor
 
-local/local-cluster/standalone cluster/
+local/local-cluster/standalone cluster/SparkonYARN
 
 1.4.ActorModel和Akka
 
 ActorModel适合用于解决并发编程问题。Actor的行为规范定义:1)消息接收,2)消息处理,3)消息发送
 
+Akka作为Spark集群间通信框架
 
 
-1.2.BlinkDB
+1.5.BlinkDB
 
 
-##### 2.SparkSQL
+##### 2.Spark Streaming
 
-StreamSQL
+DStream(Discretized Stream)
+表示从数据源获取持续性的数据流以及经过转换后的数据流,连续的RDD序列
 
-##### 3.Spark Streaming
+- Master
+- Worker
+- Client
 
-##### 4.SparkMLlib
+StreamingContext
 
+JobScheduler
+DStreamGraph
+StreamingTab
+
+BlockRDD
+
+容错性分析
+
+**SparkStreaming vs Storm**
+
+- Akka作为Spark集群间通信框架
+- Storm依赖于ZooKeeper来维护整个集群,集群之间的消息通信采用ZeroMQ/Netty作为消息发送组件
+- 在JVM进程中各线程之间的消息传递使用DisruptorPattern(高效线程间消息发送机制)
+- Storm的TridentTopology与SparkStreaming的DStream
+
+##### 3.SparkSQL
+
+3.1.SQL执行顺序
+
+- 语法解析
+- 操作绑定
+- 优化执行策略
+- 交付执行
+
+3.2.SQL On Spark
+
+- SqlParser生成LogicPlan Tree
+- Analyzer和Optimizer将各种Rule作用于LogicalPlan Tree
+- 最终优化生成的LogicalPlan使用SparkPlan生成Spark RDD
+- 最后将生成的RDD交由Spark执行
+
+SQLContext - SchemaRDD
+
+3.3.SparkPlan转换策略
+
+- CommandStrategy
+- TakeOrdered
+- PartialAggregation
+- LeftSemiJoin (解决exists/in)
+- HashJoin
+- InMemoryScans
+- ParquetOperations
+- BasicOperators
+- CartesianProduct(笛卡尔积JOIN)
+- BroadcastNestedLoopJoin(LeftOuterJoin/RightOuterJoin/FullOuterJoin)
+
+3.4.文件格式
+
+Parquet和JSON
+
+3.5.Hive与Spark
+
+**Hive架构**
+
+- Driver:负责将用户指令翻译转换为相应的MapReduce Job
+- Hive MetaStore元数据库:默认使用Derby存储引擎
+- 支持CLI,JDBC与WebUI接口
+
+**HiveQLOnMapReduce执行过程
+
+- Parser
+- Semantic Analyser
+- LogicalPlan Generating
+- QueryPlan Generating
+- Optimizer
+
+HiveContext
+
+##### 4. GraphX
+
+- Pregel
+- PageRank
+
+##### 5. SparkMLlib
+
+5.1.线性回归
+
+梯度下降法
+拟合函数
+岭回归
+
+5.2.分类算法(逻辑回归)
+
+
+5.3.拟牛顿法
 
 
 ### III.OLAP In-Memory Computing

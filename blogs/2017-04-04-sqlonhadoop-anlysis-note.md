@@ -8,9 +8,17 @@ title: Big Data Query Engine Analysis Note
 ## 大数据查询引擎研究Note
 ------------------------------------------------------------
 
-基于大数据场景下的查询引擎是未来大数据领域的重要技术。
+基于大数据场景下的查询引擎SQL on Hadoop Query Engine是未来大数据领域的重要技术。以下是其典型需求
 
-### SQL on Hadoop Query Engine
+- Interactive Query
+- Data Analysis,reporting query
+- Data Mining,modeling and large ETL
+- Machine Learning
+
+![SQLOnHadoopList](_includes/sql_on_hadoop_list.png)
+
+### Realtime Query Engine
+
 
 ### 1.Impala
 
@@ -131,7 +139,7 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 - 成熟度还不是很高的开源方案?
 - [DrillArch](http://drill.apache.org/docs/architecture/)
 
-### 4.SQLonHadoop架构分析
+### x.SQLonHadoop架构分析
 
 #### 系统架构
 

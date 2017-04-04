@@ -281,11 +281,11 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 #### 5.2.QueryEngine优化
 
-Query性能差异
+Query性能差异与执行顺序
 
-- Scan Query
-- Aggregation Query
-- Join Query
+1. Scan Query
+2. Aggregation Query
+3. Join Query
 
 ### x.技术参考
 
