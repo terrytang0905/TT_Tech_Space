@@ -209,7 +209,7 @@ from dim.city c1 join dim.city c2 on c1.id = c2.id
 where c1.id > 10 group by c1.rank limit 10;
 ```
 
-![presto_compile](_includes/presto_compile.jpg)
+![presto_compile](_includes/presto_compile.png)
 
 **查询优化器**
 
