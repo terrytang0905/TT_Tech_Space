@@ -10,9 +10,7 @@ title: Big Data Query Engine Analysis Note
 
 基于大数据场景下的查询引擎是未来大数据领域的重要技术。
 
-### RT(RealTime)查询引擎 - SQLonHadoop
-
-**特点:DistrubutedSQLQueryEngine**
+### SQL on Hadoop Query Engine
 
 ### 1.Impala
 
