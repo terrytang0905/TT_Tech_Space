@@ -99,7 +99,7 @@ DataLoad | MixComputer 	     | DataStorage 			    | QueryType
 Kafka    | Spark             | HDFS/SparkSQL            | Presto
 Kafka    | SparkStreaming    | Cassandra                | Presto
 
-#### Spark
+#### A.Spark(迭代计算)
 
 ##### 1.Spark 
 
@@ -115,6 +115,8 @@ Key-Value格式数据一般是原始数据大小的2倍左右，而列存一般�
 
 Transformation/Action
 
+RDD的action从RDD中返回值,transformations可以转换成一个新的RDD并返回他的引用。                                                                                                                                                                                 
+                                                              
 1.2.作业提交
 
 RDD之间的依赖性分析, DAGScheduler
@@ -123,7 +125,12 @@ DAGScheduler在确定完Stage之后,会向TaskScheduler提交任务集Taskset
 
 1.3.Spark集群
 
-Driver/Master/Worker/Executor
+- Driver
+- Master
+- Worker
+- Executor
+
+local/local-cluster/standalone cluster/
 
 1.4.ActorModel和Akka
 
@@ -142,14 +149,18 @@ StreamSQL
 
 ##### 4.SparkMLlib
 
-#### Presto 
 
-#### OLAP In-Memory Computing
 
-* 表计算/数据透视
-* 临时内存计算规则
-* 增量内存计算
-* 上下文筛选查询(数据查询联动更新)
-* 实时数据计算
-* 内存计算结果保存
+### III.OLAP In-Memory Computing
 
+#### 1.应用场景
+
+- 内存计算规则
+- 表计算/数据透视(计算函数设计)
+- 实时数据(增量)计算
+- 上下文筛选查询(数据查询联动更新)
+- 内存计算结果保存
+
+#### 2.[NewBI内存架构设计](http://wiki.yunat.com/pages/viewpage.action?pageId=42515508)
+
+#### 3.Presto设计参考
