@@ -140,6 +140,10 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 - 成熟度还不是很高的开源方案?
 - [DrillArch](http://drill.apache.org/docs/architecture/)
 
+### 4.Dremel
+
+![dremel_page](_includes/dremel_page.jpg)
+
 ### x.SQLonHadoop架构分析
 
 #### 系统架构
