@@ -37,7 +37,7 @@ title: Big Data Query Engine Analysis Note
 
 ![Presto架构](_includes/Presto架构.png)
 
-*Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:*
+**Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:**
 
 - 1.一个Coordinator节点(Master)
 
@@ -52,7 +52,7 @@ title: Big Data Query Engine Analysis Note
 	- Worker节点: 负责实际执行查询任务,负责与HDFS交互读取数据
 	- Worker节点启动后,向Discovery Server服务注册,Coordinator从Discovery Server获得可以正常工作的Worker节点。如果配置了Hive Connector,需要配置一个HiveMetaStore服务为Presto提供Hive元信息
 
-*更形象架构图如下:*
+更形象架构图如下:
 
 ![PrestoArchPipeline](_includes/PrestoArchPipeline.png)
 
@@ -146,7 +146,7 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 
 ### x.SQLonHadoop架构分析
 
-#### 系统架构
+#### 1.系统架构
 
 _runtime framework v.s. mpp_
 
@@ -186,9 +186,9 @@ _runtime framework v.s. mpp_
 
 ![SQLonHadoop_Arch](_includes/sql_on_hadoop_arch.jpg)
 
-#### 执行计划
+#### 2.执行计划
 
-**编译流程**
+_编译流程_
 
 从SQL到执行计划,大致分为5步。
 
@@ -200,7 +200,7 @@ _runtime framework v.s. mpp_
 
 下面分别举两个例子,直观的认识下sql、逻辑计划、物理计划之间的关系,具体解释各个operator的话会比较细碎,就不展开了。
 
-**Hive on MR**
+_Hive on MR_
 
 ```sql
 select count(1) from status_updates where ds = '2009-08-01'
@@ -208,7 +208,7 @@ select count(1) from status_updates where ds = '2009-08-01'
 
 ![hive_compile](_includes/hive_compile.jpg)
 
-**Presto**
+_Presto_
 
 引用自美团技术团队,其中SubPlan就是物理计划的一个计算单元
 
@@ -220,7 +220,7 @@ where c1.id > 10 group by c1.rank limit 10;
 
 ![presto_compile](_includes/presto_compile.png)
 
-**查询优化器**
+_查询优化器_
 
 关于执行计划的优化,虽然不一定是整个编译流程中最难的部分,但却是最有看点的部分,而且目前还在不断发展中。Spark系之所以放弃Shark另起炉灶做Spark SQL,很大一部分原因是想自己做优化策略,避免受Hive的限制,为此还专门独立出优化器组件Catalyst(当然Spark SQL目前还是非常新,其未来发展给人不少想象空间)。总之这部分工作可以不断的创新,优化器越智能,越傻瓜化,用户就越能解放出来解决业务问题。
 
@@ -250,11 +250,11 @@ WHERE touter.l_quantity < tinner.lq
 
 目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
 
-#### 执行效率
+#### 3.执行效率
 
 即使有了高效的执行计划,如果在运行过程本身效率较低,那么再好的执行计划也会大打折扣。这里主要关注CPU和IO方面的执行效率。
 
-**CPU**
+_CPU_
 
 在具体的计算执行过程中,低效的CPU会导致系统的瓶颈落在CPU上,导致IO无法充分利用。<br/>
 在一项针对Impala和Hive的对比时发现,Hive在某些简单查询上(TPC-H Query 1)也比Impala慢主要是因为Hive运行时完全处于CPU-bound(计算密集型)的状态中,磁盘IO只有20%,而Impala的IO至少在85%。
@@ -292,7 +292,7 @@ add(int vecNum, long[] result, long[] col1, int[] col2, int[] selVec)
 }
 ```
 
-**IO**
+_IO_
 
 由于SQL on Hadoop存储数据都是在HDFS上,所以IO层的优化其实大多数都是HDFS的事情,各大查询引擎则提出需求去进行推动。<br/>
 要做到高效IO,一方面要低延迟,屏蔽不必要的消耗;另一方面要高吞吐,充分利用每一块磁盘。目前与这方面有关的特性有:
@@ -302,7 +302,7 @@ add(int vecNum, long[] result, long[] col1, int[] col2, int[] selVec)
 	* disk-aware scheduling:通过知道每个block所在磁盘,可以在调度cpu资源时让不同的cpu读不同的磁盘,避免查询内和查询间的IO竞争。HDFS参数是dfs.datanode.hdfs-blocks-metadata.enabled。
 
 
-#### 存储格式
+#### 4.存储格式
 
 对于分析类型的workload来说,最好的存储格式自然是列存储,这已经在关系数据库时代得到了证明。<br/>
 目前hadoop生态中有两大列存储格式,一个是由Hortonworks和Microsoft开发的ORCFile,另一个是由Cloudera和Twitter开发的Parquet。
@@ -350,13 +350,14 @@ Google Dremel就在实现层面做出了范例,Parquet则完全仿照了Dremel�
 在最近我们做的Impala2.0测试中,顺便测试了存储格式的影响。parquet相比sequencefile在压缩比上达到1:5,查询性能也相差5-10倍,足见列存储一项就给查询引擎带来的提升。
 
 
-#### 资源控制
+#### 5.资源控制
 
-**运行时资源调整**
+_运行时资源调整_
 
-对于一个MR Job,reduce task的数量一直是需要人为估算的一个麻烦事,基于MR的Hive也只是根据数据源大小粗略的做估计,不考虑具体的Job逻辑。但是在之后的框架中考虑到了这个情况,增加了运行时调整资源分配的功能。Tez中引入了vertex manager,可以根据运行时收集到的数据智能的判断reduce动作需要的task。类似的功能在TAJO中也有提到,叫progressive query optimization,而且TAJO不仅能做到动态调整task数量,还能动态调整join顺序。
+对于一个MR Job,reduce task的数量一直是需要人为估算的一个麻烦事,基于MR的Hive也只是根据数据源大小粗略的做估计,不考虑具体的Job逻辑。<br/>
+但是在之后的框架中考虑到了这个情况,增加了运行时调整资源分配的功能。Tez中引入了vertex manager,可以根据运行时收集到的数据智能的判断reduce动作需要的task。类似的功能在TAJO中也有提到,叫progressive query optimization,而且TAJO不仅能做到动态调整task数量,还能动态调整join顺序。
 
-**资源集成**
+_资源集成_
 
 在Hadoop已经进入2.x的时代,所有想要得到广泛应用的SQL on Hadoop系统势必要能与YARN进行集成。虽然这是一个有利于资源合理利用的好事,但是由于加入了YARN这一层,却给系统的性能带来了一定的障碍,因为启动AppMaster和申请container也会占用不少时间,尤其是前者,而且container的供应如果时断时续,那么会极大的影响时效性。在Tez和Impala中对这些问题给出了相应的解决办法：
 
@@ -365,7 +366,7 @@ Google Dremel就在实现层面做出了范例,Parquet则完全仿照了Dremel�
 
 Impala则采取比较激进的方式,一次性等所有的container分配到位了才开始执行查询,这种方式也能让它的流水线式的计算不至于阻塞。
 
-#### 其他
+#### 6.其他
 
 到这里为止,已经从上到下顺了一遍各个层面用到的技术,当然SQL on Hadoop本身就相当复杂,涉及到方方面面,时间精力有限不可能一一去琢磨。比如其他一些具有技术复杂度的功能有：
 
@@ -373,7 +374,7 @@ Impala则采取比较激进的方式,一次性等所有的container分配到位�
 	* 近似查询:count distinct(基数估计)一直是sql性能杀手之一,如果能接受一定误差的话可以采用近似算法。Impala中已经实现了近似算法(ndv),Presto则是请blinkDB合作完成。两者都是采用了HyperLogLog Counting(Kylin也采用了该技术)。当然,不仅仅是count distinct可以使用近似算法,其他的如取中位数之类的也可以用。
 	
 
-#### 进一步
+#### 7.进一步
 
 尽管现在相关系统已经很多,也经过了几年的发展,但是目前各家系统仍然在不断的进行完善,比如：
 
