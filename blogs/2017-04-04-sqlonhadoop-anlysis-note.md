@@ -17,7 +17,7 @@ title: Big Data Query Engine Analysis Note
 
 **SQL on Hadoop列表**
 
-![SQLOnHadoopList](_includes/sql_on_hadoop_list.png)
+![SQLOnHadoopList](_includes/sql_on_hadoop_tech_list.png)
 
 ### I.Realtime Interactive Query Engine
 
