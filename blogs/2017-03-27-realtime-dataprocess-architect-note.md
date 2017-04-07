@@ -123,6 +123,8 @@ RDD的action从RDD中返回值,transformations可以转换成一个新的RDD并�
 - 根据DAG的分析结果将一个作业分成多个Stage
 - DAGScheduler在确定完Stage之后,会向TaskScheduler提交任务集Taskset
 
+![DAG_Scheduler](_includes/DAG_Scheduler.png)
+
 Executor Task:ShuffleMapTask,ResultTask
 
 中间结果存储:
@@ -156,6 +158,8 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 - Master
 - Worker
 - Executor
+
+![spark_model](_includes/spark_model.png)
 
 1.6.部署方式
 
@@ -223,7 +227,7 @@ SQLContext - SchemaRDD
 
 Parquet和JSON
 
-3.5.Hive与Spark
+3.5.Spark on Hive
 
 **Hive架构**
 
@@ -241,6 +245,26 @@ Parquet和JSON
 
 HiveContext
 
+
+3.6.DataFrames & Datasets
+
+- A Dataset is a distributed collection of data. 
+- A DataFrame is a Dataset organized into named columns. 
+- DataFrames can be constructed from a wide array of sources such as: structured data files, tables in Hive, external databases, or existing RDDs.
+- Datasets are similar to RDDs, however, instead of using Java serialization or Kryo they use a specialized Encoder to serialize the objects for processing or transmitting over the network.
+
+_Global Temporary View_
+
+```java
+spark.sql("SELECT * FROM global_temp.people").show();
+```
+
+3.7.SparkSQL应用
+
+* Spark SQL supports two different methods for converting existing RDDs into Datasets. 
+* Spark SQL supports automatically converting an RDD of JavaBeans into a DataFrame. 
+* Spark SQL also includes a data source that can read data from other databases using JDBC.
+* Spark SQL can cache tables using an in-memory columnar format by calling spark.cacheTable("tableName") or dataFrame.cache().
 
 ##### 4.BlinkDB
 
