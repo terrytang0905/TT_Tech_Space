@@ -12,7 +12,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 ##### Big data & Data science 
 
 - *[SQLonHadoop查询引擎笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-sqlonhadoop-anlysis-note.md)
-- *[实时数据处理设计(Spark)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-27-realtime-dataprocess-architect-note.md)
+- *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
+- *[实时数据处理设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-27-realtime-dataprocess-architect-note.md)
 - *[大数据OLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md)
 - *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
 - *[Impala-RTOLAP ResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-rtolap-research-note.md)
