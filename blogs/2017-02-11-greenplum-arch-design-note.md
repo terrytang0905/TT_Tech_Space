@@ -259,7 +259,7 @@ Related processes that are working on the same slice of the query plan but on di
 
 #### IV. Greenplum Query Optimizer
 
-The Pivotal Query Optimizer extends the planning and optimization capabilities of the Greenplum Database legacy optimizer. The Pivotal Query Optimizer is extensible and achieves better optimization in multi-core architecture environments.
+The Pivotal Query Optimizer extends the planning and optimization capabilities of the Greenplum Database legacy optimizer. The Pivotal Query Optimizer(GPORCA) is extensible and achieves better optimization in multi-core architecture environments.
 
 The Pivotal Query Optimizer also enhances Greenplum Database query performance tuning in the following areas:
 
@@ -353,19 +353,34 @@ Pivotal Query Optimizer introduces a new producer-consumer model for WITH clause
 
 Greenplum measures database performance based on the rate at which the database management system (DBMS) supplies information to requesters.
 
-_Understanding the Performance Factors_
+1.Understanding the Performance Factors
+
+_System Resources_
 
 Database performance relies heavily on disk I/O and memory usage.
 
-_Workload_
+> Baseline Hardware Performance
+> See the Greenplum Database Reference Guide for information about running the gpcheckperf utility to validate hardware and network performance.
 
-The total workload is a combination of user queries, applications, batch jobs, transactions, and system commands directed through the DBMS at any given time.
+_Workload(负载)_
 
-_Throughput_
+The total workload is a combination of user queries, applications, batch jobs, transactions, and system commands directed through the DBMS at any given time.Knowing your workload and peak demand times helps you plan for the most efficient use of your system resources and enables processing the largest possible workload.
 
-_Contention_
+_Throughput(吞吐量)_
+
+DBMS throughput is measured in queries per second(QPS), transactions per second(TPS), or average response times.
+
+_Contention(Locks)_
+
+Contention is the condition in which two or more components of the workload attempt to use the system in a conflicting way — for example, multiple queries that try to update the same piece of data at the same time or multiple large workloads that compete for system resources.
+
+> Contention up,throughput down
 
 _Optimization_
+
+SQL formulation, database configuration parameters, table design, data distribution, and so on enable the database query optimizer to create the most efficient access plans.
+
+2.Common Causes of Performance Issues
 
 _Maintaining Database Statistcs_
 
@@ -375,5 +390,80 @@ _Optimizing Data Distribution_
 
 When you create a table in Greenplum Database, you must declare a distribution key that allows for even data distribution across all segments in the system. If the data is unbalanced, the segments that have more data will return their results slower and therefore slow down the entire system.
 
-_Workload Management with Resource Queues_
+_Optimizing Your Database Design_
 
+Examine your database design and consider the following:
+
+- Does the schema reflect the way the data is accessed?
+- Can larger tables be broken down into partitions?
+- Are you using the smallest data type possible to store column values?(选择最合适的数据类型)
+- Are columns used to join tables of the same datatype?
+- Are your indexes being used?
+
+_Greenplum Database Maximum Limits_
+
+
+3.Workload Management with Resource Queues
+
+Use Greenplum Database workload management to prioritize and allocate resources to queries according to business requirements.
+
+The primary resource management concerns are the number of queries that can execute concurrently and the amount of memory to allocate to each query. 
+
+3.1.Overview of Memory Usage in Greenplum Database
+
+Memory is a key resource for a Greenplum Database system and, when used efficiently, can ensure high performance and throughput. This topic describes how segment host memory is allocated between segments and the options available to administrators to configure memory.
+
+The segments have an identical configuration and they consume similar amounts of memory, CPU, and disk IO simultaneously, while working on queries in parallel.
+
+_Segment Host Memory_
+
+![Greenplum Database Segment Host Memory](_includes/gp_segment_host_memory.png)
+
+Within a segment, resource queues govern how memory is allocated to execute a SQL statement. Resource queues allow you to translate business requirements into execution policies in your Greenplum Database system and to guard against queries that could degrade performance.
+
+The query optimizer produces a query execution plan, consisting of a series of tasks called operators (labeled D in the diagram). Operators perform tasks such as table scans or joins, and typically produce intermediate query results by processing one or more sets of input rows. 
+
+The amount of host memory can be configured using any of the following methods:
+	- Add more RAM to the nodes to increase the physical memory.
+	- Allocate swap space to increase the size of virtual memory.
+	- Set the kernel parameters **vm.overcommit_memory** and **vm.overcommit_ratio** to configure how the operating system handles large memory allocation requests.
+
+> The amount of memory to reserve for the operating system and other processes is workload dependent. The minimum recommendation for operating system memory is 32GB, but if there is much concurrency in Greenplum Database, increasing to 64GB of reserved memory may be required.
+> About SLAB(Linux内存管理-Slab分配器)	
+
+* vm.overcommit_memory 
+* vm.overcommit_ratio
+
+
+_Managing Workloads with Resource Queues_
+
+Resource queues are the main tool for managing the degree of concurrency in a Greenplum Database system. Resource queues are database objects that you create with the CREATE RESOURCE QUEUE SQL statement.
+
+If query prioritization is enabled, the active workload on the system is periodically assessed and processing resources are reallocated according to query priority (see How Priorities Work). 
+
+You could create resource queues for the following classes of queries, corresponding to different service level agreements:
+
+	- ETL queries
+	- Reporting queries
+	- Executive queries
+
+The following illustration shows an example resource queue configuration for a Greenplum Database system with gp_vmem_protect_limit set to 8GB:
+
+![Greenplum Resource Queue Example](_includes/gp_resource_queue_examp.png)
+
+A resource queue has the following characteristics:
+
+	- MEMORY_LIMIT
+	- ACTIVE_STATEMENTS
+	- PRIORITY
+	- MAX_COST
+
+![Greenplum Resource Queue Example2](_includes/gp_resource_queue_examp2.png)	
+
+_Configuring Workload Management_
+
+[Workload Management with Resource Queues](http://gpdb.docs.pivotal.io/43120/admin_guide/workload_mgmt.html)
+
+#### X.Ref
+
+[Greenplum Reference](http://gpdb.docs.pivotal.io/43120/common/welcome.html)

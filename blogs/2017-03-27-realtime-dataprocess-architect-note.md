@@ -96,13 +96,17 @@ The importance of immutability and human fault-tolerance, and the benefits of pr
 
 ### II.Kappa Architect
 
-![kappa架构](_includes/Kappa_arch.png)
 
 |DataLoad | MixComputer 	  | DataStorage      | QueryType  |
 |:--------|:------------------|:-----------------|:-----------|
 |Kafka    | Spark             | HDFS/SparkSQL    | Presto     |
 |Kafka    | SparkStreaming    | Cassandra        | Presto     |
 
+
+![kappa架构](_includes/Kappa_arch.png)
+
+
+#### 1.Kappa架构与Spark内存计算
 
 [Spark架构](2017-03-29-spark-bigdata-arch-note.md)
 
