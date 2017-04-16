@@ -11,6 +11,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Big data & Data science 
 
+
+- *[新零售分析模型笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 - *[SQLonHadoop查询引擎笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-sqlonhadoop-anlysis-note.md)
 - *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
 - *[实时数据处理设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-27-realtime-dataprocess-architect-note.md)
