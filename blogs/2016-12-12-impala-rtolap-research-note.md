@@ -119,15 +119,19 @@ In order to perform data scans from both disk and memory at or near hardware spe
 Impala support data file formats include Avro,RC,Sequence,plain text,Parquet(Recommend) and Kudu.(Parquet列存，相比其他格式性能最高提升5倍。)
 
 
-**Resource Management:YARN & Llama**
+#### 5.Resource Management:YARN & Llama
 
 YARN has a centralized architecture, where frameworks make requests for CPU and memory resources which are arbitrated by the central Resource Manager service,but it also imposes a significant latency on resource acquisition.<br/>
 Impala implemented a complementary but independent admission control mechanism that allowed users to control their workloads without costly centralized decision-making.<br/>
 Llama for Low-Latency Appli- cation MAster, implements resource caching, gang scheduling and incremental allocation changes while still deferring the actual scheduling decisions to YARN for resource requests.
 
-The long-term goal of Impala is to support mixed-workload resource management through a single mechanism that supports both the low latency decision making of admission control & Llama(Low-Latency Application Master), and the cross-framework support of YARN.
+The long-term goal of Impala is to support mixed-workload resource management through a single mechanism that supports both the low latency decision making of admission control & Llama(Low-Latency Application Master), and the cross-framework support of YARN.<br/>
 
-#### 5.Physical schema design 
+	1）引入快速、非集中式的查询准入机制,控制查询并发度。
+	2）LLAM(low latency application master)通过缓存资源,批量分配,增量分配等方式实现降低资源分配延时。
+
+
+#### 6.Physical schema design 
 
 ```sql
 CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' STORED AS PARQUET;
@@ -136,7 +140,7 @@ CREATE TABLE T (...) PARTITIONED BY (day int,month int) LOCATION '<hdfs-path>' S
 We could build time PARTITION for source table as the extend time items. 
 
 
-#### 6.Impala Performance Tuning
+#### 7.Impala Performance Tuning
 
 * Choose the appropriate file format for the data.
 * Avoid data ingestion processes that produce many small files.
@@ -162,7 +166,7 @@ We could build time PARTITION for source table as the extend time items.
 * Use appropriate operating system settings.
 
 
-#### 7.Performance Considerations for Join Queries
+#### 8.Performance Considerations for Join Queries
 
 - COMPUTE STATS statement, and then let Impala automatically optimize the query based on the size of each table, number of distinct values of each column, and so on
 - Use STRAIGHT_JOIN-override the automatic join order optimization by specifying the STRAIGHT_JOIN keyword immediately after the SELECT keyword.
@@ -182,9 +186,10 @@ Join order have a large impact for query optimization.
 - [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
 
-#### 8.Impala FQA
+#### 9.Impala FQA
 
 [Impala FQA base on CDH 5.5.x](https://www.cloudera.com/documentation/enterprise/5-5-x/topics/impala_faq.html)
+
 
 ### Kudu Bigdata Storage
  
