@@ -35,7 +35,7 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 
 Impala is massively-parallel query execution engine,which runs on hundreds of machines in existing Hadoop clusters.
 
-![Impala Architecture](_includes/Impala_arch.png).
+![Impala Architecture](_includes/impala_arch.png).
 
 SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordinator -> SQLResult
 
@@ -58,6 +58,8 @@ SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordina
 Query compilation process: Query parsing,semantic analysis and query planing/optimization
 
 #### Logical query optimization for Impala
+
+[impala_query_plan](_includes/impala_query_plan.png)
 
 An executable query plan is constructed in two phases: 
 
@@ -96,20 +98,28 @@ Impala query cache could evidently improve execute times.Compare with the first 
 
 The impala backend is written in C++ and uses code generation at runtime to produce a cient codepaths(with respect to instruction count) and small memory overhead.<br/>
 
-** Code Generation Design & Performance **
+**Vector query execution**
+
+一次getNext处理一批记录,多个操作符可以做pipeline。
+
+**Code Generation Design & Performance**
 
 _Virtual function_ calls incur a large performance penalty and cost large runtime overheads.Impala uses code generation to replace the virtual function call with a call directly to the correct function, which can then be inlined.<br/>
 
 JIT compilation has an effect similar to custom-coding a query. For example, it eliminates branches, unrolls loops, propagates constants, offsets and pointers, inlines functions.<br/>
-Code generation has a dramatic impact on performance - Speed up 5.7x
+Code generation has a dramatic impact on performance - Speed up 5.7x.(LLVM编译执行,CPU密集型查询效率提升5倍以上)
 
-** Runtime Code Generation **
+**IO Localization**
 
-In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called *short-circuit local reads* to bypass the DataNode protocol when reading from local disk.
+In order to perform data scans from both disk and memory at or near hardware speed,Impala uses an HDFS feature called *short-circuit local reads* to bypass the DataNode protocol when reading from local disk.<br/>
+(利用HDFS short-circuit local read功能，实现本地文件读取)
 
-Impala support data file formats include Avro,RC,Sequence,plain text,Parquet(Recommend) and Kudu.
+**Data File Format**
 
-** Resource Management:YARN & Llama **
+Impala support data file formats include Avro,RC,Sequence,plain text,Parquet(Recommend) and Kudu.(Parquet列存，相比其他格式性能最高提升5倍。)
+
+
+**Resource Management:YARN & Llama**
 
 YARN has a centralized architecture, where frameworks make requests for CPU and memory resources which are arbitrated by the central Resource Manager service,but it also imposes a significant latency on resource acquisition.<br/>
 Impala implemented a complementary but independent admission control mechanism that allowed users to control their workloads without costly centralized decision-making.<br/>
