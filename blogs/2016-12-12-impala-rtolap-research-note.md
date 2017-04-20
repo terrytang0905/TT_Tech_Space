@@ -35,7 +35,7 @@ Impala apply Hadoop standard components(Metastore,HDFS,HBase,YARN,Sentry)
 
 Impala is massively-parallel query execution engine,which runs on hundreds of machines in existing Hadoop clusters.
 
-![Impala Architecture](_includes/impala_arch.png).
+![Impala Architecture](_includes/impala_arch.png)
 
 SendSQL -> Query Planer -> Query Coordinator -> Query Executor -> Query Coordinator -> SQLResult
 
@@ -59,7 +59,7 @@ Query compilation process: Query parsing,semantic analysis and query planing/opt
 
 #### Logical query optimization for Impala
 
-[impala_query_plan](_includes/impala_query_plan.png)
+![impala_query_plan](_includes/impala_query_plan.png)
 
 An executable query plan is constructed in two phases: 
 
