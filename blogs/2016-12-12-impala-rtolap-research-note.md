@@ -172,6 +172,10 @@ Join order have a large impact for query optimization.
 - [Join Performance Considerations](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
 
+#### 8.Impala FQA
+
+[Impala FQA base on CDH 5.5.x](https://www.cloudera.com/documentation/enterprise/5-5-x/topics/impala_faq.html)
+
 ### Kudu Bigdata Storage
  
 Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage architect.
