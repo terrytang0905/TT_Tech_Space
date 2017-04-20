@@ -19,6 +19,12 @@ title: Big Data Query Engine Analysis Note
 
 ![SQLOnHadoopList](_includes/sql_on_hadoop_tech_list.png)
 
+**查询性能比较:**
+
+![SQLOnHadoopQueryPerf](_includes/sql_on_hadoop_query_perf.png)
+
+- Impala > SparkSQL > Presto > Hive
+
 ### I.Realtime Interactive Query Engine
 
 ### 1.Impala
