@@ -143,6 +143,8 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 
 #### 3.SparkSQL
 
+[SparkSQL Programming Guide](http://spark.apache.org/docs/latest/sql-programming-guide.html)
+
 #### 4.Dremel
 
 ![dremel_page](_includes/dremel_page.jpg)
