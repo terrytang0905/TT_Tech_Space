@@ -367,6 +367,8 @@ Append-only Columnar Scan
 	[Thrift](http://thrift.apache.org/) <br/>
 	[ProtocalBuffer]() <br/>
 
+- HyperLogLog:DISTINCT近似值算法
+
 ### III.分布式存储架构分析
 
 #### 分析数据库设计
