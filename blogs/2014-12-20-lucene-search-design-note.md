@@ -12,7 +12,10 @@ Beginning from Aug in 2009, I have involved into one fulltext search engine proj
 
 ### I.FullText Search Architecture
 
-Here are the following main function aspects for fulltext search engine. I will explain every function step by step later.
+- NLP based on rule 
+- NLP based on statistics
+
+Here are the following main areas for fulltext search engine(Fulltext search is statistics mathematical model). I will explain every function step by step later.
 
 #### 1.1.Index/Information Crawler: 
 
@@ -58,6 +61,7 @@ Here are the following main function aspects for fulltext search engine. I will 
 	Store any index meta data or source contents.
 	Solution: FileSystem(HDFS/GFS) / NoSQL(xDB,MongoDB,HBase,Kudu) / Greenplum(GPText)
 
+
 ### II.Lucene Design Principle & Architecture
 
 • Lucene index process is to write index document as inverted index table according to full text process. 
@@ -77,6 +81,7 @@ Y. _Indexer_
 - TF-IDF module
 
 ![LuceneIntroduce](_includes/lucene_intro.png).
+
 
 
 ### III.Lucene Index Data 
@@ -313,6 +318,7 @@ Payload指Term相关的元数据信息<br/>
 当然这部分信息也可以存储域里(storedField),两者从功能上基本是一样的,然而当要存储的信息很多的时候,存放在倒排表里,利用跳跃表SkipList,有利于大大提高搜索速度。
 
 
+
 ### V.Lucene Search
 
 #### 5.1. Search processing:
@@ -419,6 +425,7 @@ F. 收集文档结果集合及计算打分
 G. Lucene如何在搜索阶段读取索引信息
 
 	TermDictionary词典信息的读取是在Scorer对象树生成的时候进行的,真正读取这些信息的是叶子节点TermScorer  PostingList倒排表信息的读取时在合并倒排表的时候进行的,真正读取这些信息的也是叶子节点TermScorer.nextDoc() 
+
 
 ### VI.Lucene Query Syntax
 
@@ -552,6 +559,7 @@ G. Lucene如何在搜索阶段读取索引信息
 		SpanQueryFilter
 		CachingSpanFilter
 
+
 ### VII.Lucene Analyzer
 
 	Analyzer中用于生成TokenStream的两个接口:
@@ -646,6 +654,7 @@ jflex也是一个词法及语法分析器的生成器,它主要包括三部分,�
 • PerFieldAnalyzerWrapper
 
 
+
 ### VIII.Lucene Transactions
 
 所谓事务性,本多指数据库的属性,包括ACID四个基本要素:原子性(Atomicity)、一致性 (Consistency)、隔离性(Isolation)、持久性(Durability)。从根本上说,搜索引擎也是一种数据存储方式。<br />
@@ -657,6 +666,7 @@ jflex也是一个词法及语法分析器的生成器,它主要包括三部分,�
 	打开。
 	• 欲使最新的修改被看到,一方面IndexWriter需要commit,一方面IndexReader重新打开。
 	• 由于lucene Transaction特性，原生不支持实时查询。需要借助Cache保存Index信息
+
 
 
 ### IX. FullText Search Function Analysis
@@ -720,6 +730,7 @@ xDB Lucene Index Limitation
 	• lucene sub-merge performance (non-final merge/final merge)
 
 
+
 ### X. Lucene Extend
 
 ** Lucene 6.x research **
@@ -757,5 +768,6 @@ Faster geo-spatial indexing and searching for LatLonPoint
 #### Lucene limitation
 
 #### Lucene vs xDB Lucene Index
+
 
 ### XI.Conclusion

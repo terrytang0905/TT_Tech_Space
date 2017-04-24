@@ -15,6 +15,7 @@ OLAP     | Type 	| Link 					   | Desc
 -------- |----------|--------------------------|----------------
 Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop(容错性差)
 PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
+HAWQ     | RTOLAP   | http://hawq.incubator.apache.org/ | MPP+SQLonHadoop
 Drill    | RTOLAP   | http://drill.apache.org/ | 多数据源SQL查询
 Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
 Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
@@ -277,7 +278,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.实时OLAP架构优化
 
-#### 5.1.[NewBI实时OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
+#### 5.1.[NewBI实时OLAP架构优化](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
 #### 5.2.QueryEngine优化
 
@@ -286,6 +287,18 @@ Query性能差异与执行顺序
 1. Scan Query
 2. Aggregation Query
 3. Join Query
+
+Impala
+
+HAWQ
+
+Calcite:SQL解析
+
+#### 5.3.内存计算优化
+
+SparkSQL
+
+
 
 ### x.技术参考
 
