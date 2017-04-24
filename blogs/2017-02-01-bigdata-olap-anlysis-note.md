@@ -282,22 +282,25 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 #### 5.2.QueryEngine优化
 
-Query性能差异与执行顺序
+5.2.1.Query性能差异与执行顺序
 
-1. Scan Query
-2. Aggregation Query
-3. Join Query
+1) Scan Query
+2) Aggregation Query
+3) Join Query
 
-Impala
+5.2.2.Impala混合查询(Kudu+HBase)
 
-HAWQ
+5.2.3.HAWQ(SQLonHadoop+Greenplum+GPText)
 
-Calcite:SQL解析
+5.2.4.通用SQL数据解析Calcite
+
+5.2.5.ElasticSearch混合查询
+
 
 #### 5.3.内存计算优化
 
-SparkSQL
-
+- SparkSQL混合查询
+- 内存表计算
 
 
 ### x.技术参考
