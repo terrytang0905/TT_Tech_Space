@@ -290,12 +290,14 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 5.2.2.Impala混合查询(Kudu+HBase)
 
-5.2.3.Greenplum+GPText+HAWQ(SQLonHadoop)
+5.2.3.Greenplum+GPText/HAWQ(SQLonHadoop)
 
 5.2.4.通用SQL数据解析Calcite
 
 5.2.5.ElasticSearch检索查询
 
+- SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
+- ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
 
 #### 5.3.内存计算优化
 
