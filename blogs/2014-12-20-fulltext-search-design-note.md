@@ -15,7 +15,7 @@ Beginning from Aug in 2009, I have involved into one fulltext search engine proj
 - NLP based on rule 
 - NLP based on statistics
 - Ambiguation(词义的二义性)Solution:
-- BFS&DFS
+- Graph Theory:BFS&DFS
 - PageRank
 
 

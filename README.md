@@ -34,8 +34,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[BigTable&HBase Analysis Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-12-bigtable&hbase-analysis-note.md)
 - *[Greenplum Architect Research Note(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
 - *[大数据分布式存储架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-database-architect-research-note.md)
-- [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum_analysis_function.md)
-- [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum_system_admin_guide.md)
+- [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
+- [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)
 - *[MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
 - [MongoDB3.0 MajorChange(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [Couchbase Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
@@ -43,7 +43,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Programming
 
-- [高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
+- *[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
 - [Java多线程与并发-BlockingQueue API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_blocking_queue_note.md)
 - [Java多线程与并发-java.util.concurrent API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_api_note.md)
