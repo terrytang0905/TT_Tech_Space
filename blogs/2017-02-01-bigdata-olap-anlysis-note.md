@@ -290,11 +290,11 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 5.2.2.Impala混合查询(Kudu+HBase)
 
-5.2.3.HAWQ(SQLonHadoop+Greenplum+GPText)
+5.2.3.Greenplum+GPText+HAWQ(SQLonHadoop)
 
 5.2.4.通用SQL数据解析Calcite
 
-5.2.5.ElasticSearch混合查询
+5.2.5.ElasticSearch检索查询
 
 
 #### 5.3.内存计算优化

@@ -10,10 +10,16 @@ FullText Search Design Note - Lucene
 
 Beginning from Aug in 2009, I have involved into one fulltext search engine project in EMC content management division. The search engine is based on lucene tech as the core architecture and adopt xDB NoSQL DB (The XML analysis database occupied by EMC) to store big unstructured data. After this project,I also took other related cross research about full text implementation (ElasticSearch) and the popular NoSQL DB MongoDB and adopt the related tech to design and implement open source search engine in one mobile internet project from Lenovo. At the end I try to reorganize my understanding for fulltext search and write down the principle of designing and architecture for common fulltext search engine. All contents follow lucene design philosophy and use lucene as the main example.
 
-### I.FullText Search Architecture
+### FullText Tech
 
 - NLP based on rule 
 - NLP based on statistics
+- Ambiguation(词义的二义性)Solution:
+- BFS&DFS
+- PageRank
+
+
+### I.FullText Search Architecture
 
 Here are the following main areas for fulltext search engine(Fulltext search is statistics mathematical model). I will explain every function step by step later.
 
