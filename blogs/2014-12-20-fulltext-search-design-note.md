@@ -17,6 +17,7 @@ Beginning from Aug in 2009, I have involved into one fulltext search engine proj
 - Ambiguation(词义的二义性)Solution:
 - Graph Theory:BFS&DFS
 - PageRank
+- Dynamic Programming
 
 
 ### I.FullText Search Architecture

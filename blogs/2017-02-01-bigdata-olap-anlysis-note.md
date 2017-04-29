@@ -22,7 +22,7 @@ Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
 
-* OLAP类型:RTOLAP/MOLAP/Kylin/ROLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
+* OLAP类型:RTOLAP/MOLAP/ROLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
 * 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
 * Tableau作为优秀可视化分析工具对大数据量分析能力有所欠缺
 
@@ -49,9 +49,26 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 2.2.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
 
+- Star Schema/Snowflake Schema
 - Cube
 - DIMENSION & MEASURE
 - CUBE ACTIONS
+
+2.3 表描述
+
+- FactTable
+- LookupTable(事实描述表)
+- DimensionTable
+
+2.4 Measure计算 
+
+* Sum
+* Count
+* Max
+* Min
+* Average
+* Distinct Count(based on HyperLogLog近似值估值)
+
 
 ### 3.ROLAP引擎 - Mondrian
 
