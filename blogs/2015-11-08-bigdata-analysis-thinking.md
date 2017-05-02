@@ -1,23 +1,40 @@
 ---
 layout: post
 category : datascience
-tags : [bigdata,datamining,tutorial]
-title: Data Mining Thinking
+tags : [bigdata,datamining,algorithm]
+title: Bigdata analysis&Mining Thinking
 ---
 
-大数据分析研究思考
+大数据分析深度研究
 ------------------------
+
+### Information,NLP,Mathematics
+
+**大数据技术应用**
+
+1. 数据处理:自然语言处理技术(NLP)
+2. 统计和分析：A/B test、top N排行榜、地域占比、文本情感分析
+3. 数据挖掘:关联规则分析、分类、聚类
+4. 模型预测:预测模型、机器学习、建模仿真
+
+
+**数学与信息分析应用**
+
+- NLP based on rule 
+- NLP based on statistics
+- Ambiguation(词义的二义性)Solution:
+- Graph Theory:BFS&DFS
+- PageRank
+- Graph Theory:Dynamic Programming
+
 
 ### I.基本定义
 
 #### 1.1.数据分析技术分类:
 
-1. 数据处理：自然语言处理技术（NLP）
-2. 统计和分析：A/B test、top N排行榜、地域占比、文本情感分析
-3. 数据挖掘：关联规则分析、分类、聚类
-4. 模型预测：预测模型、机器学习、建模仿真
-5. 大数据的“4V”特征
- - Volume — 数据量大数据量巨大。 从数兆字节 (TB) 1 级别跃升到数十兆亿字节 (PB) 级别 。如一个CT图像含有大约 150MB的数据，而一个基因组序列文件大小约为 750MB，一个标准的病理接近 5 GB。考虑到人口数量和平均寿命等因素，仅一个社区医院就可以生成和累积达数个TB甚至数个PB级的数据。
+* 大数据的“4V”特征
+
+ - Volume — 数据量大数据量巨大。 从数兆字节(TB)1 级别跃升到数十兆亿字节 (PB) 级别 。如一个CT图像含有大约 150MB的数据，而一个基因组序列文件大小约为 750MB，一个标准的病理接近 5 GB。考虑到人口数量和平均寿命等因素，仅一个社区医院就可以生成和累积达数个TB甚至数个PB级的数据。
  - Velocity — 速度快处理速度快，时效性强。 举例来说，检测医疗支付中的欺诈行为可以事后追溯，也可以实时检测；如果能够实现实时检测，即在支付发生前甚至在医疗服务发生前就识别出欺诈行为，则可有效避免重大经济损失。
  - Variety — 种类多数据类型繁多，来源广泛。 既包括数值型数据，也包括文字、图形、图像、音频、视频、网络日志、邮件、等非数值型或者非结构化数据，且预计这些非结构化信息将占未来十年数据产生量的 90%。
  - Value — 价值高价值的体现的是大数据分析应用的目的意义所在。 通过深入的大数据分析挖掘，可以为各方各面的经营决策提供有效支持，创造巨大的经济及社会价值。
@@ -582,7 +599,7 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 - 数据挖掘导论
 - STAR SCHEMA:数据仓库维度设计权威指南
 - The Data Warehouse ETL Toolkit (Kimball著)
-- 数据之美
+- 数学之美(吴军)
 - 大数据日知录
 - 机器学习与数据挖掘-[加州理工学院公开课](http://open.163.com/special/opencourse/learningfromdata.html)
 - [机器学习](http://open.163.com/special/opencourse/machinelearning.html)
