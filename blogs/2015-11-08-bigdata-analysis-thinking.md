@@ -18,16 +18,6 @@ title: Bigdata analysis&Mining Thinking
 4. 模型预测:预测模型、机器学习、建模仿真
 
 
-**数学与信息分析应用**
-
-- NLP based on rule 
-- NLP based on statistics
-- Ambiguation(词义的二义性)Solution:
-- Graph Theory:BFS&DFS
-- PageRank
-- Graph Theory:Dynamic Programming
-
-
 ### I.基本定义
 
 #### 1.1.数据分析技术分类:

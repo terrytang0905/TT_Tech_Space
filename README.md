@@ -9,8 +9,15 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### Content
 
-##### Big data & Data science 
 
+##### Data Science Thinking
+
+- *[数学与信息应用思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
+- [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
+- *[大数据分析研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analysis-thinking.md)
+- *[FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
+
+##### Big Data Technology
 
 - *[新零售分析模型设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 - *[SQLonHadoop查询引擎笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-sqlonhadoop-anlysis-note.md)
@@ -23,10 +30,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
 - [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [ElasticSearch搜索引擎架构-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
-- [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
-- *[大数据分析研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analysis-thinking.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
-- *[FullText全文搜索研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-note.md)
 
 
 ##### Distributed Data Storage Solution
