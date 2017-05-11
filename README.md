@@ -33,7 +33,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
 
-##### Distributed Data Storage Solution
+##### Cloud & Distributed Data Storage
 
 - *[BigTable&HBase Analysis Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-12-bigtable&hbase-analysis-note.md)
 - *[Greenplum Architect Research Note(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
@@ -44,6 +44,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [MongoDB3.0 MajorChange(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [Couchbase Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
 - *[MongoDB Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
+- [VMware Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2012-05-23-vmware-practice.md)
 
 ##### Programming
 
@@ -57,10 +58,6 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [程序员的职业素养-读书笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-07-professional-programmer.md)
 - [Go语言研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-12-go-language-design.md)
 - [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux_system_management.md)
-
-##### Research
-
-- [VMware Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2012-05-23-vmware-practice.md)
 
 
 ### TT Resources Site

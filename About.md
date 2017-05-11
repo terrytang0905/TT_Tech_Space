@@ -8,7 +8,7 @@ group: navigation
 ### Terry Tang
 Data Product Architect/Tech Lead. 
 
-- Data product designer,big data solution and product management/team driver.
+- Data product architect,big data solution and product management/team driver.
 - Email: zhenjietang@hotmail.com
 
 
@@ -34,7 +34,7 @@ Data Product Architect/Tech Lead.
 ### Work Experience
 
 || Time 			 || Company  		|| Position 						        ||   <br/>
-|| 2015/10--Now.     || *Shuyun*        || Data Product Architect & Technical leader     ||
+|| 2015/10--2017/05.     || *Shuyun*        || Data Product Architect & Technical leader     ||
 
 - Product: Agile BI data product based on big data - The best CRM data analysis product for e-commerce in China
 - Responsibility: Overall take technology responsibility for big data/BI product included architect/development/continueDelivery based on MPP/Hadoop/Spark data centre.
