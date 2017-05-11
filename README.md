@@ -25,6 +25,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[实时数据处理设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-27-realtime-dataprocess-architect-note.md)
 - *[大数据OLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md)
 - *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
+- *[Impala-RTOLAP 实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-impala-rtolap-practice-note.md)
 - *[Impala-RTOLAP ResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-rtolap-research-note.md)
 - [Beam大数据框架笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-12-apache-beam-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)

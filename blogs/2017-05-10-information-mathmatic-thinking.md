@@ -16,6 +16,10 @@ title: Information&NLP&Mathematics Thinking
 - NLP based on statistics
 - Ambiguation(词义的二义性)Solution:
 
+中文分词
+
+[NLPIR](https://github.com/NLPIR-team/NLPIR)
+
 #### Graph Theory
 
 - Graph Theory:BFS&DFS
@@ -23,7 +27,7 @@ title: Information&NLP&Mathematics Thinking
 - Graph Theory:Dynamic Programming
 
 
-
+#### Search & Recommend & Advertising
 
 
 ### IX.Reference
