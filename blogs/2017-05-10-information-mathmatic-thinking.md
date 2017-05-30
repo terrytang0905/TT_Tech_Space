@@ -10,10 +10,11 @@ title: Information&NLP&Mathematics Thinking
 
 ### Information,NLP,Mathematics
 
-#### NLP
+#### 1.NLP
 
 - NLP based on rule 
 - NLP based on statistics
+- 从规则到统计
 - Ambiguation(词义的二义性)Solution:
 
 中文分词
