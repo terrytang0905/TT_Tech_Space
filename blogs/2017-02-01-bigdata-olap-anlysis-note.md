@@ -8,7 +8,7 @@ title: Big Data OLAP Analysis Note
 ## 大数据OLAP分析Note
 ------------------------------------------------------------
 
-**Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + Bigdata Storage(Greenplum/HDFS/Kudu)**
+**Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu)**
 
 
 OLAP     | Type 	| Link 					   | Desc
