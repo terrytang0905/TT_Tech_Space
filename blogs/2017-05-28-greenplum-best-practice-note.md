@@ -100,7 +100,7 @@ GPDB是一个基于大规模并行处理(MPP)和sharing-nothing架构的分析�
 使用Greenplum DataDirect JDBC Driver(相比postgresql jdbc driver,性能差。。。需研究)
 
 
-#### 2.详细步骤
+#### 2.详细内容
 
 *2.1.自建资源队列*
 
@@ -229,9 +229,53 @@ GP中索引的起作用的场景：
 	关闭自动提交
 	使用COPY命令前,删除Index和外键约束,事后运行VACUUM ANALYZE
 
+#### 3.Data Modeling & Design-数据模型与设计
+
+- Identify and describe the data models used in data warehousing and describe how data is stored in Greenplum.
+- Distribute and store data in Greenplum using a distribution key,partitioning,and constraints.
+
+*3.1.DataModels*
+
+	- logical data model
+	- enhanced logical data model
+	- the physical data model
+
+[Data Models](_includes/data_models.png)
+
+Entity|Attribute|Relationship|Constraint
+
+*3.2.LogicalDataModels*
+	
+	- Star Schema 星型模型
+	- Snowflake Schema 雪花模型
+	- Third Normal Form(3NF) 第三范式
+
+Star Schema/Snowflake Schema -> DataWarehouse
+
+[Logical Data Models](_includes/logical_data_models.png)
+
+*3.3.EnhancedLogicalDataModels*
+
+
+*3.4.Physical Data Models*
+
+*3.5.Key Design Considerations*
+
+[KeyDesignConsiderations](_includes/logical_data_models.png)
+
+-Using the same distribution key for commonly joined tables
+-Avoid redistribute motion for large tables
+-Avoid broadcast motion for large tables
+
+*3.6.Check for Data Skew 检查数据倾斜*
+
+*3.7.Partitions*
 
 #### Ref
 
-https://wenku.baidu.com/view/2f36c23d30126edb6f1aff00bed5b9f3f90f721c.html
+
 https://www.linkedin.com/pulse/tuning-greenplum-database-sandeep-katta-
 http://download.csdn.net/download/darkcatc/8474339
+
+
+

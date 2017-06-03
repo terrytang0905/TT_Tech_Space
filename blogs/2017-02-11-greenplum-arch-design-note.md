@@ -447,7 +447,7 @@ You could create resource queues for the following classes of queries, correspon
 	- Reporting queries
 	- Executive queries
 
-The following illustration shows an example resource queue configuration for a Greenplum Database system with gp_vmem_protect_limit set to 8GB:
+The following illustration shows an example resource queue configuration for a Greenplum Database system with gp_vmem_protect_limit set to 8000MB:
 
 ![Greenplum Resource Queue Example](_includes/gp_resource_queue_examp.png)
 
