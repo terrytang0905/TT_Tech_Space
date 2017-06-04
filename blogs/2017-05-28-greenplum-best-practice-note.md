@@ -56,7 +56,7 @@ GPDB是一个基于大规模并行处理(MPP)和sharing-nothing架构的分析�
 	- 不要设置过高的 gp_vmem_protect_limit 值,也不要大于系统的物理内存。
 	- gp_vmem_protect_limit 的建议值计算公式为: (SWAP + (RAM * vm.overcommit_ratio)) * 0.9 / number_Segments_per_server
 
-* 使用 statement_mem 控制节点数据库为单个查询分配的内存量。
+* 使用 statement_mem 控制节点数据库为单个查询分配的内存量。(注意该参数生效的前提是设置gpresqueue_memory_policy为auto,默认是eager_free)
 * 使用资源队列设置队列允许的当前最大查询数(ACTIVE_STATEMENTS)和允许使用的内存大小(MEMORY_LIMIT)。
 
 	- 不要使用默认的资源队列,为所有用户都分配资源队列。 根据负载和时间段,设置和队列实际需求相匹配的优先级(PRIORITY)。 保证资源队列的内存配额不超过 gp_vmem_protect_limit。
@@ -197,7 +197,7 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 
 *2.7.数据Load策略*
 
-gpfdist+gpload
+**gpfdist/gpload**
 
 - 使用 gpfdist 进行数据的加载和导出。
 - 随着段数据库个数的增加,并行性增加。
@@ -209,9 +209,12 @@ gpfdist+gpload
 - 数据加载完成后运行 ANALYZE 操作。
 - 数据加载过程中,设置 gp_autostats_mode 为 NONE,取消统计信息的自动收集。 若数据加载失败,使用 VACUUM 回收空间。
 
+**COPY**
+
+使用COPY命令前,删除Index和外键约束,事后运行VACUUM ANALYZE
 
 
-2.8.Index
+*2.8.Greenplum Index*
 
 http://gpdb.docs.pivotal.io/4320/ref_guide/sql_commands/CREATE_INDEX.html
 
@@ -225,51 +228,61 @@ GP中索引的起作用的场景：
 	当可以使用index来替代全表扫描的查询(append-optimized tables)
 	GP只支持在用户创建的表上建立索引，不支持GP依据分区创建的叶表上创建索引。创建的索引会被复制到各个叶表上。
 
-	用明确的JOIN控制规划器
-	关闭自动提交
-	使用COPY命令前,删除Index和外键约束,事后运行VACUUM ANALYZE
 
 #### 3.Data Modeling & Design-数据模型与设计
 
-- Identify and describe the data models used in data warehousing and describe how data is stored in Greenplum.
-- Distribute and store data in Greenplum using a distribution key,partitioning,and constraints.
+Greenplum数据模型设计:
 
-*3.1.DataModels*
+	- 确定和描述在数据仓库中使用的数据模型与哪些数据可存储在GP中.Identify and describe the data models used in data warehousing and describe how data is stored in Greenplum.
+	- 分布存储数据在GP中,使用分布键(distribution key), 分区表(partitioning)与限制(constraints).Distribute and store data in Greenplum using a distribution key,partitioning,and constraints.
 
-	- logical data model
-	- enhanced logical data model
-	- the physical data model
+*3.1.Data Models-数据模型*
 
-[Data Models](_includes/data_models.png)
+* Logical data model - Cube
+* Enhanced logical data model - AggregateResult/View
+* The physical data model - DBTable
+
+![Data Models](_includes/data_models.png)
 
 Entity|Attribute|Relationship|Constraint
 
-*3.2.LogicalDataModels*
-	
-	- Star Schema 星型模型
-	- Snowflake Schema 雪花模型
-	- Third Normal Form(3NF) 第三范式
+*3.2.Logical Data Models-逻辑Cube模型*
 
-Star Schema/Snowflake Schema -> DataWarehouse
+* Star Schema 星型模型
+* Snowflake Schema 雪花模型
+* Third Normal Form(3NF) 第三范式
 
-[Logical Data Models](_includes/logical_data_models.png)
+Dimensional Approach in DW:Star and snowflake schemas are the most common in DW implementations.
 
-*3.3.EnhancedLogicalDataModels*
+![Logical Data Models](_includes/logical_data_models.png)
 
+*3.3.Physical Data Models-物理表模型*
 
-*3.4.Physical Data Models*
+* Select the best distribution key used for distributing data 
+* Check for data skew(数据倾斜)
+* Identfy the benefits of partitioning a table and when to partition a table
+* Determine partitioning candidates
+* Select appropriate data type for your data
+* Define constraints on tables and columns 
 
-*3.5.Key Design Considerations*
+![KeyDesignConsiderations](_includes/key_design_consideration.png)
 
-[KeyDesignConsiderations](_includes/logical_data_models.png)
+*3.4.Data Distribution*
 
 -Using the same distribution key for commonly joined tables
 -Avoid redistribute motion for large tables
 -Avoid broadcast motion for large tables
 
-*3.6.Check for Data Skew 检查数据倾斜*
+*3.5.Check for Data Skew-检查数据倾斜*
 
-*3.7.Partitions*
+gp_toolkit administrative schema offers two views:
+
+	- gp_toolkit.gp_skew_coefficients
+	- gp_toolkit.gp_skew_idle_fractions
+
+*3.6.Partitions*
+
+![Partition Table](_includes/partition_table.png)
 
 #### Ref
 
