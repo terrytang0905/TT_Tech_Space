@@ -8,7 +8,7 @@ title: Greenplum 4 Best Practice Note
 #### 1.最佳实践概述
 
 
-GPDB是一个基于大规模并行处理(MPP)和sharing-nothing架构的分析型数据库。这种数据库的数据模式与高度规范化的事务性SMP的数据库显著不同,支持具有大事实表和小维度表的Star或者雪花模式。
+GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型数据库。这种数据库的数据模式与高度规范化的事务性SMP的数据库显著不同,支持具有大事实表和小维度表的Star或者雪花模式。
 
 
 *数据模型*
@@ -220,7 +220,7 @@ http://gpdb.docs.pivotal.io/4320/ref_guide/sql_commands/CREATE_INDEX.html
 
 GP不建议使用索引
 GP主要做快速有序地扫描（基于分区）
-如果建立全局索引，数据分布机制和分区机制，会完全打乱索引。如果基于单个分区去建立索引，这个有点像阿里的xxx，应该有一定效果吧。
+如果建立全局索引，数据分布机制和分区机制，会完全打乱索引。如果基于单个分区去建立索引，这个有点像阿里的xxx，应该有一定效果吧
 
 GP中索引的起作用的场景：
 
@@ -228,6 +228,11 @@ GP中索引的起作用的场景：
 	当可以使用index来替代全表扫描的查询(append-optimized tables)
 	GP只支持在用户创建的表上建立索引，不支持GP依据分区创建的叶表上创建索引。创建的索引会被复制到各个叶表上。
 
+Greenplum supports B-Tree, Bitmap, and GiST indexes.
+
+➠ B-Tree indexes can be unique or not.
+➠ Bitmap indexes are good useful when there are 100 to 100,000 distinct values (Bitmap indexes are best suited on columns for querying than updating).
+➠ GiST (Generalized Search Tree) indexes are used to support PostGIS.
 
 #### 3.Data Modeling & Design-数据模型与设计
 
@@ -246,7 +251,7 @@ Greenplum数据模型设计:
 
 Entity|Attribute|Relationship|Constraint
 
-*3.2.Logical Data Models-逻辑Cube模型*
+*A.Logical Data Models-逻辑Cube模型*
 
 * Star Schema 星型模型
 * Snowflake Schema 雪花模型
@@ -256,7 +261,7 @@ Dimensional Approach in DW:Star and snowflake schemas are the most common in DW 
 
 ![Logical Data Models](_includes/logical_data_models.png)
 
-*3.3.Physical Data Models-物理表模型*
+*B.Physical Data Models-物理表模型*
 
 * Select the best distribution key used for distributing data 
 * Check for data skew(数据倾斜)
@@ -267,20 +272,30 @@ Dimensional Approach in DW:Star and snowflake schemas are the most common in DW 
 
 ![KeyDesignConsiderations](_includes/key_design_consideration.png)
 
-*3.4.Data Distribution*
+*3.2.Table Compression*
+
+Rules of Compression:
+
+➠ Use compression on pretty large AO (append-optimized) and partitioned tables, to improve disk I/O across the system. It won’t help very much for smaller tables.
+➠ The best practice is to set the column compression settings at the level where the data resides.
+➠ New partitions added to a partitioned table do not automatically inherit compression defined at the table level; you must specifically define compression when you add new partitions.
+➠ Data compression should never be used for data that is stored on a compressed file system.
+
+
+*3.3.Data Distribution*
 
 -Using the same distribution key for commonly joined tables
 -Avoid redistribute motion for large tables
 -Avoid broadcast motion for large tables
 
-*3.5.Check for Data Skew-检查数据倾斜*
+*3.4.Check for Data Skew-检查数据倾斜*
 
 gp_toolkit administrative schema offers two views:
 
 	- gp_toolkit.gp_skew_coefficients
 	- gp_toolkit.gp_skew_idle_fractions
 
-*3.6.Partitions*
+*3.5.Partitions*
 
 - Partitioning Table
 
@@ -297,7 +312,7 @@ gp_toolkit administrative schema offers two views:
 
 
 
-#### GP系统参数
+#### 4.GP系统参数
 
 配置文件–postgresql.conf中,列出一些最常用的参数。
 
@@ -339,15 +354,14 @@ vm.overcommit_ratio = 50
 - max_connections: 最大连接数，Segment建议设置成Master的5-10倍。
 
 
-#### GP Functions
+#### 5.GP Functions
 
 [GP Functions](http://gpdb.docs.pivotal.io/4380/admin_guide/query/topics/functions-operators.html)
 
 
-#### Ref
+#### x.Ref
 
 
-https://www.linkedin.com/pulse/tuning-greenplum-database-sandeep-katta-
 http://download.csdn.net/download/darkcatc/8474339
 
 
