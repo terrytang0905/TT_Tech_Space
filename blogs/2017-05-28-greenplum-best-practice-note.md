@@ -282,7 +282,67 @@ gp_toolkit administrative schema offers two views:
 
 *3.6.Partitions*
 
+- Partitioning Table
+
 ![Partition Table](_includes/partition_table.png)
+
+- Table Partitioning BP
+
+![Table Partitioning BP](_includes/table_partitioning_best_practices.png)
+
+
+- Distribution and Partition
+
+![Distribution and Partition](_includes/distribution_and_partition.png)
+
+
+
+#### GP系统参数
+
+配置文件–postgresql.conf中,列出一些最常用的参数。
+
+- shared_buffers：刚开始可以设置一个较小的值，比如总内存的15%，然后逐渐增加，过程中监控性能提升和swap的情况。
+- effective_cache_size : 这个参数告诉PostgreSQL的优化器有多少内存可以被用来缓存数据，以及帮助决定是否应该使用索引。这个数值越大，优化器使用索引的可能性也越大。因此这个数值应该设置成shared_buffers加上可用操作系统缓存两者的总量。通常这个数值会超过系统内存总量的50%。
+- work_mem: 当PostgreSQL对大表进行排序时，数据库会按照此参数指定大小进行分片排序，将中间结果存放在临时文件中，这些中间结果的临时文件最终会再次合并排序，所以增加此参数可以减少临时文件个数进而提升排序效率。当然如果设置过大，会导致swap的发生，所以设置此参数时仍需谨慎，刚开始可设定为总内存的5%。
+- temp_buffers: 即临时缓冲区，拥有数据库访问临时数据，GP中默认值为1M，在访问比较到大的临时表时，对性能提升有很大帮助。
+- gp_fts_probe_threadcount: 设置ftsprobe线程数，此参数建议大于等于每台服务器segments的数目。
+- gp_hashjoin_tuples_per_bucket: 此参数越小，hash_tables越大，可提升join性能。
+- gp_interconnect_setup_timeout: 此参数在负载较大的集群中，应该设置较大的值。
+- gp_vmem_protect_limit: 控制了每个段数据库为所有运行的查询分配的内存总量。如果查询需要的内存超过此值，则会失败。使用下面公式确定合适的值：
+	
+	(swap + (RAM * vm.overcommit_ratio)) * 0.9 / number_of_Segments_per_server
+
+例如，具有下面配置的段服务器：
+
+8GB 交换空间
+128GB 内存
+vm.overcommit_ratio = 50
+8 个段数据库
+(8 + (128 * .5)) * 0.9 / 8 = 8 GB， 则设置gp_vmem_protect_limit为 8GB：
+
+- gp_statement_mem: 服务器配置参数 gp_statement_mem 控制段数据库上单个查询可以使用的内存总量。如果语句需要更多内存，则会溢出数据到磁盘。用下面公式确定合适的值：
+	
+	(gp_vmem_protect_limit * .9) / max_expected_concurrent_queries
+
+例如，如果并发度为40， gp_vmeme_protect_limit为8GB，则 gp_statement_mem 为：
+
+	(8192MB * .9) / 40 = 184MB，每个查询最多可以使用 184MB 内存，之后将溢出到磁盘。
+
+- gp_workfile_limit_files_per_query:
+如果为SQL查询分配的内存不足，Greenplum数据库会创建溢出文件（也叫工作文件）。在默认情况下，一个SQL查询最多可以创建 100000 个溢出文件，这足以满足大多数查询。
+
+	该参数决定了一个查询最多可以创建多少个溢出文件。0 意味着没有限制。限制溢出文件数据可以防止失控查询破坏整个系统。 
+	如果分配内存不足或者出现数据倾斜，则一个SQL查询可能产生大量溢出文件。如果超过溢出文件上限，Greenplum数据库报告如下错误：
+		ERROR: number of workfiles per query limit exceeded
+	在尝试增大gp_workfile_limit_files_per_query前，先尝试通过修改 SQL、数据分布策略或者内存配置以降低溢出文件个数。
+
+- max_connections: 最大连接数，Segment建议设置成Master的5-10倍。
+
+
+#### GP Functions
+
+[GP Functions](http://gpdb.docs.pivotal.io/4380/admin_guide/query/topics/functions-operators.html)
+
 
 #### Ref
 
