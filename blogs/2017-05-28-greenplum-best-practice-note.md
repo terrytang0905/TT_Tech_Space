@@ -230,9 +230,9 @@ GP中索引的起作用的场景：
 
 Greenplum supports B-Tree, Bitmap, and GiST indexes.
 
-➠ B-Tree indexes can be unique or not.
-➠ Bitmap indexes are good useful when there are 100 to 100,000 distinct values (Bitmap indexes are best suited on columns for querying than updating).
-➠ GiST (Generalized Search Tree) indexes are used to support PostGIS.
+- B-Tree indexes can be unique or not.
+- Bitmap indexes are good useful when there are 100 to 100,000 distinct values (Bitmap indexes are best suited on columns for querying than updating).
+- GiST (Generalized Search Tree) indexes are used to support PostGIS.
 
 #### 3.Data Modeling & Design-数据模型与设计
 
@@ -276,10 +276,10 @@ Dimensional Approach in DW:Star and snowflake schemas are the most common in DW 
 
 Rules of Compression:
 
-➠ Use compression on pretty large AO (append-optimized) and partitioned tables, to improve disk I/O across the system. It won’t help very much for smaller tables.
-➠ The best practice is to set the column compression settings at the level where the data resides.
-➠ New partitions added to a partitioned table do not automatically inherit compression defined at the table level; you must specifically define compression when you add new partitions.
-➠ Data compression should never be used for data that is stored on a compressed file system.
+- Use compression on pretty large AO (append-optimized) and partitioned tables, to improve disk I/O across the system. It won’t help very much for smaller tables.
+- The best practice is to set the column compression settings at the level where the data resides.
+- New partitions added to a partitioned table do not automatically inherit compression defined at the table level; you must specifically define compression when you add new partitions.
+- Data compression should never be used for data that is stored on a compressed file system.
 
 
 *3.3.Data Distribution*
