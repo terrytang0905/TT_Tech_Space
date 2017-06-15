@@ -6,7 +6,7 @@ group: navigation
 ---
 
 ### Terry Tang
-Big Data/Data Product Architect. 
+Big Data/Data Product Architect(Over 10 IT work experience). 
 
 - Data product architect,big data platform and product architect/team driver.
 - Email: zhenjietang@hotmail.com
@@ -40,7 +40,7 @@ Big Data/Data Product Architect.
 - Responsibility: 
 
 	Overall take technology responsibility for big data/BI product design included architect/development/continueDelivery based on MPP/Hadoop/big data platform.
-	
+
 - Deeply research E-commerce data mining & data analysis solution.
 
 || 2013/07--2015/09. || *Lenovo* 		 || Senior Researcher & Data Architect ||
