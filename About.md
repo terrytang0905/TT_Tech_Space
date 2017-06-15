@@ -6,9 +6,9 @@ group: navigation
 ---
 
 ### Terry Tang
-Data Product Architect/Tech Lead. 
+Big Data/Data Product Architect. 
 
-- Data product architect,big data solution and product management/team driver.
+- Data product architect,big data platform and product architect/team driver.
 - Email: zhenjietang@hotmail.com
 
 
@@ -18,13 +18,13 @@ Data Product Architect/Tech Lead.
 - Product development management and team driver
 - Full-text content search engine solution (xPlore search engine owned by EMC/Lenovo search engine)
 - Distributed database product research and utilization.
-- Content Management Enterprise Product design and implementation (Documentum / SuperNote)
+- Content Management Enterprise Product design and implementation (Documentum /Lenovo SuperNote)
 - Internet mobile product design and system architecture
 
 ### Technology skills
 
 - Data analysis design: OLAP (Mondriad / Druid / ElasticSearch)/ DataWarehouse / DataMining(数据挖掘算法) 
-- BigData Solution/Distributed data storage: Hadoop / HBase / Impala&Kudu / Greenplum / MongoDB / Couchbase / Kafka / Storm / Spark  
+- BigData Solution/Distributed data storage: Hadoop&Hive / HBase / Impala&Kudu / Greenplum / MongoDB / Couchbase / Kafka / Storm / Spark  
 - Java/J2EE/Go/Python, automation testing and performance analysis/tuning.
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
 - Open Source Tech: Lucene,Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx,Docker.
@@ -37,7 +37,7 @@ Data Product Architect/Tech Lead.
 || 2015/10--2017/05.     || *Shuyun*        || Data Product Architect & Technical leader     ||
 
 - Product: Agile BI data product based on big data - The best CRM data analysis product for e-commerce in China
-- Responsibility: Overall take technology responsibility for big data/BI product included architect/development/continueDelivery based on MPP/Hadoop/Spark data centre.
+- Responsibility: Overall take technology responsibility for big data/BI product design included architect/development/continueDelivery based on MPP/Hadoop/big data platform.
 - Deeply research E-commerce data mining & data analysis solution.
 
 || 2013/07--2015/09. || *Lenovo* 		 || Senior Researcher & Data Architect ||
