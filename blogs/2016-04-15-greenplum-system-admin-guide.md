@@ -546,13 +546,19 @@ SELECT procpid, start, now() - start AS lap, current_query FROM (SELECT backendi
 pg_stat_get_backend_activity_start(S.backendid) AS start, pg_stat_get_backend_activity(S.backendid) AS current_query
 FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS S ) AS S WHERE current_query <> '<IDLE>' ORDER BY lap DESC;
 ```
+
+--查看后端进行的SQL任务
+```sql
+select 'select pg_terminate_backend('||procpid||');',* from pg_stat_activity where datname = 'iadt';
+```
+
 --杀死正在执行的select语句
 ```sql
 select pg_cancel_backend(pid int);
 ```
 --杀死ddl语句
 ```sql
-select pg_terminate_backend(pid int)
+select pg_terminate_backend(pid int);
 ```
 --修改分布键
 ```sql
