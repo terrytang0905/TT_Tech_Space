@@ -288,7 +288,33 @@ Rules of Compression:
 -Avoid redistribute motion for large tables
 -Avoid broadcast motion for large tables
 
+- 充分利用并行计算MPP
+- 避免数据倾斜
+- 为所有表要么明确地指明其分布字段,要么使用随机分布(DISTRIBUTED RANDOMLY)。不要使用默认方式。
+- 分布字段的数据要么是唯一值要么基数很大。以避免数据倾斜
+- 不要使用在WHERE会用到字段作为分布键
+- 不要使用date/timestamp类型字段作为分布键
+- 如果单个字段不能实现数据均匀分布,则考虑使用两个字段做分布键。作为分布键的字段最
+好不要超过两个。
+- 由于GP的随机分布不是round-robin,因此无法保证每个segment数据量相当。
+- join关联查询、开窗函数等使用其关联字段作为分布distribute键。这样能让表关联JOIN数据都分布在同一segment,以减少redistribution motion.
+
+
 *3.4.Check for Data Skew-检查数据倾斜*
+
+- 数据倾斜是影响性能的主要原因,因此验证数据分布合理与否非常重要。使用gp_tookit可检查倾斜
+- 查看某表是否分布不均: select gp_segment_id,count(*) from fact_table group by gp_segment_id
+- 在segment一级，可以通过select gp_segment_id,count(*) from fact_table group by gp_segment_id的方式检查每张表的数据是否均匀存放
+- 在系统级,可以直接用df -h 或du -h检查磁盘或者目录数据是否均匀
+- 查看数据库中数据倾斜的表 
+      首先定义数据倾斜率为：最大子节点数据量/平均节点数据量。为避免整张表的数据量为空，同时对结果的影响很小，在平均节点数据量基础上加上一个很小的值，SQL如下：
+
+```sql
+SELECT tabname, max(SIZE)/(avg(SIZE)+0.001) AS max_div_avg, sum(SIZE) total_size FROM (
+		SELECT gp_segment_id, oid::regclass tabname, pg_relation_size(oid) SIZE FROM gp_dist_random('pg_class') 
+		WHERE relkind='r' AND relstorage IN ('a','h')
+) t GROUP BY tabname ORDER BY max_div_avg DESC;
+```
 
 gp_toolkit administrative schema offers two views:
 
@@ -297,6 +323,17 @@ gp_toolkit administrative schema offers two views:
 
 *3.5.Partitions*
 
+好的分区表策略可以提高系统Scan数据的性能。
+
+- 只为大表设置分区,不要为小表设置分区。一般超过1亿以上的数据才值得分区。
+- 每个Partition都是在每个segment中的一个独立物理表
+- 查询所有分区要比查询同样数据在非分区表更慢
+- 只有当partition elimination能实现时才需要分区
+- 尽量使用range partition(date类型或numeric类型)替代list partition
+- 尽量让默认分区为空。因为默认分区总是会被扫描,更重要的是很多情况下会导致溢出而造成性能不佳。
+- 禁止分布键与分区字段相同
+
+
 - Partitioning Table
 
 ![Partition Table](_includes/partition_table.png)
@@ -304,7 +341,6 @@ gp_toolkit administrative schema offers two views:
 - Table Partitioning BP
 
 ![Table Partitioning BP](_includes/table_partitioning_best_practices.png)
-
 
 - Distribution and Partition
 
