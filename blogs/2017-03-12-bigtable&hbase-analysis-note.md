@@ -19,7 +19,7 @@ BigTable是一个稀疏的、分布的、永久的多维排序图。我们采用
 
 Google SSTable文件格式作为存储BigTable数据的内部格式。一个SSTable提供一个持久化的、排序的、不可变的、从键到值的映射,其中,键和值都是任意的字节字符串。
 
-
+### HBase Architect
 
 ### HBase深度研究
 
