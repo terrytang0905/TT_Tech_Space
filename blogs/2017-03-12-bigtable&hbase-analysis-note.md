@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [bigdata,database,develop]
+tags : [bigdata,database,hadoop]
 title: BigTable&HBase Analysis Note
 ---
 
@@ -274,3 +274,4 @@ HBase主要处理两种文件:一种是预写日志WAL,另一种是实际的数�
 
 - [BigTable]()
 - [HBase权威指南]()
+- [An In-Depth Look at the HBase Architecture](https://www.mapr.com/blog/in-depth-look-hbase-architecture)
