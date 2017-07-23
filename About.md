@@ -23,11 +23,12 @@ Big Data/Data Product Architect(Over 10 IT work experience).
 
 ### Technology skills
 
-- Data analysis design: OLAP (Mondriad / Druid / ElasticSearch)/ DataWarehouse / DataMining(数据挖掘算法) 
-- BigData Solution/Distributed data storage: Hadoop&Hive / HBase / Impala&Kudu / Greenplum / MongoDB / Couchbase / Kafka / Storm / Spark  
-- Java/J2EE/Go/Python, automation testing and performance analysis/tuning.
-- W3C Tech: XML,XQuery,XPath,XSLT,JSON.
+- Data analysis product design: OLAP (Mondriad / Druid / ElasticSearch) / DataMining(数据挖掘算法) 
+- Database & data storage: Impala&Kudu / Greenplum / MongoDB / Couchbase / PrestoDB / MySQL / HBase
+- BigData solution: Hadoop&HDFS / Hive / Kafka / Storm / Spark / Sqoop 
+- Java/J2EE/Python, automation testing and performance analysis/tuning.
 - Open Source Tech: Lucene,Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx,Docker.
+- W3C Tech: XML,XQuery,XPath,XSLT,JSON.
 - Linux and Unix administration skill and shell language.
 - Virtualization: VMWare vSphere Administrator and Configuration.
 
