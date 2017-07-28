@@ -5,7 +5,7 @@ tags : [datascience,bigdata,architect]
 title: Big Data Architect Menu List
 ---
 
-## 大数据架构师技术菜单
+## 大数据研究之架构技术菜单
 ------------------------------------------------------------
 
 先扯一下大数据的4V特征：
