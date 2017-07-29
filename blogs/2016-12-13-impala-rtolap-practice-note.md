@@ -267,13 +267,11 @@ Join order have a large impact for query optimization.
 
 4.更多复杂查询语句测试(with rollup/with cube/grouping set)
 
-| GroupAggregate | Greenplum 
-          | Hive                                       | Impala | 
+| GroupAggregate | Greenplum                      | Hive                                       | Impala | 
+|----------------|--------------------------------|--------------------------------------------|--------|
 | CUBE	         |GROUP BY CUBE(a,b,c)=GROUP BY GROUPING SETS((a,b,c),(a,b),(a),(b,c),(a,c),(b),(c),())|GROUP BY a,b,c WITH CUBE                    |noSupport| 
-| ROLLUP	     |GROUP BY ROLLUP(a,b,c)=GROUP BY GROUPING SETS((a,b,c),(a,b),(a),())
-		  |GROUP BY a,b,c WITH ROLLUP                  |noSupport|
-| GROUPING SETS  |GROUP BY GROUPING SETS((a,b,c), (a,b), (a), ())                    
-          |GROUP BY GROUPING SETS((a,b,c),(a,b),(a),())|noSupport|	 
+| ROLLUP	     |GROUP BY ROLLUP(a,b,c)=GROUP BY GROUPING SETS((a,b,c),(a,b),(a),())                  |GROUP BY a,b,c WITH ROLLUP                  |noSupport|
+| GROUPING SETS  |GROUP BY GROUPING SETS((a,b,c), (a,b), (a), ())                                      |GROUP BY GROUPING SETS((a,b,c),(a,b),(a),())|noSupport|	 
 
 ### x.Reference
 
