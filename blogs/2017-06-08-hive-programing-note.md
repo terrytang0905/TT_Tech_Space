@@ -2,10 +2,10 @@
 layout: post
 category : architect
 tags : [bigdata,database,hadoop]
-title: Hive Analysis & Utility Note
+title: Hive Programing Design Note
 ---
 
-## Hive Analysis & Utility Note
+## Hive Programing Design Note
 ------------------------------------------------------------
 
 ### About Hive
@@ -13,6 +13,10 @@ title: Hive Analysis & Utility Note
 Hive is a data warehouse infrastructure built on top of Hadoop. It provides tools to enable easy data ETL, a mechanism to put structures on the data, and the capability to querying and analysis of large data sets stored in hadoop files. Hive defines a simple SQL-like query language, called QL, that enables users familiar with SQL to query the data. At the same time, this language also allows programmers who are familiar with the MapReduce fromwork to be able to plug in their custom mappers and reducers to perform more sophisticated analysis that may not be supported by the built-in capabilities of the language.
 
 ### Hive Architect
+
+HashJoin
+MergeJoin
+NestJoin
 
 ### Hive Programing
 

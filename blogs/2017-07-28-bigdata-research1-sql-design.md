@@ -8,25 +8,34 @@ title: Big Data Research1 - SQL Design
 ## 大数据研究1之SQL设计应用
 ------------------------------------------------------------
 
+#### SQL on Database
 
 - [标准SQL优化](2017-07-20-sql-best-practice.md)
 
-- [Greenplum优化](2017-05-28-greenplum-best-practice-note.md)
+- [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
 
-- [PostgreSQL优化](2017-05-28-greenplum-best-practice-note.md)
+- [PostgreSQL最佳实践](2017-07-30-postgresql-best-practice-note.md)
 
-- [Hive分析与应用](2017-06-08-hive-analysis-note.md)
+#### SQL on Hadoop
 
-Spark SQL
+- [Hive分析与应用](2017-06-08-hive-programing-note.md)
 
 - [Impala实践与应用](2016-12-13-impala-rtolap-practice-note.md)
 
+- PrestoDB
 
-SQL Parser&Query Optimizer
-HashJoin
-MergeJoin
-NestJoin
+#### Data Query Optimize Design
 
-Index的设计
-B-Tree Index
+* PostgreSQL Index *
+
+B+Tree Index
 Bitmap Index
+
+* Greenplum Index *
+
+* Hive Index *
+
+#### SQL Parser&Query Optimizer
+
+- [数据库架构分析](2017-01-22-bigdata-database-architect-research-note.md)
+
