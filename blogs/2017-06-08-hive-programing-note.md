@@ -158,6 +158,9 @@ union all用好，可减少表的扫描次数，减少job的个数,通常预先�
 
 如果任务数多且小，比如在一分钟之内完成，减少task数量以减少任务初始化的消耗。可以通过配置JVM重用选项减少task的消耗
 
-### Hive on Spark & SparkSQL
+
+### From Hive on MapReduce to Hive on Spark
+
+
 
 ### When use hive 
