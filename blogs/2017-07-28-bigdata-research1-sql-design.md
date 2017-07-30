@@ -30,10 +30,12 @@ title: Big Data Research1 - SQL Design
 
 * PostgreSQL Index *
 
-B+Tree Index
-Bitmap Index
+B-Tree, hash, gin, gist,
+sp-gist, brin, rum, bloom
 
 * Greenplum Index *
+
+B+Tree, GiST, bitmap
 
 * Hive Index *
 

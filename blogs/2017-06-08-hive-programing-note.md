@@ -14,9 +14,17 @@ Hive is a data warehouse infrastructure built on top of Hadoop. It provides tool
 
 ### Hive Architect
 
-HashJoin
-MergeJoin
-NestJoin
+![Hive Architect](_includes/hive_architecture.png)
+
+Figure 1 shows the major components of Hive and its interactions with Hadoop. As shown in that figure, the main components of Hive are:
+
+	- UI – The user interface for users to submit queries and other operations to the system. As of 2011 the system had a command line interface and a web based GUI was being developed.
+	- Driver – The component which receives the queries. This component implements the notion of session handles and provides execute and fetch APIs modeled on JDBC/ODBC interfaces.
+	- Compiler – The component that parses the query, does semantic analysis on the different query blocks and query expressions and eventually generates an execution plan with the help of the table and partition metadata looked up from the metastore.
+	- Metastore – The component that stores all the structure information of the various tables and partitions in the warehouse including column and column type information, the serializers and deserializers necessary to read and write data and the corresponding HDFS files where the data is stored.
+	- Execution Engine – The component which executes the execution plan created by the compiler. The plan is a DAG of stages. The execution engine manages the dependencies between these different stages of the plan and executes these stages on the appropriate system components.
+
+
 
 ### Hive Programing
 

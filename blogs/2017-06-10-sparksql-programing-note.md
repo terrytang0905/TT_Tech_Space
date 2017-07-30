@@ -10,4 +10,4 @@ title: SparkSQL Programing Design Note
 
 #### SparkSQL Architect
 
-![SparkSQL Architect](_includes/2017-06-10-sparksql-programing-note.md)
+![SparkSQL Architect](_includes/spark_sql_architecture.png)
