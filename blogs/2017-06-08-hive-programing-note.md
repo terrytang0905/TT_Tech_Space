@@ -8,11 +8,11 @@ title: Hive Programing Design Note
 ## Hive Programing Design Note
 ------------------------------------------------------------
 
-### About Hive
+### 1.About Hive
 
 Hive is a data warehouse infrastructure built on top of Hadoop. It provides tools to enable easy data ETL, a mechanism to put structures on the data, and the capability to querying and analysis of large data sets stored in hadoop files. Hive defines a simple SQL-like query language, called QL, that enables users familiar with SQL to query the data. At the same time, this language also allows programmers who are familiar with the MapReduce fromwork to be able to plug in their custom mappers and reducers to perform more sophisticated analysis that may not be supported by the built-in capabilities of the language.
 
-### Hive Architect
+### 2.Hive Architect
 
 ![Hive Architect](_includes/hive_architecture.png)
 
@@ -25,14 +25,35 @@ Figure 1 shows the major components of Hive and its interactions with Hadoop. As
 	- Execution Engine – The component which executes the execution plan created by the compiler. The plan is a DAG of stages. The execution engine manages the dependencies between these different stages of the plan and executes these stages on the appropriate system components.
 
 
+#### Hive SQL Executor
 
-### Hive Programing
+![Hive SQL Executor](_includes/hive_sql_execute.jpg)
 
-### Hive Best Practice
+
+### 3.Hive Programing using HiveQL
+
+#### 3.1.HiveQL: Data Definition
+
+#### 3.2.HiveQL: Data Manipulation
+
+#### 3.3.HiveQL: Queries
+
+#### 3.4.HiveQL: Views
+
+#### 3.5.HiveQL: Indexes
+
+#### 3.6.HiveQL: Schema Design
+
+
+### 4.Hive Best Practice
 
 Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别，所以需要去掉原有关系型数据库下开发的一些固有思维。
 
-* 基本原则: *
+#### 4.1.Hive Tuning
+
+
+
+#### 4.2.基本原则
 
 1.尽量尽早地过滤数据,减少每个阶段的数据量,对于分区表要加分区,同时只选择需要使用到的字段
 
@@ -140,7 +161,6 @@ hive.merge.mapredfiles = false 是否合并 Reduce 输出文件，默认为 Fals
 
 hive.merge.size.per.task = 256*1000*1000 合并文件的大小 
 
- 
 
 (3)注意数据倾斜
 
@@ -167,8 +187,15 @@ union all用好，可减少表的扫描次数，减少job的个数,通常预先�
 如果任务数多且小，比如在一分钟之内完成，减少task数量以减少任务初始化的消耗。可以通过配置JVM重用选项减少task的消耗
 
 
-### From Hive on MapReduce to Hive on Spark
+#### 4.3.Functions
 
 
 
-### When use hive 
+### 5.From Hive on MapReduce to Hive on Spark
+
+
+
+
+### X.Ref
+
+
