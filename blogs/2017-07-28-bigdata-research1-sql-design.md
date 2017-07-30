@@ -14,7 +14,7 @@ title: Big Data Research1 - SQL Design
 
 - [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
 
-- [PostgreSQL最佳实践](2017-07-30-postgresql-best-practice-note.md)
+- [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
 
 #### SQL on Hadoop
 

@@ -32,17 +32,39 @@ Figure 1 shows the major components of Hive and its interactions with Hadoop. As
 
 ### 3.Hive Programing using HiveQL
 
-#### 3.1.HiveQL: Data Definition
+#### 3.1.HiveQL: Data Definition & Manipulation
 
-#### 3.2.HiveQL: Data Manipulation
+Hive offers no support for row-level inserts, updates, and deletes. Hive doesn’t support transactions. Hive adds ex- tensions to provide better performance in the context of Hadoop and to integrate with custom extensions and even external programs.
 
-#### 3.3.HiveQL: Queries
+The database directory is created under a top-level directory specified by the property hive.metastore.warehouse.dir
 
-#### 3.4.HiveQL: Views
+```sql
+hive> CREATE DATABASE financials
+	> LOCATION '/my/preferred/directory';
+```
 
-#### 3.5.HiveQL: Indexes
+Primitive Data Types & Collection Data Types
 
-#### 3.6.HiveQL: Schema Design
+> Hive supports columns that are structs, maps, and arrays
+
+- Create Table Sample
+```sql
+CREATE TABLE IF NOT EXISTS mydb.employees (
+	name  STRING COMMENT 'Employee name',
+	salary  FLOAT COMMENT 'Employee salary',
+	subordinates ARRAY<STRING> COMMENT 'Names of subordinates',
+	deductions MAP<STRING, FLOAT> COMMENT 'Keys are deductions names, values are percentages', 
+	address STRUCT<street:STRING, city:STRING, state:STRING, zip:INT> COMMENT 'Home address')
+COMMENT 'Description of the table'
+TBLPROPERTIES ('creator'='me', 'created_at'='2012-01-02 10:00:00', ...) LOCATION '/user/hive/warehouse/mydb.db/employees';
+
+```
+
+#### 3.2.HiveQL: Queries & Views
+
+#### 3.3.HiveQL: Indexes
+
+#### 3.4.HiveQL: Schema Design
 
 
 ### 4.Hive Best Practice
@@ -198,4 +220,5 @@ union all用好，可减少表的扫描次数，减少job的个数,通常预先�
 
 ### X.Ref
 
-
+- [Hive Architect](https://cwiki.apache.org/confluence/display/Hive/Design)
+- [Programming Hive]()
