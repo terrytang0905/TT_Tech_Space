@@ -58,7 +58,29 @@ CREATE TABLE IF NOT EXISTS mydb.employees (
 COMMENT 'Description of the table'
 TBLPROPERTIES ('creator'='me', 'created_at'='2012-01-02 10:00:00', ...) LOCATION '/user/hive/warehouse/mydb.db/employees';
 
+CREATE TABLE IF NOT EXISTS mydb.employees2 LIKE mydb.employees;
+
 ```
+
+- External Tables
+```sql
+CREATE EXTERNAL TABLE IF NOT EXISTS stocks (
+ exchange
+symbol
+ymd
+price_open
+price_high
+price_low
+price_close
+volume
+price_adj_close FLOAT)
+STRING, STRING, STRING, FLOAT, FLOAT, FLOAT, FLOAT, INT,
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/data/stocks';
+```
+
+- Partitioned, Managed Tables
+
+
 
 #### 3.2.HiveQL: Queries & Views
 
