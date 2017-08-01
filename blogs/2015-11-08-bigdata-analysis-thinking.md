@@ -78,36 +78,20 @@ C. _独立型数据集市_
 
 #### 2.2.大数据&数据仓库技术选型
 
-A._分布式算法_:
-
-- CAP 
-- 2PC(Two-Phrase Commit)
-- Vector Clock向量时钟
-- RWN协议
-- Paxos协议
-- Raft协议
-- Bloom Filter
-- SkipList
-- LSM树
-- Merkle哈希树
-- Snappy&LZSS数据压缩算法
-- Cuckoo哈希
-- Gossip协议
-
-B._分布式大数据查询_:
+A._分布式大数据查询_:
 
 > Hive / Dremel / PrestoDB / [Impala&Kudu](2016-12-12-impala-kudu-research-note.md)  <br />
 > [ElasticSearch](2017-01-06-elasticsearch-search-engine-architect-note.md)
 
-C._大数据分布式存储_:
+B._大数据分布式存储_:
 
 > [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
 > HDFS(GFS) / HBase(Google BigTable) / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 
-D.[数据存储深度研究](2017-01-22-database-architect-research-note.md)
+C.[大数据存储深度研究](2017-01-22-bigdata-database-architect-research-note.md)
 
-D1.[分布式存储架构分析](http://wiki.yunat.com/pages/viewpage.action?pageId=45851500)
+C1.[分布式存储架构分析](http://wiki.iresearchdata.cn/pages/viewpage.action?pageId=1278067)
 
 ### III.数据预处理
 
