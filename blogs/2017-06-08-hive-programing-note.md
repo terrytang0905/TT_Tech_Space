@@ -80,14 +80,70 @@ ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LOCATION '/data/stocks';
 
 - Partitioned, Managed Tables
 
+```sql
+LOAD DATA LOCAL INPATH '${env:HOME}/california-employees' OVERWRITE INTO TABLE employees
+PARTITION (country = 'US', state = 'CA');
+```
 
+- INSERT 
+```sql
+hive> set hive.exec.dynamic.partition=true;
+hive> set hive.exec.dynamic.partition.mode=nonstrict; hive> set hive.exec.max.dynamic.partitions.pernode=1000;
+hive> INSERT OVERWRITE TABLE employees > PARTITION (country, state)
+> SELECT ..., se.cty, se.st
+> FROM staged_employees se;
+
+
+INSERT OVERWRITE LOCAL DIRECTORY '/tmp/ca_employees' SELECT name, salary, address
+FROM employees
+WHERE se.state = 'CA';
+``` 
 
 #### 3.2.HiveQL: Queries & Views
 
+##### JOIN Optimizations
+
+A.Hint-/*+ STREAMTABLE(s) */ 
+```sql
+SELECT /*+ STREAMTABLE(s) */ s.ymd, s.symbol, s.price_close, d.dividend FROM stocks s JOIN dividends d ON s.ymd = d.ymd AND s.symbol = d.symbol WHERE s.symbol = 'AAPL';
+```
+
+B.Map-side Joins	
+
+- Inner JOIN
+- LEFT OUTER JOIN
+- RIGHT OUTER JOIN
+- FULL OUTER JOIN
+- LEFT SEMI-JOIN
+
+- ORDER BY and SORT BY
+- DISTRIBUTE BY with SORT BY
+
+
 #### 3.3.HiveQL: Indexes
 
-#### 3.4.HiveQL: Schema Design
+```sql
+CREATE TABLE employees (
+name STRING,
+salary FLOAT,
+subordinates ARRAY<STRING>,
+deductions MAP<STRING,FLOAT>,
+address STRUCT<street:STRING, city:STRING, state:STRING, zip:INT>
+)
+PARTITIONED BY (country STRING, state STRING);
+```
+Bitmap Index 
+```sql
+CREATE INDEX employees_index
+ON TABLE employees (country)
+AS 'BITMAP'
+WITH DEFERRED REBUILD
+IDXPROPERTIES ('creator = 'me', 'created_at' = 'some_time') IN TABLE employees_index_table
+PARTITIONED BY (country, name)
+COMMENT 'Employees indexed by country and name.';
+```
 
+#### 3.4.HiveQL: Schema Design
 
 ### 4.Hive Best Practice
 
@@ -95,6 +151,14 @@ Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapR
 
 #### 4.1.Hive Tuning
 
+Tuning the Number of Mappers and Reducers
+
+
+	- set hive.exec.reducers.bytes.per.reducer=<number>
+	- set hive.exec.reducers.max=<number>
+	- set mapred.reduce.tasks=
+	- set hive.exec.reducers.max=
+	//(Total Cluster Reduce Slots * 1.5) / (avg number of queries running)
 
 
 #### 4.2.基本原则
@@ -177,18 +241,20 @@ WHERE ...;
 	- set hive.skewjoin.key=100000; --这个是join的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
 	- set hive.optimize.skewjoin=true;--如果是join 过程出现倾斜 应该设置为true
 
-(1)  启动一次job尽可能的多做事情，一个job能完成的事情,不要两个job来做
+1) 启动一次job尽可能的多做事情，一个job能完成的事情,不要两个job来做
 
  通常来说前面的任务启动可以稍带一起做的事情就一起做了,以便后续的多个任务重用,与此紧密相连的是模型设计,好的模型特别重要.
 
-(2) 合理设置reduce个数
+2) 合理设置reduce个数
 
 reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个数过多，会造成大量小文件问题，数据量、资源情况只有自己最清楚，找到个折衷点,
 
-(3) 使用hive.exec.parallel参数控制在同一个sql中的不同的job是否可以同时运行，提高作业的并发
+3) 使用hive.exec.parallel参数控制在同一个sql中的不同的job是否可以同时运行，提高作业的并发
 
+	- set hive.exec.parallel=true;  
+	- set hive.exec.parallel.thread.number=32;
 
-(4)注意小文件的问题
+4) 注意小文件的问题
 
 在hive里有两种比较常见的处理办法
 
@@ -196,19 +262,21 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 
 	- set mapred.max.split.size=256000000;
 	- set mapred.min.split.size.per.node=256000000
-	- set Mapred.min.split.size.per.rack=256000000
+	- set mapred.min.split.size.per.rack=256000000
 	- set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat
 
 第二是设置hive参数，将额外启动一个MR Job打包小文件
 
-hive.merge.mapredfiles = false 是否合并 Reduce 输出文件，默认为 False 
+	- set hive.merge.mapredfiles = false 是否合并 Reduce 输出文件，默认为 False 
+	- set hive.merge.size.per.task = 256*1000*1000 合并文件的大小 
 
-hive.merge.size.per.task = 256*1000*1000 合并文件的大小 
 
-
-(3)注意数据倾斜
+5) 注意数据倾斜
 
 在hive里比较常用的处理办法
+
+	- set hive.groupby.skewindata=true
+	- set hive.map.aggr = true
 
 第一通过hive.groupby.skewindata=true控制生成两个MR Job,第一个MR Job Map的输出结果随机分配到reduce做次预汇总,减少某些key值条数过多某些key条数过小造成的数据倾斜问题
 
@@ -216,13 +284,13 @@ hive.merge.size.per.task = 256*1000*1000 合并文件的大小
 
  
 
-(4)善用multi insert,union all
+6) 善用multi insert,union all
 
-multi insert适合基于同一个源表按照不同逻辑不同粒度处理插入不同表的场景，做到只需要扫描源表一次，job个数不变，减少源表扫描次数
+- multi insert:适合基于同一个源表按照不同逻辑不同粒度处理插入不同表的场景,做到只需要扫描源表一次,job个数不变,减少源表扫描次数
 
-union all用好，可减少表的扫描次数，减少job的个数,通常预先按不同逻辑不同条件生成的查询union all后，再统一group by计算,不同表的union all相当于multiple inputs,同一个表的union all,相当map一次输出多条
+- union all:可减少表的扫描次数，减少job的个数,通常预先按不同逻辑不同条件生成的查询union all后，再统一group by计算,不同表的union all相当于multiple inputs,同一个表的union all,相当map一次输出多条
 
-(5) 参数设置的调优
+7) 参数设置的调优
 
 集群参数种类繁多,举个例子比如
 
