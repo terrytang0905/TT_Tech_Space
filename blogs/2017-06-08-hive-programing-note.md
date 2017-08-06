@@ -153,11 +153,9 @@ Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapR
 
 Tuning the Number of Mappers and Reducers
 
-
 	- set hive.exec.reducers.bytes.per.reducer=<number>
-	- set hive.exec.reducers.max=<number>
 	- set mapred.reduce.tasks=
-	- set hive.exec.reducers.max=
+	- set hive.exec.reducers.max=<number>
 	//(Total Cluster Reduce Slots * 1.5) / (avg number of queries running)
 
 
@@ -230,16 +228,10 @@ WHERE ...;
 
 ``` 
 
-6.HiveQL查询优化，如果有join,group操作的话，要注意是否会有数据倾斜
+6.HiveQL查询优化
 
-如果出现数据倾斜，应当做如下处理：
+如果有join,group操作的话，要注意是否会有数据倾斜
 
-	- set hive.exec.reducers.max=200;
-	- set mapred.reduce.tasks= 200;---增大Reduce个数
-	- set hive.groupby.mapaggr.checkinterval=100000;--这个是group的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
-	- set hive.groupby.skewindata=true; --如果是group by过程出现倾斜 应该设置为true
-	- set hive.skewjoin.key=100000; --这个是join的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
-	- set hive.optimize.skewjoin=true;--如果是join 过程出现倾斜 应该设置为true
 
 1) 启动一次job尽可能的多做事情，一个job能完成的事情,不要两个job来做
 
@@ -249,10 +241,14 @@ WHERE ...;
 
 reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个数过多，会造成大量小文件问题，数据量、资源情况只有自己最清楚，找到个折衷点,
 
+	- set hive.exec.reducers.bytes.per.reducer=<number>;
+	- set hive.exec.reducers.max=300;
+	- set mapred.reduce.tasks=300; ---增大Reduce个数
+
 3) 使用hive.exec.parallel参数控制在同一个sql中的不同的job是否可以同时运行，提高作业的并发
 
 	- set hive.exec.parallel=true;  
-	- set hive.exec.parallel.thread.number=32;
+	- set hive.exec.parallel.thread.number=16;
 
 4) 注意小文件的问题
 
@@ -280,8 +276,16 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 
 第一通过hive.groupby.skewindata=true控制生成两个MR Job,第一个MR Job Map的输出结果随机分配到reduce做次预汇总,减少某些key值条数过多某些key条数过小造成的数据倾斜问题
 
-第二通过hive.map.aggr = true(默认为true)在Map端做combiner,假如map各条数据基本上不一样, 聚合没什么意义，做combiner反而画蛇添足,hive里也考虑的比较周到通过参数hive.groupby.mapaggr.checkinterval = 100000 (默认)hive.map.aggr.hash.min.reduction=0.5(默认),预先取100000条数据聚合,如果聚合后的条数/100000>0.5，则不再聚合
+第二通过hive.map.aggr=true(默认为true)在Map端做combiner,假如map各条数据基本上不一样, 聚合没什么意义，做combiner反而画蛇添足,hive里也考虑的比较周到通过参数hive.groupby.mapaggr.checkinterval = 100000 (默认)hive.map.aggr.hash.min.reduction=0.5(默认),预先取100000条数据聚合,如果聚合后的条数/100000>0.5，则不再聚合
 
+
+如果出现数据倾斜，应当做如下处理：
+
+	- set hive.groupby.mapaggr.checkinterval=100000;--这个是group的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
+	- set hive.groupby.skewindata=true; --如果是group by过程出现倾斜 应该设置为true
+	- set hive.map.aggr=true;
+	- set hive.skewjoin.key=100000; --这个是join的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
+	- set hive.optimize.skewjoin=true;--如果是join 过程出现倾斜 应该设置为true
  
 
 6) 善用multi insert,union all
@@ -305,10 +309,16 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 
 ### 5.From Hive on MapReduce to Hive on Spark
 
+For Hive to work on Spark, you must deploy Spark gateway roles on the same machine that hosts HiveServer2. Otherwise, Hive on Spark cannot read from Spark configurations and cannot submit Spark jobs. For more information about gateway roles, see Managing Roles.
+
+After installation, run the following command in Hive so that Hive will use Spark as the back-end engine for all subsequent queries.
+
+- set hive.execution.engine=spark;
 
 
 
 ### X.Ref
 
 - [Hive Architect](https://cwiki.apache.org/confluence/display/Hive/Design)
+- [CDH Managing Hive](https://www.cloudera.com/documentation/enterprise/5-9-x/topics/admin_hive_configure.html)
 - [Programming Hive]()
