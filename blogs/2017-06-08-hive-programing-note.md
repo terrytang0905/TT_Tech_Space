@@ -88,15 +88,17 @@ PARTITION (country = 'US', state = 'CA');
 - INSERT 
 ```sql
 hive> set hive.exec.dynamic.partition=true;
-hive> set hive.exec.dynamic.partition.mode=nonstrict; hive> set hive.exec.max.dynamic.partitions.pernode=1000;
-hive> INSERT OVERWRITE TABLE employees > PARTITION (country, state)
-> SELECT ..., se.cty, se.st
-> FROM staged_employees se;
+hive> set hive.exec.dynamic.partition.mode=nonstrict; 
+hive> set hive.exec.max.dynamic.partitions.pernode=1000;
+hive> INSERT OVERWRITE TABLE employees
+hive> PARTITION (country, state)
+hive> SELECT ..., se.cty, se.st
+hive> FROM staged_employees se;
 
 
-INSERT OVERWRITE LOCAL DIRECTORY '/tmp/ca_employees' SELECT name, salary, address
-FROM employees
-WHERE se.state = 'CA';
+hive>INSERT OVERWRITE LOCAL DIRECTORY '/tmp/ca_employees' SELECT name, salary, address
+hive>FROM employees
+hive>WHERE se.state = 'CA';
 ``` 
 
 #### 3.2.HiveQL: Queries & Views
@@ -145,6 +147,8 @@ COMMENT 'Employees indexed by country and name.';
 
 #### 3.4.HiveQL: Schema Design
 
+#### 3.5.Partition & Bucket
+
 ### 4.Hive Best Practice
 
 Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别，所以需要去掉原有关系型数据库下开发的一些固有思维。
@@ -158,6 +162,7 @@ Tuning the Number of Mappers and Reducers
 	- set hive.exec.reducers.max=<number>
 	//(Total Cluster Reduce Slots * 1.5) / (avg number of queries running)
 
+本地模式
 
 #### 4.2.基本原则
 
@@ -303,7 +308,11 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 如果任务数多且小，比如在一分钟之内完成，减少task数量以减少任务初始化的消耗。可以通过配置JVM重用选项减少task的消耗
 
 
-#### 4.3.Functions
+#### 4.3.UDF
+
+- UDF
+- UDAF
+- UDTF
 
 
 
@@ -316,9 +325,11 @@ After installation, run the following command in Hive so that Hive will use Spar
 - set hive.execution.engine=spark;
 
 
+[HiveOnSpark](https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark)
 
 ### X.Ref
 
 - [Hive Architect](https://cwiki.apache.org/confluence/display/Hive/Design)
 - [CDH Managing Hive](https://www.cloudera.com/documentation/enterprise/5-9-x/topics/admin_hive_configure.html)
+- [Hive Performance Tips](https://streever.atlassian.net/wiki/display/HADOOP/Hive+Performance+Tips)
 - [Programming Hive]()

@@ -20,9 +20,9 @@ title: Big Data Research1 - SQL Design
 
 - [Hive分析与应用](2017-06-08-hive-programing-note.md)
 
-- [SparkSQL应用实践](2017-06-10-sparksql-programing-note.md)
-
 - [Impala实践与应用](2016-12-13-impala-rtolap-practice-note.md)
+
+- [SparkSQL应用实践](2017-06-10-sparksql-programing-note.md)
 
 - PrestoDB
 
