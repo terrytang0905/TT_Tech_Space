@@ -63,11 +63,11 @@ _hive.exec.reducers.bytes.per.reducer_默认为1G，也就是每个reduce处理�
 
 map phase和reduce phase之间主要有3道工序。首先要把map输出的结果进行排序后做成中间文件，其次这个中间文件就能分发到各个reduce，最后reduce端在执行reduce phase之前把收集到的排序子文件合并成一个排序文件。需要强调的是，虽然这个部分可以调的参数挺多，但是大部分在一般情况下都是不要调整的，除非能精准的定位到这个部分有问题。
 
-* Spill 与 Sort *
+#### 3.1.Spill 与 Sort
 
 在spill阶段，由于内存不够，数据可能没办法在内存中一次性排序完成，那么就只能把局部排序的文件先保存到磁盘上，这个动作叫spill，然后spill出来的多个文件可以在最后进行merge。如果发生spill，可以通过设置io.sort.mb来增大mapper输出buffer的大小，避免spill的发生。另外合并时可以通过设置io.sort.factor来使得一次性能够合并更多的数据，默认值为10，也就是一次归并10个文件。调试参数的时候，一个要看spill的时间成本，一个要看merge的时间成本，还需要注意不要撑爆内存（io.sort.mb是算在map的内存里面的）。Reduce端的merge也是一样可以用io.sort.factor。一般情况下这两个参数很少需要调整，除非很明确知道这个地方是瓶颈。比如如果map端的输出太大，考虑到map数不一定能很方便的调整，那么这个时候就要考虑调大io.sort.mb（不过即使调大也要注意不能超过jvm heap size）。而map端的输出很大，要么是每个map读入了很大的文件（比如不能split的大gz压缩文件），要么是计算逻辑导致输出膨胀了很多倍，都是比较少见的情况。
 
-* Copy(shuffle) *
+#### 3.2.Copy(shuffle)
 
 这里说的copy，一般叫做shuffle更加常见。但是由于一开始的配图以及MR job的web监控页对这个环节都是叫copy phase，指代更加精确，所以这里称为copy。
 
@@ -126,7 +126,7 @@ public synchronized boolean next(K key, V value) throws IOException
 
 有一些问题必须从job的整体角度去观察。这里讨论几个问题：Job执行模式（本地执行v.s.分布式执行）、JVM重用、索引、Join算法、数据倾斜、Top N问题。
 
-#### Job执行模式
+#### 5.1. Job执行模式
 
 Hadoop的map reduce job可以有3种模式执行，即本地模式，伪分布式，还有真正的分布式。本地模式和伪分布式都是在最初学习hadoop的时候往往被说成是做单机开发的时候用到。但是实际上对于处理数据量非常小的job，直接启动分布式job会消耗大量资源，而真正执行计算的时间反而非常少。这个时候就应该使用本地模式执行mr job，这样执行的时候不会启动分布式job，执行速度就会快很多。比如一般来说启动分布式job，无论多小的数据量，执行时间一般不会少于20s，而使用本地mr模式，10秒左右就能出结果。
 
@@ -134,14 +134,14 @@ Hadoop的map reduce job可以有3种模式执行，即本地模式，伪分布�
 
 另外，如果是简单的select语句，比如select某个列取个10条数据看看sample，那么在hive0.10之后有专门的fetch task优化，使用参数hive.fetch.task.conversion即可。
 
-#### JVM重用
+#### 5.2. JVM重用
 
 正常情况下，MapReduce启动的JVM在完成一个task之后就退出了，但是如果任务花费时间很短，又要多次启动JVM的情况下（比如对很大数据量进行计数操作），JVM的启动时间就会变成一个比较大的overhead。在这种情况下，可以使用jvm重用的参数：
 
 set mapred.job.reuse.jvm.num.tasks = 5;
 他的作用是让一个jvm运行多次任务之后再退出。这样一来也能节约不少JVM启动时间。
 
-#### 索引
+#### 5.3. 索引
 
 总体上来说，hive的索引目前还是一个不太适合使用的东西，这里只是考虑到叙述完整性，对其进行基本的介绍。
 
@@ -169,7 +169,7 @@ set hive.input.format = org.apache.hadoop.hive.ql.index.compact.HiveCompactIndex
 select count(*) from index_test_table where id = 10;
 ```
 
-#### Join算法
+#### 5.4. Join算法
 
 处理分布式join，一般有两种方法:
 
@@ -256,7 +256,7 @@ SMB join是不会产生hash table分发的步骤的，直接开始做实际map�
 
 这里顺便说个题外话，在数据仓库中，小表往往是维度表，而小表map join这件事情其实用udf代替还会更快，因为不用单独启动一轮job，所以这也是一种可选方案。当然前提条件是维度表是固定的自然属性（比如日期），只增加不修改（比如网站的页面编号）的情况也可以考虑。如果维度有更新，要做缓慢变化维的，当然还是维表好维护。至于维表原本的一个主要用途OLAP，以Hive目前的性能是没法实现的，也就不需要多虑了。
 
-#### 数据倾斜
+#### 5.5. 数据倾斜
 
 这里说的所谓数据倾斜，说的是由于数据分布不均匀，个别值集中占据大部分数据量，加上hadoop的计算模式，导致reduce阶段不同的task分配到的不均匀引起性能下降。由于计算逻辑在不同数据上耗时不同导致的计算倾斜或者是map端读取数据不均匀造成的倾斜不在这里的讨论范围。下图就是一个例子：
 
@@ -264,7 +264,7 @@ SMB join是不会产生hash table分发的步骤的，直接开始做实际map�
 
 倾斜分成group by造成的倾斜和join造成的倾斜，需要分开看。
 
-#### GroupBy倾斜
+#### 5.6. GroupBy倾斜
 
 group by造成的倾斜相对来说比较容易解决。hive提供两个参数可以解决，一个是_hive.map.aggr_，默认值已经为true，他的意思是做map aggregation，也就是在mapper里面做聚合。这个方法不同于直接写mapreduce的时候可以实现的combiner，但是却实现了类似combiner的效果。事实上各种基于mr的框架如pig，cascading等等用的都是map aggregation（或者叫partial aggregation）而非combiner的策略，也就是在mapper里面直接做聚合操作而不是输出到buffer给combiner做聚合。对于map aggregation，hive还会做检查，如果aggregation的效果不好，那么hive会自动放弃map aggregation。判断效果的依据就是经过一小批数据的处理之后，检查聚合后的数据量是否减小到一定的比例，默认是0.5，由_hive.map.aggr.hash.min.reduction_这个参数控制。所以如果确认数据里面确实有个别取值倾斜，但是大部分值是比较稀疏的，这个时候可以把比例强制设为1，避免极端情况下map aggr失效。_hive.map.aggr_还有一些相关参数，比如map aggr的内存占用等，具体可以参考这篇文章。另一个参数是_hive.groupby.skewindata_。这个参数的意思是做reduce操作的时候，拿到的key并不是所有相同值给同一个reduce，而是随机分发，然后reduce做聚合，做完之后再做一轮MR，拿前面聚合过的数据再算结果。所以这个参数其实跟hive.map.aggr做的是类似的事情，只是拿到reduce端来做，而且要额外启动一轮job，所以其实不怎么推荐用，效果不明显。
 
@@ -278,7 +278,7 @@ select a, count(distinct b) as c from tbl group by a;
 select a, count(*) as c from (select a, b from tbl group by a, b) group by a;
 ```
 
-#### Join倾斜
+* Join倾斜
 
 join造成的倾斜，常见情况是不能做map join的两个表(能做map join的话基本上可以避免倾斜)，其中一个是行为表，另一个应该是属性表。比如我们有三个表，一个用户属性表users，一个商品属性表items，还有一个用户对商品的操作行为表日志表logs。假设现在需要将行为表关联用户表：
 
@@ -329,7 +329,7 @@ on a.item_id = b.item_id and a.r_id = b.r_id
 
 除了上面两类情况，还有一类情况是因为业务设计导致的问题，也就是说即使行为日志里面join key的数据分布本身并不明显倾斜，但是业务设计导致其倾斜。比如对于商品item_id的编码，除了本身的id序列，还人为的把item的类型也作为编码放在最后两位，这样如果类型1（电子产品）的编码是00，类型2（家居产品）的编码是01，并且类型1是主要商品类，将会造成以00为结尾的商品整体倾斜。这时，如果reduce的数量恰好是100的整数倍，会造成partitioner把00结尾的item_id都hash到同一个reducer，引爆问题。这种特殊情况可以简单的设置合适的reduce值来解决，但是这种坑对于不了解业务的情况下就会比较隐蔽。
 
-#### Top N问题
+* Top N问题
 
 有时候我们需要在一大堆数据中取top n，比如说取访问日志里面时间最早的10条记录。基于sql实现这个需求就是使用order by col limit n。hive默认的order by实现只会用1个reduce做全局排序，这在数据量大的时候job运行效率非常低。hive在0.12版本引入了parallel order by，也就是通过sampling的方式实现并行（即基于_TotalOrderPartitioner_）。具体开关参数是hive.optimize.sampling.orderby。但是如果使用这个参数还是很可能碰到问题的：
 
@@ -344,7 +344,7 @@ on a.item_id = b.item_id and a.r_id = b.r_id
 
 前面对于单个job如何做优化已经做过详细讨论，但是hive查询会生成多个job，针对多个job，有什么地方需要优化？
 
-* Job间并行 *
+#### 6.1. Job间并行
 
 首先，在hive生成的多个job中，在有些情况下job之间是可以并行的，典型的就是子查询。当需要执行多个子查询union all或者join操作的时候，job间并行就可以使用了。比如下面的代码就是一个可以并行的场景示意：
 
@@ -368,7 +368,7 @@ set hive.exec.parallel=true
 ```
 如果想要更高的并行度，可以通过hive.exec.parallel.thread.number参数进行设置，但要避免设置过大而占用过多资源。
 
-* 减少Job数 * 
+#### 6.2. 减少Job数  
 
 另外在实际开发过程中也发现，一些实现思路会导致生成多余的job而显得不够高效。比如这个需求：查询某网站日志中同时访问过页面a和页面b的用户数量。低效的思路是面向明细的，先取出看过页面a的用户，再取出看过页面b的用户，然后取交集，代码如下：
 
