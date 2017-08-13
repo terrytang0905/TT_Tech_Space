@@ -16,19 +16,13 @@ title: Big Data Research1 - SQL Design
 
 - [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
 
-- SQL执行顺序
-```sql
-from... where... group by... having.... select ... order by...
-```
-
 #### SQL on Hadoop
 
 - [Hive分析与应用](2017-06-08-hive-programing-note.md)
 
-- HQL执行顺序
-```hql
-from... where.... select... group by... having ... order by...
-```
+- [Hive SQL编译分析](2017-06-09-hive-sql-parser-note.md)
+
+- [Hive SQL性能优化](2017-06-10-hive-sql-optimize-note.md)
 
 - [Impala实践与应用](2016-12-13-impala-rtolap-practice-note.md)
 

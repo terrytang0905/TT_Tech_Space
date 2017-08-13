@@ -62,6 +62,11 @@ select dealid, count(distinct uid), count(distinct date) from order group by dea
 
 #### 2.SQL转化为MapReduce的过程
 
+Hive SQL执行顺序
+```hql
+from... where.... select... group by... having ... order by...
+```
+
 了解了MapReduce实现SQL基本操作之后，我们来看看Hive是如何将SQL转化为MapReduce任务的，整个编译过程分为六个阶段：
 
   - 1.Antlr定义SQL的语法规则，完成SQL词法，语法解析，将SQL转化为抽象语法树AST Tree

@@ -8,6 +8,11 @@ title: Hive Analysis & Utility Note
 ## SQL Best Practice
 ------------------------------------------------------------
 
+- SQL执行顺序
+```sql
+from... where... group by... having.... select ... order by...
+```
+
 * 1.避免在 where 子句中对字段进行null值判断 *
 
 应尽量避免在 where 子句中对字段进行null值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：
