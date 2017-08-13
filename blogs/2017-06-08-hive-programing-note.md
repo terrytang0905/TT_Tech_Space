@@ -29,6 +29,10 @@ Figure 1 shows the major components of Hive and its interactions with Hadoop. As
 
 ![Hive SQL Executor](_includes/hive_sql_execute.jpg)
 
+Hive SQL Executeor Order
+```hql
+from... where.... select... group by... having ... order by...
+```
 
 ### 3.Hive Programing using HiveQL
 
@@ -175,7 +179,6 @@ select ... from A join B
         and A.dt='20120417'
         and B.dt='20120417';
 ```
-
 应该改写为：
 
 ```sql
@@ -286,11 +289,11 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 
 如果出现数据倾斜，应当做如下处理：
 
-	- set hive.groupby.mapaggr.checkinterval=100000;--这个是group的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
+	- set hive.groupby.mapaggr.checkinterval=100000; --这个是group的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
 	- set hive.groupby.skewindata=true; --如果是group by过程出现倾斜 应该设置为true
 	- set hive.map.aggr=true;
 	- set hive.skewjoin.key=100000; --这个是join的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
-	- set hive.optimize.skewjoin=true;--如果是join 过程出现倾斜 应该设置为true
+	- set hive.optimize.skewjoin=true; --如果是join 过程出现倾斜 应该设置为true
  
 
 6) 善用multi insert,union all
@@ -313,7 +316,6 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 - UDF
 - UDAF
 - UDTF
-
 
 
 ### 5.From Hive on MapReduce to Hive on Spark
