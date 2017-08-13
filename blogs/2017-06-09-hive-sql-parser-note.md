@@ -502,7 +502,8 @@ MapJoinResolver优化器遍历Task Tree，将所有有local work的MapReduceTask
 
 最终MapJoinResolver处理完之后，执行计划如下图所示
 
-![hive_map_reduce_task_executor2](_includes/hive_map_reduce_task_executor2.png)
+![hive_map_reduct_task_executor2](_includes/hive_map_reduct_task_executor2.png)
+
 
 #### 3.Hive SQL编译过程的设计
 
