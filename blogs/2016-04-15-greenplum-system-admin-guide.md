@@ -148,7 +148,12 @@ WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
 
 - 队列
 
+```SQL
 SELECT * FROM pg_resqueue_status;
+
+select * from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
+order by query_start, usename;
+```
 
 ### 5.GP表管理
 
