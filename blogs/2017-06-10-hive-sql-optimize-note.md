@@ -406,4 +406,26 @@ select count(*) from
 where visit_z > 0 and visit_l > 0;
 ```
 
-这种实现方式转换成job就只会有2个：内层的子查询和外层的统计，所以对 SQL 和原理都比较熟悉才能在 HIVE 中游刃有余~ 
+这种实现方式转换成job就只会有2个：内层的子查询和外层的统计，所以对 SQL和原理都比较熟悉才能在 HIVE 中游刃有余 
+
+#### 6.3. Hive系统设置优化
+
+以下根据应用需要来完成Hive系统设置的样例
+
+```hive
+
+set hive.map.aggr=true;
+set hive.groupby.mapaggr.checkinterval=100000;
+set hive.groupby.skewindata=true;
+set hive.exec.reducers.bytes.per.reducer=2000*1000*1000（2G）
+set hive.exec.reducers.max=300;
+set mapred.reduce.tasks=300;
+set mapred.min.split.size=256000000;
+set hive.exec.parallel=true;  
+set hive.exec.parallel.thread.number=16;
+set mapreduce.map.memory.mb=1025;
+set mapreduce.reduce.memory.mb=1025;
+set hive.exec.dynamic.partition=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+
+```
