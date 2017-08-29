@@ -138,22 +138,32 @@ FROM pg_stat_operations
 WHERE objname = '<name>';
 ```
 
-- 锁
-
-```SQL
-SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query
-FROM pg_locks l, pg_class c, pg_stat_activity a
-WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
-```
-
 - 队列
 
 ```SQL
+
 SELECT * FROM pg_resqueue_status;
+
+```
+
+- *查看执行SQL任务列表
+
+```SQL
 
 select * from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
 order by query_start, usename;
+
+select 'select  pg_cancel_backend('||procpid||');',* from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
+order by query_start, usename;
+
+查看锁
+
+SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query
+FROM pg_locks l, pg_class c, pg_stat_activity a
+WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
+
 ```
+
 
 ### 5.GP表管理
 
