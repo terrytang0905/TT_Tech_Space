@@ -12,6 +12,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Data Science Thinking
 
+- *[MachineLearning研究笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-01-machine-learning-research-note.md)
 - *[计算广告研究笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-note.md)
 - *[数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
@@ -20,8 +21,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Big Data Query & Analysis
 
-- *[大数据研究3之数据科学-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-data-science.md)
-- *[大数据研究2之应用开发-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-develop-design.md)
+- *[大数据研究3之机器学习-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-machine-learning.md)
+- *[大数据研究2之数据处理开发-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-dataflow-development.md)
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
 - *[大数据研究之架构技术菜单](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-menu.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
@@ -36,7 +37,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
 - *[Impala-RTOLAP 实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-impala-rtolap-practice-note.md)
 - *[Impala-RTOLAP ResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-rtolap-research-note.md)
-- [Beam大数据框架笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-12-apache-beam-research-note.md)
+- [Beam大数据处理标准-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-12-apache-beam-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
 - [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [ElasticSearch搜索引擎架构-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
