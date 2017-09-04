@@ -307,9 +307,10 @@ Rules of Compression:
 - 在segment一级，可以通过select gp_segment_id,count(*) from fact_table group by gp_segment_id的方式检查每张表的数据是否均匀存放
 - 在系统级,可以直接用df -h 或du -h检查磁盘或者目录数据是否均匀
 - 查看数据库中数据倾斜的表 
-      首先定义数据倾斜率为：最大子节点数据量/平均节点数据量。为避免整张表的数据量为空，同时对结果的影响很小，在平均节点数据量基础上加上一个很小的值，SQL如下：
 
 ```sql
+首先定义数据倾斜率为：最大子节点数据量/平均节点数据量。为避免整张表的数据量为空，同时对结果的影响很小，在平均节点数据量基础上加上一个很小的值，SQL如下：
+
 SELECT tabname, max(SIZE)/(avg(SIZE)+0.001) AS max_div_avg, sum(SIZE) total_size FROM (
 		SELECT gp_segment_id, oid::regclass tabname, pg_relation_size(oid) SIZE FROM gp_dist_random('pg_class') 
 		WHERE relkind='r' AND relstorage IN ('a','h')
