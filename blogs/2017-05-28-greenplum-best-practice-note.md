@@ -403,6 +403,99 @@ vm.overcommit_ratio = 50
 - gpcheckperf -f hostfile_gpchecknet_ic1 -r N -d /tmp
 - [gpcheckperf](http://gpdb.docs.pivotal.io/4320/utility_guide/admin_utilities/gpcheckperf.html)
 
+#### 7.GP System Recovery
+
+*Greenplum系统恢复*
+
+要求:PrimarySegment超过一半节点处于Down状态下,就需要启动系统恢复机制
+
+先切换到gpadmin账号下, su - gpadmin
+
+![RecoveyMatrix](_includes/gp_recovermatrix.png)
+
+*7.1.gpstate*
+
+Show detailed status information of a Greenplum Database system:
+	- gpstate -s
+
+Do a quick check for down segments in the master host system catalog:
+	- gpstate -Q
+
+Show information about mirror segment instances:
+	- gpstate -m
+
+*7.2.gprecoverseg*
+
+Rebalance your Greenplum Database system after a recovery by resetting all segments to their preferred role. First check that all segments are up and synchronized.
+
+```shell
+$ gpstate -m
+$ gprecoverseg 
+$ gprecoverseg -r
+```
+
+*7.3.Greenplum备份管理*
+
+*7.3.1.gpcrondump(gp_dump)*
+```sql
+Back up a database:
+gp_dump gpdb
+Back up a database, and create dump files in a centralized location on all hosts:
+gp_dump --gp-d=/home/gpadmin/backups gpdb
+```
+*7.3.2.gpdbrestore(gp_restore)*
+```
+Restore a Greenplum database using backup files created by gp_dump:
+gp_restore --gp-k=2005103112453 -d gpdb
+```
+
+*7.4.Greenplum Segment更新*
+
+*7.4.1.Segment扩展*
+
+https://yq.aliyun.com/articles/177
+
+*7.4.2.Segment异常恢复*
+
+[gprecoversegInfo](http://gpdb.docs.pivotal.io/4320/utility_guide/admin_utilities/gprecoverseg.html)
+ 
+_A.磁盘异常,可替换磁盘(不添加Host)_
+
+> 执行gprecoverseg -F (full recovery)
+
+> 执行gprecoverseg -S <output_filespace_config_file> (获取默认配置文件)
+
+> 执行gprecoverseg -s <filespace_config_file>
+
+Note: The -s and -S options are only used when you recover to existing hosts in the cluster. You cannot use these options
+when you recover to a new host. To recover to a new host,use the -i and -o options.
+ 
+_B.硬件异常,Host不可用,使用新Host_
+
+When a segment host is not recoverable
+
+[GP SegmentHost恢复方案](https://yq.aliyun.com/articles/79165)
+
+_C.重点步骤:_
+
+备份GP服务器搭建
+重新建立集群内部的ssh通信认证(替换之前主机ssh在know_hosts,添加新主机的ssh-key)
+
+```shell
+> ssh-keygen
+> ssh-copy-id -i ~/.ssh/id_rsa.pub 10.110.64.16
+> gpseginstall -f tmp_hosts -u gpadmin -p XXX
+ 
+> 执行gprecoverseg -p sdw33 (选择新闲置Host作为new recover host) 
+> 执行gprecoverseg -o /home/gpadmin/recover_config_file (获取默认配置文件,并添加恢复节点信息在文件)
+recover_config_file
+> 执行gprecoverseg -i /home/gpadmin/recover_cofig_file
+```
+
+*7.4.3.删除Segment*
+
+[RemoveSegment](http://blog.csdn.net/u011478909/article/details/52692280)
+
 #### x.Ref
 
 
