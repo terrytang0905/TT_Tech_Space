@@ -78,7 +78,8 @@ GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型
 
 一般来说 GPDB 中索引不是必需的。
 
-* 对于高基数(HIGH Cardinality-唯一值多)的列存储表,如果需要遍历且查询选择性较高,则创建单列索引。  频繁更新的列不要建立索引。
+* 对于高基数(HIGH Cardinality-唯一值多)的列存储表,如果需要遍历且查询选择性较高,则创建单列索引。 
+* 频繁更新的列不要建立索引。
 * 在加载大量数据之前删除索引,加载结束后再重新创建索引。
 * 优先使用 B 树索引。
 * 不要为需要频繁更新的字段创建位图索引。
@@ -395,6 +396,12 @@ vm.overcommit_ratio = 50
 
 [GP Functions](http://gpdb.docs.pivotal.io/4380/admin_guide/query/topics/functions-operators.html)
 
+
+#### 6.GP Performance Check
+
+- gpcheckperf -f hostlist -d /data1 -d /data2 -r ds
+- gpcheckperf -f hostfile_gpchecknet_ic1 -r N -d /tmp
+- [gpcheckperf](http://gpdb.docs.pivotal.io/4320/utility_guide/admin_utilities/gpcheckperf.html)
 
 #### x.Ref
 
