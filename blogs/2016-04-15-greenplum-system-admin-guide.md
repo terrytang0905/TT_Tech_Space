@@ -130,41 +130,6 @@ WHERE pg_class.oid = gp_size_of_index.soioid
 AND pg_class.relkind='i';
 ```
 
-- OBJECT 的操作统计
-
-```SQL
-SELECT schemaname as schema, objname as table, usename as role, actionname as action, subtype as type, statime as time
-FROM pg_stat_operations
-WHERE objname = '<name>';
-```
-
-- 队列
-
-```SQL
-
-SELECT * FROM pg_resqueue_status;
-
-```
-
-- *查看执行SQL任务列表
-
-```SQL
-
-select * from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
-order by query_start, usename;
-
-select 'select  pg_cancel_backend('||procpid||');',* from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
-order by query_start, usename;
-
-查看锁
-
-SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query
-FROM pg_locks l, pg_class c, pg_stat_activity a
-WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
-
-```
-
-
 ### 5.GP表管理
 
 - 表描述
@@ -536,77 +501,18 @@ select pg_size_pretty(pg_relation_size(tablename)) from pg_tables t inner join p
 --查看数据分布情况
 ```sql
 select gp_segment_id,count(*) from tablename group by 1;
-```
---查看锁的情况
-```sql
-SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query FROM pg_locks l, pg_class c, pg_stat_activity a WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
-```
---查看当前用户的所有表信息
-```sql
-select * from pg_stat_user_tables;
-```
---查看当前用户的index信息
-```sql
-select * from pg_stat_user_indexes;
-```
---查看当前存活的查询
-```sql
-select procpid as pid, sess_id as session, usename as user, current_query as query, waiting, date_trunc('second', query_start) as start_time, client_addr as useraddr from pg_stat_activity where datname ='dbname' and current_query not like '%from pg_stat_activity%where datname =%'
-order by start_time;
-```
---查看正在运行的sql
-```sql
-select * from pg_stat_activity;
-SELECT procpid, start, now() - start AS lap, current_query FROM (SELECT backendid, pg_stat_get_backend_pid(S.backendid) AS procpid,
-pg_stat_get_backend_activity_start(S.backendid) AS start, pg_stat_get_backend_activity(S.backendid) AS current_query
-FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS S ) AS S WHERE current_query <> '<IDLE>' ORDER BY lap DESC;
-```
 
---查看后端进行的SQL任务
+--查看数据分布情况
 ```sql
-select 'select pg_terminate_backend('||procpid||');',* from pg_stat_activity where datname = 'iadt';
-```
-
---杀死正在执行的select语句
-```sql
-select pg_cancel_backend(pid int);
-```
---杀死ddl语句
-```sql
-select pg_terminate_backend(pid int);
-```
---修改分布键
-```sql
-alter table table_name set distributed by(column_1);
-```
---查看操作记录(表创建 修改等)
-```sql
-SELECT schemaname as schema, objname as table, usename as role, actionname as action, subtype as type, statime as time
-FROM pg_stat_operations WHERE objname = '';
-```
---登录单个实例方法先登录数据库在执行以下是sql
-```sql
-dbname='-c gp_session_role=utility' psql  dbname  –p  xxxx
-```
---查询节点状态
-```sql
-select * from gp_segment_configuration;
+get_ao_distribution(name)
 ```
 --获取分布键
 ```sql
 select a.attrnums[i.i],b.attname.a.localoid::regclass from gp_distribution_policy a,(select generate_series(1,10))i(i),pg_attribute b where pg_attrnums[i.i] is not null and a.localoid=b.attrelid and attrnumsp[i.i]=attrnum and a.localoid='public.xxx'::regclass order by i.i;
 ```
---查看活跃的连接数,这个视图看一看到排队的sql排队的原因
+--修改分布键
 ```sql
-select count(1) from pg_stat_activity;
-```
---查看为gpadmin保留的连接数
-```sql
-show superuser_reserved_connections ;
-```
---查看数据分布情况
-```sql
-get_ao_distribution(name)
+alter table table_name set distributed by(column_1);
 ```
 --查看压缩率
 ```sql
@@ -624,14 +530,103 @@ gp_toolkit.gp_stats_missing
 ```sql
 gp_toolkit.gp_bloat_diag
 ```
+--查看操作记录(表创建 修改等)
+```sql
+SELECT schemaname as schema, objname as table, usename as role, actionname as action, subtype as type, statime as time
+FROM pg_stat_operations WHERE objname = '';
+```
+--登录单个实例方法先登录数据库在执行以下是sql
+```sql
+dbname='-c gp_session_role=utility' psql  dbname  –p  xxxx
+```
+--查询节点状态
+```sql
+select * from gp_segment_configuration;
+```
 --查看down掉的节点视图
 ```sql
 gp_toolkit.gp_pgdatabase_invalid
 ```
+--查看为gpadmin保留的连接数
+```sql
+show superuser_reserved_connections ;
+```
+
+* SQL查询监控
+
+--查看活跃的连接数,这个视图看一看到排队的sql排队的原因
+```sql
+select count(1) from pg_stat_activity;
+```
+--查看当前存活的查询
+```sql
+select procpid as pid, sess_id as session, usename as user, current_query as query, waiting, date_trunc('second', query_start) as start_time, client_addr as useraddr from pg_stat_activity where datname ='dbname' and current_query not like '%from pg_stat_activity%where datname =%'
+order by start_time;
+```
+--查看正在运行的sql
+```sql
+select * from pg_stat_activity;
+SELECT procpid, start, now() - start AS lap, current_query FROM (SELECT backendid, pg_stat_get_backend_pid(S.backendid) AS procpid,
+pg_stat_get_backend_activity_start(S.backendid) AS start, pg_stat_get_backend_activity(S.backendid) AS current_query
+FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS S ) AS S WHERE current_query <> '<IDLE>' ORDER BY lap DESC;
+```
+--查看执行SQL任务列表
+
+```SQL
+
+select * from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
+order by query_start, usename;
+
+select 'select  pg_cancel_backend('||procpid||');',* from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
+order by query_start, usename;
+
+select 'select pg_terminate_backend('||procpid||');',* from pg_stat_activity where datname = 'iadt';
+
+```
+--查看锁的情况
+```sql
+SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query FROM pg_locks l, pg_class c, pg_stat_activity a WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
+```
+--查看当前用户的所有表信息
+```sql
+select * from pg_stat_user_tables;
+```
+--查看当前用户的index信息
+```sql
+select * from pg_stat_user_indexes;
+```
+
+-- OBJECT的操作统计
+
+```SQL
+SELECT schemaname as schema, objname as table, usename as role, actionname as action, subtype as type, statime as time
+FROM pg_stat_operations
+WHERE objname = '<name>';
+```
+
+--杀死正在执行的select语句
+```sql
+select pg_cancel_backend(pid int);
+```
+--杀死ddl语句
+```sql
+select pg_terminate_backend(pid int);
+```
+
+
+
+* 资源队列管理监控
+
 --查看资源队列的详细信息视图
 ```sql
 select * gp_toolkit.gp_resq_activity where  and resqstatus = 'running'
 ```
+--资源队列状态
+
+```SQL
+SELECT * FROM pg_resqueue_status;
+```
+
 --查看资源队列的简要信息
 ```sql
 gp_toolkit.gp_resq_activity_by_queue
