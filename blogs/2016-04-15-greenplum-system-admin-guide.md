@@ -62,7 +62,9 @@ gpconfig --show max_connections
 
 - 创建数据库
 
+```command
 createdb -h localhost -p 5432 dhdw
+```
 
 ### 4.GP文件系统管理
 
@@ -97,15 +99,21 @@ SET default_tablespace = TBS_DW_DATA;
 
 - 删除GP数据库
 
+```command
 gpdeletesystem -d /gpmaster/gpseg-1 -f
 
+```
 - 查看segment配置
 
+```sql
 select * from gp_segment_configuration;
+```
 
 - 文件系统
 
+```sql
 select * from pg_filespace_entry;
+```
 
 - 磁盘、数据库空间
 
@@ -133,17 +141,17 @@ AND pg_class.relkind='i';
 ### 5.GP表管理
 
 - 表描述
-
+```sql
 /d+ <tablename>
-
+```
 - 表分析
-
+```
 VACUUM ANALYZE tablename;
-
+```sql
 - 表数据分布
-
+```sql
 SELECT gp_segment_id, count(*) FROM <table_name> GROUP BY gp_segment_id;
-
+```
 - 表占用空间
 
 ```SQL
@@ -156,7 +164,9 @@ SELECT relname as name, sotdsize/1024/1024 as size_MB, sotdtoastsize as toast, s
 
 - 创建普通表
 
+```sql
 create table test select * from TD_APP_LOG_BUYER;
+```
 
 - 创建分区表
 
