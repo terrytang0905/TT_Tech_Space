@@ -494,8 +494,9 @@ gp_autostats_mode 参数控制统计信息发生的时机
 #### 8.5. 系统监控命令列表
 
 --机器可以查看正在进行的会话数
+```shell
 ps -ef |grep -i postgres |grep -i con 在master
-
+```
 --表占的空间
 ```sql
 select pg_size_pretty(pg_relation_size('schema.tablename'));
@@ -512,8 +513,6 @@ select pg_size_pretty(pg_relation_size(tablename)) from pg_tables t inner join p
 ```sql
 select gp_segment_id,count(*) from tablename group by 1;
 
---查看数据分布情况
-```sql
 get_ao_distribution(name)
 ```
 --获取分布键
@@ -593,6 +592,14 @@ order by query_start, usename;
 select 'select pg_terminate_backend('||procpid||');',* from pg_stat_activity where datname = 'iadt';
 
 ```
+--杀死正在执行的select语句
+```sql
+select pg_cancel_backend(pid int);
+```
+--杀死ddl语句
+```sql
+select pg_terminate_backend(pid int);
+```
 --查看锁的情况
 ```sql
 SELECT locktype, database, c.relname, l.relation, l.transactionid, l.transaction, l.pid, l.mode, l.granted, a.current_query FROM pg_locks l, pg_class c, pg_stat_activity a WHERE l.relation=c.oid AND l.pid=a.procpid ORDER BY c.relname;
@@ -605,7 +612,6 @@ select * from pg_stat_user_tables;
 ```sql
 select * from pg_stat_user_indexes;
 ```
-
 -- OBJECT的操作统计
 
 ```SQL
@@ -613,16 +619,6 @@ SELECT schemaname as schema, objname as table, usename as role, actionname as ac
 FROM pg_stat_operations
 WHERE objname = '<name>';
 ```
-
---杀死正在执行的select语句
-```sql
-select pg_cancel_backend(pid int);
-```
---杀死ddl语句
-```sql
-select pg_terminate_backend(pid int);
-```
-
 
 
 * 资源队列管理监控
