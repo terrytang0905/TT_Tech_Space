@@ -8,15 +8,12 @@ title: Big Data Research1 - Develop Design
 ## 大数据研究2之数据处理开发
 ------------------------------------------------------------
 
-Hadoop
+### Hadoop Map Reduce
 
-Spark
+### Spark for Big Data Development
 
-Storm
 
-Flink
-
-Beam
+### Python for Data Analysis
 
 
 

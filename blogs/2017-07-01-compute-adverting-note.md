@@ -1,8 +1,8 @@
 ---
 layout: post
-category : technology
-tags : [datascience,datamining,architect]
-title: Hive Analysis & Utility Note
+category : business
+tags : [datascience,datamining,solution]
+title: Compute Adverting Note 
 ---
 
 ## Compute Adverting Note
