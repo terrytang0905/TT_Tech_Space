@@ -22,7 +22,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 ##### Big Data Query & Analysis
 
 - *[大数据研究3之机器学习-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-machine-learning.md)
-- *[大数据研究2之数据处理开发-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-dataflow-development.md)
+- *[大数据研究2之数据处理开发-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-bigdata-development.md)
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
 - *[大数据研究之架构技术菜单](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-menu.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)

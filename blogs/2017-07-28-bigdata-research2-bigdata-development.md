@@ -25,11 +25,6 @@ title: Big Data Research1 - Develop Design
 
 
 
-
-
-
-
-
 ### X.Ref
 
 
