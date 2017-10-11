@@ -19,8 +19,8 @@ title: Big Data Architect Menu List
 
 * 文件存储：Hadoop HDFS、Tachyon、KFS
 * 离线计算：Hadoop MapReduce、Spark
-* 流式处理、实时计算：Storm、Spark Streaming、S4、Heron
-* K-V、NOSQL数据库：HBase、Redis、MongoDB
+* 流式处理、实时计算：Storm、Spark Streaming、Flink、S4、Heron
+* K-V、NOSQL数据库：HBase、Cassandra、Redis、MongoDB
 * 资源管理：YARN、Mesos
 * 日志收集：Flume、Scribe、Logstash、Kibana
 * 消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
@@ -332,7 +332,8 @@ Azkaban，light-task-scheduler，Zeus，等等。另外，我这边是之前单�
 
 关于这块，我这个门外汉也只能是简单介绍一下了。数学专业毕业的我非常惭愧，很后悔当时没有好好学数学。在我们的业务中，遇到的能用机器学习解决的问题大概这么三类：
 
-* 分类问题：包括二分类和多分类，二分类就是解决了预测的问题，就像预测一封邮件是否垃圾邮件；多分类解决的是文本的分类；
+* 分类问题：包括二分类和多分类，二分类就是解决了预测的问题，就像预测一封邮件是否垃圾邮件；
+* 多分类解决的是文本的分类；
 * 聚类问题：从用户搜索过的关键词，对用户进行大概的归类。
 * 推荐问题：根据用户的历史浏览和点击行为进行相关推荐。
 
