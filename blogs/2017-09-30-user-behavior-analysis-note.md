@@ -9,11 +9,15 @@ title: User Behavior Analysis Note
 ### I.互联网数据分析概述
 
 产品数据分析
+
 增长黑客
+	增长黑客是介于技术和市场之间的新型团队角色,主要依靠技术和数据的力量来 达成各种营销目标,而非传统意义上靠砸钱来获取用户的市场推广角色。
+	提出基于产品本身的改 造和开发策略,以切实的依据、低廉的成本、可控的风险来达成用户增长、活跃度上升、收 入额增加等商业目的。简单来说,就是低成本甚至零成本地用“技术”来让产品获得有效增长。
+
 精益数据分析
 
 
-#### 什么是数据指标
+#### 数据指标是什么 - 废话一句
 
 数据分析离不开对企业关键指标的跟踪
 
@@ -40,12 +44,22 @@ title: User Behavior Analysis Note
 
 数据分析测试就是通过市场细分,同期群分析,A/B测试与多变量分析
 
-	- 细分市场就是寻找一群拥有共同特征的人
+	- 细分市场就是寻找一群拥有共同特征的人 
 	- 比较的是相似群体随时间的变化(趋势)
 	- 同期群分析使你能够观察处于生命周期不同阶段客户的行为模式
 	- 假如其他条件保持不变,仅考虑体验中的某一属性对被试用户的影响,就是A/B测试
 
+A/B 测试,网站活跃率提升的法宝
+
+所谓 A/B 测试,简单说来就是针对想调研的问题提供两种不同的备选解决方案(比如两个下 单页面),然后让一部分用户使用方案 A,另一部分用户使用方案 B,最终通过数据观察对 比确定最优方案。
+
+提供两个方案并行测试。
+不同方案之间只存在一个变量,排除其他干扰因素。
+以某种标准判定结果优劣,筛出最优方案。
+
+
 问题:什么是好的数据指标?你们现有的数据指标哪些是有效的,哪些可能是无效的？	
+
 
 人类提供灵感,机器负责验证
 优化的核心是找到给定函数的最大值与最小值
@@ -67,6 +81,10 @@ title: User Behavior Analysis Note
 病毒式增长引擎
 
 	关键指标是指每个用户所带来的新用户数
+	种子用户/内容营销
+	内容营销的作用：吸引流量、培养潜在用户、劝诱转化。
+	有效的品牌曝光
+	产品的易获得性-二维码out 免费WIFI怎么样
 
 付费式增长引擎
 
@@ -88,7 +106,7 @@ OMTM(One Metric That Matters-第一关键指标)
 
 商业模式一:电子商务
 
-转化漏斗-Omniture和Google Analytics
+	转化漏斗-Omniture和Google Analytics
 
 	年度重复购买率
 
@@ -102,11 +120,28 @@ OMTM(One Metric That Matters-第一关键指标)
 
 商业模式三:免费移动应用
 
+	安装量
+	开机率
+	活跃用户比例
+	用户平均每月营收(ARPU)
+	病毒传播性
+	流失率
+
 商业模式四:媒体网站
+
+	访客浏览与流失率
+	广告点击与效果
 
 商业模式五:用户生成内容UGC
 
+ 	参与度漏斗
+
 商业模式六:双边市场
+
+	是搭平台还是自己玩
+	买卖双方的人数增长-活跃度
+	搜索有效性
+	转化漏斗
 
 变现方式导致计算客户终身价值(CLV)的方式不同
 
@@ -194,7 +229,41 @@ OMTM(One Metric That Matters-第一关键指标)
 
 #### 分析工具篇
 
+Google Analytics 
+
+ 页面浏览量(Page View):网站在某一段时间内的页面浏览量是多少。
+ 用户浏览量(User View):网站在某一段时间内的用户浏览量是多少。
+ 渠道来源(Traffic Sources):用户流量来源于哪些不同的渠道。
+ 访客特征(User Demographics):访问用户具有哪些特征值,可用来做用户分类。 
+ 访问路径(Flow Report):用户在网站上的访问行为,各个页面的进入率和跳出率。
+点击行为热点图
+
+
+Mixpanel/KissMetrics
+
+ 用户动态分析(Trends):你关心的用户行为发生了多少次,占总比例多少。
+ 行为漏斗模型(Funnels):某些关键行为是怎么发生了,每一步有多少的留存率和流失率。
+ 用户活跃度(Cohorts):网站用户的活跃度如何,可以用来区分忠实用户和普通用户。
+ 单用户行为分析(People):单个用户在网站上做了哪些操作,过程是如何的。
+
+UserCycle
+
+统计分析(Trends)和用户分组(Cohorts)
+分组实验测试(Split-Test Experiments)
+
+Optimize.ly
+
+Optimize.ly 是 A/B 测试的利器
+Optimize.ly 会根据用户行为的不同,给出不同的测试报告,让我们能 真真切切地了解页面变化对于转化率的影响
+
+
 http行为监控 - 友盟/百度指数/淘宝指数
+
+友盟
+
+友盟统计分析平台是国内最大的移动应用统计分析平台之一,能帮助移动应用开发者
+统计和分析流量来源、内容使用、用户属性和各种细分的行为数据。
+
 Web用户分析工具 - GrowingIO / 诸葛IO / 神策数据
 
 神策数据:https://www.sensorsdata.cn/manual/funnel.html
@@ -353,23 +422,11 @@ Mac / Phone / Identifier for Advertising IDFA / IMEI
 ### III.数据挖掘与运营
 
 
-*  文件存储：Hadoop HDFS、Tachyon、KFS
-*  离线计算：Hadoop MapReduce、Spark
-*  流式、实时计算：Storm、Spark Streaming、S4、Heron
-*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
-*  资源管理：YARN、Mesos
-*  日志收集：Flume、Scribe、Logstash、Kibana
-*  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
-*  查询分析：Hive、Impala、Pig、Presto、Phoenix、SparkSQL、Drill、Flink、Kylin、Druid
-*  分布式协调服务：Zookeeper
-*  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
-*  数据挖掘、机器学习：Mahout、Spark MLLib
-*  数据同步：Sqoop
-*  任务调度：Oozie
-
-
 数据采集/数据清理
 数据预处理-ETL/Kettle
+
+	特征向量是什么? 例如TD-IDF中词频与权重
+
 数据仓库设计-针对数据指标
 
 	原始数据
@@ -379,6 +436,8 @@ Mac / Phone / Identifier for Advertising IDFA / IMEI
 
 分布式数据存储的选择
 
+为什么精准的数据样本非常重要? 好的食材是炒出好菜最基础也是最关键的一步
+因此数据采集与数据清洗尤为重要
 
 规则与统计
 
@@ -414,6 +473,7 @@ http://blog.csdn.net/liulingyuan6/article/details/53489390
 
 逻辑回归:基于流失风险概率的行为预测(逻辑函数 S型)
 
+对照组验证客户流失分析效果
 
 
 3.用户关联与序列路径挖掘(关联算法Apriori或FP-Growth算法)
@@ -447,6 +507,21 @@ XGBoost in Python
 ### IV.分析算法应用路径
 
 大数据分析平台设计
+
+*  文件存储：Hadoop HDFS、Tachyon、KFS
+*  离线计算：Hadoop MapReduce、Spark
+*  流式、实时计算：Storm、Spark Streaming、S4、Heron
+*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
+*  资源管理：YARN、Mesos
+*  日志收集：Flume、Scribe、Logstash、Kibana
+*  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
+*  查询分析：Hive、Impala、Pig、Presto、Phoenix、SparkSQL、Drill、Flink、Kylin、Druid
+*  分布式协调服务：Zookeeper
+*  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
+*  数据挖掘、机器学习：Mahout、Spark MLLib
+*  数据同步：Sqoop
+*  任务调度：Oozie
+
 
 https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md
 
