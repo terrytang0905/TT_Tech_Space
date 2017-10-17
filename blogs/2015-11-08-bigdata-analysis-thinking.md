@@ -141,7 +141,9 @@ E. _数据完整性验证_
 * 基于SQL/存储过程/UDF数据处理组件
 * 大数据MQ-[Kafka应用](2017-01-10-kafka-research-note.md)
 
-### IV.数据建模与Cube
+### IV.多维数据分析
+
+#### 数据建模与Cube
 
 定义Meta元数据模型 <br />
 建立数据模型为DataCleaning指定清洗规则,为源数据与目标提供ETL mapping支持,理清数据与数据之间的关系 <br />
@@ -175,9 +177,8 @@ E. _数据完整性验证_
 
 - 事实表粒度设计/宽表设计
 
-### V.多维数据查询分析
 
-#### 5.1.Summary Statistics汇总统计
+#### 4.2.Summary Statistics汇总统计
 
 - 频率与众数 <br />
         `frequency(Vi)=属性值Vi的对象数/m` <br />
@@ -193,18 +194,8 @@ E. _数据完整性验证_
         `correlation matrix相关矩阵` <br />
         `值集的倾斜度(skewness)` <br />
 
-#### 5.2.数据可视化
 
-- selection: 删除或不突出某些对象和属性
-- 少量属性的可视化 - 单维图表
--  扩展的二维/三维图 - 多维图表
-- 可视化时间空间数据 - 时间维度+地理维度
-- 可视化高维数据 <br />
-     `数据矩阵` <br />
-     `平行坐标系` <br />
-     `星型坐标和Chernoff脸` <br />
-
-#### 5.3.多维数据分析定义
+#### 4.3.多维数据分析定义
 
 - 分析多维数据 <br />
     (产品ID-日期-地方-销售额)
@@ -220,7 +211,7 @@ E. _数据完整性验证_
 - 切片(Slicing)和切块(dicing) - 穿透/查看明细
 - 上卷(roll up)和下钻(drill down): 与聚集相关
 
-#### 5.4.OLAP详细设计
+#### 4.4.OLAP详细设计
 
 - 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
 - Aggregation Query聚合查询与非聚合查询
@@ -239,7 +230,7 @@ E. _数据完整性验证_
 - [Mondriad研究](2017-01-31-mondrian-olap-analysis-note.md)
 - [Druid研究]()
 
-#### 5.5.OLAP查询的分布式计算
+#### 4.5.OLAP查询的分布式计算
 
     A. Impala: 交互式OLAP SQL-on-Hadoop
     B. Presto: OLAP SQL-on-Hadoop
@@ -250,6 +241,21 @@ E. _数据完整性验证_
 
     G. Spark Streamming: 实时流式计算
     H. Storm: 实时流式计算
+
+
+### V.数据可视化
+
+- selection: 删除或不突出某些对象和属性
+- 少量属性的可视化 - 单维图表
+- 扩展的二维/三维图 - 多维图表
+- 可视化时间空间数据 - 时间维度+地理维度
+- 可视化高维数据 <br />
+     `数据矩阵` <br />
+     `平行坐标系` <br />
+     `星型坐标和Chernoff脸` <br />
+- 词云图
+- sunburst partition
+
 
 ### VI.数据挖掘分析设计
 
