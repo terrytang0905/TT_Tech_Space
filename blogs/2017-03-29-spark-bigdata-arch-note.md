@@ -10,7 +10,7 @@ title: Spark Bigdata In-Memory Architect Note
 
 #### 1.Spark(迭代计算) 
 
-1.1.定义
+##### 1.1.定义
 
 * RDD(Resilient Distributed Datasets)
 
@@ -22,9 +22,9 @@ Key-Value格式数据一般是原始数据大小的2倍左右，而列存一般�
 
 Transformation/Action
 
-RDD的action从RDD中返回值,transformations可以转换成一个新的RDD并返回他的引用。                                                                                                                                                                                 
+RDD的action从RDD中返回值,transformations可以转换成一个新的RDD并返回他的引用。                                                                                                                                                                        
                                                               
-1.2.作业提交
+##### 1.2.作业提交
 
 - RDD之间的依赖性分析, DAGScheduler
 - 根据DAG的分析结果将一个作业分成多个Stage
@@ -39,7 +39,7 @@ Executor Task:ShuffleMapTask,ResultTask
 	- Checkpoint:计算结果存储在HDFS
 	- Cache:数据存储到内存,内存不足时存储在磁盘
 
-1.3.消息传递-ActorModel和Akka
+##### 1.3.消息传递-ActorModel和Akka
 
 Akka作为Spark集群间通信框架
 
@@ -49,7 +49,7 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 	2)消息处理
 	3)消息发送
 
-1.4.Memory Store
+##### 1.4.Memory Store
 
 * CacheManager
 * BlockManager
@@ -59,7 +59,7 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 * ConnectionManager
 * BlockManagerMaster
 
-1.5.Spark集群
+##### 1.5.Spark集群
 
 - Driver
 - Master
@@ -68,12 +68,14 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 
 ![spark_model](_includes/spark_model.png)
 
-1.6.部署方式
+##### 1.6.部署方式
 
 local/local-cluster/standalone cluster/SparkonYARN
 
 
 #### 2.Spark Streaming
+
+##### 2.1.架构
 
 ![spark_streaming_process](_includes/spark_streaming_process.png)
 
@@ -81,7 +83,7 @@ local/local-cluster/standalone cluster/SparkonYARN
 - Worker
 - Client
 
-2.2.代码结构
+##### 2.2.代码结构
 
 * StreamingContext(由SparkContext创建生成)
 * DStream(Discretized Stream)表示从数据源获取持续性的数据流以及经过转换后的数据流,连续的RDD序列
@@ -98,9 +100,9 @@ local/local-cluster/standalone cluster/SparkonYARN
 * StreamingTab
 * BlockRDD
 
-2.3.容错性分析
+##### 2.3.容错性分析
 
-2.4.SparkStreaming vs Storm
+##### 2.4.SparkStreaming vs Storm
 
 - Akka作为Spark集群间通信框架
 - Storm依赖于ZooKeeper来维护整个集群,集群之间的消息通信采用ZeroMQ/Netty作为消息发送组件
@@ -112,14 +114,16 @@ local/local-cluster/standalone cluster/SparkonYARN
 
 SchemaRDD类似关系型数据库,可以通过存在的RDD,一个Parquet文件,一个JSON数据库或者Hive中使用HiveQL创建的
 
-3.1.SparkSQL应用
+![SparkSQL Architect](_includes/spark_sql_architecture.png)
+
+##### 3.1.SparkSQL应用
 
 * Spark SQL supports two different methods for converting existing RDDs into Datasets. 
 * Spark SQL supports automatically converting an RDD of JavaBeans into a DataFrame. 
 * Spark SQL also includes a data source that can read data from other databases using JDBC.
 * Spark SQL can cache tables using an in-memory columnar format by calling spark.cacheTable("tableName") or dataFrame.cache().
 
-3.2.代码结构
+##### 3.2.代码结构
 
 * SQLContext(由SparkContext创建生成)
 * SQLContext - SchemaRDD
@@ -132,21 +136,21 @@ SchemaRDD类似关系型数据库,可以通过存在的RDD,一个Parquet文件,�
 * SparkSQL支持用领域特定语言编写查询
 * SparkSQL数据类型
 
-3.3.SQL执行顺序
+##### 3.3.SQL执行顺序
 
 - 语法解析
 - 操作绑定
 - 优化执行策略
 - 交付执行
 
-3.4.SQL On Spark
+##### 3.4.SQL On Spark
 
 - SqlParser生成LogicPlan Tree
 - Analyzer和Optimizer将各种Rule作用于LogicalPlan Tree
 - 最终优化生成的LogicalPlan使用SparkPlan生成Spark RDD
 - 最后将生成的RDD交由Spark执行
 
-3.5.SparkPlan转换策略
+##### 3.5.SparkPlan转换策略
 
 - CommandStrategy
 - TakeOrdered
@@ -159,7 +163,7 @@ SchemaRDD类似关系型数据库,可以通过存在的RDD,一个Parquet文件,�
 - CartesianProduct(笛卡尔积JOIN)
 - BroadcastNestedLoopJoin(LeftOuterJoin/RightOuterJoin/FullOuterJoin)
 
-3.6.Spark on Hive
+##### 3.6.Spark on Hive
 
 _Hive架构_
 
@@ -178,7 +182,7 @@ _HiveQLOnMapReduce执行过程_
 * HiveContext(由SparkContext创建生成)
 
 
-3.7.DataFrames & Datasets
+##### 3.7.DataFrames & Datasets
 
 - A Dataset is a distributed collection of data. 
 - A DataFrame is a Dataset organized into named columns. 

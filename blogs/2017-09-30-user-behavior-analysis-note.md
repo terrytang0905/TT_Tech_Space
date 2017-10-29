@@ -664,7 +664,7 @@ http://blog.csdn.net/hguisu/article/details/8021036
 
 4.3.Python数据分析应用
 
-4.4.Tenseflow机器学习工具(待定)
+4.4.Tenseflow机器学习工具
 
 https://web.stanford.edu/class/cs20si/
 
