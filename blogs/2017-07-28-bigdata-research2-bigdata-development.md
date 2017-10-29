@@ -8,13 +8,13 @@ title: Big Data Research1 - Develop Design
 ## 大数据研究2之数据处理开发
 ------------------------------------------------------------
 
-### Hadoop Map Reduce
+### Hadoop MapReduce
 
 ### Spark for Big Data Development
 
 ### Flink Streaming Solution
 
-### Python for Data Analysis
+### BigData Principles and BestPractices of Scalable RealtimeDataSystems
 
 
 
