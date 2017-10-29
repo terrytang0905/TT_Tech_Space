@@ -17,7 +17,7 @@ title: User Behavior Analysis Note
 精益数据分析
 
 
-#### 数据指标是什么 - 废话一句
+#### 1.1.数据指标是什么 - 废话一句
 
 数据分析离不开对企业关键指标的跟踪
 
@@ -67,7 +67,7 @@ A/B 测试,网站活跃率提升的法宝
 人类提供灵感,机器负责验证
 优化的核心是找到给定函数的最大值与最小值
 
-#### 数据分析框架
+#### 1.2.数据分析框架
 
 需要关注的指标:
 
@@ -103,7 +103,7 @@ OMTM(One Metric That Matters-第一关键指标)
 
 如果新用户获取的边际成本很低,免费增值的商业模式效果更佳,前提是能够区分深度用户与普通用户
 
-#### 商业模式与数据分析
+#### 1.3.商业模式与数据分析
 
 流程:确认商业模式->选择合适的数据指标->用户行为数据分析->获取可行动的指标->执行优化产品收入
 
@@ -148,7 +148,7 @@ OMTM(One Metric That Matters-第一关键指标)
 
 变现方式导致计算客户终身价值(CLV)的方式不同
 
-#### 产品进阶与流程
+#### 1.4.产品进阶与流程
 
 移情->是否足够了解目标客户
 
@@ -174,7 +174,7 @@ OMTM(One Metric That Matters-第一关键指标)
 
 
 
-#### 指标基准选择 
+#### 1.5.指标基准选择 
 
 确定商业模式,通过数据分析跟踪并优化当前的产品第一关键指标
 
@@ -188,7 +188,7 @@ OMTM(One Metric That Matters-第一关键指标)
 - 病毒性:每个现有用户成功邀请了多少新用户(即病毒式传播系数)和他花多长时间才会邀请用户(即病毒传播周期)
 - 成功的营销活动应达到20%-30%的打开率和超过5%的点击率
 
-#### SaaS基准Baseline
+#### 1.6.SaaS基准Baseline
 
 流失率,参与度和追加销售指标
 
@@ -212,7 +212,7 @@ OMTM(One Metric That Matters-第一关键指标)
 
 客户获取成本(CAC)和客户终身价值(CLV)的两个必备指标
 
-#### 互联网数据分析方法
+#### 1.7.互联网数据分析方法
 
 1.采集产品用户行为数据-如何采集/埋点
 2.设计应用数据指标与数据模型
@@ -230,9 +230,9 @@ OMTM(One Metric That Matters-第一关键指标)
 机器学习
 
 
-#### 分析工具篇
+#### 1.8.分析工具篇
 
-Google Analytics 
+* Google Analytics 
 
  页面浏览量(Page View):网站在某一段时间内的页面浏览量是多少。
  用户浏览量(User View):网站在某一段时间内的用户浏览量是多少。
@@ -243,19 +243,19 @@ Google Analytics
 点击行为热点图
 
 
-Mixpanel/KissMetrics
+* Mixpanel/KissMetrics
 
  用户动态分析(Trends):你关心的用户行为发生了多少次,占总比例多少。
  行为漏斗模型(Funnels):某些关键行为是怎么发生了,每一步有多少的留存率和流失率。
  用户活跃度(Cohorts):网站用户的活跃度如何,可以用来区分忠实用户和普通用户。
  单用户行为分析(People):单个用户在网站上做了哪些操作,过程是如何的。
 
-UserCycle
+* UserCycle
 
 统计分析(Trends)和用户分组(Cohorts)
 分组实验测试(Split-Test Experiments)
 
-Optimize.ly
+* Optimize.ly
 
 Optimize.ly 是 A/B 测试的利器
 Optimize.ly 会根据用户行为的不同,给出不同的测试报告,让我们能 真真切切地了解页面变化对于转化率的影响
@@ -263,35 +263,36 @@ Optimize.ly 会根据用户行为的不同,给出不同的测试报告,让我们
 
 http行为监控 - 友盟/百度指数/淘宝指数
 
-友盟
+* 友盟
 
 友盟统计分析平台是国内最大的移动应用统计分析平台之一,能帮助移动应用开发者
 统计和分析流量来源、内容使用、用户属性和各种细分的行为数据。
 
-Web用户分析工具 - GrowingIO / 诸葛IO / 神策数据
+* Web用户分析工具 - GrowingIO / 诸葛IO / 神策数据
 
-神策数据:https://www.sensorsdata.cn/manual/funnel.html
-诸葛IO:https://demo.zhugeio.com/apppanel/panel.jsp;JSESSIONID_DEMO=F7EE67D535E3D56B1FD236DB294FD569.demo?app_id=35510&p=3#Ym9hcmRJZD0yODQ0
+[神策数据](https://www.sensorsdata.cn/manual/funnel.html)
+[诸葛IO](https://demo.zhugeio.com/apppanel/panel.jsp;JSESSIONID_DEMO=F7EE67D535E3D56B1FD236DB294FD569.demo?app_id=35510&p=3#Ym9hcmRJZD0yODQ0)
 
 
-BI数据分析与数据可视化
+* BI数据分析与数据可视化
 
-永洪BI/QuickBI/Superset/Kylin
+	- 永洪BI/QuickBI/Superset/Kylin
+	- echart/D3.js
 
-echart/D3.js
 
-关于Superset:
-
+#### 关于Superset
 
 数据分析的统计计数和多维分析，我们通常称之为数据探索式分析，这个步骤旨在了解数据的特性，有助于我们进一步挖掘数据的价值。而基于我们对数据的理解，再引入机器学习的算法对数据做出预测就变得水到渠成了。
 
 现实世界里，大部分的公司更多时间其实没有这个精力去搭建复杂的数据分析平台，面对快速变化的业务需求，很多数据工程师都把自己的青春埋葬在SQL里了。（其实我也是埋葬在SQL里的）
 
 
-架构
+1. 架构设计
+
 看到如此惊艳的数据产品，想必你也很想自己动手做一个吧！让我们一起看看整体的架构。
 
-后端
+2. 后端
+
 整个项目的后端是基于Python的，用到了Flask、Pandas、SqlAlchemy。
 
 	Flask AppBuilder(鉴权、CRUD、规则）
@@ -305,12 +306,13 @@ echart/D3.js
 	UI具有时效性控制
 	允许强制刷新
 
-前端
+3. 前端
+
 	自然前端是JS的天下，用到了npm、react、webpack,这意味着你可以在手机也可以流畅使用。
 	d3 (数据可视化)
 	nvd3.org(可重用图表)
 
-局限性
+4. 局限性
 
 	Superset的可视化，目前只支持每次可视化一张表，对于多表join的情况还无能为力
 	依赖于数据库的快速响应，如果数据库本身太慢Superset也没什么办法
@@ -319,10 +321,10 @@ echart/D3.js
 
 ### II.用户行为分析
 
-常规用户行为分析
-深度用户行为分析
+- 常规用户行为分析
+- 深度用户行为分析
 
-#### 常规分析
+#### 2.1.常规行为分析
 
 - 常规行为指标分析
 - 行为Event分析
@@ -337,7 +339,7 @@ DAU与用户分布:日活只能告诉你用户数的变化，分布分析却能�
 
 
 
-#### 深度分析
+#### 2.2.深度分析
 
 - 用户行为路径分析 (漏斗分析是一种特殊的行为路径分析)
 - 用户分群与分层
@@ -351,7 +353,7 @@ DAU与用户分布:日活只能告诉你用户数的变化，分布分析却能�
 	- 用户分群是针对用户个体行为特征添加同类别属性
 
 
-#### 用户行为路径分析
+#### 2.3.用户行为路径分析
 
 漏斗模型可以看作是路径分析中的一种特殊情况,是针对少数人为特定模块与事件节点的路径分析
 路径分析是对每一个用户的每一个行为路径进行跟踪与记录
@@ -375,7 +377,7 @@ sunburst partition example
 
 https://codepen.io/tiago4orion/pen/nFEBk
 
-#### 用户分群与分层
+#### 2.4.用户分群与分层
 
 普通分群是依据用户的属性特征和行为特征将用户群体进行分类.
 预测分群是根据用户以往的行为属性特征，运用机器学习算法来预测他们将来会发生某些事件的概率。
@@ -384,7 +386,7 @@ https://codepen.io/tiago4orion/pen/nFEBk
 5%/15%/20%/25%/35%
 
 
-#### 用户画像分析
+#### 2.5.用户画像分析
 
 互联网人群画像分析
 3.1.用户唯一标识选择
@@ -396,23 +398,23 @@ Mac / Phone / Identifier for Advertising IDFA / IMEI
 
 * 用户属性标签开发
 
-- 不同的用户属性标签的开发方式各有不同
-- 人口属性是最常见的用户属性标签,也是最难判读的
-- 性别/年龄/地域/收入/婚否/有房无房/收入水平/教育程度
-- 在未获得用户交易的情况下如何做收入消费标签
-- 设备与地域属性标签的提取方式有哪些?
-- 特定族群的属性标签的设计方式
-- 用户属性标签矛盾处理
+	- 不同的用户属性标签的开发方式各有不同
+	- 人口属性是最常见的用户属性标签,也是最难判读的
+	- 性别/年龄/地域/收入/婚否/有房无房/收入水平/教育程度
+	- 在未获得用户交易的情况下如何做收入消费标签
+	- 设备与地域属性标签的提取方式有哪些?
+	- 特定族群的属性标签的设计方式
+	- 用户属性标签矛盾处理
 
 
 * 用户画像算法开发
 
-- 用户行为偏好<->行为分类与特征关联<->用户特征属性可信度
-- 用户行为偏好+关联度=可信度
-- 用户特征与标签规则的关联度获取
-- 用户与属性标签的可信度矩阵
-- 如何验证用户标签画像准确率
-- 准确用户标签样本数据的作用
+	- 用户行为偏好<->行为分类与特征关联<->用户特征属性可信度
+	- 用户行为偏好+关联度=可信度
+	- 用户特征与标签规则的关联度获取
+	- 用户与属性标签的可信度矩阵
+	- 如何验证用户标签画像准确率
+	- 准确用户标签样本数据的作用
 
 电商用户画像算法
 
@@ -420,10 +422,10 @@ Mac / Phone / Identifier for Advertising IDFA / IMEI
 
 产品行为数据/交易行为数据/运营商行为数据
 
-
 用户行为预测分析
 
 预测用户未来时间内的活跃用户和流失用户 
+
 	- 预测部分1:现有客户的模型 通过将一个或多个生存模型应用到所有客户来起作用
 	- 即 第100天的留存率(1-风险概率(没有退出)) x 第101天的风险   
 	- 预测部分2:新客户对于预测的影响
@@ -446,6 +448,8 @@ Mac / Phone / Identifier for Advertising IDFA / IMEI
 ### III.数据挖掘与运营
 
 
+#### 3.1.大数据分析平台
+
 数据接入/数据采集
 数据预处理(清理与转换)-ETL/Kettle
 
@@ -464,7 +468,25 @@ Mac / Phone / Identifier for Advertising IDFA / IMEI
 为什么精准的数据样本非常重要? 好的食材是炒出好菜最基础也是最关键的一步
 因此数据采集与数据清洗尤为重要
 
-#### 多维分析与数据挖掘
+
+#### 大数据分析平台设计
+
+*  文件存储：Hadoop HDFS、Tachyon、KFS
+*  离线计算：Hadoop MapReduce、Spark
+*  流式、实时计算：Storm、Spark Streaming、S4、Heron
+*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
+*  资源管理：YARN、Mesos
+*  日志收集：Flume、Scribe、Logstash、Kibana
+*  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
+*  查询分析：Hive、Impala、Pig、Presto、Phoenix、SparkSQL、Drill、Flink、Kylin、Druid
+*  分布式协调服务：Zookeeper
+*  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
+*  数据挖掘、机器学习：Mahout、Spark MLLib
+*  数据同步：Sqoop
+*  任务调度：Oozie
+
+
+#### 3.2.多维分析与数据挖掘
 
 OLAP与数据挖掘&机器学习的差异
 
@@ -475,9 +497,11 @@ OLAP与数据挖掘&机器学习的差异
 
 OLAP的应用场景
 
+[BigData OLAP](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md)
+
 数据挖掘&机器学习的应用场景
 
-#### 规则与统计
+#### 3.3.规则与统计
 
 NLP=通信系统+隐含马尔可夫模型
 
@@ -489,7 +513,7 @@ Hidden Markov Models:该马尔可夫链服从马尔可夫性质：即无记忆�
 为什么机器学习那么火?
 
 
-#### 数据挖掘算法与业务应用
+#### 3.4.数据挖掘算法与业务应用
 
 
 挖掘算法模型是规则,统计信息和模式的集合
@@ -501,7 +525,7 @@ Hidden Markov Models:该马尔可夫链服从马尔可夫性质：即无记忆�
 	•	时间序列分析算法  = 汇总数据中的常见序列或事件，如用户在浏览网站时所遵循的路径序列分析。
 
 
-##### 1.用户推荐算法
+##### A.用户推荐算法
 
 - 内容推荐与协同过滤
 - 基于ItemCF的协同过滤
@@ -527,7 +551,7 @@ Spark.ml目前支持基于模型的协同过滤。Spark.ml使用交替最小二�
 http://blog.csdn.net/liulingyuan6/article/details/53489390
 
 
-##### 2.客户流失分析模型(决策树+逻辑回归)
+##### B.客户流失分析模型(决策树+逻辑回归)
 
 客户流失分析分层
 
@@ -547,7 +571,7 @@ ln(P/1-P)=B + BX, 获取风险概率
 2.4.A/B测试验证客户流失分析效果
 
 
-##### 3.用户关联与序列路径挖掘(关联算法Apriori或FP-Growth算法)
+##### C.用户关联与序列路径挖掘(关联算法Apriori或FP-Growth算法)
 
 关联分析-从大规模数据中寻找物品间的隐含关系
 
@@ -585,7 +609,7 @@ FP-growth算法生成频繁项集相对Apriori生成频繁项集的主要好处�
 
 SparkMLlib: FPGrowth Library
 
-##### 4.用户画像分析模型(关联分析+决策树)
+##### D.用户画像分析模型(关联分析+决策树)
 
 * 识别规则
 
@@ -611,7 +635,7 @@ SparkMLlib: FPGrowth Library
 - 大样本验证
 - XGBoost in Python
 
-##### 5.社会网络分析(链接分析行为预测)
+##### E.社会网络分析(链接分析行为预测)
 
 用户在产品中产生的网络链接
 每一个模块事件看作一个个节点，节点与节点之间通过各自的方式连接组成了一个特定的网络图，以下将基于这些网络结构的分析方法统称为社会网络分析。
@@ -624,41 +648,23 @@ SparkMLlib: FPGrowth Library
 
 http://blog.csdn.net/hguisu/article/details/8021036
 
-##### 6.用户评价情绪分析(文本分析-TF/IDF)
+##### F.用户评价情绪分析(文本分析-TF/IDF)
 
-##### 7.客户价值评估模型
+##### H.客户价值评估模型
 
 这个价值评估模型如何设计?
 
 
 ### IV.分析算法应用路径
 
-大数据分析平台设计
 
-*  文件存储：Hadoop HDFS、Tachyon、KFS
-*  离线计算：Hadoop MapReduce、Spark
-*  流式、实时计算：Storm、Spark Streaming、S4、Heron
-*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
-*  资源管理：YARN、Mesos
-*  日志收集：Flume、Scribe、Logstash、Kibana
-*  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
-*  查询分析：Hive、Impala、Pig、Presto、Phoenix、SparkSQL、Drill、Flink、Kylin、Druid
-*  分布式协调服务：Zookeeper
-*  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
-*  数据挖掘、机器学习：Mahout、Spark MLLib
-*  数据同步：Sqoop
-*  任务调度：Oozie
+4.1.SQL/Python/R/Spark 数据分析语言如何选择?
 
+4.2.Spark高级数据分析应用
 
-https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md
+4.3.Python数据分析应用
 
-SQL/Python/R/Spark 数据分析语言如何选择?
-
-Spark高级数据分析应用
-
-Python数据分析应用
-
-Tenseflow机器学习工具(待定)
+4.4.Tenseflow机器学习工具(待定)
 
 https://web.stanford.edu/class/cs20si/
 
