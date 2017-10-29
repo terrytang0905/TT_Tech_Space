@@ -28,7 +28,6 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
 - *[大数据研究之架构技术菜单](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-menu.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
-- [SparkSQL编程应用-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-sparksql-programing-note.md)
 - *[Hive编程SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-optimize-note.md)
 - *[Hive编程SQL编译分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
@@ -44,7 +43,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [ElasticSearch搜索引擎架构-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
-- *[FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
+- [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
 ##### Distributed System & Cloud Computing
 
