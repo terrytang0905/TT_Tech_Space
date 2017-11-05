@@ -5,11 +5,12 @@ tags : [bigdata,database,guide]
 title: Greenplum 4 Best Practice Note
 ---
 
-#### 1.最佳实践概述
+#### 最佳实践概述
 
 
 GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型数据库。这种数据库的数据模式与高度规范化的事务性SMP的数据库显著不同,支持具有大事实表和小维度表的Star或者雪花模式。
 
+#### 1.Greenplum Best Practice
 
 *数据模型*
 
@@ -101,7 +102,7 @@ GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型
 使用Greenplum DataDirect JDBC Driver(相比postgresql jdbc driver,性能差。。。需研究)
 
 
-#### 2.详细内容
+#### 2.BestPractice详细内容
 
 *2.1.自建资源队列*
 
@@ -111,7 +112,9 @@ Comment:必须设置资源队列,否则大数据量查询很容易产生内存�
 
 资源队列具体参数设置:
 ACTIVE_STATEMENTS:此参数限制队列中同是执行的query数量,当query数量超过此值是则处于等待状态。pg_default默认值是20。
-MEMORY_LIMIT:此参数限制起源队中所有活动query(参见ACTIVE_STATEMENTS参数)能使用的最大内存，不能超过物理内存，计算方法为 物理momery/机器的节点个数*0.9;
+MEMORY_LIMIT:此参数限制起源队中所有活动query(参见ACTIVE_STATEMENTS参数)能使用的最大内存，不能超过物理内存，计算方法为 
+
+	物理momery/机器的节点个数 x 0.9;
 
 * 创建资源队列
 
@@ -392,18 +395,24 @@ vm.overcommit_ratio = 50
 - max_connections: 最大连接数，Segment建议设置成Master的5-10倍。
 
 
-#### 5.GP Functions
+#### 5.GP 硬件配置推荐
 
-[GP Functions](http://gpdb.docs.pivotal.io/4380/admin_guide/query/topics/functions-operators.html)
-
-
-#### 6.GP Performance Check
+#### 5.x.GP Performance Check
 
 - gpcheckperf -f hostlist -d /data1 -d /data2 -r ds
 - gpcheckperf -f hostfile_gpchecknet_ic1 -r N -d /tmp
 - [gpcheckperf](http://gpdb.docs.pivotal.io/4320/utility_guide/admin_utilities/gpcheckperf.html)
 
+
+#### 6.GP Functions
+
+[GP Functions](http://gpdb.docs.pivotal.io/4380/admin_guide/query/topics/functions-operators.html)
+
+* GPText
+
+
 #### 7.GP System Recovery
+
 
 *Greenplum系统恢复*
 
