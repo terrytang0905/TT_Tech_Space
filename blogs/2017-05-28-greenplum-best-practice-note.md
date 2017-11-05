@@ -507,7 +507,7 @@ recover_config_file
 
 #### x.Ref
 
-
+- [Greenplum offical](http://greenplum.org/)
 - [Greenplum最佳实践](https://wenku.baidu.com/view/2f36c23d30126edb6f1aff00bed5b9f3f90f721c.html)
 - [Tuning Greenplum](https://www.linkedin.com/pulse/tuning-greenplum-database-sandeep-katta-)
 - [Data Modeling for Greenplum](http://download.csdn.net/download/darkcatc/8474339)
