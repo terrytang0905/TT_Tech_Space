@@ -1,0 +1,4 @@
+1.MAC UA/URL 解析device
+2.根据MAC的device特征来进行分类APP/PC
+3.通过MAC已有的分类对域名进行基础分拣
+4.通过已知的MAC/域名识别规则,来推测未知域名的特征

@@ -18,6 +18,8 @@ title: Big Data Research1 - SQL Design
 
 #### SQL on Hadoop
 
+- [SQLonHadoop分析应用](2017-04-04-sqlonhadoop-anlysis-note.md)
+
 - [Hive分析与应用](2017-06-08-hive-programing-note.md)
 
 - [Hive SQL编译分析](2017-06-09-hive-sql-parser-note.md)
@@ -25,8 +27,6 @@ title: Big Data Research1 - SQL Design
 - [Hive SQL性能优化](2017-06-10-hive-sql-optimize-note.md)
 
 - [Impala实践与应用](2016-12-13-impala-rtolap-practice-note.md)
-
-- [SparkSQL应用实践](2017-06-10-sparksql-programing-note.md)
 
 - PrestoDB
 
