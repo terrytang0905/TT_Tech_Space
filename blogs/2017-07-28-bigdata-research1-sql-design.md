@@ -28,6 +28,8 @@ title: Big Data Research1 - SQL Design
 
 - [Impala实践与应用](2016-12-13-impala-rtolap-practice-note.md)
 
+- SparkSQL
+
 - PrestoDB
 
 #### Data Query Optimize Design
