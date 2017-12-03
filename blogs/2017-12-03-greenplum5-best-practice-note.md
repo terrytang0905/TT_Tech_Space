@@ -8,7 +8,7 @@ title: Greenplum5 Best Practice Note
 Greenplum5 Best Practice Note
 
 
-###Greenplum 5: Next-Generation Data Platform
+#### Greenplum 5: Next-Generation Data Platform
 
 At the heart of the massively parallel processing (MPP) SQL design is a next-generation query optimizer, known as GPORCA.
 
@@ -16,7 +16,7 @@ What comes with the new Greenplum 5 release is a fully featured, dynamic, and in
 
 ![greenplum5_arch](_includes/greenplum5_arch)
 
-###Integrated Analytics: New and Improved Analytical Interfaces
+#### Integrated Analytics: New and Improved Analytical Interfaces
 
 Greenplum 5 provides easy-to-use installers for the most popular add-on libraries for Python and R.
 
@@ -26,7 +26,7 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 
 ![greenplum5_integrated_analytics](_includes/greenplum5_integrated_analytics)
 
-####GPORCA: Pivotal Query Optimizer Updates
+#### GPORCA: Pivotal Query Optimizer Updates
 
  Previously, the legacy query optimizer was set as the default, but as of Greenplum 5, GPORCA is the default query optimizer. It is capable of handling a wide range of complex queries with concurrent mixed workloads with improved query performance.
 
@@ -34,11 +34,11 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 
  GPORCA generates a de-correlated plan, which is done only once. The intermediate results are then joined with the master table to generate a resultset that meets the user’s criteria. 
 
-####Greenplum Resource Groups and Workload Manager
+#### Greenplum Resource Groups and Workload Manager
 
 Managing concurrency and user resource distribution is a key feature of Greenplum. Workload Manager has been enhanced in this release, and a new way of managing database queries, called Resource Groups, provides more control by a database administrator over user activity, especially in the areas of CPU and memory management. 
 
-####Structured Query Language Performance Enhancements
+#### Structured Query Language Performance Enhancements
 
 A popular SQL structure—the correlated subquery—is a subquery (i.e., a query nested inside another query) that uses values from the outer query. This is probably the most signi cant enhancement in GPORCA, because of the heavy use of subqueries by the major BI/reporting tools in the industry.
 
@@ -54,7 +54,7 @@ to eliminate partitions that are not relevant to the result. This is achieved by
 The ANALYZE command in Greenplum 5 uses the faster PostgreSQL implementation to gather table statistics, improving its performance for both heap and append-optimized tables.
 
 
-####Additional Features and Functionality
+#### Additional Features and Functionality
 
 Pivotal Greenplum 5 adds support for a number of new built-in datatypes
 
