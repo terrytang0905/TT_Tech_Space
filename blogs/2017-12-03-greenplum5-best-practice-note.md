@@ -1,7 +1,7 @@
 ---
 layout: post
 category : technology
-tags : [datascience,datamining,development]
+tags : [datascience,datamining,database]
 title: Greenplum5 Best Practice Note
 ---
 
