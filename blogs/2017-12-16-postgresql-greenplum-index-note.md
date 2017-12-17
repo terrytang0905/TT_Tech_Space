@@ -2,10 +2,10 @@
 layout: post
 category : technology
 tags : [datascience,datamining,database]
-title: Greenplum&PostgreSQL Index Note
+title: PostgreSQL&Greenplum Index Note
 ---
 
-Greenplum&PostgreSQL Index Note
+PostgreSQL&Greenplum Index Note
 
 ### Intro
 
@@ -121,12 +121,8 @@ PostgreSQL不提供固定的bitmap索引.但该索引能用在多个索引结合
 
 #### GiST Index
 
-Generalized Search Tree (GiST) indexes allow you to build general balanced tree structures, and can be used for operations beyond equality and range comparisons. The tree structure is not changed, still no elevators in each node pair stored value (the page number) and the number of children with the same amount of steam in the node.
-
 泛化检索树(GiST)索引允许用户创建通用平衡二叉树结构,能被用于超出等于和范围比较的计算操作.
-这树结构是固定不变的,
-
-The essential difference lies in the organization of the key. B-Tree trees sharpened by search ranges, and hold a maximum subtree-child. R-Tree - the region on the coordinate plane. GiST offers as values ​​in the non-leaf nodes store the information that we consider essential, and which will determine if we are interested in values ​​(satisfying the predicate) in the subtree-child. The specific form of information stored depends on the type of search that we wish to pursue. Thus parameterize R-Tree and B-Tree tree predicates and values ​​we automatically receive specialized for the task index (examples: PostGiST, pg_trgm, hstore, ltree, etc.). They are used to index the geometric data types, as well as full-text search.
+这树结构是固定不变的,对于每个节点对所存储的值(页面值)和每个节点的子节点数量.
 
 其核心差异依赖于对key的组织.B-Tree树针对查询范围的锐化,并保存最大化的子树.R-Tree是用于描述一个坐标平面内某个区域.GiST提供包含必要信息的非叶子节点的数值,这将判断用户是否能获取所需要满足条件的值.这特定信息存储方式依赖于用户需要的查询方式.参数化的R-Tree和B-Tree树专攻task index(例如:PostGiST, pg_trgm, hstore, ltree).它被用于索引几何数据类型,如同全文检索
 
@@ -171,7 +167,7 @@ CREATE INDEX
 
 #### RUM Index (9.6+)
 
-RUM索引接口:对全文检索的支持更加强大,不需要SORT,直接走INDEX SCAN的接口,也就是说RUM同时还实现了<=>即文本相似度的属性检索.
+RUM索引接口:对全文检索的支持更加强大,不需要SORT,直接走INDEX SCAN的接口.
 
 ```sql
 postgres=# create table rum_test(c1 tsvector);
@@ -184,64 +180,64 @@ CREATE INDEX
 
 * 实现了<=>即文本相似度的属性检索
 * rum检索支持近似度排行
-* 支持非BITMAP scan
+* 支持非BITMAP scan方式,直接走INDEX SCAN
 
 #### Block Range (BRIN) Index (9.5+)
 
-BRIN stands for Block Range INdexes, and store metadata on a range of pages. At the moment this means the minimum and maximum values per block.
+BRIN索引代表块区域索引,存储metadata在一定范围的页面中.这意味着每个数据块的最小值与最大值.
 
-This results in an inexpensive index that occupies a very small amount of space, and can speed up queries in extremely large tables. This allows the index to determine which blocks are the only ones worth checking, and all others can be skipped. So if a 10GB table of order contained rows that were generally in order of order date, a BRIN index on the order_date column would allow the majority of the table to be skipped rather than performing a full sequential scan. This will still be slower than a regular BTREE index on the same column, but with the benefits of it being far smaller and requires less maintenance.
+这结果表明BRIN不是很昂贵的索引,占用很小的空间,并对非常巨大的表的查询加速.允许该索引可判断哪些块需要被检索,其他的可被跳过,避免全表扫描.
+BRIN索引依然比普通的BTree索引慢在同一列情况下,但其优点在于占用更小的空间且更少的维护.
 
-More info about this index you can read in this article.
+更多关于BRIN索引信息,请查看以下文章:
+[BRIN article](http://pythonsweetness.tumblr.com/post/119568339102/block-range-brin-indexes-in-postgresql-95).
 
 #### Partial Indexes
 
-A partial index covers just a subset of a table’s data. It is an index with a WHERE clause. The idea is to increase the efficiency of the index by reducing its size. A smaller index takes less storage, is easier to maintain, and is faster to scan.
+部分索引指仅覆盖一个表数据的子集.该索引与WHERE共同使用.这个方法是用来增加在减少空间的情况下提高查询效率.
 
-For example, suppose you log in table some information about network activity and very often you need check logs from local IP range. You may want to create an index like so:
+例如:
 
 ```sql
 CREATE INDEX access_log_client_ip_ix ON access_log (client_ip)
         WHERE (client_ip > inet '192.168.100.0' AND
                    client_ip < inet '192.168.100.255');
-```
 
-and such sql query will use such index
+such sql query will use such index
 
-```sql
 SELECT * FROM access_log WHERE client_ip = '192.168.100.45';
-This index will remain fairly small, and can also be used along other indexes on the more complex queries that may require it.
+
 ```
+
+该索引能保存相对小,也能用于更加复杂的查询中.
 
 #### Expression Indexes
 
 Expression indexes are useful for queries that match on some function or modification of your data. Postgres allows you to index the result of that function so that searches become as efficient as searching by raw data values.
 
-For example, suppose you doing very often search by first leter in lower case from name field. You may want to create an index like so:
+表达式索引非常有用,当需要查询部分函数或转换时.PostgreSQL允许用户索引函数的结果,因此其查询效率与直接查询原数据一样高效.
+
+例如:
 
 ```sql
 CREATE INDEX users_name_first_idx ON foo ((lower(substr(name, 1, 1))));
-```
 
 and such sql query will use such index
 
-```sql
 SELECT * FROM users WHERE lower(substr(name, 1, 1)) = 'a';
 ```
 
 #### Unique Indexes
 
-A unique index guarantees that the table won’t have more than one row with the same value. It’s advantageous to create unique indexes for two reasons: data integrity and performance. Lookups on a unique index are generally very fast.
+唯一键索引保证表不可出现超过一个完全一样的行.其有两个好处:数据一致性和查询性能.基于唯一键索引的查询通常是非常快的.
 
-There is little distinction between unique indexes and unique constraints. Unique indexes can be though of as lower level, since expression indexes and partial indexes cannot be created as unique constraints. Even partial unique indexes on expressions are possible.
+唯一键索引和唯一键约束的区别不大.唯一键约束不能用于表达式索引或部分索引(partial indexes),相比在表达式中使用部分唯一键索引是可能的.
 
 #### Multi-column Indexes
 
-While Postgres has the ability to create multi-column indexes, it’s important to understand when it makes sense to do so. The Postgres query planner has the ability to combine and use multiple single-column indexes in a multi-column query by performing a bitmap index scan (“Bitmap index” for more info). In general, you can create an index on every column that covers query conditions and in most cases Postgres will use them, so make sure to benchmark and justify the creation of a multi-column index before you create them. As always, indexes come with a cost, and multi-column indexes can only optimize the queries that reference the columns in the index in the same order, while multiple single column indexes provide performance improvements to a larger number of queries.
+Postgres有能力创建多列索引,这是非常重要的.Postgres的查询计划能够结合并使用多个单列索引在一个多列查询中,通过bitmap索引扫描方式.通常来说,用户能在每一列上创建索引,在大多数情况下Postgres能应用索引,但必须确保其效果在创建之前.索引总是有成本的,多列索引只能在索引顺序相同的情况下优化查询
 
-However there are cases where a multi-column index clearly makes sense. An index on columns (a, b) can be used by queries containing WHERE a = x AND b = y, or queries using WHERE a = x only, but will not be used by a query using WHERE b = y. So if this matches the query patterns of your application, the multi-column index approach is worth considering. Also note that in this case creating an index on a alone would be redundant.
-
-
+有部分情况下使用多列索引是明显有意义的. 例如索引应用在列(a,b)的查询,包含WHERE a = x AND b = y,或 WHERE a = x,但不包含WHERE b = y.这种情况下,多列索引是值得被考虑的.
 
 ### Greenplum Indexes
 
@@ -255,38 +251,51 @@ GP主要做快速有序地扫描（基于分区）
 
 #### Bitmap Index 原理
 
-如图所示，bitmap索引将每个被索引的VALUE作为KEY，使用每个BIT表示一行，当这行中包含这个VALUE时，设置为1，否则设置为0。
-如何从bitmap 索引检索数据，并查找到对应HEAP表的记录呢？
-必须要有一个mapping 转换功能（函数），才能将BIT位翻译为行号。例如第一个BIT代表第一行，。。。以此类推。（当然了，mapping函数没有这么简单，还有很多优化技巧）
-bitmap 的优化技术举例，比如
-1. 压缩
-例如连续的0或1可以被压缩，具体可以参考WIKI里面关于BITMAP的压缩算法，算法也是比较多的。
-2. 分段或分段压缩
-例如，每个数据块作为一个分段，每个分段内，记录这个数据块中的VALU对应的BIT信息。
-3. 排序
-排序是为了更好的进行压缩，例如堆表按被索引的列进行排序后，每个VALUE对应的行号就都是连续的了，压缩比很高。
-另外用户也可以参考一下roaring bitmap这个位图库，应用非常广泛，效果也很不错。
-https://github.com/zeromax007/gpdb-roaringbitmap
-https://github.com/RoaringBitmap/CRoaring
+如之前PostgreSQL Bitmap图所示，bitmap索引将每个被索引的VALUE作为KEY，使用每个BIT表示一行，当这行中包含这个VALUE时，设置为1，否则设置为0。
 
-bitmap index 适合什么场景
+
+如何从bitmap 索引检索数据，并查找到对应HEAP表的记录呢？
+
+必须要有一个mapping转换功能（函数），才能将BIT位翻译为行号。例如第一个BIT代表第一行，。。。以此类推。（当然了，mapping函数没有这么简单，还有很多优化技巧）
+
+bitmap的优化技术举例，比如：
+
+* 1. 压缩
+例如连续的0或1可以被压缩，具体可以参考WIKI里面关于BITMAP的压缩算法，算法也是比较多的。
+* 2. 分段或分段压缩
+例如，每个数据块作为一个分段，每个分段内，记录这个数据块中的VALU对应的BIT信息。
+* 3. 排序
+排序是为了更好的进行压缩，例如堆表按被索引的列进行排序后，每个VALUE对应的行号就都是连续的了，压缩比很高。
+
+另外用户也可以参考一下roaring bitmap这个位图库，应用非常广泛，效果也很不错。
+
+[1](https://github.com/zeromax007/gpdb-roaringbitmap)
+[2](https://github.com/RoaringBitmap/CRoaring)
+
+#### bitmap index 适合什么场景
 
 从bitmap index的结构我们了解到，被索引的列上面，每一个value都分别对应一个BIT串，BIT串的长度是记录数，每个BIT代表一行，1表示该行存在这个值，0表示该行不存在这个值。
 因此bitmap index索引的列，不能有太多的VALUE，最好是100到10万个VALUE，也就是说，这样的表的BITMAP索引有100到10万条BIT串。
 当我们对这个表的这个字段进行类似这样的查询时，效率就非常高。
+
+```sql
 select * from table where col = a and col = b and col2=xxx;        
 -- a,b的bit串进行BITAND的操作，然后再和col2=xxx的BIT进行BITAND操作，返回BIT位为1的，使用bitmap function返回行号，取记录。      
       
 select count(*) from table where col = a and col = b and col2=xxx;        
--- a,b的bit串进行BITAND的操作，然后再和col2=xxx的BIT进行BITAND操作，返回BIT位为1的，使用bitmap function返回行号，取记录，算count(*)。      
-1. 适合有少量不重复值的列 。
-2. 适合多个条件的查询，条件越多，bit and,or 的操作过滤掉的数据就越多，返回结果集越少。
-bitmap index 不适合什么场景
+-- a,b的bit串进行BITAND的操作，然后再和col2=xxx的BIT进行BITAND操作，返回BIT位为1的，使用bitmap function返回行号，取记录，算count(*)。
+```
+
+- 1.适合有少量不重复值的列
+- 2.适合多个条件的查询，条件越多，bit and,or 的操作过滤掉的数据就越多，返回结果集越少。
+
+#### bitmap index 不适合什么场景
 
 由于每个VALUE都要记录每行的BIT位，所以如果有1亿条记录，那么每个VALUE的BIT串长度就是1亿。如果有100万个不同的VALUE，那么BITMAP INDEX就有100万个长度为1亿的bit串。
-1. 不适合有太多不重复值的表字段。
-3. 同样，也不适合有太少不重复值的列，例如男女。这样的列，除非可以和其他列组合赛选出很少量的结果集，否则返回的结果集是非常庞大的，也是不适合的。
-3. 不适合频繁的更新，因为更新可能带来行迁移，以及VALUE的变化。如果是行迁移，需要更新整个bitmap串。如果是VALUE变化，则需要修改整个与变化相关的VALUE的BIT串。
+
+- 1.不适合有太多不重复值的表字段。
+- 2.同样，也不适合有太少不重复值的列，例如男女。这样的列，除非可以和其他列组合赛选出很少量的结果集，否则返回的结果集是非常庞大的，也是不适合的。
+- 3.不适合频繁的更新，因为更新可能带来行迁移，以及VALUE的变化。如果是行迁移，需要更新整个bitmap串。如果是VALUE变化，则需要修改整个与变化相关的VALUE的BIT串。
 
 
 #### Greenplum Text
