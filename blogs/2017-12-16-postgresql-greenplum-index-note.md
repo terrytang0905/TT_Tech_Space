@@ -203,7 +203,6 @@ CREATE INDEX access_log_client_ip_ix ON access_log (client_ip)
         WHERE (client_ip > inet '192.168.100.0' AND
                    client_ip < inet '192.168.100.255');
 
-such sql query will use such index
 
 SELECT * FROM access_log WHERE client_ip = '192.168.100.45';
 
@@ -222,7 +221,6 @@ Expression indexes are useful for queries that match on some function or modific
 ```sql
 CREATE INDEX users_name_first_idx ON foo ((lower(substr(name, 1, 1))));
 
-and such sql query will use such index
 
 SELECT * FROM users WHERE lower(substr(name, 1, 1)) = 'a';
 ```
