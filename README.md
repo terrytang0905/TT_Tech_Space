@@ -12,7 +12,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ##### Data Science Thinking
 
-- *[Python数据分析与挖掘-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-data-analysis-note.md)
+- *[Python数据分析与挖掘](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-data-analysis-note.md)
 - *[计算广告研究笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-note.md)
 - *[数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
@@ -23,7 +23,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 ##### Big Data Query & Analysis
 
 - *[大数据研究3之机器学习-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-machine-learning.md)
-- *[大数据研究2之数据处理开发-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-bigdata-development.md)
+- *[大数据研究2之数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-bigdata-development.md)
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
 - *[大数据研究之架构技术菜单](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-menu.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
