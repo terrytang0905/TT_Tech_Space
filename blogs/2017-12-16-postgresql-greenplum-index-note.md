@@ -68,7 +68,7 @@ _Disadvantages:_
 
 R-Tree(矩形树)索引存储类似坐标的数值型键值对(X,Y).R-Tree非常类似于B-Tree.唯一的不同在于信息写在树的中间页里.相比第i个B-Tree节点,我们写的大多数都在第i个子树之外.在R-Tree中这是最小单位的矩形,包含所有子个矩形.细节可以查看:
 
-!(R-Tree)(http://leopard.in.ua/assets/images/postgresql/pg_indexes/pg_indexes2.jpg)
+![R-Tree](http://leopard.in.ua/assets/images/postgresql/pg_indexes/pg_indexes2.jpg)
 
 _Advantages:_
 
@@ -87,7 +87,7 @@ _Disadvantages:_
 
 因为哈希函数是非线性的,该类索引是不能被排序的.这导致其无法用于比较大小和判断"IS NULL"值.另外,既然哈希是非唯一的,其匹配的哈希值可能存在冲突.
 
-!(Hash_indexes)(http://leopard.in.ua/assets/images/postgresql/pg_indexes/hash_indexes.png)
+![Hash_indexes](http://leopard.in.ua/assets/images/postgresql/pg_indexes/hash_indexes.png)
 
 _Advantages:_
 
