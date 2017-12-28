@@ -161,12 +161,12 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 
 * C.JOIN联接运算符
 
-** Nested Loop Join -算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表
+**Nested Loop Join -算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表**
 
 	* With Inner Sequential Scan(FullScan)
 	* With Inner Index Scan
 
-** Hash Join -复杂度就是 O(M+N) – 类似大小的表join
+**Hash Join -复杂度就是 O(M+N) – 类似大小的表join**
 
 	哈希联接的道理是：
 	1) 读取内关系的所有元素
@@ -176,7 +176,7 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	5) 是否与外关系的元素匹配
 	6) 生成哈希表需要时间
 
-** Merge join -唯一产生排序的联接算法
+**Merge join -唯一产生排序的联接算法**
 
     1)O(N x Log(N) + M x Log(M))-需排序
     1)O(N+M)-已排序,我们是只挑选相同的元素。
