@@ -2,10 +2,10 @@
 layout: post
 category : technology
 tags : [datascience,datamining,development]
-title: Python Data Analysis Note
+title: Python Data Analysis&Machine Learning Note
 ---
 
-Python数据挖掘分析
+Python数据分析&机器学习研究
 
 
 #### Python基础
@@ -41,4 +41,9 @@ Python数据挖掘分析
 3.统计作图函数 - Matplotlib/Pandas
 
 #### Python数据挖掘
+
+
+#### Tensorflow机器学习
+
+
 
