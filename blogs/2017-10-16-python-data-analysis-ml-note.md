@@ -34,16 +34,39 @@ Python数据分析&机器学习研究
 
 ##### Python数据探索函数
 
-1.基本函数 - Pandas
+1.NumPy
 
-2.拓展函数 - Pandas
+2.SciPy
 
-3.统计作图函数 - Matplotlib/Pandas
+3.scikit-learn: Machine Learning in Python
+
+4.Pandas: Python Data Analysis Library
+
+5.统计作图函数 - Matplotlib/Pandas
+
+6.iPython
 
 #### Python数据挖掘
 
 
-#### Tensorflow机器学习
+#### ML&Tensorflow
+
+分类或预测是机器学习的基石
+
+逻辑回归分类器
 
 
+机器学习方式:
 
+- 基于已标记范例的学习:有监督的学习
+- 发现某些模式：非监督的学习
+- 正确或错误的反馈：增强式学习
+
+Deeplearning: 同时兼容有监督的学习、非监督的学习和增强式学习
+
+DNN: 深度神经网络
+
+我们如何更迅速的训练一个大规模的神经网络？
+开拓更多的并行结构
+并行结构的模型
+并行的数据结构
