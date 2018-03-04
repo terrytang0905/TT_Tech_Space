@@ -9,11 +9,11 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### Content
 
-
-##### Data Science Thinking
+##### I.Data Science Thinking
 
 - *[GBDT决策树分析笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
 - *[Python数据分析与机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-data-analysis-ml-note.md)
+- *[大数据研究3之机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-machine-learning.md)
 - *[计算广告研究笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-note.md)
 - *[用户行为分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
 - *[数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
@@ -22,9 +22,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [新零售分析模型设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 
 
-##### Big Data Query & Analysis
+##### II.Big Data Query & Analysis
 
-- *[大数据研究3之机器学习-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-machine-learning.md)
 - *[大数据研究2之数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-bigdata-development.md)
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
 - *[大数据研究之架构技术菜单](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-menu.md)
@@ -46,7 +45,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
-##### Distributed System & Cloud Computing
+##### Database & Distributed Data System 
 
 - *[PostgreSQL&Greenplum索引笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-16-postgresql-greenplum-index-note.md)
 - *[Greenplum5实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-03-greenplum5-best-practice-note.md)
@@ -78,6 +77,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 
 ### TT Resources Site
+
+- [Principle阅读笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-04-principle-read-note.md)
 - [GitHub Page Website](http://terrytang0905.github.io/TT_Tech_Space/)
 - [About TT](About.md) 
 
