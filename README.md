@@ -22,7 +22,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [新零售分析模型设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 
 
-##### II.Big Data Query & Analysis
+##### II.Big Data Technology Research
 
 - *[大数据研究2之数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-bigdata-development.md)
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
