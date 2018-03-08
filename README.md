@@ -45,8 +45,10 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
-##### Database & Distributed Data System 
+##### III.Database & Distributed Data System 
 
+- *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
+- *[大数据分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-database-architect-research-note.md)
 - *[PostgreSQL&Greenplum索引笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-16-postgresql-greenplum-index-note.md)
 - *[Greenplum5实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-03-greenplum5-best-practice-note.md)
 - *[PostgreSQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-30-postgresql-best-practice-note.md)
@@ -55,14 +57,13 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[Greenplum Architect Research Note(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
 - [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)
-- *[大数据分布式存储架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-database-architect-research-note.md)
 - *[MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
 - [MongoDB3.0 MajorChange(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [Couchbase Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
 - *[MongoDB Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
 - [VMware Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2012-05-23-vmware-practice.md)
 
-##### Programming
+##### IV.Programming
 
 - *[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
@@ -76,7 +77,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux_system_management.md)
 
 
-### TT Resources Site
+### X.TT Resources Site
 
 - [Principle阅读笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-04-principle-read-note.md)
 - [GitHub Page Website](http://terrytang0905.github.io/TT_Tech_Space/)

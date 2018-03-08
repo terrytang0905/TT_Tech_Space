@@ -10,7 +10,125 @@ title: Bigdata Database Architect Research Note
 
 ![BigDataDBMap](_includes/BigData&CAP.jpg)
 
-### I.数据库架构
+### I.分布式数据存储架构
+
+![BigDataStorage1](_includes/Distribute_DataStorage1.png)
+![BigDataStorage2](_includes/Distribute_DataStorage2.png)
+![BigDataStorage2](_includes/Distribute_DataStorage3.png)
+
+#### 分布式算法
+
+- CAP定理
+- 一致性协议-2PC(Two-Phrase Commit)
+- Vector Clock向量时钟:
+
+	可用性>一致性 
+	与每个对象的每个版本相关联。通过审查其向量时钟,我们可以判断一个对象的两个版本是平行分枝或有因果顺序
+
+- 一致性协议-RWN协议:Write+Read>N
+- 一致性协议-Paxos协议:一致性>可用性
+
+	[介绍](http://www.jdon.com/artichect/paxos.html)
+	Paxos是一个解决共识问题consensus problem的算法
+	Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和propose/accept
+	基于Paxos的数据一致性同步Zookeeper
+
+- 一致性协议-Raft协议:一致性>可用性.
+
+	用于日志复制/表数据的复制.[介绍](http://www.jdon.com/artichect/raft.html)
+
+- MVCC多版本并行控制
+- BloomFilter:带随机概率的bitmap,用于判断有序结构里是否存在指定的数据
+
+	bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的
+
+- SkipList:跳跃表
+- LSM树 & LSM映射
+- Merkle哈希树
+- 一致性哈希(ConsistentHashing)
+- 虚拟桶哈希(VirtualBucketsHashing)
+
+	采用固定物理节点数量，来避免取模的不灵活性。<br/>
+	采用可配置映射节点，来避免一致性hash的部分影响。<br/>
+	支持动态扩容后对数据查询存储无影响。<br/>
+
+- Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
+- Gossip协议
+- 消息机制
+
+	消息的编解码方式
+	消息传递机制(ZeroMQ/RabbitMQ)
+
+- 数据文件格式
+
+	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
+
+- 数据压缩算法
+
+	Snappy <br/>
+	LZSS <br/>
+	GZ <br/>
+
+- 数据传输与序列化
+
+	[Avro序列化组件](https://avro.apache.org/docs/current/) <br/>
+	[Thrift](http://thrift.apache.org/) <br/>
+	[ProtocalBuffer]() <br/>
+
+- HyperLogLog:DISTINCT近似值算法
+
+### II.分布式存储架构分析
+
+#### 分析数据库设计
+
+1.分析型数据库
+
+	- 分布式架构设计-MPP
+	- 一致性协调器(Paxos/Raft) - 类Zookeeper
+	- LSM-Tree&LSM映射存储
+	- 索引设计 - B+Tree/Bitmap/FullText Index
+	- 查询管理器
+	- meta管理与存储
+	- SQL查询解析器(是否需要支持JOIN)/查询重写
+	- 查询优化器(JOIN优化/数据重分布/broadcast)
+	- 数据结构存储 - Column存储/倒排PostingList
+	- 数据压缩算法 - Snappy等
+	- 统计优化
+	- 支持事务管理(原子锁/跨行事务/跨表)
+	- 物化视图设计(view/project)
+	- In-Database FullText Engine
+	- Data mining support(UDF)
+
+2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
+
+
+3.OLAP设计
+
+	- 多数据源数据接入
+	- 逻辑建模与数据预处理(数据Load)
+	- 多维数据分析 - 通用Cube模型定义
+	- MDX转换SQL解析器
+	- QueryEngine
+	- 内存计算Spark(RealTime实时计算)
+	- 缓存管理器-聚合Cache设计
+	- 过滤器管理器
+	- Batch历史数据查询
+	- 数据排序处理
+	- 格式化处理
+
+4.[RealTimeOLAP分析](2017-02-01-realtime-olap-design-note.md)
+
+5.Impala与Dremel大数据分析设计
+
+
+### III.BigTable数据库架构
+
+1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
+
+2.OceanBase数据库与分析数据库差异
+
+
+### IV.数据库架构基础
 
 #### 通用数据库架构分析
 
@@ -315,122 +433,12 @@ Append-only Columnar Scan
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
 
-### II.分布式数据存储架构
-
-#### 分布式算法
-
-- CAP定理
-- 一致性协议-2PC(Two-Phrase Commit)
-- Vector Clock向量时钟:
-
-	可用性>一致性 
-	与每个对象的每个版本相关联。通过审查其向量时钟,我们可以判断一个对象的两个版本是平行分枝或有因果顺序
-
-- 一致性协议-RWN协议:Write+Read>N
-- 一致性协议-Paxos协议:一致性>可用性
-
-	[介绍](http://www.jdon.com/artichect/paxos.html)
-	Paxos是一个解决共识问题consensus problem的算法
-	Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和propose/accept
-	基于Paxos的数据一致性同步Zookeeper
-
-- 一致性协议-Raft协议:一致性>可用性.
-
-	用于日志复制/表数据的复制.[介绍](http://www.jdon.com/artichect/raft.html)
-
-- MVCC多版本并行控制
-- BloomFilter:带随机概率的bitmap,用于判断有序结构里是否存在指定的数据
-
-	bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的
-
-- SkipList:跳跃表
-- LSM树 & LSM映射
-- Merkle哈希树
-- 一致性哈希(ConsistentHashing)
-- 虚拟桶哈希(VirtualBucketsHashing)
-
-	采用固定物理节点数量，来避免取模的不灵活性。<br/>
-	采用可配置映射节点，来避免一致性hash的部分影响。<br/>
-	支持动态扩容后对数据查询存储无影响。<br/>
-
-- Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
-- Gossip协议
-- 消息机制
-
-	消息的编解码方式
-	消息传递机制(ZeroMQ/RabbitMQ)
-
-- 数据文件格式
-
-	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
-
-- 数据压缩算法
-
-	Snappy <br/>
-	LZSS <br/>
-	GZ <br/>
-
-- 数据传输与序列化
-
-	[Avro序列化组件](https://avro.apache.org/docs/current/) <br/>
-	[Thrift](http://thrift.apache.org/) <br/>
-	[ProtocalBuffer]() <br/>
-
-- HyperLogLog:DISTINCT近似值算法
-
-### III.分布式存储架构分析
-
-#### 分析数据库设计
-
-1.分析型数据库
-
-	- 分布式架构设计-MPP
-	- 一致性协调器(Paxos/Raft) - 类Zookeeper
-	- LSM-Tree&LSM映射存储
-	- 索引设计 - B+Tree/Bitmap/FullText Index
-	- 查询管理器
-	- meta管理与存储
-	- SQL查询解析器(是否需要支持JOIN)/查询重写
-	- 查询优化器(JOIN优化/数据重分布/broadcast)
-	- 数据结构存储 - Column存储/倒排PostingList
-	- 数据压缩算法 - Snappy等
-	- 统计优化
-	- 支持事务管理(原子锁/跨行事务/跨表)
-	- 物化视图设计(view/project)
-	- In-Database FullText Engine
-	- Data mining support(UDF)
-
-2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
-
-
-3.OLAP设计
-
-	- 多数据源数据接入
-	- 逻辑建模与数据预处理(数据Load)
-	- 多维数据分析 - 通用Cube模型定义
-	- MDX转换SQL解析器
-	- QueryEngine
-	- 内存计算Spark(RealTime实时计算)
-	- 缓存管理器-聚合Cache设计
-	- 过滤器管理器
-	- Batch历史数据查询
-	- 数据排序处理
-	- 格式化处理
-
-4.[RealTimeOLAP分析](2017-02-01-realtime-olap-design-note.md)
-
-5.Impala与Dremel大数据分析设计
-
-
-### IV.BigTable数据库架构
-
-1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
-
-2.OceanBase数据库与分析数据库差异
 
 ### V.区块链
 
 #### 区块链结构
+
+[区块链设计分析](2018-03-06-block-chain-design-note.md)
 
 ### x.Ref
 
