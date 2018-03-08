@@ -44,7 +44,16 @@ title: Bigdata Database Architect Research Note
 
 - SkipList:跳跃表
 - LSM树 & LSM映射
+
+	- Log-Structured Merge Tree
+	- LSM树原理把一棵大树拆分成N棵小树，它首先写入内存中，随着小树越来越大，内存中的小树会flush到磁盘中，磁盘中的树定期可以做merge操作，合并成一棵大树，以优化读性能。
+
 - Merkle哈希树
+
+	- 默克尔树（又叫哈希树）是一种二叉树，由一个根节点、一组中间节点和一组叶节点组成。最下面的叶节点包含存储数据或其哈希值，每个中间节点是它的两个孩子节点内容的哈希值，根节点也是由它的两个子节点内容的哈希值组成。
+	- 据称哈希树经常应用在一些分布式系统或者分布式存储中的反熵机制(Anti-entropy),也有称做去熵的.这些应用包括 Amazon的Dynamo 还有Apache的Cassandra数据库, 通过去熵可以去做到各个不同节点的同步, 即保持各个节点的信息都是同步最新.
+	- 区块链的核心存储就是基于默克尔树
+
 - 一致性哈希(ConsistentHashing)
 - 虚拟桶哈希(VirtualBucketsHashing)
 
