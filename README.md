@@ -9,7 +9,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### Content
 
-##### I.Data Science Thinking
+#### I.Data Science Thinking
 
 - *[GBDT决策树分析笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
 - *[Python数据分析与机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-data-analysis-ml-note.md)
@@ -22,7 +22,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [新零售分析模型设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 
 
-##### II.Big Data Technology Research
+#### II.Big Data Technology Research
 
 - *[大数据研究2之数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research2-bigdata-development.md)
 - *[大数据研究1之SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research1-sql-design.md)
@@ -45,7 +45,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
-##### III.Database & Distributed Data System 
+#### III.Database & Distributed Data System 
 
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[大数据分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-database-architect-research-note.md)
@@ -63,7 +63,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[MongoDB Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
 - [VMware Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2012-05-23-vmware-practice.md)
 
-##### IV.Programming
+#### IV.Programming
 
 - *[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
@@ -77,7 +77,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux_system_management.md)
 
 
-### X.TT Resources Site
+#### X.TT Resources Site
 
 - [Principle阅读笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-04-principle-read-note.md)
 - [GitHub Page Website](http://terrytang0905.github.io/TT_Tech_Space/)
