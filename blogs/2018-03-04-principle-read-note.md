@@ -13,3 +13,5 @@ title: Principles Reading Note
 > Truth
 
 	—more precisely, an accurate understanding of reality is the essential foundation for producing good outcomes.
+
+算法式决策->计算工程化

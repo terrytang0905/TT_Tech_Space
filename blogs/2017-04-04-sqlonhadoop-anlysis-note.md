@@ -40,6 +40,7 @@ title: Big Data Query Engine Analysis Note
 - MPP
 - Hive Metadata
 - 内存计算
+- 跨数据源查询支持
 
 ![Presto架构](_includes/Presto架构.png)
 

@@ -2,10 +2,10 @@
 layout: post
 category : technology
 tags : [datascience,datamining,development]
-title: Python Data Analysis&Machine Learning Note
+title: Machine Learning & Python Data Analysis Note
 ---
 
-Python数据分析&机器学习研究
+机器学习&Python数据分析-技术研究
 
 
 #### Python基础

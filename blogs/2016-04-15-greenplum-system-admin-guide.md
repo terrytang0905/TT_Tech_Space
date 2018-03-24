@@ -479,7 +479,7 @@ gpconfig -c gp_workfile_compress_algorithm -v zlib
 资源队列相关参数
 
 * ACTIVE_STATEMENTS:此参数限制队列中同是执行的query数量，当query数量超过此值是则处于等待状态。pg_default默认的值是20
-* MEMORY_LIMIT:此参数限制起源队中所有活动query（参见ACTIVE_STATEMENTS参数）能使用的最大内存，不能超过物理内存，计算方法为 物理momery/机器的节点个数*0.9;
+* MEMORY_LIMIT:此参数限制起源队中所有活动query（参见ACTIVE_STATEMENTS参数）能使用的最大内存，不能超过物理内存，计算方法为 物理momery/机器的节点个数 x 0.9;
 
 
 #### 8.4. 系统监控命令列表
@@ -625,7 +625,7 @@ WHERE objname = '<name>';
 
 --查看资源队列的详细信息视图
 ```sql
-select * gp_toolkit.gp_resq_activity where  and resqstatus = 'running'
+select * FROM gp_toolkit.gp_resq_activity where resqstatus = 'running'
 ```
 --资源队列状态
 

@@ -11,8 +11,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### I.Data Science Thinking
 
+- *[Python数据分析与机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-python-data-analysis-note.md)
 - *[GBDT决策树分析笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
-- *[Python数据分析与机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-data-analysis-ml-note.md)
 - *[大数据研究3之机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research3-machine-learning.md)
 - *[计算广告研究笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-note.md)
 - *[用户行为分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
