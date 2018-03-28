@@ -5,7 +5,7 @@ tags : [datascience,bigdata,architect]
 title: Big Data Research1 - Develop Design
 ---
 
-## 大数据研究2之数据处理开发
+## 大数据研究2之数据分析处理
 ------------------------------------------------------------
 
 ### Hadoop MapReduce

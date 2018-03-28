@@ -55,7 +55,8 @@ Hive估算reduce数量的时候，使用的是下面的公式：
 num_reduce_tasks = min[${hive.exec.reducers.max}, 
                       (${input.size} / ${ hive.exec.reducers.bytes.per.reducer})]
 ```
-_hive.exec.reducers.bytes.per.reducer_默认为1G，也就是每个reduce处理相当于job输入文件中1G大小的对应数据量，而且reduce个数不能超过一个上限参数值，这个参数的默认取值为999。所以我们也可以用调整这个公式的方式调整reduce数量，在灵活性和定制性上取得一个平衡。
+_hive.exec.reducers.bytes.per.reducer_
+默认为1G，也就是每个reduce处理相当于job输入文件中1G大小的对应数据量，而且reduce个数不能超过一个上限参数值，这个参数的默认取值为999。所以我们也可以用调整这个公式的方式调整reduce数量，在灵活性和定制性上取得一个平衡。
 
 设置reduce数同样也是根据运行时间作为参考调整，并且可以根据特定的业务需求、工作负载类型总结出经验，所以不再赘述。
 
@@ -71,9 +72,13 @@ map phase和reduce phase之间主要有3道工序。首先要把map输出的结�
 
 这里说的copy，一般叫做shuffle更加常见。但是由于一开始的配图以及MR job的web监控页对这个环节都是叫copy phase，指代更加精确，所以这里称为copy。
 
-copy阶段是把文件从map端copy到reduce端。默认情况下在5%的map完成的情况下reduce就开始启动copy，这个有时候是很浪费资源的，因为reduce一旦启动就被占用，一直等到map全部完成，收集到所有数据才可以进行后面的动作，所以我们可以等比较多的map完成之后再启动reduce流程，这个比例可以通过_mapred.reduce.slowstart.completed.maps_去调整，他的默认值就是5%。如果觉得这么做会减慢reduce端copy的进度，可以把copy过程的线程增大。_tasktracker.http.threads_可以决定作为server端的map用于提供数据传输服务的线程，_mapred.reduce.parallel.copies_可以决定作为client端的reduce同时从map端拉取数据的并行度（一次同时从多少个map拉数据），修改参数的时候这两个注意协调一下，server端能处理client端的请求即可。
+copy阶段是把文件从map端copy到reduce端。默认情况下在5%的map完成的情况下reduce就开始启动copy，这个有时候是很浪费资源的，因为reduce一旦启动就被占用，一直等到map全部完成，收集到所有数据才可以进行后面的动作，所以我们可以等比较多的map完成之后再启动reduce流程，这个比例可以通过
 
-另外，在shuffle阶段可能会出现的OOM问题，原因比较复杂，一般认为是内存分配不合理，GC无法及时释放内存导致。对于这个问题，可以尝试调低shuffle buffer的控制参数_mapred.job.shuffle.input.buffer.percent_这个比例值，默认值0.7，即shuffle buffer占到reduce task heap size的70%。另外也可以直接尝试增加reduce数量。
+    _mapred.reduce.slowstart.completed.maps_去调整，他的默认值就是5%。如果觉得这么做会减慢reduce端copy的进度，可以把copy过程的线程增大。
+
+    _tasktracker.http.threads_可以决定作为server端的map用于提供数据传输服务的线程，_mapred.reduce.parallel.copies_可以决定作为client端的reduce同时从map端拉取数据的并行度（一次同时从多少个map拉数据），修改参数的时候这两个注意协调一下，server端能处理client端的请求即可。
+
+    另外，在shuffle阶段可能会出现的OOM问题，原因比较复杂，一般认为是内存分配不合理，GC无法及时释放内存导致。对于这个问题，可以尝试调低shuffle buffer的控制参数_mapred.job.shuffle.input.buffer.percent_这个比例值，默认值0.7，即shuffle buffer占到reduce task heap size的70%。另外也可以直接尝试增加reduce数量。
 
 #### 4.文件格式的优化
 
