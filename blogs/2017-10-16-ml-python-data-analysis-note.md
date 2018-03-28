@@ -8,7 +8,9 @@ title: Machine Learning & Python Data Analysis Note
 机器学习&Python数据分析-技术研究
 
 
-### Python基础
+### I.Python数据分析
+
+Python基础
 
 - List
 - Tuple
@@ -49,7 +51,7 @@ title: Machine Learning & Python Data Analysis Note
 #### Python数据挖掘
 
 
-### ML&Tensorflow
+### II.ML&Tensorflow
 
 分类或预测是机器学习的基石
 
@@ -83,7 +85,7 @@ Changes > 0.1% in accuracy
 
 Deeplearning: 同时兼容有监督的学习、非监督的学习和增强式学习
 
-** DNN:深度神经网络 *
+* DNN:深度神经网络
 
 Convolutions ->(块+Depth)-> Classifier
 
@@ -104,14 +106,14 @@ Convolutions ->(块+Depth)-> Classifier
 
 ![ml_embedings_model](_includes/ml_embedings_model.png)
 
-** RNN:循环神经网络 *
+* RNN:循环神经网络 
 
 
-** CNN:卷积神经网络 * 
+* CNN:卷积神经网络 
 
 
 
-### 案例-域名自动分类识别
+### III.案例-域名自动分类识别
 
 - DNS域名分拣 - 基于K-means聚类的域名异常检测
 - MUT自动分类识别&核查
