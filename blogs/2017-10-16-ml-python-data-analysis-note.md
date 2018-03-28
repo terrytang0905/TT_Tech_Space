@@ -8,7 +8,7 @@ title: Machine Learning & Python Data Analysis Note
 机器学习&Python数据分析-技术研究
 
 
-#### Python基础
+### Python基础
 
 - List
 - Tuple
@@ -21,7 +21,7 @@ title: Machine Learning & Python Data Analysis Note
 
 	
 
-##### 数据特征分析
+#### 数据特征分析
 
 1.基础分析
 	- 分布分析
@@ -32,7 +32,7 @@ title: Machine Learning & Python Data Analysis Note
 5.贡献度分析-帕累托分析
 6.相关性分析
 
-##### Python数据探索函数
+#### Python数据探索函数
 
 1.NumPy
 
@@ -49,7 +49,7 @@ title: Machine Learning & Python Data Analysis Note
 #### Python数据挖掘
 
 
-#### ML&Tensorflow
+### ML&Tensorflow
 
 分类或预测是机器学习的基石
 
@@ -75,7 +75,7 @@ Rule 30
 Changes > 0.1% in accuracy 
 
 
-机器学习方式:
+#### 机器学习方式
 
 - 基于已标记范例的学习:有监督的学习
 - 发现某些模式：非监督的学习
@@ -83,7 +83,7 @@ Changes > 0.1% in accuracy
 
 Deeplearning: 同时兼容有监督的学习、非监督的学习和增强式学习
 
-DNN: 深度神经网络
+** DNN:深度神经网络 *
 
 Convolutions ->(块+Depth)-> Classifier
 
@@ -96,3 +96,26 @@ Convolutions ->(块+Depth)-> Classifier
 	-并行结构的模型
 	-并行的数据结构
 
+![ml_model_partition](_includes/ml_model_partition.png)
+
+- 深度神经网络如何尽可能的去处理那些零散的信息？（如单个词语或语句，文段的语义）
+- 答案是：词向量算法(Embedings)
+- 词向量模型是一种机器学习与自然语言处理结合的算法，其作用是建立词与词之间的关系
+
+![ml_embedings_model](_includes/ml_embedings_model.png)
+
+** RNN:循环神经网络 *
+
+
+** CNN:卷积神经网络 * 
+
+
+
+### 案例-域名自动分类识别
+
+- DNS域名分拣 - 基于K-means聚类的域名异常检测
+- MUT自动分类识别&核查
+- 路由Mac用户行为画像
+
+基于历史域名分类数据预测域名分类检测识别
+http://bobao.360.cn/learning/detail/418.html

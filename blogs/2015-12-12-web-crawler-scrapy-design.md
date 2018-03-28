@@ -1,6 +1,6 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [search, bigdata, develop]
 title: Network Crawler Scrapy Design
 ---
