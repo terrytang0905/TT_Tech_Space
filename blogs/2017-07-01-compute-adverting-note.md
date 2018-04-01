@@ -8,10 +8,13 @@ title: Compute Adverting Note
 ## Compute Adverting Note
 ------------------------------------------------------------
 
-DMP:Data Management Platform，即数据管理平台。是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
+DMP:Data Management Platform，即数据管理平台。
+
+是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
 http://www.cctime.com/html/2016-8-8/1204143.htm
-DSP（Demand Side Platform）
-http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q
+
+[DSP（Demand Side Platform]
+(http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
 
 
 PMP(PrivateMarketPlace, 私有交易市场)

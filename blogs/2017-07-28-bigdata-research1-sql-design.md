@@ -8,7 +8,7 @@ title: Big Data Research1 - SQL Design
 ## 大数据研究1之SQL设计应用
 ------------------------------------------------------------
 
-#### SQL on Database
+### SQL on Database
 
 - [标准SQL优化](2017-07-20-sql-best-practice.md)
 
@@ -16,7 +16,7 @@ title: Big Data Research1 - SQL Design
 
 - [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
 
-#### SQL on Hadoop
+### SQL on Hadoop
 
 - [SQLonHadoop分析应用](2017-04-04-sqlonhadoop-anlysis-note.md)
 
@@ -32,7 +32,7 @@ title: Big Data Research1 - SQL Design
 
 - PrestoDB
 
-#### Data Query Optimize Design
+### Data Query Optimize Design
 
 * PostgreSQL Index *
 
@@ -50,7 +50,7 @@ B+Tree, GiST, bitmap
 Partition 分区替代索引,以提高查询性能
 
 
-#### SQL Parser&Query Optimizer
+### SQL Parser&Query Optimizer
 
 - [数据库架构分析](2017-01-22-bigdata-database-architect-research-note.md)
 
