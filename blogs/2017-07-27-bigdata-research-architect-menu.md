@@ -40,7 +40,7 @@ title: Big Data Architect Design Notes
 	译者注：数据流就是大量连续到达的、潜在无限的有序数据序列，这些数据按顺序存取并被读取一次或有限次。
 	假设我们要创建一个简单的数据库，首先从基础部分文件开始。
 
-![random_ram_seq_disk](_includes/random_ram_seq_disk.jpg)
+![random_ram_seq_disk](_includes/random_ram_seq_disk.png)
 
 保持有序读和写，文件在硬件上会表现地很好。我们可以将写入的数据放入文件的末尾，可以通过扫面整个文件进行数据读取。任何我们希望的处理过程可以随着数据流穿过CPU而成真，比如过滤，聚合、甚至做一些更复杂的操作，总之非常完美。
 
@@ -79,7 +79,7 @@ title: Big Data Architect Design Notes
 * 第二种较小的索引集合，采用元索引或者布隆过滤算法(Bloom Filter)做一些优化
 * 第三种简单匹配算法(brute force)又叫面向列(Column Oriented)
 
-- 1.第一种方案是将索引放入主内存，随机写问题分隔到随机存储存储器(RAM)，堆文件依旧在硬盘中。
+##### 1.第一种方案是将索引放入主内存，随机写问题分隔到随机存储存储器(RAM)，堆文件依旧在硬盘中。
 
 ![a_put_index_in_memory](_includes/a_put_index_in_memory.jpg)
 	
@@ -89,7 +89,7 @@ title: Big Data Architect Design Notes
 
 倘若数据量远超主内存，这种策略就失效了。特别是存在大量小的对象时，问题特别显眼；索引增长很大，最后存储越过了可用主内存的容量。多数情况下，这样做是没有问题的，但如果存在海量数据，这样做就会成为一种负担。
 
-- 2.一种流行的方式抛开单个的“总览”索引，转而采用相对较小的索引集合。
+##### 2.一种流行的方式抛开单个的“总览”索引，转而采用相对较小的索引集合。
 
 ![b_use_a_chrono_small_index_files](_includes/b_use_a_chrono_small_index_files.jpg)
 
@@ -105,7 +105,7 @@ title: Big Data Architect Design Notes
 
 ![tricks_optimise_random_io](_includes/tricks_optimise_random_io.jpg)
 
-- 2.1.Log Structured Merge Tree
+##### 2.1.Log Structured Merge Tree
 
 我们创建的这个结构称作日志结构合并树(Log Structured Merge Tree),这种存储方式在大数据工具中应用较大，如Hbase、Cassandra、谷歌的BigTable等，它能用相对较小的内存开销平衡写、读性能。
 
@@ -113,7 +113,7 @@ title: Big Data Architect Design Notes
 
 将索引存储在内存中，或者利用诸如日志结构合并树(Log Structured Merge Tree)这样的写优化索引结构，绕开“随机写惩罚”(random-write penalty)。这是第三种方案为纯粹的简单匹配算法(Pure brute force)。
 
-- 3.Columar列式存储或面向列存储
+##### 3.Columar列式存储或面向列存储
 
 回到开始的文件例子，完整地读取它。如何处理文件中的数据，可以有许多选择。简单匹配算法(brute force)通过列而非行来存储数据，这种方法叫做面向列。
 
@@ -258,17 +258,13 @@ title: Big Data Architect Design Notes
 
 需要一致性的用例，比如转账、使用优惠码这种非交换行为。
 
-当然从传统的眼光看一些事情需要一致性，但实际上却也未必。比如一个行动从一个可变状态变成一个新的相关事实集合，就可以避免这种变化状态。通常是直接对新字段进行更新，考虑到标记一个事务存在潜在的欺诈，*我们可以简单地利用某个事实流和原始的事务进行关联*。
-
-译者：好观点
+当然从传统的眼光看一些事情需要一致性，但实际上却也未必。比如一个行动从一个可变状态变成一个新的相关事实集合，就可以避免这种变化状态。通常是直接对新字段进行更新，考虑到标记一个事务存在潜在的欺诈，**我们可以简单地利用某个事实流和原始的事务进行关联**。
 
 ![solution_avoid_isolate_embrace_disorder](_includes/solution_avoid_isolate_embrace_disorder.jpg)
 
 在数据平台中移除所有一致性需求、或者隔离它都是很有用的。一种隔离方式是利用单一写入策略，涉及几个方面，Datamic就是典型的例子；另一种方式是拆分可变的和非可变的来隔离一致性需求。
 
 诸如Bloom/CALM扩展了这些理念，支持默认状态下的无序概念，除非需要才做排序。因此我们有必要做一些基本的权衡，那我们如何利用这些特性去建立一个数据平台？
-
-![lsm_db_case](_includes/lsm_db_case.jpg)
 
 
 
@@ -290,13 +286,12 @@ title: Big Data Architect Design Notes
 
 命令查询职责分离(CQRS Command Query Responsibility Segregation)架构,可以简单地解决此问题
 
-译注：
-
-1. 实现一Druid
-2. 实现二操作分析桥(Operational/Analytic Bridge)
-3. 实现三批量管道
-4. 实现四拉姆达框架(Lambda Architecture)
-5. 实现五卡帕(Kappa)框架又叫流数据平台
+	译注：
+	1. 实现一Druid
+	2. 实现二操作分析桥(Operational/Analytic Bridge)
+	3. 实现三批量管道
+	4. 实现四拉姆达框架(Lambda Architecture)
+	5. 实现五卡帕(Kappa)框架又叫流数据平台
 
 该模式从业务上分离修改 (Command，增，删，改，会对系统状态进行修改)和查询（Query，查，不会对系统状态进行修改)的行为。从而使得逻辑更加清晰，便于对不同部分进行针对性的优化。
 
@@ -328,6 +323,7 @@ Hadoop栈最精彩的地方就是其丛多的工具，不管是快速读写访�
 #### 3.批处理架构（Hadoop）
 
 如果我们的数据是一次写入，多次读，不在改变的场景，上面可以部署各种复杂的分析型应用。采取批处理模式的hadoop无疑是这种平台最广用和出色的代表了。
+
 Hadoop平台提供快速的读写访问，廉价的存储，批处理流程，高吞吐信息流，和其他抽取、分析、处理数据的工具。
 批处理平台可以主动拉取或者被推进来多种数据源的数据，将其存储进HDFS，后续可以处理成多种优化的数据格式。数据可以被压缩，清洗，去结构化，聚合，处理为一种读优化的格式例如Parquet，或者直接被加载到数据服务层或者数据集市。通过这些过程，数据可以被查询或者处理。
 这种结构在大批量的、数据不再改变的场景表现良好，一般可以到100TB以上，这种结构的进化是缓慢的，数据处理速度一般也是以小时为单位的。
@@ -378,7 +374,7 @@ Lambda Architecture拉姆达框架核心是我们最乐意快速粗略作答的�
 
 需要记住几件事，一是schema，二是时间、分布式、异步系统风险。但这些问题都是可控的，前提是你认真对待。未来大数据领域可能会出现这样一些新的工具、革新，逐渐掺入到平台中，解决过去和现在更多的问题。
 
-译者注：schema 指数据库完整性约束。
+	译者注：schema 指数据库完整性约束。
 
 ![problem1_schema](_includes/problem1_schema.jpg)
 
@@ -411,11 +407,11 @@ Lambda Architecture拉姆达框架核心是我们最乐意快速粗略作答的�
 
 下面是Heap file自有的一些特性：
 
-　　数据保存在二级存储体(disk)中：Heapfile主要被设计用来高效存储大数据量，数据量的大小只受存储体容量限制;
-　　Heapfile可以跨越多个磁盘空间或机器：heapfile可以用大地址结构去标识多个磁盘，甚至于多个网络;
-　　数据被组织成页;
-　　页可以部分为空(并不要求每个page必须装满);
-　　页面可以被分割在某个存储体的不同的物理区域，也可以分布在不同的存储体上，甚至是不同的网络节点中。我们可以简单假设每一个page都有一个唯一的地址标识符PageAddress，并且操作系统可以根据PageAddress为我们定位该Page。
+　　- 数据保存在二级存储体(disk)中：Heapfile主要被设计用来高效存储大数据量，数据量的大小只受存储体容量限制;
+　　- Heapfile可以跨越多个磁盘空间或机器：heapfile可以用大地址结构去标识多个磁盘，甚至于多个网络;
+　　- 数据被组织成页;
+　　- 页可以部分为空(并不要求每个page必须装满);
+　　- 页面可以被分割在某个存储体的不同的物理区域，也可以分布在不同的存储体上，甚至是不同的网络节点中。我们可以简单假设每一个page都有一个唯一的地址标识符PageAddress，并且操作系统可以根据PageAddress为我们定位该Page。
 
 　　一般情况下，使用page在其所在文件中的偏移量就可以表示了。
 
