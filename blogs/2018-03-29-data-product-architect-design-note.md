@@ -37,6 +37,10 @@ title: DataProduct Architect Design Note
 - [用户行为分析](2017-05-30-postgresql-best-practice-note.md)
 - 人群画像分析
 
+	1.路由用户画像数据
+	2.Looklike 全流量用户视频数据
+	3.放大 全流量用户IMEI/MAC
+
 - [大数据分析思路](2015-11-08-bigdata-analysis-thinking.md)
 
 ### II.架构设计维度
@@ -51,9 +55,10 @@ title: DataProduct Architect Design Note
 
 4.大数据处理
 
-- 基础数据分析 -Hive/Spark&SparkSQL/Impala/Presto
+- 基础数据分析技术 -Hive/Spark&SparkSQL/Impala/Presto/ElasticSearch
 - ETL数据处理 -Kettle
 - 数据同步 -Sqoop/DataX/gphdfs
+- [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 
 5.深度数据分析-Greenplum/Python/Tensorflow
 
@@ -81,7 +86,7 @@ title: DataProduct Architect Design Note
 
 ### III.产品价值维度
 
-1.内容榜单+内容分类
+1.内容榜单分析+内容分类
 
 2.内容流量分析
 
