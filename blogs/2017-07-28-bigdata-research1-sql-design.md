@@ -43,7 +43,12 @@ sp-gist, brin, rum, bloom
 
 B+Tree, GiST, bitmap
 
+- [PostgreSQL&Greenplum索引研究](2017-12-16-postgresql-greenplum-index-note.md)
+
 * Hive Index *
+
+Partition 分区替代索引,以提高查询性能
+
 
 #### SQL Parser&Query Optimizer
 

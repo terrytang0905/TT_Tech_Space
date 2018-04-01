@@ -297,3 +297,7 @@ select count(*) from table where col = a and col = b and col2=xxx;
 
 #### Greenplum Text
 
+- gptext.search() 
+- [GPText2.2.1](http://gptext.docs.pivotal.io/220/topics/indexes.html)
+
+
