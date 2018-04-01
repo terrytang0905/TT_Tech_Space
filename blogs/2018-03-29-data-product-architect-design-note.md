@@ -45,7 +45,7 @@ title: DataProduct Architect Design Note
 
 ### II.架构设计维度
 
-- [大数据研究之架构技术](2017-07-27-bigdata-research-architect-menu.md)
+- [大数据研究之架构组成](2017-07-27-bigdata-research-architect-build.md)
 
 1.数据采集-爬虫&Scrapy
 
