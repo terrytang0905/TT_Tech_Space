@@ -45,6 +45,8 @@ title: DataProduct Architect Design Note
 
 ### II.架构设计维度
 
+- [大数据研究之架构技术](2017-07-27-bigdata-research-architect-menu.md)
+
 1.数据采集-爬虫&Scrapy
 
 2.实时数据处理-SparkStreaming/Storm
@@ -55,10 +57,13 @@ title: DataProduct Architect Design Note
 
 4.大数据处理
 
-- 基础数据分析技术 -Hive/Spark&SparkSQL/Impala/Presto/ElasticSearch
+- 基础数据分析技术 -Hive/Spark&SparkSQL/Impala/Presto
+- [大数据研究1-大数据SQL](2017-07-28-bigdata-research1-sql-design.md)
+- [大数据研究2-数据分析处理](2017-07-28-bigdata-research2-bigdata-development.md)
+- [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 - ETL数据处理 -Kettle
 - 数据同步 -Sqoop/DataX/gphdfs
-- [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
+- 数据质量分析
 
 5.深度数据分析-Greenplum/Python/Tensorflow
 
@@ -81,8 +86,6 @@ title: DataProduct Architect Design Note
 
 	数据验证/数据完整性/数据冲突/样本异常/性能问题
 
-- [大数据研究之架构技术](2017-07-27-bigdata-research-architect-menu.md)
-- [大数据研究2之数据分析处理](2017-07-28-bigdata-research2-bigdata-development.md)
 
 ### III.产品价值维度
 

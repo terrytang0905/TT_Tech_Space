@@ -189,11 +189,14 @@ _HiveQLOnMapReduce执行过程_
 - DataFrames can be constructed from a wide array of sources such as: structured data files, tables in Hive, external databases, or existing RDDs.
 - Datasets are similar to RDDs, however, instead of using Java serialization or Kryo they use a specialized Encoder to serialize the objects for processing or transmitting over the network.
 
+
+
 _Global Temporary View_
 
 ```java
 spark.sql("SELECT * FROM global_temp.people").show();
 ```
+
 
 #### 4.BlinkDB
 
