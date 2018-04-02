@@ -6,11 +6,11 @@ group: navigation
 ---
 
 ### Terry Tang
-Big Data/Data Product Architect(Over 10 IT work experience). 
 
-- Data product architect,big data platform and product architect/team driver.
+Big Data Architect/Data Platform Director(Over 10 IT work experience). 
+
+- Data product architect,data platform and product architect/team driver.
 - Email: zhenjietang@hotmail.com
-
 
 ### Speciality
 
