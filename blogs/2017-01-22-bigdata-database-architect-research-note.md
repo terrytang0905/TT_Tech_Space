@@ -125,7 +125,7 @@ title: Bigdata Database Architect Research Note
 	- 数据排序处理
 	- 格式化处理
 
-4.[RealTimeOLAP分析](2017-02-01-realtime-olap-design-note.md)
+4.[RealTimeOLAP分析](2017-02-01-bigdata-olap-anlysis-note.md)
 
 5.Impala与Dremel大数据分析设计
 
