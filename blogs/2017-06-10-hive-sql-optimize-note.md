@@ -74,11 +74,15 @@ map phase和reduce phase之间主要有3道工序。首先要把map输出的结�
 
 copy阶段是把文件从map端copy到reduce端。默认情况下在5%的map完成的情况下reduce就开始启动copy，这个有时候是很浪费资源的，因为reduce一旦启动就被占用，一直等到map全部完成，收集到所有数据才可以进行后面的动作，所以我们可以等比较多的map完成之后再启动reduce流程，这个比例可以通过
 
-    _mapred.reduce.slowstart.completed.maps_去调整，他的默认值就是5%。如果觉得这么做会减慢reduce端copy的进度，可以把copy过程的线程增大。
+    _mapred.reduce.slowstart.completed.maps_去调整，他的默认值就是5%。
+    如果觉得这么做会减慢reduce端copy的进度，可以把copy过程的线程增大。
 
-    _tasktracker.http.threads_可以决定作为server端的map用于提供数据传输服务的线程，_mapred.reduce.parallel.copies_可以决定作为client端的reduce同时从map端拉取数据的并行度（一次同时从多少个map拉数据），修改参数的时候这两个注意协调一下，server端能处理client端的请求即可。
+    _tasktracker.http.threads_可以决定作为server端的map用于提供数据传输服务的线程，
+    _mapred.reduce.parallel.copies_可以决定作为client端的reduce同时从map端拉取数据
+    的并行度(一次同时从多少个map拉数据),修改参数的时候这两个注意协调一下,server端能处理client端的请求即可。
 
-    另外，在shuffle阶段可能会出现的OOM问题，原因比较复杂，一般认为是内存分配不合理，GC无法及时释放内存导致。对于这个问题，可以尝试调低shuffle buffer的控制参数_mapred.job.shuffle.input.buffer.percent_这个比例值，默认值0.7，即shuffle buffer占到reduce task heap size的70%。另外也可以直接尝试增加reduce数量。
+    另外,在shuffle阶段可能会出现的OOM问题,原因比较复杂,一般认为是内存分配不合理,GC无法及时释放内存导致。对于这个问题,可以尝试调低shuffle buffer的控制参数
+    _mapred.job.shuffle.input.buffer.percent_这个比例值,默认值0.7,即shuffle buffer占到reduce task heap size的70%。另外也可以直接尝试增加reduce数量。
 
 #### 4.文件格式的优化
 
@@ -104,7 +108,7 @@ set mapred.output.compression.type = BLOCK;
 create table seq_file_test
 as select * from source_table;
 ```
-上面的文件格式转换，其实是由hive完成的（也就是插入动作）。但是也可以由外部直接导入纯文本（可以按照这里的做法预先压缩），或者是由MapReduce Job生成的数据。
+上面的文件格式转换，其实是由hive完成的(也就是插入动作)。但是也可以由外部直接导入纯文本(可以按照这里的做法预先压缩)，或者是由MapReduce Job生成的数据。
 
 值得注意的是，hive读取sequencefile的时候，是把key忽略的，也就是直接读value并且按照指定分隔符分隔字段。但是如果hive的数据来源是从mr生成的，那么写sequencefile的时候，key和value都是有意义的，key不能被忽略，而是应该当成第一个字段。为了解决这种不匹配的情况，有两种办法。一种是要求凡是结果会给hive用的mr job输出value的时候带上key。但是这样的话对于开发是一个负担，读写数据的时候都要注意这个情况。所以更好的方法是第二种，也就是把这个源自于hive的问题交给hive解决，写一个InputFormat包装一下，把value输出加上key即可。以下是核心代码，修改了RecordReader的next方法：
 
@@ -189,17 +193,21 @@ select count(*) from index_test_table where id = 10;
 然后在两个表的join key都具有唯一性的时候（也就是可做主键），还可以进一步做sort merge bucket map join。做法还是两边要做hash bucket，而且每个bucket内部要进行排序。这样一来当两边bucket要做局部join的时候，只需要用类似merge sort算法中的merge操作一样把两个bucket顺序遍历一遍即可完成，这样甚至都不用把一个bucket完整的加载成hashtable，这对性能的提升会有很大帮助。
 然后这里以一个完整的实验说明这几种join算法如何操作。
 首先建表要带上bucket：
+
 ```sql
 create table map_join_test(id int)
 clustered by (id) sorted by (id) into 32 buckets
 stored as textfile;
 ```
+
 然后插入我们准备好的800万行数据，注意要强制划分成bucket（也就是用reduce划分hash值相同的数据到相同的文件）：
+
 ```sql
 set hive.enforce.bucketing = true;
 insert overwrite table map_join_test
 select * from map_join_source_data;
 ```
+
 这样这个表就有了800万id值（且里面没有重复值，所以可以做sort merge），占用80MB左右。
 接下来我们就可以一一尝试map join的算法了。首先是普通的map join：
 
@@ -229,9 +237,11 @@ Task ID:
 不幸的是，居然内存不够了，直接做map join失败了。但是80MB的大小为何用1G的heap size都放不下？观察整个过程就会发现，平均一条记录需要用到200字节的存储空间，这个overhead太大了，对于map join的小表size一定要好好评估，如果有几十万记录数就要小心了。虽然不太清楚其中的构造原理，但是在互联网上也能找到其他的例证，比如这里和这里,平均一行500字节左右。这个明显比一般的表一行占用的数据量要大。不过hive也在做这方面的改进，争取缩小hash table，比如HIVE-6430。
 
 所以接下来我们就用bucket map join，之前分的bucket就派上用处了。只需要在上述sql的前面加上如下的设置：
+
 ```
 set hive.optimize.bucketmapjoin = true;
 ```
+
 然后还是会看到hash table分发：
 
 ```
@@ -251,10 +261,12 @@ set hive.optimize.bucketmapjoin = true;
 这次就会看到每次构建完一个hash table（也就是所对应的对应一个bucket），会把这个hash table写入文件，重新构建新的hash table。这样一来由于每个hash table的量比较小，也就不会有内存不足的问题，整个sql也能成功运行。不过光光是这个复制动作就要花去3分半的时间，所以如果整个job本来就花不了多少时间的，那这个时间就不可小视。
 
 最后我们试试sort merge bucket map join(一般简称SMB join)，在bucket map join的基础上加上下面的设置即可：
+
 ```
 set hive.optimize.bucketmapjoin.sortedmerge = true;
 set hive.input.format = org.apache.hadoop.hive.ql.io.BucketizedHiveInputFormat;
 ```
+
 SMB join是不会产生hash table分发的步骤的，直接开始做实际map端join操作了，每个mapper读取两个表相同的bucket，不需要将小表的bucket加载到内存，而通过merge sort的方式把两个bucket的数据走一遍即可。这个时候遍历数据肯定不会像常规情况下先遍历完第一个bucket，再遍历第二个bucket，那样无法实现merge sort。SMB join最大的优势就在于对于表的大小没有要求的情况下能做map join。
 
 关于join的算法虽然有这么些选择，但是个人觉得，对于日常使用，掌握默认的reduce join和普通的（无bucket）map join已经能解决大多数问题。如果小表不能完全放内存，但是小表相对大表的size量级差别也非常大的时候，或者是必须要做cross join，那也可以试试bucket map join，不过其hash table分发的过程会浪费不少时间，需要评估下是否能够比reduce join更高效。而SMB join虽然性能不错，也能适用于大表之间的join，但是把数据做成bucket本身也需要时间，如果只是临时join一次，还不如直接用reduce join。所以适用SMB join的场景相对比较少见，“用户基本表 join 用户扩展表”以及“用户今天的数据快照 join 用户昨天的数据快照”这类场景可能比较合适。
@@ -271,7 +283,9 @@ SMB join是不会产生hash table分发的步骤的，直接开始做实际map�
 
 #### 5.6. GroupBy倾斜
 
-group by造成的倾斜相对来说比较容易解决。hive提供两个参数可以解决，一个是_hive.map.aggr_，默认值已经为true，他的意思是做map aggregation，也就是在mapper里面做聚合。这个方法不同于直接写mapreduce的时候可以实现的combiner，但是却实现了类似combiner的效果。事实上各种基于mr的框架如pig，cascading等等用的都是map aggregation（或者叫partial aggregation）而非combiner的策略，也就是在mapper里面直接做聚合操作而不是输出到buffer给combiner做聚合。对于map aggregation，hive还会做检查，如果aggregation的效果不好，那么hive会自动放弃map aggregation。判断效果的依据就是经过一小批数据的处理之后，检查聚合后的数据量是否减小到一定的比例，默认是0.5，由_hive.map.aggr.hash.min.reduction_这个参数控制。所以如果确认数据里面确实有个别取值倾斜，但是大部分值是比较稀疏的，这个时候可以把比例强制设为1，避免极端情况下map aggr失效。_hive.map.aggr_还有一些相关参数，比如map aggr的内存占用等，具体可以参考这篇文章。另一个参数是_hive.groupby.skewindata_。这个参数的意思是做reduce操作的时候，拿到的key并不是所有相同值给同一个reduce，而是随机分发，然后reduce做聚合，做完之后再做一轮MR，拿前面聚合过的数据再算结果。所以这个参数其实跟hive.map.aggr做的是类似的事情，只是拿到reduce端来做，而且要额外启动一轮job，所以其实不怎么推荐用，效果不明显。
+group by造成的倾斜相对来说比较容易解决。
+
+hive提供两个参数可以解决,一个是_hive.map.aggr_，默认值已经为true，他的意思是做map aggregation，也就是在mapper里面做聚合。这个方法不同于直接写mapreduce的时候可以实现的combiner，但是却实现了类似combiner的效果。事实上各种基于mr的框架如pig，cascading等等用的都是map aggregation(或者叫partial aggregation)而非combiner的策略，也就是在mapper里面直接做聚合操作而不是输出到buffer给combiner做聚合。对于map aggregation，hive还会做检查，如果aggregation的效果不好，那么hive会自动放弃map aggregation。判断效果的依据就是经过一小批数据的处理之后，检查聚合后的数据量是否减小到一定的比例，默认是0.5，由_hive.map.aggr.hash.min.reduction_这个参数控制。所以如果确认数据里面确实有个别取值倾斜，但是大部分值是比较稀疏的，这个时候可以把比例强制设为1，避免极端情况下map aggr失效。_hive.map.aggr_还有一些相关参数，比如map aggr的内存占用等，具体可以参考这篇文章。另一个参数是_hive.groupby.skewindata_。这个参数的意思是做reduce操作的时候，拿到的key并不是所有相同值给同一个reduce，而是随机分发，然后reduce做聚合，做完之后再做一轮MR，拿前面聚合过的数据再算结果。所以这个参数其实跟hive.map.aggr做的是类似的事情，只是拿到reduce端来做，而且要额外启动一轮job，所以其实不怎么推荐用，效果不明显。
 
 另外需要注意的是count distinct操作往往需要改写SQL，可以按照下面这么做：
 
@@ -336,7 +350,7 @@ on a.item_id = b.item_id and a.r_id = b.r_id
 
 * Top N问题
 
-有时候我们需要在一大堆数据中取top n，比如说取访问日志里面时间最早的10条记录。基于sql实现这个需求就是使用order by col limit n。hive默认的order by实现只会用1个reduce做全局排序，这在数据量大的时候job运行效率非常低。hive在0.12版本引入了parallel order by，也就是通过sampling的方式实现并行（即基于_TotalOrderPartitioner_）。具体开关参数是hive.optimize.sampling.orderby。但是如果使用这个参数还是很可能碰到问题的：
+有时候我们需要在一大堆数据中取top n，比如说取访问日志里面时间最早的10条记录。基于sql实现这个需求就是使用order by col limit n。hive默认的order by实现只会用1个reduce做全局排序，这在数据量大的时候job运行效率非常低。hive在0.12版本引入了parallel order by，也就是通过sampling的方式实现并行(即基于_TotalOrderPartitioner_)。具体开关参数是hive.optimize.sampling.orderby。但是如果使用这个参数还是很可能碰到问题的：
 
 	- 首先如果order by字段本身取值范围过少，会造成Split points are out of order错误。这是因为，假设job中reduce数量为r的话，那么TotalOrderPartitioner需要order by字段的取值至少要有r - 1个。那么这样一来还需要关心reduce数量，增加了开发负担，而且如果把reduce数量设的很小，优化的效果就不太明显了。
 	- 其次，设置这个参数还可能造成聚会函数出错，这个问题只在比较新的hive版本中解决了。
