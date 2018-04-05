@@ -445,12 +445,10 @@ Append-only Columnar Scan
 
 ### V.区块链
 
-#### 区块链结构
-
 [区块链设计分析](2018-03-06-block-chain-design-note.md)
 
 ### x.Ref
 
-- [BigTable]()
-- [Dremel]()
+- [BigTable](https://baike.baidu.com/item/BigTable/3707131?fr=aladdin)
+- [Dremel](https://blog.csdn.net/happyduoduo1/article/details/51784730)
 
