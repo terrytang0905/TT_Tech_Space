@@ -66,10 +66,12 @@ title: Bigdata Database Architect Research Note
 - 消息机制
 
 	消息的编解码方式
-	消息传递机制(ZeroMQ/RabbitMQ)
+	消息传递机制(ZeroMQ/RabbitMQ/RocketMQ)
 
 - 数据文件格式
 
+	RCFile
+	OptimizeRC
 	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
 
 - 数据压缩算法
