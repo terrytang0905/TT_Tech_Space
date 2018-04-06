@@ -7,13 +7,14 @@ group: navigation
 
 ### Terry Tang
 
-Big Data Architect/Data Platform Director(Over 10 IT work experience). 
+Big Data Architect/Data Product Architect/Data Platform Director(Over 10 IT work experience). 
 
 - Data product architect,data platform and product architect/team driver.
 - Email: zhenjietang@hotmail.com
 
 ### Speciality
 
+- Big data platform design & management
 - Big data product design(agile BI) & data mining tech solution (NewBI product)
 - Product development management and team driver
 - Full-text content search engine solution (xPlore search engine owned by EMC/Lenovo search engine)
