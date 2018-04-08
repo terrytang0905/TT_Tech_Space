@@ -1,12 +1,11 @@
 ---
----
 layout: post
 category : technology
 tags : [datascience,bigdata,architect]
-title: Big Data Research1 - Data Science
+title: Big Data Research Note - Data Science
 ---
 
-## 大数据研究3之数据科学
+## 大数据研究-数据科学应用
 ------------------------------------------------------------
 
 

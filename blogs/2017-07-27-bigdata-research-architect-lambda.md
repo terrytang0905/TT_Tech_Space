@@ -2,10 +2,10 @@
 layout: post
 category : architect
 tags : [bigdata,realtime,develop]
-title: Bigdata Research Lambda Architect Note
+title: Big Data Research Note - Lambda&Kappa Architect
 ---
 
-## 大数据研究之Lambda&Kappa架构
+## 大数据研究-Lambda&Kappa架构
 ------------------------------------------------------------
 
 ### I.Lambda Architect

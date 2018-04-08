@@ -2,7 +2,7 @@
 layout: post
 category : technology
 tags : [datascience,bigdata,architect]
-title: Big Data Architect Design Notes
+title: Big Data Research Note - Architect Design
 ---
 
 ## 大数据研究之底层架构
