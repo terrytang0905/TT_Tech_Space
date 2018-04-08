@@ -50,6 +50,10 @@ Python基础
 
 #### Python数据挖掘
 
+[PyTorch](http://pytorch-cn.readthedocs.io/zh/latest/)
+
+[SourceCode](https://github.com/pytorch/pytorch)
+
 
 ### II.ML&Tensorflow
 

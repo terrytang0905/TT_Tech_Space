@@ -106,24 +106,5 @@ The importance of immutability and human fault-tolerance, and the benefits of pr
 ![kappa架构](_includes/Kappa_arch.png)
 
 
-#### 1.Kappa架构与Spark内存计算
 
-[Spark架构](2017-03-29-spark-bigdata-arch-note.md)
-
-
-### III.OLAP In-Memory Computing
-
-#### 1.应用场景
-
-- 内存计算规则
-- 表计算/数据透视(计算函数设计)
-- 实时数据(增量)计算
-- 上下文筛选查询(数据查询联动更新)
-- 内存计算结果保存
-
-#### 2.Spark实时计算应用
-
-#### 3.[NewBI内存架构设计](http://wiki.yunat.com/pages/viewpage.action?pageId=42515508)
-
-#### 4.Presto设计参考
 

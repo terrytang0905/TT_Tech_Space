@@ -32,6 +32,12 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 [SQLonHadoop技术分析](2017-04-04-sqlonhadoop-anlysis-note.md)
 
+- Impala
+- PrestoDB
+- Dremel
+- Drill
+
+
 ### 2.关于Kylin
 
 **特点:Cube预处理+多维数据查询(QueryEngine应弱于Impala/Presto)**
@@ -297,6 +303,18 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 #### 5.1.[NewBI实时OLAP架构优化](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
+	- 多数据源数据接入
+	- 逻辑建模与数据预处理(数据Load)
+	- 多维数据分析 - 通用Cube模型定义
+	- MDX转换SQL解析器
+	- QueryEngine
+	- 内存计算Spark(RealTime实时计算)
+	- 缓存管理器-聚合Cache设计
+	- 过滤器管理器
+	- Batch历史数据查询
+	- 数据排序处理
+	- 格式化处理
+
 #### 5.2.QueryEngine优化
 
 5.2.1.Query性能差异与执行顺序
@@ -318,8 +336,12 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 #### 5.3.内存计算优化
 
-- SparkSQL混合查询
-- 内存表计算
+- Spark/SparkSQL混合查询
+- 内存计算规则
+- 表计算/数据透视(计算函数设计)
+- 实时数据(增量)计算
+- 上下文筛选查询(数据查询联动更新)
+- 内存计算结果保存
 
 
 ### x.技术参考

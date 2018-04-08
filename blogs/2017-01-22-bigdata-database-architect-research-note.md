@@ -112,22 +112,20 @@ title: Bigdata Database Architect Research Note
 
 2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
+3.Postgres-XL 
 
-3.OLAP设计
+Postgres-XL is a horizontally scalable open source SQL database cluster, flexible enough to handle varying database workloads:
 
-	- 多数据源数据接入
-	- 逻辑建模与数据预处理(数据Load)
-	- 多维数据分析 - 通用Cube模型定义
-	- MDX转换SQL解析器
-	- QueryEngine
-	- 内存计算Spark(RealTime实时计算)
-	- 缓存管理器-聚合Cache设计
-	- 过滤器管理器
-	- Batch历史数据查询
-	- 数据排序处理
-	- 格式化处理
+	- OLTP write-intensive workloads
+	- Business Intelligence requiring MPP parallelism
+	- Operational data store
+	- Key-value store
+	- GIS Geospatial
+	- Mixed-workload environments
+	- Multi-tenant provider hosted environments
 
-4.[RealTimeOLAP分析](2017-02-01-bigdata-olap-anlysis-note.md)
+
+4.[实时OLAP分析](2017-02-01-bigdata-olap-anlysis-note.md)
 
 5.Impala与Dremel大数据分析设计
 
