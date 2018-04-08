@@ -112,7 +112,7 @@ title: Bigdata Database Architect Research Note
 
 2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
-3.Postgres-XL 
+3.[Postgres-XL](https://www.postgres-xl.org/documentation/intro-whatis-postgres-xl.html) 
 
 Postgres-XL is a horizontally scalable open source SQL database cluster, flexible enough to handle varying database workloads:
 
@@ -126,8 +126,6 @@ Postgres-XL is a horizontally scalable open source SQL database cluster, flexibl
 
 
 4.[实时OLAP分析](2017-02-01-bigdata-olap-anlysis-note.md)
-
-5.Impala与Dremel大数据分析设计
 
 
 ### III.BigTable数据库架构

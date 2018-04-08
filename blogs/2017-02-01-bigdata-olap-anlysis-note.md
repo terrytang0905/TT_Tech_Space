@@ -301,7 +301,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.实时OLAP架构优化
 
-#### 5.1.[NewBI实时OLAP架构优化](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
+#### 5.1.[NewBI实时OLAP架构优化]()
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
