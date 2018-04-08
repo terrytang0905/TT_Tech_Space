@@ -2,13 +2,11 @@
 layout: post
 category : architect
 tags : [bigdata,realtime,develop]
-title: Realtime Data Process Architect Note
+title: Bigdata Research Lambda Architect Note
 ---
 
-## Realtime Data Process Architect Note
+## 大数据研究之Lambda&Kappa架构
 ------------------------------------------------------------
-
-Lambda & Kappa Architect
 
 ### I.Lambda Architect
 
