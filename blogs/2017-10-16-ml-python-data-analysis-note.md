@@ -34,7 +34,7 @@ Python基础
 5.贡献度分析-帕累托分析
 6.相关性分析
 
-#### 数据探索函数
+#### 数据探索Library
 
 1.NumPy
 
@@ -46,11 +46,13 @@ Python基础
 
 5.iPython
 
-### II.Python数据挖掘
+### II.Python机器学习
 
 #### scikit-learn机器学习
 
 [scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
+
+- [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
 
 #### PyTorch
 
@@ -58,7 +60,7 @@ Python基础
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
-- [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
+
 
 ### III.ML&Tensorflow
 
