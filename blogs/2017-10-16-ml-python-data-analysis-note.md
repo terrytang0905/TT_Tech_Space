@@ -34,28 +34,33 @@ Python基础
 5.贡献度分析-帕累托分析
 6.相关性分析
 
-#### Python数据探索函数
+#### 数据探索函数
 
 1.NumPy
 
 2.SciPy
 
-3.scikit-learn: Machine Learning in Python
+3.Pandas: Python Data Analysis Library
 
-4.Pandas: Python Data Analysis Library
+4.统计作图函数 - Matplotlib/Pandas
 
-5.统计作图函数 - Matplotlib/Pandas
+5.iPython
 
-6.iPython
+### II.Python数据挖掘
 
-#### Python数据挖掘
+#### scikit-learn机器学习
+
+[scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
+
+#### PyTorch
 
 [PyTorch](http://pytorch-cn.readthedocs.io/zh/latest/)
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
+- [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
 
-### II.ML&Tensorflow
+### III.ML&Tensorflow
 
 分类或预测是机器学习的基石
 
@@ -117,11 +122,16 @@ Convolutions ->(块+Depth)-> Classifier
 
 
 
-### III.案例-域名自动分类识别
+### IV.行为数据分析案例
 
-- DNS域名分拣 - 基于K-means聚类的域名异常检测
-- MUT自动分类识别&核查
-- 路由Mac用户行为画像
+#### 域名自动分类识别
 
-基于历史域名分类数据预测域名分类检测识别
+	- 基于K-means聚类的域名异常检测
+	- 基于历史域名分类数据预测域名分类检测识别
 http://bobao.360.cn/learning/detail/418.html
+
+#### 路由内容数据识别
+
+#### 路由Mac用户行为画像
+
+
