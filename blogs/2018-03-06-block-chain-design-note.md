@@ -21,7 +21,6 @@ title: Block Chain Design Note
 
 ### ETH
 
-52399197
 
 - [以太坊白皮书](http://ethfans.org/posts/ethereum-whitepaper)
 
