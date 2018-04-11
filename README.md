@@ -80,7 +80,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### X.TT Resources Site
 
-- [Principle阅读笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-04-principle-read-note.md)
+- [Principle原则-阅读笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-04-principle-read-note.md)
 - [GitHub Page Website](http://terrytang0905.github.io/TT_Tech_Space/)
 - [About TT](About.md) 
 
