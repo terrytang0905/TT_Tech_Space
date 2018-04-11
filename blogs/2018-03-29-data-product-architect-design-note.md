@@ -91,14 +91,14 @@ title: DataProduct Architect Design Note
 
 * 1.大数据情报分析
 
-- 内容榜单分析+内容分类
-- 内容流量分析
-- 人群筛选+对应内容榜单
-- 用户行为分析
+	- 内容榜单分析+内容分类
+	- 内容流量分析
+	- 人群筛选+对应内容榜单
+	- 用户行为分析
 
 * 2.搜索-推荐-广告
 
-- [计算广告](2017-05-30-postgresql-best-practice-note.md)
+	- [计算广告](2017-05-30-postgresql-best-practice-note.md)
 
 * 3.大数据风控模型
 
