@@ -26,7 +26,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 * 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
 * Tableau作为优秀可视化分析工具对大数据量分析能力有所欠缺
 
-### 1.RT(RealTime)查询引擎 - SQLonHadoop(Impala/Presto/Drill)
+### 1.RT(RealTime)查询引擎 - SQLonHadoop(Impala/Presto/Dremel/Drill)
 
 **特点:DistrubutedSQLQueryEngine**
 

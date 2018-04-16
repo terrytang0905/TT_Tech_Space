@@ -17,11 +17,10 @@ Python基础
 - Dictionary
 - Set
 
+[Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
+
 #### Python数据探索
 
-1.数据质量分析
-
-	
 
 #### 数据特征分析
 
@@ -33,18 +32,77 @@ Python基础
 4.周期性分析
 5.贡献度分析-帕累托分析
 6.相关性分析
+7.数据质量验证
 
 #### 数据探索Library
 
-1.NumPy
+Python 对于数据科学家来说几乎是一项必备技能。正如你看到的那样，很多数据科学家的岗位要求具备 Python 编程的能力。这篇文章将会针对数据科学介绍几种常用的 Python 包。在与数据挖掘、机器学习以及数据分析相关的项目中，这些 Python 包通常会得到广泛应用。
 
-2.SciPy
+* 1. SciPy
 
-3.Pandas: Python Data Analysis Library
+SciPy (发音为“Sigh Pie”) 是一个基于 Python 的开源软件生态系统，主要用于数学、科学和工程学等领域，给数据科学家提供了大量的算法和数学工具。
 
-4.统计作图函数 - Matplotlib/Pandas
+* 2. NumPy
 
-5.iPython
+Numpy是用 Pyhton 进行科学计算时的基础包，为 Python 提供了出色的数学功能。
+
+* 3. Scikit-learn
+
+Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同的分类方法、交叉检验及其他模型选择方法、降维技术、回归和聚类分析的模块以及非常实用的数据预处理的模块。
+
+* 4. Pandas
+
+Pandas 是一个用于处理具有类表格结构数据的库，通常与强大的数据框对象一起使用。DataFrame 是高效处理数据的多维数组对象，类似 Numpy 的 narray ，同时也有些附加的功能。
+
+* 5. IPython
+
+IPython 是一个命令行shell，相对于自带的 Python 解释器，具有很多有用的增强功能。
+
+IPython Notebooks  对于科学计算来说是个不错的环境：不仅仅可以执行代码，同时也能通过 Markdown 、 HTML 、 LaTeX 、内置图片、内置数据图表（例如 matplotlib 等）增加信息化文件，还能为并行计算提供高性能的工具。
+
+* 6. Requests
+
+Requests 是 Python 中为人们搭建的优雅而简单的 HTTP 库。作为一名数据科学家，你或许需要从网上采集数据，而Requests 则为你提供了强大的工具。
+
+* 7. Scrapy
+
+Scrapy 是从互联网上采集数据的开源和协同框架，使用了快速、简单并且可扩展的方式。
+
+* 8. Statsmodels
+
+用户可以通过 Statsmodels 这个 Python 模块去挖掘数据、搭建预测统计模型和进行统计检验。它是个可扩展的列表，用来描述数据、统计检验、绘图以及为不同类型的数据和每一种预测提供统计结果。
+
+* 9. Theano
+
+如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式。
+
+* 10. gensim
+
+genism 是最稳健、高效和省事的软件之一，通过纯文本实现无监督的语义建模，可以很容易地训练主题模型。如果想要在文本数据中应用主题模型，那你应该去试试 genism。
+
+* 11. SymPy
+
+SymPy 是进行符号数学计算的 Python 库，拥有大量的特征，包括微积分、代数、几何学、离散数学，甚至还有量子物理学。同时在 LaTeX 的支持下具备基础绘图和输出功能。
+
+* 12. PyMC
+
+PyMC 的核心是贝叶斯统计和模型拟合的大量算法（包括Markov Chain Monte Carlo, MCMC）。
+
+* 13. matplotlib
+
+matplotlib 是 python 的平面绘图库，能以硬拷贝格式和跨平台交互环境的多种形式输出高质量的图形，对于任何数据科学家或数据分析师来说都是必备的。
+
+* 14. BeautifulSoup
+
+如果想要提取些数据出来，那么 BeautifulSoup 正是你所需要的，可以用它在网页中提取内容。
+
+* 15. nltk
+
+Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
+
+* 16. sqlite3
+
+这个工具能帮助你轻而易举地存储数据。它为 Python 连接 SQLite 数据库提供了接口。搭建开源的 SQL 数据库引擎对于小团队来说是个理想的选择，因为它是独立的本地存储数据库文件（最多140Tb），不像SQL那样，它不需要任何服务器基本结构。
 
 ### II.Python机器学习
 
@@ -54,15 +112,17 @@ Python基础
 
 - [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
 
-#### PyTorch
+#### ML-PyTorch
 
-[PyTorch](http://pytorch-cn.readthedocs.io/zh/latest/)
+[PyTorch Tutorials](http://pytorch.org/tutorials/)
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
 
 
-### III.ML&Tensorflow
+### III.ML-Tensorflow
+
+TensorFlow则更适合大规模的调度，尤其当考虑到跨平台和嵌入式调度操作时。
 
 分类或预测是机器学习的基石
 
