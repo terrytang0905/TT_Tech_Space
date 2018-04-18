@@ -10,17 +10,7 @@ title: Machine Learning & Python Data Analysis Note
 
 ### I.Python数据分析
 
-Python基础
-
-- List
-- Tuple
-- Dictionary
-- Set
-
 [Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
-
-#### Python数据探索
-
 
 #### 数据特征分析
 
@@ -33,6 +23,10 @@ Python基础
 5.贡献度分析-帕累托分析
 6.相关性分析
 7.数据质量验证
+
+#### Python数据探索
+
+
 
 #### 数据探索Library
 
@@ -118,7 +112,9 @@ Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目�
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
+#### OpenCV-Python
 
+[OpenCV Tutorials](https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html)
 
 ### III.ML-Tensorflow
 

@@ -42,4 +42,8 @@ The most important quality that differentiates successful people from unsuccessf
 
 权力只是有限游戏的特征。它不是传奇性的,而是剧本性的
 
+无限游戏不能有终点,所以也无法重复。
+
+
+
 
