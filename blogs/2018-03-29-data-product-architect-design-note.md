@@ -5,6 +5,8 @@ tags : [thinking,product,datascience]
 title: DataProduct Architect Design Note
 ---
 
+### 数据应用产品架构思考
+
 ### I.产品设计维度
 
 1.数据清洗-识别数据规则&异常数据
@@ -93,8 +95,8 @@ title: DataProduct Architect Design Note
 
 	- 内容榜单分析+内容分类
 	- 内容流量分析
-	- 人群筛选+对应内容榜单
-	- 用户行为分析
+	- 人群筛选+对应内容榜单/行为分析
+	- 总体/定向用户行为分析
 
 * 2.搜索-推荐-广告
 
@@ -102,4 +104,5 @@ title: DataProduct Architect Design Note
 
 * 3.大数据风控模型
 
+* 4.大数据金融交易模型(门槛有点高)
 
