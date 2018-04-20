@@ -182,17 +182,25 @@ Convolutions ->(块+Depth)-> Classifier
 
 ### IV.行为数据挖掘案例
 
-#### 1.路由Mac用户行为画像
+
+![域名行为数据挖掘](_includes/domain_analysis.png)
 
 
-#### 2.路由内容数据识别
-
-
-#### 3.域名自动分类识别
+#### 1.域名自动分类识别
 
 	- 基于K-means聚类的域名异常检测
 	- 基于历史域名分类数据预测域名分类检测识别
 http://bobao.360.cn/learning/detail/418.html
+
+#### 2.路由内容数据识别
+
+#### 3.路由Mac用户行为画像
+
+
+
+
+
+
 
 
 
