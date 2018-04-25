@@ -26,7 +26,13 @@ title: Machine Learning & Python Data Analysis Note
 
 #### Python数据探索
 
+* 图片对比
 
+感知哈希算法是一类算法的总称，包括aHash、pHash、dHash。顾名思义，感知哈希不是以严格的方式计算Hash值，而是以更加相对的方式计算哈希值，因为“相似”与否，就是一种相对的判定。
+
+aHash：平均值哈希。速度比较快，但是常常不太精确。
+pHash：感知哈希。精确度比较高，但是速度方面较差一些。
+dHash：差异值哈希。Amazing！精确度较高，且速度也非常快。因此我就选择了dHash作为我图片判重的算法。
 
 #### 数据探索Library
 
@@ -103,6 +109,8 @@ Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目�
 #### scikit-learn机器学习
 
 [scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
+
+
 
 - [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
 
