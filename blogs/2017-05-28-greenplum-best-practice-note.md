@@ -104,6 +104,12 @@ GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型
 
 #### 2.BestPractice详细内容
 
+*2.0.系统监控*
+
+监控工具 nmon_x86_64_centos7
+
+
+
 *2.1.自建资源队列*
 
 建议通过greenplum command center的Administration->Manage resource queues选项操作。
