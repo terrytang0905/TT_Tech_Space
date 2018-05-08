@@ -120,11 +120,13 @@ pip install scikit-learns.whl
 
 - [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
 
-#### OpenCV-Python
+#### Python图像识别
 
 [OpenCV Tutorials](https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html)
 
 pip3 install opencv-contrib-python
+
+
 
 #### ML-PyTorch
 

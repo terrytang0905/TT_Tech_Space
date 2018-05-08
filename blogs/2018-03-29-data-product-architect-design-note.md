@@ -1,4 +1,5 @@
 ---
+---
 layout: post
 category : thinking
 tags : [thinking,product,datascience]
@@ -102,7 +103,7 @@ title: DataProduct Architect Design Note
 
 * 2.搜索-推荐-广告
 
-	- [计算广告](2017-05-30-postgresql-best-practice-note.md)
+	- [计算广告](2017-07-01-compute-adverting-note.md)
 
 * 3.大数据风控模型
 
