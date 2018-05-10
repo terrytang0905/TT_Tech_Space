@@ -92,9 +92,7 @@ title: Compute Adverting Note
 
 http://www.cctime.com/html/2016-8-8/1204143.htm
 
-[DSP（Demand Side Platform]
-(http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
-
+- [DSP-Demand Side Platform](http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
 
 - PMP(PrivateMarketPlace, 私有交易市场)
 
@@ -103,8 +101,8 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
 
 
+- 信息流广告分拣
 
-信息流广告分拣
 
 OTT广告监控方案
 

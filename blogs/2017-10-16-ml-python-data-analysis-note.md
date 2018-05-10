@@ -58,33 +58,42 @@ Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同�
 
 	> 基于NumPy/matplotlib/SciPy组件部署后再安装Scikit-learn,注意版本必须一致
 
-* 5. Pandas
+* 5. Keras
+
+使用 Python 编写的深度学习框架
+
+* 6. TensorFlow
+
+谷歌机器学习库
+
+* 7. Pandas
 
 Pandas 是一个用于处理具有类表格结构数据的库，通常与强大的数据框对象一起使用。DataFrame 是高效处理数据的多维数组对象，类似 Numpy 的 narray ，同时也有些附加的功能。
 
-* 6. Statsmodels
+* 8. Statsmodels
 
 用户可以通过 Statsmodels 这个 Python 模块去挖掘数据、搭建预测统计模型和进行统计检验。它是个可扩展的列表，用来描述数据、统计检验、绘图以及为不同类型的数据和每一种预测提供统计结果。
 
-* 7. Theano
+* 9. Theano
 
 如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式。
 
-* 8. gensim
+* 10. gensim
 
 genism 是最稳健、高效和省事的软件之一，通过纯文本实现无监督的语义建模，可以很容易地训练主题模型。如果想要在文本数据中应用主题模型，那你应该去试试 genism。
 
-* 9. SymPy
+* 11. SymPy
 
 SymPy 是进行符号数学计算的 Python 库，拥有大量的特征，包括微积分、代数、几何学、离散数学，甚至还有量子物理学。同时在 LaTeX 的支持下具备基础绘图和输出功能。
 
-* 10. PyMC
+* 12. PyMC
 
 PyMC 的核心是贝叶斯统计和模型拟合的大量算法（包括Markov Chain Monte Carlo, MCMC）。
 
-* 11. nltk
+* 13. nltk
 
 Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
+
 
 ** 其他相关组件 **
 

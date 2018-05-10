@@ -30,6 +30,19 @@ dHash算法
 Scale Invariant Feature Transform:尺度不变特征变换
 
 
-#### 3.openCV+Keras
+#### 3.openCV+Keras+Tensorflow
+
+3.1.创立数据集
+
+python3 extract_single_letters_from_captchas.py
+
+3.2.训练神经网络识别
+
+python3 train_model.py
+
+3.3.利用模型识别CAPTCHAs
+
+python3 solve_captchas_with_model.py
+
 
 
