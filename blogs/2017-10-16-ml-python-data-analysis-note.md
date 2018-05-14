@@ -57,7 +57,11 @@ matplotlib 是 python 的平面绘图库，能以硬拷贝格式和跨平台交�
 
 * 4. Pandas - 数据分析与探索工具
 
-Pandas是一个用于处理具有类表格结构数据的库,通常与强大的数据框对象一起使用。DataFrame是高效处理数据的多维数组对象，类似Numpy的narray ，同时也有些附加的功能。支持类似于SQL的数据增,删,改,查,及数据处理函数。
+Pandas是一个用于处理具有类表格结构数据的库,通常与强大的数据框对象一起使用。DataFrame是高效处理数据的多维数组对象，类似Numpy的narray ，同时也有些附加的功能。
+
+	支持类似于SQL的数据增,删,改,查,及数据处理函数。
+	统计特征函数-均值,方差,	标准差,分位数,相关系数和协方差
+	Dataframe.sum()
 
 * 5. Statsmodels
 
@@ -120,8 +124,8 @@ Pillow
 #### 2.2.机器学习
 
 - 基于已标记范例的学习:有监督的学习
-- 发现某些模式：非监督的学习
-- 正确或错误的反馈：增强式学习
+- 发现某些模式:非监督的学习
+- 正确或错误的反馈:增强式学习 
 
 * Scikit-Learn - 机器学习
 
@@ -173,6 +177,8 @@ Convolutions ->(块+Depth)-> Classifier
 	- 简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性）
 	- 支持CNN和RNN，或二者的结合
 	- 无缝CPU和GPU切换
+
+Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给出概率,model.prodict_classes()方法给出分类结果
 
 Keras默认使用TensorFlow作为后端来进行张量操作
 
