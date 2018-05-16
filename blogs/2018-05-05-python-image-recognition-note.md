@@ -52,6 +52,8 @@ SIFT的4个主要步骤
 
 #### 3.openCV+Keras+Tensorflow
 
+验证码CAPTCHAs图片识别
+
 3.1.创立数据集
 
 python3 extract_single_letters_from_captchas.py

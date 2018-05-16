@@ -89,10 +89,10 @@ B._大数据分布式存储_:
 > [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
 > HDFS(GFS) / HBase(Google BigTable) / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
+> [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md)
 
-C.[大数据存储深度研究](2017-01-22-bigdata-database-architect-research-note.md)
+C.[分布式存储架构分析](2017-01-22-bigdata-database-architect-research-note.md)
 
-C1.[分布式存储架构分析](http://wiki.iresearchdata.cn/pages/viewpage.action?pageId=1278067)
 
 ### III.数据预处理
 
@@ -134,11 +134,12 @@ E. _数据完整性验证_
 
 **设计独立数据质量监控组件**
 
-#### 3.3.ETL解决方案
+#### 3.3.数据处理方案
 
 * ETL Kettle开源工具
 * 任务队列与任务规则
 * 基于SQL/存储过程/UDF数据处理组件
+* Hive/Spark/Storm/Flink数据处理
 * 大数据MQ-[Kafka应用](2017-01-10-kafka-research-note.md)
 
 ### IV.多维数据分析
@@ -209,13 +210,14 @@ E. _数据完整性验证_
     `维归约与PCA的区别` <br />
 - 转轴(Pivoting): 在除两个维以外的所有维上聚集
 - 切片(Slicing)和切块(dicing) - 穿透/查看明细
-- 上卷(roll up)和下钻(drill down): 与聚集相关
+- 上卷(roll up)和下钻(drill down): 与聚集相关(基于维度的钻取)
 
 #### 4.4.OLAP详细设计
 
 - 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
 - Aggregation Query聚合查询与非聚合查询
 - OLAP数据缓存设计
+- 内存计算与类似Spark实时引擎
 - 查询语义分析设计(复杂计算设计)
 
     ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
@@ -225,22 +227,22 @@ E. _数据完整性验证_
 - 影响OLAP性能的因素
 
 - [实时OLAP技术设计](2017-02-01-realtime-olap-design-note.md)
-- Druid-OLAP引擎研究
-- OLAP与全文检索的组合应用
+- Druid-OLAP引擎研究(类似ES)
+- OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
 - [Mondriad研究](2017-01-31-mondrian-olap-analysis-note.md)
-- [Druid研究]()
 
 #### 4.5.OLAP查询的分布式计算
 
     A. Impala: 交互式OLAP SQL-on-Hadoop
-    B. Presto: OLAP SQL-on-Hadoop
+    B. Presto: OLAP SQL-on-Hadoop(跨数据源查询)
     C. Druid: 分布式实时OLAP
     D. SparkSQL: OLAP SQL-on-Hadoop
     E. Hive: 离线数据分析SQL-on-Hadoop
     F. Dremel: 大规模交互式查询引擎(非SQL)
 
-    G. Spark Streamming: 实时流式计算
+    G. Spark&Spark Streamming: 实时流式计算
     H. Storm: 实时流式计算
+    I. Flink
 
 
 ### V.数据可视化
@@ -267,7 +269,8 @@ E. _数据完整性验证_
 - 关联规则与推荐
 - 特征分析
 - 时间序列分析(指数平滑)
-- **机器学习与人工智能**
+- **机器学习**
+- **深度学习&神经网络**
 
 #### 6.1.挖掘建模-预测响应(分类)
 
@@ -421,13 +424,15 @@ x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
 
 #### 6.6.分析应用-客户划分
 
-- 客户RFM消费新鲜度 (Recency)
-- 客户RFM消费频度 (Frequency)
-- 客户RFM消费金额 (Monetary)
+- 客户RFM模型
+    消费新鲜度 (Recency)
+    消费频度 (Frequency)
+    消费金额 (Monetary)
 - [客户RFM设计实例](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
 - [双十一RFM分析设计](http://wiki.yunat.com/pages/viewpage.action?pageId=43854085)
 - 零售新老客分析
 - 客户洞察新老客分析
+- 客户分层金字塔模型
 
 #### 6.7.分析应用-用户画像分析
 
@@ -594,12 +599,14 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 - [魔镜MagicWindow](http://wiki.yunat.com/pages/viewpage.action?pageId=46766678)
 - [QuickBI](http://wiki.yunat.com/pages/viewpage.action?pageId=46766762)
 
-*日志分析与用户行为分析*
+*日志分析*
 
 - [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 - GrowingIO
 - 诸葛IO
 - Splunk
+
+[用户行为分析](2017-09-30-user-behavior-analysis-note.md)
 
 #### 8.3.数据发现数据
 
