@@ -115,7 +115,7 @@ Scrapy是从互联网上采集数据的开源和协同框架，使用了快速�
 
 #### 2.1.Python图像识别
 
-[OpenCV Tutorials](https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html)
+- [OpenCV Tutorials](https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html)
 
 pip3 install opencv-contrib-python
 
