@@ -200,6 +200,11 @@ Keras默认使用TensorFlow作为后端来进行张量操作
 
 #### ML-PyTorch
 
+It’s a Python based scientific computing package targeted at two sets of audiences:
+
+	- A replacement for NumPy to use the power of GPUs
+	- A deep learning research platform that provides maximum flexibility and speed
+
 [PyTorch Tutorials](http://pytorch.org/tutorials/)
 
 [SourceCode](https://github.com/pytorch/pytorch)
