@@ -121,6 +121,8 @@ pip3 install opencv-contrib-python
 
 Pillow
 
+- [Python图片识别算法](2018-05-05-python-image-recognition-note.md)
+
 #### 2.2.机器学习
 
 - 基于已标记范例的学习:有监督的学习
@@ -137,7 +139,7 @@ Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同�
 - [scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
 
 
-- [GBDT梯度提升算法](2017-12-25-gbdt-ml-note.md)
+- [决策树梯度提升算法](2017-12-25-xgdt-ml-note.md)
 
 
 
