@@ -172,7 +172,7 @@ Convolutions ->(块+Depth)-> Classifier
 
 * CNN:卷积神经网络 
 
-#### Keras - 深度学习API 
+#### 3.1.Keras - 深度学习API 
 
 使用Python编写的深度学习框架 - 高层神经网络API
 
@@ -198,7 +198,7 @@ Keras默认使用TensorFlow作为后端来进行张量操作
 
 如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式。
 
-#### ML-PyTorch
+#### 3.2.ML-PyTorch
 
 It’s a Python based scientific computing package targeted at two sets of audiences:
 
@@ -209,7 +209,7 @@ It’s a Python based scientific computing package targeted at two sets of audie
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
-#### Tensorflow
+#### 3.3.Tensorflow
 
 TensorFlow则更适合大规模的调度，尤其当考虑到跨平台和嵌入式调度操作时。
 
@@ -239,22 +239,27 @@ Changes > 0.1% in accuracy
 
 
 
-
 ### IV.行为数据挖掘案例
 
+#### 4.1.海量数据筛选
+
+借助神经网络实现非监督的深度学习模型
+
+#### 4.2.域名自动分类识别
 
 ![域名行为数据挖掘](_includes/domain_analysis.png)
-
-
-#### 1.域名自动分类识别
 
 	- 基于K-means聚类的域名异常检测
 	- 基于历史域名分类数据预测域名分类检测识别
 http://bobao.360.cn/learning/detail/418.html
 
-#### 2.路由内容数据识别
+#### 4.3.路由内容数据识别
 
-#### 3.路由Mac用户行为画像
+- 图片自动识别
+- 广告自动识别
+- 视频信息自动识别
+
+#### 4.4.路由Mac用户行为画像
 
 
 
