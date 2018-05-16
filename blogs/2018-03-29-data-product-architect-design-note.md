@@ -20,7 +20,8 @@ title: DataProduct Architect Design Note
 2.数据处理-数据分类与详细信息
 
 3.数据仓库-有效分类行为数据开发
-数据银行
+
+- 数据银行
 
 4.数据分析
 
@@ -104,7 +105,7 @@ title: DataProduct Architect Design Note
 	- 人群筛选+对应内容榜单/行为分析
 	- 总体/定向用户行为分析
 
-* 2.搜索-推荐-广告
+* 2.搜索-推荐-广告(大数据营销)
 
 	- [计算广告](2017-07-01-compute-adverting-note.md)
 

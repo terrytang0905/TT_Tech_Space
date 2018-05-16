@@ -5,7 +5,7 @@ tags : [datascience,datamining,solution]
 title: Compute Adverting Note 
 ---
 
-## Compute Adverting Note
+## 计算广告&大数据营销
 ------------------------------------------------------------
 
 ### I.大数据这门生意
