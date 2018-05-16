@@ -11,7 +11,7 @@ title: Big Data Research Note - Data Science
 
 ### Machine Learning 
 
-机器学习基础
+机器学习基础研究
 
 #### I.聚类
 
@@ -112,7 +112,7 @@ Java+稀疏矩阵+行列相似性
 神经网络可以指向两种，一个是生物神经网络，一个是人工神经网络。人工神经网络（Artificial Neural Networks，简写为ANNs）也简称为神经网络（NNs）或称作连接模型（Connection Model），它是一种模仿动物神经网络行为特征，进行分布式并行信息处理的算法数学模型。这种网络依靠系统的复杂程度，通过调整内部大量节点之间相互连接的关系，从而达到处理信息的目的。
 人工神经网络：是一种应用类似于大脑神经突触联接的结构进行信息处理的数学模型。在工程与学术界也常直接简称为“神经网络”或类神经网络。
 
-#### 机器学习工具
+#### XI.机器学习工具
 
 **Python相关**
 
@@ -151,12 +151,12 @@ LightLDA: 用于大规模主题模型的可扩展、快速、轻量级系统.
 Distributed word embedding:文字嵌入分布式算法.
 Distributed skipgram mixture: 多义文字嵌入分布式算法
 
-#### 分布式算法
+#### XII.分布式算法
 
 详细分布式算法可参见:
 [分布式存储架构分析](2017-01-22-bigdata-database-architect-research-note.md)
 
-#### 常用算法
+#### XIII.常用算法
 
 1.排序
 
