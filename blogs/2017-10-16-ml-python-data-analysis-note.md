@@ -5,12 +5,12 @@ tags : [datascience,datamining,development]
 title: Machine Learning & Python Data Analysis Note
 ---
 
-机器学习&Python数据分析-技术研究
+机器学习&Python数据分析
 
 
 ### I.Python数据分析
 
-[Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
+- [Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
 
 #### 1.1.数据特征分析
 

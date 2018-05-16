@@ -18,15 +18,6 @@ title: Bigdata Database Architect Research Note
 
 #### 分布式算法
 
-* CAP定理
-
-	Consistency/Availability/Partition tolerance
-
-	BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：
-	Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)
-	Soft state软状态 状态可以有一段时间不同步，异步。
-	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
-
 * 一致性
 
 数据一致性通常指关联数据之间的逻辑关系是否正确和完整。而数据存储的一致性模型则可以认为是存储系统和数据使用者之间的一种约定。如果使用者遵循这种约定，则可以得到系统所承诺的访问结果常用的
@@ -75,6 +66,14 @@ title: Bigdata Database Architect Research Note
 	所有follower也提交日志
 	现在整个系统处于一致的状态
 
+- CAP定理&BASE模型
+
+	Consistency/Availability/Partition tolerance
+
+	BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：
+	Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)
+	Soft state软状态 状态可以有一段时间不同步，异步。
+	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
   
 - MVCC多版本并行控制
 - BloomFilter:带随机概率的bitmap,用于判断有序结构里是否存在指定的数据
