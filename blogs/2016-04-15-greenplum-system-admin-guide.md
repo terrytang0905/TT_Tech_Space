@@ -482,7 +482,7 @@ gpconfig -c gp_workfile_compress_algorithm -v zlib
 * MEMORY_LIMIT:此参数限制起源队中所有活动query（参见ACTIVE_STATEMENTS参数）能使用的最大内存，不能超过物理内存，计算方法为 物理momery/机器的节点个数 x 0.9;
 
 
-#### 8.4. 系统监控命令列表
+#### 8.4. 系统统计命令
 
 gp_autostats_mode 参数控制统计信息发生的时机
 
@@ -571,6 +571,10 @@ select count(1) from pg_stat_activity;
 ```sql
 select procpid as pid, sess_id as session, usename as user, current_query as query, waiting, date_trunc('second', query_start) as start_time, client_addr as useraddr from pg_stat_activity where datname ='dbname' and current_query not like '%from pg_stat_activity%where datname =%'
 order by start_time;
+```
+
+```sql
+SELECT pg_stat_activity.datname, pg_stat_activity.client_port, pg_stat_activity.client_addr, pg_stat_activity.procpid, pg_stat_activity.sess_id, pg_stat_activity.usename, pg_stat_activity.waiting AS w, to_char(pg_stat_activity.query_start, 'yyyy-mm-dd hh24:mi:ss'::text) AS query_start, (to_timestamp((now())::text, 'yyyy-mm-dd hh24:mi:ss'::text) - to_timestamp((pg_stat_activity.query_start)::text, 'yyyy-mm-dd hh24:mi:ss'::text)) AS exec, pg_stat_activity.current_query FROM pg_stat_activity WHERE (pg_stat_activity.current_query <> '<IDLE>'::text) ORDER BY pg_stat_activity.datname, to_char(pg_stat_activity.query_start, 'yyyymmdd hh24:mi:ss'::text)
 ```
 --查看正在运行的sql
 ```sql
