@@ -18,7 +18,30 @@ title: Bigdata Database Architect Research Note
 
 #### 分布式算法
 
-- CAP定理
+* CAP定理
+
+	Consistency/Availability/Partition tolerance
+
+	BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：
+	Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)
+	Soft state软状态 状态可以有一段时间不同步，异步。
+	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
+
+* 一致性
+
+数据一致性通常指关联数据之间的逻辑关系是否正确和完整。而数据存储的一致性模型则可以认为是存储系统和数据使用者之间的一种约定。如果使用者遵循这种约定，则可以得到系统所承诺的访问结果常用的
+
+一致性模型有：
+
+	a、严格一致性（linearizability, strict/atomic Consistency）：读出的数据始终为最近写入的数据。这种一致性只有全局时钟存在时才有可能，在分布式网络环境不可能实现。
+	b、顺序一致性（sequential consistency）：所有使用者以同样的顺序看到对同一数据的操作，但是该顺序不一定是实时的。
+	c、因果一致性（causal consistency）：只有存在因果关系的写操作才要求所有使用者以相同的次序看到，对于无因果关系的写入则并行进行，无次序保证。因果一致性可以看做对顺序一致性性能的一种优化，但在实现时必须建立与维护因果依赖图，是相当困难的。
+	d、管道一致性（PRAM/FIFO consistency）：在因果一致性模型上的进一步弱化，要求由某一个使用者完成的写操作可以被其他所有的使用者按照顺序的感知到，而从不同使用者中来的写操作则无需保证顺序，就像一个一个的管道一样。 相对来说比较容易实现。
+	e、弱一致性（weak consistency）：只要求对共享数据结构的访问保证顺序一致性。对于同步变量的操作具有顺序一致性，是全局可见的，且只有当没有写操作等待处理时才可进行，以保证对于临界区域的访问顺序进行。在同步时点，所有使用者可以看到相同的数据。
+	f、 释放一致性（release consistency）：弱一致性无法区分使用者是要进入临界区还是要出临界区， 释放一致性使用两个不同的操作语句进行了区分。需要写入时使用者acquire该对象，写完后release，acquire-release之间形成了一个临界区，提供 释放一致性也就意味着当release操作发生后，所有使用者应该可以看到该操作。
+	g、最终一致性（eventual consistency）：当没有新更新的情况下，更新最终会通过网络传播到所有副本点，所有副本点最终会一致，也就是说使用者在最终某个时间点前的中间过程中无法保证看到的是新写入的数据。可以采用最终一致性模型有一个关键要求：读出陈旧数据是可以接受的。
+	h、delta consistency：系统会在delta时间内达到一致。这段时间内会存在一个不一致的窗口，该窗口可能是因为log shipping的过程导致。这是书上的原话。。我也搞不很清楚。。 数据库完整性（Database Integrity）是指数据库中数据的正确性和相容性。数据库完整性由各种各样的完整性约束来保证，因此可以说数据库完整性设计就是数据库完整性约束的设计。包括实体完整性。域完整性。参照完整性。用户定义完整性。可以主键。check约束。外键来一一实现。这个使用较多
+
 - 一致性协议-2PC(Two-Phrase Commit)
 - Vector Clock向量时钟:
 
@@ -33,10 +56,26 @@ title: Bigdata Database Architect Research Note
 	Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和propose/accept
 	基于Paxos的数据一致性同步Zookeeper
 
+	Paxos算法是莱斯利·兰伯特（Leslie Lamport，就是 LaTeX 中的”La”，此人现在在微软研究院）于1990年提出的一种基于消息传递的一致性算法。这个算法被认为是类似算法中最有效的。
+	Paxos 算法解决的问题是一个分布式系统如何就某个值（决议）达成一致。一个典型的场景是，在一个分布式数据库系统中，如果各节点的初始状态一致，每个节点执行相同的操作序列，那么他们最后能得到一个一致的状态。为保证每个节点执行相同的命令序列，需要在每一条指令上执行一个“一致性算法”以保证每个节点看到的指令一致。一个通用的一致性算法可以应用在许多场景中，是分布式计算中的重要问题。因此从20世纪80年代起对于一致性算法的研究就没有停止过。节点通信存在两种模型：共享内存（Shared memory）和消息传递（Messages passing）。Paxos 算法就是一种基于消息传递模型的一致性算法。
+
 - 一致性协议-Raft协议:一致性>可用性.
+
+	Raft是由Stanford提出的一种更易理解的一致性算法，意在取代目前广为使用的Paxos算法。目前，在各种主流语言中都有了一些开源实现，比如本文中将使用的基于JGroups的Raft协议实现。
 
 	用于日志复制/表数据的复制.[介绍](http://www.jdon.com/artichect/raft.html)
 
+	在Raft中，每个结点会处于下面三种状态中的一种：
+	follower：所有结点都以follower的状态开始。如果没收到leader消息则会变成candidate状态
+	candidate：会向其他结点“拉选票”，如果得到大部分的票则成为leader。这个过程就叫做Leader选举(Leader Election)
+	leader：所有对系统的修改都会先经过leader。每个修改都会写一条日志(log entry)。leader收到修改请求后的过程如下，这个过程叫做日志复制(Log Replication)：
+	复制日志到所有follower结点(replicate entry)
+	大部分结点响应时才提交日志
+	通知所有follower结点日志已提交
+	所有follower也提交日志
+	现在整个系统处于一致的状态
+
+  
 - MVCC多版本并行控制
 - BloomFilter:带随机概率的bitmap,用于判断有序结构里是否存在指定的数据
 
@@ -62,7 +101,14 @@ title: Bigdata Database Architect Research Note
 	支持动态扩容后对数据查询存储无影响。<br/>
 
 - Cuckoo哈希:使用2个hash函数来处理碰撞,从而每个key都对应到2个位置
+
 - Gossip协议
+
+	Gossip算法如其名，灵感来自办公室八卦，只要一个人八卦一下，在有限的时间内所有的人都会知道该八卦的信息，这种方式也与病毒传播类似，因此Gossip有众多的别名“闲话算法”、“疫情传播算法”、“病毒感染算法”、“谣言传播算法”。
+	但Gossip并不是一个新东西，之前的泛洪查找、路由算法都归属于这个范畴，不同的是Gossip给这类算法提供了明确的语义、具体实施方法及收敛性证明。
+	Gossip算法又被称为反熵（Anti-Entropy），熵是物理学上的一个概念，代表杂乱无章，而反熵就是在杂乱无章中寻求一致，这充分说明了Gossip的特点：在一个有界网络中，每个节点都随机地与其他节点通信，经过一番杂乱无章的通信，最终所有节点的状态都会达成一致。每个节点可能知道所有其他节点，也可能仅知道几个邻居节点，只要这些节可以通过网络连通，最终他们的状态都是一致的，当然这也是疫情传播的特点。
+	要注意到的一点是，即使有的节点因宕机而重启，有新节点加入，但经过一段时间后，这些节点的状态也会与其他节点达成一致，也就是说，Gossip天然具有分布式容错的优点。
+
 - 消息机制
 
 	消息的编解码方式
@@ -71,7 +117,7 @@ title: Bigdata Database Architect Research Note
 - 数据文件格式
 
 	RCFile
-	OptimizeRC
+	OptimizeRC=ORC
 	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
 
 - 数据压缩算法
