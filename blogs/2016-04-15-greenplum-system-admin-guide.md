@@ -649,6 +649,10 @@ gp_toolkit.gp_resq_priority_statement
 ```sql
 gp_toolkit.gp_resqueue_status;
 ```
+--查询优先级SQL
+```sql
+select * from gp_toolkit.gp_resq_priority_statement;
+```
 
 #### 8.5. 系统设置参数列表
 
