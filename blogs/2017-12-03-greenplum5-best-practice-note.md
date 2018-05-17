@@ -14,7 +14,7 @@ At the heart of the massively parallel processing (MPP) SQL design is a next-gen
 
 What comes with the new Greenplum 5 release is a fully featured, dynamic, and innovative analytical data platform, with a healthy and vibrant product roadmap that is sure to please customers, both in the near term and for many years to come.
 
-![greenplum5_arch](_includes/greenplum5_arch)
+![greenplum5_arch](_includes/greenplum5_arch.jpeg)
 
 #### Integrated Analytics: New and Improved Analytical Interfaces
 
@@ -24,7 +24,7 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 - The R data science libraries and package supported in Greenplum 5 
 - Greenplum 5 also supports the latest Apache MADlib release,which provides machine learning and graph analytics in SQL, as well as GPText, which is an in-database implementation of Apache Solr for indexing and searching, including custom tokenizers for international text and social media text
 
-![greenplum5_integrated_analytics](_includes/greenplum5_integrated_analytics)
+![greenplum5_integrated_analytics](_includes/greenplum5_integrated_analytics.jpeg)
 
 #### GPORCA: Pivotal Query Optimizer Updates
 
