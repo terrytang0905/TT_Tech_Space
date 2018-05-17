@@ -37,12 +37,12 @@ title: Big Data Query Engine Analysis Note
 
 #### Presto架构
 
-- MPP
-- Hive Metadata
-- 内存计算
-- 跨数据源查询支持
-
 ![Presto架构](_includes/Presto架构.png)
+
+- MPP
+- Hive Metadata应用
+- 支持内存计算
+- 支持跨数据源查询
 
 **Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:**
 
