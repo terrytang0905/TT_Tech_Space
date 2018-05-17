@@ -631,11 +631,6 @@ WHERE objname = '<name>';
 ```sql
 select * FROM gp_toolkit.gp_resq_activity where resqstatus = 'running'
 ```
---资源队列状态
-
-```SQL
-SELECT * FROM pg_resqueue_status;
-```
 
 --查看资源队列的简要信息
 ```sql
@@ -652,6 +647,22 @@ gp_toolkit.gp_resqueue_status;
 --查询优先级SQL
 ```sql
 select * from gp_toolkit.gp_resq_priority_statement;
+```
+
+--PostgreSQL资源队列状态
+```SQL
+SELECT * FROM pg_resqueue_status;
+```
+
+* 数据倾斜
+
+--查看头部数据倾斜情况
+```sql
+SELECT tabname, max(SIZE)/(avg(SIZE)+0.001) AS max_div_avg, sum(SIZE) total_size FROM (
+        SELECT gp_segment_id, oid::regclass tabname, pg_relation_size(oid) SIZE FROM gp_dist_random('pg_class')
+        WHERE relkind='r' AND relstorage IN ('a','h')
+) t GROUP BY tabname HAVING sum(SIZE)>100000000 ORDER BY max_div_avg DESC;
+
 ```
 
 #### 8.5. 系统设置参数列表
