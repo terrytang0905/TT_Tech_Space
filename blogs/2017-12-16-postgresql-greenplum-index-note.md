@@ -164,6 +164,12 @@ CREATE INDEX
 
 ```
 
+* trgm插件
+
+```sql
+create index idx_tbl_1 on tbl using gin(info gin_trgm_ops);
+```
+
 #### RUM Index (9.6+)
 
 RUM索引接口:对全文检索的支持更加强大,不需要SORT,直接走INDEX SCAN的接口.
