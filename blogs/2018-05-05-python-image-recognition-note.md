@@ -14,6 +14,7 @@ Python图像识别研究
 - 基于PIL的相关库-pillow
 - SIFT算法
 - openCV+Keras+Tensorflow
+- 文字识别-Tesseract-OCR
 
 #### 1.openCV+pillow
 

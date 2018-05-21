@@ -485,7 +485,6 @@ Append-only Columnar Scan
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
 
-
 ### V.区块链
 
 [区块链设计分析](2018-03-06-block-chain-design-note.md)

@@ -302,6 +302,11 @@ Consensus算法实际是在分布式系统复制数据时,追求大多数更新�
 		带有流程分析的Unordered编程
 		能够告诉你哪里需要协调
 
+#### 5.RAID IO并行读写
+
+RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
+
+RAID 50
 
 ### Architects架构
 
