@@ -76,9 +76,23 @@ title: Bigdata Database Architect Research Note
 	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
   
 - MVCC多版本并行控制
+- bitmap
+
+	- bitmap可以理解为通过一个bit数组来存储特定数据的一种数据结构，每一个bit位都能独立包含信息，bit是数据的最小存储单位
+	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的
+	- 统计一个对象的基数值(1亿)需要12M，如果统计10000个对象，就需要将近120G了，同样不能广泛用于大数据场景。
+
 - BloomFilter:带随机概率的bitmap,用于判断有序结构里是否存在指定的数据
 
-	bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的
+- HyperLogLog:DISTINCT近似值算法
+
+	- 分桶平均
+	- 偏差修正
+	- [redis new data structure](http://antirez.com/news/75)
+
+- GeoHash算法
+
+	- 根据经纬度计算GeoHash二进制编码
 
 - SkipList:跳跃表
 - LSM树 & LSM映射
@@ -88,9 +102,9 @@ title: Bigdata Database Architect Research Note
 
 - Merkle哈希树
 
-	- 默克尔树（又叫哈希树）是一种二叉树，由一个根节点、一组中间节点和一组叶节点组成。最下面的叶节点包含存储数据或其哈希值，每个中间节点是它的两个孩子节点内容的哈希值，根节点也是由它的两个子节点内容的哈希值组成。
-	- 据称哈希树经常应用在一些分布式系统或者分布式存储中的反熵机制(Anti-entropy),也有称做去熵的.这些应用包括 Amazon的Dynamo 还有Apache的Cassandra数据库, 通过去熵可以去做到各个不同节点的同步, 即保持各个节点的信息都是同步最新.
-	- 区块链的核心存储就是基于默克尔树
+	- 默克尔树（又叫哈希树）是一种Hash二叉树，由一个根节点、一组中间节点和一组叶节点组成。最下面的叶节点包含存储数据或其哈希值，每个中间节点是它的两个孩子节点内容的哈希值，根节点也是由它的两个子节点内容的哈希值组成。
+	- 据称哈希树经常应用在一些分布式系统或者分布式存储中的反熵机制(Anti-entropy),也有称做去熵的.这些应用包括Amazon的Dynamo 还有Apache的Cassandra数据库, 通过去熵可以去做到各个不同节点的同步, 即保持各个节点的信息都是同步最新.
+	- 区块链的核心存储就是基于Merkle哈希树
 
 - 一致性哈希(ConsistentHashing)
 - 虚拟桶哈希(VirtualBucketsHashing)
@@ -129,9 +143,8 @@ title: Bigdata Database Architect Research Note
 
 	[Avro序列化组件](https://avro.apache.org/docs/current/) <br/>
 	[Thrift](http://thrift.apache.org/) <br/>
-	[ProtocalBuffer]() <br/>
+	[ProtocalBuffer](http://code.google.com/p/protobuf) <br/>
 
-- HyperLogLog:DISTINCT近似值算法
 
 ### II.分布式存储架构分析
 

@@ -21,7 +21,9 @@ title: DataProduct Architect Design Note
 
 3.数据仓库-有效分类行为数据开发
 
-- 数据银行
+- 数据银行(交易数据)
+- 行为定向(behaviorial targeting)
+- 上下文定向(contextual targeting)
 
 4.数据分析
 
@@ -38,6 +40,7 @@ title: DataProduct Architect Design Note
 	6.基于分类数据的行为预测分析
 	用户行为分析 / 人群画像分析
 
+
 5.数据挖掘&人工智能
 
 - 基于分类数据的行为预测分析
@@ -49,6 +52,8 @@ title: DataProduct Architect Design Note
 	3.放大 全流量用户IMEI/MAC
 
 - [大数据分析思路](2015-11-08-bigdata-analysis-thinking.md)
+- 点击率建模(click modeling)
+- 分配规划(planning)
 
 ### II.架构设计维度
 
@@ -105,10 +110,17 @@ title: DataProduct Architect Design Note
 	- 人群筛选+对应内容榜单/行为分析
 	- 总体/定向用户行为分析
 
-* 2.搜索-推荐-广告(大数据营销)
+* 2.搜索-推荐-广告(计算广告)
 
 	- [计算广告](2017-07-01-compute-adverting-note.md)
+	- 广告分拣与检索
+	- 广告排序和用户行为反馈模型
 
+计算广告最具挑战的算法问题大多都集中在离线数据处理的部分。离线数据处理有两 个输出目标:
+
+	一是统计日志得到报表、dashboard 等，供决策人进行决策时作为参考;
+	二是利用数据挖掘、机器学习技术进行受众定向、点击率预估、分配策略规划等，为在线的 机器决策提供支持。
+	
 * 3.大数据风控模型
 
 * 4.大数据金融交易模型(门槛有点高)
