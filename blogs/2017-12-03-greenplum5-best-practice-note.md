@@ -20,11 +20,13 @@ What comes with the new Greenplum 5 release is a fully featured, dynamic, and in
 
 Greenplum 5 provides easy-to-use installers for the most popular add-on libraries for Python and R.
 
-- The Python data science libraries and package supported in Greenplum 5 are: Tensor ow, NumPy, SciPy, scikit-learn, Pandas, NLTK, Pattern-en, Statsmodels, gensim, pyldavis, lifelines, spaCy, XGBoost, BeautifulSoup, lxml, Keras, and PyMC3
+- The Python data science libraries and package supported in Greenplum 5 are: Tensorflow, NumPy, SciPy, scikit-learn, Pandas, NLTK, Pattern-en, Statsmodels, gensim, pyldavis, lifelines, spaCy, XGBoost, BeautifulSoup, lxml, Keras, and PyMC3
 - The R data science libraries and package supported in Greenplum 5 
 - Greenplum 5 also supports the latest Apache MADlib release,which provides machine learning and graph analytics in SQL, as well as GPText, which is an in-database implementation of Apache Solr for indexing and searching, including custom tokenizers for international text and social media text
 
 ![greenplum5_integrated_analytics](_includes/greenplum5_integrated_analytics.jpeg)
+
+> 基于Greenplum5的Python机器学习方案是有实际应用价值
 
 #### GPORCA: Pivotal Query Optimizer Updates
 
@@ -37,6 +39,8 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 #### Greenplum Resource Groups and Workload Manager
 
 Managing concurrency and user resource distribution is a key feature of Greenplum. Workload Manager has been enhanced in this release, and a new way of managing database queries, called Resource Groups, provides more control by a database administrator over user activity, especially in the areas of CPU and memory management. 
+
+> Greenplum5增强了对CPU与Memory的资源隔离管理
 
 #### Structured Query Language Performance Enhancements
 
@@ -63,4 +67,8 @@ Pivotal Greenplum 5 adds support for a number of new built-in datatypes
 - XML
 
 Pivotal Greenplum provides dblink support for database users to perform short ad hoc queries in other databases.
+
+> Greenplum5针对JSON/XML的常用数据结构支持,能有效对接更多异构数据。
+
+
 

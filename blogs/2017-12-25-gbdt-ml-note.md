@@ -2,7 +2,7 @@
 layout: post
 category : technology
 tags : [datascience,datamining,development]
-title: XGDT Machine Learning Note
+title: GBDT Machine Learning Note
 ---
 
 梯度提升决策树算法
@@ -194,6 +194,10 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
  
 
 　　　　第三种是对于弱学习器即CART回归树进行正则化剪枝。在决策树原理篇里我们已经讲过，这里就不重复了。
+
+
+#### GBDT改进-XGBoost
+
 
 #### 7. GBDT小结
 　
