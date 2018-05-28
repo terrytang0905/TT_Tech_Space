@@ -23,7 +23,7 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 每一次建立树模型是在之前建立模型损失函数的梯度下降方向。即利用了损失函数的负梯度在当前模型的值作为回归问题提升树算法的残差近似值，去拟合一个回归树。
 
 
-　　GBDT也是集成学习Boosting家族的成员，但是却和传统的Adaboost有很大的不同。回顾下Adaboost，我们是利用前一轮迭代弱学习器的误差率来更新训练集的权重，这样一轮轮的迭代下去。GBDT也是迭代，使用了前向分布算法，但是弱学习器限定了只能使用CART回归树模型，同时迭代思路和Adaboost也有所不同。
+　　GBDT也是集成学习Boosting家族的成员，但是却和传统的Adaboost有很大的不同。回顾下Adaboost，我们是利用前一轮迭代弱学习器的误差率来更新训练集的权重，这样一轮轮的迭代下去。GBDT也是迭代，使用了前向分布算法，但是弱学习器限定了只能使用<CART回归树模型>,同时迭代思路和Adaboost也有所不同。
 
 　　在GBDT的迭代中，假设我们前一轮迭代得到的强学习器是ft−1(x), 损失函数是L(y,ft−1(x)), 我们本轮迭代的目标是找到一个CART回归树模型的弱学习器ht(x)，让本轮的损失损失L(y,ft(x)=L(y,ft−1(x)+ht(x))最小。也就是说，本轮迭代找到决策树，要让样本的损失尽量变得更小。
 
@@ -186,17 +186,12 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 　　　　ν的取值范围为0<ν≤1。对于同样的训练集学习效果，较小的ν意味着我们需要更多的弱学习器的迭代次数。通常我们用步长和迭代最大次数一起来决定算法的拟合效果。
 
  
-
 　　　　第二种正则化的方式是通过子采样比例（subsample）。取值为(0,1]。注意这里的子采样和随机森林不一样，随机森林使用的是放回抽样，而这里是不放回抽样。如果取值为1，则全部样本都使用，等于没有使用子采样。如果取值小于1，则只有一部分样本会去做GBDT的决策树拟合。选择小于1的比例可以减少方差，即防止过拟合，但是会增加样本拟合的偏差，因此取值不能太低。推荐在[0.5, 0.8]之间。
 
 　　　　使用了子采样的GBDT有时也称作随机梯度提升树(Stochastic Gradient Boosting Tree, SGBT)。由于使用了子采样，程序可以通过采样分发到不同的任务去做boosting的迭代过程，最后形成新树，从而减少弱学习器难以并行学习的弱点。
 
- 
 
 　　　　第三种是对于弱学习器即CART回归树进行正则化剪枝。在决策树原理篇里我们已经讲过，这里就不重复了。
-
-
-#### GBDT改进-XGBoost
 
 
 #### 7. GBDT小结
@@ -217,4 +212,35 @@ GBDT的主要缺点有：
 
 	1)由于弱学习器之间存在依赖关系，难以并行训练数据。不过可以通过自采样的SGBT来达到部分并行。
 
-　　　
+
+#### GBDT改进-XGBoost
+
+** XGBoost特性 **
+
+- 支持线性分类器
+
+	这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归(回归问题)
+
+- xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。
+- xgboost在代价函数里加入了正则项，用于控制模型的复杂度。
+- Shrinkage(缩减)，相当于学习速率(xgboost中的eta)
+- 列抽样（column subsampling）
+- 对缺失值的处理
+- xgboost工具支持并行
+- 可并行的近似直方图算法
+
+XGBoost的loss function可以拆解为两个部分，第一部分是X/Y配对的建模，第二部分是基于X/Y建模的loss function的设计。
+
+
+在XGBoost的实现中，对算法进行了模块化的拆解，几个重要的部分分别是：
+       
+       - I. ObjFunction：对应于不同的Loss Function，可以完成一阶和二阶导数的计算。
+       - II. GradientBooster：用于管理Boost方法生成的Model，注意，这里的Booster Model既可以对应于线性Booster Model，也可以对应于Tree Booster Model。
+       - III. Updater：用于建树，根据具体的建树策略不同，也会有多种Updater。比如，在XGBoost里为了性能优化，既提供了单机多线程并行加速，也支持多机分布式加速。也就提供了若干种不同的并行建树的updater实现，按并行策略的不同，包括：        
+       I). inter-feature exact parallelism(特征级精确并行)       
+       II). inter-feature approximate parallelism(特征级近似并行，基于特征分bin计算，减少了枚举所有特征分裂点的开销)      III). intra-feature parallelism(特征内并行)       
+       IV). inter-node parallelism(多机并行)
+
+#### Ref
+
+- [XGBoost Docs](http://xgboost.readthedocs.io/en/latest/)　

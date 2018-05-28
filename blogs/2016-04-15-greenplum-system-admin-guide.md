@@ -561,7 +561,7 @@ gp_toolkit.gp_pgdatabase_invalid
 show superuser_reserved_connections ;
 ```
 
-* SQL查询监控
+** SQL查询状态监控 **
 
 --查看活跃的连接数,这个视图看一看到排队的sql排队的原因
 ```sql
@@ -583,6 +583,7 @@ SELECT procpid, start, now() - start AS lap, current_query FROM (SELECT backendi
 pg_stat_get_backend_activity_start(S.backendid) AS start, pg_stat_get_backend_activity(S.backendid) AS current_query
 FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS S ) AS S WHERE current_query <> '<IDLE>' ORDER BY lap DESC;
 ```
+
 --查看执行SQL任务列表
 
 ```SQL
@@ -590,18 +591,23 @@ FROM (SELECT pg_stat_get_backend_idset() AS backendid) AS S ) AS S WHERE current
 select * from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
 order by query_start, usename;
 
-select 'select  pg_cancel_backend('||procpid||');',* from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
-order by query_start, usename;
 
-select 'select pg_terminate_backend('||procpid||');',* from pg_stat_activity where datname = 'iadt';
+SELECT pg_stat_activity.datname, pg_stat_activity.client_port, pg_stat_activity.client_addr, pg_stat_activity.procpid, pg_stat_activity.sess_id, pg_stat_activity.usename, pg_stat_activity.waiting AS w, to_char(pg_stat_activity.query_start, 'yyyy-mm-dd hh24:mi:ss'::text) AS query_start, (to_timestamp((now())::text, 'yyyy-mm-dd hh24:mi:ss'::text) - to_timestamp((pg_stat_activity.query_start)::text, 'yyyy-mm-dd hh24:mi:ss'::text)) AS exec, pg_stat_activity.current_query FROM pg_stat_activity WHERE (pg_stat_activity.current_query <> '<IDLE>'::text) ORDER BY pg_stat_activity.datname, to_char(pg_stat_activity.query_start, 'yyyymmdd hh24:mi:ss'::text)
 
 ```
 --杀死正在执行的select语句
 ```sql
+select 'select  pg_cancel_backend('||procpid||');',* from pg_stat_activity where current_query not in ( '<IDLE>','<insufficient privilege>')
+order by query_start, usename;
+
+
 select pg_cancel_backend(pid int);
 ```
 --杀死ddl语句
 ```sql
+select 'select pg_terminate_backend('||procpid||');',* from pg_stat_activity where datname = 'iadt';
+
+
 select pg_terminate_backend(pid int);
 ```
 --查看锁的情况
@@ -625,7 +631,7 @@ WHERE objname = '<name>';
 ```
 
 
-* 资源队列管理监控
+** 资源队列管理监控 **
 
 --查看资源队列的详细信息视图
 ```sql
@@ -654,7 +660,7 @@ select * from gp_toolkit.gp_resq_priority_statement;
 SELECT * FROM pg_resqueue_status;
 ```
 
-* 数据倾斜
+** 数据倾斜 **
 
 --查看头部数据倾斜情况
 ```sql

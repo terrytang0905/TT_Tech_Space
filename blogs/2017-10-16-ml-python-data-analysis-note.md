@@ -128,9 +128,7 @@ Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同�
 
 - [scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
 
-- GBDT回归
-
-- [决策树梯度提升算法](2017-12-25-xgdt-ml-note.md)
+- [梯度提升决策树算法](2017-12-25-xgdt-ml-note.md)
 
 
 
