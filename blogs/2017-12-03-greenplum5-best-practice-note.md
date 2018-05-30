@@ -28,7 +28,7 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 
 > 基于Greenplum5的Python机器学习方案是有实际应用价值
 
-#### GPORCA: Pivotal Query Optimizer Updates
+#### GPORCA(PQO): Pivotal Query Optimizer Updates
 
  Previously, the legacy query optimizer was set as the default, but as of Greenplum 5, GPORCA is the default query optimizer. It is capable of handling a wide range of complex queries with concurrent mixed workloads with improved query performance.
 

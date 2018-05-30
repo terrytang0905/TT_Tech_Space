@@ -170,18 +170,7 @@ title: Bigdata Database Architect Research Note
 
 2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
-3.[Postgres-XL](https://www.postgres-xl.org/documentation/intro-whatis-postgres-xl.html) 
-
-Postgres-XL is a horizontally scalable open source SQL database cluster, flexible enough to handle varying database workloads:
-
-	- OLTP write-intensive workloads
-	- Business Intelligence requiring MPP parallelism
-	- Operational data store
-	- Key-value store
-	- GIS Geospatial
-	- Mixed-workload environments
-	- Multi-tenant provider hosted environments
-
+3.[PostgreSQL&Greenplum解决方案](2018-05-30-postgresql-greenplum-solution-note.md)
 
 4.[实时OLAP分析](2017-02-01-bigdata-olap-anlysis-note.md)
 
@@ -359,7 +348,7 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	5) 是否与外关系的元素匹配
 	6) 生成哈希表需要时间
 
-**Merge join -唯一产生排序的联接算法**
+**Merge Join -唯一产生排序的联接算法**
 
     1)O(N x Log(N) + M x Log(M))-需排序
     1)O(N+M)-已排序,我们是只挑选相同的元素。
@@ -414,6 +403,15 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	每当试图执行查询时，查询管道都会查找它的查询计划缓存，以便了解该查询是否已经编译且可用。 如果答案是肯定的，它将重用缓存的计划而不是生成新的计划。 如果未在查询计划缓存中找到匹配的计划，则会编译和缓存该查询。 
 	查询由其 Entity SQL 文本和参数集合（名称和类型）标识。 所有文本比较都区分大小写。
 
+* H.聚合函数计算
+
+_HashAggregate_
+
+HashAggregate在少数聚合函数是表现优异，但是很多聚合函数，性能跟消耗的内存差异很明显。尤其是受group by字段的唯一性很明显，字段count（district）值越大，hash聚合消耗的内存越多，性能下降剧烈。
+
+_GroupAggregate_
+
+对于GroupAggregate来说，消耗的内存基本上是恒定的，无论group by哪个字段。当聚合函数较少的时候，速度也相对较慢，但是相对稳定。
 
 10.1. _Pivotal Query Optimizer - first cost-based optimizer for Big Data_
 
@@ -430,8 +428,8 @@ Append-only Columnar Scan
 [geqo_postgreSQL](https://www.postgresql.org/docs/9.6/static/geqo.html)
 
 
-
 11._查询执行器 Query Executor_
+
 
 12._数据管理器 Data Manager_
 

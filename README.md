@@ -49,6 +49,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### III.Database & Distributed Data System 
 
+
+- *[PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[大数据分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-database-architect-research-note.md)
 - *[PostgreSQL&Greenplum索引笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-16-postgresql-greenplum-index-note.md)

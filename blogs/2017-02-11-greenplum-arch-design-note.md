@@ -12,11 +12,21 @@ title: Greenplum Architect Design Note
 
 Pivotal Greenplum Database is a massively parallel processing (MPP-shared nothing architecture) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.Greenplum uses this high-performance system architecture to distribute the load of multi-terabyte data warehouses, and can use all of a system's resources in parallel to process a query.
 
-It is based on PostgreSQL 8.2.15
+It is based on PostgreSQL 8.2.15 for Greenplum4.3
+** It is based on PostgreSQL 8.3.23 for Greenplum5.7 **
 
 The system catalog, optimizer, query executor, and transaction manager components have been modified and enhanced to be able to execute queries simultaneously across all of the parallel PostgreSQL database instances.
 
 Greenplum Database also includes features designed to optimize PostgreSQL for business intelligence (BI) workloads.
+
+_Greenplum compare PostgreSQL_
+
+The main differences between Greenplum Database and PostgreSQL are as follows:
+
+	- GPORCA is leveraged for query planning, in addition to the legacy query planner, which is based on the Postgres query planner.
+	- Greenplum Database can use append-optimized storage.
+	- Greenplum Database has the option to use column storage, data that is logically organized as a table, using rows and columns that are physically stored in a column-oriented format, rather than as rows. Column storage can only be used with append-optimized tables. Column storage is compressible. It also can provide performance improvements as you only need to return the columns of interest to you. All compression algorithms can be used with either row or column-oriented tables, but Run-Length Encoded (RLE) compression can only be used with column-oriented tables. Greenplum Database provides compression on all Append-Optimized tables that use column storage.
+	- The Greenplum interconnect (the networking layer) enables communication between the distinct PostgreSQL instances and allows the system to behave as one logical database.
 
 ![High Architecture](_includes/highlevel_arch.jpg).
 
@@ -24,12 +34,14 @@ _About the Greenplum Master_
 
 The Greenplum Database master is the entry to the Greenplum Database system, accepting client connections and SQL queries, and distributing work to the segment instances.The global system catalog(Master) is the set of system tables that contain metadata about the Greenplum Database system itself.
 
+Greenplum Database uses Write-Ahead Logging (WAL) for master/standby master mirroring. 
+
 _About the Greenplum Segments_
 
 Greenplum Database segment instances are independent PostgreSQL databases that each store a portion of the data and perform the majority of query processing.
 A segment host typically executes from two to eight Greenplum segments, depending on the CPU cores, RAM, storage, network interfaces, and workloads.
 
-_About the Greenplum Interconnect(Greenplum Core Value)_
+_About the Greenplum Interconnect(Greenplum核心基础)_
 
 The interconnect is the networking layer of the Greenplum Database architecture.<br/>
 The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies.<br/>
@@ -38,7 +50,8 @@ The interconnect tasks include query plan,data scan,query execution,redistribute
 > interconnect承载了并行查询计划生产和Dispatch分发（QD）、协调节点上QE执行器的并行工作、负责数据分布、Pipeline计算、镜像复制、健康探测等等诸多任务。
 
 The Greenplum interconnect uses a standard **10-Gigabit Ethernet switching fabric**.<br/>
-By default, the interconnect uses User Datagram Protocol(UDP) with flow control for interconnect traffic to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP. 
+
+By default, the interconnect uses User Datagram Protocol with flow control (UDPIFC) for interconnect traffic to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP
 
 ##### About Management and Monitoring Utilities
 
@@ -149,6 +162,8 @@ _About Interconnect Redundancy_
 
 _ANALYZE_
 
+> VACUUM ANALYZE
+
 Statistics are metadata that describe the data stored in the database. The query optimizer needs up-to-date statistics to choose the best execution plan for a query.For example, if a query joins two tables and one of them must be broadcast to all segments, the optimizer can choose the smaller of the two tables to minimize network traffic.
 
 The statistics used by the optimizer are calculated and saved in the system catalog by the ANALYZE command. There are three ways to initiate an analyze operation:
@@ -228,6 +243,8 @@ Tablespaces allow database administrators to have multiple file systems per mach
 
 ##### About Greenplum Query Processing
 
+Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.
+
 _Understanding Query Planning and Dispatch_
 
 The master receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The master dispatches parallel query plans to all segments
@@ -237,21 +254,41 @@ The master receives, parses, and optimizes the query. The resulting query plan i
 Each segment is responsible for executing local database operations on its own set of data.query plans.<br/>
 Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.
 
-Dispatching a Targeted Query Plan 
+*Dispatching a Targeted Query Plan* 
 
 Certain queries may access only data on a single segment, such as single-row INSERT, UPDATE, DELETE, or SELECT operations or queries that filter on the table distribution key column(s). 
 
 _Understanding Greenplum Query Plans_
 
-A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed from bottom to top.<br/>
+A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed *from bottom to top*.<br/>
+
+*motion*
+
 Greenplum Database has an additional operation type called *motion*. A motion operation involves moving tuples between the segments during query processing. <br/>
+
+*slices*
+
 To achieve maximum parallelism during query execution, Greenplum divides the work of the query plan into *slices*. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan, with one slice on each side of the motion.<br/>
+
+*redistribute motion*
+
 The query plan for this example has a *redistribute motion* that moves tuples between the segments to complete the join.The redistribute motion is necessary because the customer table is distributed across the segments by cust_id, but the sales table is distributed across the segments by sale_id. To perform the join, the sales tuples must be redistributed by cust_id. The plan is sliced on either side of the redistribute motion, creating slice 1 and slice 2.<br/>
+
+*gather motion*
+
 This query plan has another type of motion operation called a *gather motion*. A gather motion is when the segments send results back up to the master for presentation to the client. 
+
+![Query Slice Plan](_includes/slice_plan.jpg)
 
 _Understanding Parallel Query Execution_
 
-Greenplum creates a number of database processes to handle the work of a query. On the master, the query worker process is called the query dispatcher (QD). The QD is responsible for creating and dispatching the query plan.It also accumulates and presents the final results. On the segments, a query worker process is called a query executor (QE). A QE is responsible for completing its portion of work and communicating its intermediate results to the other worker processes.<br/>
+*query dispatcher (QD)*
+
+Greenplum creates a number of database processes to handle the work of a query. On the master, the query worker process is called the *query dispatcher (QD)*. The QD is responsible for creating and dispatching the query plan.It also accumulates and presents the final results. On the segments, a query worker process is called a *query executor (QE)*. A QE is responsible for completing its portion of work and communicating its intermediate results to the other worker processes.<br/>
+
+*gangs*
+	
+> 执行同一分片slice在不同的segments上
 
 Related processes that are working on the same slice of the query plan but on different segments are called *gangs*. As a portion of work is completed, tuples flow up the query plan from one gang of processes to the next. This inter-process communication between the segments is referred to as the interconnect component of Greenplum Database.
 
@@ -429,6 +466,7 @@ The amount of host memory can be configured using any of the following methods:
 	- Set the kernel parameters **vm.overcommit_memory** and **vm.overcommit_ratio** to configure how the operating system handles large memory allocation requests.
 
 > The amount of memory to reserve for the operating system and other processes is workload dependent. The minimum recommendation for operating system memory is 32GB, but if there is much concurrency in Greenplum Database, increasing to 64GB of reserved memory may be required.
+
 > About SLAB(Linux内存管理-Slab分配器)	
 
 * vm.overcommit_memory 
@@ -466,4 +504,6 @@ _Configuring Workload Management_
 
 #### X.Ref
 
-[Greenplum Reference](http://gpdb.docs.pivotal.io/43120/common/welcome.html)
+[Greenplum4 Reference](http://gpdb.docs.pivotal.io/43120/common/welcome.html)
+[Greenplum5 Reference](http://gpdb.docs.pivotal.io/570/main/index.html)
+
