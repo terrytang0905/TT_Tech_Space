@@ -245,7 +245,7 @@ Tablespaces allow database administrators to have multiple file systems per mach
 
 Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.
 
-_Understanding Query Planning and Dispatch_
+_A.Understanding Query Planning and Dispatch_
 
 The master receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The master dispatches parallel query plans to all segments
 
@@ -258,17 +258,25 @@ Most database operations—such as table scans, joins, aggregations, and sorts�
 
 Certain queries may access only data on a single segment, such as single-row INSERT, UPDATE, DELETE, or SELECT operations or queries that filter on the table distribution key column(s). 
 
-_Understanding Greenplum Query Plans_
+_B.Understanding Greenplum Query Plans_
 
-A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed *from bottom to top*.<br/>
+A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and *executed from bottom to top*(从下往上执行计划).<br/>
 
-*motion*
+*motion(节点间移动)*
 
 Greenplum Database has an additional operation type called *motion*. A motion operation involves moving tuples between the segments during query processing. <br/>
 
 *slices*
 
 To achieve maximum parallelism during query execution, Greenplum divides the work of the query plan into *slices*. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan, with one slice on each side of the motion.<br/>
+
+a:Broadcast Motion(N:N),即广播数据.每个节点向其他节点广播需要发送的数据。
+
+b:Redistribute Motion(N:N)=重新分布数据.利用join的列值hash不同，将筛选后的数据在其他segment重新分布。
+
+c:Gather Motion(N:1)，聚合汇总数据，每个节点将join后的数据发到一个单节点上，通常是发到主节点master。
+
+![gp execute plan](_includes/gp_execute_plan.jpeg)
 
 *redistribute motion*
 
@@ -280,7 +288,7 @@ This query plan has another type of motion operation called a *gather motion*. A
 
 ![Query Slice Plan](_includes/slice_plan.jpg)
 
-_Understanding Parallel Query Execution_
+_C.Understanding Parallel Query Execution_
 
 *query dispatcher (QD)*
 
@@ -360,7 +368,9 @@ _Reading EXPLAIN Output_
 A query plan is a tree of nodes. Each node in the plan represents a single operation, such as a table scan, join, aggregation, or sort.
 The bottom nodes of a plan are usually table scan operations: sequential, index, or bitmap index scans.
 
-The topmost plan nodes are usually Greenplum Database motion nodes: redistribute, explicit redistribute, broadcast, or gather motions. These operations move rows between segment instances during query processing.
+The topmost plan nodes are usually Greenplum Database motion nodes: redistribute, explicit redistribute, broadcast, or gather motions. 
+
+These operations move rows between segment instances during query processing.
 
 _Examining Query Plans to Solve Problems_
 
@@ -411,7 +421,7 @@ _Contention(Locks)_
 
 Contention is the condition in which two or more components of the workload attempt to use the system in a conflicting way — for example, multiple queries that try to update the same piece of data at the same time or multiple large workloads that compete for system resources.
 
-> Contention up,throughput down
+> Contention up,throughput down(争夺上升,吞吐率下降)
 
 _Optimization_
 
@@ -419,15 +429,15 @@ SQL formulation, database configuration parameters, table design, data distribut
 
 2.Common Causes of Performance Issues
 
-_Maintaining Database Statistcs_
+_a.Maintaining Database Statistcs_
 
 Greenplum Database uses a cost-based query optimizer that relies on database statistics. Accurate statistics allow the query optimizer to better estimate the number of rows retrieved by a query to choose the most efficient query plan. 
 
-_Optimizing Data Distribution_
+_b.Optimizing Data Distribution_
 
 When you create a table in Greenplum Database, you must declare a distribution key that allows for even data distribution across all segments in the system. If the data is unbalanced, the segments that have more data will return their results slower and therefore slow down the entire system.
 
-_Optimizing Your Database Design_
+_c.Optimizing Your Database Design_
 
 Examine your database design and consider the following:
 
@@ -437,7 +447,7 @@ Examine your database design and consider the following:
 - Are columns used to join tables of the same datatype?
 - Are your indexes being used?
 
-_Greenplum Database Maximum Limits_
+_d.Greenplum Database Maximum Limits_
 
 
 3.Workload Management with Resource Queues
@@ -461,6 +471,7 @@ Within a segment, resource queues govern how memory is allocated to execute a SQ
 The query optimizer produces a query execution plan, consisting of a series of tasks called operators (labeled D in the diagram). Operators perform tasks such as table scans or joins, and typically produce intermediate query results by processing one or more sets of input rows. 
 
 The amount of host memory can be configured using any of the following methods:
+
 	- Add more RAM to the nodes to increase the physical memory.
 	- Allocate swap space to increase the size of virtual memory.
 	- Set the kernel parameters **vm.overcommit_memory** and **vm.overcommit_ratio** to configure how the operating system handles large memory allocation requests.
@@ -501,6 +512,10 @@ A resource queue has the following characteristics:
 _Configuring Workload Management_
 
 [Workload Management with Resource Queues](http://gpdb.docs.pivotal.io/43120/admin_guide/workload_mgmt.html)
+
+_Resource Groups_
+
+[Workload Management with Resource Groups](http://gpdb.docs.pivotal.io/570/admin_guide/workload_mgmt_resgroups.html)
 
 #### X.Ref
 

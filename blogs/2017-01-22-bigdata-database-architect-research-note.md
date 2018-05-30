@@ -305,14 +305,18 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 **数据库优化器计算的是它们的 CPU 成本、磁盘 I/O 成本、和内存需求**。时间复杂度和 CPU 成本的区别是，时间成本是个近似值。而 CPU 成本，我这里包括了所有的运算，比如:加法、条件判断、乘法、迭代。<br/>
 **多数时候瓶颈在于磁盘I/O(数据文件读写)而不是CPU使用**。
 
-优化模式:
+_常规操作_:
+
+	TableScan,Join,Sorting,Aggregate
+
+_优化模式_:
 
 	- Rule：基于规则的方式。
 	- Choose：默认的情况下Oracle用的便是这种方式。指的是当一个表或索引有统计信息，则走CBO的方式，如果表或索引没统计信息，表又不是特别的小，而且相应的列有索引时，那么就走索引，走RBO的方式。
 	- FirstRows：它与Choose方式是类似的，所不同的是当一个表有统计信息时，它将是以最快的方式返回查询的最先的几行，从总体上减少了响应时间。
 	- All Rows:也就是我们所说的Cost的方式，当一个表有统计信息时，它将以最快的方式返回表的所有的行，从总体上提高查询的吞吐量。没有统计信息则走RBO的方式。
 
-* A.执行计划与扫描
+* A.TableScan:执行计划与扫描
 
 	- 存取路径-获取数据的方式
 	- 全扫描Full Scan(Sequential Scan) / Index Scan
@@ -331,7 +335,9 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	- 查看内关系里的所有行来寻找匹配的行
 	- 内关系必须是最小的，因为它有更大机会装入内存
 
-* C.JOIN联接运算符
+* C.JOIN相关
+
+1.联接运算符
 
 **Nested Loop Join -算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表**
 
@@ -358,7 +364,7 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	5) 重复 1、2、3步骤直到其中一个关系的最后一个元素。
 
 
-* D.Join联接运算算法选择:
+2.联接运算算法选择:
 
 	- 空闲内存：没有足够的内存的话就跟强大的哈希联接拜拜吧(至少是完全内存中哈希联接)。
 	-  两个数据集的大小。比如，如果一个大表联接一个很小的表，那么嵌套循环联接就比哈希联接快，因为后者有创建哈希的高昂成本；如果两个表都非常大，那么嵌套循环联接CPU成本就很高昂。
@@ -369,7 +375,7 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	-  数据的分布：如果联接条件的数据是倾斜的（比如根据姓氏来联接人，但是很多人同姓），用哈希联接将是个灾难，原因是哈希函数将产生分布极不均匀的哈希桶。
 	-  如果你希望联接操作使用多线程或多进程。
 
-* E.动态编程,启发式算法及贪婪算法
+3.动态编程,启发式算法及贪婪算法
 
 	- 完全动态编程 - O(3^N)
 		它们都有相同的子树(A JOIN B),所以,不必在每个计划中计算这个子树的成本,计算一次,保存结果,当再遇到这个子树时重用。
@@ -379,14 +385,34 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	- 基因算法
 	- [数据库JOIN查询算法](http://www.acad.bg/rismim/itc/sub/archiv/Paper6_1_2009.PDF)
 
-* F.查询优化器举例
+* D.聚合函数计算
 
-	_SQLite优化器_
+_HashAggregate_
+
+对于hash聚合来说，数据库会根据group by字段后面的值算出hash值，并根据前面使用的聚合函数在内存中维护对应的列表。如果select后面有两个聚合函数，那么在内存中就会维护两个对应的数据。同样的，有n个聚合函数就会维护n个同样的数组。对于hash算法来说，数组的长度肯定是大于group by的字段的distinct值的个数的，且跟这个值应该呈线性关系，group by后面的值越唯一，使用的内存也就越大。
+
+因此HashAggregate在少数聚合函数是表现优异，但是很多聚合函数，性能跟消耗的内存差异很明显。尤其是受group by字段的唯一性很明显，字段count（district）值越大，hash聚合消耗的内存越多，性能下降剧烈。
+
+_GroupAggregate_
+
+原理是先将表中的数据按照group by的字段排序,对排好序的数据进行一次全扫描,就可以得到聚合的结果。
+
+对于GroupAggregate来说，消耗的内存基本上是恒定的，无论group by哪个字段。当聚合函数较少的时候，速度也相对较慢，但是相对稳定。
+
+* E.查询计划缓存
+
+	每当试图执行查询时，查询管道都会查找它的查询计划缓存，以便了解该查询是否已经编译且可用。 如果答案是肯定的，它将重用缓存的计划而不是生成新的计划。 如果未在查询计划缓存中找到匹配的计划，则会编译和缓存该查询。 
+	查询由其 Entity SQL 文本和参数集合（名称和类型）标识。 所有文本比较都区分大小写。
+
+
+* X.查询优化器实现
+
+	1._SQLite优化器_
 
 		使用Nested嵌套联接
 		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
 
-	_DB2优化器_
+	2._DB2优化器_
 
 		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
 		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
@@ -398,34 +424,23 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 
 	默认的，DB2 对联接排列使用受启发式限制的动态编程算法。	
 
-* G.查询计划缓存
+	3._Genetic Query Optimizer - PostgerSQL_
 
-	每当试图执行查询时，查询管道都会查找它的查询计划缓存，以便了解该查询是否已经编译且可用。 如果答案是肯定的，它将重用缓存的计划而不是生成新的计划。 如果未在查询计划缓存中找到匹配的计划，则会编译和缓存该查询。 
-	查询由其 Entity SQL 文本和参数集合（名称和类型）标识。 所有文本比较都区分大小写。
+[geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
 
-* H.聚合函数计算
+	The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies. It can take an enormous amount of time and memory space when the number of joins in the query grows large. This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
 
-_HashAggregate_
+	genetic algorithm(GA) & GEQO 
 
-HashAggregate在少数聚合函数是表现优异，但是很多聚合函数，性能跟消耗的内存差异很明显。尤其是受group by字段的唯一性很明显，字段count（district）值越大，hash聚合消耗的内存越多，性能下降剧烈。
-
-_GroupAggregate_
-
-对于GroupAggregate来说，消耗的内存基本上是恒定的，无论group by哪个字段。当聚合函数较少的时候，速度也相对较慢，但是相对稳定。
-
-10.1. _Pivotal Query Optimizer - first cost-based optimizer for Big Data_
-
-[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+	4._Pivotal Query Optimizer - Greenplum_
 
 ![PQC-OrcaArch](_includes/Orca_arch.png)
 
-10.2. _Legacy Query Optimizer - Greenplum_
+	[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
 
-Append-only Columnar Scan
+	5._Legacy Query Optimizer - Greenplum_
 
-10.3. _Genetic Query Optimizer - PostgerSQL_
-
-[geqo_postgreSQL](https://www.postgresql.org/docs/9.6/static/geqo.html)
+	Append-only Columnar Scan
 
 
 11._查询执行器 Query Executor_

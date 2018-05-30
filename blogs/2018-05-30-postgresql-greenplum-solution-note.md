@@ -9,6 +9,7 @@ title: PostgreSQL&Greenplum Solution Practice Note
 
 2.PgBouncer数据库连接池
 
+pgbouncer -d /etc/pgbouncer/pgbouncer.ini
 
 - [pgbouncer](http://pgbouncer.projects.postgresql.org/doc/config.html)
 
