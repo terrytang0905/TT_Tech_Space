@@ -5,7 +5,7 @@ tags : [bigdata,database,hadoop]
 title: Hive Programing Design Note2
 ---
 
-## Hive Programing Design Note2
+## Hive SQL Parser Note
 ------------------------------------------------------------
 
 ### Hive SQL 编译详解

@@ -301,7 +301,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.实时OLAP架构优化
 
-#### 5.1.[NewBI实时OLAP架构优化]()
+#### 5.1.[NewBI实时OLAP架构优化]
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -315,6 +315,31 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 	- 数据排序处理
 	- 格式化处理
 
+#### ROLAP设计(参考Mondrian)
+
+当前NewBI是基于ROLAP(关系型数据库OLAP抽象),从数据存储角度看非CUBE数据结构存储。因此当我们需要进行深度CUBE分析时,性能较差。
+
+ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据集。NewBI当前RDB中只存在事实表与维表,未保存任何聚合表.
+
+- Mondrian Schema: Cube,Dimension,Hierarchy,Level,Measure。
+- Hierarchy Dimension: Level层级的延伸.例如衍生日期维度。ROLAP需要定义日期维表进行日期衍生查询。地理维度扩展可定义为Hierarch yDimension,实现衍生地理维度查询
+- CUBE设计:ROLAP需创建索引视图/或联接查询实现逻辑CUBE数据集
+- MDX解析器与SQL转换 - Apache Calcite
+- 聚合感知(Cache)技术设计。在多维模型设计中,设计正确的聚合表也是很关键的,从适当的聚合表中提取数据。通过物化视图描述聚合 表来提高系统查询性能。
+- 数据预加载
+- JOIN联接查询影响系统性能(如何减少JOIN联接查询)
+
+#### MOLAP设计(参考Druid) 
+
+MOLAP是多维数据组织的OLAP实现,将细节数据和聚合后的数据均保存在cube中，所以以空间换效率，查询时效率高。 
+
+MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查询性能。
+       
+- CUBE设计:MOLAP需预先根据Cube定义的事实表以及维度表组合,创建一张宽表。并生成对应的聚合表保存 
+- 支持Groupby，Select，Search查询。不支持JOIN联接查询
+- 数据结构设计类似ElasticSearch
+
+
 #### 5.2.QueryEngine优化
 
 5.2.1.Query性能差异与执行顺序
@@ -323,28 +348,29 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 2) Aggregation Query
 3) Join Query
 
-5.2.2.Impala混合查询(Kudu+HBase)
+5.2.2.Spark/Flink实时数据查询
 
-5.2.3.Greenplum+GPText/HAWQ(SQLonHadoop)
+5.2.3.Greenplum/Spark/Flink(SQLonHadoop)
 
 5.2.4.通用SQL数据解析Calcite
 
-5.2.5.ElasticSearch检索查询
+5.2.5.GPText/ElasticSearch/Lucene全文检索
 
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
 - ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
 
-#### 5.3.内存计算优化
+#### 5.3.数据计算优化
 
-- Spark/SparkSQL混合查询
 - 内存计算规则
-- 表计算/数据透视(计算函数设计)
-- 实时数据(增量)计算
+- Spark/SparkSQL/Flink实时数据计算
+- 表计算/数据透视(计算函数设计-基于当前结果再计算)
+- 实时数据(增量)计算(衍生度量/)
 - 上下文筛选查询(数据查询联动更新)
-- 内存计算结果保存
+- 内存计算结果保存-Redis
 
 
 ### x.技术参考
 
 - 查询引擎技术调研	
+- [MondrianOLAP查询引擎](2017-01-31-mondrian-olap-analysis-note.md)
 - [分布式存储架构分析](2017-01-22-bigdata-database-architect-research-note.md)

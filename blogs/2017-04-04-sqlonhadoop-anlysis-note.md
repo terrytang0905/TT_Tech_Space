@@ -233,11 +233,29 @@ where c1.id > 10 group by c1.rank limit 10;
 
 ![presto_compile](_includes/presto_compile.png)
 
-_查询优化器_
+#### 3.查询优化器
 
-关于执行计划的优化,虽然不一定是整个编译流程中最难的部分,但却是最有看点的部分,而且目前还在不断发展中。Spark系之所以放弃Shark另起炉灶做Spark SQL,很大一部分原因是想自己做优化策略,避免受Hive的限制,为此还专门独立出优化器组件Catalyst(当然Spark SQL目前还是非常新,其未来发展给人不少想象空间)。总之这部分工作可以不断的创新,优化器越智能,越傻瓜化,用户就越能解放出来解决业务问题。
+关于执行计划的优化,虽然不一定是整个编译流程中最难的部分,但却是最有看点的部分,而且目前还在不断发展中。Spark系之所以放弃Shark另起炉灶做Spark SQL,很大一部分原因是想自己做优化策略,避免受Hive的限制,为此还专门独立出优化器组件*Catalyst优化器*(当然Spark SQL目前还是非常新,其未来发展给人不少想象空间)。总之这部分工作可以不断的创新,优化器越智能,越傻瓜化,用户就越能解放出来解决业务问题。
 
-早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。在Hive 0.12引入的相关性优化(correlation optimizer)算是规则优化的一个高峰,他能够减少数据的重复扫描,具体来说,如果查询的两个部分用到了相同的数据,并且各自做group by / join的时候用到了相同的key,这个时候由于数据源和shuffle的key是一样的,所以可以把原来需要两个job分别处理的地方合成一个job处理。
+_SparkSQL Catalyst_
+
+使用一个通用库生成树并使用规则操作这些树.
+Catalyst的通用树转换框架分为四个阶段，如下所示：
+
+	1）分析解决引用的逻辑计划
+	2）逻辑计划优化
+	3）物理计划
+	4）代码生成用于编译部分查询生成Java字节码。
+
+![sparksql_catalyst](_includes/sparksql_catalyst.png)
+
+_Hive Optimizer_
+
+[Hive SQL Optimizer](2017-06-10-hive-sql-optimizer-note.md)
+
+早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。
+
+在Hive 0.12引入的相关性优化(correlation optimizer)算是规则优化的一个高峰,他能够减少数据的重复扫描,具体来说,如果查询的两个部分用到了相同的数据,并且各自做group by / join的时候用到了相同的key,这个时候由于数据源和shuffle的key是一样的,所以可以把原来需要两个job分别处理的地方合成一个job处理。
 
 比如下面这个sql：
 
@@ -259,11 +277,14 @@ WHERE touter.l_quantity < tinner.lq
 
 ![correlation_optimizer](_includes/correlation_optimizer.jpg)
 
-但是,基于规则的优化（RBO）不能解决所有问题。在关系数据库中早有另一种优化方式,也就是_基于代价的优化CBO_。CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等等)来对一些问题作出解答,其中最主要的问题就是确定多表join的顺序。CBO通过搜索join顺序的所有解空间(表太多的情况下可以用有限深度的贪婪算法),并且算出对应的代价,可以找到最好的顺序。这些都已经在关系数据库中得到了实践。
+但是,基于规则的优化(RBO)不能解决所有问题。
+在关系数据库中早有另一种优化方式,也就是*基于代价的优化CBO*。
+
+CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等等)来对一些问题作出解答,其中最主要的问题就是确定多表join的顺序。CBO通过搜索join顺序的所有解空间(表太多的情况下可以用有限深度的贪婪算法),并且算出对应的代价,可以找到最好的顺序。这些都已经在关系数据库中得到了实践。
 
 目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
 
-#### 3.执行效率
+#### 4.执行效率
 
 即使有了高效的执行计划,如果在运行过程本身效率较低,那么再好的执行计划也会大打折扣。这里主要关注CPU和IO方面的执行效率。
 

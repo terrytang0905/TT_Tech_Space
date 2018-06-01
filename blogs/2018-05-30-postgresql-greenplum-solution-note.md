@@ -37,16 +37,4 @@ Postgres-XL is a horizontally scalable open source SQL database cluster, flexibl
 
 5.2.CitusDB
 
-6.数据同步
 
-6.1.gpfdist/gpload/gptranfer
-
-GP外部表同步
-
-6.2.gplink
-
-6.3.gphdfs
-
-6.4.psql copy管道
-
-6.5.gpdump&gprestore

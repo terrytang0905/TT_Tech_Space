@@ -5,7 +5,7 @@ tags : [bigdata,database,hadoop]
 title: Hive Programing Design Note3
 ---
 
-## Hive Programing Design Note3
+## Hive SQL Optimizer Note
 ------------------------------------------------------------
 
 ### Hive SQL 性能优化
@@ -209,6 +209,9 @@ select * from map_join_source_data;
 ```
 
 这样这个表就有了800万id值（且里面没有重复值，所以可以做sort merge），占用80MB左右。
+
+_map join_
+
 接下来我们就可以一一尝试map join的算法了。首先是普通的map join：
 
 ```sql
@@ -216,6 +219,10 @@ select /*+mapjoin(a) */count(*)
 from map_join_test a
 join map_join_test b on a.id = b.id;
 ```
+
+Map Join通常只适用于一个大表和一个小表做关联的场景，例如事实表和维表的关联。
+
+![hive_map_join_internal](_includes/hive_map_join_internal.jpg)
 
 然后就会看到分发hash table的过程：
 
@@ -307,10 +314,15 @@ select * from logs a join users b on a.user_id = b.user_id;
 
 其中logs表里面会有一个特殊用户user_id = 0，代表未登录用户，假如这种用户占了相当的比例，那么个别reduce会收到比其他reduce多得多的数据，因为它要接收所有user_id = 0的记录进行处理，使得其处理效果会非常差，其他reduce都跑完很久了它还在运行。
 
+_skew join_
+
 hive给出的解决方案叫skew join，其原理把这种user_id = 0的特殊值先不在reduce端计算掉，而是先写入hdfs，然后启动一轮map join专门做这个特殊值的计算，期望能提高计算这部分值的处理速度。当然你要告诉hive这个join是个skew join，即：
+
 ```
 set hive.optimize.skewjoin = true;
 ```
+
+
 还有要告诉hive如何判断特殊值，根据hive.skewjoin.key设置的数量hive可以知道，比如默认值是100000，那么超过100000条记录的值就是特殊值。总结起来，skew join的流程可以用下图描述：
 
 ![hive_skew_join](_includes/hive_skew_join.jpg)

@@ -29,7 +29,7 @@ title: Bigdata Database Architect Research Note
 	c、因果一致性（causal consistency）：只有存在因果关系的写操作才要求所有使用者以相同的次序看到，对于无因果关系的写入则并行进行，无次序保证。因果一致性可以看做对顺序一致性性能的一种优化，但在实现时必须建立与维护因果依赖图，是相当困难的。
 	d、管道一致性（PRAM/FIFO consistency）：在因果一致性模型上的进一步弱化，要求由某一个使用者完成的写操作可以被其他所有的使用者按照顺序的感知到，而从不同使用者中来的写操作则无需保证顺序，就像一个一个的管道一样。 相对来说比较容易实现。
 	e、弱一致性（weak consistency）：只要求对共享数据结构的访问保证顺序一致性。对于同步变量的操作具有顺序一致性，是全局可见的，且只有当没有写操作等待处理时才可进行，以保证对于临界区域的访问顺序进行。在同步时点，所有使用者可以看到相同的数据。
-	f、 释放一致性（release consistency）：弱一致性无法区分使用者是要进入临界区还是要出临界区， 释放一致性使用两个不同的操作语句进行了区分。需要写入时使用者acquire该对象，写完后release，acquire-release之间形成了一个临界区，提供 释放一致性也就意味着当release操作发生后，所有使用者应该可以看到该操作。
+	f、释放一致性（release consistency）：弱一致性无法区分使用者是要进入临界区还是要出临界区， 释放一致性使用两个不同的操作语句进行了区分。需要写入时使用者acquire该对象，写完后release，acquire-release之间形成了一个临界区，提供 释放一致性也就意味着当release操作发生后，所有使用者应该可以看到该操作。
 	g、最终一致性（eventual consistency）：当没有新更新的情况下，更新最终会通过网络传播到所有副本点，所有副本点最终会一致，也就是说使用者在最终某个时间点前的中间过程中无法保证看到的是新写入的数据。可以采用最终一致性模型有一个关键要求：读出陈旧数据是可以接受的。
 	h、delta consistency：系统会在delta时间内达到一致。这段时间内会存在一个不一致的窗口，该窗口可能是因为log shipping的过程导致。这是书上的原话。。我也搞不很清楚。。 数据库完整性（Database Integrity）是指数据库中数据的正确性和相容性。数据库完整性由各种各样的完整性约束来保证，因此可以说数据库完整性设计就是数据库完整性约束的设计。包括实体完整性。域完整性。参照完整性。用户定义完整性。可以主键。check约束。外键来一一实现。这个使用较多
 
@@ -69,6 +69,8 @@ title: Bigdata Database Architect Research Note
 - CAP定理&BASE模型
 
 	Consistency/Availability/Partition tolerance
+
+	Partition tolerance:网络分区的情况下，被分隔的节点仍能正常对外服务
 
 	BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：
 	Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)
@@ -258,7 +260,11 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 - 表的字段是否存在
 - 对某类型字段的 运算 是否 可能(比如，你不能将整数和字符串进行比较，你不能对一个整数使用substring()函数)
 
-在解析过程中，SQL 查询被转换为内部表示（通常是一个树）
+在解析过程中，SQL查询被转换为内部表示(通常是一个树)
+
+开源SQL Parser:
+
+[Apache Calcite](http://calcite.apache.org/docs/)
 
 8._查询重写器 Query Rewriter_
 
