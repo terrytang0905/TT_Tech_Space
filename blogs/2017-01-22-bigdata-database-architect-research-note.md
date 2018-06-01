@@ -174,8 +174,6 @@ title: Bigdata Database Architect Research Note
 
 3.[PostgreSQL&Greenplum解决方案](2018-05-30-postgresql-greenplum-solution-note.md)
 
-4.[实时OLAP分析](2017-02-01-bigdata-olap-anlysis-note.md)
-
 
 ### III.BigTable数据库架构
 
@@ -283,6 +281,8 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 	- (高级)物化视图重写(Materialized view rewrite):如果你有个物化视图匹配查询谓词的一个子集，重写器将检查视图是否最新并修改查询，令查询使用物化视图而不是原始表。
 	- (高级)自定义规则：如果你有自定义规则来修改查询（就像 Oracle policy），重写器就会执行这些规则。
 	- (高级)OLAP转换：分析/加窗 函数，星形联接，ROLLUP 函数……都会发生转换(但我不确定这是由重写器还是优化器来完成，因为两个进程联系很紧，必须看是什么数据库)
+
+- [ANTLR语义解析](https://github.com/antlr/antlr4/blob/master/doc/index.md)
 
 9._统计优化_
 
@@ -516,6 +516,7 @@ _GroupAggregate_
 
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
+15._Calcite_
 
 ### V.区块链
 

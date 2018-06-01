@@ -373,4 +373,4 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 
 - 查询引擎技术调研	
 - [MondrianOLAP查询引擎](2017-01-31-mondrian-olap-analysis-note.md)
-- [分布式存储架构分析](2017-01-22-bigdata-database-architect-research-note.md)
+- [分布式计算引擎分析](2017-04-04-sqlonhadoop-anlysis-note.md)
