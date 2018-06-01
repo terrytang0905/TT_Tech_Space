@@ -11,6 +11,8 @@ title: PostgreSQL&Greenplum Solution Practice Note
 
 pgbouncer -d /etc/pgbouncer/pgbouncer.ini
 
+psql -h 10.110.64.101 -p 6432 -U ir_user -d irview_iadt
+
 - [pgbouncer](http://pgbouncer.projects.postgresql.org/doc/config.html)
 
 3.Greenplum5

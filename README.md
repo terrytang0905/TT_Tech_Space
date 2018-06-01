@@ -26,6 +26,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### II.Big Data Technology Research
 
+- *[Flink数据处理研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-research-note.md)
 - *[大数据研究4-架构组成](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
 - *[大数据研究3-Lambda架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-lambda.md)
 - *[大数据研究2-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
@@ -40,15 +41,12 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
 - *[Impala-RTOLAP 实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-impala-rtolap-practice-note.md)
 - *[Impala-RTOLAP ResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-rtolap-research-note.md)
-- [Beam大数据处理标准-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-12-apache-beam-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
-- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [ElasticSearch搜索引擎架构-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
 #### III.Database & Distributed Data System 
-
 
 - *[PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
@@ -59,6 +57,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[Greenplum最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-28-greenplum-best-practice-note.md)
 - *[BigTable&HBase Analysis Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-12-bigtable&hbase-analysis-note.md)
 - *[Greenplum Architect Research Note(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
+- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
 - [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)
 - *[MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
