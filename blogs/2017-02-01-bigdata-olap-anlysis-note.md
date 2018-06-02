@@ -354,8 +354,9 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 
 5.2.4.通用SQL数据解析Calcite
 
-5.2.5.GPText/ElasticSearch/Lucene全文检索
+5.2.5.ElasticSearch/Lucene/GPText全文检索
 
+- OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
 - ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
 

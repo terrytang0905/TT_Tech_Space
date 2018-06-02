@@ -226,10 +226,8 @@ E. _数据完整性验证_
 
 - 影响OLAP性能的因素
 
-- [实时OLAP技术设计](2017-02-01-realtime-olap-design-note.md)
-- Druid-OLAP引擎研究(类似ES)
-- OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
-- [Mondriad研究](2017-01-31-mondrian-olap-analysis-note.md)
+- [实时OLAP技术设计](2017-02-01-bigdata-olap-anlysis-note.md)
+
 
 #### 4.5.OLAP查询的分布式计算
 
@@ -510,7 +508,7 @@ D.Spark
 - 预测（响应,分类）模型
 - 主成分分析PCA
 
-[NewBI新零售分析模型设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47515295)
+[新零售分析模型设计](2017-04-16-new-retail-anlysis-design-note.md)
 
 #### 7.2.互联网用户行为分析模型
 

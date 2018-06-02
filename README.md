@@ -9,6 +9,8 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### Content
 
+![大数据能力分布](blogs/_includes/bigdata_map.jpg)
+
 #### I.Data Science Thinking
 
 - *[Python图片识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-image-recognition-note.md)
