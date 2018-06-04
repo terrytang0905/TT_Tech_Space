@@ -12,11 +12,7 @@ title: Big Data Research Note - Data Process Design
 
 ### Spark for Big Data Development
 
-Spark作为Lambda Architecture一体化解决方案:
-
-- Batch Layer,HDFS+Spark Core,实时增量数据加载到HDFS中,使用SparkCore批量处理全量数据
-- Speed Layer,SparkStreaming处理实时的增量数据,以较低的时延生成实时数据
-- Serving Layer,HDFS+SparkSQL/Impala,存储Batch Layer和Speed Layer整合完的数据视图,提供低时延的即席查询功能
+Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体化所存在问题:
 
 - [Spark大数据计算引擎](2017-03-29-spark-bigdata-arch-note.md)
 
@@ -31,7 +27,6 @@ Spark作为Lambda Architecture一体化解决方案:
 
 
 ### BigData Principles and BestPractices of Scalable RealtimeDataSystems
-
 
 
 
