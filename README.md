@@ -28,10 +28,10 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### II.Big Data Technology Research
 
-- *[Flink数据处理研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-research-note.md)
-- *[大数据研究4-架构组成](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
-- *[大数据研究3-Lambda架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-lambda.md)
-- *[大数据研究2-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
+- *[Flink数据处理应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-research-note.md)
+- *[大数据研究4-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
+- *[大数据研究3-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-lambda.md)
+- *[大数据研究2-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
 - *[大数据研究1-SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-sql-design.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
 - *[Hive编程SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-optimizer-note.md)

@@ -102,7 +102,7 @@ _Disadvantages:_
 
 #### 5.Bitmap Index
 
-Bitmap索引创建一个对列中每个可能的值的独立的bit映射(0和1的序列),每个bit对应一个被索引的值.Bitmap索引最好用于针对可以转化为bit唯一值的查询(例如,性别,城市等).不同的值的数量从1-100之间
+Bitmap索引创建一个对列中每个可能的值的独立的bit映射(0和1的序列),每个bit对应一个被索引的值.Bitmap索引最好用于针对可以转化为bit唯一值的查询(例如,性别,城市等).*不同的值的数量建议从1-100之间较合适*
 
 ![Bitmap_indexes](http://leopard.in.ua/assets/images/postgresql/pg_indexes/bitmap.png)
 
@@ -166,6 +166,8 @@ CREATE INDEX
 ```
 
 * trgm插件
+
+GIN Index+Bitmap Index Scan
 
 ```sql
 create index idx_tbl_1 on tbl using gin(info gin_trgm_ops);

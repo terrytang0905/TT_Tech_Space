@@ -33,6 +33,11 @@ The Lambda architecture is split into three layers, the batch layer, the serving
 
 ![Lambda架构](_includes/lambda_arch.png)
 
+- Batch Layer,HDFS+Spark Core,实时增量数据加载到HDFS中,使用SparkCore批量处理全量数据
+- Speed Layer,SparkStreaming处理实时的增量数据,以较低的时延生成实时数据
+- Serving Layer,HDFS+SparkSQL/Impala,存储Batch Layer和Speed Layer整合完的数据视图,提供低时延的即席查询功能
+
+
 #### 2.Batch layer(Apache Hadoop + HDFS/Impala)
 
 The batch layer is responsible for two things. The first is to store the immutable, constantly growing master dataset (HDFS), and the second is to compute arbitrary views from this dataset (MapReduce). Computing the views is a continuous operation, so when new data arrives it will be aggregated into the views when they are recomputed during the next MapReduce iteration.
@@ -94,14 +99,25 @@ The importance of immutability and human fault-tolerance, and the benefits of pr
 
 ### II.Kappa Architect
 
-
-|DataLoad | MixComputer 	  | DataStorage      | QueryType  |
-|:--------|:------------------|:-----------------|:-----------|
-|Kafka    | Spark             | HDFS/SparkSQL    | Presto     |
-|Kafka    | SparkStreaming    | Cassandra        | Presto     |
-
+Lambda架构一个最明显的问题：它需要维护两套分别跑在批处理和实时计算系统上面的代码。
 
 ![kappa架构](_includes/Kappa_arch.png)
+
+Kappa架构的核心思想包括以下三点：
+
+- 用Kafka或者类似的分布式队列系统保存数据，你需要几天的数据量就保存几天。
+- 当需要全量重新计算时，重新起一个流计算实例，从头开始读取数据进行处理，并输出到一个新的结果存储中。
+- 当新的实例做完后，停止老的流计算实例，并把老的一些结果删除。
+
+Kappa架构适合非超大量数据的实时计算
+
+|DataLoad | MixComputer 	  | DataStorage      | QueryOLAP  |
+|:--------|:------------------|:-----------------|:-----------|
+|Kafka    | Spark/SparkSQL    | HDFS             | Presto     |
+|Kafka    | SparkStreaming    | Cassandra        | Presto     |
+
+![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
+
 
 
 
