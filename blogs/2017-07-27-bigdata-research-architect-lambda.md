@@ -109,12 +109,15 @@ Kappa架构的核心思想包括以下三点：
 - 当需要全量重新计算时，重新起一个流计算实例，从头开始读取数据进行处理，并输出到一个新的结果存储中。
 - 当新的实例做完后，停止老的流计算实例，并把老的一些结果删除。
 
-Kappa架构适合非超大量数据的实时计算
+Kappa架构适合非超大量数据的实时计算,可以使用一个代码架构同时实现实时与离线数据处理架构
 
 |DataLoad | MixComputer 	  | DataStorage      | QueryOLAP  |
 |:--------|:------------------|:-----------------|:-----------|
 |Kafka    | Spark/SparkSQL    | HDFS             | Presto     |
 |Kafka    | SparkStreaming    | Cassandra        | Presto     |
+
+
+* lambda&kappa架构比较
 
 ![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 
