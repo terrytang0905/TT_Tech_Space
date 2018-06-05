@@ -27,7 +27,7 @@ select u.name, o.orderid from order o join user u on o.uid = u.uid;
 
 #### 1.2 Group By的实现原理
 
-select rank, isonline, count(*) from city group by rank, isonline;
+select rank, isonline, count(x) from city group by rank, isonline;
 将GroupBy的字段组合为map的输出key值，利用MapReduce的排序，在reduce阶段保存LastKey区分不同的key。MapReduce的过程如下（当然这里只是说明Reduce端的非Hash聚合过程）
 
 ![hive_sql_parser2](_includes/hive_sql_parser2.png)
@@ -302,7 +302,10 @@ GBY[12]是HASH聚合，即在内存中通过Hash进行聚合运算
 | 1.CorrelationOptimizer    | 利用查询中的相关性，合并有相关性的Job，HIVE-2206 |
 | ColumnPruner              | 字段剪枝 |
 
-表格中1.的优化器均是一个Job干尽可能多的事情/合并。2.的都是减少shuffle数据量，甚至不做Reduce。
+表格中
+
+1.的优化器均是一个Job干尽可能多的事情/合并。
+2.的都是减少shuffle数据量，甚至不做Reduce。
 
 CorrelationOptimizer优化器非常复杂，都能利用查询中的相关性，合并有相关性的Job，参考 Hive Correlation Optimizer
 

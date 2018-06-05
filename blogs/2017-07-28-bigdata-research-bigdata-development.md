@@ -20,15 +20,11 @@ Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体�
 
 - [Flink流式处理](2018-05-31-flink-research-note.md)
 
-
 ### ElasticSearch Solution
 
 - [ElasticSearch全文检索](2017-01-06-elasticsearch-search-engine-architect-note.md)
 
-
-### BigData Principles and BestPractices of Scalable RealtimeDataSystems
-
-
+### Spark vs Flink
 
 
 

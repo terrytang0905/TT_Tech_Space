@@ -52,6 +52,10 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 
 ##### 1.4.Spark Shuffle
 
+HashShuffleManager
+
+SortShuffleManager
+
 ##### 1.5.Memory Store
 
 * CacheManager

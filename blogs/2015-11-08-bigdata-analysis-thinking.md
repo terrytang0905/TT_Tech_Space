@@ -91,7 +91,7 @@ B._大数据分布式存储_:
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 > [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md)
 
-C.[分布式存储架构分析](2017-01-22-bigdata-database-architect-research-note.md)
+C.[分布式存储架构分析](2017-01-22-bigdata-research-database-architect.md)
 
 
 ### III.数据预处理
@@ -226,7 +226,7 @@ E. _数据完整性验证_
 
 - 影响OLAP性能的因素
 
-- [实时OLAP技术设计](2017-02-01-bigdata-olap-anlysis-note.md)
+- [实时OLAP技术设计](2017-02-01-bigdata-research-olap-anlysis.md)
 
 
 #### 4.5.OLAP查询的分布式计算

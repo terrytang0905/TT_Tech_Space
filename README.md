@@ -9,7 +9,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### Content
 
-![大数据能力分布](blogs/_includes/bigdata_map.jpg)
+![大数据能力分布](blogs/_includes/bigdata_map_tt.png)
 
 #### I.Data Science Thinking
 
@@ -17,7 +17,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[数据产品架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-architect-design-note.md)
 - *[机器学习&Python数据分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-python-data-analysis-note.md)
 - *[梯度提升算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
-- *[大数据研究5-机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-machine-learning.md)
+- *[大数据研究-机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-machine-learning.md)
 - *[计算广告研究笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-note.md)
 - *[用户行为分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
 - *[数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
@@ -29,17 +29,17 @@ Currently he focuses on data mining and big data analysis technology and solutio
 #### II.Big Data Technology Research
 
 - *[Flink数据处理应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-research-note.md)
-- *[大数据研究4-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
-- *[大数据研究3-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-lambda.md)
-- *[大数据研究2-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
-- *[大数据研究1-SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-sql-design.md)
+- *[大数据研究-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
+- *[大数据研究-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-lambda.md)
+- *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
+- *[大数据研究-SQL设计应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-sql-design.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
 - *[Hive编程SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-optimizer-note.md)
 - *[Hive编程SQL编译分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
 - *[SQLonHadoop查询引擎笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-sqlonhadoop-anlysis-note.md)
 - *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
-- *[大数据OLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md)
+- *[大数据研究-OLAP分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-research-olap-anlysis.md)
 - *[Mondrian-ROLAP分析笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-mondrian-olap-analysis-note.md)
 - *[Impala-RTOLAP 实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-impala-rtolap-practice-note.md)
 - *[Impala-RTOLAP ResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-impala-rtolap-research-note.md)
@@ -52,7 +52,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 - *[PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
-- *[大数据分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-database-architect-research-note.md)
+- *[大数据研究-分布式存储](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-research-database-architect.md)
 - *[PostgreSQL&Greenplum索引笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-16-postgresql-greenplum-index-note.md)
 - *[Greenplum5实践笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-03-greenplum5-best-practice-note.md)
 - *[PostgreSQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-30-postgresql-best-practice-note.md)
