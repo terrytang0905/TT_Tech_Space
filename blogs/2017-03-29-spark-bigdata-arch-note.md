@@ -49,7 +49,10 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 	2)消息处理
 	3)消息发送
 
-##### 1.4.Memory Store
+
+##### 1.4.Spark Shuffle
+
+##### 1.5.Memory Store
 
 * CacheManager
 * BlockManager
@@ -59,7 +62,7 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 * ConnectionManager
 * BlockManagerMaster
 
-##### 1.5.Spark集群
+##### 1.6.Spark集群
 
 - Driver
 - Master
@@ -68,7 +71,7 @@ ActorModel适合用于解决并发编程问题(Erlang语言)。Actor的行为规
 
 ![spark_model](_includes/spark_model.png)
 
-##### 1.6.部署方式
+* 部署方式
 
 local/local-cluster/standalone cluster/SparkonYARN
 
