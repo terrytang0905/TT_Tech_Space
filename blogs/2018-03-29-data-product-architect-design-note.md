@@ -5,7 +5,7 @@ tags : [thinking,product,datascience]
 title: DataProduct Architect Design Note
 ---
 
-### 数据应用产品架构思考
+### 数据应用产品思考
 
 ### I.产品设计维度
 
@@ -60,40 +60,40 @@ title: DataProduct Architect Design Note
 
 1.数据采集-爬虫&Scrapy
 
-2.实时数据处理-SparkStreaming/Storm
-
-3.海量源数据存储-CDH&HDFS
+2.分布式数据存储-CDH&HDFS
 
 - [大数据存储架构](2017-01-22-bigdata-database-architect-research-note.md)
 
-4.大数据处理
+3.大数据处理开发
 
 - 基础数据分析技术 -Hive/Spark&SparkSQL/Impala/Presto
-- [大数据研究1-大数据SQL](2017-07-28-bigdata-research1-sql-design.md)
-- [大数据研究2-数据分析处理](2017-07-28-bigdata-research2-bigdata-development.md)
+- [大数据研究-SQL设计](2017-07-28-bigdata-research-sql-design.md)
+- 实时数据处理-SparkStreaming/Storm
+- [大数据研究-数据处理计算](2017-07-28-bigdata-research-bigdata-development.md)
+- [大数据研究-OLAP分析](2017-02-01-bigdata-research-olap-anlysis.md)
 - [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 - ETL数据处理 -Kettle
 - 数据同步 -Sqoop/DataX/gphdfs
 - 数据质量分析
 
-5.深度数据分析-Greenplum/Python/Tensorflow
+4.深度数据分析-Greenplum/Python/Tensorflow
 
 - [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
 - [机器学习&Python数据挖掘](2017-10-16-ml-python-data-analysis-note.md)
 
-6.系统数据存储-PostgreSQL
+5.系统数据存储-PostgreSQL
 
 - [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
 
-7.产品应用架构-J2EE&微服务/PHP
+6.产品应用架构-J2EE&微服务/PHP
 
-8.数据BI&可视化-永洪BI/E-Charts/D3.js
+7.数据BI&可视化-永洪BI/E-Charts/D3.js
 
-9.产品性能优化
+8.产品性能优化
 
 	数据结构/ETL/缓存/业务架构/数据更新
 
-10.常规问题-数据产品
+9.常规问题-数据产品
 
 	数据验证/数据完整性/数据冲突/样本异常/性能问题
 

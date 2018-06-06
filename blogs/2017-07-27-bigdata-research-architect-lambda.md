@@ -6,7 +6,7 @@ title: Big Data Research Note - Lambda&Kappa Architect
 ---
 
 ## 大数据研究-Lambda&Kappa架构
-------------------------------------------------------------
+-----------------------------------------------------------
 
 ### I.Lambda Architect
 
