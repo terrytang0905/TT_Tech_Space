@@ -5,7 +5,7 @@ tags : [datascience,bigdata,architect]
 title: Big Data Research Note - SQL Design
 ---
 
-## 大数据研究1之SQL设计应用
+## 大数据研究-SQL设计应用
 ------------------------------------------------------------
 
 ### SQL on Database

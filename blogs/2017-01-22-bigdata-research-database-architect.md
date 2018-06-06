@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [bigdata, database, architect]
-title: Bigdata Database Architect Research Note
+title: Big Data Research Note - Database Architect
 ---
 
-## Bigdata Database Architect Research Note
+## 大数据研究-分布式存储
 ----------------------------------------------
 
 ![BigDataDBMap](_includes/BigData&CAP.jpg)

@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [bigdata,olap,architect]
-title: Big Data OLAP Analysis Note
+title: Big Data Research Note - OLAP Analysis
 ---
 
-## 大数据OLAP分析Note
+## 大数据研究-OLAP分析
 ------------------------------------------------------------
 
 **Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu)**
@@ -365,10 +365,11 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 - 内存计算规则
 - Spark/SparkSQL/Flink实时数据计算
 - 表计算/数据透视(计算函数设计-基于当前结果再计算)
-- 实时数据(增量)计算(衍生度量/)
+- 实时数据(增量)计算(衍生度量/趋势度量)
 - 上下文筛选查询(数据查询联动更新)
 - 内存计算结果保存-Redis
 
+- [Calcite SQL引擎](2018-06-01-apache-calcite-data-framework-note.md)
 
 ### x.技术参考
 
