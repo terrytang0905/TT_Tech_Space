@@ -126,3 +126,9 @@ title: DataProduct Architect Design Note
 
 * 4.大数据金融交易模型(门槛有点高)
 
+* 5.人工智能
+
+	- 计算机视觉
+	- 语音识别
+	- 语义识别(传递信息/沟通/同感)
+

@@ -753,6 +753,8 @@ gp_resqueue_priority_cpucores_per_segment
    指定cpu信息，计算方法为segment上的cpu核数除以segment个数，master 上面指定所有的cpu核数（机器上只有master进程）
 
 
+gpcheckcat -p 5432 irview_vt
+
 ### x.psql 参数命令
 
 - \h：查看SQL命令的解释，比如\h select。

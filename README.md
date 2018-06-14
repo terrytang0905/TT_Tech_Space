@@ -28,7 +28,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 #### II.Big Data Technology Research
 
-- *[Flink数据处理应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-research-note.md)
+- *[查询优化器设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[大数据研究-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
 - *[大数据研究-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-lambda.md)
 - *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
