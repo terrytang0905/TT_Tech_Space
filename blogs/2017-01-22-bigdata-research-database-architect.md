@@ -152,6 +152,8 @@ title: Big Data Research Note - Database Architect
 
 ![database_type_all](_includes/database_all.png)
 
+	* excluded Hadoop Batch Processing
+
 #### A.分析数据库设计-MPP
 
 1.数据分析性需求对IT能力的要求包括：
@@ -290,7 +292,6 @@ Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小�
 
 整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
 
-![Palo](_includes/palo_database.jpg)
 
 
 ### IV.数据库架构基础
@@ -605,3 +606,4 @@ _GroupAggregate_
 - [从架构特点到功能缺陷，重新认识分析型分布式数据库](https://mp.weixin.qq.com/s/O9sWvcHhrgafCWHSMiOMlA)
 - [对比MPP计算框架和批处理计算框架](https://blog.csdn.net/sinat_27545249/article/details/78943823)
 - [Mesa](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
+- [built-databases-in-aws](https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html)
