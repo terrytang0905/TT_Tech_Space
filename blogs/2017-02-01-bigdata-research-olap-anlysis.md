@@ -6,17 +6,18 @@ title: Big Data Research Note - OLAP Analysis
 ---
 
 ## 大数据研究-OLAP分析
-------------------------------------------------------------
+-----------------------------------------------------------
 
-**Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu)**
+** OLAP实时查询分析是联机查询的深度实现 *
+
+** Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu) *
 
 
 OLAP     | Type 	| Link 					   | Desc
 -------- |----------|--------------------------|----------------
 Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop(容错性差)
 PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
-HAWQ     | RTOLAP   | http://hawq.incubator.apache.org/ | MPP+SQLonHadoop
-Drill    | RTOLAP   | http://drill.apache.org/ | 多数据源SQL查询
+Dremel   | RTOLAP   |                          | 多数据源SQL查询
 Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
 Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
@@ -298,10 +299,13 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - [Druid:一个用于大数据实时处理的开源分布式系统](http://www.infoq.com/cn/news/2015/04/druid-data)
 - [数果科技王劲:如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
+### 5.Dremel海量数据分析
 
-### 5.实时OLAP架构优化
+- [Dremel相关](https://blog.csdn.net/happyduoduo1/article/details/51784730)
 
-#### 5.1.[NewBI实时OLAP架构优化]
+### 6.实时OLAP架构优化
+
+#### 6.1.[NewBI实时OLAP架构优化]
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -340,7 +344,7 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 - 数据结构设计类似ElasticSearch
 
 
-#### 5.2.QueryEngine优化
+#### 6.2.QueryEngine优化
 
 5.2.1.Query性能差异与执行顺序
 
@@ -360,7 +364,7 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
 - ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
 
-#### 5.3.数据计算优化
+#### 6.3.数据计算优化
 
 - 内存计算规则
 - Spark/SparkSQL/Flink实时数据计算

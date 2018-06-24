@@ -5,7 +5,7 @@ tags : [bigdata, database, architect]
 title: Big Data Research Note - Database Architect
 ---
 
-## 大数据研究-分布式存储
+## 大数据研究-分布式数据架构
 ----------------------------------------------
 
 ![BigDataDBMap](_includes/BigData&CAP.jpg)
@@ -16,7 +16,7 @@ title: Big Data Research Note - Database Architect
 ![BigDataStorage2](_includes/Distribute_DataStorage2.png)
 ![BigDataStorage2](_includes/Distribute_DataStorage3.png)
 
-#### 分布式算法
+#### II.分布式算法
 
 * 一致性
 
@@ -148,13 +148,20 @@ title: Big Data Research Note - Database Architect
 	[ProtocalBuffer](http://code.google.com/p/protobuf) <br/>
 
 
-### II.分布式存储架构分析
+### III.分布式数据架构
 
-#### 分析数据库设计
+![database_type_all](_includes/database_all.png)
 
-1.分析型数据库
+#### A.分析数据库设计-MPP
 
-	- 分布式架构设计-MPP
+1.数据分析性需求对IT能力的要求包括：
+
+	- 复杂查询能力
+	- 批量数据处理
+	- 一定的并发访问能力
+
+2.OLAP场景下的分布式数据库
+
 	- 一致性协调器(Paxos/Raft) - 类Zookeeper
 	- LSM-Tree&LSM映射存储
 	- 索引设计 - B+Tree/Bitmap/FullText Index
@@ -172,14 +179,118 @@ title: Big Data Research Note - Database Architect
 
 2.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
-3.[PostgreSQL&Greenplum解决方案](2018-05-30-postgresql-greenplum-solution-note.md)
+3.[Vertica数据库结构]
+
+#### B.Hadoop-MapReduce
+
+总的来说，其架构的着力点在于数据高吞吐处理能力，在事务方面相较MPP更简化，仅提供粗粒度的事务管理.
+
+Hadoop具备MPP所缺失的批量任务调整能力，数据的多副本存储使其具有更多“本地化”数据加工的备选节点，而且数据加工处理与数据存储并不绑定，可以根据节点的运行效率动态调整任务分布，从而在大规模部署的情况下具有整体上更稳定的效率。相比之下，MPP在相对较小的数据量下具有更好的执行效率。
 
 
-### III.BigTable数据库架构
+#### MPP vs 批处理计算 
+
+_1.MPP设计_
+
+MPP最开始的设计目的是为了消除共享资源的使用，即每个executor有独立的cpu、内存和磁盘等资源，每个executor一般不能访问其他executor的资源。但是有一种情况例外，那就是当数据必须要通过网络进行交换的时候(即Redistribute/shuffle)。
+
+_2.MPP的核心问题_
+
+	- 遇到的最大问题就是“落后者”(straggler)。如果某个节点在执行任何任务时都比其他的节点慢，那么不管集群规模多大，整体的执行性能都会由这个“有问题”的节点决定了。
+	- 等集群到了一定规模，MPP系统总是会有那么一个节点发生磁盘阵列故障，这就会导致集群整体性能下降。这就是为什么几乎所有的MPP系统的单集群大小不会超过50台服务器。
+
+MPP和MapReduce这种批处理架构的另外一个显著不同则在于并发(concurrency)方面。并发是指可以有效的同时运行的查询数（译者注：MPP一般面向即系查询业务，所以响应时间一般在秒级。所谓有效，就是说这些查询可以在用户可以接受的查询时间内返回，如果并发查询数很高，但是每个查询都需要等几个小时，那就不叫有效查询了）。MPP是完全“对称的”，即当查询开始执行时，每个节点都在并行的执行完全相同的任务， 就是说MPP支持的并发数和集群的节点数没有关系。例如，4个节点的集群和400个节点的集群支持的并发查询数是相同的，随着并发数增加，这二者几乎在相同的时间点出现性能骤降。
+
+	Tips:10-18个并发sessions时，系统总的吞吐量最大。如果并发数上升到20以上，总吞吐就会下降到最大吞吐的70%（这里吞吐量是这样定义的：相同类型(比如都是groupby，或者都是join查询)的查询在固定时间段内完成执行的个数） 
+
+_3.批处理设计_
+
+共享存储和细粒度(task级别调度)结合,使得批处理系统在扩展性方面优于MPP，批处理系统的集群规模往往可以扩展到几千的节点和几万的磁盘的级别。
+
+共享存储在处理一块数据，不需要让数据一定要存储在某个特定的节点，需要这块数据时，可以从集群中其他节点那里获取到。当然了，远程操作涉及网络和磁盘IO，有一定代价，所以计算框架会尝试优先处理本地存储的数据。但是在“degraded”场景下，推测执行可以有效缓解性能下降问题。
+
+_4.批处理的问题_
+
+	- 如果在一个单独的executor中串行的处理不相关的task，就必须把中间结果写到本地磁盘上，以便下一个执行步骤能开始消费本步骤的数据。而MPP下，不需要把中间结果写入磁盘，因为每个executor处理一个task，所以数据可以直接“流入”下一执行阶段进行处理，这就是所谓的pipeline执行,性能非常可观。
+
+
+_5.MPP缺陷_
+
+- 批处理下的Straggler
+
+	无论集群规模多大，批处理的整体执行速度都由Straggler决定，其他节点上的任务执行完毕后则进入空闲状态等待Straggler，而无法分担其工作
+
+- 多并发的性能瓶颈
+
+	由于MPP的“完全对称性”，即当查询开始执行时，每个节点都在并行的执行完全相同的任务，这意味着MPP支持的并发数和集群的节点数完全无关。
+
+	为了规避MPP并发访问上的缺陷以及批量任务对联机查询的影响，通常会将数据按照应用粒度拆分到不同的单体OLTP数据库或小型MPP数据库中以支持联机查询。
+
+_6.Hadoop批处理缺陷_
+
+- 批量加工效率较低(需要不停写磁盘)
+- 不能无缝衔接EDW实施方法论(无法增量更新)
+- 联机查询(SQL on Hadoop)并发能力不足
+
+	在大体相同的数据量和查询逻辑情况下,Impala并发会低于GPDB
+
+#### B+.MPP+Hadoop
+
+1.[Apache HAWQ](http://hawq.incubator.apache.org/)
+
+#### C.KV数据库架构-BigTable
 
 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
 
-2.OceanBase数据库与分析数据库差异
+2.OceanBase数据库特性
+
+3.Dynamo-KV数据库
+
+4.Cassandra数据库
+
+#### C+.Document数据库
+
+1.MongoDB数据库
+
+- [MongoDB相关](2015-10-11-mongodb3.0-major-release.md)
+
+#### D.In-Memory数据库
+
+1.Redis
+
+2.Couchbase
+
+3.Ignite
+
+#### E.Search搜索数据库
+
+1.[ElasticSearch搜索数据](2017-01-06-elasticsearch-search-engine-architect-note.md)
+
+2.Druid-OLAP搜索
+
+#### F.Like-Mesa
+
+1.Mesa
+
+Mesa是Google开发的近实时分析型数据仓库
+
+	其通过预聚合合并Delta文件等方式减少查询的计算量，提升了并发能力。
+
+Mesa充分利用了现有的Google技术组件，使用BigTable来存储所有持久化的元数据，使用了Colossus (Google的分布式文件系统)来存储数据文件，使用MapReduce来处理连续的数据。
+
+![MesaDatabase](_includes/mesa_database.png)
+
+Mesa相关的开源产品为Clickhouse(2016年Yandex开源)和Palo(2017年百度开源)
+
+2.Palo
+
+Palo没有完全照搬Mesa的架构设计的思路，其借助了Hadoop的批量处理能力，但将加工结果导入到了Palo自身存储，专注于联机查询场景，在联机查询部分主要借鉴了Impala技术。同时Palo没有复用已有的分布式文件系统和类BigTable系统，而是设计了独立的分布式存储引擎。虽然数据存储上付出了一定的冗余，但在联机查询的低延迟、高并发两方面都得到了很大的改善。
+
+Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小为一个数据加载批次，可以保证多表数据更新的一致性。
+
+整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
+
+![Palo](_includes/palo_database.jpg)
 
 
 ### IV.数据库架构基础
@@ -411,42 +522,9 @@ _GroupAggregate_
 	查询由其 Entity SQL 文本和参数集合（名称和类型）标识。 所有文本比较都区分大小写。
 
 
-* X.查询优化器实现
+* X.查询优化器设计
 
-	1._SQLite优化器_
-
-		使用Nested嵌套联接
-		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
-
-	2._DB2优化器_
-
-		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
-		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
-		使用动态编程模拟联接
-			有限使用组合内关系（composite inner relation）
-			对于涉及查找表的星型模式，有限使用笛卡尔乘积
-		考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
-		默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
-
-	默认的，DB2 对联接排列使用受启发式限制的动态编程算法。	
-
-	3._Genetic Query Optimizer - PostgerSQL_
-
-[geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
-
-	The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies. It can take an enormous amount of time and memory space when the number of joins in the query grows large. This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
-
-	genetic algorithm(GA) & GEQO 
-
-	4._Pivotal Query Optimizer - Greenplum_
-
-![PQC-OrcaArch](_includes/Orca_arch.png)
-
-	[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
-
-	5._Legacy Query Optimizer - Greenplum_
-
-	Append-only Columnar Scan
+[SQL Optimizer Design](2018-06-01-sql-optimizer-design-note.md)
 
 
 11._查询执行器 Query Executor_
@@ -516,7 +594,6 @@ _GroupAggregate_
 
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
-15._Calcite_
 
 ### V.区块链
 
@@ -525,5 +602,6 @@ _GroupAggregate_
 ### x.Ref
 
 - [BigTable](https://baike.baidu.com/item/BigTable/3707131?fr=aladdin)
-- [Dremel](https://blog.csdn.net/happyduoduo1/article/details/51784730)
-
+- [从架构特点到功能缺陷，重新认识分析型分布式数据库](https://mp.weixin.qq.com/s/O9sWvcHhrgafCWHSMiOMlA)
+- [对比MPP计算框架和批处理计算框架](https://blog.csdn.net/sinat_27545249/article/details/78943823)
+- [Mesa](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)

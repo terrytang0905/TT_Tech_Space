@@ -10,6 +10,43 @@ title: SQL Optimizer Design Note
 
 ### Apache Calcite数据框架
 
+### 数据库查询优化器分析
+
+1._SQLite优化器_
+
+		使用Nested嵌套联接
+		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
+
+	2._DB2优化器_
+
+		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
+		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
+		使用动态编程模拟联接
+			有限使用组合内关系（composite inner relation）
+			对于涉及查找表的星型模式，有限使用笛卡尔乘积
+		考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
+		默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
+
+	默认的，DB2 对联接排列使用受启发式限制的动态编程算法。	
+
+	3._Genetic Query Optimizer - PostgerSQL_
+
+[geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
+
+	The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies. It can take an enormous amount of time and memory space when the number of joins in the query grows large. This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
+
+	genetic algorithm(GA) & GEQO 
+
+	4._Pivotal Query Optimizer - Greenplum_
+
+![PQC-OrcaArch](_includes/Orca_arch.png)
+
+	[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+
+	5._Legacy Query Optimizer - Greenplum_
+
+	Append-only Columnar Scan
+
 ### SparkSQL Catalyst优化器
 
 ![SparkCatalyst](_includes/spark_sql_catalyst.jpg)
