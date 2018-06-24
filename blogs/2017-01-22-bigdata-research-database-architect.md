@@ -292,6 +292,7 @@ Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小�
 
 整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
 
+![Palo](_includes/palo_database.jpg)
 
 
 ### IV.数据库架构基础
