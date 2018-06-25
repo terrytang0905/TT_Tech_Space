@@ -126,26 +126,26 @@ title: Big Data Research Note - Database Architect
 
 - 消息机制
 
-	消息的编解码方式
+	消息的编解码方式 <br/>
 	消息传递机制(ZeroMQ/RabbitMQ/RocketMQ)
 
 - 数据文件格式
 
-	RCFile
-	OptimizeRC=ORC
-	[Parquet文件格式](https://parquet.apache.org/documentation/latest/)
+	* RCFile 
+	* OptimizeRC=ORC 
+	* [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
 
 - 数据压缩算法
 
-	Snappy <br/>
-	LZSS <br/>
-	GZ <br/>
+	* Snappy 
+	* LZSS 
+	* GZ 
 
 - 数据传输与序列化
 
-	[Avro序列化组件](https://avro.apache.org/docs/current/) <br/>
-	[Thrift](http://thrift.apache.org/) <br/>
-	[ProtocalBuffer](http://code.google.com/p/protobuf) <br/>
+	* [Avro序列化组件](https://avro.apache.org/docs/current/) 
+	* [Thrift](http://thrift.apache.org/) 
+	* [ProtocalBuffer](http://code.google.com/p/protobuf) 
 
 
 ### III.分布式数据架构
