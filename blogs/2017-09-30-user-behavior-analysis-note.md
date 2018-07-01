@@ -676,7 +676,11 @@ http://blog.csdn.net/hguisu/article/details/8021036
 
 4.2.Spark高级数据分析应用
 
+- [Spark大数据处理](2017-03-29-spark-bigdata-arch-note.md)
+
 4.3.Python数据分析应用
+
+- [Python机器学习](2017-10-16-ml-python-data-analysis-note.md)
 
 4.4.Tenseflow机器学习工具
 
