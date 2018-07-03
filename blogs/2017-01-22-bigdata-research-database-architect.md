@@ -8,6 +8,8 @@ title: Big Data Research Note - Database Architect
 ## 大数据研究-分布式数据架构
 ----------------------------------------------
 
+导读:A one size fits all database doesn't fit anyone
+
 ![BigDataDBMap](_includes/BigData&CAP.jpg)
 
 ### I.分布式数据存储架构

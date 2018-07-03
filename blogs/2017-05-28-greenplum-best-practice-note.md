@@ -403,6 +403,11 @@ vm.overcommit_ratio = 50
 
 #### 5.GP 硬件配置推荐
 
+- Linux NUMA配置 
+- DataDisk使用RAID50(RAID5)设置。提高IO读写性能/数据自动备份
+- 考虑到并发情况,建议使用12 or 16Segments(8primary+8mirror)
+- Standby Master可考虑部署在ETL服务器上
+
 #### 5.x.GP Performance Check
 
 - gpcheckperf -f hostlist -d /data1 -d /data2 -r ds
