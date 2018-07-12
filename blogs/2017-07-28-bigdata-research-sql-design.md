@@ -16,6 +16,8 @@ title: Big Data Research Note - SQL Design
 
 - [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
 
+- [PostgreSQL&Greenplum解决方案](2018-05-30-postgresql-greenplum-solution-note.md)
+
 ### SQL on Hadoop
 
 - [SQLonHadoop分析应用](2017-04-04-sqlonhadoop-anlysis-note.md)
@@ -52,5 +54,4 @@ Partition 分区替代索引,以提高查询性能
 
 ### SQL Parser&Query Optimizer
 
-- [数据库架构分析](2017-01-22-bigdata-database-architect-research-note.md)
-
+- [查询优化器分析](2018-06-01-sql-optimizer-design-note.md)

@@ -82,4 +82,6 @@ Postgres-XL is a horizontally scalable open source SQL database cluster, flexibl
 
 #### Greenplum5
 
+- [Greenplum5 BestPractice](2017-12-03-greenplum5-best-practice-note.md)
+
 ### III.SQL查询性能问题
