@@ -401,6 +401,23 @@ vm.overcommit_ratio = 50
 - max_connections: 最大连接数，Segment建议设置成Master的5-10倍。
 
 
+##### Example
+
+系统设置
+gpconfig -c gp_resqueue_priority_cpucores_per_segment -v 4 -m 8
+gpconfig -c gp_vmem_protect_limit -v 7000
+gpconfig -c gp_workfile_compress_algorithm -v zlib
+gpconfig -c shared_buffers -v 400MB -m 400MB
+gpconfig -c gp_resqueue_memory_policy -v auto
+gpconfig -c statement_mem -v 500MB
+gpconfig -c max_statement_mem -v 2GB
+gpconfig -c work_mem -m 500MB -v 500MB
+
+gpconfig -c optimizer -v off (根据查询SQL特征决定查询优化器的选择)
+	
+	set optimizer = on;(应用GPORCA)
+	GPORCA比较适合 1.分区表 2.子查询 3.Join查询
+
 #### 5.GP 硬件配置推荐
 
 - Linux NUMA配置 
