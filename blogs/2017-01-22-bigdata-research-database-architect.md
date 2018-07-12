@@ -189,8 +189,10 @@ title: Big Data Research Note - Database Architect
 
 Hadoop具备MPP所缺失的批量任务调整能力，数据的多副本存储使其具有更多“本地化”数据加工的备选节点，而且数据加工处理与数据存储并不绑定，可以根据节点的运行效率动态调整任务分布，从而在大规模部署的情况下具有整体上更稳定的效率。相比之下，MPP在相对较小的数据量下具有更好的执行效率。
 
+![MapReduce](_includes/mapreduce.jpg)
 
-#### MPP并行计算 vs 批处理计算 
+
+#### A-B.MPP并行计算 vs 批处理计算 
 
 _1.MPP设计_
 
@@ -248,7 +250,7 @@ _6.Hadoop批处理缺陷总结_
 
 	Tips:在大体相同的数据量和查询逻辑情况下,Impala并发效果会低于GPDB
 
-#### B+.MPP+Hadoop
+#### A+B.MPP+Hadoop
 
 1.[Apache HAWQ](http://hawq.incubator.apache.org/)
 
