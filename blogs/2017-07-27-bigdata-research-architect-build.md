@@ -395,7 +395,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 
 另外一种解决慢数据管道的方式，称之为Kappa框架。起初我以为这个架构名称不对，现在我不太确定。不管它是什么，我叫它流数据平台，其实这个已经有人这么叫了。
 
-[Lambda&Kappa实时处理架构](2017-07-27-bigdata-research-architect-lambda.md)
+[Lambda&Kappa实时处理架构](2017-07-27-bigdata-research-realtime-process.md)
 
 #### 5.Kappa框架及流式处理架构
 
