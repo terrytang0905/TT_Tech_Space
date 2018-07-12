@@ -54,11 +54,15 @@ title: Bigdata analysis&Mining Thinking
 
 #### 1.5.解决方案思考:
 
-1. 大数据存储：MPP(Vertica/Greenplum),HDFS,HBase,Kudu,Cassandra等
-2. OLAP查询计算：SparkSQL, Hive, GoogleDremel, Impala, Presto, Druid, Kylin
-3. 实时流式计算：Apache Storm,Apache SparkStreaming(内存占用过大)
+1. 数据采集与同步-Kafka
+    海量数据采集 
+2. 大数据离线存储: HDFS,Kudu
+3. 实时流式计算: Apache Storm,Apache SparkStreaming(内存占用过大)
 4. 大数据计算平台: Spark, Flink, MapReduce批处理技术
-5. 数据可视化趋势: D3, E-Charts
+5. 内存数据存储: HBase Cassandra等
+6. 分析型数据库: MPP(Vertica/Greenplum)
+7. OLAP查询计算：SparkSQL, Hive, GoogleDremel, Impala, Presto, Druid, Kylin
+8. 数据可视化趋势: D3, E-Charts
 
 ### II.数据仓库/大数据架构设计
 

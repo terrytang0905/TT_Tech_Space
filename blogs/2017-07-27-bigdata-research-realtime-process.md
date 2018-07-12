@@ -2,10 +2,10 @@
 layout: post
 category : architect
 tags : [bigdata,realtime,develop]
-title: Big Data Research Note - Lambda&Kappa Architect
+title: Big Data Research Note - Realtime Process Architect
 ---
 
-## 大数据研究-Lambda&Kappa架构
+## 大数据研究-实时处理架构
 -----------------------------------------------------------
 
 ### I.Lambda Architect
@@ -122,6 +122,7 @@ Kappa架构适合非超大量数据的实时计算,可以使用一个代码架�
 ![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 
 
+### Flink Architect
 
 
-
+[Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)
