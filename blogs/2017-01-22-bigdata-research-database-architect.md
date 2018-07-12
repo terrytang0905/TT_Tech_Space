@@ -233,15 +233,19 @@ _5.MPP缺陷_
 
 _6.Hadoop批处理缺陷_
 
-- 批量加工效率较低(需要不停写磁盘)
+- 批量加工效率较低(需要不停阶段性写磁盘)
 - 不能无缝衔接EDW实施方法论(无法增量更新)
 - 联机查询(SQL on Hadoop)并发能力不足
 
-	在大体相同的数据量和查询逻辑情况下,Impala并发会低于GPDB
+	Comment:在大体相同的数据量和查询逻辑情况下,Impala并发效果会低于GPDB
 
 #### B+.MPP+Hadoop
 
 1.[Apache HAWQ](http://hawq.incubator.apache.org/)
+
+HAWQ is a Hadoop native SQL query engine that combines the key technological advantages of MPP database with the scalability and convenience of Hadoop. HAWQ reads data from and writes data to HDFS natively.
+
+![hawq_arch](_includes/hawq_architecture_components.png)
 
 #### C.KV数据库架构-BigTable
 

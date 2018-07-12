@@ -37,13 +37,33 @@ title: SQL Optimizer Design Note
 
 	genetic algorithm(GA) & GEQO 
 
-	4._Pivotal Query Optimizer - Greenplum_
+### 大数据查询优化器
+
+_GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA_
 
 ![PQC-OrcaArch](_includes/Orca_arch.png)
 
-	[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+The Pivotal Query Optimizer leverages a multi-core scheduler that can distribute individual optimization tasks across multiple cores to speed up the optimization process.
 
-	5._Legacy Query Optimizer - Greenplum_
+GPORCA also enhances Greenplum Database query performance tuning in the following areas:
+
+	- Dynamic Partition Elimination(Queries against partitioned tables)
+	- SubQuery Unnesting(Queries that contain subqueries)
+		* Removing Unnecessary Nesting
+		* Subquery Decorrelation
+		* Conversion of Subqueries into Joins
+	- Common Table Expressions(CTE-Queries that contain a common table expression)
+
+GPORCA also includes these optimization enhancements:
+
+	- Improved join ordering
+	- Join-Aggregate reordering
+	- Sort order optimization
+	- Data skew estimates included in query optimization
+
+- [PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+
+_Legacy Query Optimizer - Greenplum/PostgreSQL_
 
 	Append-only Columnar Scan
 
