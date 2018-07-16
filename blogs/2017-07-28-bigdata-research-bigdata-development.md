@@ -22,7 +22,7 @@ Reducer 直接输入数据为止的整个过程。这是 mapreduce 的核心过�
 
 2.MapReduce 计算框架中负责真正计算任务的 TaskTracker 对应到 HDFS 的 DataNode 的角色，一个负责计算，一个负责管理存储数据。
 
-考虑到“本地化原则”，一般地，将 NameNode 和 JobTracker 部署到同一台机器上， 各个 DataNode 和 TaskNode 也同样部署到同一台机器上。
+考虑到“Data_Local”，一般地，将 NameNode 和 JobTracker 部署到同一台机器上， 各个 DataNode 和 TaskNode 也同样部署到同一台机器上。
 
 ### Spark for Big Data Development
 
