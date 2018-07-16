@@ -44,13 +44,16 @@ title: Big Data Research Note - Database Architect
 - 一致性协议-RWN协议:Write+Read>N
 - 一致性协议-Paxos协议:一致性>可用性
 
-	[介绍](http://www.jdon.com/artichect/paxos.html)
 	Paxos是一个解决共识问题consensus problem的算法
+	[介绍](http://www.jdon.com/artichect/paxos.html)
 	Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和propose/accept
 	基于Paxos的数据一致性同步Zookeeper
 
-	Paxos算法是莱斯利·兰伯特（Leslie Lamport，就是 LaTeX 中的”La”，此人现在在微软研究院）于1990年提出的一种基于消息传递的一致性算法。这个算法被认为是类似算法中最有效的。
-	Paxos 算法解决的问题是一个分布式系统如何就某个值（决议）达成一致。一个典型的场景是，在一个分布式数据库系统中，如果各节点的初始状态一致，每个节点执行相同的操作序列，那么他们最后能得到一个一致的状态。为保证每个节点执行相同的命令序列，需要在每一条指令上执行一个“一致性算法”以保证每个节点看到的指令一致。一个通用的一致性算法可以应用在许多场景中，是分布式计算中的重要问题。因此从20世纪80年代起对于一致性算法的研究就没有停止过。节点通信存在两种模型：共享内存（Shared memory）和消息传递（Messages passing）。Paxos 算法就是一种基于消息传递模型的一致性算法。
+	Paxos算法是莱斯利·兰伯特（Leslie Lamport，就是LaTeX 中的”La”，此人现在在微软研究院）于1990年提出的一种基于消息传递的一致性算法。这个算法被认为是类似算法中最有效的。
+	Paxos 算法解决的问题是一个分布式系统如何就某个值(决议)达成一致。一个典型的场景是，在一个分布式数据库系统中，如果各节点的初始状态一致，每个节点执行相同的操作序列，那么他们最后能得到一个一致的状态。为保证每个节点执行相同的命令序列，需要在每一条指令上执行一个“一致性算法”以保证每个节点看到的指令一致。
+
+	一个通用的一致性算法可以应用在许多场景中，是分布式计算中的重要问题。因此从20世纪80年代起对于一致性算法的研究就没有停止过。
+	节点通信存在两种模型:共享内存(Shared memory)和消息传递（Messages passing）。Paxos算法就是一种基于消息传递模型的一致性算法。
 
 - 一致性协议-Raft协议:一致性>可用性.
 
@@ -59,14 +62,14 @@ title: Big Data Research Note - Database Architect
 	用于日志复制/表数据的复制.[介绍](http://www.jdon.com/artichect/raft.html)
 
 	在Raft中，每个结点会处于下面三种状态中的一种：
-	follower：所有结点都以follower的状态开始。如果没收到leader消息则会变成candidate状态
-	candidate：会向其他结点“拉选票”，如果得到大部分的票则成为leader。这个过程就叫做Leader选举(Leader Election)
-	leader：所有对系统的修改都会先经过leader。每个修改都会写一条日志(log entry)。leader收到修改请求后的过程如下，这个过程叫做日志复制(Log Replication)：
-	复制日志到所有follower结点(replicate entry)
-	大部分结点响应时才提交日志
-	通知所有follower结点日志已提交
-	所有follower也提交日志
-	现在整个系统处于一致的状态
+		follower：所有结点都以follower的状态开始。如果没收到leader消息则会变成candidate状态
+		candidate：会向其他结点“拉选票”，如果得到大部分的票则成为leader。这个过程就叫做Leader选举(Leader Election)
+		leader：所有对系统的修改都会先经过leader。每个修改都会写一条日志(log entry)。leader收到修改请求后的过程如下，这个过程叫做日志复制(Log Replication)：
+		复制日志到所有follower结点(replicate entry)
+		大部分结点响应时才提交日志
+		通知所有follower结点日志已提交
+		所有follower也提交日志
+		现在整个系统处于一致的状态
 
 - CAP定理&BASE模型
 
@@ -83,10 +86,12 @@ title: Big Data Research Note - Database Architect
 - bitmap
 
 	- bitmap可以理解为通过一个bit数组来存储特定数据的一种数据结构，每一个bit位都能独立包含信息，bit是数据的最小存储单位
-	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的
+	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的,例如异常IP等
 	- 统计一个对象的基数值(1亿)需要12M，如果统计10000个对象，就需要将近120G了，同样不能广泛用于大数据场景。
 
-- BloomFilter:带随机概率的bitmap,用于判断有序结构里是否存在指定的数据
+- BloomFilter:带随机概率(哈希函数)的bitmap,用于判断有序结构里是否存在指定的数据
+	
+	Bloom Filter靠多个哈希函数将集合映射到位数组中,判断元素数据是否存在
 
 - HyperLogLog:DISTINCT近似值算法
 
@@ -133,6 +138,7 @@ title: Big Data Research Note - Database Architect
 
 - 数据文件格式
 
+	* SequenceFile
 	* RCFile 
 	* OptimizeRC=ORC 
 	* [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
@@ -226,7 +232,6 @@ MapReduce的同步点包括的job的启动、shuffle以及job的停止；对spar
 _4.批处理的问题_
 
 	- 如果在一个单独的executor中串行的处理不相关的task,就必须把中间结果写到本地磁盘上,以便下一个执行步骤能开始消费本步骤的数据。而MPP下，不需要把中间结果写入磁盘，因为每个executor处理一个task，所以数据可以直接“流入”下一执行阶段进行处理，这就是所谓的pipeline执行,性能非常可观。
-
 
 _5.MPP缺陷总结_
 
