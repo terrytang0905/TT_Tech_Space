@@ -258,7 +258,10 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 ![hawq_arch](_includes/hawq_architecture_components.png)
 
-#### C.KV数据库架构-BigTable
+#### C.BigTable数据库架构
+
+- 基于LSM-Tree的大规模稀疏表 
+- 适合海量数据的KV类似查询
 
 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
 
@@ -283,6 +286,9 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 3.Ignite
 
 #### E.Search搜索数据库
+
+- 适合海量数据秒级查询
+- 不适用于复杂的JOIN查询分析
 
 1.[ElasticSearch搜索数据](2017-01-06-elasticsearch-search-engine-architect-note.md)
 

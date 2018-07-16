@@ -400,7 +400,7 @@ vm.overcommit_ratio = 50
 
 - max_connections: 最大连接数，Segment建议设置成Master的5-10倍。
 
-- gpconfig -c optimizer -v off (根据查询SQL特征决定查询优化器的选择)
+- gpconfig -c optimizer -v off(根据查询SQL特征决定查询优化器的选择)
 	
 	set optimizer = on;(应用GPORCA)
 	GPORCA比较适合 1.分区表 2.子查询 3.Join查询
