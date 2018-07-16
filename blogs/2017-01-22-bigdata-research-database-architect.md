@@ -158,7 +158,7 @@ title: Big Data Research Note - Database Architect
 
 1.数据分析性需求对IT能力的要求包括：
 
-	- 复杂查询能力
+	- 复杂分析查询能力
 	- 批量数据处理
 	- 一定的并发访问能力
 
@@ -188,8 +188,6 @@ title: Big Data Research Note - Database Architect
 总的来说，其架构的着力点在于数据高吞吐处理能力，在事务方面相较MPP更简化，仅提供粗粒度的事务管理.
 
 Hadoop具备MPP所缺失的批量任务调整能力，数据的多副本存储使其具有更多“本地化”数据加工的备选节点，而且数据加工处理与数据存储并不绑定，可以根据节点的运行效率动态调整任务分布，从而在大规模部署的情况下具有整体上更稳定的效率。相比之下，MPP在相对较小的数据量下具有更好的执行效率。
-
-![MapReduce](_includes/mapreduce.jpg)
 
 
 #### A-B.MPP并行计算 vs 批处理计算 
@@ -262,8 +260,13 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 - 基于LSM-Tree的大规模稀疏表 
 - 适合海量数据的KV类似查询
+- 支持多并发查询分析
 
 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
+
+- 大数据量存储,大数据量高并发操作 
+- 需要对**数据随机读写操作**
+- 读写访问均是非常简单的操作
 
 2.OceanBase数据库特性
 
@@ -288,6 +291,7 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 #### E.Search搜索数据库
 
 - 适合海量数据秒级查询
+- 支持多并发查询分析
 - 不适用于复杂的JOIN查询分析
 
 1.[ElasticSearch搜索数据](2017-01-06-elasticsearch-search-engine-architect-note.md)
@@ -405,7 +409,7 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 
 开源SQL Parser:
 
-[Apache Calcite](http://calcite.apache.org/docs/)
+- [Apache Calcite](http://calcite.apache.org/docs/)
 
 8._查询重写器 Query Rewriter_
 
@@ -451,8 +455,9 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 
 所有的现代数据库都在用*基于成本的优化*(即Cost-Based Optimization)来优化查询。<br/>
 它是看语句的代价(Cost),这里的代价主要指Cpu和内存。优化器在判断是否用这种方式时,主要参照的是表及索引的统计信息。<br/>
-**数据库优化器计算的是它们的 CPU 成本、磁盘 I/O 成本、和内存需求**。时间复杂度和 CPU 成本的区别是，时间成本是个近似值。而 CPU 成本，我这里包括了所有的运算，比如:加法、条件判断、乘法、迭代。<br/>
-**多数时候瓶颈在于磁盘I/O(数据文件读写)而不是CPU使用**。
+
+**数据库优化器计算的是它们的 CPU成本、磁盘I/O成本、和内存需求**。时间复杂度和 CPU成本的区别是，时间成本是个近似值。而 CPU成本，我这里包括了所有的运算，比如:加法、条件判断、乘法、迭代。<br/>
+**多数时候瓶颈在于磁盘I/O(数据文件随机读写)而不是CPU使用**。
 
 _常规操作_:
 
@@ -505,8 +510,8 @@ _优化模式_:
 
 **Merge Join -唯一产生排序的联接算法**
 
-    1)O(N x Log(N) + M x Log(M))-需排序
-    1)O(N+M)-已排序,我们是只挑选相同的元素。
+    1) O(N x Log(N) + M x Log(M))-需排序
+    1) O(N+M)-已排序,我们是只挑选相同的元素。
 	2) 在两个关系中，比较当前元素（当前=头一次出现的第一个）
 	3) 如果相同，就把两个元素都放入结果，再比较两个关系里的下一个元素
 	4) 如果不同，就去带有最小元素的关系里找下一个元素（因为下一个元素可能会匹配）
@@ -517,7 +522,7 @@ _优化模式_:
 
 	- 空闲内存：没有足够的内存的话就跟强大的哈希联接拜拜吧(至少是完全内存中哈希联接)。
 	-  两个数据集的大小。比如，如果一个大表联接一个很小的表，那么嵌套循环联接就比哈希联接快，因为后者有创建哈希的高昂成本；如果两个表都非常大，那么嵌套循环联接CPU成本就很高昂。
-	-  是否有索引：有两个B+树索引的话，聪明的选择似乎是合并联接。
+	-  是否有索引：有两个B+树索引的话，聪明的选择似乎是合并联接(MergeJoin)。
 	-  结果是否需要排序：即使你用到的是未排序的数据集，你也可能想用成本较高的合并联接（带排序的），因为最终得到排序的结果后，你可以把它和另一个合并联接串起来（或者也许因为查询用 ORDER BY/GROUP BY/DISTINCT 等操作符隐式或显式地要求一个排序结果）。
 	-  关系是否已经排序：这时候合并联接是最好的候选项。
 	-  联接的类型：是等值联接（比如 tableA.col1 = tableB.col2 ）？ 还是内联接？外联接？笛卡尔乘积？或者自联接？有些联接在特定环境下是无法工作的。
@@ -529,7 +534,7 @@ _优化模式_:
 	- 完全动态编程 - O(3^N)
 		它们都有相同的子树(A JOIN B),所以,不必在每个计划中计算这个子树的成本,计算一次,保存结果,当再遇到这个子树时重用。
 	- 启发式算法 - 附加额外规则
-	- 贪婪算法 -  算法的复杂度是 O(Nxlog(N))
+	- 贪婪算法 - 算法的复杂度是 O(Nxlog(N))
 		原理是按照一个规则(或启发)以渐进的方式制定查询计划。在这个规则下，贪婪算法逐步寻找最佳算法，先处理一条JOIN，接着每一步按照同样规则加一条新的JOIN。
 	- 基因算法
 	- [数据库JOIN查询算法](http://www.acad.bg/rismim/itc/sub/archiv/Paper6_1_2009.PDF)
@@ -556,7 +561,7 @@ _GroupAggregate_
 
 * X.查询优化器设计
 
-[SQL Optimizer Design](2018-06-01-sql-optimizer-design-note.md)
+- [SQL Optimizer Design](2018-06-01-sql-optimizer-design-note.md)
 
 
 11._查询执行器 Query Executor_
@@ -626,10 +631,6 @@ _GroupAggregate_
 
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
-
-### V.区块链
-
-[区块链设计分析](2018-03-06-block-chain-design-note.md)
 
 ### x.Ref
 
