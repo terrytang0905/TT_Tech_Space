@@ -1,12 +1,12 @@
 ---
 layout: post
-category : guide
+category : database
 tags : [bigdata,database]
 title: Greenplum Database Command Guide
 ---
 
-Greenplum 系统管理操作Notes
-------------------------------------
+## Greenplum 系统管理操作Notes
+------------------------------------------------------
 
 ### 1.Greenplum初始化
 

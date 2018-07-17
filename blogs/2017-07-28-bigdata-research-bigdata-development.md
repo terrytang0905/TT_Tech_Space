@@ -1,12 +1,12 @@
 ---
 layout: post
-category : technology
+category : bigdata
 tags : [datascience,bigdata,architect]
 title: Big Data Research Note - Data Process Design
 ---
 
 ## 大数据研究-数据处理计算
-------------------------------------------------------------
+-------------------------------------------------------------
 
 ### Hadoop MapReduce
 

@@ -5,8 +5,8 @@ tags : [develop,java]
 title: Java BlockingQueue API
 ---
 
-Java BlockingQueue 数据结构API
-------------------------------------
+## Java BlockingQueue 数据结构API
+------------------------------------------------
 
 _Queue_ 
 ----------------- 

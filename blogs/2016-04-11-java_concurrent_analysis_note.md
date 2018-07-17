@@ -5,8 +5,8 @@ tags : [develop,java]
 title: Java Concurrency Analysis Notes
 ---
 
-Core Java Concurrency Analysis Notes
-------------------------------------
+## Core Java Concurrency Analysis Notes
+-----------------------------------------------------
 
 *The Reason of Thread Goodness*
 

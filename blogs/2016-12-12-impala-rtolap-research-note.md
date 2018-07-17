@@ -1,13 +1,12 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [olap, bigdata, database]
 title: Impala&Kudu Realtime OLAP Research Note
 ---
 
 ## Impala&Kudu Realtime OLAP Research Note
-
-------------------------------------------------------------------------
+--------------------------------------------------------------
 
 **Impala + Kudu OLAP Solution**
 

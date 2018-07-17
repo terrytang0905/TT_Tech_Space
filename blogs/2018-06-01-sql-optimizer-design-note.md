@@ -1,12 +1,12 @@
 ---
 layout: post
-category : datascience
+category : database
 tags : [bigdata, framework, develop]
 title: SQL Optimizer Design Note
 ---
 
 ## 查询优化器设计研究
--------------------------------------------
+---------------------------------------------------------
 
 ### Apache Calcite数据框架
 

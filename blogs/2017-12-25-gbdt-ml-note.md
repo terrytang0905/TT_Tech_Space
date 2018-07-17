@@ -1,13 +1,12 @@
 ---
 layout: post
-category : technology
+category : datascience
 tags : [datascience,datamining,development]
 title: GBDT Machine Learning Note
 ---
 
-梯度提升决策树算法
-
------------------------------------------
+## 梯度提升决策树算法
+---------------------------------------------
 
 #### 1.GBDT概述
 

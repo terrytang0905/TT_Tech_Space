@@ -1,11 +1,12 @@
 ---
 layout: post
-category : technology
+category : database
 tags : [datascience,datamining,database]
 title: PostgreSQL&Greenplum Index Note
 ---
 
-PostgreSQL&Greenplum Index Note
+## PostgreSQL&Greenplum Index Note
+-------------------------------------------------------
 
 ### I.Intro
 

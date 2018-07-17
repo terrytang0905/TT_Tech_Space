@@ -1,13 +1,12 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [olap, bigdata, database]
 title: Impala Realtime OLAP Practice Note
 ---
 
 ## Impala实时OLAP 实践Note
-
-------------------------------------------------------------------------
+--------------------------------------------------------------
 
 ### Impala架构分析
 

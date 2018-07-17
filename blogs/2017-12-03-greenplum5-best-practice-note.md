@@ -1,11 +1,12 @@
 ---
 layout: post
-category : technology
+category : database
 tags : [datascience,datamining,database]
 title: Greenplum5 Best Practice Note
 ---
 
-Greenplum5 Best Practice Note
+## Greenplum5 Best Practice Note
+--------------------------------------------------
 
 
 #### Greenplum 5: Next-Generation Data Platform

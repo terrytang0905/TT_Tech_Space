@@ -1,6 +1,6 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [bigdata, framework, develop]
 title: Apache Flink Bigdata Framework Research Note
 ---

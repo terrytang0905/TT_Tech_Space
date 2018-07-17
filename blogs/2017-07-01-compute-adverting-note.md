@@ -1,6 +1,6 @@
 ---
 layout: post
-category : business
+category : bigdata
 tags : [datascience,datamining,solution]
 title: Compute Adverting Note 
 ---

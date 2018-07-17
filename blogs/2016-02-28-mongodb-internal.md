@@ -5,8 +5,8 @@ tags : [nosql,develop]
 title: MongoDB Internal
 ---
 
-MongoDB核心研究
-------------------------
+## MongoDB核心研究
+------------------------------------------------
 
 ### 1.MongoDB NoSQL商业化的开端
 

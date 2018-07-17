@@ -5,8 +5,8 @@ tags : [bigdata,develop]
 title: SNS Recommendation Design Note
 ---
 
-社交推荐功能设计
-------------------------
+## 社交推荐功能设计
+-----------------------------------------------------------
 
 ### 1.	Recommender System Solution比较
 

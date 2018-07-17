@@ -5,8 +5,8 @@ tags : [develop,java]
 title: Java Lock-free Programming Note
 ---
 
-Java多线程与并发 - Lock-free无锁编程
-------------------------
+## Java多线程与并发 - Lock-free无锁编程
+----------------------------------------------------
 
 无锁编程 / lock-free / 非阻塞同步
 

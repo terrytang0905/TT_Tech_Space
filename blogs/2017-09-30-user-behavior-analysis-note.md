@@ -1,6 +1,6 @@
 ---
 layout: post
-category : technology
+category : datascience
 tags : [datascience,datamining,development]
 title: User Behavior Analysis Note
 ---

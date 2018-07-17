@@ -1,6 +1,6 @@
 ---
 layout: post
-category : datascience
+category : database
 tags : [bigdata,database,guide]
 title: PostgreSQL&Greenplum Solution Practice Note
 ---

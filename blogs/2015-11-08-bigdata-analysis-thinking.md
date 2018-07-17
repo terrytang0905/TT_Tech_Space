@@ -5,8 +5,8 @@ tags : [bigdata,datamining,algorithm]
 title: Bigdata analysis&Mining Thinking
 ---
 
-大数据分析深度研究
-------------------------
+## 大数据分析深度研究
+-------------------------------------------------
 
 ### Information,NLP,Mathematics
 

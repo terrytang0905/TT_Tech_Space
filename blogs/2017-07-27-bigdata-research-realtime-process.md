@@ -1,12 +1,13 @@
 ---
 layout: post
-category : architect
+category : bigdata
 tags : [bigdata,realtime,develop]
 title: Big Data Research Note - Realtime Process Architect
 ---
 
 ## 大数据研究-实时处理架构
 -----------------------------------------------------------
+
 
 ### I.Lambda Architect
 

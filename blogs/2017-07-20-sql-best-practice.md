@@ -1,6 +1,6 @@
 ---
 layout: post
-category : technology
+category : database
 tags : [datascience,datamining,sql]
 title: Hive Analysis & Utility Note
 ---

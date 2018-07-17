@@ -1,9 +1,12 @@
 ---
 layout: post
-category : datascience
+category : database
 tags : [bigdata,database,guide]
 title: Greenplum 4 Best Practice Note
 ---
+
+## Greenplum最佳实践
+-------------------------------------------------------
 
 #### 最佳实践概述
 

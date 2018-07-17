@@ -5,7 +5,8 @@ tags : [thinking,database,development]
 title: Voice Chain Design Note
 ---
 
-语音链-区块链架构设计
+## 语音链-区块链架构设计
+---------------------------------------------------------------
 
 ### 语音链原理-区块链应用
 

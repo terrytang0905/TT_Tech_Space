@@ -1,11 +1,12 @@
 ---
 layout: post
-category : thinking
+category : datascience
 tags : [thinking,product,datascience]
 title: DataProduct Architect Design Note
 ---
 
-### 数据应用产品思考
+## 数据应用产品思考
+-----------------------------------------------------------
 
 ### I.产品设计维度
 

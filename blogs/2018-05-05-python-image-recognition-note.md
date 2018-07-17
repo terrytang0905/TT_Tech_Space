@@ -1,11 +1,12 @@
 ---
 layout: post
-category : technology
+category : datascience
 tags : [datascience,datamining,development]
 title: Python Image Recognition Note
 ---
 
-Python图像识别研究
+## Python图像识别研究
+-----------------------------------------------------
 
 
 #### 研究方案

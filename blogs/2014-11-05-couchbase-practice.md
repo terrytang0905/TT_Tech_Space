@@ -5,8 +5,8 @@ tags : [nosql, tutorial]
 title: Couchbase NoSQL Database Notes
 ---
 
-Couchbase Practice
-------------------------
+## Couchbase Practice
+------------------------------------------------------
 
 
 ### Summary
