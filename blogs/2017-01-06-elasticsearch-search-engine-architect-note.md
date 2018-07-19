@@ -5,12 +5,12 @@ tags : [search, bigdata, develop]
 title: Distributed Search Engine Architect - ElasticSearch 
 ---
 
-## ElasticSearch - Distributed SearchEngine Architect
+## Elasticsearch - Distributed SearchEngine Architect
 -------------------------------------------------------------
 
+CurrVersion:6.3
 
 #### Concepts
-
 
 Elasticsearch is a distributed RESTful search engine built for the cloud. Features include:
 
@@ -53,17 +53,24 @@ Elasticsearch is a distributed RESTful search engine built for the cloud. Featur
 
 #### 数据同步
 
-1.LogStash数据采集
+1.Logstash数据采集
+
+![Logstash](_includes/logstash.png)
+
+Logstash JDBC input 
 
 2.[PostgreSQL to ElasticSearch](https://gocardless.com/blog/syncing-postgres-to-elasticsearch-lessons-learned/)
 
+
 #### Elasticsearch-Hadoop
+
+Elasticsearch对接Hadoop
 
 - [Elasticsearch-Hadoop](https://www.elastic.co/cn/products/hadoop)
 
-#### About ElasticSearch v6
+#### ElasticSearch v6 API
 
-- [ElasticSearch SearchAPI](https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html)
+- [Elasticsearch SearchAPI](https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html)
 
 
 

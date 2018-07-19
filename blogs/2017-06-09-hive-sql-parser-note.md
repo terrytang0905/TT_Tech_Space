@@ -1,6 +1,6 @@
 ---
 layout: post
-category : architect
+category : bigdata
 tags : [bigdata,database,hadoop]
 title: Hive Programing Design Note2
 ---

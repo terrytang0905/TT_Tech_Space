@@ -1,6 +1,6 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [bigdata,olap,hadoop]
 title: Big Data Query Engine Analysis Note
 ---

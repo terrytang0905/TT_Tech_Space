@@ -1,6 +1,6 @@
 ---
 layout: post
-category : technology
+category : bigdata
 tags : [datascience,bigdata,architect]
 title: Big Data Research Note - SQL Design
 ---

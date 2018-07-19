@@ -1,6 +1,6 @@
 ---
 layout: post
-category : architect
+category : bigdata
 tags : [bigdata,in-memory,develop]
 title: Spark Bigdata In-Memory Architect Note
 ---

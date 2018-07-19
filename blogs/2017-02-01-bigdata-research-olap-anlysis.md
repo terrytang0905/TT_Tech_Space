@@ -1,6 +1,6 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [bigdata,olap,architect]
 title: Big Data Research Note - OLAP Analysis
 ---

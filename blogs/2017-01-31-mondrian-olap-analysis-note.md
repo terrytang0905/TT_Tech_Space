@@ -1,6 +1,6 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [bigdata,search,develop]
 title: Mondrian ROLAP Analysis Note
 ---

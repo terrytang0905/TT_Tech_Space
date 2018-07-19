@@ -1,12 +1,12 @@
 ---
 layout: post
-category : datascience
+category : bigdata
 tags : [bigdata, data process, develop]
 title: Kafka Message Queue Research Note
 ---
 
 ## Kafka Message Queue 研究Note
-----------------------------------------------------------------
+---------------------------------------------------------
 
 #### 1.Kafka生成原因
 
