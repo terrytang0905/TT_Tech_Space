@@ -270,11 +270,17 @@ Greenplum Database has an additional operation type called *motion*. A motion op
 
 To achieve maximum parallelism during query execution, Greenplum divides the work of the query plan into *slices*. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan, with one slice on each side of the motion.<br/>
 
-a:Broadcast Motion(N:N),即广播数据.每个节点向其他节点广播需要发送的数据。
+a:Broadcast Motion(N:N)
 
-b:Redistribute Motion(N:N)=重新分布数据.利用join的列值hash不同，将筛选后的数据在其他segment重新分布。
+	Tips:即广播数据.每个节点向其他节点广播需要发送的数据。
 
-c:Gather Motion(N:1)，聚合汇总数据，每个节点将join后的数据发到一个单节点上，通常是发到主节点master。
+b:Redistribute Motion(N:N)
+
+	Tips:重新分布数据.利用join的列值hash不同，将筛选后的数据在其他segment重新分布。
+
+c:Gather Motion(N:1)
+
+	Tips:聚合汇总数据，每个节点将join后的数据发到一个单节点上，通常是发到主节点master。
 
 ![gp execute plan](_includes/gp_execute_plan.jpeg)
 

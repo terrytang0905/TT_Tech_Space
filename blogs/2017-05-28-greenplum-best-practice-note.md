@@ -373,6 +373,7 @@ gp_toolkit administrative schema offers two views:
 - gp_fts_probe_threadcount: 设置ftsprobe线程数，此参数建议大于等于每台服务器segments的数目。
 - gp_hashjoin_tuples_per_bucket: 此参数越小，hash_tables越大，可提升join性能。
 - gp_interconnect_setup_timeout: 此参数在负载较大的集群中，应该设置较大的值。
+
 - gp_vmem_protect_limit: 控制了每个段数据库为所有运行的查询分配的内存总量。如果查询需要的内存超过此值，则会失败。使用下面公式确定合适的值：
 	
 	(swap + (RAM * vm.overcommit_ratio)) * 0.9 / number_of_Segments_per_server
@@ -384,6 +385,8 @@ gp_toolkit administrative schema offers two views:
 vm.overcommit_ratio = 50
 8 个段数据库
 (8 + (128 * .5)) * 0.9 / 8 = 8 GB， 则设置gp_vmem_protect_limit为 8GB：
+
+[VMemCalcPage](https://greenplum.org/calc/)
 
 - gp_statement_mem: 服务器配置参数 gp_statement_mem 控制段数据库上单个查询可以使用的内存总量。如果语句需要更多内存，则会溢出数据到磁盘。用下面公式确定合适的值：
 	
@@ -407,6 +410,8 @@ vm.overcommit_ratio = 50
 	
 	set optimizer = on;(应用GPORCA)
 	GPORCA比较适合 1.分区表 2.子查询 3.Join查询
+
+- [Configure Params](https://gpdb.docs.pivotal.io/570/ref_guide/config_params/guc-list.html)
 
 #### 5.GP 硬件配置推荐
 

@@ -713,6 +713,7 @@ shared_buffers
 
    此值的越大性能越好，但是设置过大会导致swap发生,默认值为125MB，建议将其设置为总内存的15%然后逐渐增大，观察最优值
    此值需要小于系统参数
+   
      kernel.shmmax：master/standby取物理内存50%；segment取物理内存25%；
      shared_buffers：master/standby取物理内存10%;segment取物理内存10%/实例数；即可反之gp将不能启动
 
