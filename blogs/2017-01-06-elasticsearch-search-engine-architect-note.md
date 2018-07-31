@@ -62,6 +62,17 @@ Logstash JDBC input
 2.[PostgreSQL to ElasticSearch](https://gocardless.com/blog/syncing-postgres-to-elasticsearch-lessons-learned/)
 
 
+#### Elasticsearch Tuning
+
+#### A.[Tune for indexing speed](https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-indexing-speed.html)
+
+- 使用bulk请求
+- 使用并行workers/threads来发送数据到ES
+- 增加刷新频率index.refresh_interval 
+
+
+#### B.[Tune for searching speed]()
+
 #### Elasticsearch-Hadoop
 
 Elasticsearch对接Hadoop
