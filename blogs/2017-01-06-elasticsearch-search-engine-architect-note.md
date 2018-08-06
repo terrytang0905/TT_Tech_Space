@@ -68,10 +68,31 @@ Logstash JDBC input
 
 - 使用bulk请求
 - 使用并行workers/threads来发送数据到ES
-- 增加刷新频率index.refresh_interval 
+- 增加刷新频率index.refresh_interval
+- 在初始加载时禁用刷新和复制
+- 禁用swap内存交换
+- 分配至少一半的内存到文件系统Cache
+- 使用自建ids
+- 使用更快的硬件
+- 索引buffer size=indices.memory.index_buffer_size
+- 禁用_field_names
 
+#### B.[Tune for searching speed](https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html)
 
-#### B.[Tune for searching speed]()
+- 分配内存到filesystem cache
+- 选择性能高硬件(IOPS高的磁盘,废话一句)
+- Document模型
+- 搜索尽可能少的field字段
+- 预索引数据pre-index data
+- Mapping映射
+- Search rounded dates
+- [强制merge只读索引](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-forcemerge.html)
+- 开启global ordinals
+- 开启filesystem cache(index.store.preload)
+- 映射标识符为keyword
+- 使用Index sorting来加速连接
+- 使用preference来优化缓存
+- Replicas复制可提高throughput
 
 #### Elasticsearch-Hadoop
 
