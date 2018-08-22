@@ -251,7 +251,7 @@ http://bobao.360.cn/learning/detail/418.html
 
 #### 4.4.路由Mac用户行为画像
 
-
+[用户行为画像分析](2018-06-06-user-behavior-profile-note.md)
 
 
 
