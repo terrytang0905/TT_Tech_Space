@@ -5,21 +5,23 @@ tags : [datascience,datamining,development]
 title: Python Image Recognition Note
 ---
 
-## Python图像+文字识别研究
+## Python信息识别研究
 -----------------------------------------------------
 
 
 #### 研究方案
 
-图像识别
-- 图像处理的相关库-openCV
-- 基于PIL的相关库-pillow
-- SIFT算法
-- openCV+Keras+Tensorflow
+* 图像识别
 
-文字识别
-- 文字识别-Tesseract-OCR
-- word2vec-词向量
+	- 图像处理的相关库-openCV
+	- 基于PIL的相关库-pillow
+	- SIFT算法
+	- openCV+Keras+Tensorflow
+
+* 文字识别
+
+	- 文字识别-Tesseract-OCR
+	- word2vec-词向量
 
 #### 1.openCV+pillow
 
@@ -88,4 +90,7 @@ python3 solve_captchas_with_model.py
 #### 4.Tesseract-OCR
 
 
-#### 5.word2vec-词向量
+#### 5.神经网络-word2vec
+
+CBOW与Skip-Gram用于神经网络语言模型
+

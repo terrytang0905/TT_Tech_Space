@@ -11,22 +11,29 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 ![大数据能力分布](blogs/_includes/bigdata_map_tt.png)
 
+#### Data Product Everything
+
+
+- *[数据产品架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-architect-design-note.md)
+- *[计算广告&大数据笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-bigdata-note.md)
+- [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
+
+
 #### I.Data Science Thinking
 
-- *[Python图片识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-image-recognition-note.md)
-- *[数据产品架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-architect-design-note.md)
-- *[机器学习&Python数据分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-python-data-analysis-note.md)
+- *[Python信息识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-info-recognition-note.md)
 - *[梯度提升算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
+- *[Python&机器学习数据分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-ml-data-analysis-note.md)
 - *[大数据研究-机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-machine-learning.md)
-- *[计算广告&大数据笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-bigdata-note.md)
+- *[用户画像设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-behavior-profile-note.md)
 - *[用户行为分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
-- *[数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - *[大数据分析深度研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analysis-thinking.md)
 - [新零售分析模型设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 
 
 #### II.Big Data & All Distributed Research
+
 
 - *[查询优化器设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[大数据研究-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)

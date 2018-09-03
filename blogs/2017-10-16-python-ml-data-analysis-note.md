@@ -227,8 +227,6 @@ Rule 30
 Changes > 0.1% in accuracy 
 
 
-
-
 ### IV.行为数据挖掘案例
 
 #### 4.1.海量数据筛选
@@ -246,12 +244,16 @@ http://bobao.360.cn/learning/detail/418.html
 #### 4.3.路由内容数据识别
 
 - 图片自动识别
-- 广告自动识别
+- NLP文字自动识别
 - 视频信息自动识别
+
+[Python信息识别分析](2018-05-05-python-info-recognition-note.md)
 
 #### 4.4.路由Mac用户行为画像
 
 [用户行为画像分析](2018-06-06-user-behavior-profile-note.md)
+
+[梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
 
 
 
