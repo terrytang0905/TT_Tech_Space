@@ -94,3 +94,9 @@ python3 solve_captchas_with_model.py
 
 CBOW与Skip-Gram用于神经网络语言模型
 
+基于Hierarchical Softmax的模型概述
+
+基于Negative Sampling的模型概述
+
+
+
