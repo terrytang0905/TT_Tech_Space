@@ -15,13 +15,14 @@ title: Big Data Research Note - OLAP Analysis
 
 OLAP     | Type 	| Link 					   | Desc
 -------- |----------|--------------------------|----------------
+Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
 Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop(容错性差)
 PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
 Dremel   | RTOLAP   |                          | 多数据源SQL查询
 Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
 Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
-Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
+
 
 * OLAP类型:RTOLAP/MOLAP/ROLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
 * 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
@@ -31,7 +32,7 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 **特点:DistrubutedSQLQueryEngine**
 
-[SQLonHadoop技术分析](2017-04-04-sqlonhadoop-anlysis-note.md)
+[SQLonHadoop技术分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)
 
 - Impala
 - PrestoDB
@@ -81,8 +82,9 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 
 **特点:多维数据建模+无内置查询引擎**
 
-[Mondriad-ROLAP分析](2017-01-31-mondrian-olap-analysis-note.md)
+[Mondriad-ROLAP分析](2017-01-31-olap-analysis-mondrian-note.md)
 
+	Comments:NewBI是基于Mondrain框架搭建的OLAP查询引擎
 
 ### 4.MOLAP引擎 - Druid/Pinot
 
@@ -299,13 +301,10 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - [Druid:一个用于大数据实时处理的开源分布式系统](http://www.infoq.com/cn/news/2015/04/druid-data)
 - [数果科技王劲:如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
-### 5.Dremel海量数据分析
 
-- [Dremel相关](https://blog.csdn.net/happyduoduo1/article/details/51784730)
+### 5.实时OLAP架构优化
 
-### 6.实时OLAP架构优化
-
-#### 6.1.[NewBI实时OLAP架构优化]
+#### 5.1.[NewBI实时OLAP架构优化]
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -344,7 +343,7 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 - 数据结构设计类似ElasticSearch
 
 
-#### 6.2.QueryEngine优化
+#### 5.2.QueryEngine优化
 
 5.2.1.Query性能差异与执行顺序
 
@@ -358,13 +357,15 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 
 5.2.4.通用SQL数据解析Calcite
 
+- [Calcite SQL引擎](2018-06-01-apache-calcite-data-framework-note.md)
+
 5.2.5.ElasticSearch/Lucene/GPText全文检索
 
 - OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
 - ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
 
-#### 6.3.数据计算优化
+#### 5.3.数据计算优化
 
 - 内存计算规则
 - Spark/SparkSQL/Flink实时数据计算
@@ -373,10 +374,9 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 - 上下文筛选查询(数据查询联动更新)
 - 内存计算结果保存-Redis
 
-- [Calcite SQL引擎](2018-06-01-apache-calcite-data-framework-note.md)
 
 ### x.技术参考
 
 - 查询引擎技术调研	
-- [MondrianOLAP查询引擎](2017-01-31-mondrian-olap-analysis-note.md)
-- [SQLonHadoop引擎分析](2017-04-04-sqlonhadoop-anlysis-note.md)
+- [MondrianOLAP查询引擎](2017-01-31-olap-analysis-mondrian-note.md)
+- [SQLonHadoop引擎分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)

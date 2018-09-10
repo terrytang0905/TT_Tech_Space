@@ -29,7 +29,7 @@ title: Big Data Query Engine Analysis Note
 
 #### 1.Impala
 
-[Impala-实时查询引擎](2016-12-12-impala-rtolap-research-note.md)
+[Impala-实时查询引擎](2016-12-12-olap-rt-impala-research-note.md)
 
 #### 2.PrestoDB
 
@@ -149,6 +149,8 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 #### 4.Dremel
 
 ![dremel_page](_includes/dremel_page.jpg)
+
+- [Dremel相关](https://blog.csdn.net/happyduoduo1/article/details/51784730)
 
 #### 5.Drill
 
