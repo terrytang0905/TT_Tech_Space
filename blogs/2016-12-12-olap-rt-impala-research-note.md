@@ -5,7 +5,7 @@ tags : [olap, bigdata, database]
 title: Impala&Kudu Realtime OLAP Research Note
 ---
 
-## Impala&Kudu Realtime OLAP Research Note
+## OLAPQuery-Impala&Kudu ResearchNote
 --------------------------------------------------------------
 
 **Impala + Kudu OLAP Solution**

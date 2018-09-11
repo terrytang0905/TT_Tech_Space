@@ -5,7 +5,7 @@ tags : [olap, bigdata, database]
 title: Impala Realtime OLAP Practice Note
 ---
 
-## Impala实时OLAP 实践Note
+## OLAP查询-Impala实时OLAP实践
 --------------------------------------------------------------
 
 ### Impala架构分析

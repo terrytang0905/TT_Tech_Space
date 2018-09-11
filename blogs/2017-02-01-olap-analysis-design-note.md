@@ -5,7 +5,7 @@ tags : [bigdata,olap,architect]
 title: Big Data Research Note - OLAP Analysis
 ---
 
-## 大数据研究-OLAP分析
+## OLAP查询-研发设计开发
 -----------------------------------------------------------
 
 ** OLAP实时查询分析是联机查询的深度实现 *
@@ -32,13 +32,12 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 **特点:DistrubutedSQLQueryEngine**
 
-[SQLonHadoop技术分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)
-
 - Impala
 - PrestoDB
 - Dremel
 - Drill
 
+[SQLonHadoop技术分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)
 
 ### 2.关于Kylin
 
@@ -52,6 +51,7 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 - MapReduce聚合计算
 - Spark内存计算
 - AggregateTable:HBase
+- pre-aggregation预聚合
 - 增量CubeSegment/CubeSegmentMerge
 - Trie树维度值编码
 
@@ -304,7 +304,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.实时OLAP架构优化
 
-#### 5.1.[NewBI实时OLAP架构优化]
+#### 5.1.[实时OLAP架构优化]
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -317,6 +317,8 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 	- Batch历史数据查询
 	- 数据排序处理
 	- 格式化处理
+
+数据逻辑层面的模型是Cube,而底下通常来说就是一个star schema或者snowflake schema，很多系统还会实现一些pre-aggregation,例如Kylin.
 
 #### ROLAP设计(参考Mondrian)
 
@@ -342,24 +344,25 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 - 支持Groupby，Select，Search查询。不支持JOIN联接查询
 - 数据结构设计类似ElasticSearch
 
+#### RTOLAP设计(参考PrestDB) 
 
 #### 5.2.QueryEngine优化
 
-5.2.1.Query性能差异与执行顺序
+*5.2.1.Query性能差异与执行顺序*
 
 1) Scan Query
 2) Aggregation Query
 3) Join Query
 
-5.2.2.Spark/Flink实时数据查询
+*5.2.2.Spark/Flink实时数据查询(SQLonHadoop)*
 
-5.2.3.Greenplum/Spark/Flink(SQLonHadoop)
+*5.2.3.Greenplum-MPP数据查询*
 
-5.2.4.通用SQL数据解析Calcite
+*5.2.4.通用SQL数据解析Calcite*
 
 - [Calcite SQL引擎](2018-06-01-apache-calcite-data-framework-note.md)
 
-5.2.5.ElasticSearch/Lucene/GPText全文检索
+*5.2.5.ElasticSearch/Lucene/Druid*
 
 - OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
@@ -378,5 +381,5 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 ### x.技术参考
 
 - 查询引擎技术调研	
-- [MondrianOLAP查询引擎](2017-01-31-olap-analysis-mondrian-note.md)
-- [SQLonHadoop引擎分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)
+- [OLAP-Mondrian查询引擎](2017-01-31-olap-analysis-mondrian-note.md)
+- [OLAP-SQLonHadoop应用](2017-04-04-olap-analysis-sqlonhadoop-note.md)
