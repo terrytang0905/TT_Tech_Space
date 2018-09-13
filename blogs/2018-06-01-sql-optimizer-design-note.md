@@ -5,12 +5,25 @@ tags : [bigdata, framework, develop]
 title: SQL Optimizer Design Note
 ---
 
-## 查询优化器设计研究
+## QC查询优化器设计研究
 ---------------------------------------------------------
 
 ### Apache Calcite数据框架
 
-### 数据库查询优化器分析
+Apache Calcite is a dynamic data management framework.
+
+The following features are complete.
+
+   - Query parser, validator and optimizer
+   - Support for reading models in JSON format
+   - Many standard functions and aggregate functions
+   - JDBC queries against Linq4j and JDBC back-ends
+   - Linq4j front-end
+   - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
+   - Local and remote JDBC drivers; see Avatica
+   - Several adapters
+
+### SQL查询优化器分析
 
 1._SQLite优化器_
 
