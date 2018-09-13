@@ -46,16 +46,19 @@ title: Big Data Query Engine Analysis Note
 
 [SparkSQL Programming Guide](http://spark.apache.org/docs/latest/sql-programming-guide.html)
 
-#### 4.Dremel
+#### 4.Dremel&Drill
 
 ![dremel_page](_includes/dremel_page.jpg)
 
 - [Dremel相关](https://blog.csdn.net/happyduoduo1/article/details/51784730)
 
-#### 5.Drill
+- [Dremel原理介绍](https://max.book118.com/html/2016/1127/66076729.shtm)
+
+#### Drill(Dremel的开源版本)
 
 - 支持多数据源查询
 - 成熟度还不是很高的开源方案?
+
 - [DrillArch](http://drill.apache.org/docs/architecture/)
 
 
