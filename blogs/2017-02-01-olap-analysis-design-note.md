@@ -360,7 +360,7 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 
 *5.2.4.通用SQL数据解析Calcite*
 
-- [Calcite SQL引擎](2018-06-01-apache-calcite-data-framework-note.md)
+- [Calcite 数据引擎](2018-06-01-apache-calcite-data-framework-note.md)
 
 *5.2.5.ElasticSearch/Lucene/Druid*
 

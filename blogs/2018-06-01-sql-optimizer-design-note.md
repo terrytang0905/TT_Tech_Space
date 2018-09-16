@@ -30,7 +30,7 @@ The following features are complete.
 		使用Nested嵌套联接
 		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
 
-	2._DB2优化器_
+2._DB2优化器_
 
 		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
 		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
@@ -42,7 +42,7 @@ The following features are complete.
 
 	默认的，DB2 对联接排列使用受启发式限制的动态编程算法。	
 
-	3._Genetic Query Optimizer - PostgerSQL_
+3._Genetic Query Optimizer - PostgerSQL查询优化器_
 
 [geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
 
@@ -194,4 +194,5 @@ Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Ph
 
 ### Hive SQL Optimizer
 
+- [HiveSQL优化策略](2017-06-10-hive-sql-optimizer-note.md)
 
