@@ -23,6 +23,8 @@ The following features are complete.
    - Local and remote JDBC drivers; see Avatica
    - Several adapters
 
+![Calcite_Arch](_includes/calcite_arch.jpg)
+
 ### SQL查询优化器分析
 
 1._SQLite优化器_
