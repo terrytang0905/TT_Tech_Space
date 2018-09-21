@@ -79,6 +79,10 @@ title: Compute Adverting Note
 
 ![数据变现方式](_includes/data_money.png)
 
+#### 在线广告结算
+
+![在线广告结算](_includes/ad_online_pay_type.jpg)
+
 
 ### II.大数据与广告
 
