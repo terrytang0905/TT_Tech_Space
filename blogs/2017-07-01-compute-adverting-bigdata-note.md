@@ -70,7 +70,7 @@ title: Compute Adverting Note
 
 - 第一点找到一个自动化应用，找到一个可以用机器决策的自动化应用
 - 第二找到相应的行为数据来源
-- 第三确定你的全量加工的技术和相应的问题
+- 第三确定你的数据建模(全量加工)的技术和相应的问题
 
 
 #### 4.数据变现
@@ -79,9 +79,7 @@ title: Compute Adverting Note
 
 ![数据变现方式](_includes/data_money.png)
 
-#### 在线广告结算
 
-![在线广告结算](_includes/ad_online_pay_type.jpg)
 
 
 ### II.大数据与广告
@@ -89,21 +87,25 @@ title: Compute Adverting Note
 
 ![大数据与计算广告的关系](_includes/bigdata_compute_adv.png)
 
+- [DSP-Demand Side Platform](http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
+
+The Trade Desk主要为广告代理商服务，是一家致力于广告程序化购买的的需求方平台（DSP）
+
+程序化购买市场
+
+- PDB(ProgrammaticDirectBuy，私有程序化购买）
+
+基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
+
 - DMP:Data Management Platform，即数据管理平台。
 
 是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
 
 http://www.cctime.com/html/2016-8-8/1204143.htm
 
-- [DSP-Demand Side Platform](http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
-
 - PMP(PrivateMarketPlace, 私有交易市场)
 
-- PDB(ProgrammaticDirectBuy，私有程序化购买）
-
-基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
-
-- 信息流广告分拣
+- 信息流广告投放
 
 #### 1.在线广告产品相关
 
@@ -119,7 +121,32 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 #### 1.6.在线广告产品实践
 
-#### 2.计算广告关键技术
+#### 2.在线广告结算方式
+
+![在线广告结算](_includes/ad_online_pay_type.jpg)
+
+
+#### 3.数据是核心
+
+有哪些数据是对精准广告业务有直接贡献的
+
+1.用户标识 - 用户特征库的建立
+
+起关键作用的还是用户近期内的行为
+
+2.用户行为 - 用户行为库
+
+决策行为主要包括转化和预转化
+
+3.人口属性
+
+4.地理属性
+
+5.社交关系 - 知识图谱
+
+有两条基本的规律:首先，随着用户主动意图的提升，相应的行为数据信息价值也随之增大;其次，越接近转化的行为，对效果广 告的精准指导作用越强。
+
+#### 4.计算广告关键技术
 
 计算广告也是一个典型的个性化系统+搜索系统。
 
@@ -127,9 +154,9 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 一般的个性化系统由四个主体部分构成:用于实时响应请求，完成决 策的在线投放(online serving)引擎;离线的分布式计算(distributed computing)数据 处理平台;用于在线实时反馈的流计算(stream computing)平台;连接和转运以上三部 分数据流的数据高速公路(data highway=ETL).
 
-#### 2.1.计算广告技术概览
+#### 3.1.计算广告技术概览
 
-#### 2.2.基础知识准备
+#### 3.2.基础知识准备
 
 1. 信息检索(Information Retrieval，IR)
 
@@ -158,9 +185,9 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 - 贝叶斯学习
 
 
-#### 2.3.合约广告核心技术
+#### 3.3.合约广告核心技术
 
-#### 2.4.受众定向核心技术
+#### 3.4.受众定向核心技术
 
 1.用户标签定向
 
@@ -175,11 +202,11 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 3.定制化标签
 
-重定向和新客推荐(look-alike)则是t(a， u)的定向方式
+重定向和新客推荐(look-alike)则是t(a,u)的定向方式
 
-#### 2.5.竞价广告核心技术
+#### 3.5.竞价广告核心技术
 
-#### 2.6.程序化交易核心技术
+#### 3.6.程序化交易核心技术
 
-#### 2.7.其他广告相关技术
+#### 3.8.其他广告相关技术
 
