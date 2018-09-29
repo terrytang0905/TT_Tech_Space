@@ -5,11 +5,11 @@ tags : [datascience,datamining,development]
 title: Machine Learning & Python Data Analysis Note
 ---
 
-## 机器学习&Python数据分析
+## 机器学习&Python数据挖掘
 -------------------------------------------------------
 
 
-### I.Python数据分析
+### I.Python数据挖掘
 
 - [Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
 
@@ -116,9 +116,12 @@ Pillow
 
 #### 2.2.机器学习
 
-- 基于已标记范例的学习:有监督的学习
-- 发现某些模式:非监督的学习
-- 正确或错误的反馈:增强式学习 
+* 机器学习类型
+
+	- 基于已标记范例的学习:有监督的学习
+	- 发现某些模式:非监督的学习
+	- 正确或错误的反馈:增强式学习 
+
 
 * Scikit-Learn - 机器学习
 
@@ -128,6 +131,10 @@ Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同�
 	> pip install scikit-learns.whl
 
 - [scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
+
+	* 数据准备与预处理
+	* 模型选择与训练
+	* 模型验证与参数调优
 
 - [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
 
@@ -227,7 +234,7 @@ Rule 30
 Changes > 0.1% in accuracy 
 
 
-### IV.行为数据挖掘案例
+### IV.行为数据挖掘案例分析
 
 #### 4.1.海量数据筛选
 
@@ -241,7 +248,9 @@ Changes > 0.1% in accuracy
 	- 基于历史域名分类数据预测域名分类检测识别
 http://bobao.360.cn/learning/detail/418.html
 
-#### 4.3.路由内容数据识别
+域名app匹配识别
+
+#### 4.3.分类内容数据识别
 
 - 图片自动识别
 - NLP文字自动识别
@@ -249,12 +258,13 @@ http://bobao.360.cn/learning/detail/418.html
 
 [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
 
-#### 4.4.路由Mac用户行为画像
+#### 4.4.用户行为特征画像
 
 [用户行为画像分析](2018-06-06-user-behavior-profile-note.md)
 
 [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
 
+#### 4.5.广告自动分拣识别
 
 
 

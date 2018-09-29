@@ -23,9 +23,9 @@ Currently he focuses on data mining and big data analysis technology and solutio
 
 - *[Python信息识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-info-recognition-note.md)
 - *[梯度提升算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
-- *[Python&机器学习数据分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-ml-data-analysis-note.md)
+- *[Python机器学习&数据挖掘](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-ml-data-mining-note.md)
 - *[大数据研究-机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-machine-learning.md)
-- *[用户画像设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-behavior-profile-note.md)
+- *[用户特征画像开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-behavior-profile-note.md)
 - *[用户行为分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - *[大数据分析深度研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analysis-thinking.md)

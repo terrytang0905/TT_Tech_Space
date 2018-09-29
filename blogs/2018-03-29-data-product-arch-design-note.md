@@ -31,7 +31,6 @@ title: DataProduct Architect Design Note
 - 流量数据分析
 - 历史数据趋势分析
 
-
 5.数据挖掘&人工智能
 
 - 基于分类数据的行为预测分析
