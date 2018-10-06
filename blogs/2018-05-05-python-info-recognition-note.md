@@ -9,7 +9,12 @@ title: Python Image Recognition Note
 -----------------------------------------------------
 
 
-#### 研究方案
+### 1.研究方案
+
+* NLP文本识别
+
+	- 文字识别-Tesseract-OCR
+	- word2vec-词向量
 
 * 图像识别
 
@@ -18,10 +23,30 @@ title: Python Image Recognition Note
 	- SIFT算法
 	- openCV+Keras+Tensorflow
 
-* 文字识别
 
-	- 文字识别-Tesseract-OCR
-	- word2vec-词向量
+### 2.NLP分类
+
+- 将文本按主题分类
+- 将词汇表中的字词按意思分类
+
+#### 1.聚类与特征向量
+
+#### 2.矩阵运算与SVD
+
+#### 3.神经网络-word2vec
+
+CBOW与Skip-Gram用于神经网络语言模型
+
+基于Hierarchical Softmax的模型概述
+
+基于Negative Sampling的模型概述
+
+
+#### 4.Tesseract-OCR
+
+
+
+### 3.图像识别分类
 
 #### 1.openCV+pillow
 
@@ -87,16 +112,6 @@ python3 train_model.py
 python3 solve_captchas_with_model.py
 
 
-#### 4.Tesseract-OCR
-
-
-#### 5.神经网络-word2vec
-
-CBOW与Skip-Gram用于神经网络语言模型
-
-基于Hierarchical Softmax的模型概述
-
-基于Negative Sampling的模型概述
 
 
 

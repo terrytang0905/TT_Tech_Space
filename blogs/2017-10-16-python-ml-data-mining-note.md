@@ -252,8 +252,8 @@ http://bobao.360.cn/learning/detail/418.html
 
 #### 4.3.分类内容数据识别
 
+- NLP文本自动识别
 - 图片自动识别
-- NLP文字自动识别
 - 视频信息自动识别
 
 [Python信息识别分析](2018-05-05-python-info-recognition-note.md)

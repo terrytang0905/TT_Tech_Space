@@ -79,7 +79,10 @@ title: Compute Adverting Note
 
 ![数据变现方式](_includes/data_money.png)
 
-
+* CPM:Cost Per Mille
+* CPC:Cost Per Click
+* CPA:Cost Per Action
+* CPS:Cost Per Sale
 
 
 ### II.大数据与广告
