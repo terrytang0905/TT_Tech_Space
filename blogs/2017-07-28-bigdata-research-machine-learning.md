@@ -140,8 +140,9 @@ Java+稀疏矩阵+行列相似性
 
 **Python相关**
 
-- [机器学习&Python数据分析](2017-10-16-ml-python-data-mining-note.md)
-- PyTorch(Facebook)
+- [机器学习&Python数据挖掘](2017-10-16-ml-python-data-mining-note.md)
+- [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
+
 
 **TensorFlow(Google)**
 

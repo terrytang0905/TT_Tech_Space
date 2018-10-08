@@ -169,33 +169,7 @@ Convolutions ->(块+Depth)-> Classifier
 
 * CNN:卷积神经网络 
 
-#### 3.1.Keras - 深度学习API 
-
-使用Python编写的深度学习框架 - 高层神经网络API
-
-	- 简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性）
-	- 支持CNN和RNN，或二者的结合
-	- 无缝CPU和GPU切换
-
-Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给出概率,model.prodict_classes()方法给出分类结果
-
-Keras默认使用TensorFlow作为后端来进行张量操作
-
-[keras](http://keras-cn.readthedocs.io/en/latest/)
-
-** TensorFlow - 深度学习引擎 *
-
-可以作为Keras的后端实现
-
-谷歌机器学习库
-
-** Theano - 深度学习引擎 *
-
-可以作为Keras的后端实现
-
-如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式。
-
-#### 3.2.ML-PyTorch
+#### 3.1.ML-PyTorch
 
 It’s a Python based scientific computing package targeted at two sets of audiences:
 
@@ -206,7 +180,7 @@ It’s a Python based scientific computing package targeted at two sets of audie
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
-#### 3.3.Tensorflow
+#### 3.2.Tensorflow
 
 TensorFlow则更适合大规模的调度，尤其当考虑到跨平台和嵌入式调度操作时。
 
@@ -233,41 +207,64 @@ Rule 30
 > 30000 Examples
 Changes > 0.1% in accuracy 
 
+#### 3.3.Keras - 深度学习API 
 
-### IV.行为数据挖掘案例分析
+使用Python编写的深度学习框架 - 高层神经网络API
 
-#### 4.1.海量数据筛选
+	- 简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性）
+	- 支持CNN和RNN，或二者的结合
+	- 无缝CPU和GPU切换
 
-借助神经网络实现非监督的深度学习模型
+Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给出概率,model.prodict_classes()方法给出分类结果
+
+Keras默认使用TensorFlow作为后端来进行张量操作
+
+[keras](http://keras-cn.readthedocs.io/en/latest/)
+
+** TensorFlow - 深度学习引擎 *
+
+可以作为Keras的后端实现
+
+谷歌机器学习库
+
+** Theano - 深度学习引擎 *
+
+可以作为Keras的后端实现
+
+如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式
+
+### IV.数据挖掘案例分析
+
+#### 4.1.数据内容分类识别
+
+- [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
 
 #### 4.2.域名自动分类识别
 
+** 4.2.1. 域名识别分类
+
 ![域名行为数据挖掘](_includes/domain_analysis.png)
 
-	- 基于K-means聚类的域名异常检测
-	- 基于历史域名分类数据预测域名分类检测识别
-http://bobao.360.cn/learning/detail/418.html
+- 基于K-means聚类的域名合并分类
+- 基于历史域名分类训练
+- 数据预测域名分类检测识别
 
-域名app匹配识别
-
-#### 4.3.分类内容数据识别
-
-- NLP文本自动识别
-- 图片自动识别
-- 视频信息自动识别
-
-[Python信息识别分析](2018-05-05-python-info-recognition-note.md)
-
-#### 4.4.用户行为特征画像
-
-[用户行为画像分析](2018-06-06-user-behavior-profile-note.md)
-
-[梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
-
-#### 4.5.广告自动分拣识别
+** 4.2.2. 域名app匹配识别
 
 
+#### 4.3.用户行为特征画像
 
+- [用户行为画像分析](2018-06-06-user-behavior-profile-note.md)
+
+- [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
+
+#### 4.4.海量数据筛选
+
+借助神经网络实现非监督的深度学习模型
+
+#### 4.5.信息指纹应用
+
+信息指纹是通过伪随机数产生的
 
 
 

@@ -2,17 +2,19 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: Python Image Recognition Note
+title: Python Info Recognition Note
 ---
 
 ## Python信息识别研究
 -----------------------------------------------------
 
 
-### 1.研究方案
+### 1.识别算法研究
 
 * NLP文本识别
-
+	
+	- 文本特征向量
+	- 矩阵运算与SVD
 	- 文字识别-Tesseract-OCR
 	- word2vec-词向量
 
@@ -23,17 +25,49 @@ title: Python Image Recognition Note
 	- SIFT算法
 	- openCV+Keras+Tensorflow
 
+* 图片关键字提取
 
-### 2.NLP分类
+* 视频信息自动识别
+
+	- 信息指纹与关键帧识别
+
+* 广告分类识别
+
+### 2.NLP文本自动分类
 
 - 将文本按主题分类
 - 将词汇表中的字词按意思分类
 
-#### 1.聚类与特征向量
+#### 2.1.文本特征向量
 
-#### 2.矩阵运算与SVD
+1.计算文本TF-IDF特征向量
 
-#### 3.神经网络-word2vec
+文本-特征词-TD-IDF
+特征向量代表特定文本
+
+2.统计向量间的余弦距离
+
+用于定义文本间的相似性程度
+
+3.计算所有文本之间的余弦相似性,相似性大于阀值的文本合并为小类
+
+4.交叉验证
+
+5.小类中文本作为一个整体,计算小类的特征向量,再计算小类间的余弦相似性,以此类推。
+
+#### 2.2.矩阵运算与SVD
+
+文本与词汇的矩阵
+
+#### 2.3.期望最大化EM算法
+
+文本自收敛分类
+
+- 定义最大化函数
+- 模型训练
+- 迭代收敛模型
+
+#### 4.神经网络-word2vec
 
 CBOW与Skip-Gram用于神经网络语言模型
 
@@ -41,19 +75,17 @@ CBOW与Skip-Gram用于神经网络语言模型
 
 基于Negative Sampling的模型概述
 
-
-#### 4.Tesseract-OCR
+#### 5.Tesseract-OCR
 
 
 
 ### 3.图像识别分类
 
-#### 1.openCV+pillow
+#### 3.1.openCV+pillow
 
 * 图片对比
 
 直方图计算法
-
 
 感知哈希算法是一类算法的总称，包括aHash、pHash、dHash。顾名思义，感知哈希不是以严格的方式计算Hash值，而是以更加相对的方式计算哈希值，因为“相似”与否，就是一种相对的判定。
 
@@ -75,7 +107,7 @@ CBOW与Skip-Gram用于神经网络语言模型
 
 	Amazing！精确度较高，且速度也非常快。因此我就选择了dHash作为我图片判重的算法。
 
-#### 2.openCV+SIFT
+#### 3.2.openCV+SIFT
 
 SIFT=Scale Invariant Feature Transform(尺度不变特征变换)
 
@@ -95,23 +127,25 @@ SIFT的4个主要步骤
 	- 确定特征点的主方向
 	- 生成特征点的描述点
 
-#### 3.openCV+Keras+Tensorflow
+#### 3.3.openCV+Keras+Tensorflow
 
 验证码CAPTCHAs图片识别
 
-3.1.创立数据集
+a.创立数据集
 
 python3 extract_single_letters_from_captchas.py
 
-3.2.训练神经网络识别
+b.训练神经网络识别
 
 python3 train_model.py
 
-3.3.利用模型识别CAPTCHAs
+c.利用模型识别CAPTCHAs
 
 python3 solve_captchas_with_model.py
 
 
+### 4.视频识别分类
 
+关键帧的提取和特征的提取
 
 
