@@ -108,7 +108,7 @@ title: DataProduct Architect Design Note
 
 * 2.搜索-推荐-广告(计算广告)
 
-	- [计算广告](2017-07-01-compute-adverting-note.md)
+	- [计算广告](2017-07-01-compute-adverting-bigdata-note.md)
 	- 广告分拣与检索
 	- 广告排序和用户行为反馈模型
 
@@ -119,7 +119,7 @@ title: DataProduct Architect Design Note
 	一是统计日志得到报表、dashboard 等，供决策人进行决策时作为参考;
 	二是利用数据挖掘、机器学习技术进行受众定向、点击率预估、分配策略规划等，为在线的 机器决策提供支持。
 
-* 3.大数据风控模型
+* 3.大数据征信风控模型
 
 * 4.大数据金融交易模型(门槛有点高)
 
