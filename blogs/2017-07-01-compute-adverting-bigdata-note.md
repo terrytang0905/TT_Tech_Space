@@ -38,7 +38,7 @@ title: Compute Adverting Note
 
 
 
-#### 2. 大数据应用
+#### 2. 大数据营销应用
 
 如果说我们已经有了大规模的行为数据，建立在我们所讲的第一条的基础上，这些问题必须要通过大规模的行为的架构才能够得到解决，这是真正的大数据的问题。
 
@@ -66,6 +66,7 @@ title: Compute Adverting Note
 
 > 大数据的使用系统的一致性的要求是低的
 
+
 #### 3.大数据生意的关键点
 
 - 第一点找到一个自动化应用，找到一个可以用机器决策的自动化应用
@@ -79,11 +80,18 @@ title: Compute Adverting Note
 
 ![数据变现方式](_includes/data_money.png)
 
-* CPM:Cost Per Mille
-* CPC:Cost Per Click
-* CPA:Cost Per Action
-* CPS:Cost Per Sale
+* 数据价值的合理评估
 
+#### 广告变现
+
+从广告和泛广告变现的角度来看，在互联网市场上主要有三种资产能够变成钱，分别是数据、流量和品牌属性。后两项是媒体的专属，而第一项既可能来自于媒体，也可能来自于第三方的数据拥有者
+
+
+#### 5.媒体与广告主营销决策
+
+- [广告主营销决策](_includes/adv_owner_target.png)
+- [媒体营销决策](_includes/media_target.png)
+- [数据提供方决策](_includes/data_owner_target.png)
 
 ### II.大数据与广告
 
@@ -92,7 +100,7 @@ title: Compute Adverting Note
 
 - [DSP-Demand Side Platform](http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
 
-The Trade Desk主要为广告代理商服务，是一家致力于广告程序化购买的的需求方平台（DSP）
+	comments:The Trade Desk主要为广告代理商服务，是一家致力于广告程序化购买的的需求方平台（DSP）
 
 程序化购买市场
 
@@ -103,6 +111,8 @@ The Trade Desk主要为广告代理商服务，是一家致力于广告程序化
 - DMP:Data Management Platform，即数据管理平台。
 
 是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
+
+用于CPM广告投放.CPM获得这些人口属性或兴趣标签需要应用DMP数据管理和受众定向的平台
 
 http://www.cctime.com/html/2016-8-8/1204143.htm
 
@@ -128,6 +138,15 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 ![在线广告结算](_includes/ad_online_pay_type.jpg)
 
+* CPT:Cost Per Target
+* CPM:Cost Per Mille
+	
+	千人成本(CPM广告)是一种媒体或媒体排期表(SCHEDULING)送达1000人或"家庭"的成本计算单位.
+
+* CPC:Cost Per Click
+* CPA:Cost Per Action
+* CPS:Cost Per Sale
+
 
 #### 3.数据是核心
 
@@ -149,7 +168,7 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 有两条基本的规律:首先，随着用户主动意图的提升，相应的行为数据信息价值也随之增大;其次，越接近转化的行为，对效果广 告的精准指导作用越强。
 
-6.DMP
+6.DMP数据管理平台
 
 7.Data Exchange
 
@@ -159,11 +178,19 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 一般都采用检索(retrieval)加排序(ranking)这样类搜索的系统架构.计算广告是根据个体用户信息投送个性化内容的典型系统之一.
 
-一般的个性化系统由四个主体部分构成:用于实时响应请求，完成决 策的在线投放(online serving)引擎;离线的分布式计算(distributed computing)数据 处理平台;用于在线实时反馈的流计算(stream computing)平台;连接和转运以上三部 分数据流的数据高速公路(data highway=ETL).
+一般的个性化系统由四个主体部分构成:
 
-#### 3.1.计算广告技术概览
+	* 用于实时响应请求，完成决 策的在线投放(online serving)引擎;
+	* 离线的分布式计算(distributed computing)数据 处理平台;
+	* 用于在线实时反馈的流计算(stream computing)平台;
+	* 连接和转运以上三部 分数据流的数据高速公路(data highway=ETL).
 
-#### 3.2.基础知识准备
+![计算广告系统开源工具](_includes/computer_adv_development.png)
+
+
+#### 4.1.计算广告技术概览
+
+#### 4.2.基础知识准备
 
 1. 信息检索(Information Retrieval，IR)
 
@@ -171,6 +198,8 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 - 向量空间模型-Vector Space Model(文档相似度度量方法)
 	
 	TF-IDF(Term Frequency-Inverse DocumentFrequency，词频–倒数文档频率)
+
+- 文本特征向量
 
 2. 最优化(Optimization)
 
@@ -187,33 +216,46 @@ http://www.cctime.com/html/2016-8-8/1204143.htm
 
 3. 机器学习(Machine Learning，ML)
 
-- 最大熵与指数族分布
-- 混合模型和EM算法
+- 最大熵(Maximum Entropy)与指数族分布
+- 混合模型(mixture model)和最大期望EM算法
 - 贝叶斯学习
 
+常见的混合模型，如高斯混合模型(Mixture of Gaussians，MoG)和概率潜在语义索引(Probabilistic Latent Semantic Index，PLSI)，可以认为后者是建立在多项式分布基础上的混合模型，在文本主题分析中 有着广泛的应用。
 
-#### 3.3.合约广告核心技术
+#### 5.合约广告核心技术
 
-#### 3.4.受众定向核心技术
+合约广告的关键特征是广告投放的价格和量由双方协商约定。
 
-1.用户标签定向
+展示量合约广告的投送系统称为担保式投送系统。它依赖于受众定向、流量预测、点击率预测这三 项基本技术，并采用在线分配的方式完成实时决策。
+
+流量预测与在线分配
+
+#### 6.受众定向核心技术
+
+受众定向技术是对广告(a)、用户(u)、上下文(c)这三个维度提取有意义的特征(这些特征也称为标签)的过程。
+
+1. 用户标签定向
 
 人口属性定向、行为定向属于t(u)的定向方式;
 
-2.上下文标签定向
+2. 上下文标签定向
 
 地域定向、频道定向和上下文定向属于t(c)的定向方式
 
 - 半在线抓取系统
 - 文本主题挖掘
 
-3.定制化标签
+3. 行为定向
+
+行为定向是根据用户历史上的网络访问行为对用户打标签的过程。
+
+4. 定制化标签
 
 重定向和新客推荐(look-alike)则是t(a,u)的定向方式
 
-#### 3.5.竞价广告核心技术
+#### 7.竞价广告核心技术
 
-#### 3.6.程序化交易核心技术
+#### 8.程序化交易核心技术
 
-#### 3.8.其他广告相关技术
+#### 9.其他广告相关技术
 
