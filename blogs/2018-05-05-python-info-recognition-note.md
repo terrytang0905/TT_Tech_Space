@@ -72,7 +72,28 @@ X = 文本词典数M x 词类
 B = 词类 x 文章分类
 Y = 文章分类 x 文章数N
 
-#### 2.3.期望最大化EM算法
+#### 2.3.文本主题挖掘
+
+1. LSA模型:潜在语义分析(Latent Semantic Analysis)
+2. PLSI模型:概率潜在语义索引(Probabilistic Latent Semantic Indexing,PLSI)方法
+	
+	通过对文档生成的过 程进行概率建模来进行主题分析
+	可以较容易地实现分布式求解
+
+3. γ泊松(GaP)模型
+4. LDA模型:潜在狄利克雷分配(Latent Dirichlet Allocation,LDA)方法
+	
+	PLSI的贝叶斯版本
+
+5. 有监督主题模型
+
+结合广告定向的情景，可以关注两种有监督主题模型。
+	
+	(1)有监督的 LDA(supervised LDA，sLDA)，这是在某种标签监督下进行主题 挖掘的通用模型，适用于标签为各种分布的情形。当标签为离散值时，就对应于根据某种 分类进行主题挖掘。
+	(2)层次化的有监督的 LDA(Hierarchically Supervised LDA，HSLDA)。在此模 型中，标注的类型是一个 Hierarchy 上的层次标签，这非常契合于广告中的需求。关于这 方面的具体技术可以参考上面提到的文献。
+
+
+#### 2.4.期望最大化EM算法
 
 EM算法就是为了解决有隐变量存在时的最大似然估计问题的。这是一种迭代的算法，每个迭 代又可以分为 E-step 和 M-step。在 E-step 阶段，将参数变量和观测变量都固定，得到隐 变量的后验分布;在 M-step 阶段，用得到的隐变量的后验分布和观测变量再去更新参数 变量。
 
@@ -82,7 +103,7 @@ EM算法就是为了解决有隐变量存在时的最大似然估计问题的。
 - 模型训练
 - 迭代收敛模型
 
-#### 4.神经网络-word2vec
+#### 2.5.神经网络-word2vec
 
 CBOW与Skip-Gram用于神经网络语言模型
 
@@ -90,7 +111,7 @@ CBOW与Skip-Gram用于神经网络语言模型
 
 基于Negative Sampling的模型概述
 
-#### 5.Tesseract-OCR
+#### 2.6.Tesseract-OCR
 
 
 
