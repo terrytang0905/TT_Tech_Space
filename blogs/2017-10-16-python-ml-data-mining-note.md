@@ -97,42 +97,42 @@ Scrapy是从互联网上采集数据的开源和协同框架，使用了快速�
 
 #### 2.1.Python内容识别
 
-* 1. nltk
+* 1. NLTK
 
 Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
 
-* 2. Pillow - 图片处理
+* 2. Jieba: 结巴中文分词
 
-* 3. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
+* 3. Pillow - 图片处理
+
+* 4. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
 
 pip3 install opencv-contrib-python
 
-* 4. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
+* 5. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
 
 #### 2.2.机器学习
 
-* 机器学习类型
+#### 机器学习类型
 
 	- 基于已标记范例的学习:有监督的学习
 	- 发现某些模式:非监督的学习
 	- 正确或错误的反馈:增强式学习 
 
-
-* Scikit-Learn - 机器学习
+* 1. [Scikit-Learn - 机器学习]((http://scikit-learn.org/stable/tutorial/basic/tutorial.html))
 
 Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同的分类方法、交叉检验及其他模型选择方法、降维技术、回归和聚类分析的模块以及非常实用的数据预处理的模块。
 
 	> 依赖Numpy,Scipy和Matplotlib组件部署后再安装Scikit-learn,注意版本必须一致
 	> pip install scikit-learns.whl
 
-- [scikit-learn](http://scikit-learn.org/stable/tutorial/basic/tutorial.html)
-
 	* 数据准备与预处理
 	* 模型选择与训练
 	* 模型验证与参数调优
 
-- [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
+* 2. PyML
 
+* 3. [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
 
 
 ### III.Python深度学习
@@ -148,9 +148,9 @@ Convolutions ->(块+Depth)-> Classifier
 
 我们如何更迅速的训练一个大规模的神经网络？
 
-	-开拓更多的并行结构
-	-并行结构的模型
-	-并行的数据结构
+	- 开拓更多的并行结构
+	- 并行结构的模型
+	- 并行的数据结构
 
 ![ml_model_partition](_includes/ml_model_partition.png)
 
@@ -166,18 +166,22 @@ Convolutions ->(块+Depth)-> Classifier
 
 #### 3.1.ML-PyTorch
 
+* [PyTorch](http://pytorch.org/tutorials/)
+
 It’s a Python based scientific computing package targeted at two sets of audiences:
 
 	- A replacement for NumPy to use the power of GPUs
 	- A deep learning research platform that provides maximum flexibility and speed
 
-[PyTorch Tutorials](http://pytorch.org/tutorials/)
 
 [SourceCode](https://github.com/pytorch/pytorch)
 
 #### 3.2.Tensorflow
 
-TensorFlow则更适合大规模的调度，尤其当考虑到跨平台和嵌入式调度操作时。
+* [TensorFlow](https://tensorflow.google.cn/get_started/)
+
+更适合大规模的调度，尤其当考虑到跨平台和嵌入式调度操作时。
+
 
 分类或预测是机器学习的基石
 
@@ -204,17 +208,18 @@ Changes > 0.1% in accuracy
 
 #### 3.3.Keras - 深度学习API 
 
+* [Keras](http://keras-cn.readthedocs.io/en/latest/)
+
 使用Python编写的深度学习框架 - 高层神经网络API
 
 	- 简易和快速的原型设计（keras具有高度模块化，极简，和可扩充特性）
 	- 支持CNN和RNN，或二者的结合
 	- 无缝CPU和GPU切换
 
-Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给出概率,model.prodict_classes()方法给出分类结果
-
 Keras默认使用TensorFlow作为后端来进行张量操作
 
-[keras](http://keras-cn.readthedocs.io/en/latest/)
+Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给出概率,model.prodict_classes()方法给出分类结果
+
 
 ** TensorFlow - 深度学习引擎 *
 

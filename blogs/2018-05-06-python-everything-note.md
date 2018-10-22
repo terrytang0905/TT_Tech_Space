@@ -19,6 +19,13 @@ title: Python Development Everything Note
 
 PyCharm vs Anaconda
 
+Anaconda
+
+	Anaconda Navigtor:用于管理工具包和环境的图形用户界面，后续涉及的众多管理命令也可以在 Navigator 中手工实现。
+	Jupyter notebook:基于web的交互式计算环境，可以编辑易于人们阅读的文档，用于展示数据分析的过程。
+	qtconsole:一个可执行 IPython 的仿终端图形界面程序，相比 Python Shell 界面，qtconsole 可以直接显示代码生成的图形，实现多行代码输入执行，以及内置许多有用的功能和函数。
+	spyder:一个使用Python语言、跨平台的、科学运算集成开发环境。
+
 #### Python代码规范
 
 ### II.Python Library
