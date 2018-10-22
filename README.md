@@ -1,9 +1,9 @@
-TT Tech Space - 技术研究博客
+TT Tech Space - 大数据研究博客
 --------------------------
 
-### Welcome to TT Tech Resource Pages.
+### Welcome to TT Big Data Research Pages.
 Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
-Currently he focuses on data mining and big data analysis technology and solution included bi,olap,mpp,hadoop,spark,impala.Welcome to contact with him and discuss any tech topic with him.
+Currently he focuses on everything about big data included bi,olap,mpp,hadoop,solution,machine learning and AI.Welcome to contact with him and discuss any tech topic with him.
 
 ### TT Blog Site
 
@@ -14,13 +14,15 @@ Currently he focuses on data mining and big data analysis technology and solutio
 #### Big Data Everything
 
 <!-- - *[数据平台架构计划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)
-- *[数据产品架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-arch-design-note.md)
+- *[数据产品架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-arch-design-note.md)-->
+
 - *[计算广告应用笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-bigdata-note.md)
-- [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) -->
+- [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
 
 #### I.Data Science Thinking
 
+- *[Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-06-python-everything-note.md)
 - *[Python信息识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-info-recognition-note.md)
 - *[梯度提升算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-ml-note.md)
 - *[Python机器学习&数据挖掘](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-python-ml-data-mining-note.md)
@@ -52,6 +54,7 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[OLAP-Mondrian查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-analysis-mondrian-note.md)
 - *[OLAP-RT-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-rt-impala-practice-note.md)
 - *[OLAP-RT-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-rt-impala-research-note.md)
+- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
 - *[ElasticSearch分布式检索架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
@@ -67,7 +70,6 @@ Currently he focuses on data mining and big data analysis technology and solutio
 - *[Greenplum最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-28-greenplum-best-practice-note.md)
 - *[BigTable&HBase Analysis Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-12-bigtable&hbase-analysis-note.md)
 - *[Greenplum Architect Research Note(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
-- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
 - [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)
 - *[MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)

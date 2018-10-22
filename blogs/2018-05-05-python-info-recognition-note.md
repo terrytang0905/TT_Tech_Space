@@ -35,12 +35,17 @@ title: Python Info Recognition Note
 
 * 广告分类识别
 
-### 2.NLP文本自动分类
+
+### 2.NLP文本分类识别
 
 - 文本基础分词
 - 将文本按主题分类
 - 将词汇表中的字词按意思分类
 
+[NLTK -- Natural Language Toolkit](http://www.nltk.org/book/)
+[Pattern]()
+[TextBlob -- Simplified Text Processing](http://textblob.readthedocs.org/en/dev/)
+Jieba: 结巴中文分词
 
 #### 2.1.文本特征向量
 

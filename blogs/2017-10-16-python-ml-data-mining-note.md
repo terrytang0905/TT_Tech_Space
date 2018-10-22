@@ -11,8 +11,6 @@ title: Machine Learning & Python Data Analysis Note
 
 ### I.Python数据挖掘
 
-- [Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
-
 #### 1.1.数据特征分析
 
 1.基础分析
@@ -70,13 +68,6 @@ SymPy 是进行符号数学计算的 Python 库，拥有大量的特征，包括
 
 PyMC 的核心是贝叶斯统计和模型拟合的大量算法（包括Markov Chain Monte Carlo, MCMC）。
 
-* 9. nltk
-
-Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
-
-* 10. Pillow - 图片处理
-
-* 11. OpenCV - 视频处理
 
 ** 其他相关组件 **
 
@@ -96,7 +87,7 @@ Scrapy是从互联网上采集数据的开源和协同框架，使用了快速�
 
 * 4. BeautifulSoup
 
-如果想要提取些数据出来，那么 BeautifulSoup 正是你所需要的，可以用它在网页中提取内容。
+如果想要提取些数据出来，那么<BeautifulSoup>正是你所需要的，可以用它在网页中提取内容。
 
 * 5. sqlite3
 
@@ -104,15 +95,19 @@ Scrapy是从互联网上采集数据的开源和协同框架，使用了快速�
 
 ### II.Python机器学习
 
-#### 2.1.Python图像识别
+#### 2.1.Python内容识别
 
-- [OpenCV Tutorials](https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html)
+* 1. nltk
+
+Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
+
+* 2. Pillow - 图片处理
+
+* 3. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
 
 pip3 install opencv-contrib-python
 
-Pillow
-
-- [Python图片识别算法](2018-05-05-python-image-recognition-note.md)
+* 4. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
 
 #### 2.2.机器学习
 
