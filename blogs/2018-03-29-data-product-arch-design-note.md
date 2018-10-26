@@ -10,13 +10,13 @@ title: DataProduct Architect Design Note
 
 ### I.产品设计维度
 
-0. 数据源采集
+#### 0. 数据源采集
 
 - 数据源数据类型(dpi/sdk/app/爬虫/wifi)
 - 数据源质量评估
 - 数据源对接方式
 
-1. 数据清洗-识别数据规则&异常数据过滤s
+#### 1. 数据清洗-识别数据规则&异常数据过滤s
 
 - 数据清洗安全脱敏
 - 基于已标记范例的学习:有监督的学习
@@ -24,15 +24,15 @@ title: DataProduct Architect Design Note
 
 	comment:基于海量数据的不确定性特征,高效的数据清洗与过滤算法非常有价值
 
-2. 数据处理-数据分类与数据传输
+#### 2. 数据处理-数据分类与数据传输
 
-3. 数据仓库-有效分类行为数据开发
+#### 3. 数据仓库-有效分类行为数据开发
 
 - 交易数据(数据银行)
 - 行为定向(behaviorial targeting)
 - 上下文定向(contextual targeting)
 
-4. 数据分析
+#### 4. 数据分析
 
 核心在于用户特定行为的深度分析。
 
@@ -46,7 +46,7 @@ title: DataProduct Architect Design Note
 - 分类数据排名分析
 - 历史数据趋势分析
 
-5. 数据挖掘&人工智能
+#### 5. 数据挖掘&人工智能
 
 - 内容数据标签开发
 - 基于内容分类数据的行为预测分析
@@ -67,19 +67,19 @@ title: DataProduct Architect Design Note
 - 分配规划(planning)
 
 
-6. [大数据分析思路](2015-11-08-bigdata-analysis-thinking.md)
+#### 6. [大数据分析思路](2015-11-08-bigdata-analysis-thinking.md)
 
 ### II.架构设计维度
 
-0. [大数据研究之架构组成](2017-07-27-bigdata-research-architect-build.md)
+#### 0. [大数据研究之架构组成](2017-07-27-bigdata-research-architect-build.md)
 
-1. 数据采集-爬虫&Scrapy
+#### 1. 数据采集-爬虫&Scrapy
 
-2. 分布式数据存储-Hadoop&HDFS
+#### 2. 分布式数据存储-Hadoop&HDFS
 
 - [大数据存储架构](2017-01-22-bigdata-database-architect-research-note.md)
 
-3. 大数据处理开发
+#### 3. 大数据处理开发
 
 - 基础数据分析技术 -Hive/Spark&SparkSQL/Impala/Presto
 - [大数据研究-SQL设计](2017-07-28-bigdata-research-sql-design.md)
@@ -91,24 +91,24 @@ title: DataProduct Architect Design Note
 - 数据同步 -Sqoop/DataX/gphdfs
 - 数据质量分析
 
-4. 深度数据分析-Greenplum/Python/Tensorflow
+#### 4. 深度数据分析-Greenplum/Python/Tensorflow
 
 - [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
 - [机器学习&Python数据挖掘](2017-10-16-ml-python-data-analysis-note.md)
 
-5. 应用数据存储-PostgreSQL
+#### 5. 应用数据存储-PostgreSQL
 
 - [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
 
-6. 产品应用架构-微服务(Java/PHP)
+#### 6. 产品应用架构-微服务(Java/PHP)
 
-7. 数据可视化&商业智能-Tableau/永洪BI/E-Charts/D3.js
+#### 7. 数据可视化&商业智能-Tableau/永洪BI/E-Charts/D3.js
 
-8. 数据产品性能优化
+#### 8. 数据产品性能优化
 
 	数据结构/ETL/缓存/业务架构/数据更新
 
-9. 数据产品常规问题
+#### 9. 数据产品常规问题
 
 	数据安全脱敏/数据验证/数据完整性/数据冲突/样本异常/性能问题
 
@@ -153,10 +153,10 @@ _4.大数据征信风控模型_
 _5.大数据金融交易模型(门槛有点高)_
 
 
-### III.人工智能-数据产品终局
+### IV.人工智能-数据产品终局
 
 	- 计算机视觉
-	- 知识图谱
 	- 语音识别
+	- 知识图谱
 	- 语义识别(传递信息/沟通/同感)
 
