@@ -14,13 +14,15 @@ title: User Behavior Profile Note
 
 ### 用户画像开发算法
 
-1.用户唯一标识选择
-Mac / Phone / Identifier for Advertising IDFA / IMEI 
-2.用户行为统计
-3.人口属性
-4.地理位置-IP库
-5.设备属性
-6.标签属性/社交关系
+1. 用户唯一标识选择
+
+	Mac / Phone / IDFA / IMEI / AndroidId / 社交账号 / 邮箱
+
+2. 用户行为统计
+3. 人口属性
+4. 地理位置-IP库
+5. 设备属性
+6. 标签属性/社交关系
 
 ![人群画像构建](_includes/user_profile_design.png)
 
