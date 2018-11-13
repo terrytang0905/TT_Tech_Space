@@ -390,11 +390,8 @@ sunburst partition example
 5%/15%/20%/25%/35%
 
 
-#### 2.5.用户画像分析
+#### 2.5.[用户标签开发](2018-06-06-user-behavior-profile-note.md)
 
-互联网人群画像分析
-
-- [用户行为画像设计](2018-06-06-user-behavior-profile-note.md)
 
 #### 2.6.用户行为预测分析
 

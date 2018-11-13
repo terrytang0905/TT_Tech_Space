@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: User Behavior Profile Note
+title: User Behavior Tag Profile Note
 ---
 
-## 用户行为画像设计
+## 用户行为标签与画像
 -------------------------------------------------
 
 ### 用户画像
@@ -91,21 +91,35 @@ title: User Behavior Profile Note
 
 #### c.算法应用
 
-### DPI用户画像
+### 用户行为画像
 
-行为数据:网络用户画像算法
+1.数据来源
 
+	行为数据:网络用户画像算法
+
+2.标签算法
+
+基础属性标签
+- 设备
+- 地域
+
+3.优化方案
 
 #### 内容数据标签设计
 
-
+1.数据来源 - 内容行为数据
 
 ### 电商用户画像
 
 交易数据:电商用户画像算法
 
-用户交易数据（交易类服务）：贡献率、客单价、连带率、回头率、流失率等
+1.数据来源
 
+	用户交易数据（交易类服务）：贡献率、客单价、连带率、回头率、流失率等
+
+2.标签算法
+
+3.优化方案
 
 ### Ref
 
