@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [thinking,product,datascience]
-title: DataProduct Architect Design Note
+title: DataProduct Business Design Note
 ---
 
-## 数据商业产品变现思考
+## 数据产品商业思考
 -----------------------------------------------------------
 
 ### I.产品设计维度

@@ -1,4 +1,3 @@
----
 layout: post
 category : bigdata
 tags : [olap, bigdata, database]
