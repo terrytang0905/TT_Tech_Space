@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: User Behavior Tag Profile Note
+title: User Label Profile Note
 ---
 
-## 用户行为标签与画像
+## 用户标签特征与画像
 -------------------------------------------------
 
 ### 用户画像
