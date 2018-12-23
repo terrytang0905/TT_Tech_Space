@@ -127,6 +127,8 @@ _1.数据赋能商业驱动_
 
 _大数据平台设计_
 
+[数据平台架构规划](2018-08-18-data-platform-arch-planning-note.md)
+
 _用户特征信息库_
 
 [用户标签画像设计](2018-06-06-user-behavior-profile-note.md)
