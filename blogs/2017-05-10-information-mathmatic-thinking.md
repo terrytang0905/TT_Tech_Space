@@ -31,6 +31,15 @@ title: Information&NLP&Mathematics Thinking
 
 
 
+#### Data Mining
+
+大数据量与维度诅咒
+
+1.将数据模型限定在特定模型之下
+
+线性模型/正态分布/隐型马氏过程
+
+2.通过数据的特殊结构 - 降维处理
 
 
 ### IX.Reference
