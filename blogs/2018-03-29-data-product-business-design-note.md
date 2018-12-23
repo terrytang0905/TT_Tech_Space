@@ -9,7 +9,6 @@ title: DataProduct Business Design Note
 -----------------------------------------------------------
 
 
-
 ### I.数据产品设计维度
 
 #### 0.数据来源
@@ -92,7 +91,7 @@ title: DataProduct Business Design Note
 
 #### 6. [大数据分析思路](2015-11-08-bigdata-analysis-thinking.md)
 
-### II.架构设计维度
+### II.数据架构设计维度
 
 #### 0. [大数据研究之架构组成](2017-07-27-bigdata-research-architect-build.md)
 
@@ -136,7 +135,7 @@ title: DataProduct Business Design Note
 	数据安全脱敏/数据验证/数据完整性/数据冲突/样本异常/性能问题
 
 
-### III.产品商业价值维度
+### III.数据产品商业价值维度
 
 
 #### 1. 大数据营销应用
