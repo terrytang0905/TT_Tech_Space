@@ -13,9 +13,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### Big Data Everything
 
-<!-- - *[数据平台架构计划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)
-- *[数据产品架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-arch-design-note.md)-->
-
+<!-- - *[数据平台架构计划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
+- *[数据产品商业思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-arch-design-note.md)
 - *[计算广告应用笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-adverting-bigdata-note.md)
 - [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
