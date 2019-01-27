@@ -9,7 +9,7 @@ title: Python Development Everything Note
 -------------------------------------------------------
 
 
-### I.Python基础篇
+### I.About Python&Tools
 
 - [Python3 Guide](http://www.runoob.com/manual/pythontutorial3/docs/html/)
 
@@ -44,7 +44,8 @@ Anaconda
 
 ### III.Python Data Mining
 
-- [Python机器学习与数据挖掘](2017-10-16-python-ml-data-mining-note.md)
+
+- [机器学习Everything&Python](2017-10-16-ml-data-everything-note.md)
 
 - [Python内容识别](2018-05-05-python-info-recognition-note.md)
 

@@ -2,14 +2,13 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: Machine Learning & Python Data Analysis Note
+title: Machine Learning Everything Notes
 ---
 
-## 机器学习&Python数据挖掘
+## 机器学习Everything研究笔记
 -------------------------------------------------------
 
-
-### I.Python数据挖掘
+### I.Python数据应用
 
 #### 1.1.数据特征分析
 
@@ -93,31 +92,42 @@ Scrapy是从互联网上采集数据的开源和协同框架，使用了快速�
 
 这个工具能帮助你轻而易举地存储数据。它为 Python 连接 SQLite 数据库提供了接口。搭建开源的 SQL 数据库引擎对于小团队来说是个理想的选择，因为它是独立的本地存储数据库文件（最多140Tb），不像SQL那样，它不需要任何服务器基本结构。
 
-### II.Python机器学习
-
-#### 2.1.Python内容识别
-
-* 1. NLTK
-
-Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
-
-* 2. Jieba: 结巴中文分词
-
-* 3. Pillow - 图片处理
-
-* 4. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
-
-pip3 install opencv-contrib-python
-
-* 5. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
-
-#### 2.2.机器学习
+### II.机器学习与算法
 
 #### 机器学习类型
 
 	- 基于已标记范例的学习:有监督的学习
 	- 发现某些模式:非监督的学习
 	- 正确或错误的反馈:增强式学习 
+
+#### 2.1.概率论与数理统计
+
+
+
+#### 2.2.应用算法分析
+
+线性回归
+
+逻辑回归
+
+K近邻
+
+决策树与随机森林
+
+支持向量机
+
+xgboost
+
+PCA与SVD
+
+聚类
+
+神经网络与深度学习
+
+特征工程
+
+
+#### 2.2.Python机器学习
 
 * 1. [Scikit-Learn - 机器学习]((http://scikit-learn.org/stable/tutorial/basic/tutorial.html))
 
@@ -134,6 +144,21 @@ Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同�
 
 * 3. [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
 
+#### 2.3.Python内容识别
+
+* 1. NLTK
+
+Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
+
+* 2. Jieba: 结巴中文分词
+
+* 3. Pillow - 图片处理
+
+* 4. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
+
+pip3 install opencv-contrib-python
+
+* 5. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
 
 ### III.Python深度学习
 
@@ -233,7 +258,7 @@ Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给
 
 如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式
 
-### IV.数据挖掘案例分析
+### IV.机器学习案例分析
 
 #### 4.1.数据内容分类识别
 
