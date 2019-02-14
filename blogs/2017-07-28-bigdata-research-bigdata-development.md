@@ -8,6 +8,15 @@ title: Big Data Research Note - Data Process Design
 ## 大数据研究-数据处理计算
 -------------------------------------------------------------
 
+### 大数据开发框架
+
+HDFS - 分布式文件系统
+MapReduce - 分布式计算框架
+Yarn - 分布式集群资源调度框架
+
+框架在架构设计上遵循一个重要的设计原则叫“依赖倒转原则”，IOC依赖倒转原则是高层模块不能依赖低层模块，它们应该共同依赖一个抽象，这个抽象由高层模块定义，由低层模块实现。
+
+
 ### Hadoop MapReduce
 
 ![MapReduce](_includes/mapreduce.jpg)

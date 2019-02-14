@@ -1,8 +1,8 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,search,develop]
-title: Mondrian ROLAP Analysis Note
+tags : [bigdata,olap,architect]
+title: title: Big Data OLAP Note - OLAP Mondrian Note
 ---
 
 ## OLAP查询-Mondrian框架Note

@@ -93,6 +93,7 @@ Hive 中语法规则的定义文件在0.10版本以前是Hive.g一个文件，�
 
 下面的一段语法是Hive SQL中SelectStatement的语法规则，从中可以看出，SelectStatement包含select, from, where, groupby, having, orderby等子句。
 （在下面的语法规则中，箭头表示对于原语句的改写，改写后会加入一些特殊词标示特定语法，比如TOK_QUERY标示一个查询块）
+
 ```sql
 selectStatement
    :

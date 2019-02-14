@@ -1,7 +1,7 @@
 ---
 layout: post
-category : bigdata
-tags : [datascience,datamining,solution]
+category : datascience
+tags : [bigdata,datascience,datamining]
 title: Computational Advertisement Tech Note 
 ---
 

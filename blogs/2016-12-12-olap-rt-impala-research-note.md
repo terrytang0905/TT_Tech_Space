@@ -1,8 +1,8 @@
 ---
 layout: post
 category : bigdata
-tags : [olap, bigdata, database]
-title: Impala&Kudu Realtime OLAP Research Note
+tags : [bigdata,olap,architect]
+title: Big Data OLAP Note - Impala Research
 ---
 
 ## OLAPQuery-Impala&Kudu ResearchNote

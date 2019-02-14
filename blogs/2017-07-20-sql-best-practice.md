@@ -1,7 +1,7 @@
 ---
 layout: post
-category : database
-tags : [datascience,datamining,sql]
+category : sql
+tags : [bigdata,datascience,sql]
 title: Hive Analysis & Utility Note
 ---
 

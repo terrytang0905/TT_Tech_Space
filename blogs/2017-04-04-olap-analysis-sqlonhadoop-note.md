@@ -1,8 +1,8 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,olap,hadoop]
-title: Big Data Query Engine Analysis Note
+tags : [bigdata,olap,architect]
+title: Big Data OLAP Note - SQL on Hadoop
 ---
 
 ## OLAP查询-SQLonHadoop研究Note

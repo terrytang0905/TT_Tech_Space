@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,database,hadoop]
-title: BigTable&HBase Analysis Note
+tags : [bigdata,hadoop,database]
+title: Bigdata BigTable&HBase Research Note
 ---
 
-## BigTable & HBase Analysis Note
+## BigTable & HBase Research Note
 ------------------------------------------------------------
 
 

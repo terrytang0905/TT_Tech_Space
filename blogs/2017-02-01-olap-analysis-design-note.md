@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data Research Note - OLAP Analysis
+title: title: Big Data OLAP Note - OLAP Query Engine
 ---
 
-## OLAP查询-研发设计开发
+## OLAP查询引擎设计
 -----------------------------------------------------------
 
 ** OLAP实时查询分析是联机查询的深度实现 *
@@ -380,6 +380,6 @@ MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查
 
 ### x.技术参考
 
-- 查询引擎技术调研	
+- SQL查询引擎技术调研	
 - [OLAP-Mondrian查询引擎](2017-01-31-olap-analysis-mondrian-note.md)
 - [OLAP-SQLonHadoop应用](2017-04-04-olap-analysis-sqlonhadoop-note.md)

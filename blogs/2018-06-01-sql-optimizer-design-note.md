@@ -1,7 +1,7 @@
 ---
 layout: post
-category : database
-tags : [bigdata, framework, develop]
+category : sql
+tags : [bigdata, olap, develop]
 title: SQL Optimizer Design Note
 ---
 

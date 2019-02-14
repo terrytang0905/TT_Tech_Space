@@ -1,7 +1,8 @@
+---
 layout: post
 category : bigdata
-tags : [olap, bigdata, database]
-title: Impala Realtime OLAP Practice Note
+tags : [bigdata,olap,architect]
+title: Big Data OLAP Note - Impala Practice
 ---
 
 ## OLAP查询-Impala实时OLAP实践
