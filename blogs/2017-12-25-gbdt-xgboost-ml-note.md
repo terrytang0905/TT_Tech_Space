@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: GBDT Machine Learning Note
+title: GBDT & XGBoost Machine Learning Note
 ---
 
-## 梯度提升决策树算法
+## GBDT & XGBoost决策树算法
 ---------------------------------------------
 
 #### 1.GBDT概述
@@ -243,3 +243,4 @@ XGBoost的loss function可以拆解为两个部分，第一部分是X/Y配对的
 #### Ref
 
 - [XGBoost Docs](http://xgboost.readthedocs.io/en/latest/)　
+- [XGBoost 中文](http://xgboost.apachecn.org/#/)
