@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: title: Big Data OLAP Note - OLAP Query Engine
+title: title: Big Data OLAP Note - OLAP Query Engine Design
 ---
 
 ## OLAP查询引擎设计
@@ -28,7 +28,15 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 * 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
 * Tableau作为优秀可视化分析工具对大数据量分析能力有所欠缺
 
-### 1.RT(RealTime)查询引擎 - SQLonHadoop(Impala/Presto/Dremel/Drill)
+### 1.ROLAP引擎 - Mondrian
+
+**特点:多维数据建模+无内置查询引擎**
+
+[Mondriad-ROLAP分析](2017-01-31-olap-analysis-mondrian-note.md)
+
+	Comments:NewBI是基于Mondrain框架搭建的OLAP查询引擎
+
+### 2.SQLonHadoop查询引擎 - (Impala/Presto/Dremel/Drill)
 
 **特点:DistrubutedSQLQueryEngine**
 
@@ -39,11 +47,11 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 [SQLonHadoop技术分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)
 
-### 2.关于Kylin
+### 3.关于Kylin-MOLAP
 
 **特点:Cube预处理+多维数据查询(QueryEngine应弱于Impala/Presto)**
 
-2.1.Kylin架构
+3.1.Kylin架构
 
 ![Kylin架构](_includes/kylin_arch.png)
 
@@ -55,20 +63,20 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 - 增量CubeSegment/CubeSegmentMerge
 - Trie树维度值编码
 
-2.2.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
+3.2.[TechnicalConcepts](http://kylin.apache.org/docs16/gettingstarted/concepts.html)
 
 - Star Schema/Snowflake Schema
 - Cube
 - DIMENSION & MEASURE
 - CUBE ACTIONS
 
-2.3 表描述
+3.3 表描述
 
 - FactTable
 - LookupTable(事实描述表)
 - DimensionTable
 
-2.4 Measure计算 
+3.4 Measure计算 
 
 * Sum
 * Count
@@ -78,15 +86,7 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 * Distinct Count(based on HyperLogLog近似值估值)
 
 
-### 3.ROLAP引擎 - Mondrian
-
-**特点:多维数据建模+无内置查询引擎**
-
-[Mondriad-ROLAP分析](2017-01-31-olap-analysis-mondrian-note.md)
-
-	Comments:NewBI是基于Mondrain框架搭建的OLAP查询引擎
-
-### 4.MOLAP引擎 - Druid/Pinot
+### 4.RT(Realtime)实时查询引擎 - Druid/Pinot
 
 Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的整体提升,缺点在于数据多维分析的局限性
 
@@ -302,7 +302,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - [数果科技王劲:如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
 
-### 5.实时OLAP架构优化
+### 5.整体OLAP架构优化
 
 #### 5.1.[实时OLAP架构优化]
 
@@ -334,17 +334,19 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - 数据预加载
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
 
-#### MOLAP设计(参考Druid) 
+#### 分布式OLAP设计(参考PrestDB) 
 
-MOLAP是多维数据组织的OLAP实现,将细节数据和聚合后的数据均保存在cube中，所以以空间换效率，查询时效率高。 
+#### 实时OLAP设计(参考Druid/Pinot/ElastisSearch) 
 
-MOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查询性能。
+RTOLAP是多维数据组织的OLAP实现,将细节数据和聚合后的数据均保存在cube中，所以以空间换效率，查询时效率高。 
+
+RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统查询性能。
        
 - CUBE设计:MOLAP需预先根据Cube定义的事实表以及维度表组合,创建一张宽表。并生成对应的聚合表保存 
 - 支持Groupby，Select，Search查询。不支持JOIN联接查询
 - 数据结构设计类似ElasticSearch
 
-#### RTOLAP设计(参考PrestDB) 
+
 
 #### 5.2.QueryEngine优化
 

@@ -25,25 +25,37 @@ title: Computational Advertisement Tech Note
 
 ![大数据与计算广告的关系](_includes/bigdata_compute_adv.png)
 
-- [DSP-Demand Side Platform](http://baike.baidu.com/link?url=gAJ4qVU5r8JoY6onyYJkwUX5JdN6Tu8IaiXTcxBg3PFKVXzL83LI6VFOV9xsgb6G4QLACMjI313jnL0vB8NJ8q)
+- RTB:Real Time Bidding (实时竞价)
+
+定义：是一种利用第三方技术在数以百万计的网站或移动应用上针对每一个用户展示行为进行评估以及出价的竞价技术。
+
+- DSP:Demand-Side Platform (需求方平台)
+
+定义:需求方平台允许广告客户和广告机构更方便地访问，以及更有效地购买广告库存，因为该平台汇集了各种广告交易平台，广告网络，供应方平台，甚至媒体的库存。有了这一平台，就不需要再出现另一个繁琐的购买步骤——购买请求。
 
 	comments:The Trade Desk主要为广告代理商服务，是一家致力于广告程序化购买的的需求方平台（DSP）
 
-程序化购买市场
 
-- PDB(ProgrammaticDirectBuy，私有程序化购买）
+- SSP:Supply-Side Platform (供应方平台)
 
-基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
+定义:供应方平台能够让媒体主也介入广告交易，从而使它们的库存广告可用。通过这一平台，媒体主希望他们的库存广告可以获得最高的有效每千次展示费用，而不必以低价销售出去。
 
-- DMP:Data Management Platform，即数据管理平台。
 
-是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
+- DMP:Data-Management Platform (数据管理平台)
+
+定义:是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
 
 用于CPM广告投放.CPM获得这些人口属性或兴趣标签需要应用DMP数据管理和受众定向的平台
 
 ![dmp_arch](_includes/dmp_arch.png)
 
-- PMP(PrivateMarketPlace, 私有交易市场)
+- DataExchange (数据交易平台)
+
+- PDB:ProgrammaticDirectBuy (程序化购买市场-私有程序化购买）
+
+基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
+
+- PMP:PrivateMarketPlace (私有交易市场)
 
 - 信息流广告投放
 
@@ -97,7 +109,7 @@ title: Computational Advertisement Tech Note
 
 6.DMP数据管理平台
 
-7.Data Exchange数据交易平台
+7.DataExchange数据交易平台
 
 #### 4.计算广告关键技术
 

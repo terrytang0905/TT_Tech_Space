@@ -56,10 +56,18 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 #### Drill(Dremel的开源版本)
 
+Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
+
 - 支持多数据源查询
 - 成熟度还不是很高的开源方案?
 
 - [DrillArch](http://drill.apache.org/docs/architecture/)
+
+#### 5.Pinot
+
+Pinot is a realtime distributed OLAP datastore
+
+http://pinot.incubator.apache.org/
 
 
 ### II.SQLonHadoop架构分析
