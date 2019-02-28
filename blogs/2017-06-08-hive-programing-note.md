@@ -8,11 +8,11 @@ title: Hive Programing Design Note
 ## Hive Programing Design Note
 ------------------------------------------------------------
 
-### 1.About Hive
+#### 1.About Hive
 
 Hive is a data warehouse infrastructure built on top of Hadoop. It provides tools to enable easy data ETL, a mechanism to put structures on the data, and the capability to querying and analysis of large data sets stored in hadoop files. Hive defines a simple SQL-like query language, called QL, that enables users familiar with SQL to query the data. At the same time, this language also allows programmers who are familiar with the MapReduce fromwork to be able to plug in their custom mappers and reducers to perform more sophisticated analysis that may not be supported by the built-in capabilities of the language.
 
-### 2.Hive Architect
+#### 2.Hive Architect
 
 ![Hive Architect](_includes/hive_architecture.png)
 
@@ -25,7 +25,7 @@ Figure 1 shows the major components of Hive and its interactions with Hadoop. As
 	- Execution Engine – The component which executes the execution plan created by the compiler. The plan is a DAG of stages. The execution engine manages the dependencies between these different stages of the plan and executes these stages on the appropriate system components.
 
 
-#### Hive SQL Executor
+#### 3.Hive SQL Executor
 
 ![Hive SQL Executor](_includes/hive_sql_execute.jpg)
 
@@ -34,7 +34,7 @@ Hive SQL Executeor Order
 from... where.... select... group by... having ... order by...
 ```
 
-### 3.Hive Programing using HiveQL
+> Hive Programing using HiveQL
 
 #### 3.1.HiveQL: Data Definition & Manipulation
 
@@ -237,7 +237,7 @@ WHERE ...;
 
 ``` 
 
-6.HiveQL查询优化
+#### 5.HiveQL查询优化设置
 
 如果有join,group操作的话，要注意是否会有数据倾斜
 
@@ -312,14 +312,16 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 如果任务数多且小，比如在一分钟之内完成，减少task数量以减少任务初始化的消耗。可以通过配置JVM重用选项减少task的消耗
 
 
-#### 4.3.UDF
+
+
+#### 6.UDF
 
 - UDF
 - UDAF
 - UDTF
 
 
-### 5.From Hive on MapReduce to Hive on Spark
+#### 7.From Hive on MapReduce to Hive on Spark
 
 For Hive to work on Spark, you must deploy Spark gateway roles on the same machine that hosts HiveServer2. Otherwise, Hive on Spark cannot read from Spark configurations and cannot submit Spark jobs. For more information about gateway roles, see Managing Roles.
 
@@ -330,9 +332,8 @@ After installation, run the following command in Hive so that Hive will use Spar
 
 [HiveOnSpark](https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark)
 
-### X.Ref
+#### X.Ref
 
 - [Hive Architect](https://cwiki.apache.org/confluence/display/Hive/Design)
 - [CDH Managing Hive](https://www.cloudera.com/documentation/enterprise/5-9-x/topics/admin_hive_configure.html)
 - [Hive Performance Tips](https://streever.atlassian.net/wiki/display/HADOOP/Hive+Performance+Tips)
-- [Programming Hive]()

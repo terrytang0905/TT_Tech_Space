@@ -18,7 +18,8 @@ title: Hive Programing Design Note3
 
 ![mr_process](_includes/hive_mr.jpg)
 
-Map阶段的优化(map phase)
+#### 1.Map阶段的优化(map phase)
+
 Map阶段的优化，主要是确定合适的map数。那么首先要了解map数的计算公式：
 ```
 num_map_tasks = max[${mapred.min.split.size},
@@ -441,7 +442,7 @@ where visit_z > 0 and visit_l > 0;
 
 #### 6.3. Hive系统设置优化
 
-以下根据应用需要来完成Hive系统设置的样例
+以下根据应用需要来完成Hive系统设置的样例1
 
 ```hive
 
@@ -451,7 +452,7 @@ set hive.groupby.skewindata=true;
 set hive.exec.reducers.bytes.per.reducer=2000*1000*1000（2G）
 set hive.exec.reducers.max=300;
 set mapred.reduce.tasks=300;
-set mapred.min.split.size=256000000;
+set mapred.max.split.size=256000000;
 set hive.exec.parallel=true;  
 set hive.exec.parallel.thread.number=16;
 set mapreduce.map.memory.mb=1025;
@@ -459,4 +460,60 @@ set mapreduce.reduce.memory.mb=1025;
 set hive.exec.dynamic.partition=true;
 set hive.exec.dynamic.partition.mode=nonstrict;
 
+```
+
+```hive 
+//队列优先级
+SET mapreduce.job.queuename=ircloud;
+SET mapreduce.job.queuename=root.q1;
+
+set hive.vectorized.execution.enabled = true;
+set hive.vectorized.execution.reduce.enabled = true;
+set hive.cbo.enable=true;
+set hive.compute.query.using.stats=true;
+set hive.stats.fetch.column.stats=true;
+set hive.stats.fetch.partition.stats=true;
+
+//execute
+set hive.exec.parallel=true;  
+set hive.exec.parallel.thread.number=16;
+set hive.enforce.bucketing=true;
+set hive.map.aggr=true;
+set hive.groupby.mapaggr.checkinterval=100000;
+set hive.exec.reducers.bytes.per.reducer=2000000000;
+set hive.exec.reducers.max=300;
+set mapred.reduce.tasks=300; // map任务量 根据block size*节点来判断
+set hive.exec.dynamic.partition=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+
+//split
+set mapred.max.split.size=256000000;
+set mapred.min.split.size=2480000;
+set mapred.min.split.size.per.node=2480000;
+set mapred.min.split.size.per.rack=2480000;
+
+//memory setting
+set mapreduce.map.memory.mb=8192;
+set mapreduce.reduce.memory.mb=8192;
+set mapreduce.map.java.opts=-Xmx3480m;
+set mapreduce.reduce.java.opts=-Xmx3480m;
+
+//compress
+set hive.exec.compress.output=true;
+set mapreduce.map.output.compress=true;
+set mapreduce.output.fileoutputformat.compress=true;
+set mapreduce.output.fileoutputformat.compress.codec=org.apache.hadoop.io.compress.GzipCodec;
+
+
+
+1、mapreduce.job.reduce.slowstart.completedmaps
+当map 任务完成的比例达到该值后才会为reduce task申请资源，默认是0.05。
+我们设置为0.5，也即map完成了50%之后在开始为reduce任务申请资源。
+
+2、yarn.app.mapreduce.am.job.reduce.rampup.limit
+在map任务完成之前，最多启动reduce 任务比例，默认是0.5
+我们设置为0.2，也即map任务全部完成前，最多去启动20%的reduce任务。
+
+3、yarn.app.mapreduce.am.job.reduce.preemption.limit
+当map task需要资源但暂时无法获取资源（比如reduce task运行过程中，部分map task因结果丢失需重算）时，为了保证至少一个map task可以得到资源，最多可以抢占reduce task比例，默认是0.5。
 ```
