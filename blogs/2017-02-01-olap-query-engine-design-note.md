@@ -18,7 +18,7 @@ OLAP     | Type 	| Link 					   | Desc
 Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
 Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop(容错性差)
 PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
-Dremel   | RTOLAP   |                          | 多数据源SQL查询
+Dremel   | RTOLAP   |                          | 分布交互式SQL查询
 Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
 Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
@@ -32,20 +32,20 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 **特点:多维数据建模+无内置查询引擎**
 
-[Mondriad-ROLAP分析](2017-01-31-olap-analysis-mondrian-note.md)
+[Mondriad-ROLAP分析](2017-01-31-olap-mondrian-note.md)
 
 	Comments:NewBI是基于Mondrain框架搭建的OLAP查询引擎
 
 ### 2.SQLonHadoop查询引擎 - (Impala/Presto/Dremel/Drill)
 
-**特点:DistrubutedSQLQueryEngine**
+**特点:DistrubutedSQLQueryEngine分布交互式查询**
 
-- Impala
-- PrestoDB
-- Dremel
-- Drill
+- [Impala](2016-12-12-olap-distributed-impala-research-note.md)
+- [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)
+- BigQuery&Dremel
+- Amazon Redshift
 
-[SQLonHadoop技术分析](2017-04-04-olap-analysis-sqlonhadoop-note.md)
+[SQLonHadoop技术分析](2017-04-04-olap-sqlonhadoop-research-note.md)
 
 ### 3.关于Kylin-MOLAP
 

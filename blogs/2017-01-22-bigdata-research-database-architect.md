@@ -285,6 +285,8 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 - [MongoDB相关](2015-10-11-mongodb3.0-major-release.md)
 
+2.DocumentDB数据库
+
 #### D.In-Memory数据库
 
 1.Redis

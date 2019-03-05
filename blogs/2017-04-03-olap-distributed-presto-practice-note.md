@@ -113,3 +113,12 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 	* SubPlan3节点计算完成后通知Coordinator结束查询,并将数据发送给Coordinator
 
 
+#### Presto CBO
+
+
+
+#### Ref
+
+- [Introduce to presto CBO](https://www.starburstdata.com/technical-blog/introduction-to-presto-cost-based-optimizer/)
+- [Presto New Optimizer](https://github.com/prestodb/presto/wiki/New-Optimizer)
+

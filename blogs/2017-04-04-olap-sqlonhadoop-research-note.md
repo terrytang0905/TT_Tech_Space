@@ -15,7 +15,7 @@ title: Big Data OLAP Note - SQL on Hadoop
 - Data Mining,modeling and large ETL
 - Machine Learning
 
-**SQL on Hadoop列表**
+**SQLonHadoop查询**
 
 ![SQLOnHadoopList](_includes/sql_on_hadoop.png)
 
@@ -29,11 +29,11 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 #### 1.Impala
 
-[Impala实时OLAP实践](2016-12-12-olap-rt-impala-practice-note.md)
+[Impala交互式OLAP查询](2016-12-12-olap-rt-impala-practice-note.md)
 
 #### 2.PrestoDB
 
-[PrestoDB实时OLAP实践](2016-12-12-olap-rt-presto-practice-note.md)
+[PrestoDB交互式OLAP查询](2016-12-12-olap-rt-presto-practice-note.md)
 
 #### Presto引擎对比
 
@@ -41,12 +41,11 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 ![PrestoHiveSparkSQL比较](_includes/PrestoHiveSparkSQL比较.png)
 
-
 #### 3.SparkSQL
 
 [SparkSQL Programming Guide](http://spark.apache.org/docs/latest/sql-programming-guide.html)
 
-#### 4.Dremel&Drill
+#### 4.Dremel
 
 ![dremel_page](_includes/dremel_page.jpg)
 
@@ -54,7 +53,7 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 - [Dremel原理介绍](https://max.book118.com/html/2016/1127/66076729.shtm)
 
-#### Drill(Dremel的开源版本)
+#### 5.Drill(MapR)
 
 Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 
@@ -63,12 +62,19 @@ Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 
 - [DrillArch](http://drill.apache.org/docs/architecture/)
 
-#### 5.Pinot
+#### 6.Pinot(LinkedIn)
 
 Pinot is a realtime distributed OLAP datastore
 
 http://pinot.incubator.apache.org/
 
+- A column-oriented database with various compression schemes such as Run Length, Fixed Bit Length
+- Pluggable indexing technologies - Sorted Index, Bitmap Index, Inverted Index
+- Ability to optimize query/execution plan based on query and segment metadata
+- Near real time ingestion from Kafka and batch ingestion from Hadoop
+- SQL like language that supports selection, aggregation, filtering, group by, order by, distinct queries on fact data
+- Support for multivalued fields
+- Horizontally scalable and fault tolerant
 
 ### II.SQLonHadoop架构分析
 
@@ -83,7 +89,10 @@ _runtime framework v.s. mpp_
 
 有时我们能听到一种声音,说后者的架构优于前者,至少在性能上。那么是否果真如此？
 
-一般来说,对于SQL on Hadoop系统很重要的一个评价指标就是：快。后面提到的所有内容也大多是为了查询速度更快。<br/>
+一般来说,对于SQL on Hadoop查询引擎很重要的一个评价指标就是：快。后面提到的所有内容也大多是为了查询速度更快。<br/>
+
+	也就是说SQLonHadoop是为了解决Hive大数据查询下无法迅速计算结果而基于Google BigQuery的交互式查询引擎
+
 在Hive逐渐普及之后,就逐渐有了所谓交互式查询的需求,因为无论是BI系统,还是ad-hoc,都不能按照离线那种节奏玩。这时候无论是有实力的大公司(比如Facebook),还是专业的供应商(比如Cloudera),都试图去解决这个问题。短期可以靠商业方案或者关系数据库去支撑一下,但是长远的解决方案就是参考过去的MPP数据库架构打造一个专门的系统,于是就有了Impala,Presto等等。从任务执行的角度说,这类引擎的任务执行其实跟DAG模型是类似的,当时也有Spark这个DAG模型的计算框架了,但这终究是别人家的孩子,而且往Spark上套sql又是Hive的那种玩法了。于是在Impala问世之后就强调自己“计算全部在内存中完成”,性能也是各种碾压当时还只有MR作为计算模型的Hive。那么Hive所代表的“基于已有的计算模型”方式是否真的不行？
 
 不可否认,按照这种方式去比较,那么类MPP模式确实有很多优势：
@@ -196,6 +205,11 @@ WHERE touter.l_quantity < tinner.lq
 CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等等)来对一些问题作出解答,其中最主要的问题就是确定多表join的顺序。CBO通过搜索join顺序的所有解空间(表太多的情况下可以用有限深度的贪婪算法),并且算出对应的代价,可以找到最好的顺序。这些都已经在关系数据库中得到了实践。
 
 目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
+
+
+_Presto Cost-based Query Optimization_
+
+
 
 #### 4.执行效率
 

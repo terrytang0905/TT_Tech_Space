@@ -25,6 +25,26 @@ Figure 1 shows the major components of Hive and its interactions with Hadoop. As
 	- Execution Engine – The component which executes the execution plan created by the compiler. The plan is a DAG of stages. The execution engine manages the dependencies between these different stages of the plan and executes these stages on the appropriate system components.
 
 
+#### Hive Data Type
+
+Pimitive Data Type
+
+Complex Data Type
+
+#### Hive&HDFS File Format
+
+TEXTFILE      默认格式
+
+SEQUENCEFILE  
+
+RCFILE		  hive 0.6.0 和以后的版本
+
+ORC			  hive 0.11.0 和以后的版本
+
+PARQUET       hive 0.13.0 和以后的版本,企业中最常用
+
+AVRO　        hive 0.14.0 和以后的版本 
+
 #### 3.Hive SQL Executor
 
 ![Hive SQL Executor](_includes/hive_sql_execute.jpg)
