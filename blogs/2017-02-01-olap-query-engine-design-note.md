@@ -2,15 +2,15 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: title: Big Data OLAP Note - OLAP Query Engine Design
+title: title: Big Data OLAP Note - OLAP BigQuery Engine Design
 ---
 
 ## OLAP查询引擎设计
 -----------------------------------------------------------
 
-** OLAP实时查询分析是联机查询的深度实现 *
+**OLAP实时查询分析是联机查询的深度实现**
 
-** Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu) *
+**Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu)**
 
 
 OLAP     | Type 	| Link 					   | Desc
@@ -40,12 +40,12 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 **特点:DistrubutedSQLQueryEngine分布交互式查询**
 
+- [SQLonHadoop技术分析](2017-04-04-olap-sqlonhadoop-research-note.md)
 - [Impala](2016-12-12-olap-distributed-impala-research-note.md)
 - [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)
 - BigQuery&Dremel
 - Amazon Redshift
 
-[SQLonHadoop技术分析](2017-04-04-olap-sqlonhadoop-research-note.md)
 
 ### 3.关于Kylin-MOLAP
 
@@ -86,7 +86,7 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 * Distinct Count(based on HyperLogLog近似值估值)
 
 
-### 4.RT(Realtime)实时查询引擎 - Druid/Pinot
+### 4.RT(Realtime类搜索)OLAP查询引擎 - Druid/Pinot
 
 Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的整体提升,缺点在于数据多维分析的局限性
 
@@ -302,7 +302,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - [数果科技王劲:如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
 
-### 5.整体OLAP架构优化
+### 5.OLAP深度架构设计
 
 #### 5.1.[实时OLAP架构优化]
 
@@ -334,6 +334,9 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - 数据预加载
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
 
+
+		思考: 越来越多关注查询本身而不是过多关注Cube/Dimension/Measure等传统数据仓库所遵循的通用标准,这样才能更加适应当前大数据领域的现实需求！
+
 #### 分布式OLAP设计(参考PrestDB) 
 
 #### 实时OLAP设计(参考Druid/Pinot/ElastisSearch) 
@@ -347,8 +350,7 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 - 数据结构设计类似ElasticSearch
 
 
-
-#### 5.2.QueryEngine优化
+#### 5.2.QueryEngine内核优化
 
 *5.2.1.Query性能差异与执行顺序*
 
@@ -356,15 +358,15 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 2) Aggregation Query
 3) Join Query
 
-*5.2.2.Spark/Flink实时数据查询(SQLonHadoop)*
+*5.2.2.Greenplum-MPP数据查询*
 
-*5.2.3.Greenplum-MPP数据查询*
+*5.2.3.执行方式=SQLParser+QueryOptimizer*
 
 *5.2.4.通用SQL数据解析Calcite*
 
 - [Calcite 数据引擎](2018-06-01-apache-calcite-data-framework-note.md)
 
-*5.2.5.ElasticSearch/Lucene/Druid*
+*5.2.5.特定全文检索Index设计*
 
 - OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
@@ -383,5 +385,3 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 ### x.技术参考
 
 - SQL查询引擎技术调研	
-- [OLAP-Mondrian查询引擎](2017-01-31-olap-analysis-mondrian-note.md)
-- [OLAP-SQLonHadoop应用](2017-04-04-olap-analysis-sqlonhadoop-note.md)
