@@ -22,7 +22,7 @@ Pinot    | RT-OLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 
-* OLAP类型:ROLAP/BigQuery-OLAP/RTOLAP/MOLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
+* OLAP类型:ROLAP/BigQuery-OLAP/RT-OLAP/MOLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
 * 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
 * 越来越多关注查询本身而不是过多关注Cube/Dimension/Measure等传统数据仓库所遵循的通用标准,这样才能更加适应当前大数据领域的现实需求
 * Tableau作为优秀可视化分析工具对大数据量分析能力有所欠缺

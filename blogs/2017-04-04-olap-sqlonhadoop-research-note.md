@@ -121,6 +121,10 @@ _runtime framework v.s. mpp_
 
 ![SQLonHadoop_Arch](_includes/sql_on_hadoop_arch.jpg)
 
+#### 底层文件系统
+
+最重要的还是底层文件系统,比较优秀的SQLonHadoop都是只实现HDFS接口,而重新底层文件系统。因为HDFS相比其他文件系统来说,不能算很稳定。所以Google Dremel用的是GFS,Amazon Redshift用的是S3,微软Azure底层更不可能用HDFS了。
+
 #### 2.执行计划
 
 _编译流程_
@@ -263,7 +267,7 @@ _IO_
 	* disk-aware scheduling:通过知道每个block所在磁盘,可以在调度cpu资源时让不同的cpu读不同的磁盘,避免查询内和查询间的IO竞争。HDFS参数是dfs.datanode.hdfs-blocks-metadata.enabled。
 
 
-#### 4.存储格式
+#### 4.文件存储格式
 
 对于分析类型的workload来说,最好的存储格式自然是列存储,这已经在关系数据库时代得到了证明。<br/>
 目前hadoop生态中有两大列存储格式,一个是由Hortonworks和Microsoft开发的ORCFile,另一个是由Cloudera和Twitter开发的Parquet。
