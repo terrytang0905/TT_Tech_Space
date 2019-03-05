@@ -14,11 +14,11 @@ title: title: Big Data OLAP Note - OLAP BigQuery Engine Design
 OLAP     | Type 	| Link 					   | Desc
 -------- |----------|--------------------------|----------------
 Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php | 多维数据建模
-Impala   | RTOLAP   | https://github.com/cloudera/Impala/wiki | 实时SQLonHadoop(容错性差)
-PrestoDB | RTOLAP   | https://prestodb.io/     | 实时SQLonHadoop
-Dremel   | RTOLAP   |                          | 分布交互式SQL查询
-Druid    | MOLAP 	| http://druid.io/         | 增量计算&搜索引擎
-Pinot    | MOLAP    | https://github.com/linkedin/pinot | 增量计算
+Impala   | BQ-OLAP   | https://github.com/cloudera/Impala/wiki | 交互式SQLonHadoop(容错性差)
+PrestoDB | BQ-OLAP   | https://prestodb.io/     | 交互式SQLonHadoop
+Dremel   | BQ-OLAP   |                          | 交互式BigQuery
+Druid    | S-OLAP 	| http://druid.io/         | 增量计算&搜索引擎
+Pinot    | S-OLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 
