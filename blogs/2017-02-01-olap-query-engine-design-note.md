@@ -17,13 +17,14 @@ Mondrian | ROLAP    | http://mondrian.pentaho.com/documentation/architecture.php
 Impala   | BQ-OLAP   | https://github.com/cloudera/Impala/wiki | 交互式SQLonHadoop(容错性差)
 PrestoDB | BQ-OLAP   | https://prestodb.io/     | 交互式SQLonHadoop
 Dremel   | BQ-OLAP   |                          | 交互式BigQuery
-Druid    | S-OLAP 	| http://druid.io/         | 增量计算&搜索引擎
-Pinot    | S-OLAP    | https://github.com/linkedin/pinot | 增量计算
+Druid    | RT-OLAP 	| http://druid.io/         | 增量计算&搜索引擎
+Pinot    | RT-OLAP    | https://github.com/linkedin/pinot | 增量计算
 Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 
-* OLAP类型:RTOLAP/MOLAP/ROLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
+* OLAP类型:ROLAP/BigQuery-OLAP/RTOLAP/MOLAP,其中Kylin是一种针对大数据场景设计的特殊MOLAP
 * 当前OLAP技术领域有大数据量分析需求,不包含查询引擎与数据存储优化的轻量级方案(Mondrian)应用场景受限
+* 越来越多关注查询本身而不是过多关注Cube/Dimension/Measure等传统数据仓库所遵循的通用标准,这样才能更加适应当前大数据领域的现实需求
 * Tableau作为优秀可视化分析工具对大数据量分析能力有所欠缺
 
 ### 1.ROLAP引擎 - Mondrian
@@ -34,7 +35,7 @@ Kylin    | MOLAP    | http://kylin.apache.org/ | 预处理&Cache
 
 	Comments:NewBI是基于Mondrain框架搭建的OLAP查询引擎
 
-### 2.SQLonHadoop查询引擎 - (Impala/Presto/Dremel/Drill)
+### 2.SQLonHadoop查询引擎 - (Impala/Presto/Dremel/Redshift)
 
 **特点:DistrubutedSQLQueryEngine分布交互式查询**
 
@@ -332,8 +333,6 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - 数据预加载
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
 
-
-		思考: 越来越多关注查询本身而不是过多关注Cube/Dimension/Measure等传统数据仓库所遵循的通用标准,这样才能更加适应当前大数据领域的现实需求！
 
 #### 分布式OLAP设计(参考PrestDB) 
 
