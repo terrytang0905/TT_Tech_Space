@@ -8,9 +8,7 @@ title: title: Big Data OLAP Note - OLAP BigQuery Engine Design
 ## OLAP查询引擎设计
 -----------------------------------------------------------
 
-**OLAP实时查询分析是联机查询的深度实现**
-
-**Bigdata Analysis Product=DataVisualization + OLAP(Cube+QueryEngine/Spark) + BigdataStorage(Greenplum/Hive/HDFS/Kudu)**
+**Bigdata Analysis Product=DataVisualization + OLAP(Cube+BigQueryEngine/Hive) + BigdataStorage(HDFS/GFS/S3/Greenplum/Vertica)**
 
 
 OLAP     | Type 	| Link 					   | Desc
