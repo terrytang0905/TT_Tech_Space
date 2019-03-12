@@ -257,7 +257,7 @@ add(int vecNum, long[] result, long[] col1, int[] col2, int[] selVec)
 }
 ```
 
-_IO_
+_IO优化_
 
 由于SQL on Hadoop存储数据都是在HDFS上,所以IO层的优化其实大多数都是HDFS的事情,各大查询引擎则提出需求去进行推动。<br/>
 要做到高效IO,一方面要低延迟,屏蔽不必要的消耗;另一方面要高吞吐,充分利用每一块磁盘。目前与这方面有关的特性有:
@@ -266,6 +266,8 @@ _IO_
 	* zero copy:避免数据在内核buffer和用户buffer之间反复copy,在早期的HDFS中已经有这个默认实现。
 	* disk-aware scheduling:通过知道每个block所在磁盘,可以在调度cpu资源时让不同的cpu读不同的磁盘,避免查询内和查询间的IO竞争。HDFS参数是dfs.datanode.hdfs-blocks-metadata.enabled。
 
+
+> HDFS文件系统的缺陷可能是开源SQLonHadoop的性能瓶颈
 
 #### 4.文件存储格式
 

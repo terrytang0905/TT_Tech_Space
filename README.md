@@ -15,8 +15,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 <!-- - *[数据平台架构计划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
 - *[数据产品商业思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-product-business-design-note.md)
-- *[计算广告应用笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-advertise-design-note.md)
 - *[用户标签画像开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-label-profile-note.md)
+- *[计算广告应用笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-advertise-design-note.md)
 - *[用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
 - [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
@@ -36,6 +36,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 #### II.Big Data & All Distributed Research
 
 
+- *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[查询优化器设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[大数据研究-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
 - *[大数据研究-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-realtime-process.md)
@@ -53,7 +54,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[OLAP-Mondrian查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
 - *[OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
 - *[OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
-- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - [Storm流式处理笔记-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-11-storm-streaming-research-note.md)
 - *[ElasticSearch分布式检索架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
@@ -61,6 +61,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### III.Database & DataStorage
 
+
+- *[分析型数据平台产品分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-dm-solution-analytics.md)
 - *[PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[PostgreSQL&Greenplum索引笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-16-postgresql-greenplum-index-note.md)
@@ -68,16 +70,20 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[PostgreSQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-30-postgresql-best-practice-note.md)
 - *[Greenplum最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-28-greenplum-best-practice-note.md)
 - *[BigTable&HBase Analysis Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-12-bigtable&hbase-analysis-note.md)
+- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - *[Greenplum Architect Research Note(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
 - [Greenplum分析函数](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
 - [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)
 - *[MongoDB核心研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-02-28-mongodb-internal.md)
 - [MongoDB3.0 MajorChange(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-10-11-mongodb3.0-major-release.md)
 - [Couchbase Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-couchbase-practice.md)
-- *[MongoDB Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
+- [MongoDB Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
+
+#### IV.Cloud 
+
 - [VMware Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2012-05-23-vmware-practice.md)
 
-#### IV.Programming
+#### V.Programming
 
 - *[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
