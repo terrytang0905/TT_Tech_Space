@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,database,hadoop]
-title: Hive Programing Design Note2
+title: Hive Programing Design Note2 - SQL Parser
 ---
 
 ## Hive SQL Parser Note
@@ -14,6 +14,7 @@ Hive是基于Hadoop的一个数据仓库系统，在各大公司都有广泛的�
 
 
 #### 1.MapReduce实现基本SQL操作的原理
+
 详细讲解SQL编译为MapReduce之前，我们先来看看MapReduce框架实现SQL基本操作的原理
 
 #### 1.1. Join的实现原理
@@ -387,17 +388,17 @@ Move Operator
 
 ![hive_qb_map_reduce_task](_includes/hive_qb_map_reduce_task.png)
 
-* 2.5.4 Rule #2 TS%.*RS% 确定ReduceWork
+* 2.5.4 Rule #2 TS%.\*RS% 确定ReduceWork
 
 继续遍历TS[p]的子Operator，将子Operator存入栈opStack中
 当第一个RS进栈后，即栈opStack = {TS[p], FIL[18], RS[4]}时，就会满足下面的规则R2
 
-"".join([t + "%" for t in opStack]) == "TS%.*RS%"
+"".join([t + "%" for t in opStack]) == "TS%.\*RS%"
 这时候在MapReduceTask[Stage-1]对象的ReduceWork属性保存JOIN[5]的引用
 
 ![hive_qb_map_reduce_task2](_includes/hive_qb_map_reduce_task2.png)
 
-* 2.5.5 Rule #3 RS%.*RS% 生成新MapReduceTask对象，切分MapReduceTask
+* 2.5.5 Rule #3 RS%.\*RS% 生成新MapReduceTask对象，切分MapReduceTask
 
 继续遍历JOIN[5]的子Operator，将子Operator存入栈opStack中
 
@@ -438,7 +439,7 @@ Move Operator
 ![hive_qb_map_reduce_task6](_includes/hive_qb_map_reduce_task6.png)
 
 
-继续从TS[du]向下遍历，当opStack={TS[du], RS[7]}时，满足规则R2 TS%.*RS%
+继续从TS[du]向下遍历，当opStack={TS[du], RS[7]}时，满足规则R2 TS%.\*RS%
 
 此 时将JOIN[8]保存为MapReduceTask[Stage-5]的ReduceWork时，发现在一个Map对象保存的Operator与 MapReduceWork对象关系的Map对象中发现，JOIN[8]已经存在。此时将MapReduceTask[Stage-2]和 MapReduceTask[Stage-5]合并为一个MapReduceTask
 
@@ -539,6 +540,6 @@ Implement insert, update, and delete in Hive with full ACID support - 支持表�
 - [Antlr](http://www.antlr.org/)
 - [Hive Wiki](https://cwiki.apache.org/confluence/display/Hive/Home)
 - [HiveSQL编译过程](http://www.slideshare.net/recruitcojp/internal-hive)
-- [Join Optimization in Hive](Join Strategies in Hive from the 2011 Hadoop Summit -Liyin Tang, Namit Jain)
+- [Join Optimization in Hive](https://www.facebook.com/notes/facebook-engineering/join-optimization-in-apache-hive/470667928919/)
 - [Hive Design Docs](https://cwiki.apache.org/confluence/display/Hive/DesignDocs)
 

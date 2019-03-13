@@ -5,15 +5,29 @@ tags : [bigdata, database, analytics]
 title: Database Research Note - Database Management for Analytics
 ---
 
-## 大数据分析平台研究日志
+## 大数据分析平台应用日志
 --------------------------------------------------------
 
-分析型数据平台研究
+分析型数据平台研究主要是研究当前业内主流基于数据分析的大数据平台,整合MPP与Hadoop特性,来解决海量数据的分析查询性能问题。
 
-Google BigQuery
+#### Google BigQuery
+
+基于Dremel的GoogleBigQuery
+
+- Concept: distributed search engine design
+- Dremel provides a high-level, SQL-like language to express ad hoc queries without translating them into MR job.
+- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
 
 
-Huawei FusionInsight
+1.A high-performance storage layer is critical for in situ data management.
+2.Columnar storage proved successful for flat relational data but making it work for Google required adapting it to a nested data model.
+
+Ref:
+
+- [SQLonHadoop研究Note-Dremel](2017-04-04-olap-sqlonhadoop-research-note.md)
+- [BigQuery](https://cloud.google.com/bigquery/)
+
+#### Huawei FusionInsight
 
 FusionInsight大数据平台通过统一的SQL引擎将Hadoop，流式计算和关系型MPP数据库融合到单一环境中。它可以部署在本地，华为公共云或合作伙伴的公共云环境中。 Hadoop开源内核的扩展已经在Apache CarbonData分布式存储引擎中进行，HiGraph用于图形处理，调度和编排以及Elk交互式查询语言。还提供了关系引擎和Hadoop之间的紧密集成。
 
@@ -65,9 +79,73 @@ FusionInsight大数据平台通过统一的SQL引擎将Hadoop，流式计算和�
 
 	
 
+#### Alibaba Cloud - MaxComputer
 
-Alibaba Cloud - MaxComputer
+MaxComputer SQL Parser & SQL Optimizer
 
-Gbase+Informix
+#### Transwarp Data Hub
 
-Transwarp Technology
+TDH主要提供6款核心产品:
+
+	Transwarp Inceptor是大数据分析数据库
+	Transwarp Slipstream是实时计算引擎
+	Transwarp Discover专注于利用机器学习从数据提中取价值内容
+	Transwarp Hyperbase用于处理非结构化数据
+	Transwarp Search用于构建企业搜索引擎
+	Transwarp Sophon则是支持图形化操作的深度学习平台
+
+
+Transwarp Inceptor - OLAP SQL引擎
+
+在Inceptor中，您可以使用常见的数据库对象,包括数据库(database),表(table),视图(view)和函数(function)。您可以使用Inceptor SQL、Inceptor PL/SQL以及Inceptor SQL PL来操作这些数据库对象。Inceptor中数据库对象的元数据保存在Inceptor Metastore中，而数据库对象内的数据可以存放在：
+1．内存或者SSD中（Holodesk表） 
+2．HDFS中（TEXT表/ORC表/CSV表）
+
+
+Transwarp Holodesk 分布式列式存储组件
+
+
+
+
+#### Gbase+Informix
+
+
+#### 技术思考
+
+1.数据清洗的优化算法
+
+2.大数据查询优化器设计
+Calcite
+Spark Catalyst
+Dremel查询引擎
+
+3.DataModel数据模型设计优化
+
+面向Document的数据模型结构
+```
+message Document {
+  required int64 DocId;
+  optional group Links {
+    repeated int64 Backward;
+    repeated int64 Forward; }
+  repeated group Name {
+    repeated group Language {
+      required string Code;
+      optional string Country; }
+    optional string Url; }}
+```
+
+5.数据存储结构设计
+
+Dremel NESTED COLUMNAR STORAGE
+
+LSM数据结构
+
+内存列式存储优化
+
+distributed file system文件系统(HDFS/GFS)改造 
+
+
+
+
+

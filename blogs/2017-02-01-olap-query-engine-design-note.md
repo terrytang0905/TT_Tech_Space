@@ -301,6 +301,23 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 - [数果科技王劲:如何构建大数据实时多维分析平台](http://gitbook.cn/books/57107c8976dc085d7a00cb04/bookSource/1466741341393.html)
 
 
+#### Pinot(LinkedIn)
+
+[Pinot](http://pinot.incubator.apache.org/) is a realtime distributed OLAP datastore
+
+适合这样的数据分析场景：分析模型固定，数据只追加以及低延迟，以及分析结果可查询。
+
+关键特性：
+
+	- 面向列的数据库，提供多种压缩模式，如运行长度、固定比特长度
+	- 可插入式的索引技术，包括可排序索引、Bitmap 索引和反向索引
+	- 可根据查询和段元数据对查询和执行进行优化
+	- 近乎实时的从 Kafka 获取数据，以及批量从 Hadoop 获取数据
+	- 类SQL的语言支持查询、聚合、过滤、分组、排序和去重
+	- 支持多值字段
+	- 水平伸缩以及容错
+
+
 ### 5.OLAP深度架构设计
 
 #### 5.1.[实时OLAP架构优化]

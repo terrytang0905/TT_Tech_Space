@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,database,hadoop]
-title: Hive Programing Design Note3
+title: Hive Programing Design Note3 - SQL Performance
 ---
 
-## Hive SQL Optimizer Note
+## Hive SQL Performance Tuning Note
 ------------------------------------------------------------
 
 ### Hive SQL 性能优化

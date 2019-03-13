@@ -8,7 +8,7 @@ title: SQL Optimizer Design Note
 ## QC查询优化器设计研究
 ---------------------------------------------------------
 
-### 查询优化器概述
+### 1.查询优化器概述
 
 数据库主要由三部分组成，分别是解析器、优化器和执行引擎，如下图所示：
 
@@ -57,7 +57,7 @@ RBO的执行过程比较简单，主要包含两个步骤：
 
 经过Step1之后就生成了一个逻辑执行计划，但这只是逻辑上可行，还需要将逻辑执行计划build成物理执行计划，即决定各个Operator的具体实现。如Join算子的具体实现选择BroadcastHashJoin还是SortMergeJoin。
 
-* CBO
+* CBO(基于成本的优化器)
 
 CBO查询优化主要包含三个步骤：
 
@@ -75,39 +75,8 @@ CBO查询优化主要包含三个步骤：
 CBO实现有两种模型，即Volcano模型[1]和Cascades模型[2]，其中Calcite使用的是Volcano模型，而Orca[3]使用的是Cascades模型。这两种模型的思想基本相同，不同点在于Cascades模型并不是先Explore、后Build，而是边Explore边Build，从而进一步裁剪掉一些执行计划。
 
 
-### Apache Calcite数据框架
 
-Apache Calcite is a dynamic data management framework.
-
-The following features are complete.
-
-   - Query parser, validator and optimizer
-   - Support for reading models in JSON format
-   - Many standard functions and aggregate functions
-   - JDBC queries against Linq4j and JDBC back-ends
-   - Linq4j front-end
-   - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
-   - Local and remote JDBC drivers; see Avatica
-   - Several adapters
-
-Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxCompute也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
-
-![Calcite_Arch](_includes/calcite_arch.jpg)
-
-其中Operator Expressions 指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
-
-* 通过Parser直接解析生成
-
-从上述架构图可以看到，Calcite也提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
-
-* 通过Expressions Builder转换生成
-
-不同系统语法有差异，所以Parser也可能不同。针对这种情况，Calcite提供了Expressions Builder来对抽象语法树(或其他数据结构)进行转换得到RelNode Tree。如Hive(某一种Data Processing System)使用的就是这种方法。
-Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行一系列的等价转换，生成不同的执行计划，最后选择代价最小的执行计划，其中代价计算时会用到Metadata Providers提供的统计信息。
-
-事实上，Calcite提供了RBO和CBO两种优化方式，分别对应HepPlanner和VolcanoPlanner。对此，本文也不进行展开，后续有时间再详细介绍Calcite的具体实现。
-
-### SQL查询优化器分析
+### 2.SQL查询优化器分析
 
 1._SQLite优化器_
 
@@ -134,9 +103,45 @@ Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行
 
 	genetic algorithm(GA) & GEQO 
 
-### 大数据查询优化器
 
-#### _GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA_
+### 3.Apache Calcite数据框架
+
+Apache Calcite is a dynamic data management framework.
+
+The following features are complete.
+
+   - Query parser, validator and optimizer
+   - Support for reading models in JSON format
+   - Many standard functions and aggregate functions
+   - JDBC queries against Linq4j and JDBC back-ends
+   - Linq4j front-end
+   - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
+   - Local and remote JDBC drivers; see Avatica
+   - Several adapters
+
+Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxComputer也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
+
+![Calcite_Arch](_includes/calcite_arch.jpg)
+
+其中Operator Expressions 指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
+
+* 通过Parser直接解析生成
+
+从上述架构图可以看到，Calcite也提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
+
+* 通过Expressions Builder转换生成
+
+不同系统语法有差异，所以Parser也可能不同。针对这种情况，Calcite提供了Expressions Builder来对抽象语法树(或其他数据结构)进行转换得到RelNode Tree。如Hive(某一种Data Processing System)使用的就是这种方法。
+Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行一系列的等价转换，生成不同的执行计划，最后选择代价最小的执行计划，其中代价计算时会用到Metadata Providers提供的统计信息。
+
+事实上，Calcite提供了RBO和CBO两种优化方式，分别对应HepPlanner和VolcanoPlanner。对此，本文也不进行展开，后续有时间再详细介绍Calcite的具体实现。
+
+
+   Comments:Hive Optimizer当前是使用Calcite作为核心查询优化器引擎
+
+### 4.大数据查询优化器
+
+#### 4.1.GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA
 
 ![PQC-OrcaArch](_includes/Orca_arch.png)
 
@@ -268,15 +273,77 @@ Total runtime: 605.406 ms
 (32 rows)
 ```
 
-### SparkSQL Catalyst优化器
+#### 4.2.SparkSQL Catalyst优化器
+
+SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
+
+Catalyst的通用树转换框架分为四个阶段，如下所示：
+
+   1）分析解决引用的逻辑计划
+   2）逻辑计划优化
+   3）物理计划
+   4）代码生成用于编译部分查询生成Java字节码。
 
 ![SparkCatalyst](_includes/spark_sql_catalyst.jpg)
 
-Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Physical Planning则位于｀sql/core｀下面。大概有这么几个组件需要展开细看：ParserAnalyzer(with Catalog)Optimizer和Catalyst具有类似功能的是Apache Calcite，像Hive, Phoenix都有在用Calcite，折腾完Catalyst，可以去看一看两者的异同。如果要快速理解Catalyst，我建议从 @连城 的项目 [liancheng/spear](https://link.zhihu.com/?target=https%3A//github.com/liancheng/spear) 入手，完整地阅读一遍，相信会有很多收获。
+Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Physical Planning则位于｀sql/core｀下面。
+
+大概有这么几个组件需要展开细看：
+
+ParserAnalyzer(with Catalog)Optimizer和Catalyst具有类似功能的是Apache Calcite，像Hive, Phoenix都有在用Calcite，
+
+折腾完Catalyst，可以去看一看两者的异同。如果要快速理解Catalyst，
+
+- [SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
 
 
 
-### Hive SQL Optimizer
+#### 4.3.Hive Optimizer
 
-- [HiveSQL优化策略](2017-06-10-hive-sql-optimizer-note.md)
+早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。
+
+在Hive 0.12引入的相关性优化(correlation optimizer)算是规则优化的一个高峰,他能够减少数据的重复扫描,具体来说,如果查询的两个部分用到了相同的数据,并且各自做group by / join的时候用到了相同的key,这个时候由于数据源和shuffle的key是一样的,所以可以把原来需要两个job分别处理的地方合成一个job处理。
+
+比如下面这个sql：
+
+```sql
+SELECT 
+ sum(l_extendedprice) / 7.0 as avg_yearly 
+FROM 
+     (SELECT l_partkey, l_quantity, l_extendedprice 
+      FROM lineitem JOIN part ON (p_partkey=l_partkey) 
+      WHERE p_brand='Brand#35' AND p_container = 'MED PKG')touter 
+JOIN 
+     (SELECT l_partkey as lp, 0.2 * avg(l_quantity) as lq 
+      FROM lineitem GROUP BY l_partkey) tinner 
+ON (touter.l_partkey = tinnter.lp) 
+WHERE touter.l_quantity < tinner.lq
+```
+
+这个查询中两次出现lineitem表,group by和两处join用的都是l_partkey,所以本来两个子查询和一个join用到三个job,现在只需要用到一个job就可以完成。
+
+![correlation_optimizer](_includes/correlation_optimizer.jpg)
+
+但是,基于规则的优化(RBO)不能解决所有问题。
+在关系数据库中早有另一种优化方式,也就是*基于代价的优化CBO*。
+
+CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等等)来对一些问题作出解答,其中最主要的问题就是确定多表join的顺序。CBO通过搜索join顺序的所有解空间(表太多的情况下可以用有限深度的贪婪算法),并且算出对应的代价,可以找到最好的顺序。这些都已经在关系数据库中得到了实践。
+
+目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
+
+Ref:[HiveSQL性能优化](2017-06-10-hive-sql-performance-note.md)
+
+
+#### 4.4.Presto New Optimzer
+
+_Presto Cost-based Query Optimization_
+
+JOIN & 语义树
+
+Table Statistics
+
+Filter Statistics
+
+### 5.Dremel Optimizer (Unknown)
+
 

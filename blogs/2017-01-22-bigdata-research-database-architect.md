@@ -189,14 +189,14 @@ title: Big Data Research Note - Database Architect
 
 3.[Vertica数据库结构]
 
-#### B.Hadoop-MapReduce
+#### B.Hadoop-MapReduce批处理
 
 总的来说，其架构的着力点在于数据高吞吐处理能力，在事务方面相较MPP更简化，仅提供粗粒度的事务管理.
 
 Hadoop具备MPP所缺失的批量任务调整能力，数据的多副本存储使其具有更多“本地化”数据加工的备选节点，而且数据加工处理与数据存储并不绑定，可以根据节点的运行效率动态调整任务分布，从而在大规模部署的情况下具有整体上更稳定的效率。相比之下，MPP在相对较小的数据量下具有更好的执行效率。
 
 
-#### A-B.MPP并行计算 vs 批处理计算 
+#### MPP并行计算 vs 批处理计算 
 
 _1.MPP设计_
 
@@ -235,7 +235,7 @@ _4.批处理的问题_
 
 _5.MPP缺陷总结_
 
-- 批处理下的Straggler
+- 批处理下的Straggler(落伍者)
 
 	无论集群规模多大，批处理的整体执行速度都由Straggler决定，其他节点上的任务执行完毕后则进入空闲状态等待Straggler，而无法分担其工作
 
@@ -261,7 +261,9 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 ![hawq_arch](_includes/hawq_architecture_components.png)
 
-#### C.BigTable数据库架构
+2.Google BigQuery(Dremel)
+
+#### C.KV数据库架构
 
 - 基于LSM-Tree的大规模稀疏表 
 - 适合海量数据的KV类似查询
@@ -279,15 +281,30 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 4.Cassandra数据库
 
-#### C+.Document数据库
+#### C+.Document文档数据库
 
 1.MongoDB数据库
 
 - [MongoDB相关](2015-10-11-mongodb3.0-major-release.md)
 
-2.DocumentDB数据库
+2.Azure DocumentDB数据库(Microsoft)
 
-#### D.In-Memory数据库
+#### MongoDB&DocumentDB对比与DocumentDB的某些优势。
+
+- PaaS：DocumentDB是直接以PaaS提供的。这样带来的好处是配置、管理、维护都更为简单。MongoDB则需要自行部署到VM中，需要花费成本运维。由于PaaS有诸多好处，作者都建议即使要使用MongoDB都最好使用第三方搭建好的现成PaaS。
+- 伸缩能力：由于DocumentDB是PaaS驱动的架构，所以其处理水平扩展的方式和MongoDB完全不同。DocumentDB分区后无需管理复制，MongoDB还需同时处理复制。这点也是得利于DocumentDB后台依赖于Azure的伸缩能力。
+- 原生REST接口：虽然两者都为开发人员提供了多种语言的SDK，但是DocumentDB是原生提供REST接口的，其实SDK也是REST接口的包装。相反，MongoDB没有原生REST接口，不过其有Wire协议和元数据驱动（基于TCP），可以语言无关的访问到数据。不过在有些情况下基于HTTP的REST接口显然更加方便（比如物联网）。
+- 数据交换格式：DocumentDB使用JSON更加标准（RFC 7159 和 ECMA-404）。
+- 索引处理：两者虽然都是基于B-Tree来进行索引，不过DocumentDB提供了两类索引Hash和Range，Range暂时不支持时间字段的索引，DocumentDB也不支持地理位置信息的索引而是依靠Azure Search来解决这个问题。从产品的角度看，在这点上MongoDB具备优势，不过实际使用过程中不会有太大的问题。
+- 异步处理：由于DocumentDB原生提供REST接口，而这些接口或者.NET SDK都提供了async/await的支持，以提供并发处理能力。
+- 定价：虽然MongoDB是开源免费，不过运维的费用也不会少。DocumentDB是基于使用量付费，不过费用不高，且可以通过DreamSpark和BizSpark来获取Azure免费订阅。
+- 一致性：MongoDB的一致性可以配置来是否启用一致性，DocumentDB可以配置4级一致性等级。
+- 二进制大对象存储：MongoDB依赖GridFS来实现Blob的存储，DocumentDB依赖Azure Blob Storage。
+监控：Azure为DocumentDB提供了丰富的监控指标，MongoDB通过Mongo Monitoring Service (MMS)来跟踪宿主主机的情况。
+- 可编程性：两者都支持JavaScript，DocumentDB的.NET SDK对LINQ支持更好，不过对debug支持不好（主要没有本地模拟器）。
+- 其他不同：DocumentDB对聚合操作暂时有一定限制，无服务端排序，工具还不够丰富。MongoDB情况要稍好些。
+
+#### D.In-Memory+KV数据库
 
 1.Redis
 
@@ -295,15 +312,14 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 3.Ignite
 
-#### E.Search搜索数据库
+4.TiKV
+
+#### E.Search搜索数据存储
 
 - 适合海量数据秒级查询
 - 支持多并发查询分析
-- 不适用于复杂的JOIN查询分析
+- 不适用于复杂的JOIN查询等关联分析
 
-1.[ElasticSearch搜索数据](2017-01-06-elasticsearch-search-engine-architect-note.md)
-
-2.Druid-OLAP搜索
 
 #### F.Like-Mesa
 

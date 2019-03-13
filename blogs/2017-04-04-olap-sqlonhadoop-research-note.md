@@ -8,6 +8,8 @@ title: Big Data OLAP Note - SQL on Hadoop
 ## OLAP查询-SQLonHadoop研究Note
 ------------------------------------------------------------
 
+### BigQuery Interactive Query Engine
+
 基于大数据场景下的查询引擎SQL on Hadoop Query Engine是未来大数据领域的重要技术。以下是其典型需求
 
 - Interactive Query
@@ -23,9 +25,8 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 ![SQLOnHadoopQueryPerf](_includes/sql_on_hadoop_query_perf.png)
 
-- Impala > SparkSQL > Presto > Hive
+> Dremel > Impala > SparkSQL > Presto > Hive
 
-### I.Realtime Interactive Query Engine
 
 #### 1.Impala
 
@@ -49,32 +50,66 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 ![dremel_page](_includes/dremel_page.jpg)
 
-- [Dremel相关](https://blog.csdn.net/happyduoduo1/article/details/51784730)
+**Dremel核心设计:**
 
-- [Dremel原理介绍](https://max.book118.com/html/2016/1127/66076729.shtm)
+- Concept: distributed search engine design
+- Dremel provides a high-level, SQL-like language to express ad hoc queries without translating them into MR job.
+- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
+
+
+**Dremel特点:**
+
+- Dremel是一个大规模分布式系统,基于GFS文件系统。
+
+	在一个PB级别的数据集上面,将任务缩短到秒级,无疑需要大量的并发。磁盘的顺序读速度在100MB/S上下，那么在1S内处理1TB数据，意味着至少需要有1万个磁盘的并发读! Google一向是用廉价机器办大事的好手。但是机器越多，出问题概率越大，如此大的集群规模，需要有足够的容错考虑，保证整个分析的速度不被集群中的个别慢(坏)节点影响。
+
+- Dremel是解决MR交互式查询能力不足的问题。
+
+	和MapReduce一样，Dremel也需要和数据运行在一起，将计算移动到数据上面。所以它需要GFS这样的文件系统作为存储层。在设计之初，Dremel并非是MapReduce的替代品，它只是可以执行非常快的分析，在使用的时候，常常用它来处理MapReduce的结果集或者用来建立分析原型。
+
+- Dremel的数据模型是嵌套(nested)的。
+
+	互联网数据常常是非关系型的。Dremel还需要有一个灵活的数据模型，这个数据模型至关重要。Dremel支持一个嵌套(nested)的数据模型，类似 于Json(**通过嵌套结构避免JOIN查询导致性能损耗**)。而传统的关系模型，由于不可避免的有大量的Join操作，在处理如此大规模的数据的时候，往往是有心无力的。
+
+面向Document的类JSON数据模型结构
+```
+message Document {
+  required int64 DocId;
+  optional group Links {
+    repeated int64 Backward;
+    repeated int64 Forward; }
+  repeated group Name {
+    repeated group Language {
+      required string Code;
+      optional string Country; }
+    optional string Url; }}
+```
+- Dremel中的数据是用支持嵌套的列式存储。
+
+	使用列式存储分析的时候，可以只扫描需要的那部分数据的时候，减少CPU和磁盘的访问量。同时列式存储是压缩友好的，使用压缩，可以综合CPU和磁盘，发挥最大的效能。对于关系型数据， 如果使用列式存储，我们都很有经验。但是对于嵌套(nested)的结构，Dremel也可以用列存储，非常值得我们学习。
+
+- Dremel结合了Web搜索(倒排索引)和并行DBMS(MPP)的技术实现高效查询
+
+	Dremel的数据是只读的。首先，他借鉴了Web搜索中的“查询树”架构的概念，将一个相对巨大复杂的查询，分割成较小较简单的查询。大事化小，小事化了，能并发的在大量节点上跑。其次，和并行DBMS类似，Dremel支持使用一种SQL-like的语法查询嵌套数据。可以提供了一个SQL-like的接口，就像Hive和Pig那样。
+	Dremel还有一个配置，就是在执行查询的时候，可以指定扫描部分分区，比如可以扫描30%的分区，在使用的时候，相当于随机抽样，加快查询。
+
+- Dremel是一个多用户的系统。切割分配任务的时候，还需要考虑用户优先级和负载均衡。
+
+
 
 #### 5.Drill(MapR)
 
-Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
+开源版Dremel: Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 
-- 支持多数据源查询
+Drill核心特点:
+
+- Query language:类似Google BigQuery的查询语言，支持嵌套模型，名为DrQL.
+- Low-lantency distribute execution engine:执行引擎，可以支持大规模扩展和容错。可以运行在上万台机器上计算数以PB的数据。
+- Nested data format:嵌套数据模型，和Dremel类似。也支持CSV,JSON,YAML类似的模型。这样执行引擎就可以支持更多的数据类型。
+- Scalable data source: 支持多种数据源，现阶段以Hadoop为数据源。
 - 成熟度还不是很高的开源方案?
 
-- [DrillArch](http://drill.apache.org/docs/architecture/)
-
-#### 6.Pinot(LinkedIn)
-
-Pinot is a realtime distributed OLAP datastore
-
-http://pinot.incubator.apache.org/
-
-- A column-oriented database with various compression schemes such as Run Length, Fixed Bit Length
-- Pluggable indexing technologies - Sorted Index, Bitmap Index, Inverted Index
-- Ability to optimize query/execution plan based on query and segment metadata
-- Near real time ingestion from Kafka and batch ingestion from Hadoop
-- SQL like language that supports selection, aggregation, filtering, group by, order by, distinct queries on fact data
-- Support for multivalued fields
-- Horizontally scalable and fault tolerant
+Ref:[DrillArch](http://drill.apache.org/docs/architecture/)
 
 ### II.SQLonHadoop架构分析
 
@@ -121,7 +156,11 @@ _runtime framework v.s. mpp_
 
 ![SQLonHadoop_Arch](_includes/sql_on_hadoop_arch.jpg)
 
-#### 底层文件系统
+#### 核心设计优化
+
+
+
+底层文件系统
 
 最重要的还是底层文件系统,比较优秀的SQLonHadoop都是只实现HDFS接口,而重新底层文件系统。因为HDFS相比其他文件系统来说,不能算很稳定。所以Google Dremel用的是GFS,Amazon Redshift用的是S3,微软Azure底层更不可能用HDFS了。
 
@@ -159,60 +198,21 @@ where c1.id > 10 group by c1.rank limit 10;
 
 ![presto_compile](_includes/presto_compile.png)
 
-#### 3.查询优化器
+#### 3.查询优化器(大数据)
+
+基于大数据的查询优化器设计与传统RDBMS有较大差异。是根据分布式系统的重新设计开发
 
 关于执行计划的优化,虽然不一定是整个编译流程中最难的部分,但却是最有看点的部分,而且目前还在不断发展中。Spark系之所以放弃Shark另起炉灶做Spark SQL,很大一部分原因是想自己做优化策略,避免受Hive的限制,为此还专门独立出优化器组件*Catalyst优化器*(当然Spark SQL目前还是非常新,其未来发展给人不少想象空间)。总之这部分工作可以不断的创新,优化器越智能,越傻瓜化,用户就越能解放出来解决业务问题。
 
 _SparkSQL Catalyst_
 
-使用一个通用库生成树并使用规则操作这些树.
-Catalyst的通用树转换框架分为四个阶段，如下所示：
-
-	1）分析解决引用的逻辑计划
-	2）逻辑计划优化
-	3）物理计划
-	4）代码生成用于编译部分查询生成Java字节码。
-
-![sparksql_catalyst](_includes/sparksql_catalyst.png)
-
 _Hive Optimizer_
-
-[Hive SQL Optimizer](2017-06-10-hive-sql-optimizer-note.md)
-
-早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。
-
-在Hive 0.12引入的相关性优化(correlation optimizer)算是规则优化的一个高峰,他能够减少数据的重复扫描,具体来说,如果查询的两个部分用到了相同的数据,并且各自做group by / join的时候用到了相同的key,这个时候由于数据源和shuffle的key是一样的,所以可以把原来需要两个job分别处理的地方合成一个job处理。
-
-比如下面这个sql：
-
-```sql
-SELECT 
- sum(l_extendedprice) / 7.0 as avg_yearly 
-FROM 
-     (SELECT l_partkey, l_quantity, l_extendedprice 
-      FROM lineitem JOIN part ON (p_partkey=l_partkey) 
-      WHERE p_brand='Brand#35' AND p_container = 'MED PKG')touter 
-JOIN 
-     (SELECT l_partkey as lp, 0.2 * avg(l_quantity) as lq 
-      FROM lineitem GROUP BY l_partkey) tinner 
-ON (touter.l_partkey = tinnter.lp) 
-WHERE touter.l_quantity < tinner.lq
-```
-
-这个查询中两次出现lineitem表,group by和两处join用的都是l_partkey,所以本来两个子查询和一个join用到三个job,现在只需要用到一个job就可以完成。
-
-![correlation_optimizer](_includes/correlation_optimizer.jpg)
-
-但是,基于规则的优化(RBO)不能解决所有问题。
-在关系数据库中早有另一种优化方式,也就是*基于代价的优化CBO*。
-
-CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等等)来对一些问题作出解答,其中最主要的问题就是确定多表join的顺序。CBO通过搜索join顺序的所有解空间(表太多的情况下可以用有限深度的贪婪算法),并且算出对应的代价,可以找到最好的顺序。这些都已经在关系数据库中得到了实践。
-
-目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
-
 
 _Presto Cost-based Query Optimization_
 
+_Dremel Optimizer_
+
+Ref:[查询优化器研究](2018-06-01-sql-optimizer-design-note.md)
 
 
 #### 4.执行效率

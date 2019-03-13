@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,database,hadoop]
-title: Hive Programing Design Note
+title: Hive Programing Design Note - Programing Design
 ---
 
 ## Hive Programing Design Note
