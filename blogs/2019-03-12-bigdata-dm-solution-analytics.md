@@ -10,6 +10,30 @@ title: Database Research Note - Database Management for Analytics
 
 分析型数据平台研究主要是研究当前业内主流基于数据分析的大数据平台,整合MPP与Hadoop特性,来解决海量数据的分析查询性能问题。
 
+### 核心能力定义
+
+Access to Multiple Data Sources
+Administration and Management
+Advanced Analytics
+Data Ingest(减少移动数据,增强移动计算)
+Managing Large Volumes of Data
+Optimized Performance (Traditional/Exploratory)
+Flexible Scalability
+Variety of Data Types
+Workload Management(负载管理)
+Traditional Use Support
+
+Traditional Data Warehouse
+Real-Time Data Warehouse(adhoc querying and data mining)
+Logical Data Warehouse
+
+	This use case manages data variety and volume of data for both structured and other content data types.
+
+Context-Independent Data Warehouse
+
+	This use case concerns new data values, variants of data form and new relationships. It supports search, graph and other capabilities for discovering new information models.
+
+
 #### 1.Google BigQuery
 
 基于Dremel的GoogleBigQuery
@@ -35,7 +59,7 @@ Ref:
 
 此外华为FusionInsight大数据平台是根据行业客户需求进行优化的解决方案。为解决用户在具体场景下的问题，提供许多创新的技术能力，举几个例子：
 
-	1是统一SQL。大数据技术中有很多能够利用SQL语言进行数据处理的组件，比如Hive、SparkSQL、Elk、MPPDB等，当用户对于这些组件进行业务开发时，需要对不同组件分别进行，造成很大的不便。FusionInsight提供统一SQL，对外业务界面只出现一个SQL开发管理界面，通过统一SQL的业务分发层进行业务分发，这样就简化了业务开发。同时，华为还提供了SQL on Hadoop引擎Elk，这个引擎完全兼容SQL 2003标准，无需修改测试脚本就可以通过TPC-DS测试，性能超过开源产品3倍。通过使用统一SQL技术，某大型保险公司实现了用大数据平台替代传统数仓，在复杂计算业务场景下，其性能提升了10-100倍。
+	1是统一SQL服务。大数据技术中有很多能够利用SQL语言进行数据处理的组件，比如Hive、SparkSQL、Elk、MPPDB等，当用户对于这些组件进行业务开发时，需要对不同组件分别进行，造成很大的不便。FusionInsight提供统一SQL，对外业务界面只出现一个SQL开发管理界面，通过统一SQL的业务分发层进行业务分发，这样就简化了业务开发。同时，华为还提供了SQL on Hadoop引擎Elk，这个引擎完全兼容SQL 2003标准，无需修改测试脚本就可以通过TPC-DS测试，性能超过开源产品3倍。通过使用统一SQL技术，某大型保险公司实现了用大数据平台替代传统数仓，在复杂计算业务场景下，其性能提升了10-100倍。
 
 	2是实时搜索。华为FusionInsight率先实现了对Hadoop平台与MPP-DB数仓平台的统一全文检索Elk，率先支持SQL on Solr接口，提升业务开发效率5倍以上，独创标签索引方案，提升搜索性能3-10倍。目前，实时搜索技术在平安城市和金融行业已经实现商用。在国内某省的平安城市项目中，百亿级规模数据集中查询，**实时搜索响应时间<3秒**。
 
@@ -46,15 +70,18 @@ Ref:
 
 ##### 华为Hadoop-FusionInsight HD
 
-针对离线处理场景，FusionInsight HD由如下组件来实现：HDFS负责存储所有数据；Yarn负责调度在离线平台上运行的所有任务，从数据加工、数据挖掘到数据分析；Mapreduce和Hive专门处理离线的具体任务，其中Mapreduce/Spark处理非SQL类、Hive/Spark SQL处理SQL类，对应的有另外叫离线处理引擎的两个组件——Spark和Spark SQL,借助上述组件，再加上数据采集组件,即可完成离线处理。
+针对离线处理场景，FusionInsight HD由如下组件来实现：HDFS负责存储所有数据；Yarn负责调度在离线平台上运行的所有任务，从数据加工、数据挖掘到数据分析；Mapreduce和Hive专门处理离线的具体任务，其中Mapreduce/Spark处理非SQL类、Hive/Spark SQL处理SQL类.借助上述组件，再加上数据采集组件,即可完成离线处理。
 
 	- 统一的SQL接口
 	- FusionInsight SparkSQL
 	- 完全自研的SQL引擎Elk
-	- Apach CarbonData
+	- Apache CarbonData数据存储格式(基于SparkSQL,有索引的列式存储)
 	- 多级租户管理功能
 	- 对异构设备支持
 
+Apache CarbonData文件格式的压缩率缩减与数据导入时间的延长
+
+- [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
 ##### 华为MPPDB-FusionInsight LibrA
     
@@ -97,12 +124,11 @@ Transwarp Inceptor是基于Spark的分析引擎，从下往上有三层架构：
 	- 中间层是Spark计算引擎层，星环做了大量的改进保证引擎有超强的性能和高度的健壮性;
     - 最上层包括一个完整的SQL 99和PL/SQL编译器、统计算法库和机器学习算法库，提供完整的R语言访问接口。
 
-    - Inceptor中数据库对象的元数据保存在Inceptor Metastore中
-    - 数据库对象内的数据可以存放支持在：Holodesk表/HDFS/HBase
-
 ##### Inceptor执行计划:
 
 对SQL语句的执行需要交给Inceptor计算引擎，Inceptor主要由两类节点组成：主节点Inceptor Server，以及计算节点Executor。SQL语句由Inceptor Server解析执行，生成执行计划，最终RDD的变换执行过程组成Transwarp Spark DAG，RDD中不同的partition合理的分配给不同的计算节点Executor，每个partition对应于一个计算子任务，由Executor执行具体的计算处理。
+
+Inceptor Spark是重构自研下的定制Spark
 
 ##### Inceptor编程模型:
 
@@ -128,8 +154,12 @@ Inceptor提供两种编程模型：
 	- JOIN类型的选择
 	- 并发度的控制
 
+##### Inceptor 数据存储
 
-##### Inceptor Holodesk特性
+- Inceptor中数据库对象的元数据保存在Inceptor Metastore中
+- 数据库对象内的数据可以存放支持在：Holodesk表/HDFS/HBase/Hyperbase/RDBMS
+
+* Holodesk特性
 
 - OLAP Cube
 
@@ -161,6 +191,7 @@ Inceptor提供两种编程模型：
 
 #### 5.Alibaba Cloud - MaxCompute
 
+
 MaxCompute 主要服务于批量结构化数据的存储和计算，可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
 
 MaxCompute特点:
@@ -185,21 +216,23 @@ Ref:
 [MaxCompute Ref](https://yq.aliyun.com/articles/78108)
 [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
+多个数据仓库产品功能重叠(HybridDB / AnalyticDB / MaxCompute)
+缺少全球化的TechWriter,以支持非中国区客户
 
+#### 6.GBase+Informix
 
-#### 6.Gbase+Informix
+GBase 8a
 
 
 #### 技术思考
 
 1.数据治理(数据清洗)的智能算法
 
-数据治理是指从使用零散数据变为使用统一主数据、从具有很少或没有组织和流程治理到企业范围内的综合数据治理、从尝试处理主数据混乱状况到主数据井井有条的一个过程。
+例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
 
 2.大数据查询优化器设计
-Calcite
-Spark Catalyst
-Dremel查询引擎
+
+Calcite -> Spark Catalyst -> Dremel查询优化
 
 3.DataModel数据模型设计优化
 
@@ -219,13 +252,20 @@ message Document {
 
 5.数据存储结构设计
 
+design memory and disk-based column store
+
 Dremel NESTED COLUMNAR STORAGE
 
 LSM数据结构
 
 内存列式存储优化
 
-distributed file system文件系统(HDFS/GFS)改造 
+
+6.distributed file system文件系统改造 
+
+HDFS/GFS设计差异,定制化文件系统
+
+例如:MapR Network File System (NFS)
 
 
 

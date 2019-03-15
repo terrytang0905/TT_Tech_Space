@@ -19,12 +19,15 @@ title: SQL Optimizer Design Note
 
 #### 查询优化器分类
 
-查询优化器分为两类：基于规则的优化器(Rule-Based Optimizer，RBO) 和基于代价的优化器(Cost-Based Optimizer，CBO)：
+查询优化器分为两类：
+   
+      基于规则的优化器(Rule-Based Optimizer，RBO)
+      基于代价的优化器(Cost-Based Optimizer，CBO)
 
 * 基于规则的优化器(Rule-Based Optimizer，RBO)
 
-根据优化规则对关系表达式进行转换，这里的转换是说一个关系表达式经过优化规则后会变成另外一个关系表达式，同时原有表达式会被裁剪掉，经过一系列转换后生成最终的执行计划。
-RBO中包含了一套有着严格顺序的优化规则，同样一条SQL，无论读取的表中数据是怎么样的，最后生成的执行计划都是一样的。同时，在RBO中SQL写法的不同很有可能影响最终的执行计划，从而影响脚本性能。
+根据优化规则对关系表达式进行转换,这里的转换是说一个关系表达式经过优化规则后会变成另外一个关系表达式,同时原有表达式会被裁剪掉,经过一系列转换后生成最终的执行计划。
+RBO中包含了一套有着严格顺序的优化规则，同样一条SQL，无论读取的表中数据是怎么样的，最后生成的执行计划都是一样的。同时,在RBO中SQL写法的不同很有可能影响最终的执行计划，从而影响脚本性能。
 
 * 基于代价的优化器(Cost-Based Optimizer，CBO)
 
@@ -38,9 +41,9 @@ RBO中包含了一套有着严格顺序的优化规则，同样一条SQL，无�
 
 无论是RBO，还是CBO都包含了一系列优化规则，这些优化规则可以对关系表达式进行等价转换，常见的优化规则包含：
 
-   - 谓词下推
-   - 列裁剪
-   - 常量折叠
+   - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
+   - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
+   - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
    - 其他
 
 在这些优化规则的基础上，就能对关系表达式做相应的等价转换，从而生成执行计划。下面将介绍RBO和CBO两种优化器的执行过程。
@@ -110,16 +113,16 @@ Apache Calcite is a dynamic data management framework.
 
 The following features are complete.
 
-   - Query parser, validator and optimizer
+   - Query parser, validator and optimizer(查询解析,验证与优化)
    - Support for reading models in JSON format
    - Many standard functions and aggregate functions
    - JDBC queries against Linq4j and JDBC back-ends
    - Linq4j front-end
    - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
-   - Local and remote JDBC drivers; see Avatica
+   - Local and remote JDBC drivers; see [DriverFramework-Avatica](http://calcite.apache.org/avatica/)
    - Several adapters
 
-Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxComputer也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
+Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxCompute也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
 
 ![Calcite_Arch](_includes/calcite_arch.jpg)
 
