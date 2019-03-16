@@ -100,7 +100,7 @@ title: Big Data Research Note - Architect Design
 
 那么这样做的好处是？这些不变的文件集合被有序地流化处理，这样就能快速地写，最重要的是无需将整个索引加载入内存中。真棒！
 
-	* 使用顺序写入磁盘策略
+	Tips: 使用顺序写入磁盘策略
 
 当然它也有一个缺点，当读操作时需要询问非常多的小索引。我们将随机IO(RandomIO)写问题变为读问题。不过这确实一个很好的权衡策略，而且随机读比随机写更容易优化。
 
@@ -112,7 +112,7 @@ title: Big Data Research Note - Architect Design
 
 ##### 2.1.Log Structured Merge Tree
 
-我们创建的这个结构称作日志结构合并树(Log Structured Merge Tree),这种存储方式在大数据工具中应用较大，如Hbase、Cassandra、谷歌的BigTable等，它能用相对较小的内存开销平衡写、读性能。
+我们创建的这个结构称作日志结构合并树(Log Structured Merge Tree),这种存储方式源于谷歌的BigTable paper,在大数据工具中应用较大。如Hbase、Cassandra、OceanBase等，它能用相对较小的内存开销平衡写、读性能。
 
 ![lsm_trees](_includes/lsm_trees.jpg)
 
@@ -150,7 +150,8 @@ title: Big Data Research Note - Architect Design
 
 这和先前提到的“堆文件和索引(heap file & index)”方式不同，很好的理解这一点可以问自己，诸如此类的列方式和每一个字段带有索引的“堆和索引”方式有什么不同？
 
-	列式存储天然的保持了一列中数据的顺序性，方便两列数据进行关联，而heap-file index结构关联时候，一份数据可以按顺序读取，则另一份数据就会有随机读取了。
+	列式存储天然的保持了一列中数据的顺序性，方便两列数据进行关联。
+	而heap-file index结构关联时候，一份数据可以按顺序读取，则另一份数据就会有随机读取了。
 
 ![seq_merge_joins](_includes/seq_merge_joins.jpg)
 
@@ -173,23 +174,23 @@ title: Big Data Research Note - Architect Design
 
 我们都想将最好的技术作为数据平台控件，提升其中的某种核心功能，胜任一组特定的负载。
 
-- 1.内存映射文件
+- 1. 内存映射文件
 
 将索引存于内存而非heap-file结构为很多非关系型数据库(NoSQL)所喜爱，比如Riak、Couchbase或者Mongodb，甚至一些关系型数据库，这种简单的模型效果不错。
 
-- 2.LSM方式
+- 2. LSM方式
 
 设计用来处理海量数据集的工具是大多采用LSM方式，这样可以快速获取数据，得到基于硬盘结构 读一样好的性能。HBase、Cassandra、RocksDB、 LevelDB 甚至Mongo新版本现在也支持这种方式。
 
-- 3.列式存储
+- 3. 列式存储
 
 列存储(Column-per-file)引擎常用于MPP数据库(大规模并行处理数据库)，比如Redshift/Vertica/Greenplum，以及Hadoop stack中的Parquet。这些数据引擎最大的问题是需要大的遍历(大表扫描)。数据聚合类操作(最大最小值)是此方案最重要的用途。
 
-- 4.顺序IO读写
+- 4. 顺序IO读写
 
 诸如Kafka采用一个简单的、基于硬件的高效消息规范。消息可以简单地追加到文件的末尾，或者从预定的offset偏移量处读取。可以从某个偏移量读取消息，来来回回，你可以从上次结束的偏移量处读取。是很高效的顺序IO读写方式。
 
-- 5.常规消息队列
+- 5. 常规消息队列
 
 这和多数面向消息的中间件不同，JMS(Java消息服务)和AMQP(高级消息队列协议)说明文档需要额外的索引，来管理选择器和session会话消息。这意味着它们结束某个行为的方式更像数据库，而非某个文件。著名的论述是1995年Jim Gray发表的队列就是数据库(Queue’s are Databases).
 
@@ -265,7 +266,7 @@ title: Big Data Research Note - Architect Design
 
 - 解决一致性问题的方法其实很简单，就是避免它。
 
-	Tips:用最终一致性替代强一致性
+    Tips:用最终一致性替代强一致性
 
 如果无法避免，隔离它为其分配尽可能少的写操作和计算机资源。
 
@@ -419,6 +420,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 #### 6.MPP并行计算
 
 相关MPP分布式详细分析,可参见
+
 -[分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
 
 #### 7.其他
@@ -432,7 +434,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 
 需要记住几件事，一是schema，二是时间、分布式、异步系统风险。但这些问题都是可控的，前提是你认真对待。未来大数据领域可能会出现这样一些新的工具、革新，逐渐掺入到平台中，解决过去和现在更多的问题。
 
-	译者注：schema 指数据库完整性约束。
+	译者注：schema指数据库完整性约束。
 
 ![problem1_schema](_includes/problem1_schema.jpg)
 

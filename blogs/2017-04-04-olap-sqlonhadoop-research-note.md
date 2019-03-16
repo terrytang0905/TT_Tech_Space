@@ -30,11 +30,11 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 #### 1.Impala
 
-[Impala交互式OLAP查询](2016-12-12-olap-rt-impala-practice-note.md)
+[Impala交互式OLAP查询](2016-12-13-olap-distributed-impala-practice-note.md)
 
 #### 2.PrestoDB
 
-[PrestoDB交互式OLAP查询](2016-12-12-olap-rt-presto-practice-note.md)
+[PrestoDB交互式OLAP查询](2017-04-03-olap-distributed-presto-practice-note.md)
 
 #### Presto引擎对比
 
@@ -317,6 +317,9 @@ Google Dremel就在实现层面做出了范例,Parquet则完全仿照了Dremel�
 
 在最近我们做的Impala2.0测试中,顺便测试了存储格式的影响。parquet相比sequencefile在压缩比上达到1:5,**查询性能也相差5-10倍**,足见列存储一项就给查询引擎带来的提升。
 
+_CarbonData_
+
+支持二级索引的开源文件格式,优势在查询,数据压缩比率不高
 
 #### 5.资源控制
 

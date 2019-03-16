@@ -84,7 +84,7 @@ title: Big Data Research Note - Database Architect
   
 **MVCC多版本并行控制**
 
-**bitmap**
+**Bitmap**
 
 	- bitmap可以理解为通过一个bit数组来存储特定数据的一种数据结构，每一个bit位都能独立包含信息，bit是数据的最小存储单位
 	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的,例如异常IP等
@@ -196,7 +196,7 @@ title: Big Data Research Note - Database Architect
 
 *3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)*
 
-*4.[Vertica数据库结构]*
+*4.[Vertica数据库结构]()*
 
 #### B.Hadoop-MapReduce批处理
 
@@ -361,13 +361,15 @@ Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小�
 
 ![database_type_all](_includes/database_all.png)
 
-	* excluded Hadoop Batch Processing
+	Tip:
+	These Database solution come from Amazon excluded Hadoop Batch Processing.
 
 ### IV.数据库架构基础
 
 #### 通用数据库架构分析
 
--[How does a relational database work](http://coding-geek.com/how-databases-work/)
+[How does a relational database work](http://coding-geek.com/how-databases-work/)
+
 
 *1.合并排序算法*
 

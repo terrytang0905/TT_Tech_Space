@@ -205,8 +205,8 @@ DNS流量/TCP&IP流量
 
 * 4.4.3.自动化数据质量监控
 
-DataCleaner开源数据质量工具
-https://github.com/datacleaner/DataCleaner
+[DataCleaner开源数据质量工具](https://github.com/datacleaner/DataCleaner)
+
 
 #### 5.产品效果如何检验?
 

@@ -125,5 +125,8 @@ Kappa架构适合非超大量数据的实时计算,可以使用一个代码架�
 
 ### Flink Architect
 
+- [Flink技术研究](2018-05-31-flink-research-note.md)
+
+_Ref:_
 
 [Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)

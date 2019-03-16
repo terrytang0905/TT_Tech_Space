@@ -5,7 +5,7 @@ tags : [bigdata, olap, develop]
 title: SQL Optimizer Design Note
 ---
 
-## QC查询优化器设计研究
+## 查询优化器设计研究
 ---------------------------------------------------------
 
 ### 1.查询优化器概述
