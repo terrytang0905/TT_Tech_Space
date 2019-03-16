@@ -12,24 +12,28 @@ title: Database Research Note - Database Management for Analytics
 
 ### 核心能力定义
 
-Access to Multiple Data Sources
-Administration and Management
-Advanced Analytics
-Data Ingest(减少移动数据,增强移动计算)
-Managing Large Volumes of Data
-Optimized Performance (Traditional/Exploratory)
-Flexible Scalability
-Variety of Data Types
-Workload Management(负载管理)
-Traditional Use Support
+**Core Capibility**
 
-Traditional Data Warehouse
-Real-Time Data Warehouse(adhoc querying and data mining)
-Logical Data Warehouse
+- Access to Multiple Data Sources
+- Administration and Management
+- Advanced Analytics
+- Data Ingest(减少移动数据,增强移动计算)
+- Managing Large Volumes of Data
+- Optimized Performance (Traditional/Exploratory)
+- Flexible Scalability
+- Variety of Data Types
+- Workload Management(负载管理)
+- Traditional Use Support
+
+**ADW Utility**
+
+-Traditional Data Warehouse
+-Real-Time Data Warehouse(adhoc querying and data mining)
+-Logical Data Warehouse
 
 	This use case manages data variety and volume of data for both structured and other content data types.
 
-Context-Independent Data Warehouse
+-Context-Independent Data Warehouse
 
 	This use case concerns new data values, variants of data form and new relationships. It supports search, graph and other capabilities for discovering new information models.
 
@@ -46,10 +50,11 @@ Context-Independent Data Warehouse
 1.A high-performance storage layer is critical for in situ data management.
 2.Columnar storage proved successful for flat relational data but making it work for Google required adapting it to a nested data model.
 
-Ref:
+_Ref:_
 
-- [SQLonHadoop研究Note-Dremel](2017-04-04-olap-sqlonhadoop-research-note.md)
-- [BigQuery](https://cloud.google.com/bigquery/)
+[BigQuery](https://cloud.google.com/bigquery/)
+[SQLonHadoop研究Note-Dremel](2017-04-04-olap-sqlonhadoop-research-note.md)
+
 
 
 #### 2.Huawei FusionInsight
@@ -81,13 +86,15 @@ Ref:
 
 Apache CarbonData文件格式的压缩率缩减与数据导入时间的延长
 
-- [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
+_Ref:_
+
+[CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
 ##### 华为MPPDB-FusionInsight LibrA
     
-     FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)型数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
+FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)型数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
  
-     FusionInsight LibrA采用MPP(Massive Parallel Processing)架构，支持行存储与列存储，提供PB(Petabyte，250字节)级别数据量的处理能力。在核心技术上较传统数据库有巨大优势，能够解决不同行业用户的数据分析性能问题，可以为超大规模数据分析提供高性价比的方案，并可用于支撑各类数据仓库系统、数据集市、BI(Business Intelligence)系统和决策支持系统。
+FusionInsight LibrA采用MPP(Massive Parallel Processing)架构，支持行存储与列存储，提供PB(Petabyte，250字节)级别数据量的处理能力。在核心技术上较传统数据库有巨大优势，能够解决不同行业用户的数据分析性能问题，可以为超大规模数据分析提供高性价比的方案，并可用于支撑各类数据仓库系统、数据集市、BI(Business Intelligence)系统和决策支持系统。
 
 FusionInsight LibrA关键特性：
  
@@ -140,7 +147,7 @@ Inceptor提供两种编程模型：
 
 ##### Inceptor SQL Optimizer
 
-* 基于规则的优化器(Rule Based Optimizer)
+*基于规则的优化器(Rule Based Optimizer)*
 
 	- 文件读取时过滤
 	- 过滤条件前置
@@ -148,7 +155,7 @@ Inceptor提供两种编程模型：
 	- Shuffle Stage的优化与消除
 	- Partition消除
 
-* 基于成本的优化器(Cost Based Optimizer)
+*基于成本的优化器(Cost Based Optimizer)*
 
 	- JOIN顺序调优
 	- JOIN类型的选择
@@ -159,30 +166,30 @@ Inceptor提供两种编程模型：
 - Inceptor中数据库对象的元数据保存在Inceptor Metastore中
 - 数据库对象内的数据可以存放支持在：Holodesk表/HDFS/HBase/Hyperbase/RDBMS
 
-* Holodesk特性
+*Holodesk特性*
 
-- OLAP Cube
+    - OLAP Cube
 
 		Holodesk支持在数据表中内建Cube，并在数据分析时有效的利用这些Cube信息来加速分析查询。目前对于10亿级别的数据量，Transwarp Inceptor结合Holodesk能够在4台X86 PC服务器组成集群上5s内完成实时聚合运算，与传统Cube的预先物化计算不同，Holodesk利用Cube信息实时计算，没有过滤条件以及统计粒度的限制，提供完整的OLAP能力。
 
-- 索引
+    - 索引
 
 		Holodesk支持用户对数据列建立索引来加速查询，因此对精确查询能够做到亚秒级返回。另外Holodesk支持对多个列构建索引，并通过智能索引技术自动选择最高效的索引来执行物理计划，从而让SQL编程更加简单。
 
-- 为SSD优化的存储模型
+    - 为SSD优化的存储模型
 
 		为了给客户提供更高性价比的解决方案， Holodesk为SSD优化了存储模型，从而保证基于SSD的OLAP性能能够达到基于内存的性能80%以上，而成本降低到原有1/10。Inceptor是Hadoop业界首个和SSD深度优化的SQL执行引擎。
 
-- 容错技术
+    - 容错技术
 
 		Transwarp Holodesk通过Zookeeper来管理元数据，从而避免因为单点故障而导致的数据丢失，数据checkpoint在HDFS中。服务在故障恢复之后，Holodesk能够通过Zookeeper中的信息自动重建数据与索引，因此有很高的可靠性。
 
-- 线性扩展
+    - 线性扩展
 
 		Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建多个Cube的开销是呈线性关系，同时Cube的数据也是分散保存在集群各个节点上。另外，通过对SSD的针对优化与支持，可以将分析容量从基于内存GB级扩展到基于SSD的TB级，同时分析性能与容量随着节点的个数近乎线性增长。
 
 
-> Spark执行引擎稳定性问题
+	Comments:Spark执行引擎稳定性问题
 
 
 #### 4.Huawei FusionInsight vs Transwarp Inceptor
@@ -192,7 +199,7 @@ Inceptor提供两种编程模型：
 #### 5.Alibaba Cloud - MaxCompute
 
 
-MaxCompute 主要服务于批量结构化数据的存储和计算，可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
+MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
 
 MaxCompute特点:
 
@@ -211,13 +218,15 @@ MaxCompute特点:
 
 MaxComputer SQL Parser & SQL Optimizer
 
-Ref:
+	Comments:
+	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / MaxCompute)
+	2.缺少全球化的TechWriter,以支持非中国区客户
+
+_Ref:_
 
 [MaxCompute Ref](https://yq.aliyun.com/articles/78108)
 [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
-多个数据仓库产品功能重叠(HybridDB / AnalyticDB / MaxCompute)
-缺少全球化的TechWriter,以支持非中国区客户
 
 #### 6.GBase+Informix
 
@@ -226,15 +235,15 @@ GBase 8a
 
 #### 技术思考
 
-1.数据治理(数据清洗)的智能算法
+*1.数据治理(数据清洗)智能算法*
 
 例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
 
-2.大数据查询优化器设计
+*2.大数据查询优化器设计*
 
 Calcite -> Spark Catalyst -> Dremel查询优化
 
-3.DataModel数据模型设计优化
+*3.DataModel数据模型设计优化*
 
 面向Document的数据模型结构
 ```
@@ -250,7 +259,7 @@ message Document {
     optional string Url; }}
 ```
 
-5.数据存储结构设计
+*5.数据存储结构设计*
 
 design memory and disk-based column store
 
@@ -261,7 +270,7 @@ LSM数据结构
 内存列式存储优化
 
 
-6.distributed file system文件系统改造 
+*6.distributed file system文件系统改造*
 
 HDFS/GFS设计差异,定制化文件系统
 
