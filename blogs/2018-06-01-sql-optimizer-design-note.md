@@ -26,16 +26,14 @@ title: SQL Optimizer Design Note
 
 
 #### 查询计划策略分类
-   
-      基于规则的优化器(Rule-Based Optimizer，RBO)
-      基于代价的优化器(Cost-Based Optimizer，CBO)
 
-* 基于规则的优化器(Rule-Based Optimizer，RBO)
+
+**Rule-Based Optimizer(RBO,基于规则策略的优化器)**
 
 根据优化规则对关系表达式进行转换,这里的转换是说一个关系表达式经过优化规则后会变成另外一个关系表达式,同时原有表达式会被裁剪掉,经过一系列转换后生成最终的执行计划。
 RBO中包含了一套有着严格顺序的优化规则，同样一条SQL，无论读取的表中数据是怎么样的，最后生成的执行计划都是一样的。同时,在RBO中SQL写法的不同很有可能影响最终的执行计划，从而影响脚本性能。
 
-* 基于代价的优化器(Cost-Based Optimizer，CBO)
+**Cost-Based Optimizer(CBO,基于代价策略的优化器)**
 
 根据优化规则对关系表达式进行转换，这里的转换是说一个关系表达式经过优化规则后会生成另外一个关系表达式，同时原有表达式也会保留，经过一系列转换后会生成多个执行计划，然后CBO会根据统计信息和代价模型(Cost Model)计算每个执行计划的Cost，从中挑选Cost最小的执行计划。由上可知，CBO中有两个依赖：统计信息和代价模型。统计信息的准确与否、代价模型的合理与否都会影响CBO选择最优计划。
 
@@ -47,10 +45,10 @@ RBO中包含了一套有着严格顺序的优化规则，同样一条SQL，无�
 
 无论是RBO，还是CBO都包含了一系列优化规则，这些优化规则可以对关系表达式进行等价转换，常见的优化规则包含：
 
-   - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
-   - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
-   - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
-   - 其他
+    - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
+    - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
+    - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
+    - 其他
 
 在这些优化规则的基础上，就能对关系表达式做相应的等价转换，从而生成执行计划。下面将介绍RBO和CBO两种优化器的执行过程。
 
@@ -87,12 +85,189 @@ CBO实现有两种模型，即Volcano模型[1]和Cascades模型[2]，其中Calci
 
 ### 2.SQL查询优化器分析
 
-1._SQLite优化器_
+
+#### 查询重写器 Query Rewriter(视图重写)
+
+> 预优化查询SQL
+> 避免不必要的运算
+> 查询重写&语义解析优化(逻辑优化)
+> 帮助优化器找到合理的最佳解决方案
+
+查询重写部分规则:
+
+    - 视图合并：如果你在查询中使用视图，视图就会转换为它的 SQL 代码。
+    - 子查询扁平化：子查询是很难优化的，因此重写器会尝试移除子查询
+    - 去除不必要的运算符：比如，如果你用了 DISTINCT，而其实你有 UNIQUE 约束（这本身就防止了数据出现重复），那么 DISTINCT 关键字就被去掉了。
+    - 排除冗余的联接：如果相同的 JOIN 条件出现两次，比如隐藏在视图中的 JOIN 条件，或者由于传递性产生的无用 JOIN，都会被消除。
+    - 常数计算赋值：如果你的查询需要计算，那么在重写过程中计算会执行一次。比如 WHERE AGE > 10+2 会转换为 WHERE AGE > 12 ， TODATE(“日期字符串”) 会转换为 datetime 格式的日期值。
+    - (高级)分区裁剪(Partition Pruning):如果你用了分区表，重写器能够找到需要使用的分区。
+    - (高级)物化视图重写(Materialized view rewrite):如果你有个物化视图匹配查询谓词的一个子集，重写器将检查视图是否最新并修改查询，令查询使用物化视图而不是原始表。
+    - (高级)自定义规则：如果你有自定义规则来修改查询（就像 Oracle policy），重写器就会执行这些规则。
+    - (高级)OLAP转换：分析/加窗 函数，星形联接，ROLLUP 函数……都会发生转换(但我不确定这是由重写器还是优化器来完成，因为两个进程联系很紧，必须看是什么数据库)
+
+SQL查询重写优化规则=等价转换:
+
+    - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
+    - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
+    - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
+    - 子查询&子连接提升
+    - 表达式预处理
+    - 外连接消除
+    - 连接顺序交换
+ 
+#### 逻辑查询优化
+
+   
+
+#### 物理查询优化
+
+2.1._常规操作_
+
+    TableScan,Join,Sorting,Aggregate
+
+2.2._优化模式_
+  
+    - 基于规则策略的优化器(Rule-Based Optimizer，RBO)
+    - 基于代价策略的优化器(Cost-Based Optimizer，CBO)
+    - Choose：默认的情况下Oracle用的便是这种方式。指的是当一个表或索引有统计信息，则走CBO的方式，如果表或索引没统计信息，表又不是特别的小，而且相应的列有索引时，那么就走索引，走RBO的方式。
+    - FirstRows：它与Choose方式是类似的，所不同的是当一个表有统计信息时，它将是以最快的方式返回查询的最先的几行，从总体上减少了响应时间。
+    - All Rows:也就是我们所说的Cost的方式，当一个表有统计信息时，它将以最快的方式返回表的所有的行，从总体上提高查询的吞吐量。没有统计信息则走RBO的方式。
+
+**A.TableScan:执行计划与扫描**
+
+    - 存取路径-获取数据的方式
+    - 全扫描Full Scan(Sequential Scan) / Index Scan
+    - 范围扫描 Range Scan /  索引范围扫描
+    - 唯一扫描 Unique Scan
+    - 根据ROW ID存取
+    - 其他路径
+
+由于所有存取路径的真正问题是磁盘I/O问题
+
+**B.内关系与外关系(inner relation and outer relation)**
+
+    - 外关系是左侧数据集
+    - 内关系是右侧数据集
+    - 针对外关系的每一行
+    - 查看内关系里的所有行来寻找匹配的行
+    - 内关系必须是最小的，因为它有更大机会装入内存
+
+**C.JOIN优化-联接算法**
+
+2.3._两表联接算法分析_
+
+A.联接运算符
+
+**Nested Loop Join -嵌套循环联接算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表**
+
+    1) With Inner Sequential Scan(FullScan)
+    2) With Inner Index Scan
+
+**Merge Join -唯一排序归并联接算法**
+
+    1) O(N x Log(N) + M x Log(M))-需排序
+    2) O(N+M)-已排序,我们是只挑选相同的元素。
+    3) 在两个关系中，比较当前元素（当前=头一次出现的第一个）
+    4) 如果相同，就把两个元素都放入结果，再比较两个关系里的下一个元素
+    5) 如果不同，就去带有最小元素的关系里找下一个元素（因为下一个元素可能会匹配）
+    6) 重复 1、2、3步骤直到其中一个关系的最后一个元素。
+
+**Hash Join -复杂度就是 O(M+N) – 类似大小的表join**
+
+    哈希联接的道理是：
+    1) 读取内关系的所有元素
+    2) 在内存里建一个哈希表
+    3) 逐条读取外关系的所有元素
+    4) (用哈希表的哈希函数)计算每个元素的哈希值，来查找内关系里相关的哈希桶内
+    5) 是否与外关系的元素匹配
+    6) 生成哈希表需要时间
+
+
+B.联接运算算法选择:
+
+    - 空闲内存：没有足够的内存的话就跟强大的哈希联接拜拜吧(至少是完全内存中哈希联接)。
+    - 两个数据集的大小。比如，如果一个大表联接一个很小的表，那么嵌套循环联接就比哈希联接快，因为后者有创建哈希的高昂成本；如果两个表都非常大，那么嵌套循环联接CPU成本就很高昂。
+    - 是否有索引：有两个B+树索引的话，聪明的选择似乎是合并联接(MergeJoin)。
+    - 结果是否需要排序：即使你用到的是未排序的数据集，你也可能想用成本较高的合并联接（带排序的），因为最终得到排序的结果后，你可以把它和另一个合并联接串起来（或者也许因为查询用 ORDER BY/GROUP BY/DISTINCT 等操作符隐式或显式地要求一个排序结果）。
+    - 关系是否已经排序：这时候合并联接是最好的候选项。
+    - 联接的类型：是等值联接（比如 tableA.col1 = tableB.col2 ）？ 还是内联接？外联接？笛卡尔乘积？或者自联接？有些联接在特定环境下是无法工作的。
+    - 数据的分布：如果联接条件的数据是倾斜的（比如根据姓氏来联接人，但是很多人同姓），用哈希联接将是个灾难，原因是哈希函数将产生分布极不均匀的哈希桶。
+    - 如果你希望联接操作使用多线程或多进程。
+
+2.4._多表联接算法_
+
+核心问题算法应用
+
+    * 多表间的连接顺序表示查询计划树的基本形态
+    * 多表连接的搜索空间
+
+动态规划/启发式算法/贪婪算法/遗传算法
+
+    * 完全动态规划算法 - O(3^N)
+      它们都有相同的子树(A JOIN B),所以,不必在每个计划中计算这个子树的成本,计算一次,保存结果,当再遇到这个子树时重用。
+    * 启发式算法 - 附加额外规则
+    * 贪婪算法 - 算法的复杂度是 O(Nxlog(N))
+      原理是按照一个规则(或启发)以渐进的方式制定查询计划。在这个规则下，贪婪算法逐步寻找最佳算法，先处理一条JOIN，接着每一步按照同样规则加一条新的JOIN。
+    * 遗传算法
+
+_Ref:_
+
+[数据库JOIN查询算法](http://www.acad.bg/rismim/itc/sub/archiv/Paper6_1_2009.PDF)
+
+
+2.5._统计优化_
+
+数据库统计用于预计数据库具体情况,可优化查询性能。
+
+    * 表中行和页的数量
+    * 表中每个列中的：
+      唯一值
+      数据长度（最小，最大，平均）
+      数据范围（最小，最大，平均）
+    * 表的索引信息
+
+这些统计信息会帮助优化器估计查询所需的磁盘I/O、CPU、和内存使用。对每个列的统计非常重要,可判读列数据是否是唯一,还是重复数据 
+
+高级统计叫直方图
+
+    * 出现最频繁的值
+    * 分位数 
+
+
+    Comments:统计信息及时更新可以有效降低内存消耗
+
+
+2.6._聚合函数计算_
+
+_HashAggregate_
+
+    对于hash聚合来说，数据库会根据group by字段后面的值算出hash值，并根据前面使用的聚合函数在内存中维护对应的列表。如果select后面有两个聚合函数，那么在内存中就会维护两个对应的数据。同样的，有n个聚合函数就会维护n个同样的数组。对于hash算法来说，数组的长度肯定是大于group by的字段的distinct值的个数的，且跟这个值应该呈线性关系，group by后面的值越唯一，使用的内存也就越大。
+
+    因此HashAggregate在少数聚合函数是表现优异，但是很多聚合函数，性能跟消耗的内存差异很明显。尤其是受group by字段的唯一性很明显，字段count（district）值越大，hash聚合消耗的内存越多，性能下降剧烈。
+
+_GroupAggregate_
+
+    原理是先将表中的数据按照group by的字段排序,对排好序的数据进行一次全扫描,就可以得到聚合的结果。
+
+    对于GroupAggregate来说，消耗的内存基本上是恒定的，无论group by哪个字段。当聚合函数较少的时候，速度也相对较慢，但是相对稳定。
+
+
+#### 查询计划执行确认
+
+2.7._查询计划缓存_
+
+    每当试图执行查询时，查询管道都会查找它的查询计划缓存，以便了解该查询是否已经编译且可用。 如果答案是肯定的，它将重用缓存的计划而不是生成新的计划。 如果未在查询计划缓存中找到匹配的计划，则会编译和缓存该查询。 
+    查询由其 Entity SQL 文本和参数集合（名称和类型）标识。 所有文本比较都区分大小写。
+
+
+### 3.SQL常用查询优化器
+
+* 3.1._SQLite优化器_
 
 		使用Nested嵌套联接
 		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
 
-2._DB2优化器_
+* 3.2._DB2优化器_
 
 		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
 		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
@@ -102,54 +277,55 @@ CBO实现有两种模型，即Volcano模型[1]和Cascades模型[2]，其中Calci
 		考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
 		默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
 
-	默认的，DB2 对联接排列使用受启发式限制的动态编程算法。	
-
-3._Genetic Query Optimizer - PostgerSQL查询优化器_
+* 3.3._Genetic Query Optimizer - PostgerSQL查询优化器_
 
 [geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
 
-	The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies. It can take an enormous amount of time and memory space when the number of joins in the query grows large. This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
+	   The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies. It can take an enormous amount of time and memory space when the number of joins in the query grows large. This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
 
-	genetic algorithm(GA) & GEQO 
+genetic algorithm(GA) & GEQO 
 
+    Comments: PostgreSQL Genetic Query Optimizer = Greenplum Legacy Query Optimizer
 
-### 3.GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA
+### 4.[大数据查询优化器]GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA
 
 ![PQC-OrcaArch](_includes/Orca_arch.png)
 
 Pivotal Query Optimizer(PQO)权衡多核计数器,其实现通过多核CPU来分布独立优化任务,从而加速优化进程。PQO用于以下几种查询场景:
    
-   - Queries against partitioned tables 查询分区表
-   - Queries that contain a common table expression (CTE) 查询通用表表达式
-   - Queries that contain subqueries 子查询
+    - Queries against partitioned tables 查询分区表
+    - Queries that contain a common table expression (CTE) 查询通用表表达式
+    - Queries that contain subqueries 子查询
 
 GPORCA在以下几个方面针对大数据查询的增强Greenplum数据库查询性能优化:
 
-* Dynamic Partition Elimination动态分区裁剪(Queries against partitioned tables)
+**Dynamic Partition Elimination动态分区裁剪(Queries against partitioned tables)**
       
-      PartitionSelector, DynamicScan, and Sequence.
-      - PartitionSelector computes all the child partition OIDs that satisfy the partition selection conditions given to it.
-      - DynamicScan is responsible for passing tuples from the partitions identified by the PartitionSelector.
-      - Sequence is an operator that executes its child operators and then returns the result of the last one.
+    PartitionSelector, DynamicScan, and Sequence.
+    - PartitionSelector computes all the child partition OIDs that satisfy the partition selection conditions given to it.
+    - DynamicScan is responsible for passing tuples from the partitions identified by the PartitionSelector.
+    - Sequence is an operator that executes its child operators and then returns the result of the last one.
    
-* SubQuery Unnesting子查询非嵌套(Queries that contain subqueries)
+**SubQuery Unnesting子查询非嵌套(Queries that contain subqueries)**
       
-      - Removing Unnecessary Nesting取消无用的嵌套
-      - Subquery Decorrelation子查询解相关
-      - Conversion of Subqueries into Joins子查询变换
+    - Removing Unnecessary Nesting取消无用的嵌套
+    - Subquery Decorrelation子查询解相关
+    - Conversion of Subqueries into Joins子查询变换
    
-* Common Table Expressions(CTE-Queries是指用于单次查询的临时表表达式)
+**Common Table Expressions(CTE-Queries是指用于单次查询的临时表表达式)**
 
-* Other Optimization Enhancements:
+**Other Optimization Enhancements:**
 
-   - Improved join ordering
-   - Join-Aggregate reordering
-   - Sort order optimization
-   - Data skew estimates included in query optimization
+    - Improved join ordering
+    - Join-Aggregate reordering
+    - Sort order optimization
+    - Data skew estimates included in query optimization
 
 
-- [PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
-- [PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+_Ref:_
+
+[PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
+[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
 
 
 #### _Legacy Query Optimizer - Greenplum/PostgreSQL_
@@ -248,20 +424,20 @@ Total runtime: 605.406 ms
 (32 rows)
 ```
 
-### 4.Apache Calcite数据框架
+### 5.Apache Calcite数据框架
 
 Apache Calcite is a dynamic data management framework.
 
 The following features are complete.
 
-   - Query parser, validator and optimizer(查询解析,验证与优化)
-   - Support for reading models in JSON format(查看json格式)
-   - Many standard functions and aggregate functions(支持标准函数与聚合函数)
-   - JDBC queries against Linq4j and JDBC back-ends
-   - Linq4j front-end
-   - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
-   - Local and remote JDBC drivers; see [DriverFramework-Avatica](http://calcite.apache.org/avatica/)
-   - Several adapters
+    - Query parser, validator and optimizer(查询解析,验证与优化)
+    - Support for reading models in JSON format(查看json格式)
+    - Many standard functions and aggregate functions(支持标准函数与聚合函数)
+    - JDBC queries against Linq4j and JDBC back-ends
+    - Linq4j front-end
+    - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
+    - Local and remote JDBC drivers; see [DriverFramework-Avatica](http://calcite.apache.org/avatica/)
+    - Several adapters
 
 Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxCompute也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
 
@@ -280,13 +456,14 @@ Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行
 
 事实上，Calcite提供了RBO和CBO两种优化策略方式，分别对应HepPlanner和VolcanoPlanner。对此，本文也不进行展开，后续有时间再详细介绍Calcite的具体实现。
 
-   Comments:Hive Optimizer当前是使用Calcite作为核心查询优化器引擎
+    Comments:Hive Optimizer当前是使用Calcite作为核心查询优化器引擎
 
 
 
-### 5.SQLonHadoop Optimizer
+### 6.[大数据查询优化器]SQLonHadoop Optimizer
 
-#### 5.1.Hive Optimizer(Calcite)
+
+#### 6.1.Hive Optimizer(Calcite)
 
 早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。
 
@@ -319,18 +496,20 @@ CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等
 
 目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
 
-Ref:[HiveSQL性能优化](2017-06-10-hive-sql-performance-note.md)
+_Ref:_
 
-#### 5.2.SparkSQL Catalyst优化器
+[HiveSQL性能优化](2017-06-10-hive-sql-performance-note.md)
+
+#### 6.2.SparkSQL Catalyst优化器
 
 SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
 
 Catalyst的通用树转换框架分为四个阶段，如下所示：
 
-   1）分析解决引用的逻辑计划
-   2）逻辑计划优化
-   3）物理计划
-   4）代码生成用于编译部分查询生成Java字节码。
+    1)分析解决引用的逻辑计划
+    2)逻辑计划优化
+    3)物理计划
+    4)代码生成用于编译部分查询生成Java字节码。
 
 ![SparkCatalyst](_includes/spark_sql_catalyst.jpg)
 
@@ -342,24 +521,22 @@ ParserAnalyzer(with Catalog)Optimizer和Catalyst具有类似功能的是Apache C
 
 折腾完Catalyst,可以去比较两者的异同。
 
-如果要快速理解Catalyst
+_Ref:_
 
-- [SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
+如果要快速理解Catalyst-[SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
 
-#### 5.3.Calcite vs SparkSQL Catalyst
+#### 6.3.Calcite vs SparkSQL Catalyst
 
 
 
-### 6.Presto New Optimzer
+### 7.[大数据查询优化器]Presto New Optimzer
 
-_Presto Cost-based Query Optimization_
+**Presto Cost-based Query Optimization**
 
-JOIN & 语义树
+    - JOIN联接算法 & 语义树
+    - Table Statistics
+    - Filter Statistics
 
-Table Statistics
-
-Filter Statistics
-
-### 7.Dremel Optimizer (Unknown)
+### 8.[大数据查询优化器]Dremel Optimizer (Unknown)
 
 
