@@ -267,7 +267,7 @@ _IO优化_
 	* disk-aware scheduling:通过知道每个block所在磁盘,可以在调度cpu资源时让不同的cpu读不同的磁盘,避免查询内和查询间的IO竞争。HDFS参数是dfs.datanode.hdfs-blocks-metadata.enabled。
 
 
-> HDFS文件系统的缺陷可能是开源SQLonHadoop的性能瓶颈
+	Comments: HDFS文件系统的缺陷可能是开源SQLonHadoop的性能瓶颈
 
 #### 4.文件存储格式
 

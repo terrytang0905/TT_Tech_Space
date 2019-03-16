@@ -10,7 +10,7 @@ title: Big Data OLAP Note - PrestoDB OLAP
 
 #### PrestoDB
 
-[Presto](https://prestodb.io/docs/current/)
+- [Presto Doc](https://prestodb.io/docs/current/)
 
 #### Presto架构
 
@@ -67,13 +67,15 @@ Plugin API:
 
 #### Presto执行过程
 
-* 执行过程示意图:
+**执行过程示意图:**
 
 ![Presto执行过程](_includes/Presto执行过程.png)
 
-* Client -> Coordinator -> 3Worker -> FinalWorker -> Client
+**Client -> Coordinator -> 3Worker -> FinalWorker -> Client**
 
-* 提交查询:用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,如下图:示例SQL如下
+* 提交查询:用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,
+
+如下图:示例SQL如下
 
 ![PrestoSQL解析](_includes/PrestoSQL解析.png)
 
@@ -81,7 +83,7 @@ Plugin API:
 select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id where c1.id > 10 group by c1.rank limit 10;
 ```
 
-* 逻辑执行过程示意图如下:
+逻辑执行过程示意图如下:
 
 ![Presto逻辑执行计划图](_includes/Presto逻辑执行计划图.png)
 
@@ -89,15 +91,21 @@ select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id wher
 (可能由于ORDER BY排序任务损耗性能,因此在执行计划中未有采用)
 
 
-SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、**partitionBy**属性整个执行过程的流程图如下：
+**SubPlan有几个重要的属性**
 
-1.PlanDistribution:表示一个查询阶段的分发方式,上图中的4个SubPlan共有3种不同的PlanDistribution方式
+	- planDistribution
+	- outputPartitioning
+	- partitionBy属性
+
+整个执行过程的流程图如下：
+
+1. PlanDistribution:表示一个查询阶段的分发方式,上图中的4个SubPlan共有3种不同的PlanDistribution方式
 
 	* Source:表示这个SubPlan是数据源,Source类型的任务会按照数据源大小确定分配多少个节点进行执行
 	* Fixed:表示这个SubPlan会分配固定的节点数进行执行（Config配置中的query.initial-hash-partitions参数配置,默认是8）
 	* None:表示这个SubPlan只分配到一个节点进行执行
 	
-2.OutputPartitioning:表示这个SubPlan的输出是否按照partitionBy的key值对数据进行Shuffle(洗牌),只有两个值HASH和NONE
+2. OutputPartitioning:表示这个SubPlan的输出是否按照partitionBy的key值对数据进行Shuffle(洗牌),只有两个值HASH和NONE
 
 ![PrestoSubPlan](_includes/PrestoSubPlan.png)
 
@@ -117,8 +125,10 @@ SubPlan有几个重要的属性**planDistribution**、**outputPartitioning**、*
 
 
 
+- [Presto New Optimizer](https://github.com/prestodb/presto/wiki/New-Optimizer)
+
 #### Ref
 
 - [Introduce to presto CBO](https://www.starburstdata.com/technical-blog/introduction-to-presto-cost-based-optimizer/)
-- [Presto New Optimizer](https://github.com/prestodb/presto/wiki/New-Optimizer)
+
 

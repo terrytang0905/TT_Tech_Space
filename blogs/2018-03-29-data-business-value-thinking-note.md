@@ -17,23 +17,23 @@ title: BigData Business Value Thinking
 
 从数据来源上来讲，最重要的是我们要区分什么是交易数据什么是行为数据
 
-*交易数据的特征:*
+**交易数据的特征:**
 
 	这样的交易数据有什么特点呢？有两个重要的特点，首先一致性的要求很高，银行、电信的交易数据每一条都不错，而且处理的时事性要求很高。另外一个特点，就是它的数据量并没有到达海量的程度
 
-*行为数据的特征:*
+**行为数据的特征:**
 
 	行为数据的数据规模巨大,一个广告公司每天处理的数量是达到100亿次。它的一致性的要求很低。另外,行为数据里的价值的密度是很低的,要求我们必须要采取低成本的方案。
 
-*由结构化数据转向非结构化数据*
+**由结构化数据转向非结构化数据**
 
 	交易数据一般可理解为结构化数据。而行为数据对应于在互联网上大量存在的文本、图像、视频和用户行为的数据,大多为非结构化数据。
 
-*企业本身的数据可以被定义为孤岛数据*
+**企业本身的数据可以被定义为孤岛数据**
 
 	站在广告主自己的角度，仅仅的使用广告主内部的数据是远远不够的，它要维护数据，而且把数据打通在一起去描述用户的偏好。这里边就涉及到很重要的技术和产品，怎么样来做数据的交易,怎么样数据的交换？这样才能使孤岛数据成为更加有价值的数据。
 
-*采样分析的问题*
+**采样分析的问题**
 
 	采样分析的问题，不属于大数据的问题。全量的加工才属于大数据的问题。往往采样分析的手段,其实并不能够很好的反应整体的内容。
 
@@ -53,6 +53,7 @@ title: BigData Business Value Thinking
 - 交易数据(数据银行)
 - 行为定向(behaviorial targeting)
 - 上下文定向(contextual targeting)
+- 第三方数据
 
 #### 4. 数据分析
 
@@ -105,13 +106,13 @@ title: BigData Business Value Thinking
 - [分布式数据分析技术](2017-04-04-olap-sqlonhadoop-research-note.md)
 - [大数据研究-SQL设计](2017-07-28-bigdata-research-sql-design.md)
 - [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
-- 实时数据处理-SparkStreaming/Storm
+- [Greenplum5最佳实践](2017-12-03-greenplum5-best-practice-note.md)
+- [Flink实时数据处理](2018-05-31-flink-research-note.md)
 - [大数据研究-数据处理计算](2017-07-28-bigdata-research-bigdata-development.md)
 - [大数据研究-OLAP分析](2017-02-01-bigdata-research-olap-anlysis.md)
 - [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
-- ETL数据处理 -Kettle
-- 数据同步 -Sqoop/DataX/gphdfs
-- 数据质量分析
+- ETL数据处理&数据同步 -Kettle/Sqoop/DataX/gphdfs
+- 数据质量分析&数据监测
 
 #### 4. 深度数据挖掘&机器学习-Python/Tensorflow
 
@@ -135,7 +136,7 @@ title: BigData Business Value Thinking
 	数据安全脱敏/数据验证/数据完整性/数据监测/数据冲突/样本异常/性能问题
 
 
-### III.数据产品商业价值维度
+### III.数据商业价值维度
 
 
 #### 1. 大数据营销应用
@@ -144,7 +145,7 @@ title: BigData Business Value Thinking
 
     Tips:比如说个性化推荐/计算广告/个人征信是非常典型的大数据的问题。
 
-*洞察应用和自动化应用*
+**洞察应用和自动化应用**
 
 ![数据应用类型](_includes/data_use_type.png)
 
@@ -158,12 +159,13 @@ title: BigData Business Value Thinking
 
 > 洞察天生适合的场景是给专家决策用的，自动化天生适合的场景是为数据分析师所服务的。
 
-*机器决策*
+**机器决策**
 
 数据从它的产生到加工到影响到决策的过程再到重新的产生这个过程是自动化的，是一个闭环，没有人在里面起作用，这样的往往比人在里边产生的价值要多得多。
 
-	> 只有给机器用的才是真正的大数据
-	> 大数据的使用系统的一致性的要求是低的
+	Tips:
+	- 只有给机器用的才是真正的大数据
+	- 大数据的使用系统的一致性的要求是低的
 
 
 #### 2.大数据生意的关键点
@@ -179,7 +181,7 @@ title: BigData Business Value Thinking
 
 ![数据变现方式](_includes/data_money.png)
 
-*数据价值的合理评估*
+**数据价值的合理评估**
 
 #### 4.商业模型分析
 
@@ -210,18 +212,22 @@ _搜索/场景设置-推荐-广告变现(计算广告)_
 
 _头部流量-场景驻留-广告曝光变现_
 
-* 广告营销计算技术
+**广告营销计算技术**
 
 计算广告最具挑战的算法问题大多都集中在离线数据处理的部分。离线数据处理有两 个输出目标:
 
 	一是统计日志得到报表、dashboard 等，供决策人进行决策时作为参考;
 	二是利用数据挖掘、机器学习技术进行受众定向、点击率预估、分配策略规划等，为在线的 机器决策提供支持。
 
-	- [计算广告](2017-07-01-compute-advertise-design-note.md)
 	- 广告内容分析与检索
 	- 广告排序和用户行为反馈模型
 
 ![web_adver](_includes/web_adver_map.png)
+
+
+_Ref:_
+
+[计算广告](2017-07-01-compute-advertise-design-note.md)
 
 
 4. 全渠道营销解决方案
@@ -235,11 +241,11 @@ _头部流量-场景驻留-广告曝光变现_
 	5.售后服务
 	6.CRM客户分析-老客促活
 
-*DMP vs CDP*
+**DMP vs CDP**
 
 ![DMP vs CDP](_includes/dmp_cdp_graphic.jpg)
 
-*DMP->CDP<-CRM*
+**DMP->CDP<-CRM**
 
 ![crm dmp cdp data struct](_includes/dmp_cdp_crm_data_struct.jpg)
 

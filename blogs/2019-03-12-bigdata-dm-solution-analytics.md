@@ -108,7 +108,6 @@ FusionInsight LibrA关键特性：
 	- SQL On Hadoop:无缝集成Hadoop，可通过标准SQL访问和处理Hadoop数据。
 
 
-
 #### 3.Transwarp Data Hub
 
 TDH主要提供6款核心产品:
@@ -235,15 +234,15 @@ GBase 8a
 
 #### 技术思考
 
-*1.数据治理(数据清洗)智能算法*
+**1.数据治理(数据清洗)智能算法**
 
 例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
 
-*2.大数据查询优化器设计*
+**2.大数据查询优化器设计**
 
 Calcite -> Spark Catalyst -> Dremel查询优化
 
-*3.DataModel数据模型设计优化*
+**3.DataModel数据模型设计优化**
 
 面向Document的数据模型结构
 ```
@@ -259,7 +258,7 @@ message Document {
     optional string Url; }}
 ```
 
-*5.数据存储结构设计*
+**4.数据存储结构设计**
 
 design memory and disk-based column store
 
@@ -270,7 +269,7 @@ LSM数据结构
 内存列式存储优化
 
 
-*6.distributed file system文件系统改造*
+**5.distributed file system文件系统改造**
 
 HDFS/GFS设计差异,定制化文件系统
 
