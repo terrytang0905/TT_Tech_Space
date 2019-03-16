@@ -10,16 +10,22 @@ title: SQL Optimizer Design Note
 
 ### 1.查询优化器概述
 
-数据库主要由三部分组成，分别是解析器、优化器和执行引擎，如下图所示：
+数据库主要由三部分组成，分别是解析器、查询优化器和执行引擎，如下图所示：
 
 
 ![database_process](_includes/database_process.png)
 
 其中优化器是数据库中用于把关系表达式转换成执行计划的核心组件，很大程度上决定了一个系统的性能。
 
-#### 查询优化器分类
+#### 查询优化技术
 
-查询优化器分为两类：
+- 查询重用
+- 查询算法优化
+- 并行查询优化
+- 分布式查询优化
+
+
+#### 查询计划策略分类
    
       基于规则的优化器(Rule-Based Optimizer，RBO)
       基于代价的优化器(Cost-Based Optimizer，CBO)
@@ -107,76 +113,39 @@ CBO实现有两种模型，即Volcano模型[1]和Cascades模型[2]，其中Calci
 	genetic algorithm(GA) & GEQO 
 
 
-### 3.Apache Calcite数据框架
-
-Apache Calcite is a dynamic data management framework.
-
-The following features are complete.
-
-   - Query parser, validator and optimizer(查询解析,验证与优化)
-   - Support for reading models in JSON format
-   - Many standard functions and aggregate functions
-   - JDBC queries against Linq4j and JDBC back-ends
-   - Linq4j front-end
-   - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
-   - Local and remote JDBC drivers; see [DriverFramework-Avatica](http://calcite.apache.org/avatica/)
-   - Several adapters
-
-Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxCompute也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
-
-![Calcite_Arch](_includes/calcite_arch.jpg)
-
-其中Operator Expressions 指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
-
-* 通过Parser直接解析生成
-
-从上述架构图可以看到，Calcite也提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
-
-* 通过Expressions Builder转换生成
-
-不同系统语法有差异，所以Parser也可能不同。针对这种情况，Calcite提供了Expressions Builder来对抽象语法树(或其他数据结构)进行转换得到RelNode Tree。如Hive(某一种Data Processing System)使用的就是这种方法。
-Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行一系列的等价转换，生成不同的执行计划，最后选择代价最小的执行计划，其中代价计算时会用到Metadata Providers提供的统计信息。
-
-事实上，Calcite提供了RBO和CBO两种优化方式，分别对应HepPlanner和VolcanoPlanner。对此，本文也不进行展开，后续有时间再详细介绍Calcite的具体实现。
-
-
-   Comments:Hive Optimizer当前是使用Calcite作为核心查询优化器引擎
-
-### 4.大数据查询优化器
-
-#### 4.1.GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA
+### 3.GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA
 
 ![PQC-OrcaArch](_includes/Orca_arch.png)
 
 Pivotal Query Optimizer(PQO)权衡多核计数器,其实现通过多核CPU来分布独立优化任务,从而加速优化进程。PQO用于以下几种查询场景:
-	
-	- Queries against partitioned tables 查询分区表
-	- Queries that contain a common table expression (CTE) 查询通用表表达式
-	- Queries that contain subqueries 子查询
+   
+   - Queries against partitioned tables 查询分区表
+   - Queries that contain a common table expression (CTE) 查询通用表表达式
+   - Queries that contain subqueries 子查询
 
 GPORCA在以下几个方面针对大数据查询的增强Greenplum数据库查询性能优化:
 
-* Dynamic Partition Elimination动态分区排除(Queries against partitioned tables)
-		
-		PartitionSelector, DynamicScan, and Sequence.
-		- PartitionSelector computes all the child partition OIDs that satisfy the partition selection conditions given to it.
-		- DynamicScan is responsible for passing tuples from the partitions identified by the PartitionSelector.
-		- Sequence is an operator that executes its child operators and then returns the result of the last one.
-	
+* Dynamic Partition Elimination动态分区裁剪(Queries against partitioned tables)
+      
+      PartitionSelector, DynamicScan, and Sequence.
+      - PartitionSelector computes all the child partition OIDs that satisfy the partition selection conditions given to it.
+      - DynamicScan is responsible for passing tuples from the partitions identified by the PartitionSelector.
+      - Sequence is an operator that executes its child operators and then returns the result of the last one.
+   
 * SubQuery Unnesting子查询非嵌套(Queries that contain subqueries)
-		
-		- Removing Unnecessary Nesting取消无用的嵌套
-		- Subquery Decorrelation子查询解相关
-		- Conversion of Subqueries into Joins子查询变换
-	
+      
+      - Removing Unnecessary Nesting取消无用的嵌套
+      - Subquery Decorrelation子查询解相关
+      - Conversion of Subqueries into Joins子查询变换
+   
 * Common Table Expressions(CTE-Queries是指用于单次查询的临时表表达式)
 
 * Other Optimization Enhancements:
 
-	- Improved join ordering
-	- Join-Aggregate reordering
-	- Sort order optimization
-	- Data skew estimates included in query optimization
+   - Improved join ordering
+   - Join-Aggregate reordering
+   - Sort order optimization
+   - Data skew estimates included in query optimization
 
 
 - [PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
@@ -185,9 +154,11 @@ GPORCA在以下几个方面针对大数据查询的增强Greenplum数据库查�
 
 #### _Legacy Query Optimizer - Greenplum/PostgreSQL_
 
-	Append-only Columnar Scan
+   Append-only Columnar Scan
 
-#### GPORCA vs Legacy Query Optimizer
+####  GPORCA vs Legacy Query Optimizer 
+
+以下用例是GPORCA借助SubQuery Unnesting优化来提升查询性能
 
 ```sql
 QUERY PLAN                                                               
@@ -219,6 +190,7 @@ Optimizer status: legacy query optimizer
 Total runtime: 10318.869 ms
 (25 rows)
 ```
+
 ```sql
 ircloud_onemedia=# set optimizer=on;
 SET
@@ -276,32 +248,45 @@ Total runtime: 605.406 ms
 (32 rows)
 ```
 
-#### 4.2.SparkSQL Catalyst优化器
+### 4.Apache Calcite数据框架
 
-SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
+Apache Calcite is a dynamic data management framework.
 
-Catalyst的通用树转换框架分为四个阶段，如下所示：
+The following features are complete.
 
-   1）分析解决引用的逻辑计划
-   2）逻辑计划优化
-   3）物理计划
-   4）代码生成用于编译部分查询生成Java字节码。
+   - Query parser, validator and optimizer(查询解析,验证与优化)
+   - Support for reading models in JSON format(查看json格式)
+   - Many standard functions and aggregate functions(支持标准函数与聚合函数)
+   - JDBC queries against Linq4j and JDBC back-ends
+   - Linq4j front-end
+   - SQL features: SELECT, FROM (including JOIN syntax), WHERE, GROUP BY (including GROUPING SETS), aggregate functions (including COUNT(DISTINCT …) and FILTER), HAVING, ORDER BY (including NULLS FIRST/LAST), set operations (UNION, INTERSECT, MINUS), sub-queries (including correlated sub-queries), windowed aggregates, LIMIT (syntax as Postgres); more details in the SQL reference
+   - Local and remote JDBC drivers; see [DriverFramework-Avatica](http://calcite.apache.org/avatica/)
+   - Several adapters
 
-![SparkCatalyst](_includes/spark_sql_catalyst.jpg)
+Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应用于开源大数据计算引擎中，如Flink、Drill、Hive、Kylin等。另外，MaxCompute也使用了Calcite作为优化器框架。Calcite的架构如下图所示：
 
-Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Physical Planning则位于｀sql/core｀下面。
+![Calcite_Arch](_includes/calcite_arch.jpg)
 
-大概有这么几个组件需要展开细看：
+其中Operator Expressions 指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
 
-ParserAnalyzer(with Catalog)Optimizer和Catalyst具有类似功能的是Apache Calcite，像Hive, Phoenix都有在用Calcite，
+* 通过Parser直接解析生成
 
-折腾完Catalyst，可以去看一看两者的异同。如果要快速理解Catalyst，
+从上述架构图可以看到，Calcite也提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
 
-- [SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
+* 通过Expressions Builder转换生成
+
+不同系统语法有差异，所以Parser也可能不同。针对这种情况，Calcite提供了Expressions Builder来对抽象语法树(或其他数据结构)进行转换得到RelNode Tree。如Hive(某一种Data Processing System)使用的就是这种方法。
+Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行一系列的等价转换，生成不同的执行计划，最后选择代价最小的执行计划，其中代价计算时会用到Metadata Providers提供的统计信息。
+
+事实上，Calcite提供了RBO和CBO两种优化策略方式，分别对应HepPlanner和VolcanoPlanner。对此，本文也不进行展开，后续有时间再详细介绍Calcite的具体实现。
+
+   Comments:Hive Optimizer当前是使用Calcite作为核心查询优化器引擎
 
 
 
-#### 4.3.Hive Optimizer
+### 5.SQLonHadoop Optimizer
+
+#### 5.1.Hive Optimizer(Calcite)
 
 早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。
 
@@ -336,8 +321,36 @@ CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等
 
 Ref:[HiveSQL性能优化](2017-06-10-hive-sql-performance-note.md)
 
+#### 5.2.SparkSQL Catalyst优化器
 
-#### 4.4.Presto New Optimzer
+SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
+
+Catalyst的通用树转换框架分为四个阶段，如下所示：
+
+   1）分析解决引用的逻辑计划
+   2）逻辑计划优化
+   3）物理计划
+   4）代码生成用于编译部分查询生成Java字节码。
+
+![SparkCatalyst](_includes/spark_sql_catalyst.jpg)
+
+Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Physical Planning则位于｀sql/core｀下面。
+
+大概有这么几个组件需要展开细看：
+
+ParserAnalyzer(with Catalog)Optimizer和Catalyst具有类似功能的是Apache Calcite，像Hive, Phoenix都有在用Calcite，
+
+折腾完Catalyst,可以去比较两者的异同。
+
+如果要快速理解Catalyst
+
+- [SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
+
+#### 5.3.Calcite vs SparkSQL Catalyst
+
+
+
+### 6.Presto New Optimzer
 
 _Presto Cost-based Query Optimization_
 
@@ -347,6 +360,6 @@ Table Statistics
 
 Filter Statistics
 
-### 5.Dremel Optimizer (Unknown)
+### 7.Dremel Optimizer (Unknown)
 
 
