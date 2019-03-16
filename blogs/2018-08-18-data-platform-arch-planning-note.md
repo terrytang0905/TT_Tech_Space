@@ -16,13 +16,17 @@ title: Data Platform Arch Planning Note
 
 计算中台
 
+业务中台
+
 ### 2.数据平台规划落地
 
 数据中心
 
 数据采集与接入
 
-数据脱敏与DMP
+数据脱敏与数据管理
+
+DMP-CDP-CRM
 
 团队搭建
 

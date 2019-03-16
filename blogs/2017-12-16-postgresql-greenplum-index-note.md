@@ -260,6 +260,7 @@ PostgreSQL优化器计算并行度及如何决定使用并行
 
 5、当表没有设置parallel_workers参数，并且表的大小大于min_parallel_relation_size时，由算法决定每个查询的并行度。
 
+
 ### III.Greenplum Indexes
 
 Greenplum 目前支持B-Tree, GiST, Bitmap三种索引接口。
@@ -283,10 +284,13 @@ bitmap的优化技术举例，比如：
 
 * 1. 压缩
 例如连续的0或1可以被压缩，具体可以参考WIKI里面关于BITMAP的压缩算法，算法也是比较多的。
+
 * 2. 分段或分段压缩
 例如，每个数据块作为一个分段，每个分段内，记录这个数据块中的VALU对应的BIT信息。
+
 * 3. 排序
 排序是为了更好的进行压缩，例如堆表按被索引的列进行排序后，每个VALUE对应的行号就都是连续的了，压缩比很高。
+
 
 另外用户也可以参考一下roaring bitmap这个位图库，应用非常广泛，效果也很不错。
 

@@ -47,6 +47,8 @@ Anaconda
 
 - [机器学习Everything&Python](2017-10-16-ml-data-everything-note.md)
 
+- [GBDT机器学习](2017-12-25-gbdt-xgboost-ml-note.md)
+
 - [Python内容识别](2018-05-05-python-info-recognition-note.md)
 
 - Scrapy分布式爬虫
