@@ -220,6 +220,7 @@ MaxComputer SQL Parser & SQL Optimizer
 	Comments:
 	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / MaxCompute)
 	2.缺少全球化的TechWriter,以支持非中国区客户
+	3.考虑MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
 
 _Ref:_
 
