@@ -62,6 +62,8 @@ _Ref:_
 
 华为FusionInsight大数据平台是集Hadoop生态发行版FusionInsight HD、大规模并行处理MPP数据库FusionInsight LibrA、大数据云服务(Hadoop、Hive、Spark、HBase、MPPDB、流计算等组件)于一体的融合数据处理与服务平台。它支持统一的SQL引擎,拥有端到端全生命周期的解决方案能力。除了以上能力外，还提供数据分析挖掘平台、数据服务平台，帮助用户实现从数据到知识，从知识到智慧的转换，进而帮助用户从海量数据中挖掘数据价值。它支持私有化部署，及华为公共云或合作伙伴的公共云环境中部署。 
 
+![huawei_fusioninsight](_includes/huawei_fusioninsight.png)
+
 此外华为FusionInsight大数据平台是根据行业客户需求进行优化的解决方案。为解决用户在具体场景下的问题，提供许多创新的技术能力，举几个例子：
 
 	1是统一SQL服务。大数据技术中有很多能够利用SQL语言进行数据处理的组件，比如Hive、SparkSQL、Elk、MPPDB等，当用户对于这些组件进行业务开发时，需要对不同组件分别进行，造成很大的不便。FusionInsight提供统一SQL，对外业务界面只出现一个SQL开发管理界面，通过统一SQL的业务分发层进行业务分发，这样就简化了业务开发。同时，华为还提供了SQL on Hadoop引擎Elk，这个引擎完全兼容SQL 2003标准，无需修改测试脚本就可以通过TPC-DS测试，性能超过开源产品3倍。通过使用统一SQL技术，某大型保险公司实现了用大数据平台替代传统数仓，在复杂计算业务场景下，其性能提升了10-100倍。
@@ -84,7 +86,7 @@ _Ref:_
 	- 多级租户管理功能
 	- 对异构设备支持
 
-Apache CarbonData文件格式的压缩率缩减与数据导入时间的延长
+Apache CarbonData文件格式的2层索引的设计导致压缩率缩减与数据导入时间的延长
 
 _Ref:_
 
@@ -221,6 +223,7 @@ MaxComputer SQL Parser & SQL Optimizer
 	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / MaxCompute)
 	2.缺少全球化的TechWriter,以支持非中国区客户
 	3.考虑MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
+	4.UCloud作为中立第三方云计算公司,提供整合数据应用平台。阿里云MaxCompute能否借助现有数据资源,提供数据应用平台服务
 
 _Ref:_
 
