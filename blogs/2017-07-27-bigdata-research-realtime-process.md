@@ -8,8 +8,13 @@ title: Big Data Research Note - Realtime Process Architect
 ## 大数据研究-实时处理架构
 -----------------------------------------------------------
 
+### 实时计算输出
 
-### I.Lambda Architect
+- 数据库+离线计算结果=全量数据查询(Lambda/Kappa)
+- Kafka消息队列+流式计算引擎(Flink)
+
+
+#### I.Lambda Architect
 
 The Lambda architecture: principles for architecting realtime Big Data systems.
 
@@ -98,7 +103,7 @@ The importance of immutability and human fault-tolerance, and the benefits of pr
 
 
 
-### II.Kappa Architect
+#### II.Kappa Architect
 
 Lambda架构一个最明显的问题：它需要维护两套分别跑在批处理和实时计算系统上面的代码。
 
@@ -123,7 +128,8 @@ Kappa架构适合非超大量数据的实时计算,可以使用一个代码架�
 ![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 
 
-### Flink Architect
+#### III.Kafka+Flink
+
 
 - [Flink技术研究](2018-05-31-flink-research-note.md)
 

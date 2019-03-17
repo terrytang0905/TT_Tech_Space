@@ -465,11 +465,15 @@ Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行
 
 早期在Hive中只有一些简单的规则优化,比如谓词下推(把过滤条件尽可能的放在table scan之后就完成),操作合并(连续的filter用and合并成一个operator,连续的projection也可以合并)。后来逐渐增加了一些略复杂的规则,比如相同key的join + group by合并为1个MR,还有star schema join。
 
-在Hive 0.12引入的相关性优化(correlation optimizer)算是规则优化的一个高峰,他能够减少数据的重复扫描,具体来说,如果查询的两个部分用到了相同的数据,并且各自做group by / join的时候用到了相同的key,这个时候由于数据源和shuffle的key是一样的,所以可以把原来需要两个job分别处理的地方合成一个job处理。
+在Hive 0.12引入的相关性优化(**correlation optimizer**)
+
+算是规则优化的一个高峰,他能够减少数据的重复扫描,具体来说,如果查询的两个部分用到了相同的数据,并且各自做group by / join的时候用到了相同的key,这个时候由于数据源和shuffle的key是一样的,所以可以把原来需要两个job分别处理的地方合成一个job处理。
 
 比如下面这个sql：
 
 ```sql
+set hive.optimize.correlation=true;
+
 SELECT 
  sum(l_extendedprice) / 7.0 as avg_yearly 
 FROM 
@@ -492,11 +496,19 @@ WHERE touter.l_quantity < tinner.lq
 
 CBO通过收集表的数据信息(比如字段的基数,数据分布直方图等等)来对一些问题作出解答,其中最主要的问题就是确定多表join的顺序。CBO通过搜索join顺序的所有解空间(表太多的情况下可以用有限深度的贪婪算法),并且算出对应的代价,可以找到最好的顺序。这些都已经在关系数据库中得到了实践。
 
-目前Hive已经启动专门的项目,也就是Apache Optiq来做这个事情,而其他系统也没有做的很好的CBO,所以这块内容还有很大的进步空间。
+```sql
+set hive.cbo.enable=true
+```
+
+ApacheHive2.1引入了更智能的CBO，实现了更快的类型转换，以及动态分区优化。
+
+
 
 _Ref:_
 
-[HiveSQL性能优化](2017-06-10-hive-sql-performance-note.md)
+[HiveSQL编译优化解析](2017-06-09-hive-sql-parser-note.md)
+[LLAP feature](https://cwiki.apache.org/confluence/display/Hive/LLAP)
+[Using the Cost-Based Optimizer to Enhance Performance](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.5/bk_hive-performance-tuning/content/ch_cost-based-optimizer.html)
 
 #### 6.2.SparkSQL Catalyst优化器
 

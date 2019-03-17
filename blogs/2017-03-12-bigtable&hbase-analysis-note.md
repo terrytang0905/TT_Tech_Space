@@ -9,7 +9,7 @@ title: Bigdata BigTable&HBase Research Note
 ------------------------------------------------------------
 
 
-### BigTable原理
+### I.BigTable原理
 
 BigTable是一个稀疏的、分布的、永久的多维排序图。我们采用行键盘(row key)、 列键(column key)和时间戳(timestamp)对图进行索引
 
@@ -19,9 +19,54 @@ BigTable是一个稀疏的、分布的、永久的多维排序图。我们采用
 
 Google SSTable文件格式作为存储BigTable数据的内部格式。一个SSTable提供一个持久化的、排序的、不可变的、从键到值的映射,其中,键和值都是任意的字节字符串。
 
-### HBase Architect
+### II.HBase Architect
 
-### HBase深度研究
+HBase的伸缩性主要依赖其可分裂的HRegion及可伸缩的分布式文件系统HDFS实现
+
+HRegion是HBase负责数据存储的主要进程
+
+
+#### 1.B+树
+
+- 通过主键对记录进行高效插入,查找以及删除。表示为一个动态,多层并有上下界的索引。
+- 注意维护每一段(PageTable)所包含的主键数目,分段B+树的效果远好于二叉树的数据划分。
+- 在B+树上有两个头指针,一个指向根结点,一个指向关键字最小的叶子结点.
+- B+树支持高效的范围Scan功能。得益于它的叶节点相关连接并且按主键有序,扫描时避免了耗时的遍历树操作。
+
+#### 2.LSM树(Log Structed Merge Tree)
+
+N阶合并树
+
+- 输入数据首先被存储在日志文件,这些文件内的数据完全有序。当有日志文件被修改时,对应的更新会被先保存在内存中来加速查询
+- Merge:经过许多数据修改后,且内存空间被占满后,LSM树会异步把有序的'键-记录'对写到磁盘中,同时创建一个新的数据存储文件
+- 所有节点都是满的并按页存储.修改数据文件的操作通过滚动Merge完成
+- 删除是一种特殊的更改,当删除标记被存储之后,查找会跳过这些删除过的键。当页被重写时,有删除标记的键会被丢弃。删除请求由TTL触发。
+- 使用内存存储与日志文件来将随机写转换成顺序写
+
+#### 3.存储
+
+![HBase存储在HDFS](_includes/HBase存储在HDFS.png).
+
+HBase主要处理两种文件:一种是预写日志WAL,另一种是实际的数据文件。这两种文件主要由HRegionServer管理。
+
+- 写路径
+- 文件
+	
+	根级文件
+	表级文件
+	region级文件
+	region拆分
+	合并Merge
+
+- HFile格式:默认64K
+
+	有效地存储HBase的数据,基于Hadoop的TFile类
+
+- KeyValue格式
+
+#### 4.WAL
+
+### III.HBase深度研究
 
 HBase是按照BigTable模型实现的,是一个稀疏的,分布式的,持久化的,多维的映射,由行键,列键和时间戳索引。
 
@@ -76,10 +121,6 @@ LSM树将多页块(multipage block)中的数据存储在磁盘中,其存储结�
 - Region Server
 
 ![HBase组件](_includes/HBase组件.png).
-
-#### HBase存储结构
-
-![HBase存储结构](_includes/HBase存储结构.png).
 
 
 #### 4.HBase API
@@ -230,48 +271,10 @@ TableInputFormat -> TableMapper -> TableReducer -> TableOutputFormat
 - 自定义处理
 
 
-#### 8.架构
 
-8.1.B+树
-
-- 通过主键对记录进行高效插入,查找以及删除。表示为一个动态,多层并有上下界的索引。
-- 注意维护每一段(PageTable)所包含的主键数目,分段B+树的效果远好于二叉树的数据划分。
-- 在B+树上有两个头指针,一个指向根结点,一个指向关键字最小的叶子结点.
-- B+树支持高效的范围Scan功能。得益于它的叶节点相关连接并且按主键有序,扫描时避免了耗时的遍历树操作。
-
-8.2.LSM树
-
-- 输入数据首先被存储在日志文件,这些文件内的数据完全有序。当有日志文件被修改时,对应的更新会被先保存在内存中来加速查询
-- Merge:经过许多数据修改后,且内存空间被占满后,LSM树会把有序的'键-记录'对写到磁盘中,同时创建一个新的数据存储文件
-- 所有节点都是满的并按页存储.修改数据文件的操作通过滚动Merge完成
-- 删除是一种特殊的更改,当删除标记被存储之后,查找会跳过这些删除过的键。当页被重写时,有删除标记的键会被丢弃。删除请求由TTL触发。
-- 使用内存存储与日志文件来将随机写转换成顺序写
-
-8.3.存储
-
-![HBase存储在HDFS](_includes/HBase存储在HDFS.png).
-
-HBase主要处理两种文件:一种是预写日志WAL,另一种是实际的数据文件。这两种文件主要由HRegionServer管理。
-
-- 写路径
-- 文件
-	
-	根级文件
-	表级文件
-	region级文件
-	region拆分
-	合并Merge
-
-- HFile格式:默认64K
-
-	有效地存储HBase的数据,基于Hadoop的TFile类
-
-- KeyValue格式
-
-8.4.WAL
 
 ### Ref
 
-- [BigTable]()
-- [HBase权威指南]()
 - [An In-Depth Look at the HBase Architecture](https://www.mapr.com/blog/in-depth-look-hbase-architecture)
+- [HBase权威指南]()
+

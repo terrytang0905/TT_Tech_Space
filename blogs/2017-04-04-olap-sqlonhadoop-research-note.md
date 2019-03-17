@@ -30,6 +30,8 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 #### 1.Impala
 
+基于HDFS的MPP架构的SQL引擎
+
 [Impala交互式OLAP查询](2016-12-13-olap-distributed-impala-practice-note.md)
 
 #### 2.PrestoDB
@@ -46,7 +48,11 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 [SparkSQL Programming Guide](http://spark.apache.org/docs/latest/sql-programming-guide.html)
 
-#### 4.Dremel
+#### 4.Phoenix
+
+执行在HBase之上的SQL引擎
+
+#### 5.Dremel
 
 ![dremel_page](_includes/dremel_page.jpg)
 
@@ -97,7 +103,7 @@ message Document {
 
 
 
-#### 5.Drill(MapR)
+#### 6.Drill(MapR)
 
 开源版Dremel: Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 
@@ -116,7 +122,7 @@ _Ref:_
 
 [DrillArch](http://drill.apache.org/docs/architecture/)
 
-### II.SQLonHadoop架构分析
+### II.交互式查询架构分析
 
 #### 1.系统架构
 
