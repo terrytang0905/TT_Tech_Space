@@ -53,8 +53,11 @@ title: Big Data Research Note - Database Architect
 	Paxos 算法解决的问题是一个分布式系统如何就某个值(决议)达成一致。一个典型的场景是，在一个分布式数据库系统中，如果各节点的初始状态一致，每个节点执行相同的操作序列，那么他们最后能得到一个一致的状态。为保证每个节点执行相同的命令序列，需要在每一条指令上执行一个“一致性算法”以保证每个节点看到的指令一致。
 
 	一个通用的一致性算法可以应用在许多场景中，是分布式计算中的重要问题。因此从20世纪80年代起对于一致性算法的研究就没有停止过。
-	节点通信存在两种模型:共享内存(Shared memory)和消息传递（Messages passing）。Paxos算法就是一种基于消息传递模型的一致性算法。
+	节点通信存在两种模型:共享内存(Shared memory)和消息传递(Messages passing)。Paxos算法就是一种基于消息传递模型的一致性算法。
 
+![paxos](_includes/paxos.png)
+
+- 一致性协议-ZooKeeperAtomicBroadcast(Paxos变形)
 - 一致性协议-Raft协议:一致性>可用性.
 
 	Raft是由Stanford提出的一种更易理解的一致性算法，意在取代目前广为使用的Paxos算法。目前，在各种主流语言中都有了一些开源实现，比如本文中将使用的基于JGroups的Raft协议实现。
