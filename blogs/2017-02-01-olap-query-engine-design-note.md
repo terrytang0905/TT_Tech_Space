@@ -93,14 +93,17 @@ Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的�
 
 **特点:类搜索引擎+增量计算+数据实时写入**
 
-- 亚秒响应的交互式查询。支持较高并发，为面向用户的平台提供Olap查询(注意这是相比其他OLAP的强大优势)。
-- 支持实时导入,导入即可被查询。支持高并发导入。
-- 采用分布式shared-nothing的架构，可以扩展到PB级。
-- 支持聚合函数,count和sum,以及使用javascript实现自定义UDF。
-- 支持复杂的Aggregator，近似查询的Aggregator例如HyperLoglog以及Yahoo开源的DataSketches。
-- 支持Groupby,Select,Search查询。(Groupby性能较差,推荐timeseries/TopN)
-- 不支持大表之间的Join，但其lookup功能满足和维度表的Join
-- 列存储,倒排索引,RollUP(汇总/上卷),roaring或conciseBitmap位图索引+LZ4数据压缩
+* 整个系统同时提供了对离线数据分析和在线实时数据分析的支持
+* 可插拔的查询系统,支持多种存储系统
+
+	- 亚秒响应的交互式查询。支持较高并发，为面向用户的平台提供Olap查询(注意这是相比其他OLAP的强大优势)。
+	- 支持实时导入,导入即可被查询。支持高并发导入。
+	- 采用分布式shared-nothing的架构，可以扩展到PB级。
+	- 支持聚合函数,count和sum,以及使用javascript实现自定义UDF。
+	- 支持复杂的Aggregator，近似查询的Aggregator例如HyperLoglog以及Yahoo开源的DataSketches。
+	- 支持Groupby,Select,Search查询。(Groupby性能较差,推荐timeseries/TopN)
+	- 不支持大表之间的Join，但其lookup功能满足和维度表的Join
+	- 列存储,倒排索引,RollUP(汇总/上卷),roaring或conciseBitmap位图索引+LZ4数据压缩
 
 #### 4.2.Druid架构分析
 
@@ -320,7 +323,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.OLAP深度架构设计
 
-#### 5.1.[实时OLAP架构优化]
+#### 5.1.实时OLAP架构优化
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -336,7 +339,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 数据逻辑层面的模型是Cube,而底下通常来说就是一个star schema或者snowflake schema，很多系统还会实现一些pre-aggregation,例如Kylin.
 
-#### ROLAP设计(参考Mondrian)
+**ROLAP设计(参考Mondrian)**
 
 当前NewBI是基于ROLAP(关系型数据库OLAP抽象),从数据存储角度看非CUBE数据结构存储。因此当我们需要进行深度CUBE分析时,性能较差。
 
@@ -351,9 +354,9 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
 
 
-#### 分布式OLAP设计(参考PrestDB) 
+**分布式OLAP设计(参考PrestDB)**
 
-#### 实时OLAP设计(参考Druid/Pinot/ElastisSearch) 
+**实时OLAP设计(参考Druid/Pinot/ElastisSearch)**
 
 RTOLAP是多维数据组织的OLAP实现,将细节数据和聚合后的数据均保存在cube中，所以以空间换效率，查询时效率高。 
 
@@ -372,13 +375,15 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 2) Aggregation Query
 3) Join Query
 
-*5.2.2.Greenplum-MPP数据查询*
+*5.2.2.混合大数据查询*
 
-*5.2.3.执行方式=SQLParser+QueryOptimizer*
+Greenplum-MPP数据查询+海量HDFS数据查询
 
-*5.2.4.通用SQL数据解析Calcite*
+*5.2.3.通用SQL数据解析Calcite*
 
-- [Calcite 数据引擎](2018-06-01-apache-calcite-data-framework-note.md)
+- [Calcite 数据引擎]()
+
+*5.2.4.分布式查询QueryOptimizer*
 
 *5.2.5.特定全文检索Index设计*
 
@@ -389,13 +394,17 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 #### 5.3.数据计算优化
 
 - 内存计算规则
-- Spark/SparkSQL/Flink实时数据计算
+- Flink实时流式数据计算
 - 表计算/数据透视(计算函数设计-基于当前结果再计算)
 - 实时数据(增量)计算(衍生度量/趋势度量)
 - 上下文筛选查询(数据查询联动更新)
-- 内存计算结果保存-Redis
+- 预计算的内存存放(内存计算结果保存)
 
+**Apache Arrow**是一个内存数据结构,支持在不同数据源之间做快速高效的数据交换。
+
+	-定义一个通用而高效的内存数据格式,方便数据查询引擎进行查询
+	-定义了从上述格式中载入数据的格式.任何支持这个格式的系统,都可方便,高效地输入或输出这种格式
 
 ### x.技术参考
 
-- SQL查询引擎技术调研	
+[SQL查询引擎技术调研](2018-06-01-sql-optimizer-design-note.md)	

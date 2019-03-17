@@ -5,12 +5,12 @@ tags : [bigdata,olap,architect]
 title: Big Data OLAP Note - SQL on Hadoop
 ---
 
-## OLAP查询-SQLonHadoop研究Note
+## OLAP查询-大数据交互式查询研究Note
 ------------------------------------------------------------
 
 ### BigQuery Interactive Query Engine
 
-基于大数据场景下的查询引擎SQL on Hadoop Query Engine是未来大数据领域的重要技术。以下是其典型需求
+基于大数据场景下的交互式查询引擎SQL on Hadoop Query Engine是未来大数据领域的重要技术。以下是其典型需求
 
 - Interactive Query
 - Data Analysis,reporting query
@@ -101,15 +101,20 @@ message Document {
 
 开源版Dremel: Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 
-Drill核心特点:
+**Drill核心特点:**
 
-- Query language:类似Google BigQuery的查询语言，支持嵌套模型，名为DrQL.
-- Low-lantency distribute execution engine:执行引擎，可以支持大规模扩展和容错。可以运行在上万台机器上计算数以PB的数据。
-- Nested data format:嵌套数据模型，和Dremel类似。也支持CSV,JSON,YAML类似的模型。这样执行引擎就可以支持更多的数据类型。
-- Scalable data source: 支持多种数据源，现阶段以Hadoop为数据源。
-- 成熟度还不是很高的开源方案?
+	- Query language:类似Google Dremel的查询语言,支持嵌套模型,名为DrQL.
+	- Low-lantency distribute execution engine:执行引擎，可以支持大规模扩展和容错。可以运行在上万台机器上计算数以PB的数据。
+	- Nested data format:半结构化嵌套数据模型，和Dremel类似。也支持CSV,JSON,YAML类似的模型。这样执行引擎就可以支持更多的数据类型。
+	- Scalable data source(连接器连接): 支持多种数据源, 包括HDFS,HBase,Hive等表,RDBMS等
+	- 支持跨多数据源的并行数据查询与分析
+	- 自动推导和识别MetaData信息
 
-Ref:[DrillArch](http://drill.apache.org/docs/architecture/)
+	Comments:大数据量查询下的查询性能较差,好用却不高效
+
+_Ref:_
+
+[DrillArch](http://drill.apache.org/docs/architecture/)
 
 ### II.SQLonHadoop架构分析
 
@@ -157,7 +162,6 @@ _runtime framework v.s. mpp_
 ![SQLonHadoop_Arch](_includes/sql_on_hadoop_arch.jpg)
 
 #### 核心设计优化
-
 
 
 底层文件系统

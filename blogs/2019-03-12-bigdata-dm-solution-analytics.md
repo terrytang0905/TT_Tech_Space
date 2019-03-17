@@ -202,7 +202,7 @@ Inceptor提供两种编程模型：
 
 MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
 
-MaxCompute特点:
+**MaxCompute特点:**
 
     - 大规模计算存储
     MaxCompute 适用于 100GB 以上规模的存储及计算需求，最大可达 EB 级别。
@@ -217,10 +217,14 @@ MaxCompute特点:
 
 ![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
 
-MaxComputer SQL Parser & SQL Optimizer
+_MaxCompute流计算引擎?_
+
+_MaxCompute SQL Parser & SQL Optimizer_
+
+
 
 	Comments:
-	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / MaxCompute)
+	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
 	2.缺少全球化的TechWriter,以支持非中国区客户
 	3.考虑MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
 	4.UCloud作为中立第三方云计算公司,提供整合数据应用平台。阿里云MaxCompute能否借助现有数据资源,提供数据应用平台服务

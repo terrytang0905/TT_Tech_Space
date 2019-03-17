@@ -49,7 +49,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[Hive编程SQL编译分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
 - *[OLAP查询引擎设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-olap-query-engine-design-note.md)
-- *[OLAP-SQLonHadoop查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
+- *[OLAP-大数据交互式查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
 - *[OLAP-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-olap-distributed-presto-practice-note.md)
 - *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
 - *[OLAP-Mondrian查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
