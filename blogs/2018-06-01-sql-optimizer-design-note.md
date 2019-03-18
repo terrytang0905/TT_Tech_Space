@@ -517,6 +517,8 @@ _Ref:_
 
 SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
 
+Catalyst是以一种新颖的方式利用Scala的的模式匹配和quasiquotes机制来构建的可扩展查询优化器。
+
 Catalyst的通用树转换框架分为四个阶段，如下所示：
 
     1)分析解决引用的逻辑计划
@@ -528,11 +530,73 @@ Catalyst的通用树转换框架分为四个阶段，如下所示：
 
 Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Physical Planning则位于｀sql/core｀下面。
 
-大概有这么几个组件需要展开细看：
+_Parser模块_
 
-ParserAnalyzer(with Catalog)Optimizer和Catalyst具有类似功能的是Apache Calcite，像Hive, Phoenix都有在用Calcite，
+将sparkSql字符串切分成一个一个token，再根据一定语义规则解析为一个抽象语法树/AST。Parser模块目前基本都使用第三方类库ANTLR来实现，比如Hive，presto，sparkSql等。
 
-折腾完Catalyst,可以去比较两者的异同。
+Spark1.x版本使用的是Scala原生的Parser Combinator构建词法和语法分析器，而Spark 2.x版本使用的是第三方语法解析器工具ANTLR4。
+Spark2.x SQL语句的解析采用的是ANTLR4，ANTLR4根据语法文件SqlBase.g4自动解析生成两个Java类：词法解析器SqlBaseLexer和语法解析器SqlBaseParser。
+SqlBaseLexer和SqlBaseParser都是使用ANTLR4自动生成的Java类。使用这两个解析器将SQL字符串语句解析成了ANTLR4的ParseTree语法树结构。然后在parsePlan过程中，使用AstBuilder.scala将ParseTree转换成catalyst表达式逻辑计划LogicalPlan。
+
+
+![parser_split](_includes/parser_split.png)
+
+
+_Analyzer模块(with Catalog)_
+
+通过解析后ULP有了基本骨架，但是系统对表的字段信息是不知道的。如sum，select，join，where还有score，people都表示什么含义，此时需要基本的元数据信息schema catalog来表达这些token。最重要的元数据信息就是，
+
+    表的schema信息，主要包括表的基本定义（表名、列名、数据类型）、表的数据格式（json、text、parquet、压缩格式等）、表的物理位置
+    基本函数信息，主要是指类信息
+
+Analyzer会再次遍历整个AST，对树上的每个节点进行数据类型绑定以及函数绑定，比如people词素会根据元数据表信息解析为包含age、id以及name三列的表，people.age会被解析为数据类型为int的变量，sum会被解析为特定的聚合函数，
+
+
+![semantic_injection](_includes/semantic_injection.png)
+
+
+_Optimizer模块_
+
+Optimizer是catalyst的核心，分为RBO和CBO两种。
+RBO的优化策略就是对语法树进行一次遍历，模式匹配能够满足特定规则的节点，再进行相应的等价转换，即将一棵树等价地转换为另一棵树。SQL中经典的常见优化规则有，
+
+    - 谓词下推（predicate pushdown）
+    - 常量累加（constant folding）
+    - 列值裁剪（column pruning）
+    - Limits合并（combine limits）
+
+![semantic_injection](_includes/predicate_pushdown.png)
+![constant_folding](_includes/constant_folding.png)
+![column_pruning](_includes/column_pruning.png)
+
+_基于规则优化/Rule Based Optimizer/RBO_
+
+    - 一种经验式、启发式优化思路
+    - 对于核心优化算子join有点力不从心，如两张表执行join，到底使用broadcaseHashJoin还是sortMergeJoin，目前sparkSql是通过手工设定参数来确定的，如果一个表的数据量小于某个阈值（默认10M？）就使用broadcastHashJoin
+        nestedLoopsJoin,P,Q双表两个大循环, O(M*N)
+        sortMergeJoin是P,Q双表排序后互相游标
+        broadcastHashJoin,PQ双表中小表放入内存hash表.大表遍历O(1)方式取小表内容
+
+
+_基于代价优化/Cost Based Optimizer/CBO_
+
+    - 针对每个join评估当前两张表使用每种join策略的代价，根据代价估算确定一种代价最小的方案
+    - 不同physical plans输入到代价模型（目前是统计），调整join顺序，减少中间shuffle数据集大小，达到最优输出
+
+
+_SparkPlanner模块_
+
+至此，OLP已经得到了比较完善的优化，然而此时OLP依然没有办法真正执行，它们只是逻辑上可行，实际上spark并不知道如何去执行这个OLP。
+
+比如join只是一个抽象概念，代表两个表根据相同的id进行合并，然而具体怎么实现这个合并，逻辑执行计划并没有说明
+
+![physical_plan](_includes/physical_plan.png)
+
+
+CBO中常见的优化是join换位，以便尽量减少中间shuffle数据集大小，达到最优输出。
+
+
+    Comments:和Catalyst具有类似功能的是Apache Calcite, 像Hive, Phoenix都有在用Calcite.
 
 _Ref:_
 
