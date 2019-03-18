@@ -17,7 +17,7 @@ Greenplum 目前支持B-Tree, GiST, bitmap三种索引接口。
 
 PG的八种索引的介绍，可以参考bruce写的index internal、源码以及如下文档
 
-[PostgreSQL索引](http://leopard.in.ua/2015/04/13/postgresql-indexes#.WRHHH_mGOiQ)
+- [PostgreSQL索引](http://leopard.in.ua/2015/04/13/postgresql-indexes#.WRHHH_mGOiQ)
 
 
 ### II.PostgreSQL Indexes
