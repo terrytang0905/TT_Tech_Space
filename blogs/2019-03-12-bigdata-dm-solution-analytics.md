@@ -131,7 +131,9 @@ FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)型
  
 FusionInsight LibrA采用MPP(Massive Parallel Processing)架构，支持行存储与列存储，提供PB(Petabyte，250字节)级别数据量的处理能力。在核心技术上较传统数据库有巨大优势，能够解决不同行业用户的数据分析性能问题，可以为超大规模数据分析提供高性价比的方案，并可用于支撑各类数据仓库系统、数据集市、BI(Business Intelligence)系统和决策支持系统。
 
-FusionInsight LibrA关键特性：
+![fusioninsight_librA](_includes/fusioninsight_librA.png)
+
+**FusionInsight LibrA关键特性**
  
 	- 专业的TD、Oracle迁移工具:支持平滑迁移，业务敏捷上线。
 	- 数据入库快:支持并行数据导入，日入库达数百TB。
