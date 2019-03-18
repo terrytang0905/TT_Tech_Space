@@ -75,7 +75,8 @@ _Ref:_
 	4是图分析技术。在生活中有很多时候是需要进行用户的关系分析来进行风险控制和业务处理的。如果我们的客户中有一个是VIP客户，那么他的朋友符合VIP客户条件的可能性就会很大。因此如果我们能够通过关系分析技术找到他的朋友圈，在针对他的朋友进行针对性营销，那么业务成功的可能性也就会大大增加。但是，传统的数据库技术在处理客户关系发现时很困难，某公司曾经做过一个测试，想在2000万客户中发现客户间的关系信息，但是一直无法算出来。但是用图分析技术就可以很好解决这一类问题。因为在图数据库中，用户就是点，用户关系就是边，发现用户关系就变成了发现点与点间需要几条边的问题。华为的分布式图数据库，能够实现万亿顶点百亿边的实时查询，从而很快发现用户关系。在某项目中，华为帮助客户实现了13.7亿条关系图谱数据，3层关系查询秒级响应，从而大大提高了业务响应的速度。
 
 
-##### 华为Hadoop-FusionInsight HD
+
+##### Huawei FusionInsight HD(Hadoop)
 
 针对离线处理场景，FusionInsight HD由如下组件来实现：HDFS负责存储所有数据；Yarn负责调度在离线平台上运行的所有任务，从数据加工、数据挖掘到数据分析；Mapreduce和Hive专门处理离线的具体任务，其中Mapreduce/Spark处理非SQL类、Hive/Spark SQL处理SQL类.借助上述组件，再加上数据采集组件,即可完成离线处理。
 
@@ -86,13 +87,38 @@ _Ref:_
 	- 多级租户管理功能
 	- 对异构设备支持
 
+
+
+**FusionInsight Elk**
+
+分布式查询执行引擎,设计模式类似MPP
+
+_SQL on Hadoop_
+
+	-支持标准SQL查询语法
+	-针对HDFS数据的CBO代价估算模型
+	-智能扫描,谓词条件直接下推HDFS.针对Hadoop ORC(Optimized Row Columnar)列式存 储实现后期物化(Later-materialazation))
+	-LLVM优化(LLVM项目是模块化、可重用的编译器以及工具链技术的集合)
+	-支持信息约束(Informational Constraint)
+	-向量引擎(针对HDFS上存储的ORC列式结构化数据对接向量化执行引擎)
+	-支持分区表
+	-分布式高效读取HDFS数据
+
+[LLVM](https://llvm.org/)
+
+_SQL on Spark_
+
+![elk_ext_connector](_includes/Elk_extension_connector.png)
+
+**Apache CarbonData**
+
 Apache CarbonData文件格式的2层索引的设计导致压缩率缩减与数据导入时间的延长
 
 _Ref:_
 
 [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
-##### 华为MPPDB-FusionInsight LibrA
+##### Huawei FusionInsight LibrA(MPPDB)
     
 FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)型数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
  

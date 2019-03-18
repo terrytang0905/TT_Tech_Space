@@ -5,10 +5,10 @@ tags : [bigdata,database,hadoop]
 title: Hive Programing Design Note3 - SQL Performance
 ---
 
-## Hive SQL Performance Tuning Note
+## HiveQL Performance Tuning Note
 ------------------------------------------------------------
 
-### Hive SQL 性能优化
+### HiveQL 性能优化
 
 一个Hive查询生成多个map reduce job，一个map reduce job又有map，reduce，spill，shuffle，sort等多个阶段，所以针对hive查询的优化可以大致分为针对MR中单个步骤的优化（其中又会有细分），针对MR全局的优化，和针对整个查询（多MR job）的优化，下文会分别阐述。
 

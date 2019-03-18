@@ -5,10 +5,10 @@ tags : [bigdata,database,hadoop]
 title: Hive Programing Design Note2 - SQL Parser&Optimizer
 ---
 
-## HiveSQL Parser&Optimizer Note
+## HiveQL Parser&Optimizer Note
 ------------------------------------------------------------
 
-### HiveSQL编译优化解析
+### HiveQL编译优化解析
 
 Hive是基于Hadoop的一个数据查询工具，在各大公司都有广泛的应用。美团数据仓库也是基于Hive搭建，每天执行近万次的Hive ETL计算流程，负责每天数百GB的数据存储和分析。Hive的稳定性和性能对我们的数据分析非常关键。
 
@@ -80,7 +80,7 @@ from... where.... select... group by... having ... order by...
 
 下面分别对这六个阶段进行介绍
 
-#### 2.1 Phase1-SQL词法&语法解析
+#### 2.1 Phase1-HiveQL词法&语法解析
 
 **2.1.1.Antlr**
 
@@ -366,7 +366,7 @@ ReduceSinkDeDuplication将childRS和parentheRS与childRS之间的Operator删掉�
 ![hive_qb_operator_tree_merge2](_includes/hive_qb_operator_tree_merge2.png)
 
 
-#### 2.5 Phase5-OperatorTree生成MapReduce Job的过程
+#### 2.5 Phase5-Hive语义分析(OperatorTree生成MapReduce Job的过程)
 
 OperatorTree转化为MapReduce Job的过程分为下面几个阶段
 

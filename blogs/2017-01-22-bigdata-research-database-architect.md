@@ -440,6 +440,8 @@ Hash取模运算。好的Hash函数时间复杂度是 O(1)
 
 SQL优化器的前置组件
 
+SQL的理论基础是关系代数,而关系代数的主要操作只有5种,分别是并,差,积,选择,投影。所有的SQL语句最后都能用这5种操作组合完成。
+
 语义解析器要分析查询中的表和字段
 
 - 表是否存在
@@ -448,6 +450,11 @@ SQL优化器的前置组件
 
 在解析过程中，SQL查询被转换为内部表示(通常是一个语义树来描述查询计划树)
 
+
+![semantic_tree](_includes/semantic_tree.png)
+
+
+_Ref:_
 
 - 语义解析解决方案:[ANTLR语义解析](https://github.com/antlr/antlr4/blob/master/doc/index.md)
 - 开源SQL Parser:[Apache Calcite](http://calcite.apache.org/docs/)
