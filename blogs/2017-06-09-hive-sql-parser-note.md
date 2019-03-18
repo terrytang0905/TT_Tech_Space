@@ -542,16 +542,17 @@ MapJoinResolver优化器遍历Task Tree，将所有有local work的MapReduceTask
 (譬如Hive 0.13最新的特性Vectorization和对Tez引擎的支持都是可插拔的).
 每个Operator只完成单一的功能，简化了整个MapReduce程序。
 
-#### 4.发展方向
 
-Hive依然在迅速的发展中，为了提升Hive的性能，hortonworks公司主导的Stinger计划提出了一系列对Hive的改进，比较重要的改进有：
+
+#### 4.Hive的改进
+
 
 - Vectorization - 使Hive从单行单行处理数据改为批量处理方式，大大提升了指令流水线和缓存的利用率
 - Hive on Tez - 将Hive底层的MapReduce计算框架替换为Tez计算框架。Tez不仅可以支持多Reduce阶段的任务MRR，还可以一次性提交执行计划，因而能更好的分配资源。
-- HIve on Spark 
+- Live Long And Process(LLAP):LLAP provides a hybrid execution model from Hive 2.0
+- Hive on Spark 
 - Cost Based Optimizer - 使Hive能够自动选择最优的Join顺序，提高查询速度
-Implement insert, update, and delete in Hive with full ACID support - 支持表按主键的增量更新
-我们也将跟进社区的发展，结合自身的业务需要，提升Hive型ETL流程的性能
+- Implement insert, update, and delete in Hive with full ACID support - 支持表按主键的增量更新
 
 
 **Apache Hive 3.x 架构介绍**
@@ -561,13 +562,14 @@ Hive+Tez+LLAP
 1.执行引擎更改
 
     Apache Tez将默认的Hive执行引擎。通过有向无环图(DAG)和数据传输原语的表达式
+    Tez可以将多个有依赖的作业转换为一个作业（这样只需写一次HDFS，且中间节点较少).从而大大提升DAG作业的性能
 
 2.设计影响安全性的更改
 3.HDFS权限更改
 4.交易处理变更
 
     -成熟版本的ACID事务处理和LLAP(LiveLongAndProcess)
-    -简化的应用程序开发，具有更强事务保证的操作，以及更简单的SQL命令语义
+    -简化的应用程序开发,具有更强事务保证的操作,以及更简单的SQL命令语义
   
 5.物化视图重写
 6.自动查询缓存
@@ -575,9 +577,9 @@ Hive+Tez+LLAP
 
 #### 5.参考
 
-- [Antlr](http://www.antlr.org/)
 - [Hive Wiki](https://cwiki.apache.org/confluence/display/Hive/Home)
 - [HiveSQL编译过程](http://www.slideshare.net/recruitcojp/internal-hive)
+- [Antlr语义解析器](http://www.antlr.org/)
 - [Join Optimization in Hive](https://www.facebook.com/notes/facebook-engineering/join-optimization-in-apache-hive/470667928919/)
 - [Hive Design Docs](https://cwiki.apache.org/confluence/display/Hive/DesignDocs)
 

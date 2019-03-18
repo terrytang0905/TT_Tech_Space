@@ -14,11 +14,11 @@ title: Database Research Note - Database Management for Analytics
 
 **Core Capibility**
 
-- Access to Multiple Data Sources
+- Access to Multiple Data Sources 访问多数据源(多数据源混合查询)
 - Administration and Management
-- Advanced Analytics
+- Advanced Analytics 
 - Data Ingest(减少移动数据,增强移动计算)
-- Managing Large Volumes of Data
+- Managing Large Volumes of Data 
 - Optimized Performance (Traditional/Exploratory)
 - Flexible Scalability
 - Variety of Data Types
@@ -88,10 +88,9 @@ _Ref:_
 	- 对异构设备支持
 
 
-
 **FusionInsight Elk**
 
-分布式查询执行引擎,设计模式类似MPP
+分布式查询执行引擎,支持并行计算。设计模式类似嫁接在HDFS之上MPP架构
 
 _SQL on Hadoop_
 
