@@ -107,7 +107,7 @@ title: BigData Business Value Thinking
 - [大数据研究-SQL设计](2017-07-28-bigdata-research-sql-design.md)
 - [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
 - [Greenplum5最佳实践](2017-12-03-greenplum5-best-practice-note.md)
-- [实时流式数据计算](2018-05-31-bigdata-stream-compute-research-note.md)
+- [实时流式数据计算](2017-07-27-bigdata-research-realtime-process.md)
 - [大数据研究-数据处理计算](2017-07-28-bigdata-research-bigdata-development.md)
 - [大数据研究-OLAP分析](2017-02-01-bigdata-research-olap-anlysis.md)
 - [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)

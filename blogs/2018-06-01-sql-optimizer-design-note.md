@@ -213,7 +213,7 @@ SQL查询重写优化规则=等价转换:
 
 _Ref:_
 
-[数据库JOIN查询算法](http://www.acad.bg/rismim/itc/sub/archiv/Paper6_1_2009.PDF)
+- [数据库JOIN查询算法](http://www.acad.bg/rismim/itc/sub/archiv/Paper6_1_2009.PDF)
 
 
 #### 2.7.统计优化
@@ -325,8 +325,8 @@ GPORCA在以下几个方面针对大数据查询的增强Greenplum数据库查�
 
 _Ref:_
 
-[PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
-[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+- [PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
+- [PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
 
 
 #### _Legacy Query Optimizer - Greenplum/PostgreSQL_
@@ -509,9 +509,9 @@ ApacheHive2.1引入了更智能的CBO，实现了更快的类型转换，以及�
 
 _Ref:_
 
-[HiveSQL编译优化解析](2017-06-09-hive-sql-parser-note.md)
-[LLAP feature](https://cwiki.apache.org/confluence/display/Hive/LLAP)
-[Using the Cost-Based Optimizer to Enhance Performance](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.5/bk_hive-performance-tuning/content/ch_cost-based-optimizer.html)
+- [HiveSQL编译优化解析](2017-06-09-hive-sql-parser-note.md)
+- [LLAP feature](https://cwiki.apache.org/confluence/display/Hive/LLAP)
+- [Using the Cost-Based Optimizer to Enhance Performance](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.5/bk_hive-performance-tuning/content/ch_cost-based-optimizer.html)
 
 #### 6.2.SparkSQL Catalyst优化器
 

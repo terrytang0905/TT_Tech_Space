@@ -131,8 +131,15 @@ Kappa架构适合非超大量数据的实时计算,可以使用一个代码架�
 #### III.Kafka+Flink
 
 
-- [Flink技术研究](2018-05-31-flink-research-note.md)
+- [实时数据处理技术](2018-05-31-bigdata-stream-compute-research-note.md)
 
 _Ref:_
 
 [Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)
+
+
+#### Spark Streaming
+
+
+Spark Streaming是将实时数据流按时间段分段后,当作小的批处理数据去计算
+

@@ -52,8 +52,8 @@ title: Database Research Note - Database Management for Analytics
 
 _Ref:_
 
-[BigQuery](https://cloud.google.com/bigquery/)
-[SQLonHadoop研究Note-Dremel](2017-04-04-olap-sqlonhadoop-research-note.md)
+- [BigQuery](https://cloud.google.com/bigquery/)
+- [SQLonHadoop研究Note-Dremel](2017-04-04-olap-sqlonhadoop-research-note.md)
 
 
 
@@ -115,7 +115,7 @@ Apache CarbonData文件格式的2层索引的设计导致压缩率缩减与数�
 
 _Ref:_
 
-[CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
+- [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
 ##### Huawei FusionInsight LibrA(MPPDB)
     
@@ -256,8 +256,8 @@ _MaxCompute SQL Parser & SQL Optimizer_
 
 _Ref:_
 
-[MaxCompute Ref](https://yq.aliyun.com/articles/78108)
-[MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
+- [MaxCompute Ref](https://yq.aliyun.com/articles/78108)
+- [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
 
 #### 6.GBase+Informix

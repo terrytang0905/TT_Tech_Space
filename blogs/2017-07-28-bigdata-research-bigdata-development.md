@@ -42,7 +42,7 @@ Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体�
 
 ### Realtime Streaming Computeing
 
-- [实时流式数据计算](2018-05-31-bigdata-stream-compute-research-note.md)
+- [实时流式数据计算](2017-07-27-bigdata-research-realtime-process.md)
 
 ### ElasticSearch Solution
 

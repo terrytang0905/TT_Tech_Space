@@ -22,7 +22,7 @@ title: Big Data Research Note - SQL Design
 
 ### SQL on Hadoop
 
-- [SQLonHadoop分析应用](2017-04-04-sqlonhadoop-anlysis-note.md)
+- [大数据交互式查询分析应用](2017-04-04-olap-sqlonhadoop-research-note.md)
 
 - [Hive分析与应用](2017-06-08-hive-programing-note.md)
 

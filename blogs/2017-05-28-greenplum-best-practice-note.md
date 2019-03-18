@@ -100,20 +100,20 @@ GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型
 * 不要设置所有队列为 MEDIUM,这样起不到管理负载的作用。
 * 根据负载和时间段动态调整资源队列。
 
-*JDBC Driver*
+_JDBC Driver_
 
 使用Greenplum DataDirect JDBC Driver(相比postgresql jdbc driver,性能差。。。需研究)
 
 
 #### 2.BestPractice详细内容
 
-*2.0.系统监控*
+**2.0.系统监控**
 
 监控工具 nmon_x86_64_centos7
 
 
 
-*2.1.自建资源队列*
+**2.1.自建资源队列**
 
 建议通过greenplum command center的Administration->Manage resource queues选项操作。
 自己创建资源队列,系统默认的资源队列pg_default,对内存参数没有做出限制，会有内存溢出的风险
@@ -169,7 +169,7 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 
 	设置方法gpconfig -c gp_workfile_compress_algorithm -v zlib
 
-*2.3.ANALYZE*
+**2.3.ANALYZE**
 
 * 命令：analyze [talbe [(column,..)]]
 * 收集表内容的统计信息，以优化执行计划。如创建索引后，执行此命令，对于随即查询将会利用索引。
@@ -184,13 +184,13 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 	上面是已知道表列note不需出现在join列上，也不会出现在where语句的过滤条件下，因为可以把这个列设置为不收集统计信息：
 	2. alter table test alter note SET STATISTICS 0;
 
-*2.4.两种聚合方式*
+**2.4.两种聚合方式**
 
 * HashAggregate 根据group by字段后面的值算出hash值，并根据前面使用的聚合函数在内存中维护对应的列表，几个聚合函数就有几个数组。相同数据量的情况下，聚合字段的重复度越小，使用的内存越大。
 * GroupAggregate 先将表中的数据按照group by的字段排序，在对排好序的数据进行全扫描，并进行聚合函数计算。消耗内存基本是恒定的。
 * 选择在SQL中有大量的聚合函数，group by的字段重复值比较少的时候，应该用groupaggregate
 
-*2.5.JOIN关联方式*
+**2.5.JOIN关联方式**
 
 分为三类：hash join、nestloop join、merge join，在保证sql执行正确的前提下，规划器优先采用hash join。
 * hash join: 先对其中一张关联的表计算hash值，在内存中用一个散列表保存，然后对另外一张表进行全表扫描，之后将每一行与这个散列表进行关联。
@@ -199,7 +199,7 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 * 关联的广播与重分布解析P133，一般规划器会自动选择最优执行计划。
 * 有时会导致重分布和广播，比较耗时的操作
 
-*2.6.Redistribute重分布*
+**2.6.Redistribute重分布**
 
 一些sql查询中，需要数据在各节点重新分布，受制于网络传输、磁盘I/O，重分布的速度比较慢。
 * 关联键强制类型转换 
@@ -208,9 +208,9 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 * group by、开窗函数、grouping sets会引发重分布
 
 
-*2.7.数据Load策略*
+**2.7.数据Load策略**
 
-**gpfdist/gpload**
+_gpfdist/gpload_
 
 - 使用 gpfdist 进行数据的加载和导出。
 - 随着段数据库个数的增加,并行性增加。
@@ -222,12 +222,12 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 - 数据加载完成后运行 ANALYZE 操作。
 - 数据加载过程中,设置 gp_autostats_mode 为 NONE,取消统计信息的自动收集。 若数据加载失败,使用 VACUUM 回收空间。
 
-**COPY**
+_COPY_
 
 使用COPY命令前,删除Index和外键约束,事后运行VACUUM ANALYZE
 
 
-*2.8.Greenplum Index*
+**2.8.Greenplum Index**
 
 http://gpdb.docs.pivotal.io/4320/ref_guide/sql_commands/CREATE_INDEX.html
 
@@ -254,7 +254,7 @@ Greenplum数据模型设计:
 	- 确定和描述在数据仓库中使用的数据模型与哪些数据可存储在GP中.Identify and describe the data models used in data warehousing and describe how data is stored in Greenplum.
 	- 分布存储数据在GP中,使用分布键(distribution key), 分区表(partitioning)与限制(constraints).Distribute and store data in Greenplum using a distribution key,partitioning,and constraints.
 
-*3.1.Data Models-数据模型*
+**3.1.Data Models-数据模型**
 
 * Logical data model - Cube
 * Enhanced logical data model - AggregateResult/View
@@ -285,7 +285,7 @@ Dimensional Approach in DW:Star and snowflake schemas are the most common in DW 
 
 ![KeyDesignConsiderations](_includes/key_design_consideration.png)
 
-*3.2.Table Compression*
+**3.2.Table Compression**
 
 Rules of Compression:
 
@@ -295,7 +295,7 @@ Rules of Compression:
 - Data compression should never be used for data that is stored on a compressed file system.
 
 
-*3.3.Data Distribution*
+**3.3.Data Distribution**
 
 -Using the same distribution key for commonly joined tables
 -Avoid redistribute motion for large tables
@@ -313,7 +313,7 @@ Rules of Compression:
 - join关联查询、开窗函数等使用其关联字段作为分布distribute键。这样能让表关联JOIN数据都分布在同一segment,以减少redistribution motion.
 
 
-*3.4.Check for Data Skew-检查数据倾斜*
+**3.4.Check for Data Skew-检查数据倾斜**
 
 - 数据倾斜是影响性能的主要原因,因此验证数据分布合理与否非常重要。使用gp_tookit可检查倾斜
 - 查看某表是否分布不均: select gp_segment_id,count(*) from fact_table group by gp_segment_id
@@ -335,7 +335,7 @@ gp_toolkit administrative schema offers two views:
 	- gp_toolkit.gp_skew_coefficients
 	- gp_toolkit.gp_skew_idle_fractions
 
-*3.5.Partitions*
+**3.5.Partitions**
 
 好的分区表策略可以提高系统Scan数据的性能。
 
@@ -380,11 +380,11 @@ gp_toolkit administrative schema offers two views:
 
 例如，具有下面配置的段服务器：
 
-8GB 交换空间
-128GB 内存
-vm.overcommit_ratio = 50
-8 个段数据库
-(8 + (128 * .5)) * 0.9 / 8 = 8 GB， 则设置gp_vmem_protect_limit为 8GB：
+	8GB 交换空间
+	128GB 内存
+	vm.overcommit_ratio = 50
+	8 个段数据库
+	(8 + (128 * .5)) * 0.9 / 8 = 8 GB， 则设置gp_vmem_protect_limit为 8GB：
 
 [VMemCalcPage](https://greenplum.org/calc/)
 
@@ -437,7 +437,7 @@ vm.overcommit_ratio = 50
 #### 7.GP System Recovery
 
 
-*Greenplum系统恢复*
+**Greenplum系统恢复**
 
 要求:PrimarySegment超过一半节点处于Down状态下,就需要启动系统恢复机制
 
@@ -445,7 +445,7 @@ vm.overcommit_ratio = 50
 
 ![RecoveyMatrix](_includes/gp_recovermatrix.png)
 
-*7.1.gpstate*
+**7.1.gpstate**
 
 Show detailed status information of a Greenplum Database system:
 	- gpstate -s
@@ -456,7 +456,7 @@ Do a quick check for down segments in the master host system catalog:
 Show information about mirror segment instances:
 	- gpstate -m
 
-*7.2.gprecoverseg*
+**7.2.gprecoverseg**
 
 Rebalance your Greenplum Database system after a recovery by resetting all segments to their preferred role. First check that all segments are up and synchronized.
 
@@ -466,28 +466,28 @@ $ gprecoverseg
 $ gprecoverseg -r
 ```
 
-*7.3.Greenplum备份管理*
+**7.3.Greenplum备份管理**
 
-*7.3.1.gpcrondump(gp_dump)*
+**7.3.1.gpcrondump(gp_dump)**
 ```sql
 Back up a database:
 gp_dump gpdb
 Back up a database, and create dump files in a centralized location on all hosts:
 gp_dump --gp-d=/home/gpadmin/backups gpdb
 ```
-*7.3.2.gpdbrestore(gp_restore)*
+**7.3.2.gpdbrestore(gp_restore)**
 ```
 Restore a Greenplum database using backup files created by gp_dump:
 gp_restore --gp-k=2005103112453 -d gpdb
 ```
 
-*7.4.Greenplum Segment更新*
+**7.4.Greenplum Segment更新**
 
-*7.4.1.Segment扩展*
+**7.4.1.Segment扩展**
 
 https://yq.aliyun.com/articles/177
 
-*7.4.2.Segment异常恢复*
+**7.4.2.Segment异常恢复**
 
 [gprecoversegInfo](http://gpdb.docs.pivotal.io/4320/utility_guide/admin_utilities/gprecoverseg.html)
  
@@ -524,7 +524,7 @@ recover_config_file
 > 执行gprecoverseg -i /home/gpadmin/recover_cofig_file
 ```
 
-*7.4.3.删除Segment*
+**7.4.3.删除Segment**
 
 [RemoveSegment](http://blog.csdn.net/u011478909/article/details/52692280)
 

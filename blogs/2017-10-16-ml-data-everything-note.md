@@ -313,9 +313,9 @@ Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给
 
 - 行为定向建模/特征/决策/评测
 
-- [用户行为画像分析](2018-06-06-user-behavior-profile-note.md)
+- [用户行为画像分析](2018-06-06-user-label-profile-note.md)
 
-- [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
+- [梯度提升决策树算法](2017-12-25-gbdt-xgboost-ml-note.md)
 
 #### 4.4.海量数据筛选
 

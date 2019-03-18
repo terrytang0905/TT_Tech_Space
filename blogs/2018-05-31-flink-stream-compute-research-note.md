@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata, framework, develop]
-title: Bigdata Stream Computeing Framework Note
+title: Flink Stream Computeing Framework Note
 ---
 
 ## 大数据处理框架研究笔记
@@ -30,9 +30,7 @@ _Ref:_
 - [Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)
 
 
-### Spark Streaming
 
-Spark Streaming是将实时数据流按时间段分段后,当作小的批处理数据去计算
 
 #### Flink & Storm技术比较
 

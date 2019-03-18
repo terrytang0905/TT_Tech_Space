@@ -116,7 +116,7 @@ Java+稀疏矩阵+行列相似性
 分类树（决策树）是一种十分常用的分类方法。他是一种监管学习，所谓监管学习就是给定一堆样本，每个样本都有一组属性和一个类别，这些类别是事先确定的，那么通过学习得到一个分类器，这个分类器能够对新出现的对象给出正确的分类。这样的机器学习就被称之为监督学习。
 
 
-- [GBDT&XGBoost算法](2017-12-25-gbdt-ml-note.md)
+- [GBDT&XGBoost算法](2017-12-25-gbdt-xgboost-ml-note.md)
 
 最小化损失函数，就用梯度下降法
 最大化似然函数，就用梯度上升法
@@ -140,7 +140,7 @@ Java+稀疏矩阵+行列相似性
 
 **Python相关**
 
-- [机器学习&Python数据挖掘](2017-10-16-ml-python-data-mining-note.md)
+- [机器学习&Python数据挖掘](2017-10-16-ml-data-everything-note.md)
 - [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
 
 

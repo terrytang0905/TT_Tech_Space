@@ -116,17 +116,22 @@ select id from t where createdate>=’2005-11-30’and createdate<‘2005-12-1�
 * 10.很多时候用 exists是一个好的选择 *
 
 很多时候用 exists是一个好的选择：
+```sql
 selectnum from a where num in (select num from b)
+```
 用下面的语句替换：
+```sql
 selectnum from a where exists (select 1 from b where num=a.num)
-
+```
+```sql
 SELECT SUM(T1.C1) FROM T1 WHERE(
-(SELECT COUNT(*) FROM T2 WHERE T2.C2=T1.C2>0)
+(SELECT COUNT(\*) FROM T2 WHERE T2.C2=T1.C2>0)
 
 SELECT SUM(T1.C1) FROM T1 WHERE EXISTS(SELECT * FROM T2 WHERE T2.C2=T1.C2)
+```
 
 两者产生相同的结果，但是后者的效率显然要高于前者。因为后者不会产生大量锁定的表扫描或是索引扫描。
-如果你想校验表里是否存在某条纪录，不要用count(*)那样效率很低，而且浪费服务器资源。可以用EXISTS代替。如：
+如果你想校验表里是否存在某条纪录，不要用count(\*)那样效率很低，而且浪费服务器资源。可以用EXISTS代替。如：
 
 ```sql
 IF (SELECT COUNT(*) FROM table_name WHERE column_name=‘xxx’)
