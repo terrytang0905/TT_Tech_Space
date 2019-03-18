@@ -253,7 +253,12 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
     - 低成本
     与企业自建私有云相比，MaxCompute 的计算存储更高效，可以降低 20%-30% 的采购成本。
 
-![MaxCompute逻辑架构](_includes/maxcomputer_arch.png)
+
+![MaxCompute架构](_includes/maxcompute_arch.png)
+
+_MaxCompute查询计算_
+
+![MaxCompute_lightning逻辑架构](_includes/maxcompute_lightning.png)
 
 ![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
 
@@ -261,6 +266,10 @@ _MaxCompute流计算引擎?_
 
 _MaxCompute SQL Parser & SQL Optimizer_
 
+	- 基于Volcano火山模型的CBO
+	- Vectorized Execution Engine in MaxCompute 2.0
+	- 优化规则
+	- Cost模型
 
 
 	Comments:
