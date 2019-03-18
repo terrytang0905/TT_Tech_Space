@@ -32,10 +32,10 @@ title: SQL Optimizer Design Note
 
 无论是RBO，还是CBO都包含了一系列优化规则，这些优化规则可以对关系表达式进行等价转换，常见的优化规则包含：
 
-    - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
-    - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
-    - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
-    - 其他
+- 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
+- [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
+- 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
+- 其他
 
 在这些优化规则的基础上，就能对关系表达式做相应的等价转换，从而生成执行计划。下面将介绍RBO和CBO两种优化器的执行过程。
 
@@ -87,7 +87,7 @@ CBO实现有两种模型，即Volcano模型[1]和Cascades模型[2]，其中Calci
 ### 2.SQL查询优化器分析
 
 
-#### 查询重写器 Query Rewriter(视图重写)
+#### 2.1.查询重写器 Query Rewriter(视图重写)
 
 - 预优化查询SQL
 - 避免不必要的运算
@@ -116,17 +116,17 @@ SQL查询重写优化规则=等价转换:
     - 外连接消除
     - 连接顺序交换
  
-#### 逻辑查询优化
+**_逻辑查询优化_**
 
    
 
-#### 物理查询优化
+**_物理查询优化_**
 
-2.1._常规操作_
+#### 2.2.常规操作
 
     TableScan,Join,Sorting,Aggregate
 
-2.2._优化模式_
+#### 2.3.优化模式
   
     - 基于规则策略的优化器(Rule-Based Optimizer，RBO)
     - 基于代价策略的优化器(Cost-Based Optimizer，CBO)
@@ -153,11 +153,11 @@ SQL查询重写优化规则=等价转换:
     - 查看内关系里的所有行来寻找匹配的行
     - 内关系必须是最小的，因为它有更大机会装入内存
 
+    Tips:查询优化包含将外联接关系转换为内联接关系
+
 **C.JOIN优化-联接算法**
 
-2.3._两表联接算法分析_
-
-A.联接运算符
+#### 2.4.联接算法分类
 
 **Nested Loop Join -嵌套循环联接算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表**
 
@@ -184,7 +184,7 @@ A.联接运算符
     6) 生成哈希表需要时间
 
 
-B.联接运算算法选择:
+#### 2.5.联接运算算法选择
 
     - 空闲内存：没有足够的内存的话就跟强大的哈希联接拜拜吧(至少是完全内存中哈希联接)。
     - 两个数据集的大小。比如，如果一个大表联接一个很小的表，那么嵌套循环联接就比哈希联接快，因为后者有创建哈希的高昂成本；如果两个表都非常大，那么嵌套循环联接CPU成本就很高昂。
@@ -195,7 +195,7 @@ B.联接运算算法选择:
     - 数据的分布：如果联接条件的数据是倾斜的（比如根据姓氏来联接人，但是很多人同姓），用哈希联接将是个灾难，原因是哈希函数将产生分布极不均匀的哈希桶。
     - 如果你希望联接操作使用多线程或多进程。
 
-2.4._多表联接算法_
+#### 2.6.多表联接算法
 
 核心问题算法应用
 
@@ -216,7 +216,7 @@ _Ref:_
 [数据库JOIN查询算法](http://www.acad.bg/rismim/itc/sub/archiv/Paper6_1_2009.PDF)
 
 
-2.5._统计优化_
+#### 2.7.统计优化
 
 数据库统计用于预计数据库具体情况,可优化查询性能。
 
@@ -238,7 +238,7 @@ _Ref:_
     Comments:统计信息及时更新可以有效降低内存消耗
 
 
-2.6._聚合函数计算_
+#### 2.8.聚合函数计算
 
 _HashAggregate_
 
@@ -253,9 +253,9 @@ _GroupAggregate_
     对于GroupAggregate来说，消耗的内存基本上是恒定的，无论group by哪个字段。当聚合函数较少的时候，速度也相对较慢，但是相对稳定。
 
 
-#### 查询计划执行确认
+#### 2.9.查询计划执行确认
 
-2.7._查询计划缓存_
+_查询计划缓存_
 
     每当试图执行查询时，查询管道都会查找它的查询计划缓存，以便了解该查询是否已经编译且可用。 如果答案是肯定的，它将重用缓存的计划而不是生成新的计划。 如果未在查询计划缓存中找到匹配的计划，则会编译和缓存该查询。 
     查询由其 Entity SQL 文本和参数集合（名称和类型）标识。 所有文本比较都区分大小写。
@@ -263,12 +263,12 @@ _GroupAggregate_
 
 ### 3.SQL常用查询优化器
 
-* 3.1._SQLite优化器_
+#### 3.1.SQLite优化器
 
 		使用Nested嵌套联接
 		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
 
-* 3.2._DB2优化器_
+#### 3.2.DB2优化器
 
 		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
 		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
@@ -278,7 +278,7 @@ _GroupAggregate_
 		考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
 		默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
 
-* 3.3._Genetic Query Optimizer - PostgerSQL查询优化器_
+#### 3.3.Genetic Query Optimizer - PostgerSQL查询优化器
 
 [geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
 
@@ -606,7 +606,7 @@ _Ref:_
 
 
 
-### 7.[大数据查询优化器]Presto New Optimzer
+### 7.[大数据查询优化器]Presto Optimzer
 
 **Presto Cost-based Query Optimization**
 

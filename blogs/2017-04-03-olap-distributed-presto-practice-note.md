@@ -10,16 +10,26 @@ title: Big Data OLAP Note - PrestoDB OLAP
 
 #### PrestoDB
 
+
+PrestoDB特征:
+
+    - MPP-style pipelined in-memory execution 基于内存的并行计算
+    - Columnar and vectorized data processing 列式&向量化数据处理
+    - Runtime query bytecode compilation LLVM动态编译执行计划(Impala有类似设计)
+    - Memory efficient data structures
+    - Multi-threaded multi-core execution 多线程多核执行
+    - Optimized readers for columnar format(ORC and Parquet)
+    - 支持跨数据源混合查询/SQL-on-Anything
+    - 计算与存储分离
+    - GC控制
+
+
 - [Presto Doc](https://prestodb.io/docs/current/)
 
-#### Presto架构
+#### 1.Presto架构
 
 ![Presto架构](_includes/Presto架构.png)
 
-- MPP
-- Hive Metadata应用
-- 支持内存计算
-- 支持跨数据源查询
 
 **Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:**
 
@@ -40,15 +50,8 @@ title: Big Data OLAP Note - PrestoDB OLAP
 
 ![PrestoArchPipeline](_includes/PrestoArchPipeline.png)
 
-#### Presto低延迟原理
 
-- 完全基于内存的并行计算
-- Pipeline流水线式计算作业
-- 本地化计算
-- 动态编译执行计划(Impala有类似设计)
-- GC控制
-
-#### Presto存储插件
+#### 2.Presto存储插件
 
 - Presto设计了一个简单的数据存储的抽象层,来满足在不同数据存储系统之上都可以使用SQL进行查询。
 - 存储插件(连接器connector)只需要提供实现以下操作的接口,包括对元数据(metadata)的提取,获得数据存储的位置,获取数据本身的操作等。
@@ -65,7 +68,7 @@ Plugin API:
 - Data Stream API(Worker)
 
 
-#### Presto执行过程
+#### 3.Presto执行过程
 
 **执行过程示意图:**
 
@@ -121,14 +124,31 @@ select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id wher
 	* SubPlan3节点计算完成后通知Coordinator结束查询,并将数据发送给Coordinator
 
 
-#### Presto CBO
+#### 4.Presto CBO
 
 
+- support for statistics stored in Hive Metastore
+- join reordering based on selectivity estimates and cost
+- automatic join type selection(repartitioned vs broadcast)
+- automatic left/right side selection for join tables
 
-- [Presto New Optimizer](https://github.com/prestodb/presto/wiki/New-Optimizer)
+Hive Metastore statistics
+
+
+* 使用WITH语句
+* 利用子查询，减少读表的次数，尤其是大数据量的表
+* 只查询需要的字段
+* Join查询优化
+	多表Join时，数据越多的表越往后放
+	Left join时，条件过滤尽量在ON阶段完成，而少用WHERE
+	使用join取代子查询:在数据量比较大时,使用inner join取代exists;使用left join取代not exists性能上可以得到较大的提升
+* 字段名引用
+* ORC格式优化
+
 
 #### Ref
 
+- [Presto New Optimizer](https://github.com/prestodb/presto/wiki/New-Optimizer)
 - [Introduce to presto CBO](https://www.starburstdata.com/technical-blog/introduction-to-presto-cost-based-optimizer/)
 
 
