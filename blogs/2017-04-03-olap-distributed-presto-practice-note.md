@@ -145,6 +145,17 @@ Hive Metastore statistics
 * 字段名引用
 * ORC格式优化
 
+#### 5.PrestoDB源码分析
+
+presto-cli的main方法入口为
+
+	com.facebook.presto.cli.Presto.java
+
+presto-main的main方法入口为
+
+	com.facebook.presto.server.PrestoServer.java
+
+client端与server端的启动分别从这两个main中启动
 
 #### Ref
 
