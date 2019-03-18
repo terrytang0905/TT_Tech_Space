@@ -134,16 +134,17 @@ select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id wher
 
 Hive Metastore statistics
 
+Presto SQL优化:
 
-* 使用WITH语句
-* 利用子查询，减少读表的次数，尤其是大数据量的表
-* 只查询需要的字段
-* Join查询优化
+	* 使用WITH语句
+	* 利用子查询，减少读表的次数，尤其是大数据量的表
+	* 只查询需要的字段
+	* Join查询优化
 	多表Join时，数据越多的表越往后放
 	Left join时，条件过滤尽量在ON阶段完成，而少用WHERE
 	使用join取代子查询:在数据量比较大时,使用inner join取代exists;使用left join取代not exists性能上可以得到较大的提升
-* 字段名引用
-* ORC格式优化
+	* 字段名引用
+	* ORC格式优化
 
 #### 5.PrestoDB源码分析
 
