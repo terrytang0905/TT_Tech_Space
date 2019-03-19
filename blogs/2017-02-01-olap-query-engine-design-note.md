@@ -2,13 +2,13 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: title: Big Data OLAP Note - OLAP BigQuery Engine Design
+title: Big Data OLAP Note - OLAP BigQuery Engine Design
 ---
 
 ## OLAP查询引擎设计
 -----------------------------------------------------------
 
-**Bigdata Analysis Product=DataVisualization + OLAP(Cube+BigQueryEngine/Hive) + BigdataStorage(HDFS/GFS/S3/Greenplum/Vertica)**
+**Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
 
 
 OLAP     | Type 	| Link 					   | Desc
@@ -407,4 +407,4 @@ Greenplum-MPP数据查询+海量HDFS数据查询
 
 ### x.技术参考
 
-[SQL查询引擎技术调研](2018-06-01-sql-optimizer-design-note.md)	
+- [SQL查询引擎技术调研](2018-06-01-sql-optimizer-design-note.md)	

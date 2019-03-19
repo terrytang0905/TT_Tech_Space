@@ -39,7 +39,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
-- *[实时流式计算分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-stream-compute-research-note.md)
+- *[Flink实时流式计算-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-stream-compute-research-note.md)
 - *[大数据研究-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
 - *[大数据研究-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-realtime-process.md)
 - *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)

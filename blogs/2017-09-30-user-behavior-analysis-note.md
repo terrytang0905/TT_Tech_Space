@@ -225,39 +225,39 @@ OMTM(One Metric That Matters-第一关键指标)
 6.营销优化与数据挖掘特征提取
 7.详细分析应用价值
 
-数据分析三重境界：
+**数据分析三重境界：**
 
-- 统计计数
-- 多维分析
-- 机器学习
+    - 统计计数
+    - 多维分析
+    - 机器学习
 
 
 #### 1.8.分析工具篇
 
-* Google Analytics 
+*Google Analytics*
 
-- 页面浏览量(Page View):网站在某一段时间内的页面浏览量是多少。
-- 用户浏览量(User View):网站在某一段时间内的用户浏览量是多少。
-- 渠道来源(Traffic Sources):用户流量来源于哪些不同的渠道。
-- 访客特征(User Demographics):访问用户具有哪些特征值,可用来做用户分类。 
-- 访问路径(Flow Report):用户在网站上的访问行为,各个页面的进入率和跳出率。
+    - 页面浏览量(Page View):网站在某一段时间内的页面浏览量是多少。
+    - 用户浏览量(User View):网站在某一段时间内的用户浏览量是多少。
+    - 渠道来源(Traffic Sources):用户流量来源于哪些不同的渠道。
+    - 访客特征(User Demographics):访问用户具有哪些特征值,可用来做用户分类。 
+    - 访问路径(Flow Report):用户在网站上的访问行为,各个页面的进入率和跳出率。
 
 点击行为热点图
 
 
-* Mixpanel/KissMetrics
+*Mixpanel/KissMetrics*
 
 - 用户动态分析(Trends):你关心的用户行为发生了多少次,占总比例多少。
 - 行为漏斗模型(Funnels):某些关键行为是怎么发生了,每一步有多少的留存率和流失率。
 - 用户活跃度(Cohorts):网站用户的活跃度如何,可以用来区分忠实用户和普通用户。
 - 单用户行为分析(People):单个用户在网站上做了哪些操作,过程是如何的。
 
-* UserCycle
+*UserCycle*
 
 	- 统计分析(Trends)和用户分组(Cohorts)
 	- 分组实验测试(Split-Test Experiments)
 
-* Optimize.ly
+*Optimize.ly*
 
 	Optimize.ly 是 A/B 测试的利器
 	Optimize.ly 会根据用户行为的不同,给出不同的测试报告,让我们能 真真切切地了解页面变化对于转化率的影响
@@ -265,7 +265,7 @@ OMTM(One Metric That Matters-第一关键指标)
 
 http行为监控 - 友盟/百度指数/淘宝指数
 
-* 友盟
+*友盟*
 
 	友盟统计分析平台是国内最大的移动应用统计分析平台之一,能帮助移动应用开发者
 	统计和分析流量来源、内容使用、用户属性和各种细分的行为数据。
@@ -276,7 +276,7 @@ http行为监控 - 友盟/百度指数/淘宝指数
 - [诸葛IO](https://demo.zhugeio.com/apppanel/panel.jsp;JSESSIONID_DEMO=F7EE67D535E3D56B1FD236DB294FD569.demo?app_id=35510&p=3#Ym9hcmRJZD0yODQ0)
 
 
-* BI数据分析与数据可视化
+*BI数据分析与数据可视化*B
 
 	- 永洪BI/QuickBI/Superset/Kylin
 	- echart/D3.js
@@ -377,7 +377,7 @@ sunburst partition example
 	- 基于关联分析的序列路径挖掘方法
 	- 社会网络分析
 
-[路径行为分析用例](https://codepen.io/tiago4orion/pen/nFEBk)
+- [路径行为分析用例](https://codepen.io/tiago4orion/pen/nFEBk)
 
 #### 2.4.用户分群与分层
 
@@ -390,7 +390,7 @@ sunburst partition example
 5%/15%/20%/25%/35%
 
 
-#### 2.5.[用户标签开发](2018-06-06-user-behavior-profile-note.md)
+#### 2.5.[用户标签开发](2018-06-06-user-label-profile-note.md)
 
 
 #### 2.6.用户行为预测分析
@@ -412,10 +412,10 @@ sunburst partition example
 #### 分析用户行为数据的价值
 
 
-产品运营如何提高转化率和留存率 案例1 客户流失模型
-如何让用户参与度增加 案例2 用户行为路径分析
-客户获取成本如何计算 案例3 渠道分析与留存分析
-客户终身价值如何计算 案例4 用户属性分析
+* 产品运营如何提高转化率和留存率 案例1 客户流失模型
+* 如何让用户参与度增加 案例2 用户行为路径分析
+* 客户获取成本如何计算 案例3 渠道分析与留存分析
+* 客户终身价值如何计算 案例4 用户属性分析
 
 
 
@@ -446,20 +446,23 @@ sunburst partition example
 
 #### 大数据分析平台设计
 
-*  文件存储：Hadoop HDFS、Tachyon、KFS
-*  离线计算：Hadoop MapReduce、Spark
-*  流式、实时计算：Storm、Spark Streaming、S4、Heron
-*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
+*  文件存储：Hadoop HDFS、Tachyon、GFS
+*  PAAS: Kubernetes
 *  资源管理：YARN、Mesos
-*  日志收集：Flume、Scribe、Logstash、Kibana
+*  离线计算：Hadoop MapReduce、Spark
+*  流式、实时计算：Storm、Spark Streaming、Flink
+*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
 *  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
-*  查询分析：Hive、Impala、Pig、Presto、Phoenix、SparkSQL、Drill、Flink、Kylin、Druid
-*  分布式协调服务：Zookeeper
+*  分析型数据仓库: Greenplum,Vertica
+*  OLAP查询分析：Impala、Presto、Phoenix、SparkSQL、Drill、Kylin、Druid
+*  分布式协调服务：Zookeeper,etcd
 *  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
-*  数据挖掘、机器学习：Mahout、Spark MLLib
-*  数据同步：Sqoop
-*  任务调度：Oozie
+*  数据挖掘、机器学习：Spark MLLib, PyTorch, Tenseflow
+*  日志收集：Flume、Scribe、Logstash、Kibana
+*  数据同步：Sqoop,DataX
+*  任务调度：Oozie,Azkaban
 
+- [数据平台架构设计](2018-08-18-data-platform-arch-planning-note.md)
 
 #### 3.2.多维分析与数据挖掘
 
@@ -472,15 +475,15 @@ OLAP与数据挖掘&机器学习的差异
 
 OLAP的应用场景
 
-[BigData OLAP](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-olap-anlysis-note.md)
+- [BigData OLAP分析](2017-04-04-olap-sqlonhadoop-research-note.md)
 
 数据挖掘&机器学习的应用场景
 
 #### 3.3.规则与统计
 
-NLP=通信系统+隐含马尔可夫模型
+NLP=通信系统+隐含马尔可夫模型(Hidden Markov Models)
 
-Hidden Markov Models:该马尔可夫链服从马尔可夫性质：即无记忆性。也就是说，这一时刻的状态，受且只受前一时刻的影响，而不受更往前时刻的状态的影响。
+	该马尔可夫链服从马尔可夫性质：即无记忆性。也就是说，这一时刻的状态，受且只受前一时刻的影响，而不受更往前时刻的状态的影响。
 
 数据挖掘算法模型的基础所在
 
@@ -527,7 +530,7 @@ Spark.ml目前支持基于模型的协同过滤。Spark.ml使用交替最小二�
 
     我们调整正则化参数regParam来解决用户在更新用户因子时产生新评分或者商品更新商品因子时收到的新评分带来的最小二乘问题。这个方法叫做“ALS-WR”它降低regParam对数据集规模的依赖，所以我们可以将从部分子集中学习到的最佳参数应用到整个数据集中时获得同样的性能。
 
-http://blog.csdn.net/liulingyuan6/article/details/53489390
+- [协同过滤(ALS)算法原理](http://blog.csdn.net/liulingyuan6/article/details/53489390)
 
 
 ##### B.客户流失分析模型(决策树+逻辑回归)
@@ -537,24 +540,26 @@ http://blog.csdn.net/liulingyuan6/article/details/53489390
 	- 针对已流失的客户的特征分析习得
 	- 针对流失风险概率高的客户的行为预测
 
-2.1.流失客户特征分析:
+1.流失客户特征分析:
 
 通过决策树算法,分析流失客户特征,然后通过这些特征,定义特征规则分类,得到用户流失的相关变量生成风险系数(活跃度/付费/用户内容等)
 
-2.2.通过对对所有用户的风险系数评估得出用户流失的风险概率,把超过风险阈值的用户打标签为潜在流失客户
+2.通过对对所有用户的风险系数评估得出用户流失的风险概率,把超过风险阈值的用户打标签为潜在流失客户
 
 	ln(P/1-P)=B + BX, 获取风险概率
 			  
-2.3.逻辑回归:基于流失风险概率的行为预测(逻辑函数 S型)
+3.逻辑回归:基于流失风险概率的行为预测(逻辑函数 S型)
 
 	最大拟然法拟合模型(计算公式取决于对数据的各种假设)
 
-2.4.A/B测试验证客户流失分析效果
+4.A/B测试验证客户流失分析效果
 
 
 ##### C.用户关联与序列路径挖掘(关联算法Apriori或FP-Growth算法)
 
-关联分析-从大规模数据中寻找物品间的隐含关系
+_关联分析_
+
+从大规模数据中寻找物品间的隐含关系
 
 提取用户关联的特定行为路径
 
@@ -569,7 +574,7 @@ http://blog.csdn.net/liulingyuan6/article/details/53489390
 - 最小支持度:表示项目集在统计意义上的最低重要性
 - 最小置信度:表示关联规则的最低可靠性
 
-* Aprior算法应用
+*Aprior算法应用*
 
 先验原理（Apriori）
 使用支持度对候选项集进行剪枝,系统地控制候选项集指数增长。
@@ -579,9 +584,9 @@ http://blog.csdn.net/liulingyuan6/article/details/53489390
 
 最大频繁项集是各频繁k项集中符合无超集条件的频繁项集。
 
-http://blog.csdn.net/lipengcn/article/details/50494965
+- [关联分析的Apriori算法](http://blog.csdn.net/lipengcn/article/details/50494965)
 
-* FP-Growth算法(频繁模式增长)
+*FP-Growth算法(频繁模式增长)*
 
 使用了频繁模式树(Frequent Pattern Tree)的数据结构。
 FP-tree是一种特殊的前缀树，由频繁项头表和项前缀树构成。所谓前缀树，是一种存储候选项集的数据结构，树的分支用项名标识，树的节点存储后缀项，路径表示项集。
@@ -592,17 +597,17 @@ SparkMLlib: FPGrowth Library
 
 ##### D.用户画像分析模型(关联分析+决策树)
 
-* 识别规则
+*识别规则*
 
 用户行为<->行为分类与特征关联<->用户特征属性可信度
 
-用户行为偏好
+*用户行为偏好*
 
 通过样本习得<用户-类目-标签>关联度值, 用户购买汽车配件类目与用户有车标签的正关联度值
 
 用户与属性标签的可信度矩阵:reli=pre x cor
 
-* 机器学习
+*机器学习*
 
 - 建模样本选择
 
@@ -627,7 +632,7 @@ SparkMLlib: FPGrowth Library
 - ARC算法（automatic resource compilation）
 - Hub平均算法（Hub Averaging Kleinberg）
 
-http://blog.csdn.net/hguisu/article/details/8021036
+-[HillTop算法](http://blog.csdn.net/hguisu/article/details/8021036)
 
 ##### F.用户评价情绪分析(文本分析-TF/IDF)
 
@@ -639,17 +644,17 @@ http://blog.csdn.net/hguisu/article/details/8021036
 ### IV.分析算法应用路径
 
 
-4.1.SQL/Python/R/Spark 数据分析语言如何选择?
+##### 4.1.SQL/Python/R/Spark数据分析语言如何选择?
 
-4.2.Spark高级数据分析应用
+##### 4.2.Spark高级数据分析应用
 
 - [Spark大数据处理](2017-03-29-spark-bigdata-arch-note.md)
 
-4.3.Python数据分析应用
+##### 4.3.Python数据分析应用
 
-- [Python机器学习](2017-10-16-ml-python-data-analysis-note.md)
+- [Python机器学习](2017-10-16-ml-data-everything-note.md)
 
-4.4.Tenseflow机器学习工具
+##### 4.4.Tenseflow机器学习工具
 
-https://web.stanford.edu/class/cs20si/
+- [Stanford Tenseflow](https://web.stanford.edu/class/cs20si/)
 

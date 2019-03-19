@@ -464,14 +464,14 @@ G. Lucene如何在搜索阶段读取索引信息
 
 #### 6.4. Advanced Query Objects
 
-• BoostingQuery:Query match / Query context / float boost,生成BooleanQuery 
-• CustomScoreQuery:Query subQuery / ValueSourceQuery[] valSrcQueries
+* BoostingQuery:Query match / Query context / float boost,生成BooleanQuery 
+* CustomScoreQuery:Query subQuery / ValueSourceQuery[] valSrcQueries
 
 		基于文档权重的自定义打分
 		所以有FieldCacheSource继承于ValueSource,而大多数的信息源都继承于FieldCacheSource.
 		FieldScoreQuery即是ValueSourceQuery的一个实现.
 
-• MoreLikeThisQuery
+* MoreLikeThisQuery
 
 		MoreLikeThisQuery只是MoreLikeThis的封装,其包含了MoreLikeThis所需要的参数,并在rewrite的时候, 由MoreLikeThis.like生成查询对象 
 		• String likeText;当前文档的文本
@@ -484,7 +484,7 @@ G. Lucene如何在搜索阶段读取索引信息
 		• Set<?> stopWords=null;停词表
 		• int minDocFreq=-1;最小的文档频率
 
-• MultiTermQuery
+* MultiTermQuery
 
 	◦ FuzzyQuery
 	◦ PrefixQuery
@@ -500,16 +500,17 @@ G. Lucene如何在搜索阶段读取索引信息
 		是大于,怎么样算是小于
 
 
-• SpanQuery 位置查询
+* SpanQuery 位置查询
 
-	Spans有以下方法:
-		• next() 得到下一篇文档号,不同的SpanQuery此方法实现不同
-		• skipTo(int) 跳到指定的文档
-		• doc() 得到当前的文档号
-		• start() 得到起始位置,不同的SpanQuery此方法实现不同
-		• end() 得到结束位置,不同的SpanQuery此方法实现不同
-		• isPayloadAvailable() 是否有payload
-		• getPayload() 得到payload
+Spans有以下方法:
+
+    • next() 得到下一篇文档号,不同的SpanQuery此方法实现不同
+	• skipTo(int) 跳到指定的文档
+	• doc() 得到当前的文档号
+	• start() 得到起始位置,不同的SpanQuery此方法实现不同
+	• end() 得到结束位置,不同的SpanQuery此方法实现不同
+	• isPayloadAvailable() 是否有payload
+	• getPayload() 得到payload
 
 	◦ SpanTermQuery
 	◦ FieldMaskingSpanQuery 
@@ -526,9 +527,9 @@ G. Lucene如何在搜索阶段读取索引信息
 	◦ FieldMaskingSpanQuery
 	◦ PayloadTermQuery & PayloadNearQuery 
 		
-• FilteredQuery:Query query/ Filter filter
+* FilteredQuery:Query query/ Filter filter
 	
-	◦ TermsFilter
+    ◦ TermsFilter
 	◦ BooleanFilter
 	◦ DuplicateFilter
 		• String fieldName:域的名称
@@ -560,11 +561,12 @@ G. Lucene如何在搜索阶段读取索引信息
 
 ### VII.Lucene Analyzer
 
-	Analyzer中用于生成TokenStream的两个接口:
+Analyzer中用于生成TokenStream的两个接口:
+
 	• TokenStream tokenStream(String fieldName, Reader reader);
 	• TokenStream reusableTokenStream(String fieldName, Reader reader);
 
- ```java
+```java
 public final class SimpleAnalyzer extends Analyzer {
 	@Override
 	public TokenStream tokenStream(String fieldName, Reader reader) {
@@ -581,11 +583,12 @@ public final class SimpleAnalyzer extends Analyzer {
 		tokenizer.reset(reader); return tokenizer;
 	} 
 }
- ```
+```
 
 #### 7.1. TokenStream Abstract Class
 
-	boolean incrementToken()用于得到下一个Token。
+boolean incrementToken()用于得到下一个Token。
+
 	public void reset() 使得此TokenStrean可以重新开始返回各个分词。
 
 	• NumericTokenStream
@@ -731,7 +734,7 @@ xDB Lucene Index Limitation
 
 ### X. Lucene Extend
 
-** Lucene 6.x research **
+**Lucene 6.x research**
 
 #### 10.1. Highlights of Lucene release include:
 

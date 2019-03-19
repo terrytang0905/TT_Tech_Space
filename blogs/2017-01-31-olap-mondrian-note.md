@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: title: Big Data OLAP Note - OLAP Mondrian Note
+title: Big Data OLAP Note - OLAP Mondrian Note
 ---
 
 ## OLAP查询-Mondrian框架Note
