@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data OLAP Note - OLAP BigQuery Engine Design
+title: Big Data OLAP Note - OLAP BigQuery Engine Research Design
 ---
 
-## OLAP查询引擎设计
+## OLAP交互式查询引擎-研究设计
 -----------------------------------------------------------
 
 **Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
@@ -339,7 +339,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 数据逻辑层面的模型是Cube,而底下通常来说就是一个star schema或者snowflake schema，很多系统还会实现一些pre-aggregation,例如Kylin.
 
-**ROLAP设计(参考Mondrian)**
+**ROLAP设计(参考Mondrian)-逻辑数据建模**
 
 当前NewBI是基于ROLAP(关系型数据库OLAP抽象),从数据存储角度看非CUBE数据结构存储。因此当我们需要进行深度CUBE分析时,性能较差。
 
@@ -354,9 +354,10 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
 
 
-**分布式OLAP设计(参考PrestDB)**
 
-**实时OLAP设计(参考Druid/Pinot/ElastisSearch)**
+**大数据交互式查询OLAP设计(参考PrestDB)**
+
+_其他OLAP设计(参考Druid/Pinot/ElastisSearch)_
 
 RTOLAP是多维数据组织的OLAP实现,将细节数据和聚合后的数据均保存在cube中，所以以空间换效率，查询时效率高。 
 
@@ -405,6 +406,7 @@ Greenplum-MPP数据查询+海量HDFS数据查询
 	-定义一个通用而高效的内存数据格式,方便数据查询引擎进行查询
 	-定义了从上述格式中载入数据的格式.任何支持这个格式的系统,都可方便,高效地输入或输出这种格式
 
-### x.技术参考
+### x.技术架构开发
 
-- [SQL查询引擎技术调研](2018-06-01-sql-optimizer-design-note.md)	
+- [分布式OLAP代码设计](2019-03-19-olap-query-engine-code-design-note.md)	
+
