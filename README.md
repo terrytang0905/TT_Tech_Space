@@ -36,7 +36,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.Big Data & All Distributed Research
 
-
+- *[OLAP查询服务Code设计-New](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-19-olap-query-engine-code-design-note.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[Flink实时流式计算-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-stream-compute-research-note.md)
@@ -49,7 +49,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[Hive编程SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-performance-note.md)
 - *[Hive编程SQL编译分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
-- *[OLAP查询引擎设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-olap-query-engine-design-note.md)
+- *[OLAP查询引擎研究设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-olap-query-engine-design-note.md)
 - *[OLAP-大数据交互式查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
 - *[OLAP-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-olap-distributed-presto-practice-note.md)
 - *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
