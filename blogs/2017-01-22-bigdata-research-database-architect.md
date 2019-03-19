@@ -201,6 +201,12 @@ title: Big Data Research Note - Database Architect
 
 *4.[Vertica数据库结构]()*
 
+
+*5.OceanBase数据库特性*
+
+OceanBase底层架构还未可知。LSM/ACID等特征
+
+
 #### B.Hadoop-MapReduce批处理
 
 总的来说，其架构的着力点在于数据高吞吐处理能力，在事务方面相较MPP更简化，仅提供粗粒度的事务管理.
@@ -279,7 +285,7 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 *基础特征:*
 
-- 基于LSM-Tree的大规模稀疏表 
+- 大多基于LSM-Tree的大规模稀疏表 
 - 适合海量数据的KV类似查询
 - 支持多并发查询分析
 
@@ -288,8 +294,6 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 - 大数据量存储,大数据量高并发操作 
 - 需要对**数据随机读写操作**
 - 读写访问均是非常简单的操作
-
-*2.OceanBase数据库特性*
 
 *3.Dynamo-KV数据库*
 

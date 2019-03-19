@@ -14,7 +14,7 @@ title: Spark Bigdata Performance Tuning Note
 
 1. 开发优化 
 2. 数据序列化与数据结构优化(这对于优化网络性能极为重要)
-3. 资源与内存调优(减少内存占用以及)
+3. 资源与内存调优(减少内存占用以及GC)
 4. 数据倾斜优化 
 5. shuffle优化
 
