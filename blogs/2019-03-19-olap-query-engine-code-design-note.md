@@ -14,12 +14,18 @@ ngxdmp-query-optimizer
 ngxdmp-query-executer
 ngxdmp-data-model
 ngxdmp-file-format
+
 ngxdmp-olap
 ngxdmp-olap-common
 ngxdmp-cache
 ngxdmp-common
 ngxdmp-rpc
 ngxdmp-dm-web
+ngxdmp-data-load
+ngxdmp-export
+ngxdmp-profile
+ngxdmp-analytics
+ngxdmp-web
 ngxdmp-k8s-ext
 
 #### PrestoDB代码详解
