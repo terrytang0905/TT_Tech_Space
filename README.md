@@ -36,7 +36,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.Big Data & All Distributed Research
 
-- *[OLAP查询服务Code设计-New](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-19-olap-query-engine-code-design-note.md)
+- *[大数据分析引擎Code设计-New](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-19-big-data-analytics-engine-code-design-note.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[Flink实时流式计算-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-stream-compute-research-note.md)
@@ -95,7 +95,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [Java多线程与并发-Concurrent Analysis Index](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-09-java_concurrent_analysis_map.md)
 - [程序员的职业素养-读书笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-07-professional-programmer.md)
 - [Go语言研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-12-go-language-design.md)
-- [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux_system_management.md)
+- [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux-system-management.md)
 
 
 #### X.TT Resources Site

@@ -12,7 +12,6 @@ title: SQL Optimizer Design Note
 
 数据库主要由三部分组成，分别是解析器、查询优化器和执行引擎，如下图所示：
 
-
 ![database_process](_includes/database_process.png)
 
 其中优化器是数据库中用于把关系表达式转换成执行计划的核心组件，很大程度上决定了一个系统的性能。

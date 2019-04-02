@@ -281,7 +281,7 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 *2.Google BigQuery(Dremel)*
 
-#### C.KV数据库架构
+#### C.BigTable数据库架构
 
 *基础特征:*
 
@@ -295,9 +295,11 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 - 需要对**数据随机读写操作**
 - 读写访问均是非常简单的操作
 
-*3.Dynamo-KV数据库*
+*2.Dynamo-KV数据库(Amazon)*
 
-*4.Cassandra数据库*
+*3.Cassandra数据库(Facebook)*
+
+DataStax
 
 #### C+.Document文档数据库
 

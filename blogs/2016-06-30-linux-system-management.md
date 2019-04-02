@@ -705,10 +705,14 @@ GRUB vga设定
 _日常_
 
 在bash里，使用 Ctrl-R 而不是上下光标键来查找历史命令。
-在bash里，使用 Ctrl-W 来删除最后一个单词，使用 Ctrl-U 来删除一行。请man bash后查找Readline Key Bindings一节来看看bash的默认热键，比如：Alt-. 把上一次命令的最后一个参数打出来，而Alt-* 则列出你可以输入的命令。
+在bash里，使用 Ctrl-W 来删除最后一个单词，使用 Ctrl-U 来删除一行。请man bash后查找Readline Key Bindings一节来看看bash的默认热键，比如：Alt-\. 把上一次命令的最后一个参数打出来，而Alt-\* 则列出你可以输入的命令。
 回到上一次的工作目录: cd – (回到home是 cd ~)
+
 使用 xargs。这是一个很强大的命令。你可以使用-L来限定有多少个命令，也可以用-P来指定并行的进程数。如果你不知道你的命令会变成什么样，你可以使用xargs echo来看看会是什么样。当然， -I{} 也很好用。示例：
+
+```linux
 find . -name \*.py | xargs grep some_function
+```
 
 cat hosts | xargs -I{} ssh root@{} hostname
 pstree -p 可以帮你显示进程树。（读过我的那篇《一个fork的面试题》的人应该都不陌生）
