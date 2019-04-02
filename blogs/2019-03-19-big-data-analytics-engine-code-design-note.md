@@ -103,24 +103,24 @@ title: Big Data Analytics Note - Big Data Analytics Code Design
 
 #### 2.ngxdmp代码详解
 
-ngxdmp-olap
-ngxdmp-olap-common
-ngxdmp-cache
-ngxdmp-common
-ngxdmp-rpc
-ngxdmp-dm-web
-ngxdmp-data-load
-ngxdmp-export
-ngxdmp-profile
-ngxdmp-analytics
-ngxdmp-web
-ngxdmp-k8s-ext
+	ngxdmp-olap
+	ngxdmp-olap-common
+	ngxdmp-cache
+	ngxdmp-common
+	ngxdmp-rpc
+	ngxdmp-dm-web
+	ngxdmp-data-load
+	ngxdmp-export
+	ngxdmp-profile
+	ngxdmp-analytics
+	ngxdmp-web
+	ngxdmp-k8s-ext
 
-ngxdmp-query-parser
-ngxdmp-query-optimizer
-ngxdmp-query-executer
-ngxdmp-data-model
-ngxdmp-file-format
+	ngxdmp-query-parser
+	ngxdmp-query-optimizer
+	ngxdmp-query-executer
+	ngxdmp-data-model
+	ngxdmp-file-format
 
 #### 3.PrestoDB代码详解
 
