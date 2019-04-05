@@ -5,7 +5,7 @@ tags : [bigdata, database, analytics]
 title: Database Research Note - Database Management for Analytics
 ---
 
-## 分析型数据产品分析日志
+## 分析型大数据产品研究日志
 --------------------------------------------------------
 
 分析型数据仓库研究主要是研究当前业内主流基于海量数据分析的大数据平台,整合MPP与Hadoop特性,来解决海量数据的分析查询性能问题。
