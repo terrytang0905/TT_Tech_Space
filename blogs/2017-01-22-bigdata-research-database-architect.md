@@ -501,9 +501,8 @@ _Ref:_
 
 - 查询计划执行
 
-_Ref:_
 
-[SQL Query Optimizer Design文档](2018-06-01-sql-optimizer-design-note.md)
+详细可查看:[SQL Query Optimizer Design文档](2018-06-01-sql-optimizer-design-note.md)
 
 
 *9.查询执行器 Query Executor*
