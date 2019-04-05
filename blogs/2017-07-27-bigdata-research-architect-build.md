@@ -16,9 +16,9 @@ title: Big Data Research Note - Architect Design
 因此本对话的目的就是解释一些流行的方式方法如何发挥作用，为什么会有如此表现。我们先来考虑组成它们的基本元素，这样便于在后续的讨论中对这些认识通盘地考虑。
 
 
-### 数据的位置
+### I.数据的位置
 
------------------------------------------------
+----------------------------------------------------------------
 
 ![computers_work_read](_includes/computers_work_read.jpg)
 
@@ -62,7 +62,7 @@ title: Big Data Research Note - Architect Design
 
 我们时常只需要一些特定的数据，比如名为“bob”的客户，这时扫描整个文件就不妥当，我们需要一个索引。
 
-#### Index索引
+#### 1.1.Index索引
 
 ![add_indexes_for_selectivity](_includes/add_indexes_for_selectivity.jpg)
 
@@ -81,7 +81,7 @@ title: Big Data Research Note - Architect Design
 * 第二种较小的索引的集合,采用Meta索引或者布隆过滤算法(Bloom Filter)做一些优化
 * 第三种简单匹配算法(brute force)又叫面向列(Column Oriented)
 
-##### 1.第一种方案是将索引放入主内存，随机写问题分隔到随机存储存储器(RAM)，堆文件依旧在硬盘中。
+##### A.第一种方案是将索引放入主内存，随机写问题分隔到随机存储存储器(RAM)，堆文件依旧在硬盘中。
 
 ![a_put_index_in_memory](_includes/a_put_index_in_memory.jpg)
 	
@@ -92,7 +92,7 @@ title: Big Data Research Note - Architect Design
 
 倘若数据量远超主内存，这种策略就失效了。特别是**存在大量小的对象时，问题特别显眼**；索引增长很大，最后存储越过了可用主内存的容量。多数情况下，这样做是没有问题的，但如果存在海量数据，这样做就会成为一种负担。
 
-##### 2.一种流行的方式抛开单个的“总览”索引，转而采用相对较小的索引集合。
+##### B.一种流行的方式抛开单个的“总览”索引，转而采用相对较小的索引集合。
 
 ![b_use_a_chrono_small_index_files](_includes/b_use_a_chrono_small_index_files.jpg)
 
@@ -110,7 +110,7 @@ title: Big Data Research Note - Architect Design
 
 ![tricks_optimise_random_io](_includes/tricks_optimise_random_io.jpg)
 
-##### 2.1.Log Structured Merge Tree
+#### 1.2.Log Structured Merge Tree
 
 我们创建的这个结构称作日志结构合并树(Log Structured Merge Tree),这种存储方式源于谷歌的BigTable paper,在大数据工具中应用较大。如Hbase、Cassandra、OceanBase等，它能用相对较小的内存开销平衡写、读性能。
 
@@ -118,7 +118,7 @@ title: Big Data Research Note - Architect Design
 
 将索引存储在内存中，或者利用诸如日志结构合并树(Log Structured Merge Tree)这样的写优化索引结构，绕开“随机写惩罚”(random-write penalty)。
 
-##### 3.Columar列式存储或面向列存储
+#### 1.3.Columar列式存储或面向列存储
 
 回到开始的文件例子，完整地读取它。如何处理文件中的数据，可以有许多选择。
 
@@ -170,7 +170,10 @@ title: Big Data Research Note - Architect Design
 
 ![brute_force_by_column](_includes/brute_force_by_column.jpg)
 
-#### 应用场景分析
+
+
+
+#### 1.4.应用场景分析
 
 我们都想将最好的技术作为数据平台控件，提升其中的某种核心功能，胜任一组特定的负载。
 
@@ -202,9 +205,23 @@ title: Big Data Research Note - Architect Design
 我们分析了存储引擎的一些核心方法，其实只是做了一些简要说明，现实世界这些是要复杂的多，不过概念确实是很有用的。分布式数据平台不仅仅是一个存储引擎，还需要考虑并行。
 
 
-### Parallelism并行化
+#### 1.5.GFS & HDFS文件系统相关
 
---------------------------------------------
+
+#### GFS
+
+![gfs_arch](_includes/gfs_arch.png)
+
+
+#### HDFS
+
+
+
+----------------------------------------------------------------
+
+### II.Parallelism并行化(分布式)
+
+----------------------------------------------------------------
 
 对于横跨多台计算机的分布式数据我们需要考虑两个核心点:分区(partition)和复制(replication)。
 
@@ -212,7 +229,7 @@ title: Big Data Research Note - Architect Design
 
 如果是基于哈希hash的分区模型，借助哈希函数，数据就能均摊到一组机器上(译者注：理想的结果是这样的)。同单机哈希表hashtable工作方式相似，只不过这里是每个桶bucket盛放在不同的机器节点。
 
-#### 1.哈希hash函数读取
+#### 2.1.哈希hash函数读取数据(MPP)
 
 这样通过哈希hash函数，直接访问包含此数据的机器读取来数据。
 
@@ -222,7 +239,7 @@ title: Big Data Research Note - Architect Design
 
 利用分区提供并行批量计算，比如聚合函数或者诸如聚众或者机器学习的复杂算法。最大的不同是所有的计算机在同一时刻采用广播的方式，在很短的时间采用分治的策略解决大规模计算问题。
 
-#### 2.批处理系统
+#### 2.2.批处理系统
 
 这种批处理系统在处理大型的计算问题时有不错的效果,但只能提供**有限并发**,因为执行任务时会非常消耗集群的资源。
 
@@ -240,7 +257,7 @@ title: Big Data Research Note - Architect Design
 
 ![partition_concurrency_limits](_includes/partition_concurrency_limits.jpg)
 
-#### 3.数据副本replication
+#### 2.3.数据副本replication
 
 - 解决上述并发性瓶颈的一个途径是数据副本replication。
 
@@ -252,7 +269,7 @@ title: Big Data Research Note - Architect Design
 
 ![replication](_includes/replication.jpg)
 
-#### 4.数据一致性
+#### 2.4.数据一致性
 
 权衡一致性给我们带来一个重要的问题，什么时候需要保证数据的一致性？
 
@@ -306,7 +323,7 @@ Consensus算法实际是在分布式系统复制数据时,追求大多数更新�
 		带有流程分析的Unordered编程
 		能够告诉你哪里需要协调
 
-#### 5.RAID IO并行读写
+#### 2.5.RAID IO并行读写
 
 RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 
@@ -314,14 +331,16 @@ RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 - RAID50
 
 
-### Architects架构
+----------------------------------------------------------------
+
+### III.Architects架构
 
 ----------------------------------------------------------------
 
 分布式架构=分布式存储引擎+数据压缩算法+分布式计算引擎+资源管理
 
 
-#### 命令查询职责分离架构(CQRS)
+#### 3.1.命令查询职责分离架构(CQRS)
 
 最常用的架构就是用传统关系型数据库存取数据。
 
@@ -349,7 +368,7 @@ RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 
 ![CQRS_separate_paradigms](_includes/darch_sepa_paradigms_cqrs.jpg)
 
-#### 1.Druid OLAP
+#### 3.2.Druid OLAP
 
 许多数据库底层的行为就是这样，Druid是一个不错的例子，它是一个开源的、分布式、时序化、列式分析引擎。列式存储表现不俗，特别是大规模数据录入，数据必须分散到许多文件中。为了得到更好的写性能，Druid存储近期的新数据到某个最佳写入状态中，然后逐渐转移到最佳读取存储状态。
 
@@ -360,7 +379,7 @@ RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 ![darch_druid](_includes/darch_druid.jpg)
 
 
-#### 2.操作/分析桥（Operational/Analytic Bridge）架构
+#### 3.3.操作/分析桥（Operational/Analytic Bridge）架构
 
 另一种相似的方式是操作分析桥(Operational/Analytic Bridge),利用单个事件流拆分最佳读以及最佳写视图。流处在一种不断变化的状态，因此异步视图可以在随后的日子里被重写和增强。
 
@@ -372,7 +391,7 @@ Hadoop栈最精彩的地方就是其丛多的工具，不管是快速读写访�
 
 ![darch_operate_analy_bridge](_includes/darch_operate_analy_bridge.jpg)
 
-#### 3.批处理架构（Hadoop）
+#### 3.4.批处理架构（Hadoop）
 
 如果我们的数据是一次写入，多次读，不在改变的场景，上面可以部署各种复杂的分析型应用。采取批处理模式的hadoop无疑是这种平台最广用和出色的代表了。
 
@@ -385,7 +404,7 @@ Hadoop平台提供快速的读写访问，廉价的存储，批处理流程，�
 
 ![darch_batch_pipeline](_includes/darch_batch_pipeline.jpg)
 
-#### 4.Lambda架构(批量管道+实时流式计算)
+#### 3.5.Lambda架构(批量管道+实时流式计算)
 
 批量管道pipeline从多种资源中获取数据，将其放入HDFS，接着对其进行处理，进而提供一个原始数据持续优化的版本。
 数据可能得到富集、清理、反范式化、聚集、移到一个诸如Parquet的最佳读模式，或者加载进服务器层或者数据集市，处理之后的数据可以被检索和处理。
@@ -405,7 +424,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 
 [Lambda&Kappa实时处理架构](2017-07-27-bigdata-research-realtime-process.md)
 
-#### 5.Kappa框架及流式处理架构
+#### 3.6.Kappa框架及流式处理架构
 
 流数据平台相对批量模式更有优势：与将数据存储在HDFS中划分给新的批量任务不同，数据分散存储在消息系统或者诸如kafka日志中。批处理就变成了记录系统，数据流经过实时处理生成三层结构：视图、索引、服务或者数据集市。
 与批处理层的lambda框架的流层相似，不一样的是没有批处理层。显然这就要求消息层能够存储、供应海量数据，并且具有强大有效的流处理器来处理此过程。
@@ -419,13 +438,13 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 
 ![darch_integrate_streaming](_includes/darch_integrate_streaming.jpg)
 
-#### 6.MPP并行计算
+#### 3.7.MPP并行计算
 
 相关MPP分布式详细分析,可参见
 
 -[分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
 
-#### 7.其他
+#### 3.8.其他
 
 系统记录变为日志，易于增强数据的不变性。诸如Kafka等产品内部保留了足够的数据量和吞吐量，将其作为历史记录来用。这就意味着回复是一个重演、重新生成状态的处理过程，而非常态化地检验。
 相似的方式很在就有应用，早于最新出现的数据Lake或者Goldengate等工具，后者将数据放入企业级数据仓库DW。复制层缺乏吞吐量和管理复杂的schema变化使此方法大打折扣。看似最后第一个问题已经解决，但作为最后一个问题，还没有定论。
@@ -443,10 +462,10 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 ![problem2_time_async](_includes/problem2_time_async.jpg)
 
 
+----------------------------------------------------------------
 
-### Summary
+### IV.Summary
 
--------------------------------------------------------------------------
 
 我们开始于数据的位置，用来读写数据的顺序地址，从而说明了我们用到组件对该问题的折衷。我们讨论了对一些组件的拓展，通过分区和副本构建分布式的数据处理平台。最后我们阐述了观点：尽量在数据处理平台中把一致性的请求隔离。
 
@@ -456,7 +475,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 我们要坚信：经过认真的解决，这些问题都是可控的。
 
 
-#### Ref：
+### X.Ref：
 
 简单介绍一下heap-file结构（和链表结构很相似）：
 

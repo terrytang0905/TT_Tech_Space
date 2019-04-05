@@ -10,6 +10,9 @@ title: PostgreSQL Best Practice Note
 **作者digoal**
 
 
+![postgresql_usage_pic](_includes/postgresql_usage_pic.png)
+
+
 转载目录
 
 一、案例
