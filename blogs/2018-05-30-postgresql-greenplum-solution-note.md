@@ -7,7 +7,10 @@ title: PostgreSQL&Greenplum Solution Practice Note
 
 ### I.PostgreSQL
 
-#### 1.PostgreSQL10
+#### 1.PostgreSQL10(OLTP Solution)
+
+- [PostgreSQL最佳实践](2017-05-30-postgresql-best-practice-note.md)
+- [PostgreSQL&Greenplum Index研究](2017-12-16-postgresql-greenplum-index-note.md)
 
 #### 2.PgBouncer数据库连接池
 
@@ -78,10 +81,14 @@ Postgres-XL is a horizontally scalable open source SQL database cluster, flexibl
 - [PostgreSQL 10 vs Deepgreen(Greenplum)](https://yq.aliyun.com/articles/128016)
 
 
-### II.Greenplum
+### II.Greenplum(OLAP Solution)
 
 #### Greenplum5
 
-- [Greenplum5 BestPractice](2017-12-03-greenplum5-best-practice-note.md)
+- [Greenplum系统管理指南](2016-04-15-greenplum-system-admin-guide.md)
+- [Greenplum分析函数解析](2016-07-30-greenplum-analysis-function.md)
+- [Greenplum架构设计研究](2017-02-11-greenplum-arch-design-note.md)
+- [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
+- [Greenplum5最佳实践](2017-12-03-greenplum5-best-practice-note.md)
 
 

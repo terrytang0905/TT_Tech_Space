@@ -7,7 +7,7 @@ title: Big Data Analytics Note - Big Data Analytics Code Design
 
 ### 大数据交互式分析引擎-代码设计
 
-#### 需求
+#### 需求分析
 
 可视化实施工具
 Canvas生成
