@@ -202,24 +202,29 @@ title: Big Data Research Note - Architect Design
 
 ![storage_engine_case](_includes/storage_engine_case.jpg)
 
-我们分析了存储引擎的一些核心方法，其实只是做了一些简要说明，现实世界这些是要复杂的多，不过概念确实是很有用的。分布式数据平台不仅仅是一个存储引擎，还需要考虑并行。
 
 
 #### 1.5.GFS & HDFS文件系统相关
 
 
-#### GFS
+#### A.GFS
 
 ![gfs_arch](_includes/gfs_arch.png)
 
 
-#### HDFS
+#### B.HDFS
 
+
+
+
+我们分析了存储引擎的一些核心方法，其实只是做了一些简要说明，现实世界这些是要复杂的多，不过概念确实是很有用的。
+存储引擎是基于分布式文件系统的落地应用。
+分布式数据平台不仅仅是一个存储引擎+分布式文件系统，还需要考虑分布式并行计算。
 
 
 ----------------------------------------------------------------
 
-### II.Parallelism并行化(分布式)
+### II.Parallelism并行化(分布式并行计算)
 
 ----------------------------------------------------------------
 
@@ -333,7 +338,7 @@ RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 
 ----------------------------------------------------------------
 
-### III.Architects架构
+### III.Architects分布式架构
 
 ----------------------------------------------------------------
 
@@ -368,7 +373,7 @@ RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 
 ![CQRS_separate_paradigms](_includes/darch_sepa_paradigms_cqrs.jpg)
 
-#### 3.2.Druid OLAP
+#### 3.2.架构-Druid OLAP
 
 许多数据库底层的行为就是这样，Druid是一个不错的例子，它是一个开源的、分布式、时序化、列式分析引擎。列式存储表现不俗，特别是大规模数据录入，数据必须分散到许多文件中。为了得到更好的写性能，Druid存储近期的新数据到某个最佳写入状态中，然后逐渐转移到最佳读取存储状态。
 
@@ -379,7 +384,7 @@ RAID硬件支持多个磁盘 奇偶校验 逻辑IO并行读写
 ![darch_druid](_includes/darch_druid.jpg)
 
 
-#### 3.3.操作/分析桥（Operational/Analytic Bridge）架构
+#### 3.3.架构-操作/分析桥(Operational/Analytic Bridge)
 
 另一种相似的方式是操作分析桥(Operational/Analytic Bridge),利用单个事件流拆分最佳读以及最佳写视图。流处在一种不断变化的状态，因此异步视图可以在随后的日子里被重写和增强。
 
@@ -391,7 +396,7 @@ Hadoop栈最精彩的地方就是其丛多的工具，不管是快速读写访�
 
 ![darch_operate_analy_bridge](_includes/darch_operate_analy_bridge.jpg)
 
-#### 3.4.批处理架构（Hadoop）
+#### 3.4.架构-批处理(Hadoop)
 
 如果我们的数据是一次写入，多次读，不在改变的场景，上面可以部署各种复杂的分析型应用。采取批处理模式的hadoop无疑是这种平台最广用和出色的代表了。
 
@@ -404,7 +409,15 @@ Hadoop平台提供快速的读写访问，廉价的存储，批处理流程，�
 
 ![darch_batch_pipeline](_includes/darch_batch_pipeline.jpg)
 
-#### 3.5.Lambda架构(批量管道+实时流式计算)
+
+#### 3.5.架构-MPP并行计算
+
+相关MPP分布式计算的详细分析,可参见
+
+-[分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
+
+
+#### 3.6.架构-Lambda架构(批量管道+实时流式计算)
 
 批量管道pipeline从多种资源中获取数据，将其放入HDFS，接着对其进行处理，进而提供一个原始数据持续优化的版本。
 数据可能得到富集、清理、反范式化、聚集、移到一个诸如Parquet的最佳读模式，或者加载进服务器层或者数据集市，处理之后的数据可以被检索和处理。
@@ -424,7 +437,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 
 [Lambda&Kappa实时处理架构](2017-07-27-bigdata-research-realtime-process.md)
 
-#### 3.6.Kappa框架及流式处理架构
+#### 3.7.架构-Kappa框架及流式处理架构
 
 流数据平台相对批量模式更有优势：与将数据存储在HDFS中划分给新的批量任务不同，数据分散存储在消息系统或者诸如kafka日志中。批处理就变成了记录系统，数据流经过实时处理生成三层结构：视图、索引、服务或者数据集市。
 与批处理层的lambda框架的流层相似，不一样的是没有批处理层。显然这就要求消息层能够存储、供应海量数据，并且具有强大有效的流处理器来处理此过程。
@@ -438,11 +451,6 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 
 ![darch_integrate_streaming](_includes/darch_integrate_streaming.jpg)
 
-#### 3.7.MPP并行计算
-
-相关MPP分布式详细分析,可参见
-
--[分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
 
 #### 3.8.其他
 
