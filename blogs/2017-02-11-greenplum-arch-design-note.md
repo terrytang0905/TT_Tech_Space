@@ -290,7 +290,7 @@ Certain queries may access only data on a single segment, such as single-row INS
 
 ##### 3.3.Understanding Greenplum Query Plans
 
-A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and *executed from bottom to top*(从下往上执行计划).<br/>
+A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and *executed from bottom to top*(从下往上Read执行计划).<br/>
 
 *motion(Segment间移动)*
 
@@ -311,6 +311,8 @@ To achieve maximum parallelism during query execution, Greenplum divides the wor
 **c:Gather Motion(N:1)**
 
 	Tips:聚合汇总数据，每个节点将join后的数据发到一个单节点上，通常是发到主节点master。
+
+For Example:
 
 ![gp execute plan](_includes/gp_execute_plan.jpeg)
 
@@ -438,8 +440,8 @@ _SQL Value Expressions_
 
 Pivotal Query Optimizer introduces a new producer-consumer model for WITH clause, much like the model introduced for Dynamic Partition Elimination. The model allows evaluating a complex expression once, and consuming its output by multiple operators. 
 
-	- Dynamic Partition Elimination 动态分区裁剪
-	- Memory Optimizations 内存优化
+- Dynamic Partition Elimination 动态分区裁剪
+- Memory Optimizations 内存优化
 
 	Tips:Greenplum的内存优化是如何实现的?
 
@@ -451,8 +453,8 @@ _System Resources_
 
 Database performance relies heavily on disk I/O and memory usage.
 
-> Baseline Hardware Performance
-> See the Greenplum Database Reference Guide for information about running the gpcheckperf utility to validate hardware and network performance.
+- Baseline Hardware Performance
+- See the Greenplum Database Reference Guide for information about running the gpcheckperf utility to validate hardware and network performance.
 
 _Workload(负载)_
 
@@ -464,9 +466,9 @@ DBMS throughput is measured in queries per second(QPS), transactions per second(
 
 _Contention(Locks)_
 
-Contention is the condition in which two or more components of the workload attempt to use the system in a conflicting way — for example, multiple queries that try to update the same piece of data at the same time or multiple large workloads that compete for system resources.
+Contention is the condition in which two or more components of the workload attempt to use the system in a conflicting way. For example, multiple queries that try to update the same piece of data at the same time or multiple large workloads that compete for system resources.
 
-> Contention up,throughput down(争夺上升,吞吐率下降)
+	Tips:Contention up,throughput down(争夺Locks上升,会导致吞吐率下降)
 
 _Optimization_
 
@@ -480,17 +482,17 @@ Greenplum Database uses a cost-based query optimizer that relies on database sta
 
 _b.Optimizing Data Distribution_
 
-When you create a table in Greenplum Database, you must declare a distribution key that allows for even data distribution across all segments in the system. If the data is unbalanced, the segments that have more data will return their results slower and therefore slow down the entire system.
+When you create a table in Greenplum Database, you must declare a **distribution key** that allows for even data distribution across all segments in the system. If the data is unbalanced, the segments that have more data will return their results slower and therefore slow down the entire system.
 
 _c.Optimizing Your Database Design_
 
 Examine your database design and consider the following:
 
-- Does the schema reflect the way the data is accessed?
-- Can larger tables be broken down into partitions?
-- Are you using the smallest data type possible to store column values?(选择最合适的数据类型)
-- Are columns used to join tables of the same datatype?
-- Are your indexes being used?
+	- Does the schema reflect the way the data is accessed?
+	- Can larger tables be broken down into partitions?
+	- Are you using the smallest data type possible to store column values?(选择最合适的数据类型)
+	- Are columns used to join tables of the same datatype?
+	- Are your indexes being used?(部分情况下index能提升GP查询性能)
 
 _d.Greenplum Database Maximum Limits_
 
@@ -501,7 +503,7 @@ Use Greenplum Database workload management to prioritize and allocate resources 
 
 The primary resource management concerns are the number of queries that can execute concurrently and the amount of memory to allocate to each query. 
 
-**Overview of Memory Usage in Greenplum Database**
+##### Overview of Memory Usage in Greenplum Database
 
 Memory is a key resource for a Greenplum Database system and, when used efficiently, can ensure high performance and throughput. This topic describes how segment host memory is allocated between segments and the options available to administrators to configure memory.
 
@@ -523,7 +525,7 @@ The amount of host memory can be configured using any of the following methods:
 
 > The amount of memory to reserve for the operating system and other processes is workload dependent. The minimum recommendation for operating system memory is 32GB, but if there is much concurrency in Greenplum Database, increasing to 64GB of reserved memory may be required.
 
-> About SLAB(Linux内存管理-Slab分配器)	
+_About SLAB(Linux内存管理-Slab分配器)_
 
 - vm.overcommit_memory 
 - vm.overcommit_ratio
