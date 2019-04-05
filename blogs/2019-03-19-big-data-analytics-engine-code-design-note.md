@@ -7,6 +7,22 @@ title: Big Data Analytics Note - Big Data Analytics Code Design
 
 ### 大数据交互式分析引擎-代码设计
 
+#### 需求
+
+可视化实施工具
+Canvas生成
+业务模型->元数据模型
+业务数据对应元数据
+业务数据模型关联
+
+
+功能类型抽象
+分可配置与无配置
+可配置功能提供通用配置接口
+支持热部署方案
+不可配置如何转换成可配置
+
+
 #### 1.架构设计
 
 **1.数据采集与接入 ngxdmp-data-load**
@@ -124,6 +140,8 @@ title: Big Data Analytics Note - Big Data Analytics Code Design
 
 #### 3.PrestoDB代码详解
 
+- [Presto-OLAP引擎](2017-04-03-olap-distributed-presto-practice-note.md)
+
 #### 4.ngxdmp-dm-web数据管理相关
 
 ##### 4.1.ngxdmp多数据源对接
@@ -147,6 +165,8 @@ title: Big Data Analytics Note - Big Data Analytics Code Design
 源数据->抽象模型->Cube数据主题
 
 CMP元数据与数据分析元数据的差异
+
+元数据模型设计
 
 #### 5.ngxdmp-storage数据存储
 
