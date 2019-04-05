@@ -229,11 +229,10 @@ _COPY_
 
 **2.8.Greenplum Index**
 
-http://gpdb.docs.pivotal.io/4320/ref_guide/sql_commands/CREATE_INDEX.html
-
-GP不建议使用索引
-GP主要做快速有序地扫描（基于分区）
-如果建立全局索引，数据分布机制和分区机制，会完全打乱索引。如果基于单个分区去建立索引，这个有点像阿里的xxx，应该有一定效果吧
+    -[sql_commands_create_index](http://gpdb.docs.pivotal.io/4320/ref_guide/sql_commands/CREATE_INDEX.html)
+	- GP不建议使用索引
+	- GP主要做快速有序地扫描（基于分区）
+	- 如果建立全局索引，数据分布机制和分区机制，会完全打乱索引。如果基于单个分区去建立索引，这个有点像阿里的xxx，应该有一定效果吧
 
 GP中索引的起作用的场景：
 
@@ -243,9 +242,9 @@ GP中索引的起作用的场景：
 
 Greenplum supports B-Tree, Bitmap, and GiST indexes.
 
-- B-Tree indexes can be unique or not.
-- Bitmap indexes are good useful when there are 100 to 100,000 distinct values (Bitmap indexes are best suited on columns for querying than updating).
-- GiST (Generalized Search Tree) indexes are used to support PostGIS.
+    - B-Tree indexes can be unique or not.
+    - Bitmap indexes are good useful when there are 100 to 100,000 distinct values (Bitmap indexes are best suited on columns for querying than updating).
+    - GiST (Generalized Search Tree) indexes are used to support PostGIS.
 
 #### 3.Data Modeling & Design-数据模型与设计
 
@@ -256,9 +255,9 @@ Greenplum数据模型设计:
 
 **3.1.Data Models-数据模型**
 
-* Logical data model - Cube
-* Enhanced logical data model - AggregateResult/View
-* The physical data model - DBTable
+	* Logical data model - Cube
+	* Enhanced logical data model - AggregateResult/View
+	* The physical data model - DBTable
 
 ![Data Models](_includes/data_models.png)
 
@@ -526,7 +525,7 @@ recover_config_file
 
 **7.4.3.删除Segment**
 
-[RemoveSegment](http://blog.csdn.net/u011478909/article/details/52692280)
+- [RemoveSegment](http://blog.csdn.net/u011478909/article/details/52692280)
 
 #### x.Ref
 
