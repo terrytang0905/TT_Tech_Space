@@ -27,7 +27,7 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 
 ![greenplum5_integrated_analytics](_includes/greenplum5_integrated_analytics.jpeg)
 
-> 基于Greenplum5的Python机器学习方案是有实际应用价值
+	Tips:基于Greenplum5的Python机器学习方案是有实际应用价值
 
 #### GPORCA(PQO): Pivotal Query Optimizer Updates
 
@@ -37,11 +37,13 @@ Greenplum 5 provides easy-to-use installers for the most popular add-on librarie
 
  GPORCA generates a de-correlated plan, which is done only once. The intermediate results are then joined with the master table to generate a resultset that meets the user’s criteria. 
 
+ 	Tips:GPORCA并非通用查询优化方案,是针对动态分区裁剪/子查询/Join查询有优化。部分情况下legacy query optimizer查询性能更优
+
 #### Greenplum Resource Groups and Workload Manager
 
 Managing concurrency and user resource distribution is a key feature of Greenplum. Workload Manager has been enhanced in this release, and a new way of managing database queries, called Resource Groups, provides more control by a database administrator over user activity, especially in the areas of CPU and memory management. 
 
-> Greenplum5增强了对CPU与Memory的资源隔离管理
+	Tip:Greenplum5增强了对CPU与Memory的资源隔离管理
 
 #### Structured Query Language Performance Enhancements
 
@@ -69,7 +71,7 @@ Pivotal Greenplum 5 adds support for a number of new built-in datatypes
 
 Pivotal Greenplum provides dblink support for database users to perform short ad hoc queries in other databases.
 
-> Greenplum5针对JSON/XML的常用数据结构支持,能有效对接更多异构数据。
+	Tips:Greenplum5针对JSON/XML的常用数据结构支持,能有效对接更多异构数据。
 
 
 

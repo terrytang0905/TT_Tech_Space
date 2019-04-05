@@ -158,7 +158,7 @@ select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id wher
 	* SubPlan3节点计算完成后通知Coordinator结束查询,并将数据发送给Coordinator
 
 
-#### 5.Presto CBO
+#### 5.Presto CBOptimizer(Coordinator组件之一)
 
 - support for statistics stored in Hive Metastore(Hive Metastore统计优化)
 - join reordering based on selectivity estimates and cost(join重排序)
