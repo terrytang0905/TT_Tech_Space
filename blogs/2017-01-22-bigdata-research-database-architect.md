@@ -238,9 +238,10 @@ MPP和MapReduce批处理架构的另外一个显著不同则在于并发(concurr
 
 ![mpp_system_throughput](_includes/mpp_system_throughput.png)
 
-	Tips:10-18个并发sessions时，系统总的吞吐量最大。
+	Tips:10-18个并发sessions(大查询)时，系统总的吞吐量最大。
 	如果并发数上升到20以上，总吞吐就会下降到最大吞吐的70%
 	(这里吞吐量是这样定义的:相同类型(比如都是groupby,或者都是join查询)的查询在固定时间段内完成执行的个数） 
+	- MPP对小查询的并发处理基本可用,原因在于查询时间短,对系统的负载要求较低.
 
 
 *3.批处理设计*
@@ -482,7 +483,7 @@ SQL的理论基础是关系代数,而关系代数的主要操作只有5种,分�
 
 _Ref:_
 
-- 语义解析解决方案:[ANTLR语义解析](https://github.com/antlr/antlr4/blob/master/doc/index.md)
+- 语义解析解决方案:[ANTLR4语义解析](https://github.com/antlr/antlr4/blob/master/doc/index.md)
 - 开源SQL Parser:[Apache Calcite](http://calcite.apache.org/docs/)
 
 
