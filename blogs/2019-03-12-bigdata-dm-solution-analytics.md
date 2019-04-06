@@ -280,7 +280,7 @@ _MaxCompute SQL Parser & SQL Optimizer_
 
 在优化器方面，CBO基于代价的优化器，Volcano模型，展开各种可能等价的执行计划，然后依赖统计信息，计算这些等价执行计划的“代价”，最后最低的执行计划
 
-主要包括两种类型：RBO和CBO。
+主要包括类型：RBO/CBO/HBO
 
 RBO是基于规则的优化器，在早期的MaxCompute中使用，是一种过时的优化器框架，它只认规则，对数据不敏感。优化是局部贪婪，容易陷入局部优化但全局差的场景，容易受应用规则的顺序而生产迥异的执行计划，往往结果不是最优的。
 
@@ -291,6 +291,7 @@ CBO是基于代价的优化器，它实际上是Volcano模型，可以展开各�
 HBO:在大流量、高并发场景中，每天都需要处理大量相似的查询，这就给优化器带来了巨大机会。HBO优化器是基于历史优化的优化器，对每天提交的查询进行聚类，把以前运行数据作为Hint来帮助未来的相似的查询上。
 
 在运行时方面，利用LLVM技术，在运行时生成较优的机器码，采用列式执行框架，提高CPU流水线的执行效率，并提高缓存命中率，使用SIMD。
+
 
 _MaxCompute数据安全_
 
@@ -357,55 +358,53 @@ message Document {
     optional string Url; }}
 ```
 
-**4.数据存储结构设计**
+**4.大数据存储结构设计**
 
 design memory and disk-based column store
 
 Dremel NESTED COLUMNAR STORAGE
 
-LSM数据结构
-
 内存列式存储优化
 
 
-**5.distributed file system文件系统改造**
-
-HDFS/GFS设计差异,定制化文件系统
-
-例如:MapR Network File System (NFS)
+LSM数据结构-HDFS/GFS设计差异,定制化文件系统
 
 HDFS缓存
 
 VolumeScanner、 DirectoryScanner and DiskChecker
 
-数据的高可用性
+共享数据的高可用性
+
+例如:MapR Network File System (NFS)
 
 
 #### y.技术趋势
 
-1.新硬件的发展
+MaxCompute技术趋势
+
+_1.新硬件的发展_
 
 计算层面越来越与新硬件的创新紧密结合，硬件会带来平台革命。例如芯片类的CPU(AVX、SIMD)、ARM众核架构、GPU，FPGA，ASIC，存储类的NVM、SSD、SRM，网络类的智能网卡和RDMA等新硬件的发展，新硬件与软件的配合是值得关注的发展方向。
 
-	Comments:提升大数据计算性能提升
+	Comments:硬件提升大数据计算性能提升
 
-2.非关系型计算领域(图计算)有很多机会
+_2.非关系型计算领域(图计算)有很多机会_
 
 大数据现在还是在关系型的处理层面，包括流和批都是基于关系型数据的计算，事实上，现在非关系的计算越来越流行了，包括知识图谱、画像等越来越有价值，这些数据组织不是关系型表达，而是以点边的形式用图的方式表达，更符合物理抽象，比如人和货的关系，在风控层面，知识图谱层面，用来描述物理实体的关系更合适。
 
 明年初将会推出MaxCompute的图计算系统MaxGraph，支持图存储、查询、模式匹配和GraphEmbedding等机器学习运算。
 
-	Comments:基于MaxGraph的知识图谱+用户画像模型设计
+	Comments:基于MaxGraph的知识图谱+用户画像模型设计.这些能力应用在哪里?
 
-3.非结构化数据将变成大数据的主流
+_3.非结构化数据将变成大数据的主流_
 
 越来越多的短视频、图片、语音类数据，并随着IoT的发展，可能占据80%的数据量，由于这类数据的特性在于结构各不相同，且数据非常大但是单位价值不高（相比传统结构化数据），如何快速高效的解析和处理非结构化数据，是计算平台的关键挑战。
 
 去年的时候MaxCompute发布了一个非结构化数据处理模块，能够用户自定义的方式处理包括视频音频在内的数据。
 
-	Comments:对非结构化数据处理(视频/音频)的意义在哪里? 视频/音频等内容数据的监测分析
+	Comments:对非结构化数据处理(视频/音频)的意义在哪里? 视频/音频等内容数据的监测分析,用户的视频镜头偏好
 
-4.AI for Everything（also for BigData）
+_4.AI for Everything(also for BigData)_
 
 DBA或将被淘汰？
 

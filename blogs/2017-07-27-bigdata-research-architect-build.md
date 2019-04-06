@@ -348,7 +348,7 @@ _垃圾回收GC_
 	- HDFS直接使用JVM垃圾回收GC策略
 
 	Tips:CMS、Parallel、Serial GC都需要通过Full GC去压缩老年代并在这个过程中扫描整个老年代。
-	G1的操作以通过将Heap划分的Region为基础，因此它适用于大Java堆。即便Java堆很大，大量的GC工作可以被限制在小型Region集合里面。G1允许用户指定停顿时间目标，G1通过自适应的堆大小来满足这个目标。
+	G1(Garbage First Garbage Collector)的操作以通过将Heap划分的Region为基础，因此它适用于大Java堆。即便Java堆很大，大量的GC工作可以被限制在小型Region集合里面。G1允许用户指定停顿时间目标，G1通过自适应的堆大小来满足这个目标。
 
 
 #### Summary
