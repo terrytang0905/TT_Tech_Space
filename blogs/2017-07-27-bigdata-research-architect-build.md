@@ -210,6 +210,12 @@ title: Big Data Research Note - Architect Design
 #### A.GFS
 
 
+GFS基于两个非常重要的假设
+
+	其一是这个文件系统只处理大文件，一般来说要以TB或者PB作为级别去处理。
+	其二是这个文件系统不支持update只支持append。
+
+
 一个GFS集群由一个master和多个chunkserver组成，可以被多个client访问
 
 文件被划分成固定大小的chunk。每个chunk是由chunk创建时由master分配的一个不可变的全局唯一的64bit句柄来标识。
@@ -222,6 +228,9 @@ Master维护所有的文件系统元数据。包括名字空间，访问控制�
 **Master**
 
 通过让master状态很小以及在其他机器上进行备份来解决容错。当前通过影子master机制提供可扩展性和可用性。对于master状态的更新，通过append到write-ahead日志里进行持久化。因此我们可以通过类似于Harp里的主copy模式来提供一个比我们当前模式具有更强一致性的高可用性。
+
+master保持着每个chunk的三个copy的实际位置
+
 
 **Chunk大小**
 
@@ -255,13 +264,17 @@ _Snapshot快照_
 
 **一致性模型**
 
+
+Paxos一致性协议协议很好的解决了High Availability的问题
+
+
+
+_GFS数据流和控制流分离方法_
+
 GFS 使用租约机制来保障在跨多个副本的数据写入中保持顺序一致性。 
 GFS Master 将 chunk 租约发放给其中一个副本，这个副本我们就称为主副本，其他副本称为次副本。 
 由主副本来确定一个针对该 chunk 的写入顺序，次副本则遵守这个顺序，这样就保障了全局顺序一致性。 
 chunk 租约机制的设计主要是为了减轻 Master 的负担，由主副本所在的 chunkserver 来承担流水线顺序的安排。
-
-
-_GFS数据流和控制流分离方法_
 
 ![gfs_write_control_data_flow](_includes/gfs_write_control_data_flow.png)
 
