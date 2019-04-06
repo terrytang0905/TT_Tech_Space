@@ -13,16 +13,17 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### Big Data Everything
 
-<!-- - *[数据平台架构计划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
+<!-- - *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
+- *[用户标签画像开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-label-profile-note.md)
 - *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)
-- *[计算广告应用笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-advertise-design-note.md)
+- *[计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-advertise-design-note.md)
 - *[用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
+- *[新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 - [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
 
 #### I.Data Science Thinking
 
-- *[用户标签画像开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-label-profile-note.md)
 - *[机器学习Everything&Python](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-data-everything-note.md)
 - *[Python信息识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-info-recognition-note.md)
 - *[GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-xgboost-ml-note.md)
@@ -30,7 +31,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[大数据研究-机器学习](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-machine-learning.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - *[大数据分析深度研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analysis-thinking.md)
-- [新零售分析模型设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
 
@@ -76,7 +76,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[OLAP-Mondrian查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
 - *[OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
 - *[OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
-- *[ElasticSearch分布式检索架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
+- *[ElasticSearch分布式搜索](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
 

@@ -5,6 +5,9 @@ tags : [bigdata,database,guide]
 title: PostgreSQL Best Practice Note
 ---
 
+## PostgreSQL最佳实践Note
+------------------------------------------------------------
+
 [PostgreSQL&Greenplum如来神掌](https://github.com/digoal/blog/blob/master/201706/20170601_02.md)
 
 **作者digoal**

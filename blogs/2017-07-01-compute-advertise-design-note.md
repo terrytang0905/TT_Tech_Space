@@ -5,7 +5,7 @@ tags : [bigdata,datascience,datamining]
 title: Computational Advertisement Tech Note 
 ---
 
-## 计算广告技术应用
+## 计算广告营销技术应用
 ------------------------------------------------------------
 
 

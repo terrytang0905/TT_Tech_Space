@@ -2,10 +2,11 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data Analytics Note - Big Data Analytics Code Design
+title: Big Data Analytics Note - BigData Analytics Code Design
 ---
 
-### 大数据交互式分析引擎-代码设计
+## 大数据交互式分析服务-Code架构设计
+-----------------------------------------------------------
 
 #### 需求分析
 
@@ -190,6 +191,8 @@ DNS流量/TCP&IP流量
 
 #### 9.ngxdmp olap查询引擎
 
+- [通用OLAP查询引擎设计](2017-02-01-olap-query-engine-design-note.md)
+
 ##### 9.1.ngxdmp 查询解析相关
 
 ##### 9.2.ngxdmp 查询优化相关
@@ -203,7 +206,6 @@ DNS流量/TCP&IP流量
 ##### 10.1.数据处理计算
 
 ##### 10.2.实时数据计算
-
 
 
 

@@ -5,7 +5,7 @@ tags : [bigdata,database,guide]
 title: Greenplum 4 Best Practice Note
 ---
 
-## Greenplum最佳实践
+## Greenplum最佳实践Note
 -------------------------------------------------------
 
 #### 最佳实践概述

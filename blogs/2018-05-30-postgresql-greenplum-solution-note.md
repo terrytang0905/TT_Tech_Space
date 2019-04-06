@@ -5,6 +5,10 @@ tags : [bigdata,database,guide]
 title: PostgreSQL&Greenplum Solution Practice Note
 ---
 
+
+## PostgreSQL&Greenplum解决方案实践
+------------------------------------------------------------
+
 ### I.PostgreSQL
 
 #### 1.PostgreSQL10(OLTP Solution)

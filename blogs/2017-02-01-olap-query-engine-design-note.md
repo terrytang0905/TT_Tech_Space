@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data OLAP Note - OLAP BigQuery Engine Research Design
+title: Big Data Analytics Note - OLAP BigQuery Engine Design Design
 ---
 
-## OLAP交互式查询引擎-研究设计
+## 通用OLAP查询引擎设计Note
 -----------------------------------------------------------
 
 **Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
@@ -408,5 +408,5 @@ Greenplum-MPP数据查询+海量HDFS数据查询
 
 ### x.技术架构开发
 
-- [分布式OLAP代码设计](2019-03-19-olap-query-engine-code-design-note.md)	
+- [分布式查询分析Code设计](2019-03-19-big-data-analytics-engine-code-design-note.md)	
 
