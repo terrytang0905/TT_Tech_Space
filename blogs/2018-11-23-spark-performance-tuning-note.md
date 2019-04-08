@@ -10,7 +10,10 @@ title: Spark Bigdata Performance Tuning Note
 
 ### Spark调优
 
-由于大部分Spark计算都是在内存中完成的，所以Spark程序的瓶颈可能由集群中任意一种资源导致，如：CPU、网络带宽、或者内存等。最常见的情况是，数据能装进内存，而瓶颈是网络带宽;当然，有时候我们也需要做一些优化调整来减少内存占用，例如将RDD以序列化格式保存( storing RDDs in serialized form )。本文将主要涵盖两个主题：
+由于大部分Spark计算都是在内存中完成的，所以Spark程序的瓶颈可能由集群中任意一种资源导致的。
+(CPU,Memory,Disk,Network 4种资源利用情况)
+
+最常见的情况是，数据能装进内存，而瓶颈是网络带宽;当然，有时候我们也需要做一些优化调整来减少内存占用，例如将RDD以序列化格式保存(storing RDDs in serialized form)。本文将主要涵盖两个主题：
 
 1. 开发优化 
 2. 数据序列化与数据结构优化(这对于优化网络性能极为重要)
