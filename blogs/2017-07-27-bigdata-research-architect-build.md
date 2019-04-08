@@ -362,8 +362,13 @@ _垃圾回收GC_
 	- GFS垃圾回收采用惰性回收策略，即master并不会立即回收程序所删除的文件资源。GFS选择以一种特定的形式标记删除文件
 	- HDFS直接使用JVM垃圾回收GC策略
 
-	Tips:CMS、Parallel、Serial GC都需要通过Full GC去压缩老年代并在这个过程中扫描整个老年代。
-	G1(Garbage First Garbage Collector)的操作以通过将Heap划分的Region为基础，因此它适用于大Java堆。即便Java堆很大，大量的GC工作可以被限制在小型Region集合里面。G1允许用户指定停顿时间目标，G1通过自适应的堆大小来满足这个目标。
+	Tips:
+	CMS(Concurrent Mark Sweep): -XX:+UseConcMarkSweepGC,此时可同时使用-XX:+UseParNewGC将并行收集作用于年轻代
+	并行／吞吐优先收集器Parallel/Throughput Collector:  -XX:+UseParallelGC
+	串行收集器Seiral Collector: -XX:+UseSerialGC
+	以上3种GC策略都需要通过Full GC去压缩老年代并在这个过程中扫描整个老年代。
+	G1(Garbage First Garbage Collector): －XX:+UseG1GC
+	其操作以通过将Heap划分的Region为基础，因此它适用于大Java堆。即便Java堆很大，大量的GC工作可以被限制在小型Region集合里面。G1允许用户指定停顿时间目标，G1通过自适应的堆大小来满足这个目标。使用-XX:+UseStringDeduplication参数可对String对象去重
 
 
 #### Summary
