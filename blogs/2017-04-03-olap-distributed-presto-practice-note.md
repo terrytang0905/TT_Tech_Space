@@ -106,12 +106,26 @@ Plugin API:
 
 #### 4.Presto执行过程
 
+##### 4.1. 整体查询流程:
 
-**执行过程示意图:**
+	Client使用HTTP协议发送一个query请求。 
+	通过Discovery Server发现可用的Server。 
+	Coordinator构建查询计划（Connector插件提供Metadata） 
+	Coordinator向workers发送任务 
+	Worker通过Connector插件读取数据 
+	Worker在内存里执行任务（Worker是纯内存型计算引擎） 
+	Worker将数据返回给Coordinator，之后再Response Client 
 
-![Presto执行过程](_includes/Presto执行过程.png)
+
+![PrestoSQL查询](_includes/prestodb_sql_query.png)
+
+
+##### 4.2. SQL执行流程:
 
 **Client -> Coordinator -> 3Worker -> FinalWorker -> Client**
+
+
+![PrestoSQL执行](_includes/prestodb_sql_execute.png)
 
 * 提交查询:用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,
 
@@ -123,6 +137,8 @@ Plugin API:
 select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id where c1.id > 10 group by c1.rank limit 10;
 ```
 
+##### 4.3. 逻辑执行流程:
+
 逻辑执行过程示意图如下:
 
 ![Presto逻辑执行计划图](_includes/Presto逻辑执行计划图.png)
@@ -131,7 +147,7 @@ select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id wher
 (可能由于ORDER BY排序任务损耗性能,因此在执行计划中未有采用)
 
 
-**SubPlan有几个重要的属性**
+_SubPlan有几个重要的属性_
 
 	- planDistribution
 	- outputPartitioning
