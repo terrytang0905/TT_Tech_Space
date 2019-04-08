@@ -127,7 +127,8 @@ Plugin API:
 
 ![PrestoSQL执行](_includes/prestodb_sql_execute.png)
 
-* 提交查询:用户使用Presto Cli提交一个查询语句后,Cli使用HTTP协议与Coordinator通信,Coordinator收到查询请求后调用SqlParser解析SQL语句得到Statement对象,并将Statement封装成一个QueryStarter对象放入线程池中等待执行,
+* 当Coordinator收到一个Query，其SQL执行流程如图所示。SQL通过Anltr4解析为AST（抽象语法树），然后通过Connector获取原始数据的Metadata信息，这里会有一些优化，比如缓存Metadata信息等，根据Metadata信息生成逻辑计划，然后会依次生成分发计划和执行计划，在执行计划里需要去Discovery里获取可用的node列表，然后根据一定的策略，将这些计划分发到指定的Worker机器上，Worker机器再分别执行。 
+
 
 如下图:示例SQL如下
 
