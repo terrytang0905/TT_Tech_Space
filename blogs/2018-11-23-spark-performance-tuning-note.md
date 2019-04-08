@@ -719,7 +719,7 @@ JavaPairRDD<Long, Long> globalAggrRdd = removedRandomPrefixRdd.reduceByKey(
 
 方案实现原理:
 
-	普通的join是会走shuffle过程的，而一旦shuffle，就相当于会将相同key的数 据拉取到一个shuffle read task中再进行join，此时就是reduce join。但是如果一个RDD是比较小的，则可以采用广播小RDD全量数据+map算子来实现与join同样的效果，也就是map join，此时就不会发生shuffle操作，也就不会发生数据倾斜。具体原理如下图所示。
+	普通的join是会走shuffle过程的，而一旦shuffle，就相当于会将相同key的数 据拉取到一个shuffle read task中再进行join，此时就是reduce join。但是如果一个RDD是比较小的，则可以采用/**广播小RDD全量数据+map算子**/来实现与join同样的效果，也就是map join，此时就不会发生shuffle操作，也就不会发生数据倾斜。具体原理如下图所示。
 
 方案优点:
 

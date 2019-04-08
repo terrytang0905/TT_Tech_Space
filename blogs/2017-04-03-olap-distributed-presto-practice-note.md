@@ -16,7 +16,7 @@ PrestoDB特征:
     - MPP-style pipelined in-memory execution 基于内存的并行计算
     - Columnar and vectorized data processing 列式&向量化数据处理
     - Runtime query bytecode compilation LLVM动态编译执行计划(Impala有类似设计)
-    - Memory efficient data structures
+    - Memory efficient data structures 内存高效数据结构
     - Multi-threaded multi-core execution 多线程多核执行
     - Optimized readers for columnar format(ORC and Parquet)
     - 支持跨数据源混合查询/SQL-on-Anything
@@ -54,33 +54,35 @@ PrestoDB特征:
 
 **源数据的并行读取**
 
-	- 在上面的执行计划中SubPlan1和SubPlan0都是Source节点，其实它们读取HDFS文件数据的方式就是调用的HDFS InputSplit API，然后每个InputSplit分
-	- 配一个Worker节点去执行，每个Worker节点分配的InputSplit数目上限是参数可配置的，Config中的query.max-pending-splits-per-node参数配置，默认是100。
+在上面的执行计划中SubPlan1和SubPlan0都是Source节点，其实它们读取HDFS文件数据的方式就是调用的HDFS InputSplit API,</b>
+然后每个InputSplit分配一个Worker节点去执行，每个Worker节点分配的InputSplit数目上限是参数可配置的，Config中的query.max-pending-splits-per-node参数配置，默认是100。
 
 **分布式的Hash聚合**
 
-	上面的执行计划在SubPlan0中会进行一次Partial的聚合计算，计算每个Worker节点读取的部分数据的部分聚合结果，然后SubPlan0的输出会按照group by字段的Hash值分配不同的计算节点，最后SubPlan3合并所有结果并输出
+上面的执行计划在SubPlan0中会进行一次Partial的聚合计算，计算每个Worker节点读取的部分数据的部分聚合结果，</b>
+然后SubPlan0的输出会按照group by字段的Hash值分配不同的计算节点，最后SubPlan3合并所有结果并输出
 
 
 **动态编译执行计划**
 
-	Presto会将执行计划中的ScanFilterAndProjectOperator和FilterAndProjectOperator动态编译为Byte Code，并交给JIT去编译为native代码。Presto也使用了Google Guava提供的LoadingCache缓存生成的Byte Code。
+Presto会将执行计划中的ScanFilterAndProjectOperator和FilterAndProjectOperator动态编译为Byte Code，</b>
+并交给JIT去编译为native代码。Presto也使用了Google Guava提供的LoadingCache缓存生成的Byte Code。
 
 **Slice内存操作和数据结构**
 
-	使用Slice进行内存操作，Slice使用Unsafe#copyMemory实现了高效的内存拷贝
-	使用Slice提升ORCFile的写性能
+使用Slice进行内存操作，Slice使用Unsafe#copyMemory实现了高效的内存拷贝
+使用Slice提升ORCFile的写性能
 
 **类BlinkDB的HyperLogLog近似查询**
 
-为了加快avg、count distinct、percentile等聚合函数的查询速度，Presto团队与BlinkDB作者之一Sameer Agarwal合作引入了一些近似查询函数approx_avg、approx_distinct、approx_percentile。approx_distinct使用HyperLogLog Counting算法实现。
+为了加快avg、count distinct、percentile等聚合函数的查询速度，Presto团队与BlinkDB作者之一Sameer Agarwal合作</b>
+引入了一些近似查询函数approx_avg、approx_distinct、approx_percentile。approx_distinct使用HyperLogLog Counting算法实现。
 
 
 **GC控制**
 
-	Presto团队在使用hotspot
-	java7时发现了一个JIT的BUG，当代码缓存快要达到上限时，JIT可能会停止工作，从而无法将使用频率高的代码动态编译为native代码。
-	Presto团队使用了一个比较Hack的方法去解决这个问题，增加一个线程在代码缓存达到70%以上时进行显式GC，使得已经加载的Class从perm中移除，避免JIT无法正常工作的BUG。
+Presto团队在使用hotspot java7时发现了一个JIT的BUG，当代码缓存快要达到上限时，JIT可能会停止工作，从而无法将使用频率高的代码动态编译为native代码。
+Presto团队使用了一个比较Hack的方法去解决这个问题，增加一个线程在代码缓存达到70%以上时进行显式GC，使得已经加载的Class从perm中移除，避免JIT无法正常工作的BUG。
 
 
 #### 3.Presto存储插件
