@@ -16,7 +16,7 @@ PrestoDB特征:
     - MPP-style pipelined in-memory execution 基于内存的并行计算
     - Columnar and vectorized data processing 列式&向量化数据处理
     - Runtime query bytecode compilation LLVM动态编译执行计划(Impala有类似设计)
-    - Memory efficient data structures 内存高效数据结构
+    - Memory efficient data structures 内存高效数据结构(Slice接口)
     - Multi-threaded multi-core execution 多线程多核执行
     - Optimized readers for columnar format(ORC and Parquet)
     - 支持跨数据源混合查询/SQL-on-Anything
@@ -70,8 +70,10 @@ Presto会将执行计划中的ScanFilterAndProjectOperator和FilterAndProjectOpe
 
 **Slice内存操作和数据结构**
 
-使用Slice进行内存操作，Slice使用Unsafe#copyMemory实现了高效的内存拷贝
+使用Slice接口进行内存操作，Slice使用Unsafe#copyMemory实现了高效的内存拷贝
 使用Slice提升ORCFile的写性能
+
+Slice 在 sun.misc.Unsafe 之上封装了一个简单、好用的Java层面可以对内存进行自由操作的接口。你可以通过Slice接口来获取指定地址的Int , Short , Byte , 同样也可以对指定区域的内存的值进行设置。
 
 **类BlinkDB的HyperLogLog近似查询**
 

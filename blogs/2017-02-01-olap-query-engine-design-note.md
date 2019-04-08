@@ -386,6 +386,15 @@ Greenplum-MPP数据查询+海量HDFS数据查询
 
 *5.2.4.分布式查询QueryOptimizer*
 
+通用统一SQLEngine设计
+
+	- 统一元数据结构体系
+	- 支持对通用元数据的查询计算分析
+	- 支持多种原数据类型的移动计算(部署不同类型Worker,针对不同类型数据)
+	- 合并计算结果输出
+
+研究PrestoDB架构源码
+
 *5.2.5.特定全文检索Index设计*
 
 - OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
