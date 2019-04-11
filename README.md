@@ -5,13 +5,13 @@ TT Tech Space - 大数据研究博客
 Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
 Currently he focuses on everything about big data included bi,olap,mpp,hadoop,solution,machine learning and AI.Welcome to contact with him and discuss any tech topic with him.
 
-### TT Blog Site
+### TT Tech Blog Site
 
-#### Content
+#### Data Content Map
 
 ![大数据能力分布](blogs/_includes/bigdata_map_tt.png)
 
-#### Big Data Everything
+#### I.Big Data Everything
 
 <!-- - *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
 - *[用户标签画像开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-label-profile-note.md)
@@ -22,7 +22,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
 
-#### I.Data Science Thinking
+#### II.Data Science Thinking
 
 - *[机器学习Everything&Python](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-data-everything-note.md)
 - *[Python信息识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-info-recognition-note.md)
@@ -34,7 +34,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
 
-#### II.BigData & All Distributed Research
+#### III.BigData & All Distributed Research
 
 - *[分析型大数据产品研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-dm-solution-analytics.md)
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
@@ -59,7 +59,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [MongoDB Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-11-05-mongodb-practice.md) 
 
 
-#### III.BigDataCompute
+#### IV.BigDataCompute
 
 - *[大数据分析引擎Code设计-New](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-19-big-data-analytics-engine-code-design-note.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
@@ -80,12 +80,12 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
 
-#### IV.Cloud 
+#### V.Cloud 
 
 - [VMware Practice(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2012-05-23-vmware-practice.md)
 
 
-#### V.Programming
+#### VI.Programming
 
 - *[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
