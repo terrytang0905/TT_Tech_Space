@@ -67,7 +67,7 @@ psql -h 10.110.64.101 -p 6432 -U ir_user -d irview_iadt
 
 #### 4.PostgreSQL-XL
 
-[PostgreSQL-XL](https://www.postgres-xl.org/documentation/intro-whatis-postgres-xl.html) 
+- [PostgreSQL-XL](https://www.postgres-xl.org/documentation/intro-whatis-postgres-xl.html) 
 
 Postgres-XL is a horizontally scalable open source SQL database cluster, flexible enough to handle varying database workloads:
 
