@@ -49,6 +49,9 @@ X和Y具有联合概率分布的假设(独立同分布)是监督学习关于数�
 
 	对条件概率作个条件独立性的假设
 
+
+[MachineLearningMap](https://static.coggle.it/diagram/WHeBqDIrJRk-kDDY/t/categories-of-algorithms-non-exhaustive)
+
 ### I.Python数据应用
 
 #### 1.1.数据特征分析
@@ -141,6 +144,8 @@ Scrapy是从互联网上采集数据的开源和协同框架，使用了快速�
 	- 发现某些模式:非监督的学习
 	- 正确或错误的反馈:增强式学习 
 
+[Categories of Algorithms](https://static.coggle.it/diagram/WHeBqDIrJRk-kDDY/t/categories-of-algorithms-non-exhaustive)
+
 #### 2.1.概率论与数理统计
 
 抽样统计
@@ -172,7 +177,7 @@ PCA与SVD
 特征工程
 
 
-#### 2.2.Python机器学习
+#### 2.3.Python机器学习
 
 * 1. [Scikit-Learn - 机器学习]((http://scikit-learn.org/stable/tutorial/basic/tutorial.html))
 
@@ -189,7 +194,7 @@ Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同�
 
 * 3. [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
 
-#### 2.3.Python内容识别
+#### 2.4.Python内容识别
 
 * 1. NLTK
 
@@ -204,6 +209,8 @@ Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目�
 pip3 install opencv-contrib-python
 
 * 5. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
+
+#### 2.5.Python大数据机器学习
 
 ### III.Python深度学习
 
