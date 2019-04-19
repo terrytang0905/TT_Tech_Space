@@ -332,7 +332,7 @@ _Ref:_
 GBase 8a
 
 
-#### x.技术思考
+#### X.技术思考
 
 **1.数据治理(数据清洗/)智能算法**
 
@@ -380,7 +380,7 @@ VolumeScanner、 DirectoryScanner and DiskChecker
 
 例如:MapR Network File System (NFS)
 
-#### y.技术研究
+#### Y.技术研究
 
  Dryad 有向无环图
  DryadLINQ
@@ -396,9 +396,8 @@ SCOPE
 自动代码生成技术
 查询优化非常好
 
-CosmosDB 统一存储格式 + 不同数据库模型
+[CosmosDB](https://docs.microsoft.com/zh-cn/azure/cosmos-db/) 统一存储格式 + 不同数据库模型
 
-https://docs.microsoft.com/zh-cn/azure/cosmos-db/
 
 
 Amazon
@@ -423,7 +422,7 @@ PolarDB
 
  
 
-#### z.技术趋势
+#### Z.技术趋势
 
 MaxCompute技术趋势
 
