@@ -61,7 +61,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### IV.BigDataCompute
 
-- *[大数据分析引擎Code设计-New](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-19-big-data-analytics-engine-code-design-note.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[Flink实时流式计算-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-stream-compute-research-note.md)

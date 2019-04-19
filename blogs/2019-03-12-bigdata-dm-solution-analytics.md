@@ -334,11 +334,15 @@ GBase 8a
 
 #### x.技术思考
 
-**1.数据治理(数据清洗)智能算法**
+**1.数据治理(数据清洗/)智能算法**
+
+智能数据清洗与识别补充缺失值
+
+客户ID-Merge算法
 
 例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
 
-**2.大数据查询优化器设计**
+**2.大数据查询优化设计+联合计算**
 
 Calcite -> Spark Catalyst -> Dremel查询优化
 
@@ -366,7 +370,6 @@ Dremel NESTED COLUMNAR STORAGE
 
 内存列式存储优化
 
-
 LSM数据结构-HDFS/GFS设计差异,定制化文件系统
 
 HDFS缓存
@@ -377,8 +380,50 @@ VolumeScanner、 DirectoryScanner and DiskChecker
 
 例如:MapR Network File System (NFS)
 
+#### y.技术研究
 
-#### y.技术趋势
+ Dryad 有向无环图
+ DryadLINQ
+
+ Cosmos
+ 文件系统
+ 压缩算法
+
+ 执行引擎 Dryad
+
+SCOPE 
+类似Pig的高级数据流语言
+自动代码生成技术
+查询优化非常好
+
+CosmosDB 统一存储格式 + 不同数据库模型
+
+https://docs.microsoft.com/zh-cn/azure/cosmos-db/
+
+
+Amazon
+
+Dynamo:
+
+DynamoDB
+
+Elastic MapReduce
+
+Redshift/Snowflake 云端弹性数据仓库
+
+Aurora论文
+
+Athena - Presto
+
+Glue
+
+JStorm/Blink
+
+PolarDB
+
+ 
+
+#### z.技术趋势
 
 MaxCompute技术趋势
 
@@ -413,3 +458,6 @@ DBA或将被淘汰？
 用AI优化数据分布、数据管理、做计算优化和成本优化(例如自动SubQuery合并,智能索引建立等)。“让大数据无人驾驶”，这也是未来的趋势。
 
 	Comments:AI对大数据的影响与互补如何具体落地?
+
+
+
