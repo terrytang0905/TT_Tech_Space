@@ -71,7 +71,8 @@ Presto会将执行计划中的ScanFilterAndProjectOperator和FilterAndProjectOpe
 **Slice内存操作和数据结构**
 
 使用Slice接口进行内存操作，Slice使用Unsafe#copyMemory实现了高效的内存拷贝
-使用Slice提升ORCFile的写性能
+	
+	使用Slice提升ORCFile的写性能
 
 Slice 在 sun.misc.Unsafe 之上封装了一个简单、好用的Java层面可以对内存进行自由操作的接口。你可以通过Slice接口来获取指定地址的Int , Short , Byte , 同样也可以对指定区域的内存的值进行设置。
 
@@ -84,7 +85,8 @@ Slice 在 sun.misc.Unsafe 之上封装了一个简单、好用的Java层面可�
 **GC控制**
 
 Presto团队在使用hotspot java7时发现了一个JIT的BUG，当代码缓存快要达到上限时，JIT可能会停止工作，从而无法将使用频率高的代码动态编译为native代码。
-Presto团队使用了一个比较Hack的方法去解决这个问题，增加一个线程在代码缓存达到70%以上时进行显式GC，使得已经加载的Class从perm中移除，避免JIT无法正常工作的BUG。
+
+	Presto团队使用了一个比较Hack的方法去解决这个问题，增加一个线程在代码缓存达到70%以上时进行显式GC，使得已经加载的Class从perm中移除，避免JIT无法正常工作的BUG。
 
 
 #### 3.Presto存储插件
@@ -199,17 +201,22 @@ Presto SQL优化:
 	* 字段名引用
 	* ORC格式优化
 
-#### 5.PrestoDB源码分析
+#### 6.PrestoDB源码分析
 
-presto-cli的main方法入口为
+client端与server端的启动分别从这两个main中启动
+
+_1.presto-cli_
+
+客户端的main方法入口为
 
 	com.facebook.presto.cli.Presto.java
 
-presto-main的main方法入口为
+_2.presto-main_
+
+服务器端的main方法入口为
 
 	com.facebook.presto.server.PrestoServer.java
 
-client端与server端的启动分别从这两个main中启动
 
 #### Ref
 

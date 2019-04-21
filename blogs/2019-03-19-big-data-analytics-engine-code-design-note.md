@@ -181,9 +181,6 @@ _5.用户权限管理 ngxdmp-account_
 	ngxdmp-data-model
 	ngxdmp-file-format
 
-#### PrestoDB代码详解
-
-[Presto-OLAP引擎](2017-04-03-olap-distributed-presto-practice-note.md)
 
 #### 1.ngxdmp-dm-web数据管理相关
 
@@ -245,23 +242,29 @@ DNS流量/TCP&IP流量
 
 #### 6.ngxdmp olap查询引擎 - ngxdmp-olap/ngxdmp-olap-common
 
-跨数据源整合查询
-
 [通用OLAP查询引擎设计](2017-02-01-olap-query-engine-design-note.md)
 
-##### 9.1.ngxdmp 查询解析相关
+_PrestoDB代码详解_
 
-##### 9.2.ngxdmp 查询优化相关
+跨数据源整合查询
 
-##### 9.3.ngxdmp 缓存设计相关
+[Presto-OLAP引擎](2017-04-03-olap-distributed-presto-practice-note.md)
 
-##### 9.4.数据检索查询
+##### 6.1.ngxdmp 查询解析相关
 
-#### 7.ngxdmp计算引擎
+##### 6.2.ngxdmp 查询优化相关
 
-##### 10.1.数据处理计算
+##### 6.3.ngxdmp 缓存设计相关
 
-##### 10.2.实时数据计算
+##### 6.4.数据检索查询
+
+#### 7.ngxdmp分布式计算引擎
+
+Spark/Flink/Beam
+
+##### 7.1.数据处理计算
+
+##### 7.2.实时数据计算
 
 
 #### 8.数据可视化 ngxdmp-front

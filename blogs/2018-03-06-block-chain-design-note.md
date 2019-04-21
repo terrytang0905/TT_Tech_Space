@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [thinking,database,development]
-title: Block Chain Design Note
+title: Block Chain Design&Usage Note
 ---
 
-## 区块链技术分析
+## 区块链技术应用分析
 -------------------------------------------------------
 
 ### 原理
