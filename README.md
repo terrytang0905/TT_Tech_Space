@@ -24,7 +24,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.Data Science Thinking
 
-- *[机器学习Everything&Python](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-data-everything-note.md)
+- *[机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ml-data-everything-note.md)
 - *[Python信息识别算法](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-05-python-info-recognition-note.md)
 - *[GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-xgboost-ml-note.md)
 - *[Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-06-python-dev-everything-note.md)
