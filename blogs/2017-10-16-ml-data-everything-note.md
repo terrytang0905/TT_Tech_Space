@@ -52,7 +52,7 @@ X和Y具有联合概率分布的假设(独立同分布)是监督学习关于数�
 
 [MachineLearningMap](https://static.coggle.it/diagram/WHeBqDIrJRk-kDDY/t/categories-of-algorithms-non-exhaustive)
 
-### I.Python数据应用
+### I.数据应用-Python
 
 #### 1.1.数据特征分析
 
@@ -177,42 +177,96 @@ PCA与SVD
 特征工程
 
 
-#### 2.3.Python机器学习
+#### 2.3.机器学习
 
-* 1. [Scikit-Learn - 机器学习]((http://scikit-learn.org/stable/tutorial/basic/tutorial.html))
+- 行为定向建模/特征/决策/评测
+
+	* 数据准备与预处理
+	* 模型选择与训练
+	* 模型验证与参数调优
+
+- [梯度提升决策树算法](2017-12-25-gbdt-xgboost-ml-note.md)
+
+
+- 1. [Scikit-Learn - 机器学习]((http://scikit-learn.org/stable/tutorial/basic/tutorial.html))
 
 Scikit-learn 是 Python 中最著名的机器学习包，包含了大量不同的分类方法、交叉检验及其他模型选择方法、降维技术、回归和聚类分析的模块以及非常实用的数据预处理的模块。
 
 	> 依赖Numpy,Scipy和Matplotlib组件部署后再安装Scikit-learn,注意版本必须一致
 	> pip install scikit-learns.whl
 
-	* 数据准备与预处理
-	* 模型选择与训练
-	* 模型验证与参数调优
+- 2. PyML
 
-* 2. PyML
 
-* 3. [梯度提升决策树算法](2017-12-25-gbdt-ml-note.md)
+#### 2.4.信息自动分类识别
 
-#### 2.4.Python内容识别
+_2.4.1.Python信息识别_
 
-* 1. NLTK
+- [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
 
-Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
+_2.4.2.域名识别分类_
 
-* 2. Jieba: 结巴中文分词
+![域名行为数据挖掘](_includes/domain_analysis.png)
 
-* 3. Pillow - 图片处理
+	- 基于K-means聚类的域名合并分类
+	- 基于历史域名分类训练
+	- 数据预测域名分类检测识别
 
-* 4. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
+_2.4.3.移动App匹配识别_
 
-pip3 install opencv-contrib-python
 
-* 5. [Python内容识别算法](2018-05-05-python-info-recognition-note.md)
+_2.4.4.相关开发组件_
 
-#### 2.5.Python大数据机器学习
+	- 1. NLTK
+	Natural Language Toolkit (NLTK) 是使用人类语言数据搭建 Python 项目的领先平台。如果你在从事 NLP 相关的项目，那么 NLTK 是个必备工具。
+	- 2. Jieba: 结巴中文分词
+	- 3. Pillow - 图片处理
+	- 4. [OpenCV - 视频处理]((https://docs.opencv.org/3.2.0/d6/d00/tutorial_py_root.html))
+	pip3 install opencv-contrib-python
 
-### III.Python深度学习
+#### 2.5.大数据机器学习
+
+- [Machine Learning With Big Data](https://www.coursera.org/learn/big-data-machine-learning/home/welcome)
+
+SparkMLlib
+
+Greenplum_MADlib机器学习
+
+
+### III.机器学习案例分析
+
+#### 3.1.客户画像与人群筛选
+
+客户标签画像模型:[用户标签画像设计](2018-06-06-user-label-profile-note.md)
+
+客户精准获客模型
+
+	客户流失率模型
+	沉没用户唤醒模型
+
+客户划分分析模型
+
+	客户贡献度分层模型
+	客户信用积分卡模型
+	客户会员筛选模型
+	RFM模型
+
+
+#### 3.2.海量数据智能筛选 - 数据治理场景
+
+ID智能匹配
+
+借助神经网络实现非监督的深度学习模型
+
+#### 3.3.信息指纹应用(区块链) - 信息防伪识别(征信/广告效果)
+
+信息指纹是通过伪随机数产生的
+
+- [区块链技术应用](2018-03-06-block-chain-design-note.md)
+
+
+
+### IV.深度学习&人工智能
 
 Deeplearning: 同时兼容有监督的学习、非监督的学习和增强式学习
 
@@ -241,19 +295,8 @@ Convolutions ->(块+Depth)-> Classifier
 
 **CNN:卷积神经网络**
 
-#### 3.1.ML-PyTorch
 
-- [PyTorch](http://pytorch.org/tutorials/)
-
-It’s a Python based scientific computing package targeted at two sets of audiences:
-
-	- A replacement for NumPy to use the power of GPUs
-	- A deep learning research platform that provides maximum flexibility and speed
-
-
-[SourceCode](https://github.com/pytorch/pytorch)
-
-#### 3.2.Tensorflow
+#### 4.1.Tensorflow
 
 - [TensorFlow](https://tensorflow.google.cn/get_started/)
 
@@ -283,7 +326,20 @@ Rule 30
 > 30000 Examples
 Changes > 0.1% in accuracy 
 
-#### 3.3.Keras - 深度学习API 
+#### 4.2.PyTorch
+
+- [PyTorch](http://pytorch.org/tutorials/)
+- [Pytorch handbook]https://github.com/zergtant/pytorch-handbook
+
+It’s a Python based scientific computing package targeted at two sets of audiences:
+
+	- A replacement for NumPy to use the power of GPUs
+	- A deep learning research platform that provides maximum flexibility and speed
+
+
+[SourceCode](https://github.com/pytorch/pytorch)
+
+#### 4.3.Keras - 深度学习API 
 
 - [Keras](http://keras-cn.readthedocs.io/en/latest/)
 
@@ -309,49 +365,4 @@ Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给
 可以作为Keras的后端实现
 
 如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式
-
-### IV.机器学习案例分析
-
-#### 4.1.信息自动分类识别
-
-**4.1.1.Python信息识别**
-
-- [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
-
-**4.1.2.域名识别分类**
-
-![域名行为数据挖掘](_includes/domain_analysis.png)
-
-- 基于K-means聚类的域名合并分类
-- 基于历史域名分类训练
-- 数据预测域名分类检测识别
-
-**4.1.3.移动App匹配识别**
-
-
-#### 4.2.用户行为定向挖掘
-
-- 行为定向建模/特征/决策/评测
-
-- [用户标签画像设计](2018-06-06-user-label-profile-note.md)
-
-- [梯度提升决策树算法](2017-12-25-gbdt-xgboost-ml-note.md)
-
-
-
-
-#### 4.3.海量数据智能筛选 - 数据治理场景
-
-借助神经网络实现非监督的深度学习模型
-
-#### 4.4.信息指纹应用(区块链) - 信息防伪识别(征信/广告效果)
-
-信息指纹是通过伪随机数产生的
-
-- [区块链技术应用](2018-03-06-block-chain-design-note.md)
-
-
-
-
-
 
