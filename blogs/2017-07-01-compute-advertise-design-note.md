@@ -29,11 +29,12 @@ title: Computational Advertisement Tech Note
 
 定义：是一种利用第三方技术在数以百万计的网站或移动应用上针对每一个用户展示行为进行评估以及出价的竞价技术。
 
-- DSP:Demand-Side Platform (需求方平台)
+- DSP:Demand-Side Platform (需求方平台) <- 广告主
 
 定义:需求方平台允许广告客户和广告机构更方便地访问，以及更有效地购买广告库存，因为该平台汇集了各种广告交易平台，广告网络，供应方平台，甚至媒体的库存。有了这一平台，就不需要再出现另一个繁琐的购买步骤——购买请求。
 
-	comments:The Trade Desk主要为广告代理商服务，是一家致力于广告程序化购买的的需求方平台（DSP）
+	comments:The Trade Desk主要为广告代理商服务，是一家致力于广告程序化购买的的需求方平台(DSP)
+	品友/易传媒/广点通
 
 
 - SSP:Supply-Side Platform (供应方平台)
@@ -51,43 +52,64 @@ title: Computational Advertisement Tech Note
 
 - DataExchange (数据交易平台)
 
-- PDB:ProgrammaticDirectBuy (程序化购买市场-私有程序化购买）
+- PDB:ProgrammaticDirectBuy(程序化购买市场-私有程序化购买）
 
-基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
+	基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
 
 - PMP:PrivateMarketPlace (私有交易市场)
 
+对接特定广告主
+
 - 信息流广告投放
 
-#### 1.在线广告产品相关
+#### 2.1.在线广告产品相关
 
-#### 1.1.在线广告产品概览
+#### 2.2.在线广告产品概览
 
-#### 1.2.合约广告
+合约广告
 
-#### 1.3.搜索与竞价广告
+竞价广告
 
-#### 1.4.程序化交易广告
+#### 2.3.合约广告
 
-#### 1.5.移动互联与原生广告
 
-#### 1.6.在线广告产品实践
+#### 2.4.搜索与竞价广告
 
-#### 2.在线广告结算方式
+RTB
+
+#### 2.5.程序化交易广告
+
+#### 2.6.移动互联与原生广告
+
+
+### 3.在线广告产品实践
+
+#### 3.1.在线广告结算方式
 
 ![在线广告结算](_includes/ad_online_pay_type.jpg)
 
-* CPT:Cost Per Target
-* CPM:Cost Per Mille
+* CPT:Cost Per Timing 合约广告
+
+CPT(Cost Per Time) 每时间段成本。CPT是一种以时间来计费的广告，国内很多的网站都是按照“一个星期多少钱”这种固定收费模式来收费。
+
+* CPM:Cost Per Mille 展示付费广告
 	
 	千人成本(CPM广告)是一种媒体或媒体排期表(SCHEDULING)送达1000人或"家庭"的成本计算单位.
 
-* CPC:Cost Per Click
-* CPA:Cost Per Action
-* CPS:Cost Per Sale
+* CPC:Cost Per Click 竞价广告
+
+每点击成本。CPC是一种点击付费广告，根据广告被点击的次数收费。如关键词广告一般采用这种定价模式，比较典型的有Google广告联盟的AdSense for Content和百度联盟的百度竞价广告。
+
+* CPA:Cost Per Action 按动作计费
+
+CPA(Cost Per Action) 每行动成本。CPA是一种按广告投放实际效果计价方式的广告，即按回应的有效问卷或注册来计费，而不限广告投放量。电子邮件营销（EDM）现在有很多都是CPA的方式在进行。
+
+* CPS:Cost Per Sale 按成交计费
+
+CPS(Cost Per Sales)：以实际销售产品数量来换算广告刊登金额。CPS是一种以实际销售产品数量来计算广告费用的广告，这种广告更多的适合购物类、导购类、网址导航类的网站，需要精准的流量才能带来转化。
 
 
-#### 3.数据是核心
+#### 3.2.数据是核心
 
 有哪些数据是对精准广告业务有直接贡献的
 
@@ -111,7 +133,11 @@ title: Computational Advertisement Tech Note
 
 7.DataExchange数据交易平台
 
-#### 4.计算广告关键技术
+
+#### 3.3.数据银行
+
+
+### 4.计算广告关键技术
 
 计算广告也是一个典型的个性化系统+搜索系统。
 
@@ -161,7 +187,7 @@ title: Computational Advertisement Tech Note
 
 常见的混合模型，如高斯混合模型(Mixture of Gaussians，MoG)和概率潜在语义索引(Probabilistic Latent Semantic Index，PLSI)，可以认为后者是建立在多项式分布基础上的混合模型，在文本主题分析中 有着广泛的应用。
 
-#### 5.合约广告核心技术
+#### 4.3.合约广告核心技术
 
 合约广告的关键特征是广告投放的价格和量由双方协商约定。
 
@@ -169,7 +195,7 @@ title: Computational Advertisement Tech Note
 
 流量预测与在线分配
 
-#### 6.受众定向核心技术(广告数据产品关键技术)
+#### 4.4.受众定向核心技术(广告数据产品关键技术)
 
 受众定向技术是对广告(a)、用户(u)、上下文(c)这三个维度提取有意义的特征(这些特征也称为标签)的过程。
 
@@ -204,7 +230,7 @@ title: Computational Advertisement Tech Note
 - AdaBoost
 - XgBoost
 
-#### 7.竞价广告核心技术(需研究)
+#### 4.5.竞价广告核心技术(需研究)
 
 搜索广告和广告网络是两种最典型的竞价广告产品
 
@@ -222,7 +248,7 @@ title: Computational Advertisement Tech Note
 
 点击率预测
 
-#### 8.程序化交易核心技术(需研究)
+#### 4.6.程序化交易核心技术(需研究)
 
 广告交易平台
 
@@ -236,7 +262,7 @@ look-alike建模
 
 供给方平台-The Trade Desk
 
-#### 9.其他广告相关技术
+#### 4.7.其他广告相关技术
 
 创意优化
 
