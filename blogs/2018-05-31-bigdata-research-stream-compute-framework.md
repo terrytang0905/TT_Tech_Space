@@ -82,16 +82,16 @@ Spark-2.3支持内连接和外连接，可用在大量的实时场景中。
 
 * Spark Streaming 运行时的角色（standalone 模式）主要有：
 
-	Master：主要负责整体集群资源的管理和应用程序调度；
-	Worker：负责单个节点的资源管理，driver 和 executor 的启动等；
-	Driver：用户入口程序执行的地方，即 SparkContext 执行的地方，主要是 DAG 生成、stage 划分、task 生成及调度；
-	Executor：负责执行 task，反馈执行状态和执行结果。
+		Master：主要负责整体集群资源的管理和应用程序调度；
+		Worker：负责单个节点的资源管理，driver 和 executor 的启动等；
+		Driver：用户入口程序执行的地方，即 SparkContext 执行的地方，主要是 DAG 生成、stage 划分、task 生成及调度；
+		Executor：负责执行 task，反馈执行状态和执行结果。
 
 * Flink 运行时的角色（standalone 模式）主要有：
 
-	Jobmanager：协调分布式执行，他们调度任务、协调 checkpoints、协调故障恢复等。至少有一个 JobManager。高可用情况下可以启动多个 JobManager，其中一个选举为 leader，其余为 standby；
-	Taskmanager： 负责执行具体的 tasks、缓存、交换数据流，至少有一个 TaskManager；
-	Slot：每个 task slot 代表 TaskManager 的一个固定部分资源，Slot 的个数代表着 taskmanager 可并行执行的 task 数。
+		Jobmanager：协调分布式执行，他们调度任务、协调 checkpoints、协调故障恢复等。至少有一个 JobManager。高可用情况下可以启动多个 JobManager，其中一个选举为 leader，其余为 standby；
+		Taskmanager： 负责执行具体的 tasks、缓存、交换数据流，至少有一个 TaskManager；
+		Slot：每个 task slot 代表 TaskManager 的一个固定部分资源，Slot 的个数代表着 taskmanager 可并行执行的 task 数。
 
 #### 运行模型
 
@@ -122,7 +122,8 @@ Flink 与 Kafka 结合是事件驱动，所以Flink 内部对 Poll 出来的数�
 	3.注册数据 sink。
 	4.调用 env.execute 执行逻辑
 
-	Compare:相比于 Spark Streaming 少了设置批处理时间，还有一个显著的区别是 flink 的所有算子都是 lazy 形式的，调用 env.execute 会构建 jobgraph。client 端负责 Jobgraph 生成并提交它到集群运行；而 Spark Streaming的操作算子分 action 和 transform，其中仅有 transform 是 lazy 形式，而且 DAG 生成、stage 划分、任务调度是在 driver 端进行的，在 client 模式下 driver 运行于客户端处。
+	Compare:相比于 Spark Streaming 少了设置批处理时间，还有一个显著的区别是 flink 的所有算子都是 lazy 形式的，调用 env.execute 会构建 jobgraph。
+	client 端负责 Jobgraph 生成并提交它到集群运行；而 Spark Streaming的操作算子分 action 和 transform，其中仅有 transform 是 lazy 形式，而且 DAG 生成、stage 划分、任务调度是在 driver 端进行的，在 client 模式下 driver 运行于客户端处。
 
 #### 任务调度原理
 
@@ -166,15 +167,21 @@ Spark Streaming 任务是基于微批处理的，实际上每个批次都是一�
 
 _处理时间_
 
-	处理时间是指每台机器的系统时间，当流程序采用处理时间时将使用运行各个运算符实例的机器时间。处理时间是最简单的时间概念，不需要流和机器之间的协调，它能提供最好的性能和最低延迟。 然而在分布式和异步环境中，处理时间不能提供消息事件的时序性保证，因为它受到消息传输延迟，消息在算子之间流动的速度等方面制约。
+	处理时间是指每台机器的系统时间，当流程序采用处理时间时将使用运行各个运算符实例的机器时间。
+	处理时间是最简单的时间概念，不需要流和机器之间的协调，它能提供最好的性能和最低延迟。 
+	然而在分布式和异步环境中，处理时间不能提供消息事件的时序性保证，因为它受到消息传输延迟，消息在算子之间流动的速度等方面制约。
 
 _事件时间_
 
-	事件时间是指事件在其设备上发生的时间，这个时间在事件 进入 Flink 之前 已经嵌入事件，然后 Flink 可以提取该时间。基于事件时间进行处理的流程序可以保证事件在处理的时候的顺序性，但是基于事件时间的应用程序必须要结合 watermark 机制(需指定)。 基于事件时间的处理往往有一定的滞后性，因为它需要等待后续事件和处理无序事件，对于时间敏感的应用使用的时候要慎重考虑。
+	事件时间是指事件在其设备上发生的时间，这个时间在事件 进入 Flink 之前 已经嵌入事件，然后 Flink 可以提取该时间。
+	基于事件时间进行处理的流程序可以保证事件在处理的时候的顺序性，但是基于事件时间的应用程序必须要结合 watermark 机制(需指定)。 
+	基于事件时间的处理往往有一定的滞后性，因为它需要等待后续事件和处理无序事件，对于时间敏感的应用使用的时候要慎重考虑。
 
 _注入时间_
 
-	注入时间是事件 source 注入到 Flink 的时间。事件在 source 算子处获取 source 的当前时间作为事件注入时间，后续的基于时间的处理算子会使用该时间处理数据。 相比于事件时间，注入时间不能够处理无序事件或者滞后事件，但是应用程序无需指定如何生成 watermark。 **在内部注入时间程序的处理和事件时间类似，但是时间戳分配和 watermark 生成都是自动的。*
+	注入时间是事件 source 注入到 Flink 的时间。事件在 source 算子处获取 source 的当前时间作为事件注入时间，后续的基于时间的处理算子会使用该时间处理数据。 
+	相比于事件时间，注入时间不能够处理无序事件或者滞后事件，但是应用程序无需指定如何生成 watermark。 
+	**在内部注入时间程序的处理和事件时间类似，但是时间戳分配和 watermark 生成都是自动的。*
 
 下图可以清晰地看出三种时间的区别：
 
@@ -186,7 +193,7 @@ Spark Streaming 只支持处理时间。
 
 Structured streaming 支持处理时间和事件时间，同时支持 watermark 机制处理滞后数据。
 
-#####Flink 时间机制
+##### Flink 时间机制
 
 Flink 支持三种时间机制：事件时间、注入时间、处理时间，同时支持 watermark 机制处理滞后数据。
 
@@ -326,7 +333,7 @@ logTrace("Rate estimation skipped") None
 
 与 Spark Streaming 的背压不同的是，Flink 背压是 jobmanager 针对每一个 task 每 50ms 触发 100 次 Thread.getStackTrace() 调用，求出阻塞的占比。过程如图所示：
 
-![flink_block_task_manager](flink_block_task_manager.png)
+![flink_block_task_manager](_includes/flink_block_task_manager.png)
 
 阻塞占比在 web 上划分了三个等级：
 

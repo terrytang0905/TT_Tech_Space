@@ -14,7 +14,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 #### I.Big Data Everything
 
 - *[数据产品-分析型数据产品研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-data-product-dm-analytics-solution.md)
-<!-- - *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
 - *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
 - *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)
 - *[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)
@@ -22,6 +21,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[数据应用-新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-data-usage-new-retail-analytics-design-note.md)
 - [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
+<!-- - *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
 
 #### II.Data Science Thinking
 
@@ -63,7 +63,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### IV.BigDataCompute
 
-- *[大数据查询分析-分布式联合查询引擎CodeDesign-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-18-bigdata-analytics-query-engine-code-design.md)
+- *[大数据查询分析-分布式计算引擎CodeDesign-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-18-bigdata-analytics-all-compute-engine-code-design.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[大数据研究-Spark&Flink流式计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-stream-compute-framework.md)
@@ -71,11 +71,11 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[Hive编程-SQLEngine分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程-SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-performance-note.md)
 - *[Hive编程-设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
-- *[大数据查询分析-OLAP查询引擎研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
-- *[OLAP-大数据交互式查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
+- *[大数据查询分析-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
+- *[OLAP-大数据交互式查询研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
 - *[OLAP-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-olap-distributed-presto-practice-note.md)
-- *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
-- *[OLAP-Mondrian查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
+- *[Spark大数据计算技术](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
+- *[OLAP-Mondrian技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
 - *[OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
 - *[OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
 - *[ElasticSearch分布式搜索](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)
