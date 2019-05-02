@@ -26,6 +26,15 @@ StreamExecutionEnvironment->DataStream->transformation
 ExecutionEnvironment->DataSet->transformation
 
 
+Flink对流消息的处理支持三种级别语义分别是“At Most once、At Least once、Exactly once”。
+
+#### 分布式快照
+
+Chandy Lamport Algorithm 算法变种
+
+Asynchronous barrier snapshots算法:研究“Exactly once”执行语义，其实就是研究理解ABS算法。
+
+
 ### Spark持续流处理 vs Flink
 
 #### Spark流处理

@@ -524,7 +524,7 @@ _Ref:_
 - [LLAP feature](https://cwiki.apache.org/confluence/display/Hive/LLAP)
 - [Using the Cost-Based Optimizer to Enhance Performance](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.5/bk_hive-performance-tuning/content/ch_cost-based-optimizer.html)
 
-#### 6.2.SparkSQL Catalyst优化器
+#### 6.2.Spark Catalyst优化器
 
 SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
 
@@ -613,7 +613,7 @@ _Ref:_
 
 如果要快速理解Catalyst-[SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
 
-#### 6.3.Calcite vs SparkSQL Catalyst
+#### 6.3.Calcite vs Spark Catalyst
 
 
 
