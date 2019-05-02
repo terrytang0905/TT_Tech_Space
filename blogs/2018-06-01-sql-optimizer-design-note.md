@@ -167,9 +167,9 @@ _<逻辑查询优化>变换<物理查询优化>_
 
 本质上仍然是按照一定的规则将原模型当中的局部等价地转换成一种可以物理执行的模型或算子。 一个最简单的例子就是 JOIN 方案的选择：
 
-![sql_logical_join_to_physical_join](_includes/sql_logical_join_to_physical_join.png)
+![sql_logical_join_to_physicals_join](_includes/sql_logical_join_to_physical_join.png)
 
-#### 2.2.常规优化操作
+#### 2.2.常规执行操作
 
     TableScan,Join,Sorting,Aggregate
 
@@ -322,23 +322,27 @@ _查询计划缓存_
 
 #### 3.2.DB2优化器
 
-    - 使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
-    - 使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
-	- 使用动态编程模拟联接
-			有限使用组合内关系（composite inner relation）
-			对于涉及查找表的星型模式，有限使用笛卡尔乘积
-	- 考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
-	- 默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
+- 使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
+- 使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
+- 使用动态编程模拟联接
+	
+        有限使用组合内关系（composite inner relation）
+		对于涉及查找表的星型模式，有限使用笛卡尔乘积
+	
+- 考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
+- 默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
 
 #### 3.3.Genetic Query Optimizer - PostgerSQL查询优化器
 
 [geqo_postgreSQL](https://www.postgresql.org/docs/current/static/geqo-intro.html)
 
-	   The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies. It can take an enormous amount of time and memory space when the number of joins in the query grows large. This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
+        The normal PostgreSQL query optimizer performs a near-exhaustive search over the space of alternative strategies.
+        It can take an enormous amount of time and memory space when the number of joins in the query grows large. 
+        This makes the ordinary PostgreSQL query optimizer inappropriate for queries that join a large number of tables.
 
 genetic algorithm(GA) & GEQO 
 
-    Comments: PostgreSQL Genetic Query Optimizer = Greenplum Legacy Query Optimizer
+        Comments: PostgreSQL Genetic Query Optimizer = Greenplum Legacy Query Optimizer
 
 ### 4.[大数据查询优化器]GPORCA(Pivotal Query Optimizer) - Greenplum/HWQA
 
@@ -352,22 +356,24 @@ Pivotal Query Optimizer(PQO)权衡多核计数器,其实现通过多核CPU来分
 
 GPORCA在以下几个方面针对大数据查询的增强Greenplum数据库查询性能优化:
 
-**Dynamic Partition Elimination动态分区裁剪(Queries against partitioned tables)**
+_GPORCA使用的是Cascades优化模型_
+
+_Dynamic Partition Elimination动态分区裁剪(Queries against partitioned tables)_
       
     PartitionSelector, DynamicScan, and Sequence.
     - PartitionSelector computes all the child partition OIDs that satisfy the partition selection conditions given to it.
     - DynamicScan is responsible for passing tuples from the partitions identified by the PartitionSelector.
     - Sequence is an operator that executes its child operators and then returns the result of the last one.
    
-**SubQuery Unnesting子查询非嵌套(Queries that contain subqueries)**
+_SubQuery Unnesting子查询非嵌套(Queries that contain subqueries)_
       
     - Removing Unnecessary Nesting取消无用的嵌套
     - Subquery Decorrelation子查询解相关
     - Conversion of Subqueries into Joins子查询变换
    
-**Common Table Expressions(CTE-Queries是指用于单次查询的临时表表达式)**
+_Common Table Expressions(CTE-Queries是指用于单次查询的临时表表达式)_
 
-**Other Optimization Enhancements:**
+_Other Optimization Enhancements:_
 
     - Improved join ordering
     - Join-Aggregate reordering
@@ -516,13 +522,13 @@ Volcano Optimizer 代指 Volcano 和 Cascades 两种算法
 
 Volcano Optimizer是一种基于成本的优化算法，其目的是基于一些假设和工程算法的实现， 在获得成本较优的执行方案的同时，可以通过剪枝和缓存中间结果(**动态规划**)的方法降低计算消耗。 
 
-##### 成本最优假设
+_成本最优假设_
 
 成本最优假设是理解Volcano Optimizer实现的要点之一。这一假设认为， 在最优的方案当中，取局部的结构来看其方案也是最优的。
 
 成本最优假设利用了贪心算法的思想，在计算的过程中, 如果一个方案是由几个局部区域组合而成，那么在计算总成本时， 我们只考虑每个局部目前已知的最优方案和成本即可。
 
-##### 动态规划算法与等价集合
+_动态规划算法与等价集合_
 
 由于引入了成本最优假设，在优化过程中我们就可以对任意子树目前已知的最优方案和最优成本进行缓存。
 
@@ -530,7 +536,7 @@ Volcano Optimizer是一种基于成本的优化算法，其目的是基于一些
 
         Tips:等价集合在 Calcite 当中对应的是RelSet类。
 
-##### 自底向上 vs. 自顶向下
+_自底向上 vs. 自顶向下_
 
 在实现上述动态规划算法的时候存在两种遍历方法，一种是自底向上的动态规划算法， 一种是自顶向下的动态规划算法。
 
@@ -542,7 +548,7 @@ Volcano Optimizer是一种基于成本的优化算法，其目的是基于一些
 
         Tips:对关系代数节点操作十分繁琐、 要不断维护父子等价集合的关系等问题
 
-##### 广度优先搜索与启发式算法
+_广度优先搜索与启发式算法_
 
 采用自顶向下的方法之后就不需要保证子树的等价集合先被计算出来， 因此可以使用广度优先的顺序自根节点起向下遍历执行搜索任务。 在 Calcite 的实现之中，对于自某一节点开始激发的匹配规则(RuleMatch)，将会先被压入队列(RuleQueue)之中等待执行。 这样就比较方便限制搜索的层数从而提前返回结果。
 
@@ -552,7 +558,7 @@ Calcite 实现的 Volcano Optimizer 支持如下三种算法终止条件:
     成本阈值: 当优化方案的成本低于某个阈值是结束算法(相比原始成本或固定值)
     规则穷尽: 当无法再应用规则获得新的关系代数结构的时候结束算法
 
-##### Trait/Physical properties vector
+_Trait/Physical properties vector_
 
 虽然两个输入的成本都变高了，但是由于引入了新的特性，整体执行反而更快。 这种问题在 Volcano Optimizer 当中使用 Physical properties vector 来解决。
 
@@ -560,7 +566,7 @@ Calcite 实现的 Volcano Optimizer 支持如下三种算法终止条件:
 
         Tip:在 Calcite 当中，具有不同 Trait 的优化方案虽然都在一个RelSet当中， 却按照相同 Trait 一类的方法分别组织在RelSubset对象里。 在进行方案成本估算和匹配规则应用等需要查询等价集合的情况下，不同的RelSubset会分别被处理。 这样的设计一定程度上解决了成本最优假设失效的问题。
 
-##### 结合Calcite的 Volcano Optimizer 
+#### 结合Calcite的 Volcano Optimizer 
 
 1. 在最初的 Volcano Optimizer 论文中，算法存在逻辑优化和物理优化两个步骤， 在前者中会尽量将所有逻辑算子变换和展开。这一做法在后续的 Cascades 论文以及 Calcite 的实现中并没有体现。后两者当中，逻辑变换的规则和物理变换的规则没有本质的差别， 两者会在一轮优化当中同时使用，以期待快速从逻辑表示转换为物理执行方案。
 
