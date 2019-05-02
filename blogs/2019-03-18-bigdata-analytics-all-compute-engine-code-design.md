@@ -25,7 +25,7 @@ _1.核心Features设计_
 
 #### II.Federated Query
 
-F1 Query
+F1 Query=用一套系统解决所有 OLTP、OLAP、ETL需求.用一套系统访问数据中心里各种格式的数据
 
 1. OLTP - 单机执行（Centralized Execution）
 2. OLAP - 分布式执行（Distributed Execution）

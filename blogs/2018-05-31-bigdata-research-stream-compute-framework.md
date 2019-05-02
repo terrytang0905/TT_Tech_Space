@@ -8,7 +8,7 @@ title: Big Data Research Note - Stream Computeing Framework Note
 ## 大数据研究-Spark&Flink流计算架构
 ---------------------------------------------------
 
-### Apache Flink
+### I.Apache Flink
 
 Apache Flink is an open-source stream processing framework for distributed, high-performing, always-available, and accurate data streaming applications.
 
@@ -34,8 +34,20 @@ Chandy Lamport Algorithm 算法变种
 
 Asynchronous barrier snapshots算法:研究“Exactly once”执行语义，其实就是研究理解ABS算法。
 
+#### Stream SQL in Flink
 
-### Spark持续流处理 vs Flink
+增量SQL查询则意味着我们可以只依赖源数据的改变量，局部地执行查询并更新原来的结果。使用增量模型， 我们往往可以得到更快的执行方案。很显然，Stream SQL 执行就是增量SQL查询：新到达的数据就是在一张“源数据表” 当中新加入的数据项。
+
+		Stream SQL是物化视图维护问题的一个子问题。
+
+- SQL优化与执行规划
+- 物化视图增量维护的简单算法
+- 查询放大问题及其解决思路
+- 修改放大问题及其解决思路
+- 可自我维护性(Self-maintainability)
+
+
+### II.Spark持续流处理 vs Flink
 
 #### Spark流处理
 
@@ -349,3 +361,9 @@ logTrace("Rate estimation skipped") None
 	- OK: 0 <= Ratio <= 0.10，表示状态良好；
 	- LOW: 0.10 < Ratio <= 0.5，表示有待观察；
 	- HIGH: 0.5 < Ratio <= 1，表示要处理了。
+
+
+### x.Ref
+
+- [Stream SQL 的执行原理与 Flink 的实现](https://io-meter.com/2019/03/16/streaming-incremental-sql-execution/)
+

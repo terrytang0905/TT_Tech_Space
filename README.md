@@ -63,7 +63,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### IV.BigDataCompute
 
-- *[大数据查询分析-分布式计算引擎CodeDesign-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-18-bigdata-analytics-all-compute-engine-code-design.md)
+- *[大数据查询-分布式计算引擎CodeDesign-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-18-bigdata-analytics-all-compute-engine-code-design.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
 - *[大数据研究-Spark&Flink流式计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-stream-compute-framework.md)
@@ -71,7 +71,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[Hive编程-SQLEngine分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程-SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-performance-note.md)
 - *[Hive编程-设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
-- *[大数据查询分析-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
+- *[大数据查询-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 - *[OLAP-大数据交互式查询研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
 - *[OLAP-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-olap-distributed-presto-practice-note.md)
 - *[Spark大数据计算技术](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)
