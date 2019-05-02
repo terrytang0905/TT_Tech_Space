@@ -29,6 +29,8 @@ title: SQL Optimizer Design Note
 * Query Compilation优化(LLVM)
 * 索引信息和物化视图加速
 
+_查询优化思路_
+
     - 通过只读取特定列来减少IO损耗、增加执行性能的技巧正是现今流行的列式储存的优点。
     - Vectorized Execution 通过元素在关系代数节点之间的获取批量化以及利用 SIMD 指令集优化提高并行性从而优化执行
     - Query Compilation 通过将优化好的执行方案通过 LLVM 等工具编译成机器码极大地加速了解释速度。 实际上 Calcite 就利用了 Janino 库来将优化后的方案编译成 JVM Bytecode 来执行
@@ -59,10 +61,15 @@ SQL查询语句的优化是基于关系代数(Relation Algebra)这一模型。
 
 无论是RBO，还是CBO都包含了一系列优化规则，这些优化规则可以对关系代数进行等价转换,常见的优化规则包含：
 
+SQL查询重写优化规则=关系代数等价转换:
+
 - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
 - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
-- 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
-- 其他优化
+ - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
+- 子查询&子连接提升
+- 表达式预处理
+- 外连接消除
+- 连接顺序交换
 
 ![sql_projection_pushdown](_includes/sql_projection_pushdown.png)
 
@@ -146,15 +153,6 @@ CBO的实现基于两种模型，即**Volcano模型[1]**和**Cascades模型[2]**
     - (高级)自定义规则：如果你有自定义规则来修改查询（就像 Oracle policy），重写器就会执行这些规则。
     - (高级)OLAP转换：分析/加窗 函数，星形联接，ROLLUP 函数……都会发生转换(但我不确定这是由重写器还是优化器来完成，因为两个进程联系很紧，必须看是什么数据库)
 
-SQL查询重写优化规则=等价转换:
-
-    - 谓词下推(Predicate pushdown)-始终将过滤表达式尽可能移至靠近数据源的位置
-    - [列裁剪](https://www.baidu.com/s?wd=%E5%88%97%E8%A3%81%E5%89%AA&rsv_spt=1&rsv_iqid=0x86c1129c00005528&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=5&rsv_sug1=5&rsv_sug7=100)
-    - 常量折叠-主要指的是编译期常量加减乘除的运算过程会被折叠
-    - 子查询&子连接提升
-    - 表达式预处理
-    - 外连接消除
-    - 连接顺序交换
  
 **_逻辑查询优化_**
 
@@ -171,7 +169,7 @@ _<逻辑查询优化>变换<物理查询优化>_
 
 ![sql_logical_join_to_physical_join](_includes/sql_logical_join_to_physical_join.png)
 
-#### 2.2.常规操作
+#### 2.2.常规优化操作
 
     TableScan,Join,Sorting,Aggregate
 
@@ -202,18 +200,18 @@ _<逻辑查询优化>变换<物理查询优化>_
     - 查看内关系里的所有行来寻找匹配的行
     - 内关系必须是最小的，因为它有更大机会装入内存
 
-    Tips:查询优化包含将外联接关系转换为内联接关系
+        Tips:查询优化包含将外联接关系转换为内联接关系
 
 #### 2.4.JOIN优化-联接算法
 
-##### 2.4.1.JOIN联接算法分类
+#### 2.4.1.JOIN联接算法分类
 
-**Nested Loop Join -嵌套循环联接算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表**
+_Nested Loop Join -嵌套循环联接算法需要 N + N x M 次访问(每次访问读取一行) – 大表JOIN小表_
 
     1) With Inner Sequential Scan(FullScan)
     2) With Inner Index Scan
 
-**Merge Join -唯一排序归并联接算法**
+_Merge Join -唯一排序归并联接算法_
 
     1) O(N x Log(N) + M x Log(M))-需排序
     2) O(N+M)-已排序,我们是只挑选相同的元素。
@@ -222,7 +220,7 @@ _<逻辑查询优化>变换<物理查询优化>_
     5) 如果不同，就去带有最小元素的关系里找下一个元素（因为下一个元素可能会匹配）
     6) 重复 1、2、3步骤直到其中一个关系的最后一个元素。
 
-**Hash Join -复杂度就是 O(M+N) – 类似大小的表join**
+_Hash Join -复杂度就是 O(M+N) – 类似大小的表join_
 
     哈希联接的道理是：
     1) 读取内关系的所有元素
@@ -233,7 +231,7 @@ _<逻辑查询优化>变换<物理查询优化>_
     6) 生成哈希表需要时间
 
 
-##### 2.4.2.联接运算算法选择
+#### 2.4.2.联接运算算法选择
 
     - 空闲内存：没有足够的内存的话就跟强大的哈希联接拜拜吧(至少是完全内存中哈希联接)。
     - 两个数据集的大小。比如，如果一个大表联接一个很小的表，那么嵌套循环联接就比哈希联接快，因为后者有创建哈希的高昂成本；如果两个表都非常大，那么嵌套循环联接CPU成本就很高昂。
@@ -244,7 +242,7 @@ _<逻辑查询优化>变换<物理查询优化>_
     - 数据的分布：如果联接条件的数据是倾斜的（比如根据姓氏来联接人，但是很多人同姓），用哈希联接将是个灾难，原因是哈希函数将产生分布极不均匀的哈希桶。
     - 如果你希望联接操作使用多线程或多进程。
 
-##### 2.4.3.多表联接算法
+#### 2.4.3.多表联接算法
 
 核心问题算法应用
 
@@ -305,7 +303,7 @@ _GroupAggregate_
     * 分位数 
 
 
-    Tips:统计信息及时更新可以有效降低内存消耗
+        Tips:统计信息及时更新可以有效降低内存消耗
 
 #### 2.8.查询计划执行确认
 
@@ -319,18 +317,18 @@ _查询计划缓存_
 
 #### 3.1.SQLite优化器
 
-		使用Nested嵌套联接
-		[N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
+- 使用Nested嵌套联接
+- [N最近邻居](https://www.sqlite.org/queryplanner-ng.html) 贪婪算法
 
 #### 3.2.DB2优化器
 
-		使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
-		使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
-		使用动态编程模拟联接
+    - 使用所有可用的统计，包括线段树(frequent-value)和分位数统计(quantile statistics)。
+    - 使用所有查询重写规则(含物化查询表路由，materialized query table routing),除了在极少情况下适用的计算密集型规则。
+	- 使用动态编程模拟联接
 			有限使用组合内关系（composite inner relation）
 			对于涉及查找表的星型模式，有限使用笛卡尔乘积
-		考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
-		默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
+	- 考虑宽泛的访问方式，含列表预取(list prefetch,注:我们将讨论什么是列表预取),index ANDing(注:一种对索引的特殊操作),和物化查询表路由。
+	- 默认的，DB2 对联接排列使用受启发式限制的动态编程算法。
 
 #### 3.3.Genetic Query Optimizer - PostgerSQL查询优化器
 
@@ -500,11 +498,11 @@ Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应�
 
 其中Operator Expressions 指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
 
-**通过Parser直接解析生成**
+_通过Parser直接解析生成_
 
 从上述架构图可以看到，Calcite也提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
 
-**通过Expressions Builder转换生成**
+_通过Expressions Builder转换生成_
 
 不同系统语法有差异，所以Parser也可能不同。针对这种情况，Calcite提供了Expressions Builder来对抽象语法树(或其他数据结构)进行转换得到RelNode Tree。如Hive(某一种Data Processing System)使用的就是这种方法。
 Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行一系列的等价转换，生成不同的执行计划，最后选择代价最小的执行计划，其中代价计算时会用到Metadata Providers提供的统计信息。
