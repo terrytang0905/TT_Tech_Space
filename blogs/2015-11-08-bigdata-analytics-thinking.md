@@ -5,7 +5,7 @@ tags : [bigdata,datamining,algorithm]
 title: Bigdata analysis&Mining Thinking
 ---
 
-## 大数据分析深度研究
+## 大数据分析深度随想
 -------------------------------------------------
 
 ### Information,NLP,Mathematics
@@ -85,8 +85,8 @@ C. _独立型数据集市_
 
 A._分布式大数据查询_:
 
-> Hive / Dremel / PrestoDB / [Impala&Kudu](2016-12-12-impala-kudu-research-note.md)  <br />
-> [ElasticSearch](2017-01-06-elasticsearch-search-engine-architect-note.md)
+> Hive / Dremel / PrestoDB / [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
+> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)
 
 B._大数据分布式存储_:
 
@@ -95,7 +95,7 @@ B._大数据分布式存储_:
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 > [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md)
 
-C.[分布式存储架构分析](2017-01-22-bigdata-research-database-architect.md)
+C.[分布式数据架构分析](2017-01-22-bigdata-research-database-architect.md)
 
 
 ### III.数据预处理
@@ -218,19 +218,7 @@ E. _数据完整性验证_
 
 #### 4.4.OLAP详细设计
 
-- 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
-- Aggregation Query聚合查询与非聚合查询
-- OLAP数据缓存设计
-- 内存计算与类似Spark实时引擎
-- 查询语义分析设计(复杂计算设计)
-
-    ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
-    自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架 <br />
-    Lucene中的语义分析比较:JavaCC+jflex
-
-- 影响OLAP性能的因素
-
-- [实时OLAP技术设计](2017-02-01-bigdata-research-olap-anlysis.md)
+- [实时OLAP技术设计](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 
 
 #### 4.5.OLAP查询的分布式计算
@@ -512,7 +500,7 @@ D.Spark
 - 预测（响应,分类）模型
 - 主成分分析PCA
 
-[新零售分析模型设计](2017-04-16-new-retail-anlysis-design-note.md)
+[新零售分析模型设计](2017-04-16-data-usage-new-retail-analytics-design-note.md)
 
 #### 7.2.互联网用户行为分析模型
 
@@ -608,7 +596,6 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 - 诸葛IO
 - Splunk
 
-[用户行为分析](2017-09-30-user-behavior-analysis-note.md)
 
 #### 8.3.数据发现数据
 

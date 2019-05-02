@@ -5,7 +5,7 @@ tags : [bigdata,olap,architect]
 title: Big Data Analytics Note - OLAP Query Engine Design
 ---
 
-## 大数据查询分析-分布式OLAP查询引擎分析Note
+## 大数据查询分析-分布式OLAP查询引擎设计
 -----------------------------------------------------------
 
 **Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
@@ -341,6 +341,12 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 **ROLAP设计(参考Mondrian)-逻辑数据建模**
 
+- 多维OLAP查询设计(基于抽象逻辑模型的关联查询)
+- Aggregation Query聚合查询与非聚合查询
+- 表计算/数据透视(计算函数设计-基于当前结果再计算)
+- 实时数据(增量)计算(衍生度量/趋势度量)
+- 上下文筛选查询(数据查询联动更新)
+
 当前NewBI是基于ROLAP(关系型数据库OLAP抽象),从数据存储角度看非CUBE数据结构存储。因此当我们需要进行深度CUBE分析时,性能较差。
 
 ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据集。NewBI当前RDB中只存在事实表与维表,未保存任何聚合表.
@@ -404,14 +410,22 @@ F1 Query=用一套系统解决所有 OLTP、OLAP、ETL需求.用一套系统访�
 - SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
 - ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
 
+
+
 #### 5.3.数据计算优化
 
 - 内存计算规则
 - Flink实时流式数据计算
-- 表计算/数据透视(计算函数设计-基于当前结果再计算)
-- 实时数据(增量)计算(衍生度量/趋势度量)
-- 上下文筛选查询(数据查询联动更新)
 - 预计算的内存存放(内存计算结果保存)
+- 查询语义分析设计(复杂计算设计)
+
+    ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
+    自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架 <br />
+    Lucene中的语义分析比较:JavaCC+jflex
+
+- 影响OLAP性能的因素
+
+- 内存数据结构设计优化
 
 **Apache Arrow**是一个内存数据结构,支持在不同数据源之间做快速高效的数据交换。
 

@@ -20,3 +20,8 @@ Spanner - Cosmos - MaxCompute
 
 
 https://blog.csdn.net/x802796/article/details/18802733
+
+#### Ref
+
+- [分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
+
