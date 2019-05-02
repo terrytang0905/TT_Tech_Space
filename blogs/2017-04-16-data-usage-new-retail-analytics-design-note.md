@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [bigdata,analysis,olap]
-title: New Retail Analysis Design Note
+title: Data Usage - New Retail Analysis Design Note
 ---
 
-## 新零售分析模型设计Note
+## 数据应用-新零售分析模型设计Note
 ------------------------------------------------------------
 
 借助OLAP现有技术框架,针对新零售业态(电商与零售,线上与线下)数据融合分析做深度定制。实现新零售行业通用数据挖掘需求满足。

@@ -2,17 +2,17 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: User Label Profile Note
+title: Data Usage - User Label Profile Note
 ---
 
-## 用户标签特征与画像
+## 数据应用-用户标签特征与画像
 -------------------------------------------------
 
-### 用户画像
+### I.用户画像
 
 用户画像其实就是设计好很多人口特征的维度，也会根据我们的数据源去找到可以潜在推测的维度，那么这些维度就可能构成人物的画像，例如影响力，消费能力，兴趣能力，品牌标签等等，又结合应用领域的不一样，标签往往要从细分领域提取，所以就提到要去抓取垂直网站的语料，然后抽取训练，最后给用户打标签，或者给用户聚类分类。
 
-### 用户画像开发算法
+### II.用户画像开发算法
 
 1. 用户唯一标识选择
 
@@ -46,6 +46,8 @@ title: User Label Profile Note
 	- 用户与属性标签的可信度矩阵
 	- 如何验证用户标签画像准确率
 	- 准确用户标签样本数据的作用
+
+XGBoost
 
 #### b.数据标签开发
 
@@ -91,7 +93,7 @@ title: User Label Profile Note
 
 #### c.算法应用
 
-### 用户行为画像
+### III.用户行为画像
 
 1. 数据来源
 
@@ -109,7 +111,7 @@ title: User Label Profile Note
 
 1. 数据来源 - 内容行为数据
 
-### 电商用户画像
+#### 行业画像-电商用户画像
 
 交易数据:电商用户画像算法
 
@@ -121,7 +123,9 @@ title: User Label Profile Note
 
 3. 优化方案
 
-### Ref
+#### 行业画像-银行用户画像
+
+### X.Ref
 
 -[用户画像-实战案例](https://zhuanlan.zhihu.com/p/36395328?utm_source=ZHShareTargetIDMore&utm_medium=social&utm_oi=39187600375808)
 

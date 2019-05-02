@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [bigdata,datascience,datamining]
-title: Computational Advertisement Tech Note 
+title: Data Usage - Computational Advertisement Tech Note 
 ---
 
-## 计算广告营销技术应用
+## 数据应用-计算广告营销应用
 ------------------------------------------------------------
 
 

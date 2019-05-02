@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,olap,architect]
-title: Big Data Analytics Note - BigData Analytics Code Design
+tags : [bigdata,product,architect]
+title: Data Product Note - DMP&CDP Code Design
 ---
 
-## 大数据交互式分析服务-Code架构设计
+## 大数据产品-DMP&CDP Code架构设计
 -----------------------------------------------------------
 
 ### I.需求分析与设计
@@ -234,7 +234,7 @@ CMP元数据与数据分析元数据的差异
 
 ##### 8.1.营销分析模型
 
-[新零售分析模型](2017-04-16-new-retail-anlysis-design-note.md)
+[新零售分析模型](2017-04-16-new-retail-analytics-design-note.md)
 
 ##### 8.2.流量分析模型
 
@@ -242,13 +242,9 @@ DNS流量/TCP&IP流量
 
 #### 6.ngxdmp olap查询引擎 - ngxdmp-olap/ngxdmp-olap-common
 
-[通用OLAP查询引擎设计](2017-02-01-olap-query-engine-design-note.md)
+- [通用OLAP查询引擎设计](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 
-_PrestoDB代码详解_
-
-跨数据源整合查询
-
-[Presto-OLAP引擎](2017-04-03-olap-distributed-presto-practice-note.md)
+- [分布式联合计算引擎Code设计](2019-03-18-bigdata-analytics-all-query-engine-code-design.md)
 
 ##### 6.1.ngxdmp 查询解析相关
 

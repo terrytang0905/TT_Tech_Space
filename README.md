@@ -13,12 +13,13 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### I.Big Data Everything
 
+- *[数据产品-分析型数据产品研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-data-product-dm-analytics-solution.md)
 <!-- - *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-08-18-data-platform-arch-planning-note.md)-->
-- *[用户标签画像开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-user-label-profile-note.md)
+- *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
 - *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)
-- *[计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-compute-advertise-design-note.md)
-- *[用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-user-behavior-analysis-note.md)
-- *[新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-new-retail-anlysis-design-note.md)
+- *[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)
+- *[数据应用-用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-data-usage-user-behavior-analysis-note.md)
+- *[数据应用-新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-data-usage-new-retail-analytics-design-note.md)
 - [数学与信息应用思考-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md) 
 
 
@@ -30,13 +31,14 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-06-python-dev-everything-note.md)
 - *[大数据研究-数据科学应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-machine-learning.md)
 - [数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
-- *[大数据分析深度研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analysis-thinking.md)
+- *[大数据分析随想](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
 
 #### III.BigData & All Distributed Research
 
-- *[分析型大数据产品研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-dm-solution-analytics.md)
+
+- *[大数据研究-Google大数据管理-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-database.md)
 - *[区块链技术分析-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[大数据研究-数据处理开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-bigdata-development.md)
 - *[大数据研究-实时处理架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-realtime-process.md)
@@ -61,14 +63,15 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### IV.BigDataCompute
 
+- *[大数据查询分析-分布式联合查询引擎CodeDesign-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-18-bigdata-analytics-query-engine-code-design.md)
 - *[Spark性能优化笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-11-23-spark-performance-tuning-note.md)
 - *[SQL查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-sql-optimizer-design-note.md)
-- *[Flink实时流式计算-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-flink-stream-compute-research-note.md)
+- *[大数据研究-Spark&Flink流式计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-stream-compute-framework.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
 - *[Hive编程-SQLEngine分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[Hive编程-SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-performance-note.md)
 - *[Hive编程-设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
-- *[OLAP查询引擎研究设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-olap-query-engine-design-note.md)
+- *[大数据查询分析-OLAP查询引擎研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 - *[OLAP-大数据交互式查询引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-04-olap-sqlonhadoop-research-note.md)
 - *[OLAP-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-olap-distributed-presto-practice-note.md)
 - *[Spark大数据计算引擎](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-29-spark-bigdata-arch-note.md)

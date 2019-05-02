@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data Analytics Note - OLAP BigQuery Engine Design Design
+title: Big Data Analytics Note - OLAP Query Engine Design
 ---
 
-## 通用OLAP查询引擎设计Note
+## 大数据查询分析-分布式OLAP查询引擎分析Note
 -----------------------------------------------------------
 
 **Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
@@ -386,7 +386,7 @@ Greenplum-MPP数据查询+海量HDFS数据查询
 
 *5.2.4.分布式查询QueryOptimizer*
 
-通用统一SQLEngine设计
+通用统一SQLEngine设计-Federated Query 
 
 	- 统一元数据结构体系
 	- 支持对通用元数据的查询计算分析
@@ -394,6 +394,9 @@ Greenplum-MPP数据查询+海量HDFS数据查询
 	- 合并计算结果输出
 
 研究PrestoDB架构源码
+
+F1 Query=用一套系统解决所有 OLTP、OLAP、ETL需求.用一套系统访问数据中心里各种格式的数据
+
 
 *5.2.5.特定全文检索Index设计*
 

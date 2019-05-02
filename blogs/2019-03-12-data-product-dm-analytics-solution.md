@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, database, analytics]
-title: Database Research Note - Database Management for Analytics
+tags : [bigdata, product, database]
+title: Data Product Note - Database Management for Analytics
 ---
 
-## 分析型大数据产品研究日志
+## 大数据产品-分析型大数据产品研究
 --------------------------------------------------------
 
 分析型大数据解决方案 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。

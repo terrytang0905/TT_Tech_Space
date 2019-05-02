@@ -28,13 +28,7 @@ title: Big Data OLAP Note - SQL on Hadoop
 > Dremel > Impala > SparkSQL > Presto > Hive
 
 
-#### 1.Impala
-
-基于HDFS的MPP架构的SQL引擎
-
-[Impala交互式OLAP查询](2016-12-13-olap-distributed-impala-practice-note.md)
-
-#### 2.PrestoDB
+#### 1.PrestoDB
 
 [PrestoDB交互式OLAP查询](2017-04-03-olap-distributed-presto-practice-note.md)
 
@@ -44,9 +38,15 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 ![PrestoHiveSparkSQL比较](_includes/PrestoHiveSparkSQL比较.png)
 
-#### 3.SparkSQL
+#### 2.SparkSQL
 
 [SparkSQL Programming Guide](http://spark.apache.org/docs/latest/sql-programming-guide.html)
+
+#### 3.Impala
+
+基于HDFS的MPP架构的SQL引擎
+
+[Impala交互式OLAP查询](2016-12-13-olap-distributed-impala-practice-note.md)
 
 #### 4.Phoenix
 

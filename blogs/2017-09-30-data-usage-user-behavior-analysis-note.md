@@ -2,10 +2,10 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: User Behavior Analysis Note
+title: Data Usage - User Behavior Analysis Note
 ---
 
-## 用户行为分析Note
+## 数据应用-用户行为分析Note
 ------------------------------------------------------------
 
 ### I.互联网数据分析概述
