@@ -524,7 +524,7 @@ _Ref:_
 - [LLAP feature](https://cwiki.apache.org/confluence/display/Hive/LLAP)
 - [Using the Cost-Based Optimizer to Enhance Performance](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.5/bk_hive-performance-tuning/content/ch_cost-based-optimizer.html)
 
-#### 6.2.Spark Catalyst优化器
+#### 6.2.SparkSQL Catalyst优化器
 
 SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
 
@@ -538,6 +538,13 @@ Catalyst的通用树转换框架分为四个阶段，如下所示：
     4)代码生成用于编译部分查询生成Java字节码。
 
 ![SparkCatalyst](_includes/spark_sql_catalyst.jpg)
+
+Spark SQL可以通过调用sqlContext.cacheTable("tableName") 或者dataFrame.cache()，将表用一种柱状格式（ an in­memory columnar format）缓存至内存中。然后Spark SQL在执行查询任务时，只需扫描必需的列，从而以减少扫描数据量、提高性能。通过缓存数据，Spark SQL还可以自动调节压缩，从而达到最小化内存使用率和降低GC压力的目的。调用sqlContext.uncacheTable("tableName")可将缓存的数据移出内存。
+
+可通过两种配置方式开启缓存数据功能：
+
+    使用SQLContext的setConf方法
+    执行SQL命令 SET key=value
 
 Catalyst这部分代码完成的是从SQL到Optimized Logical Plan，后面的Physical Planning则位于｀sql/core｀下面。
 
@@ -613,7 +620,7 @@ _Ref:_
 
 如果要快速理解Catalyst-[SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
 
-#### 6.3.Calcite vs Spark Catalyst
+#### 6.3.Calcite vs SparkSQL Catalyst
 
 
 
