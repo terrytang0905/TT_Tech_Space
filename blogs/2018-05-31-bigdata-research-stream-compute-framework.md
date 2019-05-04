@@ -101,14 +101,14 @@ Spark-2.3支持内连接和外连接，可用在大量的实时场景中。
 
 #### 运行角色
 
-* Spark Streaming 运行时的角色（standalone 模式）主要有：
+* Spark Streaming 运行时的角色(standalone 模式)主要有：
 
 		Master：主要负责整体集群资源的管理和应用程序调度；
 		Worker：负责单个节点的资源管理，driver 和 executor 的启动等；
 		Driver：用户入口程序执行的地方，即 SparkContext 执行的地方，主要是 DAG 生成、stage 划分、task 生成及调度；
 		Executor：负责执行 task，反馈执行状态和执行结果。
 
-* Flink 运行时的角色（standalone 模式）主要有：
+* Flink 运行时的角色(standalone 模式)主要有：
 
 		Jobmanager：协调分布式执行，他们调度任务、协调 checkpoints、协调故障恢复等。至少有一个 JobManager。高可用情况下可以启动多个 JobManager，其中一个选举为 leader，其余为 standby；
 		Taskmanager： 负责执行具体的 tasks、缓存、交换数据流，至少有一个 TaskManager；
@@ -172,7 +172,7 @@ Spark Streaming 任务是基于微批处理的，实际上每个批次都是一�
 
 ![flink_task_manager](_includes/flink_task_manager.png)
 
-如图 7 所示有一个由 data source、MapFunction和 ReduceFunction 组成的程序，data source 和 MapFunction 的并发度都为 4，而 ReduceFunction 的并发度为 3。
+如上图 所示有一个由 data source、MapFunction和 ReduceFunction 组成的程序，data source 和 MapFunction 的并发度都为 4，而 ReduceFunction 的并发度为 3。
 
 一个数据流由 Source-Map-Reduce 的顺序组成，在具有 2 个TaskManager、每个 TaskManager 都有 3 个 Task Slot 的集群上运行。
 
@@ -232,7 +232,7 @@ Flink 支持三种时间机制：事件时间、注入时间、处理时间，�
 
 Structured Streaming采取检查点机制，把进度offset写入stable的存储中，用JSON的方式保存支持向下兼容，允许从任何错误点（例如自动增加一个过滤来处理中断的数据）进行恢复。这样确保了端到端数据的exactly-once。
 
-##### Spark Streaming
+##### Spark Streaming容错
 
 对于 Spark Streaming 任务，我们可以设置 checkpoint，然后假如发生故障并重启，我们可以从上次 checkpoint 之处恢复，但是这个行为只能使得数据不丢失，可能会重复处理，不能做到恰一次处理语义。
 
@@ -245,7 +245,7 @@ Structured Streaming采取检查点机制，把进度offset写入stable的存储
 	1.repartition(1) Spark Streaming 输出的 action 变成仅一个 partition，这样可以利用事务去做：Dstream.foreachRDD(rdd=>{ rdd.repartition(1).foreachPartition(partition=>{ // 开启事务 partition.foreach(each=>{// 提交数据 }) // 提交事务 }) })
 	2.将结果和 offset 一起提交。也就是结果数据包含 offset。这样提交结果和提交 offset 就是一个操作完成，不会数据丢失，也不会重复处理。故障恢复的时候可以利用上次提交结果带的 offset。
 
-##### Flink
+##### Flink容错
 
 Flink的exactly-once实现稍加复杂，有如下可能会失去savepoint：
 
