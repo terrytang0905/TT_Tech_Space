@@ -21,7 +21,9 @@ Dremel多层次查询树架构
 
 #### Spanner - Cosmos - MaxCompute
 
-Spanner有一种负责专门管理数据的spanserver，spanserver也是基于bigtable的tablet结构
+Spanner有一种负责专门管理数据的spanserver，spanserver也是基于bigtable的tablet结构.
+
+Cloud Spanner是一款具备强一致性的全球分布式企业级数据库服务
 
 
 #### 核心数据模型比较
