@@ -14,13 +14,11 @@ title: Data Platform Arch Planning Note
 
 DataLake&数据仓库
 
-技术数据中台 - 计算与分析服务
+数据中台 - 计算与分析服务
 
 业务前台
 
 ### 2.数据平台技术规划落地
-
-数据中台与系统搭建 - DMP-CDP-CRM平台
 
 数据采集与接入 - pc端/移动端加码+多数据源对接
 
@@ -30,20 +28,39 @@ DataLake&数据仓库
 
 数据分析与数据挖掘 - 定制挖掘与机器学习
 
+数据中台与系统搭建 - DMP-CDP-CRM平台
+
 OLAP与数据可视化解决方案
 
 大数据测评BigBench
 
 #### 核心技术模块
 
-数据管理与存储
+分布式文件存储系统/K8s
 
-信息整合/知识图谱
+分布式任务调度
+
+数据管理与存储服务-多种数据库组合
+
+数据计算/信息整合/机器学习/知识图谱
 
 第三方应用整合服务
 
 数据跨类搜索
 
+#### 数据平台详细架构设计
+
+HDFS/GFS
+
+Greenplum/ElasticSearch/HBase/Redis/PostgreSQL
+
+Spark/SparkMLlib/Flink
+
+OLAP/SQLEngine/Federated Query/Data Lake Analytics
+
+DMP&CDP->DataMart
+
+DataProduct
 
 ### 3.数据平台核心目标
 
@@ -114,6 +131,8 @@ ROI模型(投入产出比)
 4.上游数据源相关免责条款
 5.外采数据需要和相关数据认证机构合作
 
-### 6.数据平台与区块链
+### 6.数据平台与物联网的应用
+
+边缘计算
 
 ### 7.数据平台未来十年

@@ -10,7 +10,9 @@ title: Big Data Research Note - Google Database Group
 
 ### Google大数据
 
-#### BigTable - HBase - Dynamo
+#### BigTable - HBase - DynamoDB
+
+
 
 
 #### Dremel - OLAP
@@ -35,6 +37,8 @@ Dremel嵌套列数据模型
 
 Spanner数据目录结构 - 虚拟桶
 
+
+#### 分布式文件存储
 
 
 

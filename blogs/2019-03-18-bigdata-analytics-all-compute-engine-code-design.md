@@ -12,7 +12,7 @@ title: Big Data Analytics Note - BigData Compute Engine Code Design
 
 _1.核心Features设计_
 
-	1.数据湖多数据源整合建模
+	1.数据湖多数据源整合建模-Data Lake Analytics
 	2.元数据模型抽象动态支持业务模型
 	5.OLAP联合查询与边缘计算
 	6.离线与实时大数据处理与计算优化
@@ -48,6 +48,8 @@ Presto 具有的缺陷，F1 Query 分布式查询同样也有，比如：
 	- 没有 Fault-tolerance，对于一个涉及上千台 Worker 的查询，任何一台的重启都会导致查询失败。
 
 #### III.SQL Engine Thinking
+
+CodeGen
 
 常量折叠、函数变换、表达式转换、函数类型推断、常量推断、语义去重等功能, 以生成最优的执行计划。
 
