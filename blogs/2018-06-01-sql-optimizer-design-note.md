@@ -22,10 +22,9 @@ title: SQL Optimizer Design Note
 
 * 查询重用
 * 查询算法优化
-* 并行查询优化
+* 并行查询优化/Vectorized Execution 
 * 分布式查询优化
 * 列式储存
-* Vectorized Execution 
 * Query Compilation优化(LLVM)
 * 索引信息和物化视图加速
 
@@ -40,7 +39,8 @@ _查询优化思路_
 
 SQL查询语句的优化是基于关系代数(Relation Algebra)这一模型。
 
-    所谓关系代数，是 SQL 从语句到执行计划的一种中间表示。首先它不是单纯的抽象语法树(AST)， 而是一种经过进一步处理得到的中间表示(可以类比一般编程语言的 IR)。SQL 优化的本质是对关系代数的优化。
+    所谓关系代数，是 SQL 从语句到执行计划的一种中间表示。
+    首先它不是单纯的抽象语法树(AST),而是一种经过进一步处理得到的中间表示(可以类比一般编程语言的 IR)。SQL优化的本质是对关系代数的优化。
 
 总结使用关系代数进行查询优化的要点:
 
@@ -120,7 +120,9 @@ _CBO查询优化主要包含三个步骤:_
 
 CBO的实现基于两种模型，即**Volcano模型[1]**和**Cascades模型[2]**.
 
-    Tips:其中Calcite使用的是Volcano模型，而GPOrca[3]使用的是Cascades模型。这两种模型的思想基本相同，不同点在于Cascades模型并不是先Explore、后Build，而是边Explore边Build，从而进一步裁剪掉一些执行计划。
+    Tips:其中Calcite使用的是Volcano模型，而GPOrca[3]使用的是Cascades模型。
+    这两种模型的思想基本相同，不同点在于Cascades模型并不是先Explore、后Build，而是边Explore边Build，从而进一步裁剪掉一些执行计划。
+    但Cascades模型相比Volcano模型更加复杂
 
 
 #### 1.4.History-Based Optimizer(HBO,基于历史策略的优化器)
@@ -502,23 +504,25 @@ Apache Calcite 是一个独立于存储与执行的SQL优化引擎，广泛应�
 
 ![Calcite_Arch](_includes/calcite_arch.jpg)
 
-其中Operator Expressions 指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
+_Operator Expressions_ 
+    
+    指的是关系表达式，一个关系表达式在Calcite中被表示为RelNode，往往以根节点代表整个查询树。Calcite中有两种方法生成RelNode：
 
 _通过Parser直接解析生成_
 
-从上述架构图可以看到，Calcite也提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
+从上述架构图可以看到，Calcite使用JavaCC提供了Parser用于SQL解析，直接使用Parser就能得到RelNode Tree。
 
 _通过Expressions Builder转换生成_
 
 不同系统语法有差异，所以Parser也可能不同。针对这种情况，Calcite提供了Expressions Builder来对抽象语法树(或其他数据结构)进行转换得到RelNode Tree。如Hive(某一种Data Processing System)使用的就是这种方法。
 Query Optimizer 根据优化规则(Pluggable Rules)对Operator Expressions进行一系列的等价转换，生成不同的执行计划，最后选择代价最小的执行计划，其中代价计算时会用到Metadata Providers提供的统计信息。
 
-事实上，Calcite提供了RBO和CBO两种优化策略方式，分别对应HepPlanner和VolcanoPlanner。
+事实上，Calcite提供了RBO和CBO两种优化策略方式，分别对应HepPlanner(RBO)和VolcanoPlanner(CBO)。
 
 
 #### 5.1.Volcano Optimizer in Calcite
 
-Volcano Optimizer 代指 Volcano 和 Cascades 两种算法
+Volcano Optimizer 实际上存在 Volcano 和 Cascades 两种算法.Calcite使用Volcano算法实现CBO优化
 
 Volcano Optimizer是一种基于成本的优化算法，其目的是基于一些假设和工程算法的实现， 在获得成本较优的执行方案的同时，可以通过剪枝和缓存中间结果(**动态规划**)的方法降低计算消耗。 
 
@@ -576,7 +580,6 @@ _Trait/Physical properties vector_
 
 4. Calcite默认并不进行枚举式的优化方案计算，而是结合启发式算法进行有限的搜索， 因此也不一定能返回“成本最优假设”下的最优方案。
 
-
         Comments:Hive Optimizer当前是使用Calcite作为核心查询优化器引擎
 
 ### 6.[大数据查询优化器]SQLonHadoop Optimizer
@@ -630,7 +633,7 @@ _Ref:_
 - [LLAP feature](https://cwiki.apache.org/confluence/display/Hive/LLAP)
 - [Using the Cost-Based Optimizer to Enhance Performance](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.5/bk_hive-performance-tuning/content/ch_cost-based-optimizer.html)
 
-#### 6.2.SparkSQL Catalyst优化器
+#### 6.2.SparkSQL Catalyst优化器(calcite-spark) 
 
 SparkSQL is the Catalyst optimizer,用来解决semistructured data and advanced analytics的需求。使用一个通用库生成树并使用规则操作这些树.
 
@@ -724,8 +727,6 @@ CBO中常见的优化是join换位，以便尽量减少中间shuffle数据集大
 _Ref:_
 
 如果要快速理解Catalyst-[SparkSQL Catalyst Reader](https://github.com/liancheng/spear)
-
-#### 6.3.Calcite vs SparkSQL Catalyst
 
 
 

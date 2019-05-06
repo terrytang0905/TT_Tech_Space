@@ -30,21 +30,11 @@ Flink对流消息的处理支持三种级别语义分别是“At Most once、At 
 
 #### 分布式快照
 
-Chandy Lamport Algorithm 算法变种
+Apache Flink 通过 Chandy-Lamport 快照算法的一个变种来实现异步的全局一致Checkpoint。
 
 Asynchronous barrier snapshots算法:研究“Exactly once”执行语义，其实就是研究理解ABS算法。
 
-#### Stream SQL in Flink
-
-增量SQL查询则意味着我们可以只依赖源数据的改变量，局部地执行查询并更新原来的结果。使用增量模型， 我们往往可以得到更快的执行方案。很显然，Stream SQL 执行就是增量SQL查询：新到达的数据就是在一张“源数据表” 当中新加入的数据项。
-
-		Stream SQL是物化视图维护问题的一个子问题。
-
-- SQL优化与执行规划
-- 物化视图增量维护的简单算法
-- 查询放大问题及其解决思路
-- 修改放大问题及其解决思路
-- 可自我维护性(Self-maintainability)
+Flink 也提供了 Savepoint 的概念，Savepoint 是一种包含更全面信息的 Checkpoint。 虽然需要花费更多时间来构建 Savepoint，它却使得系统状态回滚和迁移变得方便。
 
 
 ### II.Spark持续流处理 vs Flink

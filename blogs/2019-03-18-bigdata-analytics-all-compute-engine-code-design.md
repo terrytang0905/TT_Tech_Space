@@ -47,29 +47,77 @@ Presto 具有的缺陷，F1 Query 分布式查询同样也有，比如：
 	- 纯内存的计算方式，无法利用磁盘的存储空间，某些查询可能面临内存不足；
 	- 没有 Fault-tolerance，对于一个涉及上千台 Worker 的查询，任何一台的重启都会导致查询失败。
 
-#### III.SQL Engine Design
+#### III.SQL Engine Thinking
 
-#### Calcite
+常量折叠、函数变换、表达式转换、函数类型推断、常量推断、语义去重等功能, 以生成最优的执行计划。
 
+#### 1.Calcite
 
+#### 2.Druid SQL Parser
 
-#### IV.Stream SQL in Flink
+- [Druid SQL Parser](https://github.com/alibaba/druid/wiki/SQL-Parser)
 
-增量SQL查询则意味着我们可以只依赖源数据的改变量，局部地执行查询并更新原来的结果。使用增量模型， 我们往往可以得到更快的执行方案。很显然，Stream SQL 执行就是增量SQL查询：新到达的数据就是在一张“源数据表” 当中新加入的数据项。
-
-		Stream SQL是物化视图维护问题的一个子问题。
-
-- SQL优化与执行规划
-- 物化视图增量维护的简单算法
-- 查询放大问题及其解决思路
-- 修改放大问题及其解决思路
-- 可自我维护性(Self-maintainability)
-
-#### V.PrestoDB代码详解
+#### 3.PrestoDB代码详解
 
 跨数据源整合查询
 
 - [Presto-OLAP引擎](2017-04-03-olap-distributed-presto-practice-note.md)
 
-#### VI.Spark Query
+#### 4.Stream SQL in Flink
+
+Flink 实现了流式处理和批量处理，并在这基础上进一步提供了 Table API 和 SQL 的支持。 其 Table API 和 SQL 基本上实现了之前提到的物化视图增量更新算法。特别地，Flink 还使用了 Apache Calcite 提供的 SQL 解析和优化模块来执行相关任务。
+
+_增量SQL查询算法_
+
+增量SQL查询则意味着我们可以只依赖源数据的改变量，局部地执行查询并更新原来的结果。使用增量模型， 我们往往可以得到更快的执行方案。很显然，Stream SQL 执行就是增量SQL查询：新到达的数据就是在一张“源数据表” 当中新加入的数据项。
+
+	Stream SQL是物化视图维护问题的一个子问题。
+
+_SQL优化与执行规划_
+
+_物化视图增量维护的简单算法(代数算法)_
+
+	对物化视图进行增量维护的最简单算法就是从根算子开始，将其左右两颗子树作为整体看作“似表(Table-Like)”。
+	在增量 SQL 查询中，当一个表的内容改变， 我们希望这些表将内容的修改表示成包含增加的行和减少的行的增量表(Delta Table)的形式
+	α(T+ΔT)=α(T)+Q(T,ΔT)。 这里 α 代表一个算子，T 是基表，ΔT 是增量表，Q 是一个以 T 和 ΔT 为参数的查询
+
+_查询放大问题及其解决思路_
+
+	1.确保处理过程当中的行唯一性
+	2.使得算子保存额外的内部状态
+	3.使用近似计算-HyperLogLog
+	4.限制或扩充语义
+
+_修改放大问题及其解决思路(最为复杂)_
+
+	1.延迟刷新
+	2.限制/扩充语义
+
+_可自我维护性(Self-maintainability)_
+
+_物化视图维护算法增量地执行SQL_
+
+分布式系统中的流式计算
+
+	1.绝对时钟(Absolute Clock)问题-使用事件驱动(Event-Driven)模型来处理
+	2.时间倾斜(Time Skew)问题:用水印(Watermark)来处理。水印就是根据消息的事件时间来决定一条消息应该被处理还是被丢弃的标记
+	3.在实现严格单次发送(Exactly-Once Delivery)的系统中， 正确管理水印对于防止移除之后仍可能被查询到的条目非常重要
+
+_激发器、水印、窗口和句点_
+
+对于激发器、水印、窗口和句点这些概念，十分建议进一步阅读如下文章和论文:
+
+- Stream 101: The world beyond batch
+- Stream 102: The world beyond batch
+- The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-Scale, Unbounded, Out-of-Order Data Processing
+
+_Stream Join 的语义_
+
+	1.Stream 与纯静态表 Join。这里的纯静态表的内容不会改变，因此 Join 的实现只是在 Stream 端对每个消息在静态表内进行查询
+	2.Stream 与动态表的快照 Join。动态表的内容可能会出现增删改等情况，这里的 Join 的语义是， 当对流当中的某个消息实施 Join ，相当于查询了动态表在那一时刻的快照
+	3.Stream 与 Stream Join，操作的两边都是 Stream，这种情况最为复杂也很难实现，在之后将会进一步介绍
+
+
+#### IV.Deep SQL Engine Design
+
 
