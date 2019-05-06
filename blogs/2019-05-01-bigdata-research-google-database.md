@@ -10,9 +10,18 @@ title: Big Data Research Note - Google Database Group
 
 ### Google大数据
 
-#### BigTable - HBase - DynamoDB
+#### BigTable - HBase - Cassandra
 
+HBase
 
+	1.强一致性的读写：HBase不是一个最终一致性的存储。
+	2.自动sharding：HBase的table在集群种被分布在各个region，region可以做自动切分。
+	3.regionserver的failover；
+	4.Hadoop/HDFS的集成；
+	5.MapReduce：支持大数据的并行处理；
+	6.JAVA Client 以及Thrift/RESR API 访问；
+	7.Block Cache 以及Bloom filter；
+	8.操作管理
 
 
 #### Dremel - OLAP
