@@ -47,7 +47,12 @@ N阶合并树
 
 ![HBase存储在HDFS](_includes/HBase存储在HDFS.png).
 
-HBase主要处理两种文件:一种是预写日志WAL,另一种是实际的数据文件。这两种文件主要由HRegionServer管理。
+HBase主要处理两种文件:
+	
+	一种是预写日志WAL
+	另一种是实际的数据文件。
+
+这两种文件主要由HRegionServer管理。
 
 - 写路径
 - 文件

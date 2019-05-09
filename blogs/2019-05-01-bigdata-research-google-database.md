@@ -24,6 +24,13 @@ HBase
 	8.操作管理
 
 
+Cassandra
+
+
+
+![hbase_vs_cassandra](_includes/hbase_vs_cassandra.png)
+
+
 #### Dremel - OLAP
 
 Dremel多层次查询树架构

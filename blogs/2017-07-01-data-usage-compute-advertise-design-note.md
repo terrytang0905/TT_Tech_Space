@@ -25,11 +25,7 @@ title: Data Usage - Computational Advertisement Tech Note
 
 ![大数据与计算广告的关系](_includes/bigdata_compute_adv.png)
 
-- RTB:Real Time Bidding (实时竞价)
-
-定义：是一种利用第三方技术在数以百万计的网站或移动应用上针对每一个用户展示行为进行评估以及出价的竞价技术。
-
-- DSP:Demand-Side Platform (需求方平台) <- 广告主
+- DSP:Demand-Side Platform(广告投放执行方-需求方平台)
 
 定义:需求方平台允许广告客户和广告机构更方便地访问，以及更有效地购买广告库存，因为该平台汇集了各种广告交易平台，广告网络，供应方平台，甚至媒体的库存。有了这一平台，就不需要再出现另一个繁琐的购买步骤——购买请求。
 
@@ -37,12 +33,12 @@ title: Data Usage - Computational Advertisement Tech Note
 	品友/易传媒/广点通
 
 
-- SSP:Supply-Side Platform (供应方平台)
+- SSP:Supply-Side Platform(广告媒体-供应方平台)
 
 定义:供应方平台能够让媒体主也介入广告交易，从而使它们的库存广告可用。通过这一平台，媒体主希望他们的库存广告可以获得最高的有效每千次展示费用，而不必以低价销售出去。
 
 
-- DMP:Data-Management Platform (数据管理平台)
+- DMP:Data-Management Platform(广告主-数据管理平台)
 
 定义:是把分散的第一和第三方数据整合到统一的技术平台里，再通过机器学习算法对这些数据进行标准化和细分管理，并把这些细分结果实时地应用于现有的互动营销环境里，帮助营销取得最大化效果。
 
@@ -50,13 +46,29 @@ title: Data Usage - Computational Advertisement Tech Note
 
 ![dmp_arch](_includes/dmp_arch.png)
 
-- DataExchange (数据交易平台)
+- RTB:Real Time Bidding(实时竞价)
+
+定义：是一种利用第三方技术在数以百万计的网站或移动应用上针对每一个用户展示行为进行评估以及出价的竞价技术。
+
+
+- DataExchange/ADExchange(头部媒体/互联网巨头-数据交易平台)
+
+DataExchange提供API接口 返还 广告-设备编号 -> DSP根据设备编号定点投放广告 -> 输出结果给广告主
+
+头部DataExchange提供商:
+
+	腾讯/爱奇艺/优酷/头条/360
+
+- PMP:PrivateMarketPlace(私有交易市场)
+
+头部流量私有交易平台
+
 
 - PDB:ProgrammaticDirectBuy(程序化购买市场-私有程序化购买）
 
 	基于竞价机制和精准人群定向这两个核心功能,在线广告分化出了广告网络(ad Network,ADN)这种新的市场形态。它批量地运营媒体的广告位资源,按照人群或上下 文标签售卖给需求方,并用竞价的方式决定流量分配。
 
-- PMP:PrivateMarketPlace (私有交易市场)
+
 
 对接特定广告主
 
@@ -136,6 +148,22 @@ CPS(Cost Per Sales)：以实际销售产品数量来换算广告刊登金额。C
 
 #### 3.3.数据银行
 
+#### 3.4.广告客户差异
+
+品牌方-投放
+
+	前端逻辑思路-讲完整故事
+	加码收数
+	品牌商内部人的预期和实际结果一致
+	重点在于品牌商的预期/TA浓度
+	ROI=1:1以上
+	广告曝光-对受众发声 长期效果
+
+游戏+电商+中小客户-投放
+
+	ROI
+	广告素材+媒体选择+效果投放
+	重点在于广告效果
 
 ### 4.计算广告关键技术
 
@@ -250,7 +278,7 @@ CPS(Cost Per Sales)：以实际销售产品数量来换算广告刊登金额。C
 
 #### 4.6.程序化交易核心技术(需研究)
 
-广告交易平台
+广告数据交易平台
 
 定制化用户标签
 
