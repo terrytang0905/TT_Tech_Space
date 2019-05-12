@@ -327,7 +327,7 @@ _Ref:_
 - [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
 
-#### Alibaba Cloud - AnalyticDB
+#### Alibaba Cloud - AnalyticDB(OLAP)
 
 超大规模以及核心业务验证的PB级实时数据仓库
 
@@ -340,6 +340,19 @@ _Ref:_
 - 读写分离架构:整体采用读写分离架构，除支持大批量数据加载外，也支持每秒千万条记录的写入，写入成功即持久化保存在盘古分布式文件系统里，根据用户配置支持不同的数据一致性级别。
 
 - [2018-AnalyticDB](https://yq.aliyun.com/articles/685491?spm=a2c4e.11153940.blogcont576159.16.14932338FEZZas)
+
+#### Alibaba Cloud - DRDS(OLTP)
+
+- 分布式SQL引擎
+- 分库分表
+- 分布式事务
+- 平滑扩容
+- 弹性升降配
+- 读写分离
+- 分析型只读实例
+- 并发型只读实例
+- SQL审计与分析
+- 全局唯一数字ID
 
 #### 6.GBase+Informix
 
