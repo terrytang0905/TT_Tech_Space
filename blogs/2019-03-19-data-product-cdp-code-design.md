@@ -159,6 +159,10 @@ _5.用户权限管理 ngxdmp-account_
 
 5.1.用户权限管理设置
 
+#### 核心技术特点
+
+1. SparkGraphX图计算与IDMerge
+
 
 ### III.ngxdmp代码详细设计
 

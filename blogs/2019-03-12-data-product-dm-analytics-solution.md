@@ -365,7 +365,7 @@ GBase 8a
 
 智能数据清洗与识别补充缺失值
 
-客户ID-Merge算法
+客户ID-Merge算法/关系图谱 - 图计算应用
 
 例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
 
@@ -445,7 +445,7 @@ Glue
 
 JStorm/Blink
 
-PolarDB
+PolarDB - 阿里
 
  
 
