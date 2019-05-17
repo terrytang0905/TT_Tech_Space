@@ -90,7 +90,7 @@ title: BigData Business Value Thinking
 - 分配规划(planning)
 
 
-#### 6. [大数据分析思路](2015-11-08-bigdata-analysis-thinking.md)
+#### 6. [大数据分析思路](2015-11-08-bigdata-analytics-thinking.md)
 
 
 ### II.数据架构设计维度
@@ -99,7 +99,7 @@ title: BigData Business Value Thinking
 
 #### 1. 数据采集-爬虫&Scrapy
 
-#### 2. [分布式数据存储](2017-01-22-bigdata-database-architect-research-note.md)
+#### 2. [分布式数据存储](2017-01-22-bigdata-research-database-architect.md)
 
 #### 3. 大数据处理开发
 
@@ -195,12 +195,12 @@ title: BigData Business Value Thinking
 核心在于基于数据和算法的驱动-提升引擎
 
 - [数据平台架构规划](2018-08-18-data-platform-arch-planning-note.md)
-- [用户特征信息库](2018-06-06-user-label-profile-note.md)
+- [用户特征信息库](2018-06-06-data-usage-user-label-profile-note.md)
 
 	- 用户访问行为采集
 	- 用户交易行为采集
 
-- [产品增长黑客-数据驱动](2017-09-30-user-behavior-analysis-note.md)
+- [产品增长黑客-数据驱动](2017-09-30-data-usage-user-behavior-analysis-note.md)
 - [区块链技术设计](2018-03-06-block-chain-design-note.md)
 
 2. 大数据挖掘与信息分析
@@ -232,7 +232,7 @@ _头部流量-场景驻留-广告曝光变现_
 
 _Ref:_
 
-[计算广告](2017-07-01-compute-advertise-design-note.md)
+[计算广告](2017-07-01-data-usage-compute-advertise-design-note.md)
 
 
 4. 全渠道营销解决方案
