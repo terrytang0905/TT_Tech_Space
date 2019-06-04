@@ -118,7 +118,15 @@ _CBO查询优化主要包含三个步骤:_
     根据统计信息计算各个执行计划的Cost，选择Cost最小的执行计划。
 
 
-CBO的实现基于两种模型，即**Volcano模型[1]**和**Cascades模型[2]**.
+CBO的实现基于两种模型: 
+
+    - System-R的Bottom-up优化框架
+    - Volcano/Cascade的Top-down优化框架
+
+
+**System-R模型** 的Bottom-up的动态规划算法
+
+**Volcano模型[1]**和**Cascades模型[2]**.
 
     Tips:其中Calcite使用的是Volcano模型，而GPOrca[3]使用的是Cascades模型。
     这两种模型的思想基本相同，不同点在于Cascades模型并不是先Explore、后Build，而是边Explore边Build，从而进一步裁剪掉一些执行计划。

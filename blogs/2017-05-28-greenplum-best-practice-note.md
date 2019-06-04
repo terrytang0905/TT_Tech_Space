@@ -51,6 +51,8 @@ GPDB是一个基于大规模并行处理(MPP)和shared-nothing架构的分析型
 * 数据初始加载后或者每次增量加载后,检查数据分布是否均匀。
 * 尽可能避免数据倾斜。
 
+	Comments:查看数据分布:SELECT gp_segment_id,COUNT(1) FROM tablename GROUP BY gp_segment_id;
+
 *内存管理*
 
 * 设置 vm.overcommit_memory 为 2
@@ -130,6 +132,7 @@ MEMORY_LIMIT:此参数限制起源队中所有活动query(参见ACTIVE_STATEMENT
 	CREATE RESOURCE QUEUE ir_rq WITH(
 	ACTIVE_STATEMENTS=20,
 	MEMORY_LIMIT=1800M)
+
 * 创建用户
 
 	CREATE ROLE username with login ENCRYPTED PASSWORD RESOURCE QUEUE ir_rq;
