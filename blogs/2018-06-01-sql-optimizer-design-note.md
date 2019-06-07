@@ -746,6 +746,10 @@ _Ref:_
     - Table Statistics
     - Filter Statistics
 
-### 8.[大数据查询优化器]Dremel Optimizer (Unknown)
+### 8.[大数据查询优化器]GoogleBigQuery(Dremel) Optimizer
+
+
+
+
 
 
