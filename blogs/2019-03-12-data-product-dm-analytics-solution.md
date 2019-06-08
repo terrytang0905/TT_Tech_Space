@@ -302,7 +302,11 @@ _Data Lake Analytics_
 
 
 
-**5.3.MaxCompute数据安全**
+**5.3.MaxCompute数据存储**
+
+AliORC
+
+**5.4.MaxCompute数据安全**
 
 _Ref:_
 
