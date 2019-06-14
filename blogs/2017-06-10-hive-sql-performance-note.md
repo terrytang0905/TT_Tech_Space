@@ -234,7 +234,7 @@ join map_join_test b on a.id = b.id;
 
     Tips:Map Join通常只适用于一个大表和一个小表做关联的场景，例如事实表和维表的关联。
 
-![hive_map_join_internal](_includes/hive_map_join_internal.jpg)
+![hive_map_join_internal](_includes/hive_map_join_internal.png)
 
 然后就会看到分发hash table的过程：
 
@@ -490,6 +490,7 @@ set hive.stats.fetch.column.stats=true;
 set hive.stats.fetch.partition.stats=true;
 
 //execute
+set hive.execution.engine=tez; //配置tez计算引擎
 set hive.exec.parallel=true;  
 set hive.exec.parallel.thread.number=16;
 set hive.enforce.bucketing=true;
