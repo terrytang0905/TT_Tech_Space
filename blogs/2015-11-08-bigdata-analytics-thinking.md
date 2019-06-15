@@ -10,14 +10,15 @@ title: Bigdata analysis&Mining Thinking
 
 ### Information,NLP,Mathematics
 
-**大数据技术应用**
+**数据挖掘应用**
 
 1. 数据处理:自然语言处理技术(NLP)
 2. 统计和计数:A/B test、top N排行榜、地域占比
 3. 多维分析:RFM分析,同比,环比,趋势分析
-4. 数据挖掘:分类,预测模型,聚类,关联规则分析,文本情感分析
-5. 机器学习:深度学习,迁移学习,建模仿真
+4. 机器学习:分类,预测模型,聚类,关联规则分析,文本情感分析
+5. 人工智能:深度学习,迁移学习,建模仿真
 
+    Tips:其中机器学习领域与数据库领域是数据挖掘的两大支柱
 
 ### I.基本定义
 
@@ -146,7 +147,12 @@ E. _数据完整性验证_
 * Hive/Spark/Storm/Flink数据处理
 * 大数据MQ-[Kafka应用](2017-01-10-kafka-research-note.md)
 
-### IV.多维数据分析
+#### 3.4.异常检验与处理
+
+对于数据异常的验证非常重要
+
+
+### IV.数据挖掘-多维数据分析(数据库领域)
 
 #### 数据建模与Cube
 
@@ -216,42 +222,26 @@ E. _数据完整性验证_
 - 切片(Slicing)和切块(dicing) - 穿透/查看明细
 - 上卷(roll up)和下钻(drill down): 与聚集相关(基于维度的钻取)
 
-#### 4.4.OLAP详细设计
+#### 4.4.分析应用-客户划分
 
-- [实时OLAP技术设计](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
+- 客户RFM模型
+    消费新鲜度 (Recency)
+    消费频度 (Frequency)
+    消费金额 (Monetary)
+- [客户RFM设计实例](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
+- [双十一RFM分析设计](http://wiki.yunat.com/pages/viewpage.action?pageId=43854085)
+- 零售新老客分析
+- 客户洞察新老客分析
+- 客户分层金字塔模型
 
+#### 4.5.OLAP数据分析引擎
 
-#### 4.5.OLAP查询的分布式计算
+数据库领域主要关注OLAP相关技术演进
 
-    A. Impala: 交互式OLAP SQL-on-Hadoop
-    B. Presto: OLAP SQL-on-Hadoop(跨数据源查询)
-    C. Druid: 分布式实时OLAP
-    D. SparkSQL: OLAP SQL-on-Hadoop
-    E. Hive: 离线数据分析SQL-on-Hadoop
-    F. Dremel: 大规模交互式查询引擎(非SQL)
-
-    G. Spark&Spark Streamming: 实时流式计算
-    H. Storm: 实时流式计算
-    I. Flink
-
-
-### V.数据可视化
-
-- selection: 删除或不突出某些对象和属性
-- 少量属性的可视化 - 单维图表
-- 扩展的二维/三维图 - 多维图表
-- 可视化时间空间数据 - 时间维度+地理维度
-- 可视化高维数据 <br />
-     `数据矩阵` <br />
-     `平行坐标系` <br />
-     `星型坐标和Chernoff脸` <br />
-- 词云图
-- sunburst partition
+- [OLAP数据分析引擎](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 
 
-### VI.数据挖掘分析设计
-
-前置:主成分分析解决特征向量过多问题,选择主成分的特征向量
+### V.数据挖掘-机器学习开发
 
 - 分类预测分析(监督学习)
 - 回归分析
@@ -261,6 +251,9 @@ E. _数据完整性验证_
 - 时间序列分析(指数平滑)
 - **机器学习**
 - **深度学习&神经网络**
+
+    Tips:主成分分析解决特征向量过多问题,选择主成分的特征向量
+
 
 #### 6.1.挖掘建模-预测响应(分类)
 
@@ -341,7 +334,7 @@ H. _支持向量机算法(Support Vector Machine)_
 
 I. _组合方法_
 
-G. _细分建模_ <br />
+G. _细分建模_ 
 
 - 针对细分群体分别建模是建模过程中常用的,有效模型优化
 
@@ -412,25 +405,13 @@ x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
 矩阵的重要特性——特征向量。
 
 
-#### 6.6.分析应用-客户划分
-
-- 客户RFM模型
-    消费新鲜度 (Recency)
-    消费频度 (Frequency)
-    消费金额 (Monetary)
-- [客户RFM设计实例](http://wiki.yunat.com/pages/viewpage.action?pageId=39207407)
-- [双十一RFM分析设计](http://wiki.yunat.com/pages/viewpage.action?pageId=43854085)
-- 零售新老客分析
-- 客户洞察新老客分析
-- 客户分层金字塔模型
-
-#### 6.7.分析应用-用户画像分析
+#### 6.6.分析应用-用户画像分析
 
 - 用户行为<->行为分类与特征提取<->用户特征属性关联
 - 用户特征与标签规则的关联概率(置信度)
 - 用户与属性标签的可信度矩阵
 
-#### 6.8.分析应用-文本分析算法
+#### 6.7.分析应用-文本分析算法
 
 根据语义分析算法与NLP分词策略,针对文本进行标签分析
 
@@ -464,12 +445,7 @@ PLSA \ LDA \ HMM
 [相关文档](http://www.52nlp.cn/%E6%A6%82%E7%8E%87%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8F%98%E5%BD%A2%E7%B3%BB%E5%88%971-plsa%E5%8F%8Aem%E7%AE%97%E6%B3%95)
 
 
-#### 6.9.异常检验与处理
-
-对于数据异常的验证非常重要
-
-
-#### 6.10.数据挖掘算法技术实现
+#### 6.8.数据挖掘算法技术实现
 
 A. MATLAB
 
@@ -492,6 +468,11 @@ C.R
 D.Spark
 
 
+### VI.大数据与机器学习
+
+Spark MLlib
+
+
 ### VII.垂直业务数据建模
 
 #### 7.1.电商零售分析模型
@@ -509,9 +490,24 @@ D.Spark
 * 神策数据
 
 
-### VIII.敏捷BI产品设计
+### VII.数据可视化
 
-#### 8.1.常规BI产品设计
+- selection: 删除或不突出某些对象和属性
+- 少量属性的可视化 - 单维图表
+- 扩展的二维/三维图 - 多维图表
+- 可视化时间空间数据 - 时间维度+地理维度
+- 可视化高维数据 <br />
+     `数据矩阵` <br />
+     `平行坐标系` <br />
+     `星型坐标和Chernoff脸` <br />
+- 词云图
+- sunburst partition
+
+
+
+### VIII.数据分析产品设计
+
+#### 8.1.常规分析产品设计
 
 1. 数据提取 
 
@@ -574,10 +570,9 @@ D.Spark
 
 9. [NewBI技术架构](_includes/NewBI-Platform.png)
 
-
 x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
-#### 8.2.敏捷BI竞品分析
+#### 8.2.敏捷分析竞品分析
 
 *敏捷BI-行业数据分析*
 
@@ -608,7 +603,7 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
     7. 能够识别相关性/洞察力如何形成
     8. 能够通知相应实体的洞察力
 
-### IX.Reference
+### X.Reference
 
 - 数据挖掘导论
 - STAR SCHEMA:数据仓库维度设计权威指南
