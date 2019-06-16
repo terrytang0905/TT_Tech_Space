@@ -8,7 +8,7 @@ title: Big Data Research Note - Google Database Group
 ## 大数据研究-Google大数据解决方案
 ---------------------------------------------------
 
-### Google大数据
+### I.Google大数据
 
 #### BigTable - HBase - Cassandra
 
@@ -43,7 +43,7 @@ Spanner有一种负责专门管理数据的spanserver，spanserver也是基于bi
 
 Cloud Spanner是一款具备强一致性的全球分布式企业级数据库服务
 
-#### Apache Beam
+### II.Apache Beam
 
 Apache Beam主要由Beam SDK和Beam Runner组成，Beam SDK定义了开发分布式数据处理任务业务逻辑的API接口，生成的的分布式数据处理任务Pipeline交给具体的Beam Runner执行引擎。Apache Beam目前支持的API接口是由Java语言实现的，Python版本的API正在开发之中。Apache Beam支持的底层执行引擎包括Apache Flink，Apache Spark以及Google Cloud Platform，此外Apache Storm，Apache Hadoop，Apache Gearpump等执行引擎的支持也在讨论或开发当中。其基本架构如下图所示
 
@@ -56,7 +56,7 @@ https://beam.apache.org/
 
 
 
-#### 核心数据模型比较
+### III.核心数据模型设计
 
 
 Bigtable的Key-Value数据结构
@@ -66,11 +66,11 @@ Dremel嵌套列数据模型
 Spanner数据目录结构 - 虚拟桶
 
 
-#### 分布式文件存储
+### IV.分布式文件存储
 
 
 
-#### Ref
+### X.Ref
 
 - [分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
 - [Bigtable: A Distributed Storage System for Structured Data]
