@@ -124,6 +124,9 @@ CBO的实现基于两种模型:
     - Volcano/Cascade的Top-down优化框架
 
 
+![query_optimizer_cbo_diff](_includes/query_optimizer_cbo_diff.png)
+
+
 **System-R模型** 的Bottom-up的动态规划算法
 
 
