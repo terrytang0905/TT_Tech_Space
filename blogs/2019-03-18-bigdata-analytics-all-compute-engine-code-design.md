@@ -17,9 +17,9 @@ _1.核心Features设计_
 	1.数据湖多数据源整合建模-Data Lake Analytics
 	2.元数据模型抽象动态支持业务模型
 	3.支持标准SQL语言标准
-	3.OLAP/OLTP/ETL联合查询
-	4.离线与实时大数据处理与计算优化
-	5.边缘计算引擎
+	4.OLAP/OLTP/ETL联合查询
+	5.离线与实时大数据处理与计算优化
+	6.边缘计算引擎
 
 - [分布式交互式查询](2017-04-04-olap-sqlonhadoop-research-note.md)
 
