@@ -15,8 +15,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - *[数据产品-大数据技术解决方案研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-data-product-dm-analytics-solution.md)
 - *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
-- *[数据商业价值思考]()
-- *[数据平台架构规划]()
+- *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
+- *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
 - *[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)
 - *[数据应用-用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-data-usage-user-behavior-analysis-note.md)
 - *[数据应用-新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-data-usage-new-retail-analytics-design-note.md)
