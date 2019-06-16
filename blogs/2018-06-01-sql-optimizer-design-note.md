@@ -1,8 +1,8 @@
 ---
 layout: post
-category : sql
-tags : [bigdata, olap, develop]
-title: SQL Optimizer Design Note
+category : database
+tags : [database, olap, develop]
+title: Query Optimizer Design Note
 ---
 
 ## 查询优化器设计研究

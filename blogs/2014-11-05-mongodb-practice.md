@@ -1,7 +1,7 @@
 ---
 layout: post
-category : bigdata
-tags : [nosql, tutorial]
+category : database
+tags : [nosql, datascience, tutorial]
 title: MongoDB Practice Thoughts
 ---
 

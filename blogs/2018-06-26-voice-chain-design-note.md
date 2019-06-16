@@ -1,5 +1,4 @@
 ---
----
 layout: post
 category : thinking
 tags : [thinking,database,development]

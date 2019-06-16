@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [bigdata,analysis,olap]
+tags : [bigdata,datascience,olap]
 title: Data Usage - New Retail Analysis Design Note
 ---
 

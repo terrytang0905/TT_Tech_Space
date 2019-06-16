@@ -1,6 +1,6 @@
 ---
 layout: post
-category : bigdata
+category : database
 tags : [nosql,develop]
 title: MongoDB Internal
 ---

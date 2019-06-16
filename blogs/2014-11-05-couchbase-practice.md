@@ -1,7 +1,7 @@
 ---
 layout: post
-category : bigdata
-tags : [nosql, tutorial]
+category : database
+tags : [nosql, database, tutorial]
 title: Couchbase NoSQL Database Notes
 ---
 

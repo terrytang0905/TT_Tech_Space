@@ -2,7 +2,7 @@
 layout: post
 category : datascience
 tags : [bigdata,datamining,algorithm]
-title: Bigdata analysis&Mining Thinking
+title: Bigdata Mining Deep Thinking
 ---
 
 ## 大数据分析深度随想

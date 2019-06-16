@@ -1,6 +1,6 @@
 ---
 layout: post
-category : development
+category : datascience
 tags : [development,research,datamining]
 title: Python Development Everything Note
 ---

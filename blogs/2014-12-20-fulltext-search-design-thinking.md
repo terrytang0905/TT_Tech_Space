@@ -1,7 +1,7 @@
 ---
 layout: post
-category : bigdata
-tags : [search, bigdata, develop]
+category : datascience
+tags : [search, datascience, develop]
 title: FullText Search Design Note - Lucene 
 ---
 

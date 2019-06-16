@@ -1,6 +1,6 @@
 ---
 layout: post
-category : bigdata
+category : blockchain
 tags : [thinking,database,development]
 title: Block Chain Design&Usage Note
 ---

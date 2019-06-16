@@ -1,8 +1,8 @@
 ---
 layout: post
-category : bigdata
-tags : [bigdata, product, database]
-title: Data Product Note - Database Management for Analytics
+category : cloud
+tags : [bigdata, product, cloud]
+title: Data Product Note - Aliyun MaxCompute
 ---
 
 ## 大数据产品-Aliyun MaxCompute

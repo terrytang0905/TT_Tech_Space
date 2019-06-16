@@ -1,7 +1,7 @@
 ---
 layout: post
-category : virtualization
-tags : [cloud, tutorial]
+category : cloud
+tags : [cloud, virtualization, tutorial]
 title: VMWare vSphere Practice
 ---
 

@@ -110,7 +110,8 @@ Druid是基于MOLAP模型的空间换时间方案。优点在于查询性能的�
 ![Druid架构](_includes/Druid架构.png)
 
 Druid ingestion specs define this granularity as the queryGranularity of the data. The lowest supported queryGranularity is millisecond.
-Druid shards are called segments and Druid always first shards data by time. 
+Druid shards are called **segments** and Druid always first shards data by time. 
+
 Segments contain data stored in compressed column orientations, along with the indexes for those columns. Druid queries only understand how to scan segments.
 Following search infrastructure, Druid creates immutable snapshots of data, stored in data structures highly optimized for analytic queries.
 Druid is a column store, which means each individual column is stored separately. Druid indexes data on a per-shard (segment) level.

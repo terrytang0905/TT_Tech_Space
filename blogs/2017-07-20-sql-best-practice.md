@@ -1,8 +1,8 @@
 ---
 layout: post
 category : sql
-tags : [bigdata,datascience,sql]
-title: Hive Analysis & Utility Note
+tags : [database,datascience,sql]
+title: Standard SQL Best Practice Note
 ---
 
 ## SQL Best Practice
