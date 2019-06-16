@@ -20,8 +20,10 @@ The Lambda architecture: principles for architecting realtime Big Data systems.
 
 |DataLoad | MixComputer 	  | DataStorage 			 | QueryType |
 |:--------|:------------------|:-------------------------|:----------|
-|Kafka    | Hadoop/MapReduce  | HDFS/Impala              | Impala    |
-|Kafka    | Storm             | HBase                    | Impala    |
+|Kafka    | Hadoop/MapReduce  | HDFS                     |   SQL     | 
+|         | Storm/Spark       | HBase/Cassandra          |           |
+
+![Lambda样例](_includes/lambda_arch_sample.png)
 
 ```java
 query = function(all data)
@@ -104,25 +106,42 @@ The importance of immutability and human fault-tolerance, and the benefits of pr
 
 #### II.Kappa Architect
 
-Lambda架构一个最明显的问题：它需要维护两套分别跑在批处理和实时计算系统上面的代码。
+Lambda架构一个最明显的问题：它需要维护两套分别跑在批处理和实时计算系统上面的代码。维护Lambda架构的复杂性是很棘手的问题。
 
-![kappa架构](_includes/Kappa_arch.png)
+
+#### Kappa 架构解析
+
+Kappa架构是借助Kafka类似的流处理平台的永久保存数据日志功能,重新处理部署于速度层架构中的历史数据。
 
 Kappa架构的核心思想包括以下三点：
 
-- 用Kafka或者类似的分布式队列系统保存数据，你需要几天的数据量就保存几天。
-- 当需要全量重新计算时，重新起一个流计算实例，从头开始读取数据进行处理，并输出到一个新的结果存储中。
-- 当新的实例做完后，停止老的流计算实例，并把老的一些结果删除。
+- 用Kafka或者类似的分布式队列系统保存历史数据，你需要几天的数据量就保存几天。可以是永久数据(Forever)
+- 当需要全量重新计算时，重新起一个流计算实例Instance，从Log Offset设置点(可以是0)开始读取数据进行处理，并输出到一个新的结果存储中。
+- 当新的实例Instance做完后，停止老的流计算实例Instance，并把老的一些结果删除。
 
-Kappa架构适合非超大量数据的实时计算,可以使用一个代码架构同时实现实时与离线数据处理架构
+![kappa架构](_includes/Kappa_arch.png)
 
-|DataLoad | MixComputer 	  | DataStorage      | QueryOLAP  |
-|:--------|:------------------|:-----------------|:-----------|
-|Kafka    | Spark/SparkSQL    | HDFS             | Presto     |
-|Kafka    | SparkStreaming    | Cassandra        | Presto     |
+与 Lambda 架构不同的是，Kappa 架构去掉了批处理层这一体系结构,只保留了速度层。只需要在业务逻辑改变又或是代码更改的时候进行数据的重新处理。
 
+	Tips:正因为Kappa架构只保留了速度层而缺少批处理层，在速度层上处理大规模数据可能会有数据更新出错的情况发生,这就需要我们花费更多的时间在处理这些错误异常上面。
 
-* lambda&kappa架构比较
+#### Kappa 架构应用
+
+|DataLoad | StreamCompute 	        | DataStorage      | QueryOLAP  |
+|:--------|:------------------------|:-----------------|:-----------|
+|Kafka    | Spark/SparkStreaming    | Cassandra        | Presto     |
+|         | job+1				    | table+1	       |            |
+
+* NewYork纽约时报Kappa架构应用
+
+![kappa_arch_sample](_includes/kappa_arch_sample_newyork.png)
+
+	Tips:
+	Kappa架构适合非超大量数据的实时计算,可以使用一个代码架构同时实现实时与离线数据处理架构
+	Kappa架构并不适用于批处理和流处理代码逻辑不一致的场景。
+	Kappa架构具有多个订阅者，比如具有更高的吞吐量
+
+* Lambda&Kappa架构比较
 
 ![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 

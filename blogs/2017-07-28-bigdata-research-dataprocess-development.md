@@ -8,16 +8,53 @@ title: Big Data Research Note - DataProcess Design
 ## 大数据研究-数据处理-通用开发
 -------------------------------------------------------------
 
-### 大数据处理框架
+### I.大数据处理框架
 
 * 无边界数据与有边界数据
 * TimeDomain(EventTime/ProcessingTime)
 * 批处理与流处理
 
+#### Data Workflow
 
-### BatchProcess-ETL
+Workflow Design Pattern
 
-### BatchProcess-Hadoop MapReduce
+![workflow](_includes/data_workflow.png)
+
+**复制模式(Copier Pattern)**
+
+	复制模式通常是将单个数据处理模块中的数据,完整地复制到两个或更多的数据处理模块中,然后再由不同的数据处理模块进行处理。
+
+**过滤模式(Filter Pattern)**
+
+	过滤模式的作用是过滤掉不符合特定条件的数据。
+
+**分离模式(Splitter Pattern)**
+
+
+**合并模式(Joiner Pattern)**
+
+
+**发布/订阅模式(Publish/Subscribe Pattern)**
+
+发布/订阅模式指的是消息的发送方可以将消息异步地发送给一个系统中不同组件,而无需知道接收方是谁.
+
+![sub_rev_message_pattern](_includes/sub_rev_message_pattern.png)
+
+_发布/订阅模式样例:_
+
+![sub_rev_data_distrubte](_includes/sub_rev_data_distrubte.png)
+
+_发布/订阅模式的优缺点:_
+
+	- 松耦合(Loose Coupling):消息的发布者和消息的订阅者在开发的时候完全不需要事先知道对方的存在,可以独立地进行开发。
+	- 高伸缩性(High Scalability):发布 / 订阅模式中消息队列可以独立的作为一个数据存储中心存在。在分布式环境中,是消息队列,可以扩展至上千个服务器中.
+	- 系统组件间通信更加简洁:因为不需要为每一个消息的订阅者准备专门的消息格式,只需要知道消息队列中保存消息格式,发布者就可以按照这个格式发送消息,订阅者也只需按照此格式接收消息。
+
+	Tips:订阅推送方式解决多端数据应用需求
+
+- [Kafka分布式消息队列](2017-01-10-bigdata-research-dataprocess-kafka-note.md)
+
+### II.BatchProcess-Hadoop MapReduce
 
 HDFS - 分布式文件系统
 MapReduce - 分布式计算框架
@@ -37,10 +74,9 @@ Reducer 直接输入数据为止的整个过程。这是 mapreduce 的核心过�
 
 2. MapReduce 计算框架中负责真正计算任务的 TaskTracker 对应到 HDFS 的 DataNode 的角色，一个负责计算，一个负责管理存储数据。
 
-	Tips:
-	考虑到“Data_Local”，一般地，将NameNode和JobTracker部署到同一台机器上， 各个DataNode和TaskNode也同样部署到同一台机器上。
+		Tips:考虑到“Data_Local”，一般地，将NameNode和JobTracker部署到同一台机器上， 各个DataNode和TaskNode也同样部署到同一台机器上。
 
-### BatchProcess-Spark
+### III.BatchProcess-Spark
 
 Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体化所存在问题:
 
@@ -48,14 +84,15 @@ Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体�
 
 - [Spark性能优化](2018-11-23-spark-performance-tuning-note.md)
 
-### Streaming Compute 
+### IV.Streaming Compute 
 
 - [实时计算数据框架](2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
 
 - [流式数据处理技术](2018-05-31-bigdata-research-dataprocess-stream-compute.md)
 
+### V.BatchProcess-ETL
 
-### Next Generation DataProcess
+### VI.Next Generation DataProcess
 
 - [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 - ClickHouse

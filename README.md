@@ -13,7 +13,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### I.Big Data Everything
 
-- *[数据产品-大数据技术解决方案研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-data-product-dm-analytics-solution.md)
+- *[数据产品-大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-data-product-dm-analytics-solution.md)
 - *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
 - *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
 - *[数据平台架构规划](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
@@ -42,6 +42,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[大数据研究-数据处理-流数据计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-stream-compute.md)
 - *[大数据研究-数据处理-实时数据计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
+- *[大数据研究-数据处理-Kafka分布式MQ](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-bigdata-research-dataprocess-kafka-note.md)
 - *[大数据研究-数据处理-通用开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-dataprocess-development.md)
 - *[大数据研究-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-research-database-architect.md)
 - *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-architect-build.md)
@@ -51,7 +52,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[PostgreSQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-30-postgresql-best-practice-note.md)
 - *[Greenplum最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-28-greenplum-best-practice-note.md)
 - *[BigTable&HBase Analysis Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-12-bigtable&hbase-analysis-note.md)
-- [Kafka分布式MQ笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-kafka-research-note.md)
 - *[Greenplum Architect Research Note](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-11-greenplum-arch-design-note.md)
 - [Greenplum数据分析应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
 - [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)

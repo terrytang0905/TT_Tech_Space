@@ -50,9 +50,17 @@ _MaxCompute流计算引擎?_
 	- 优化规则
 	- RBO&CBO&HBO模型
 
+
 在编译器方面,基于AST的编译器模型,Visitor模型（Antlrv4），IDE IntelliSense，Warning支持完整的存储过程，LOOP/IFELSE判断等；
 
 在优化器方面，CBO基于代价的优化器，Volcano模型，展开各种可能等价的执行计划，然后依赖统计信息，计算这些等价执行计划的“代价”，最后最低的执行计划
+
+CBO代价模型
+
+• 由CPU、IO、Row Count、Memory、Network组成的五元 组
+• 每个operator关注于自身的Cost，整个plan的Cost由 引擎累积等到
+• Cost model力求能够反映客观的物理实现
+• Cost model不需要得到和真实一模一样，只需要能够选出较优的plan
 
 主要包括类型：RBO/CBO/HBO
 
