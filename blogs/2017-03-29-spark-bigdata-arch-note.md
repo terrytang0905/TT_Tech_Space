@@ -23,14 +23,38 @@ Spark核心特征:
 
 *RDD(Resilient Distributed Datasets)*
 
-Spark常见存储数据的格式是Key-Value
-也支持类似Parquet这样的列存格式
+RDD 表示已被**分区**、**不可变的**，并能够被**并行操作**的数据集合。
+
+Spark常见存储数据的格式是Key-Value,也支持类似Parquet这样的列存格式
 Key-Value格式数据一般是原始数据大小的2倍左右，而列存一般是原始数据的1/3到1/4
 
-*Operation*
+_Operation_
 
     Transformation函数-transformations可以转换成一个新的RDD并返回他的引用   
 	Action函数-RDD的action从RDD中返回值
+
+
+_RDD结构_
+
+![spark_rdd_structure](_includes/spark_rdd_structure.png)
+
+一个线程只有一个 SparkContext
+
+Partition 代表 RDD 中数据的逻辑结构，每个 Partition 会映射到某个节点内存或硬盘的一个数据块。
+
+	Hash Partitioner / Range Partitioner / 自定义 Partitioner
+
+_RDD依赖关系_
+
+窄依赖(Narrow Dependency)和宽依赖(Wide Dependency)
+
+
+![spark_rdd_narrow_depend](_includes/spark_rdd_narrow_depend.png)
+
+![spark_rdd_wide_depend](_includes/spark_rdd_wide_depend.png)
+
+
+	Tips:一些转换操作如map, filter 会产生窄依赖关系，而Join, groupBy则会生成宽依赖关系
 
 
 ##### 1.2.作业提交
