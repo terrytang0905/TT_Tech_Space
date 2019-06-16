@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [datascience,bigdata,architect]
-title: Big Data Research Note - SQL Design
+title: Big Data Analytics Note - SQL AnyWhere Design
 ---
 
-## 大数据研究-SQL设计应用
+## 大数据查询分析-SQL AnyWhere
 ------------------------------------------------------------
 
 ### SQL on Database
@@ -36,7 +36,7 @@ title: Big Data Research Note - SQL Design
 
 - [PrestoDB实践](2017-04-03-olap-distributed-presto-practice-note.md)
 
-### Data Query Optimize Design
+### Data Query Optimize Usage
 
 - [PostgreSQL&Greenplum索引研究](2017-12-16-postgresql-greenplum-index-note.md)
 
@@ -54,6 +54,6 @@ title: Big Data Research Note - SQL Design
 Partition分区替代索引,以提高查询性能
 
 
-### SQL Parser&Query Optimizer
+### Query Parser&Query Optimizer
 
-- [查询优化器分析](2018-06-01-sql-optimizer-design-note.md)
+- [查询优化器分析](2018-06-01-query-optimizer-design-note.md)

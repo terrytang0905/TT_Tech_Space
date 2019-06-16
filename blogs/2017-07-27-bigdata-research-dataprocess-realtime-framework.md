@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,realtime,develop]
-title: Big Data Research Note - Realtime Process Architect
+title: Big Data Research Note - DataProcess(Realtime Compute Architect)
 ---
 
-## 大数据研究-实时处理架构
+## 大数据研究-数据处理-实时处理架构
 -----------------------------------------------------------
 
 ### 实时计算输出
@@ -128,18 +128,9 @@ Kappa架构适合非超大量数据的实时计算,可以使用一个代码架�
 ![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 
 
-#### III.Kafka+Flink
-
-
-- [实时数据处理技术](2018-05-31-bigdata-stream-compute-research-note.md)
-
-_Ref:_
-
-[Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)
-
-
-#### Spark Streaming
-
+#### III.Kafka+SparkStreaming
 
 Spark Streaming是将实时数据流按时间段分段后,当作小的批处理数据去计算
+
+
 

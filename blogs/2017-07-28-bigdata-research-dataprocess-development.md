@@ -2,13 +2,13 @@
 layout: post
 category : bigdata
 tags : [datascience,bigdata,architect]
-title: Big Data Research Note - Data Process Design
+title: Big Data Research Note - DataProcess Design
 ---
 
-## 大数据研究-数据处理计算
+## 大数据研究-数据处理-通用开发
 -------------------------------------------------------------
 
-### 大数据开发框架
+### 大数据处理框架
 
 HDFS - 分布式文件系统
 MapReduce - 分布式计算框架
@@ -17,7 +17,9 @@ Yarn - 分布式集群资源调度框架
 框架在架构设计上遵循一个重要的设计原则叫“依赖倒转原则”，IOC依赖倒转原则是高层模块不能依赖低层模块，它们应该共同依赖一个抽象，这个抽象由高层模块定义，由低层模块实现。
 
 
-### Hadoop MapReduce
+### BatchProcess-ETL
+
+### BatchProcess-Hadoop MapReduce
 
 ![MapReduce](_includes/mapreduce.jpg)
 
@@ -34,19 +36,23 @@ Reducer 直接输入数据为止的整个过程。这是 mapreduce 的核心过�
 	Tips:
 	考虑到“Data_Local”，一般地，将NameNode和JobTracker部署到同一台机器上， 各个DataNode和TaskNode也同样部署到同一台机器上。
 
-### Spark for Big Data Development
+### BatchProcess-Spark
 
 Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体化所存在问题:
 
 - [Spark大数据计算引擎](2017-03-29-spark-bigdata-arch-note.md)
 
-### Realtime Streaming Computeing
+### Streaming Compute 
 
-- [实时流式数据计算](2017-07-27-bigdata-research-realtime-process.md)
+- [实时计算数据框架](2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
 
-### ElasticSearch Solution
+- [流式数据处理技术](2018-05-31-bigdata-research-dataprocess-stream-compute.md)
 
-- [ElasticSearch全文检索](2017-01-06-elasticsearch-search-engine-architect-note.md)
+
+### Next Generation DataProcess
+
+- ElasticSearch
+- ClickHouse
 
 
 

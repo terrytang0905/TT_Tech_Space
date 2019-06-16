@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata, framework, develop]
-title: Big Data Research Note - Stream Computeing Framework Note
+title: Big Data Research Note - DataProcess(Stream Compute)
 ---
 
-## 大数据研究-Spark&Flink流计算架构
+## 大数据研究-数据处理-流计算架构
 ---------------------------------------------------
 
 ### I.Apache Flink
@@ -26,6 +26,9 @@ Flink是既可以流处理,又可以批处理
 		ExecutionEnvironment->DataSet->transformation
 
 Flink对流消息的处理支持三种级别语义分别是“At Most once、At Least once、Exactly once”。
+
+
+- [Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)
 
 #### 分布式快照
 

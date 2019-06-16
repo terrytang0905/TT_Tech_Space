@@ -13,3 +13,4 @@ title: Calcite Data Manager Development Note
 
 
 
+- [查询优化器设计](2018-06-01-query-optimizer-design-note.md)
