@@ -412,5 +412,5 @@ logTrace("Rate estimation skipped") None
 
 ### x.Ref
 
-- [Stream SQL 的执行原理与 Flink 的实现](https://io-meter.com/2019/03/16/streaming-incremental-sql-execution/)
+- [Stream SQL的执行原理与Flink的实现](https://io-meter.com/2019/03/16/streaming-incremental-sql-execution/)
 

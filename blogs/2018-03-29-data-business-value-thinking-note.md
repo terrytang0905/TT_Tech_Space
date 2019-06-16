@@ -222,7 +222,7 @@ _头部流量-场景驻留-广告曝光变现_
 
 _Ref:_
 
-[计算广告](2017-07-01-data-usage-compute-advertise-design-note.md)
+- [计算广告](2017-07-01-data-usage-compute-advertise-design-note.md)
 
 
 4. 全渠道营销解决方案
@@ -244,7 +244,7 @@ _Ref:_
 
 ![crm dmp cdp data struct](_includes/dmp_cdp_crm_data_struct.jpg)
 
-[DMP&CDP架构设计](2019-03-19-data-product-cdp-code-design.md)
+- [DMP&CDP架构设计](2019-03-19-data-product-cdp-code-design.md)
 
 
 5. 大数据技术解决方案
