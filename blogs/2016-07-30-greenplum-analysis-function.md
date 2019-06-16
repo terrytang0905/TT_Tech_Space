@@ -2,10 +2,10 @@
 layout: post
 category : database
 tags : [bigdata,database]
-title: Greenplum Analysis Function Guide
+title: Greenplum Data Analytics Function Guide
 ---
 
-## Greenplum 分析函数文档
+## Greenplum 数据分析应用
 -------------------------------------------------------
 
 ### I.窗口函数
