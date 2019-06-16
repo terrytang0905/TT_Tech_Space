@@ -25,7 +25,7 @@ _1.核心Features设计_
 
 - [通用OLAP查询引擎设计](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 
-- [查询优化器设计](2018-06-01-sql-optimizer-design-note.md)
+- [查询优化器设计](2018-06-01-query-optimizer-design-note.md)
 
 ### II.Federated Query - Data Lake Analytics
 
@@ -76,7 +76,7 @@ CodeGen
 
 #### 4.Flink计算引擎
 
-- [Stream计算与Flink](2018-05-31-bigdata-research-stream-compute-framework.md)
+- [Stream计算与Flink](2018-05-31-bigdata-research-dataprocess-stream-compute.md)
 
 ### IV.Spark&MPP Usage
 
@@ -89,6 +89,66 @@ CodeGen
 - Stream SQL Compute
 
 
+#### 5.1.QueryEngine内核优化
 
+*5.1.1.Query性能差异与执行顺序*
+
+1) Scan Query
+2) Aggregation Query
+3) Join Query
+
+*5.1.2.混合大数据查询*
+
+离线与实时大数据处理与计算优化
+
+Greenplum-MPP数据查询+海量HDFS数据查询
+
+*5.1.3.通用SQL数据解析Calcite*
+
+- [Calcite 数据引擎]()
+
+*5.1.4.分布式查询QueryOptimizer*
+
+通用统一SQLEngine设计-Federated Query 
+
+	- 统一元数据结构体系
+	- 支持对通用元数据的查询计算分析
+	- 支持多种原数据类型的移动计算(部署不同类型Worker,针对不同类型数据)
+	- 合并计算结果输出
+
+研究PrestoDB架构源码
+
+
+*5.1.5.特定全文检索Index设计*
+
+- OLAP与全文检索的组合应用(封装Lucene的Antlr函数)
+- SQL-OLAP不支持复杂数据类型(array、struct、map)查询,要求数据输入Schema必须是平铺的。
+- ES/Druid可以理解为一种支持复杂数据类型的OLAP数据库
+
+
+#### 5.2.数据计算优化
+
+- 增量SQL查询算法
+- 内存计算规则
+- Flink实时流式数据计算
+- 预计算的内存存放(内存计算结果保存)
+- 查询语义分析设计(复杂计算设计)
+
+    ANTLR开源语法分析器.[介绍](http://www.ibm.com/developerworks/cn/java/j-lo-antlr/) <br />
+    自动构造自定义语言的识别器(recognizer),编译器(parser),和解释器(translator)的框架 <br />
+    Lucene中的语义分析比较:JavaCC+jflex
+
+- 影响OLAP性能的因素
+
+#### 5.3.数据结构优化
+
+- 内存数据结构设计优化
+
+**Apache Arrow**是一个内存数据结构,支持在不同数据源之间做快速高效的数据交换。
+
+	-定义一个通用而高效的内存数据格式,方便数据查询引擎进行查询
+	-定义了从上述格式中载入数据的格式.任何支持这个格式的系统,都可方便,高效地输入或输出这种格式
+
+- AliORC设计
 
 

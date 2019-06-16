@@ -129,6 +129,10 @@ _3.受众分析 ngxdmp-profile_
 		3.4.3，活动效果分析
 
 
+		* 1.用户标签画像数据
+		* 2.Looklike 全流量用户视频数据
+		* 3.放大 全流量用户IMEI/MAC
+
 3.5. 全景洞察=实时人群洞察-ElasticSearch服务
 
 
@@ -228,7 +232,7 @@ CMP元数据与数据分析元数据的差异
 
 云端标签计算分析+标签库更新+数据下发
 
-[用户标签模型设计](2018-06-06-user-label-profile-note.md)
+- [用户标签模型设计](2018-06-06-data-usage-user-label-profile-note.md)
 
 #### 4.ngxdmp-monitor营销监测
 
@@ -238,7 +242,7 @@ CMP元数据与数据分析元数据的差异
 
 ##### 8.1.营销分析模型
 
-[新零售分析模型](2017-04-16-new-retail-analytics-design-note.md)
+- [新零售分析模型](2017-04-16-data-usage-new-retail-analytics-design-note.md)
 
 ##### 8.2.流量分析模型
 
@@ -248,7 +252,7 @@ DNS流量/TCP&IP流量
 
 - [通用OLAP查询引擎设计](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 
-- [分布式联合计算引擎Code设计](2019-03-18-bigdata-analytics-all-query-engine-code-design.md)
+- [分布式联合计算引擎Code开发](2019-03-18-bigdata-analytics-all-query-engine-code-design.md)
 
 ##### 6.1.ngxdmp 查询解析相关
 

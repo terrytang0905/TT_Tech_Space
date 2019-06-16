@@ -45,5 +45,5 @@ title: Information&NLP&Mathematics Thinking
 ### IX.Reference
 
 - 数学之美(吴军)
-- [大数据分析研究思考](2015-11-08-bigdata-analysis-thinking.md)
+- [大数据分析研究思考](2015-11-08-bigdata-analytics-thinking.md)
 - [FullTextSearch研究思考](2014-12-20-fulltext-search-design-thinking.md)

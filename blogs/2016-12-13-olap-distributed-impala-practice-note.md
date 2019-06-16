@@ -21,6 +21,9 @@ title: Big Data OLAP Note - Impala Practice
 #### 2.Impala特点描述:
 
 - Impala是目前为止性能最佳的SQL-on-Hadoop OLAP引擎,特别是针对多用户下负载情况下
+
+		Tips:Impala至今还是未成为最佳的SQL-on-Hadoop OLAP解决方案
+
 - Impala不支持UPDATE或DELETE,与Hive一致。Impala支持ALTER TABLE DROP PARTITION分区设置
 - Impala查询设计的核心是在数百台节点下的集群metadata信息的协作与同步。例如,及时获取最新版本的系统catalog
 - Impala通过statestore组件实现简单的publish-subscribe服务,用于传播metadata信息更新到所有subscriber。这样极大减少网络连接(TCP/PRC)的开销
@@ -221,7 +224,7 @@ insert into t1 partition(x, y='b') select c1, c2 from some_other_table;
 ```
 - Impala partition分区查询优化,平均查询提速20%-100%
 
-	参考:http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_partitioning.html
+[参考资料](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_partitioning.html)
 
 **b.Performance Considerations for Join Queries**
 
@@ -241,7 +244,7 @@ select straight_join x from medium join small join (select * from big where c1 <
 - **Partitioned join** (not related to a partitioned table) is more suitable for large tables of roughly equal size(相似表容量使用partitioned join查询).This join technique is that portions of each table are sent to appropriate other nodes where those subsets of rows can be processed in parallel.
 Join order have a large impact for query optimization.
 
-	参考:http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins
+[参考资料](http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_perf_joins.html#perf_joins)
 
 **c.Impala Performance Tuning**
 

@@ -129,7 +129,7 @@ hive>WHERE se.state = 'CA';
 
 ##### JOIN Optimizations
 
-A.Hint-/*+ STREAMTABLE(s) */ 
+A.Hint-/\*+ STREAMTABLE(s) \*/ 
 
 ```sql
 SELECT /*+ STREAMTABLE(s) */ s.ymd, s.symbol, s.price_close, d.dividend FROM stocks s JOIN dividends d ON s.ymd = d.ymd AND s.symbol = d.symbol WHERE s.symbol = 'AAPL';

@@ -579,7 +579,5 @@ Hive+Tez+LLAP
 
 - [Hive Wiki](https://cwiki.apache.org/confluence/display/Hive/Home)
 - [HiveSQL编译过程](http://www.slideshare.net/recruitcojp/internal-hive)
-- [Antlr语义解析器](http://www.antlr.org/)
-- [Join Optimization in Hive](https://www.facebook.com/notes/facebook-engineering/join-optimization-in-apache-hive/470667928919/)
 - [Hive Design Docs](https://cwiki.apache.org/confluence/display/Hive/DesignDocs)
 

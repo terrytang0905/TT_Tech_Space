@@ -15,7 +15,7 @@ PrestoDB特征:
 
     - MPP-style pipelined in-memory execution 基于内存的并行计算
     - Columnar and vectorized data processing 列式&向量化数据处理
-    - Runtime query bytecode compilation LLVM动态编译执行计划(Impala有类似设计)
+    - Runtime query bytecode compilation LLVM动态编译执行计划(Impala/MaxCompute有类似设计)
     - Memory efficient data structures 内存高效数据结构(Slice接口)
     - Multi-threaded multi-core execution 多线程多核执行
     - Optimized readers for columnar format(ORC and Parquet)

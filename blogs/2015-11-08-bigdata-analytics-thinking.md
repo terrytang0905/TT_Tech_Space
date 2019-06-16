@@ -5,7 +5,7 @@ tags : [bigdata,datamining,algorithm]
 title: Bigdata Mining Deep Thinking
 ---
 
-## 大数据分析深度随想
+## 大数据挖掘-深度随想
 -------------------------------------------------
 
 ### Information,NLP,Mathematics
@@ -153,6 +153,11 @@ E. _数据完整性验证_
 
 
 ### IV.数据挖掘-多维数据分析(数据库领域)
+
+OLAP与数据挖掘-机器学习的差异
+
+  - 主要差异在于OLAP则用于数据探索,Data Mining用在根据假设进行推测
+  - Data Mining常能挖掘出超越归纳范围的关系,但OLAP仅能利用现有数据查询探索及可视化的报表
 
 #### 数据建模与Cube
 

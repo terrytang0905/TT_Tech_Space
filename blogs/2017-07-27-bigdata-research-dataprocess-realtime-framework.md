@@ -5,13 +5,13 @@ tags : [bigdata,realtime,develop]
 title: Big Data Research Note - DataProcess(Realtime Compute Architect)
 ---
 
-## 大数据研究-数据处理-实时处理架构
+## 大数据研究-数据处理-实时计算架构
 -----------------------------------------------------------
 
 ### 实时计算输出
 
 - 数据库+离线计算结果=全量数据查询(Lambda/Kappa)
-- Kafka消息队列+流式计算引擎(Flink)
+- Kafka消息队列+流式计算引擎(SparkStreaming)
 
 
 #### I.Lambda Architect
@@ -99,7 +99,6 @@ The importance of immutability and human fault-tolerance, and the benefits of pr
 - [https://github.com/nathanmarz/storm](https://github.com/nathanmarz/storm)
 - [http://www.manning.com/marz/](http://www.manning.com/marz/)
 - [http://www.slideshare.net/nathanmarz/runaway-complexity-in-big-data-and-a-plan-to-stop-it](http://www.slideshare.net/nathanmarz/runaway-complexity-in-big-data-and-a-plan-to-stop-it)
-
 
 
 

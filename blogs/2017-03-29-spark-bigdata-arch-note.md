@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,in-memory,develop]
-title: Spark Bigdata In-Memory Architect Note
+title: Data Compute - Spark Bigdata In-Memory Architect Note
 ---
 
-## Spark Bigdata In-Memory Unified Analytics Engine Note
+## 大数据计算-Spark Bigdata In-Memory Unified Architect 
 ------------------------------------------------------------
 
 #### 1.Spark(迭代计算) 
@@ -296,7 +296,6 @@ spark.sql("SELECT * FROM global_temp.people").show();
 
 ##### 3.5.SparkStreaming vs Flink
 
-[SparkStream vs Flink](2018-05-31-bigdata-research-stream-compute-framework.md)
 
 #### 4. MLlib
 

@@ -55,7 +55,9 @@ title: BigData Business Value Thinking
 - 上下文定向(contextual targeting)
 - 第三方数据
 
-#### 4. 数据分析
+#### 4. 数据挖掘
+
+#### 4.1.数据分析
 
 核心在于用户特定行为的深度分析。
 
@@ -69,7 +71,7 @@ title: BigData Business Value Thinking
 - 分类数据排名分析
 - 历史数据趋势分析
 
-#### 5. 数据挖掘&人工智能
+#### 4.2.机器学习&人工智能
 
 - 内容数据标签开发
 - 基于内容分类数据的行为预测分析
@@ -79,18 +81,10 @@ title: BigData Business Value Thinking
 	* 有效分类行为数据采集
 	* 基于分类数据的行为预测分析
 
-- [PostgreSQL用户行为分析](2017-05-30-postgresql-best-practice-note.md)
-- [用户分层与用户画像分析](2018-06-06-user-label-profile-note.md)
-
-	* 1.路由用户画像数据
-	* 2.Looklike 全流量用户视频数据
-	* 3.放大 全流量用户IMEI/MAC
-
 - 点击率建模(click modeling)
 - 分配规划(planning)
 
-
-#### 6. [大数据分析思路](2015-11-08-bigdata-analytics-thinking.md)
+### 4.3.[数据挖掘深度随想](2015-11-08-bigdata-analytics-thinking.md)
 
 
 ### II.数据架构设计维度
@@ -103,18 +97,14 @@ title: BigData Business Value Thinking
 
 #### 3. 大数据处理开发
 
-- [分布式数据分析技术](2017-04-04-olap-sqlonhadoop-research-note.md)
-- [大数据研究-SQL设计](2017-07-28-bigdata-research-sql-design.md)
-- [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
-- [Greenplum5最佳实践](2017-12-03-greenplum5-best-practice-note.md)
-- [实时流式数据计算](2017-07-27-bigdata-research-realtime-process.md)
-- [大数据研究-数据处理计算](2017-07-28-bigdata-research-bigdata-development.md)
-- [大数据研究-OLAP分析](2017-02-01-bigdata-research-olap-anlysis.md)
-- [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 - ETL数据处理&数据同步 -Kettle/Sqoop/DataX/gphdfs
+- [大数据处理-通用开发](2017-07-28-bigdata-research-bigdata-development.md)
+- [大数据处理-实时数据计算](2017-07-27-bigdata-research-realtime-process.md)
+- [大数据处理-流数据计算](2018-05-31-bigdata-research-dataprocess-stream-compute.md)
+- [大数据查询-SQL Anywhere应用](2017-07-28-bigdata-analytics-sql-anywhere-design.md)
 - 数据质量分析&数据监测
 
-#### 4. 深度数据挖掘&机器学习-Python/Tensorflow
+#### 4. 数据挖掘&机器学习-Python/Tensorflow
 
 - [机器学习&Python数据挖掘](2017-10-16-ml-data-everything-note.md)
 - [Python信息识别技术](2018-05-05-python-info-recognition-note.md)
@@ -200,7 +190,7 @@ title: BigData Business Value Thinking
 	- 用户访问行为采集
 	- 用户交易行为采集
 
-- [产品增长黑客-数据驱动](2017-09-30-data-usage-user-behavior-analysis-note.md)
+- [用户行为分析深度-数据驱动](2017-09-30-data-usage-user-behavior-analysis-note.md)
 - [区块链技术设计](2018-03-06-block-chain-design-note.md)
 
 2. 大数据挖掘与信息分析
@@ -253,6 +243,8 @@ _Ref:_
 **DMP->CDP<-CRM**
 
 ![crm dmp cdp data struct](_includes/dmp_cdp_crm_data_struct.jpg)
+
+[DMP&CDP架构设计](2019-03-19-data-product-cdp-code-design.md)
 
 
 5. 大数据技术解决方案

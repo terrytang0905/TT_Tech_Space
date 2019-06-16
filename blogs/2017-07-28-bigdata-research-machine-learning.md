@@ -177,7 +177,9 @@ Distributed word embedding:文字嵌入分布式算法.
 Distributed skipgram mixture: 多义文字嵌入分布式算法
 
 
+### Ref
 
+- [数据挖掘深度随想](2015-11-08-bigdata-analytics-thinking.md)
 
 
 

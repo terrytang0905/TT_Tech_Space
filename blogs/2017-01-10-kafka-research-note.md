@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, data process, develop]
+tags : [bigdata, dataprocess, develop]
 title: Kafka Message Queue Research Note
 ---
 

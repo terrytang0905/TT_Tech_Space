@@ -8,6 +8,8 @@ title: Greenplum Analysis Function Guide
 ## Greenplum 分析函数文档
 -------------------------------------------------------
 
+### I.窗口函数
+
 #### 1.窗口函数的语法
 
 窗口函数的基本结构：
@@ -192,3 +194,27 @@ select ename,
   union all (select * from t2)
   union all (select * from t3)
 ```
+
+### II.Greenplum MADlib机器学习
+
+GP MADlib是基于Greenplum数据库的机器学习组件。与SparkMLlib有相似设计。
+
+考虑测试MADlib机器学习组件 解决 业务问题
+
+1. 内容自动识别分类
+2. 用户行为画像分析
+3. 文本/图片/视频 自动分析识别 
+
+#### Greenplum MADlib 架构
+
+![greenplum_SQL_MADlib](_includes/greenplum_SQL_MADlib.png)
+
+![greenplum_MADlib_func](_includes/greenplum_MADlib_func.png)
+
+![greenplum_MADlib_Arch](_includes/greenplum_MADlib_Arch.png)
+
+![greenplum_MADlib_core](_includes/greenplum_MADlib_core.png)
+
+![greenplum_ApacheMADlib_SparkMLlib](_includes/greenplum_ApacheMADlib_SparkMLlib.png)
+
+![greenplum_Diff_MADlib_MLlib](_includes/greenplum_Diff_MADlib_MLlib.png)

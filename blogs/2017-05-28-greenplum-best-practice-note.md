@@ -487,7 +487,7 @@ gp_restore --gp-k=2005103112453 -d gpdb
 
 **7.4.1.Segment扩展**
 
-https://yq.aliyun.com/articles/177
+[参考资料](https://yq.aliyun.com/articles/177)
 
 **7.4.2.Segment异常恢复**
 

@@ -236,7 +236,7 @@ Greenplum_MADlib机器学习
 
 #### 3.1.客户画像与人群筛选
 
-- [用户标签画像设计](2018-06-06-user-label-profile-note.md)
+- [用户标签画像设计](2018-06-06-data-usage-user-label-profile-note.md)
 
 _客户精准获客模型_
 
@@ -366,3 +366,7 @@ Keras的预测函数与Scikit-Learn有所差别,Keras用model.predict()方法给
 
 如果从事深度学习项目，通常会需要 theano 。你可以用它这个 Python 库去定义、优化、高效评估包括多维数组在内的数学表达式
 
+
+### Ref
+
+- [Stanford Tenseflow](https://web.stanford.edu/class/cs20si/)

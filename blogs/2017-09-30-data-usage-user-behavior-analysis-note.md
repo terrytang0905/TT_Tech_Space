@@ -392,7 +392,7 @@ sunburst partition example
 5%/15%/20%/25%/35%
 
 
-#### 2.5.[用户标签开发](2018-06-06-user-label-profile-note.md)
+#### 2.5.用户标签画像分析(行为统计分析)
 
 
 #### 2.6.用户行为预测分析
@@ -424,64 +424,10 @@ sunburst partition example
 ### III.数据挖掘与运营
 
 
-#### 3.1.大数据分析平台
-
-数据接入/数据采集
-
-数据预处理(清理与转换)-ETL/Kettle
-
-	特征向量是什么? 例如TD-IDF中词频与权重
-	数据降维:主成分分析和变量聚类 
-
-数据仓库设计-针对数据指标
-
-	原始数据
-	数据仓库数据
-	应用聚合数据
-	维度数据
-
-分布式数据存储的选择
-
-为什么精准的数据样本非常重要? 好的食材是炒出好菜最基础也是最关键的一步
-因此数据采集与数据清洗尤为重要
+#### 3.1.数据挖掘-多维分析
 
 
-#### 大数据分析平台设计
-
-*  文件存储：Hadoop HDFS、Tachyon、GFS
-*  PAAS: Kubernetes
-*  资源管理：YARN、Mesos
-*  离线计算：Hadoop MapReduce、Spark
-*  流式、实时计算：Storm、Spark Streaming、Flink
-*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
-*  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
-*  分析型数据仓库: Greenplum,Vertica
-*  OLAP查询分析：Impala、Presto、Phoenix、SparkSQL、Drill、Kylin、Druid
-*  分布式协调服务：Zookeeper,etcd
-*  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
-*  数据挖掘、机器学习：Spark MLLib, PyTorch, Tenseflow
-*  日志收集：Flume、Scribe、Logstash、Kibana
-*  数据同步：Sqoop,DataX
-*  任务调度：Oozie,Azkaban
-
-- [数据平台架构设计](2018-08-18-data-platform-arch-planning-note.md)
-
-#### 3.2.多维分析与数据挖掘
-
-OLAP与数据挖掘&机器学习的差异
-
-	- 主要差异在于OLAP则用于数据探索,Data Mining用在根据假设进行推测
-	- Data Mining常能挖掘出超越归纳范围的关系,但OLAP仅能利用现有数据查询探索及可视化的报表
-
-数据建模与挖掘建模
-
-OLAP的应用场景
-
-- [BigData OLAP分析](2017-04-04-olap-sqlonhadoop-research-note.md)
-
-数据挖掘&机器学习的应用场景
-
-#### 3.3.规则与统计
+#### 3.2.规则与统计
 
 NLP=通信系统+隐含马尔可夫模型(Hidden Markov Models)
 
@@ -493,7 +439,7 @@ NLP=通信系统+隐含马尔可夫模型(Hidden Markov Models)
 为什么机器学习那么火?
 
 
-#### 3.4.数据挖掘算法与业务应用
+#### 3.3.数据挖掘算法与业务应用
 
 
 挖掘算法模型是规则,统计信息和模式的集合
@@ -597,31 +543,10 @@ FP-growth算法生成频繁项集相对Apriori生成频繁项集的主要好处�
 
 SparkMLlib: FPGrowth Library
 
-##### D.用户画像分析模型(关联分析+决策树)
+##### D.用户标签画像分析(关联分析+决策树)
 
-*识别规则*
+- [用户标签开发](2018-06-06-data-usage-user-label-profile-note.md)
 
-用户行为<->行为分类与特征关联<->用户特征属性可信度
-
-*用户行为偏好*
-
-通过样本习得<用户-类目-标签>关联度值, 用户购买汽车配件类目与用户有车标签的正关联度值
-
-用户与属性标签的可信度矩阵:reli=pre x cor
-
-*机器学习*
-
-- 建模样本选择
-
-	样本行为数据与样本准确标签数据作为输入,获取机器学习的初始决策树算法模型
-
-- 特征选择与数据预处理
-- PCA降维处理	
-- 确定模型及参数选择
-- 模型构建
-- 模型验证
-- 大样本验证
-- XGBoost in Python
 
 ##### E.社会网络分析(链接分析行为预测)
 
@@ -648,15 +573,12 @@ SparkMLlib: FPGrowth Library
 
 ##### 4.1.SQL/Python/R/Spark数据分析语言如何选择?
 
-##### 4.2.Spark高级数据分析应用
+##### 4.2.Python数据分析应用
 
-- [Spark大数据处理](2017-03-29-spark-bigdata-arch-note.md)
-
-##### 4.3.Python数据分析应用
-
-- [Python机器学习](2017-10-16-ml-data-everything-note.md)
+##### 4.3.大数据与机器学习
 
 ##### 4.4.Tenseflow机器学习工具
 
-- [Stanford Tenseflow](https://web.stanford.edu/class/cs20si/)
+
+- [机器学习应用](2017-10-16-ml-data-everything-note.md)
 

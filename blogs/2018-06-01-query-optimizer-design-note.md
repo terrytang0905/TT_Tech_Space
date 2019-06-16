@@ -755,5 +755,7 @@ _Ref:_
 
 
 
+### Ref
 
-
+- [Antlr语义解析器](http://www.antlr.org/)
+- [Join Optimization in Hive](https://www.facebook.com/notes/facebook-engineering/join-optimization-in-apache-hive/470667928919/)

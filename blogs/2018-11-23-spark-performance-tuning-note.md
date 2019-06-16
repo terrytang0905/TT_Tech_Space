@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,develop,realtime]
-title: Spark Bigdata Performance Tuning Note
+title: Data Compute - Spark Performance Tuning Note
 ---
 
-## Spark Bigdata Performance Tuning Note
+## 大数据计算-Spark Performance Tuning Note
 ------------------------------------------------------------
 
 ### Spark调优

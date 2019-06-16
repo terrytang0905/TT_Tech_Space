@@ -10,16 +10,20 @@ title: Big Data Research Note - DataProcess Design
 
 ### 大数据处理框架
 
-HDFS - 分布式文件系统
-MapReduce - 分布式计算框架
-Yarn - 分布式集群资源调度框架
-
-框架在架构设计上遵循一个重要的设计原则叫“依赖倒转原则”，IOC依赖倒转原则是高层模块不能依赖低层模块，它们应该共同依赖一个抽象，这个抽象由高层模块定义，由低层模块实现。
+* 无边界数据与有边界数据
+* TimeDomain(EventTime/ProcessingTime)
+* 批处理与流处理
 
 
 ### BatchProcess-ETL
 
 ### BatchProcess-Hadoop MapReduce
+
+HDFS - 分布式文件系统
+MapReduce - 分布式计算框架
+Yarn - 分布式集群资源调度框架
+
+框架在架构设计上遵循一个重要的设计原则叫“依赖倒转原则”，IOC依赖倒转原则是高层模块不能依赖低层模块，它们应该共同依赖一个抽象，这个抽象由高层模块定义，由低层模块实现。
 
 ![MapReduce](_includes/mapreduce.jpg)
 
@@ -42,6 +46,8 @@ Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体�
 
 - [Spark大数据计算引擎](2017-03-29-spark-bigdata-arch-note.md)
 
+- [Spark性能优化](2018-11-23-spark-performance-tuning-note.md)
+
 ### Streaming Compute 
 
 - [实时计算数据框架](2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
@@ -51,7 +57,7 @@ Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体�
 
 ### Next Generation DataProcess
 
-- ElasticSearch
+- [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 - ClickHouse
 
 

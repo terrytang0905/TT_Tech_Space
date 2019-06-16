@@ -52,7 +52,7 @@ Apache Beam主要由Beam SDK和Beam Runner组成，Beam SDK定义了开发分布
 需要注意的是，虽然Apache Beam社区非常希望所有的Beam执行引擎都能够支持Beam SDK定义的功能全集，但是在实际实现中可能并不一定。例如，基于MapReduce的Runner显然很难实现和流处理相关的功能特性。目前Google DataFlow Cloud是对Beam SDK功能集支持最全面的执行引擎，在开源执行引擎中，支持最全面的则是Apache Flink。
 
 
-https://beam.apache.org/
+- [Beam Note](https://beam.apache.org/)
 
 
 
@@ -72,7 +72,6 @@ Spanner数据目录结构 - 虚拟桶
 
 ### X.Ref
 
-- [分布式数据架构](2017-01-22-bigdata-research-database-architect.md)
 - [Bigtable: A Distributed Storage System for Structured Data]
 - [Dynamo: Amazon’s Highly Available Key-value Store]
 - [Dremel: Interactive Analysis of Web-Scale Datasets]

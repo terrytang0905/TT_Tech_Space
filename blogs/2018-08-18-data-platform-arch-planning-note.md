@@ -50,6 +50,44 @@ OLAP与数据可视化解决方案
 
 #### 数据平台详细架构设计
 
+数据接入/数据采集
+
+数据预处理(清理与转换)-ETL/Kettle
+
+	特征向量是什么? 例如TD-IDF中词频与权重
+	数据降维:主成分分析和变量聚类 
+
+为什么精准的数据样本非常重要? 好的食材是炒出好菜最基础也是最关键的一步
+因此数据采集与数据清洗尤为重要
+
+数据仓库设计-针对数据指标
+
+	原始数据
+	数据仓库数据
+	应用聚合数据
+	维度数据
+
+分布式数据存储的选择
+
+
+#### 数据平台技术选型
+
+*  文件存储：Hadoop HDFS、Tachyon、GFS
+*  PAAS: Kubernetes
+*  资源管理：YARN、Mesos
+*  离线计算：Hadoop MapReduce、Spark
+*  流式、实时计算：Storm、Spark Streaming、Flink
+*  K-V、NOSQL数据库：HBase、Redis、MongoDB、Cassandra
+*  消息系统：Kafka、StormMQ、ZeroMQ、RabbitMQ
+*  分析型数据仓库: Greenplum,Vertica
+*  OLAP查询分析：Impala、Presto、Phoenix、SparkSQL、Drill、Kylin、Druid
+*  分布式协调服务：Zookeeper,etcd
+*  集群管理与监控：Ambari、Ganglia、Nagios、Cloudera Manager
+*  数据挖掘、机器学习：Spark MLLib, PyTorch, Tenseflow
+*  日志收集：Flume、Scribe、Logstash、Kibana
+*  数据同步：Sqoop,DataX
+*  任务调度：Oozie,Azkaban
+
 HDFS/GFS
 
 Greenplum/ElasticSearch/HBase/Redis/PostgreSQL
@@ -136,3 +174,5 @@ ROI模型(投入产出比)
 边缘计算
 
 ### 7.数据平台未来十年
+
+未来将是属于**基于云计算的数据平台**
