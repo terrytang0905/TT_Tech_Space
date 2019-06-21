@@ -428,7 +428,7 @@ _垃圾回收GC_
 
 实际上备份是透明不可见的(仅仅用于恢复)、只读(增加并发量)、或者读写(增加网络分区下的可用性)，选择哪种方式需要从系统的一致性出发做出权衡。这是CAP(Consistency、Availability、Partition-Tolerance)理论的简单应用,当然CAP理论远非我们想象中的那么简单。
 
-	Tips:网络分区(network partitions)指某个网络设备出错导致网络分离，比如某个数据库挂掉。
+	Tips:网络分区(network partitions)指在某个网络环境内设备间无法通信,导致网络间通信分离。后果比如某个分布式数据库挂掉
 
 ![replication](_includes/replication.jpg)
 
@@ -495,7 +495,7 @@ Consensus算法实际是在分布式系统复制数据时,追求大多数更新�
 一致性，可用性和分区容错性这三个属性最多只能选择两种属性保留.
 
 
-		Tips:大部分情况下,系统设计都会保留 P 属性，而在 C 和 A 中二选一
+		Tips:大部分情况下,系统设计都会保留 P 属性，而在 C 和 A 中二选一.
 
 #### 2.6.RAID IO并行读写
 
