@@ -63,7 +63,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### IV.DataCompute & DataAnalytics
 
-- *[大数据查询-分布式计算引擎CodeDesign-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-18-bigdata-analytics-all-compute-engine-code-design.md)
+- *[大数据代码设计-CDP数据产品CodeDesign](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
+- *[大数据代码设计-分布式计算引擎CodeDesign](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
 - *[大数据查询-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
 - *[通用查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-query-optimizer-design-note.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
