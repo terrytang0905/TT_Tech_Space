@@ -332,11 +332,13 @@ DataStax维护
 
 *1.MongoDB数据库*
 
-- [MongoDB相关](2015-10-11-mongodb3.0-major-release.md)
+- [MongoDB相关](2015-10-11-mongodb3-major-release.md)
 
 *2.Azure DocumentDB数据库(Microsoft)*
 
-#### MongoDB&DocumentDB对比与DocumentDB的某些优势。
+#### MongoDB&DocumentDB对比
+
+DocumentDB的某些优势
 
 - PaaS：DocumentDB是直接以PaaS提供的。这样带来的好处是配置、管理、维护都更为简单。MongoDB则需要自行部署到VM中，需要花费成本运维。由于PaaS有诸多好处，作者都建议即使要使用MongoDB都最好使用第三方搭建好的现成PaaS。
 - 伸缩能力：由于DocumentDB是PaaS驱动的架构，所以其处理水平扩展的方式和MongoDB完全不同。DocumentDB分区后无需管理复制，MongoDB还需同时处理复制。这点也是得利于DocumentDB后台依赖于Azure的伸缩能力。
@@ -367,6 +369,7 @@ DataStax维护
 - 支持多并发查询分析
 - 不适用于复杂的JOIN查询等关联分析
 
+- [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
 
 #### F.Like-Mesa
 
