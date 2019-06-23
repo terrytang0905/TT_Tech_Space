@@ -199,6 +199,9 @@ title: Big Data Research Note - Database Architect
 
 *3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)*
 
+
+#### A+.列式存储MPP
+
 *4.[Vertica数据库结构]()*
 
 *5.Redshift*
@@ -209,9 +212,23 @@ title: Big Data Research Note - Database Architect
 	- 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
 	- 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
-*6.OceanBase数据库特性*
+*6.ClickHouse*
 
-OceanBase底层架构还未可知。LSM/ACID等特征
+	- 列式数据库
+	- 数据压缩
+	- 数据的磁盘存储
+	- 多核并行处理
+	- 多服务器分布式处理
+	- 支持基础SQL
+	- 向量引擎
+	- 实时的数据更新
+	- 索引
+	- 适合在线查询
+	- 支持近似计算
+	- 支持数据复制和数据完整性
+	- 没有完整的事物支持
+	- 缺少高频率，低延迟的修改或删除已存在数据的能力
+	- 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
 
 
 
@@ -303,12 +320,16 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 ![hawq_arch](_includes/hawq_architecture_components.png)
 
-*2.Google BigQuery(Dremel)*
+*2.Google Dremel(BigQuery)*
 
-*3.Huawei FusionInsight*
+*3.OceanBase数据库特性*
+
+OceanBase底层架构还未可知。LSM/ACID等特征
+
+*4.Huawei FusionInsight*
 
 
-#### C.BigTable数据库架构
+#### C.BigTable-KV数据库架构
 
 *基础特征:*
 
@@ -328,7 +349,17 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 DataStax维护
 
-#### C+.Document文档数据库
+#### C+.InMemory-KV数据库
+
+*1.Redis*
+
+*2.Couchbase*
+
+*3.Ignite*
+
+*4.TiKV*
+
+#### D.Document文档数据库
 
 *1.MongoDB数据库*
 
@@ -353,17 +384,9 @@ DocumentDB的某些优势
 - 可编程性：两者都支持JavaScript，DocumentDB的.NET SDK对LINQ支持更好，不过对debug支持不好（主要没有本地模拟器）。
 - 其他不同：DocumentDB对聚合操作暂时有一定限制，无服务端排序，工具还不够丰富。MongoDB情况要稍好些。
 
-#### D.In-Memory+KV数据库
+#### E.OLTP数据库
 
-*1.Redis*
-
-*2.Couchbase*
-
-*3.Ignite*
-
-*4.TiKV*
-
-#### E.Search搜索数据存储
+#### F.Search搜索数据存储
 
 - 适合海量数据秒级查询
 - 支持多并发查询分析
@@ -371,7 +394,7 @@ DocumentDB的某些优势
 
 - [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
 
-#### F.Like-Mesa
+#### G.Like-Mesa
 
 *1.Mesa*
 
