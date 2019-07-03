@@ -289,6 +289,8 @@ _yarn资源分配算法_
 
 Yarn资源请求处理和资源分配原理解析
 
+通过Yarn资源分配算法分发调用不同执行引擎(Hive/SparkSQL/Presto)
+
 _运行时资源调整_
 
 对于一个MR Job,reduce task的数量一直是需要人为估算的一个麻烦事,基于MR的Hive也只是根据数据源大小粗略的做估计,不考虑具体的Job逻辑。<br/>

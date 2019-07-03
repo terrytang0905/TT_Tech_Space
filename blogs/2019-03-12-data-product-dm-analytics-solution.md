@@ -351,6 +351,8 @@ _Ref:_
 
 - [2018-AnalyticDB](https://yq.aliyun.com/articles/685491?spm=a2c4e.11153940.blogcont576159.16.14932338FEZZas)
 
+- PolarDB - 阿里
+
 #### Alibaba Cloud - DRDS(OLTP)
 
 - 分布式SQL引擎
@@ -419,6 +421,8 @@ VolumeScanner、 DirectoryScanner and DiskChecker
 
 #### Y.技术研究
 
+**Microsoft Azure**
+
  Dryad 有向无环图
  DryadLINQ
 
@@ -438,25 +442,16 @@ SCOPE
 
 
 
-Amazon
+**Amazon AWS**
 
-DynamoDB
+	DynamoDB
+	Elastic MapReduce
+	Redshift/Snowflake 云端弹性数据仓库
+	Aurora论文
+	Amazon Athena - Presto
+	AWS Glue - ETL
 
-Elastic MapReduce
 
-Redshift/Snowflake 云端弹性数据仓库
-
-Aurora论文
-
-Athena - Presto
-
-Glue
-
-JStorm/Blink
-
-PolarDB - 阿里
-
- 
 
 #### Z.技术趋势
 

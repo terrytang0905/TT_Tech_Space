@@ -409,6 +409,8 @@ logTrace("Rate estimation skipped") None
 	- LOW: 0.10 < Ratio <= 0.5，表示有待观察；
 	- HIGH: 0.5 < Ratio <= 1，表示要处理了。
 
+### IV.Aliyun Blink
+
 
 ### x.Ref
 
