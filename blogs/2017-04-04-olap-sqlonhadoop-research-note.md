@@ -52,7 +52,7 @@ title: Big Data OLAP Note - SQL on Hadoop
 
 执行在HBase之上的SQL引擎
 
-#### 5.Dremel
+#### 5.Dremel(Google BigQuery)
 
 ![dremel_page](_includes/dremel_page.jpg)
 
@@ -280,7 +280,33 @@ _IO优化_
 
 	Comments: HDFS文件系统的缺陷可能是开源SQLonHadoop的性能瓶颈
 
-#### 4.文件存储格式
+
+#### 5.集群资源优化
+
+YARN资源管理优化
+
+_yarn资源分配算法_
+
+Yarn资源请求处理和资源分配原理解析
+
+_运行时资源调整_
+
+对于一个MR Job,reduce task的数量一直是需要人为估算的一个麻烦事,基于MR的Hive也只是根据数据源大小粗略的做估计,不考虑具体的Job逻辑。<br/>
+但是在之后的框架中考虑到了这个情况,增加了运行时调整资源分配的功能。Tez中引入了vertex manager,可以根据运行时收集到的数据智能的判断reduce动作需要的task。类似的功能在TAJO中也有提到,叫progressive query optimization,而且TAJO不仅能做到动态调整task数量,还能动态调整join顺序。
+
+_资源集成_
+
+在Hadoop已经进入2.x的时代,所有想要得到广泛应用的SQL on Hadoop系统势必要能与YARN进行集成。虽然这是一个有利于资源合理利用的好事,但是由于加入了YARN这一层,却给系统的性能带来了一定的障碍,因为启动AppMaster和申请container也会占用不少时间,尤其是前者,而且container的供应如果时断时续,那么会极大的影响时效性。在Tez和Impala中对这些问题给出了相应的解决办法：
+
+	* AppMaster启动延迟的问题,采取long lived app master,AppMaster启动后长期驻守,而非像是MR那样one AM per Job。具体实现时,可以给fair scheduler或capacity scheduler配置的每个队列配上一个AM池,有一定量的AM为提交给这个队列的任务服务。
+	* container供应的问题,在Tez中采取了container复用的方式,有点像jvm复用,即container用完以后不马上释放,等一段时间,实在是没合适的task来接班了再释放,这样不仅减少container断供的可能,而且可以把上一个task留下的结果cache住给下一个task复用,比如做map join；
+
+Impala则采取比较激进的方式,一次性等所有的container分配到位了才开始执行查询,这种方式也能让它的流水线式的计算不至于阻塞。
+
+_资源管理监控_
+
+
+#### 6.文件存储格式
 
 对于分析类型的workload来说,最好的存储格式自然是列存储,这已经在关系数据库时代得到了证明。<br/>
 目前hadoop生态中有两大列存储格式,一个是由Hortonworks和Microsoft开发的ORCFile,另一个是由Cloudera和Twitter开发的Parquet。
@@ -305,7 +331,7 @@ Parquet的设计原理跟ORC类似,不过它有两个特点：
 	* 通用性:相比ORCFile专门给Hive使用而言,Parquet不仅仅是给Impala使用,还可以给其他查询工具使用,如Hive、Pig,进一步还能对接avro/thrift/pb等序列化格式。
 	* 基于Dremel思想的嵌套格式存储:关系数据库设计模式中反对存储复杂格式(违反第一范式),但是现在的大数据计算不仅出现了这种需求(半结构化数据),也能够高效的实现存储和查询效率,在语法上也有相应的支持(各种UDF,Hive的lateral view等)。
 
-Google Dremel就在实现层面做出了范例,Parquet则完全仿照了Dremel。<br/>
+**Google Dremel**就在实现层面做出了范例,Parquet则完全仿照了Dremel。<br/>
 对嵌套格式做列存储的难点在于,存储时需要标记某个数据对应于哪一个存储结构,或者说是哪条记录,所以需要用数据清楚的进行标记。<br/>
 在Dremel中提出用definition level和repetition level来进行标记。definition level指的是,这条记录在嵌套结构中所处于第几层,而repetition level指的是,这条记录相对上一条记录,在第几层重复。
 
@@ -332,23 +358,8 @@ _CarbonData_
 
 支持二级索引的开源文件格式,优势在查询,数据压缩比率不高
 
-#### 5.资源控制
 
-_运行时资源调整_
-
-对于一个MR Job,reduce task的数量一直是需要人为估算的一个麻烦事,基于MR的Hive也只是根据数据源大小粗略的做估计,不考虑具体的Job逻辑。<br/>
-但是在之后的框架中考虑到了这个情况,增加了运行时调整资源分配的功能。Tez中引入了vertex manager,可以根据运行时收集到的数据智能的判断reduce动作需要的task。类似的功能在TAJO中也有提到,叫progressive query optimization,而且TAJO不仅能做到动态调整task数量,还能动态调整join顺序。
-
-_资源集成_
-
-在Hadoop已经进入2.x的时代,所有想要得到广泛应用的SQL on Hadoop系统势必要能与YARN进行集成。虽然这是一个有利于资源合理利用的好事,但是由于加入了YARN这一层,却给系统的性能带来了一定的障碍,因为启动AppMaster和申请container也会占用不少时间,尤其是前者,而且container的供应如果时断时续,那么会极大的影响时效性。在Tez和Impala中对这些问题给出了相应的解决办法：
-
-	* AppMaster启动延迟的问题,采取long lived app master,AppMaster启动后长期驻守,而非像是MR那样one AM per Job。具体实现时,可以给fair scheduler或capacity scheduler配置的每个队列配上一个AM池,有一定量的AM为提交给这个队列的任务服务。
-	* container供应的问题,在Tez中采取了container复用的方式,有点像jvm复用,即container用完以后不马上释放,等一段时间,实在是没合适的task来接班了再释放,这样不仅减少container断供的可能,而且可以把上一个task留下的结果cache住给下一个task复用,比如做map join；
-
-Impala则采取比较激进的方式,一次性等所有的container分配到位了才开始执行查询,这种方式也能让它的流水线式的计算不至于阻塞。
-
-#### 6.其他
+#### 7.其他
 
 到这里为止,已经从上到下顺了一遍各个层面用到的技术,当然SQL on Hadoop本身就相当复杂,涉及到方方面面,时间精力有限不可能一一去琢磨。比如其他一些具有技术复杂度的功能有：
 
@@ -356,10 +367,12 @@ Impala则采取比较激进的方式,一次性等所有的container分配到位�
 	- 近似查询:count distinct(基数估计)一直是sql性能杀手之一,如果能接受一定误差的话可以采用近似算法。Impala中已经实现了近似算法(ndv),Presto则是请blinkDB合作完成。两者都是采用了HyperLogLog Counting(Kylin也采用了该技术)。当然,不仅仅是count distinct可以使用近似算法,其他的如取中位数之类的也可以用。
 	
 
-#### 7.进一步
+#### 8.进一步
 
 尽管现在相关系统已经很多,也经过了几年的发展,但是目前各家系统仍然在不断的进行完善,比如：
 
 * 增加分析函数,复杂数据类型,SQL语法集的扩展。
 * 对于已经成形的技术也在不断的改进,如列存储还可以增加更多的encoding方式。
 * 甚至对于像CBO这样的领域,开源界拿出来的东西还算是刚刚起步,相比HAWQ中的[ORCA](_includes/Orca_arch.png)这种商业系统提供的优化器还差的很多。
+
+

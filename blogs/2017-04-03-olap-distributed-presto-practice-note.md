@@ -181,6 +181,10 @@ _SubPlan有几个重要的属性_
 	* SubPlan3节点计算完成后通知Coordinator结束查询,并将数据发送给Coordinator
 
 
+##### 4.4.Presto执行异常
+
+单节点Down导致整个SQL执行计算结果失败
+
 #### 5.Presto CBOptimizer(Coordinator组件之一)
 
 - support for statistics stored in Hive Metastore(Hive Metastore统计优化)
@@ -216,6 +220,16 @@ _2.presto-main_
 服务器端的main方法入口为
 
 	com.facebook.presto.server.PrestoServer.java
+
+presto-base-jdbc 关系型数据库连接器的公共模块 
+
+presto-mysql mysql连接器用到了presto-base-jdbc 
+
+presto-jdbc jdbc客户端/另一种是cli 
+
+presto-hive-* hive连接器相关代码 
+
+presto-orc hive连接器读取hdfs的orc文件，
 
 
 #### Ref

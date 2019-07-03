@@ -212,7 +212,9 @@ title: Big Data Research Note - Database Architect
 	- 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
 	- 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
-*6.ClickHouse*
+*6.Google BigQuery(Dremel)*
+
+*7.ClickHouse*
 
 	- 列式数据库
 	- 数据压缩
@@ -230,6 +232,9 @@ title: Big Data Research Note - Database Architect
 	- 缺少高频率，低延迟的修改或删除已存在数据的能力
 	- 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
 
+*8.OceanBase数据库特性*
+
+OceanBase底层架构还未可知。LSM/ACID等特征
 
 
 #### B.Hadoop-MapReduce批处理
@@ -320,13 +325,8 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 ![hawq_arch](_includes/hawq_architecture_components.png)
 
-*2.Google Dremel(BigQuery)*
 
-*3.OceanBase数据库特性*
-
-OceanBase底层架构还未可知。LSM/ACID等特征
-
-*4.Huawei FusionInsight*
+*2.Huawei FusionInsight*
 
 
 #### C.BigTable-KV数据库架构
