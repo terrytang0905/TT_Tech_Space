@@ -30,7 +30,6 @@ PrestoDB特征:
 
 ![Presto架构](_includes/Presto架构.png)
 
-
 **Presto查询引擎是一个Master-Slave的架构,由下面三部分组成:**
 
 - 1.一个Coordinator节点(Master)
@@ -50,7 +49,11 @@ PrestoDB特征:
 
 ![PrestoArchPipeline](_includes/PrestoArchPipeline.png)
 
+
+
 #### 2.Presto特性分析
+
+#### 2.1.Presto技术特性
 
 **源数据的并行读取**
 
@@ -89,7 +92,7 @@ Presto团队在使用hotspot java7时发现了一个JIT的BUG，当代码缓存�
 	Presto团队使用了一个比较Hack的方法去解决这个问题，增加一个线程在代码缓存达到70%以上时进行显式GC，使得已经加载的Class从perm中移除，避免JIT无法正常工作的BUG。
 
 
-#### 3.Presto存储插件
+#### 2.2.Presto存储插件
 
 - Presto设计了一个简单的数据存储的抽象层,来满足在不同数据存储系统之上都可以使用SQL进行查询。
 - 存储插件(连接器connector)只需要提供实现以下操作的接口,包括对元数据(metadata)的提取,获得数据存储的位置,获取数据本身的操作等。
@@ -106,9 +109,11 @@ Plugin API:
 - Data Stream API(Worker)
 
 
-#### 4.Presto执行过程
+#### 3.Presto执行分析
 
-##### 4.1. 整体查询流程:
+![PrestoDBQueryCore](_includes/prestodb_query_core.png)
+
+#### 3.1. 整体查询流程:
 
 	Client使用HTTP协议发送一个query请求。 
 	通过Discovery Server发现可用的Server。 
@@ -122,7 +127,7 @@ Plugin API:
 ![PrestoSQL查询](_includes/prestodb_sql_query.png)
 
 
-##### 4.2. SQL执行流程:
+#### 3.2. SQL执行流程:
 
 **Client -> Coordinator -> 3Worker -> FinalWorker -> Client**
 
@@ -140,7 +145,7 @@ Plugin API:
 select c1.rank, count(*) from dim.city c1 join dim.city c2 on c1.id = c2.id where c1.id > 10 group by c1.rank limit 10;
 ```
 
-##### 4.3. 逻辑执行流程:
+#### 3.3. 逻辑执行流程:
 
 逻辑执行过程示意图如下:
 
@@ -181,11 +186,11 @@ _SubPlan有几个重要的属性_
 	* SubPlan3节点计算完成后通知Coordinator结束查询,并将数据发送给Coordinator
 
 
-##### 4.4.Presto执行异常
+#### 3.4.Presto执行异常
 
 单节点Down导致整个SQL执行计算结果失败
 
-#### 5.Presto CBOptimizer(Coordinator组件之一)
+#### 3.5.Presto CBOptimizer(Coordinator组件之一)
 
 - support for statistics stored in Hive Metastore(Hive Metastore统计优化)
 - join reordering based on selectivity estimates and cost(join重排序)
@@ -205,7 +210,12 @@ Presto SQL优化:
 	* 字段名引用
 	* ORC格式优化
 
-#### 6.PrestoDB源码分析
+
+#### 4.PrestoDB源码分析
+
+
+![PrestoDBModule](_includes/prestodb_modules.png)
+
 
 client端与server端的启动分别从这两个main中启动
 
