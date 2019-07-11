@@ -76,22 +76,23 @@ HBO:在大流量、高并发场景中，每天都需要处理大量相似的查�
 
 
 
-#### 3.MaxCompute数据存储
+#### 3.MaxCompute数据架构
 
+#### 3.1.数据架构设计
+
+#### 3.2.核心计算引擎
+
+#### 3.3.数据存储结构
 
 ![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
 
-#### AliORC
+ AliORC
 
 列式存储
 支持嵌套树型数据结构
 
 
-
-
-#### MaxCompute应用特点
-
-#### MaxCompute性能缺陷
+#### 3.5.MaxCompute性能缺陷
 
 
 
