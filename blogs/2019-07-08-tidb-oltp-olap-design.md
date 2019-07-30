@@ -8,6 +8,9 @@ title: Database Research Note - TiDB
 ## 数据库研究 - TiDB
 --------------------------------------------------------
 
+### HTAP数据库
+
+Hybrid Transaction/Analytical Processing
 
 ### 分布式数据库TiDB是如何结合OLTP和OLAP的
 

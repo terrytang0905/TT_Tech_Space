@@ -5,10 +5,12 @@ tags : [bigdata, product, database]
 title: Data Product Note - Database Management for Analytics
 ---
 
-## 大数据产品-分析型大数据产品研究
+## 大数据产品-大数据计算服务
 --------------------------------------------------------
 
-分析型大数据解决方案 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
+大数据计算解决方案 
+
+主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
 
 ### 核心能力定义
 
@@ -38,7 +40,7 @@ title: Data Product Note - Database Management for Analytics
 	This use case concerns new data values, variants of data form and new relationships. It supports search, graph and other capabilities for discovering new information models.
 
 
-#### 1.Google BigQuery
+#### 1.Google BigQuery计算服务
 
 基于Dremel的GoogleBigQuery
 
@@ -377,7 +379,7 @@ GBase 8a
 
 智能数据清洗与识别补充缺失值
 
-客户ID-Merge算法/关系图谱 - 图计算应用
+客户ID-Merge算法/关系图谱 - Graph图计算应用
 
 例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
 
@@ -447,7 +449,7 @@ SCOPE
 	DynamoDB
 	Elastic MapReduce
 	Redshift/Snowflake 云端弹性数据仓库
-	Aurora论文
+	Aurora Serverless(论文)
 	Amazon Athena - Presto
 	AWS Glue - ETL
 

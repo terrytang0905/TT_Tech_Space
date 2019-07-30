@@ -309,9 +309,11 @@ spark.sql("SELECT * FROM global_temp.people").show();
 * StreamingTab
 * BlockRDD
 
-##### 3.3.容错性分析
+##### 3.3.Structured Streaming
 
 ##### 3.4.SparkStreaming vs Storm
+
+SparkStreaming核心是准实时数据处理
 
 - Akka作为Spark集群间通信框架
 - Storm依赖于ZooKeeper来维护整个集群,集群之间的消息通信采用ZeroMQ/Netty作为消息发送组件
@@ -319,6 +321,8 @@ spark.sql("SELECT * FROM global_temp.people").show();
 - Storm的TridentTopology与SparkStreaming的DStream
 
 ##### 3.5.SparkStreaming vs Flink
+
+##### 3.6.容错性分析
 
 
 #### 4. MLlib
