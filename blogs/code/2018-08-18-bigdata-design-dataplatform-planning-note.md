@@ -2,19 +2,22 @@
 layout: post
 category : bigdata
 tags : [bigdata, framework, design]
-title: Data Platform Arch Planning Note
+title: BigDataDesign - Data Platform Arch Planning Note
 ---
 
-## 数据平台架构规划落地
+## 大数据设计-数据平台架构规划落地
 ---------------------------------------------------
 
 ### 1.数据平台架构设计
 
 基础架构
 
-DataLake&数据仓库
+数据中台 
 
-数据中台 - 计算与分析服务
+    - 计算与分析服务
+    - DataLake&数据仓库
+
+业务中台
 
 业务前台
 

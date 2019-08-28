@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,olap,architect]
-title: Big Data Code Design - BigData Compute Engine Code Design
+tags : [bigdata, framework, design]
+title: BigDataDesign - Federated Compute Engine Code Design
 ---
 
-## 大数据代码设计-分布式查询计算引擎Code设计
+## 大数据设计-分布式联合查询计算引擎
 -----------------------------------------------------------
 
 ### I.需求分析与设计

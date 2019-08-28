@@ -2,7 +2,7 @@
 layout: post
 category : cloud
 tags : [bigdata, product, cloud]
-title: Data Product Note - Aliyun MaxCompute
+title: Data Product Note - Alibaba Cloud MaxCompute
 ---
 
 ## 大数据产品-Aliyun MaxCompute
@@ -21,7 +21,7 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
     - 大规模计算存储(海量离线计算)
     MaxCompute 适用于 100GB 以上规模的存储及计算需求，最大可达 EB 级别。
     - 多种计算模型 - NewSQL
-    MaxCompute 支持 SQL、MapReduce、Graph 等计算类型及 MPI 迭代类算法。
+    MaxCompute 支持 SQL、MapReduce、Spark、Flink、Graph 等计算类型及 MPI 迭代类算法。
     - 强数据安全
     MaxCompute已稳定支撑阿里全部离线分析业务7年以上，提供多层沙箱防护及监控。
     - 低成本

@@ -1,8 +1,8 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, framework, develop]
-title: Big Data Research Note - Google Database Group
+tags : [bigdata, tech, solution]
+title: Big Data Research Note - Google Solution
 ---
 
 ## 大数据研究-Google大数据解决方案

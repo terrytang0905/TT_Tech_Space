@@ -5,7 +5,7 @@ tags : [bigdata, framework, develop]
 title: Big Data Research Note - DataProcess(Stream Compute)
 ---
 
-## 大数据研究-数据处理-流计算架构
+## 大数据研究-数据处理-实时计算架构
 ---------------------------------------------------
 
 ### I.Apache Flink
@@ -409,7 +409,7 @@ logTrace("Rate estimation skipped") None
 	- LOW: 0.10 < Ratio <= 0.5，表示有待观察；
 	- HIGH: 0.5 < Ratio <= 1，表示要处理了。
 
-### IV.Aliyun Blink
+### IV.Alibaba Cloud RealTimeCompute - Flink
 
 
 ### x.Ref

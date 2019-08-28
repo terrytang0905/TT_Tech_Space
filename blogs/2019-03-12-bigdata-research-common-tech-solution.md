@@ -1,14 +1,14 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, product, database]
-title: Data Product Note - Database Management for Analytics
+tags : [bigdata, tech, solution]
+title: Big Data Research Note - Common Solution
 ---
 
-## 大数据产品-大数据计算服务
+## 大数据研究-通用大数据解决方案
 --------------------------------------------------------
 
-大数据计算解决方案 
+大数据通用解决方案 
 
 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
 

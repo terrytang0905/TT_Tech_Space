@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,product,architect]
-title: Big Data Code Design - New DMP Code Design
+tags : [bigdata, framework, design]
+title: BigDataDesign - New Core Data MiddleTable Arch
 ---
 
-## 大数据代码设计-NextGenerationXDMP Code架构设计
+## 大数据设计-数据中台架构(NextGenerationDataTable)
 -----------------------------------------------------------
 
 ### I.需求分析与设计
