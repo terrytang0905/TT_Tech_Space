@@ -12,7 +12,7 @@ title: Big Data Research Note - DataProcess(Realtime Compute Architect)
 
 - 数据库+离线计算结果=全量数据查询(Lambda/Kappa)
 - Kafka消息队列+流式计算引擎(SparkStreaming)
-
+- Flink实时计算引擎
 
 #### I.Lambda Architect
 
@@ -146,9 +146,9 @@ Kappa架构的核心思想包括以下三点：
 ![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 
 
-#### III.Kafka+SparkStreaming
+#### III.实时数据计算技术
 
-Spark Streaming是将实时数据流按时间段分段后,当作小的批处理数据去计算
 
+- [实时计算技术分析](2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
 
 

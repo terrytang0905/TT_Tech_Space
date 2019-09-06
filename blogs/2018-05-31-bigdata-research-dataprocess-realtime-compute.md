@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, framework, develop]
-title: Big Data Research Note - DataProcess(Stream Compute)
+tags : [bigdata,realtime,develop]
+title: Big Data Research Note - DataProcess(RealTime Compute Research)
 ---
 
-## 大数据研究-数据处理-实时计算架构
+## 大数据研究-数据处理-实时计算技术分析
 ---------------------------------------------------
 
 ### I.Apache Flink
