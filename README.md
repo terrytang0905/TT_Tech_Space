@@ -41,8 +41,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - *[大数据研究-Google大数据管理-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-database.md)
 - *[区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
-- *[大数据研究-数据处理-流数据计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-stream-compute.md)
-- *[大数据研究-数据处理-实时数据计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
+- *[大数据研究-数据处理-实时数据计算](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
+- *[大数据研究-数据处理-实时计算架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
 - *[大数据研究-数据处理-Kafka分布式MQ](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-10-bigdata-research-dataprocess-kafka-note.md)
 - *[大数据研究-数据处理-通用开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-dataprocess-development.md)
 - *[大数据研究-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-22-bigdata-research-database-architect.md)
