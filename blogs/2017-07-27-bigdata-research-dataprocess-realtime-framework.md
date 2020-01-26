@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,realtime,develop]
-title: Big Data Research Note - DataProcess(Realtime Compute Architect)
+title: Big Data Research Note - DataProcess(Multiple Compute Architect)
 ---
 
-## 大数据研究-数据处理-实时计算架构
+## 大数据研究-数据处理-混合计算架构
 -----------------------------------------------------------
 
 ### 实时计算输出

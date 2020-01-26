@@ -5,7 +5,7 @@ tags : [bigdata,realtime,develop]
 title: Big Data Research Note - DataProcess(RealTime Compute Research)
 ---
 
-## 大数据研究-数据处理-实时计算技术分析
+## 大数据研究-数据处理-实时计算引擎分析
 ---------------------------------------------------
 
 ### Streaming System
