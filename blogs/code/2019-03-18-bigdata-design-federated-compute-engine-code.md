@@ -36,14 +36,15 @@ _3.相关技术文档_
 
 - [查询优化器设计](2018-06-01-query-optimizer-design-note.md)
 
+
 ### II.Federated Query - Data Lake Analytics
 
 使用标准SQL即可分析与集成对象存储、数据库(PostgreSQL/MySQL等)、NoSQL(TableStore等)数据源的数据
 
 F1 Query=用一套系统解决所有 OLTP、OLAP、ETL需求.用一套系统访问数据中心里各种格式的数据
 
-1. OLTP - 单机执行（Centralized Execution）
-2. OLAP - 分布式执行（Distributed Execution）
+1. OLTP - 事务型交易执行（Centralized Execution）
+2. OLAP - 分布式分析执行（Distributed Execution）
 3. ETL - 批处理执行（Batch Execution）
 
 分布式查询中的算子可以有多个实例(Instance)并行执行，每个实例负责其中一部分数据。
@@ -63,9 +64,9 @@ Presto具有的缺陷，F1 Query 分布式查询同样也有，比如：
 	- 没有 Fault-tolerance，对于一个涉及上千台 Worker 的查询，任何一台的重启都会导致查询失败。
 
 
-#### Spark-Presto-F1 Query
+#### Spark DeltaLake-PrestoDB-F1 Query
 
-
+Apache Lens
 
 ### III.Compute Engine详细
 

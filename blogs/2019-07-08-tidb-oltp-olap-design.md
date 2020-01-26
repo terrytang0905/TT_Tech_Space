@@ -96,7 +96,7 @@ HTAP（混合事务和分析处理）是 Gartner 在 2014 年提出的一个术�
 
 PingCAP 开发的另一个项目是 TiDB Academy，这是自己制定进度的实践课程，帮助数据库管理员、devops 以及系统架构师理解 TiDB 的架构、设计选择、长处和短板。第一个课程“给 MySQL DBA 的分布式数据库 TiDB”正在招生。你可以在这里注册（https://pingcap.com/tidb-cloud/）。
 
-如果你想快速了解 TiDB，请参阅我们的 TiDB 快速入门指南（https://www.pingcap.com/docs/QUICKSTART/）。
 
-Kevin Xu (twitter: @kevinsxu) 是 PingCAP 全球策略和运营的总经理，特别负责云产品管理和策略。
+
+
 
