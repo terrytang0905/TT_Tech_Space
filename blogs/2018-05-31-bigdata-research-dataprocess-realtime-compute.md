@@ -8,37 +8,57 @@ title: Big Data Research Note - DataProcess(RealTime Compute Research)
 ## 大数据研究-数据处理-实时计算技术分析
 ---------------------------------------------------
 
+### Streaming System
+
+#### 微批处理
+
+Spark Streaming / Storm Trident的微批处理架构是为了容错性与实现exactly-once语义,以确保状态的一致性
+
+
 ### I.Apache Flink
 
 Apache Flink is an open-source stream processing framework for distributed, high-performing, always-available, and accurate data streaming applications.
 
+#### Flink特点
+
+- 低延迟
+- 高吞吐
+- 在压力下保持正确
+- 时间正确/语义化窗口
+- 操作简单/表现力好
+- Flink是既可以流处理,又可以批处理
+- Flink可有效区分事件时间与处理时间
+
+
+#### Ref
+
+- [Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.9/)
+- Alibaba Cloud RealTimeCompute 合并 Flink,始于Flink v1.9
+
+### II.Flink & Spark流式处理
+
+#### 1.Flink DataStream Arch
+
+作为软件堆栈，Flink是一个分层系统。堆栈的不同层构建在彼此之上，并提高它们接受的程序表示的抽象级别：
+
+- 运行层(runtime layer)以JobGraph的形式接收程序。JobGraph是一个通用的并行数据流，具有消费和产生数据流的任意任务。
+- DataStream API和DataSet API都通过单独的编译过程生成JobGraphs。DataSet API使用优化器来确定程序的最佳计划，而DataStream API使用流构建器。
+- JobGraph根据Flink中提供的各种部署选项执行（例如，本地，远程，YARN等）
+- 与Flink捆绑在一起的库和API生成DataSet或DataStream API程序。这些是用于基于逻辑表的查询，用于机器学习的FlinkML和用于图形处理的Gelly。
+
 ![flink_arch](_includes/flink_arch.png)
 
 
-Flink是既可以流处理,又可以批处理
+#### 消息传输层&流处理层
 
-1. 流处理构建
+- 消息传输层:作为流处理层上游的安全队列,兼具高性能与持久性。数据的生产者与消费者的解藕
 
-		StreamExecutionEnvironment->DataStream->transformation
+Kafka/MapR Stream/AWS Kinesis/AliCloud DataHub
 
-2. 批处理构建
+- 消息传输层需要具有可靠的跨地域复制能力。
 
-		ExecutionEnvironment->DataSet->transformation
-
-Flink对流消息的处理支持三种级别语义分别是“At Most once、At Least once、Exactly once”。
-
-
-- [Flink Doc](https://ci.apache.org/projects/flink/flink-docs-release-1.5/)
-
-#### 分布式快照
-
-Apache Flink 通过 Chandy-Lamport 快照算法的一个变种来实现异步的全局一致Checkpoint。
-
-Asynchronous barrier snapshots算法:研究“Exactly once”执行语义，其实就是研究理解ABS算法。
-
-Flink 也提供了 Savepoint 的概念，Savepoint 是一种包含更全面信息的 Checkpoint。 虽然需要花费更多时间来构建 Savepoint，它却使得系统状态回滚和迁移变得方便。
-
-### II.Flink详细分析
+		具体就是数据中心之间的数据复制需要保存消息偏移量offset
+		跨数据中心的流复制能力扩展了流数据与流处理的用途
 
 #### Stream SQL in Flink
 
@@ -94,9 +114,25 @@ _Stream Join 的语义_
 	2.Stream 与动态表的快照 Join。动态表的内容可能会出现增删改等情况，这里的 Join 的语义是， 当对流当中的某个消息实施 Join ，相当于查询了动态表在那一时刻的快照
 	3.Stream 与 Stream Join，操作的两边都是 Stream，这种情况最为复杂也很难实现，在之后将会进一步介绍
 
-### III.Spark持续流处理 vs Flink
+#### Flink批流一体
 
-#### Spark流处理
+有限流数据是无限流数据的一种特殊形态
+
+1. 流处理构建-DataStream API
+
+		StreamExecutionEnvironment->DataStream->transformation
+		检查点，状态管理，水印，窗口与触发器
+		Flink对流消息的处理支持三种级别语义分别是“At Most once、At Least once、Exactly once”。
+
+2. 批处理构建-DataSet API
+
+		ExecutionEnvironment->DataSet->transformation
+		用于调度和恢复的回溯法，特殊内存数据结构，以及查询优化
+
+- 最终汇集到 流处理引擎 中
+
+
+#### 2.Spark流处理
 
 Spark从2.3版本开始引入了持续流式处理模型，可将流处理延迟降低至毫秒级别，让 Structured Streaming 达到了一个里程碑式的高度；使用 Pandas UDF 提升 PySpark 的性能；为 Spark 应用程序提供 Kubernetes 原生支持。
 
@@ -132,7 +168,11 @@ Spark-2.3支持内连接和外连接，可用在大量的实时场景中。
 
 这导致在源处可用事件和将输出写入接收器之间的最佳延迟为100毫秒。
 
-我们最初使用这个微批处理引擎构建了结构化流，以便轻松利用已针对性能进行优化的[Spark SQL](https://databricks.com/glossary/what-is-spark-sql)中的现有批处理引擎（请参阅我们过去关于[代码生成和Project Tungsten的博客](https://databricks.com/blog/2016/05/23/apache-spark-as-a-compiler-joining-a-billion-rows-per-second-on-a-laptop.html)）。这使我们能够实现[Spark高吞吐量](https://databricks.com/blog/2017/10/11/benchmarking-structured-streaming-on-databricks-runtime-against-state-of-the-art-streaming-systems.html)，延迟低至100毫秒。在过去几年中，在与数千名开发人员和数百个不同用例合作的过程中，我们发现二级延迟足以满足大多数实际的流式工作负载，例如[ETL](https://databricks.com/glossary/extract-transform-load)和实时监控。但是，一些工作负载（例如，上述欺诈检测用例）确实受益于更低的延迟，这促使我们建立连续处理模式。让我们了解这是如何工作的。
+我们最初使用这个微批处理引擎构建了结构化流，以便轻松利用已针对性能进行优化的[Spark SQL](https://databricks.com/glossary/what-is-spark-sql)中的现有批处理引擎（请参阅我们过去关于[代码生成和Project Tungsten的博客](https://databricks.com/blog/2016/05/23/apache-spark-as-a-compiler-joining-a-billion-rows-per-second-on-a-laptop.html)）。这使我们能够实现[Spark高吞吐量](https://databricks.com/blog/2017/10/11/benchmarking-structured-streaming-on-databricks-runtime-against-state-of-the-art-streaming-systems.html)，延迟低至100毫秒。
+
+		Comments:微批处理方法,很难让计算时间窗口与会话时间窗口完全吻合
+
+在过去几年中，在与数千名开发人员和数百个不同用例合作的过程中，我们发现二级延迟足以满足大多数实际的流式工作负载，例如[ETL](https://databricks.com/glossary/extract-transform-load)和实时监控。但是，一些工作负载（例如，上述欺诈检测用例）确实受益于更低的延迟，这促使我们建立连续处理模式。让我们了解这是如何工作的。
 
 #### 连续处理
 
@@ -144,9 +184,34 @@ Spark-2.3支持内连接和外连接，可用在大量的实时场景中。
 
 由于事件在源中可用时被处理并写入接收器，因此端到端延迟是几毫秒。
 
-此外，通过改编众所周知的[Chandy-Lamport算法](https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm)来检查查询进度。特殊标记记录被注入到每个任务的输入数据流中; 我们将它们称为“epoch markers”，将它们之间的差距称为“epochs.”。当任务遇到标记时，任务异步报告处理的最后一个偏移量。一旦驱动程序收到写入接收器的所有任务的偏移量，它就会将它们写入前面提到的预写日志。由于检查点完全异步，因此任务可以不间断地继续，并提供一致的毫秒级延迟。
+##### 分布式快照Chandy-Lamport算法
 
-#### 运行角色
+* Apache Spark Streaming
+
+	Spark 的 Structured Streaming 的 Continuous Processing Mode 的容错处理使用了分布式快照（Distributed Snapshot）算法 Chandy-Lamport 算法。
+	此外，通过改编众所周知的[Chandy-Lamport算法](https://en.wikipedia.org/wiki/Chandy-Lamport_algorithm)来检查查询进度。特殊标记记录被注入到每个任务的输入数据流中; 我们将它们称为“epoch markers”，将它们之间的差距称为“epochs.”。当任务遇到标记时，任务异步报告处理的最后一个偏移量。一旦驱动程序收到写入接收器的所有任务的偏移量，它就会将它们写入前面提到的预写日志。由于检查点完全异步，因此任务可以不间断地继续，并提供一致的毫秒级延迟。
+
+* Apache Flink 
+
+	Flink通过 Chandy-Lamport 快照算法的一个变种改进算法来实现异步的全局一致**Checkpoint**。其名称为Asynchronous barrier snapshots算法。其作用就是通过研究“Exactly once”执行语义，其实就是研究理解ABS算法。在出现故障时将系统重置回正确状态。
+
+	Flink 也提供了**Savepoint**的概念，Savepoint 是一种包含更全面信息的 Checkpoint。 虽然需要花费更多时间来构建 Savepoint，它却使得系统状态回滚和迁移变得方便。
+
+
+		Comments:流处理可实现计算时间窗口与会话时间窗口完全吻合
+
+
+* Flink inside process
+
+![flink_inside_process](_includes/flink_inside_process.png)
+
+
+#### 端到端的一致性与数据库的流处理器
+
+
+### III.Flink & Spark 设计差异
+
+#### 1.运行角色
 
 * Spark Streaming 运行时的角色(standalone 模式)主要有：
 
@@ -161,7 +226,7 @@ Spark-2.3支持内连接和外连接，可用在大量的实时场景中。
 		Taskmanager： 负责执行具体的 tasks、缓存、交换数据流，至少有一个 TaskManager；
 		Slot：每个 task slot 代表 TaskManager 的一个固定部分资源，Slot 的个数代表着 taskmanager 可并行执行的 task 数。
 
-#### 运行模型
+#### 2.运行模型
 
 Spark Streaming是微批处理，运行的时候需要指定批处理的时间，每次运行 job 时处理一个批次的数据，流程如图 3 所示：
 
@@ -169,9 +234,9 @@ Spark Streaming是微批处理，运行的时候需要指定批处理的时间�
 
 Flink 是基于事件驱动的，事件可以理解为消息。事件驱动的应用程序是一种状态应用程序，它会从一个或者多个流中注入事件，通过触发计算更新状态，或外部动作对注入的事件作出反应。
 
-![flink_runing](_includes/flink_runing.png)
+![flink_running](_includes/flink_running.png)
 
-#### 代码执行步骤
+#### 3.代码执行步骤
 
 * Spark 与 Kafka 结合执行代码步骤：
 
@@ -193,7 +258,7 @@ Flink 与 Kafka 结合是事件驱动，所以Flink 内部对 Poll 出来的数�
 	Compare:相比于 Spark Streaming 少了设置批处理时间，还有一个显著的区别是 flink 的所有算子都是 lazy 形式的，调用 env.execute 会构建 jobgraph。
 	client 端负责 Jobgraph 生成并提交它到集群运行；而 Spark Streaming的操作算子分 action 和 transform，其中仅有 transform 是 lazy 形式，而且 DAG 生成、stage 划分、任务调度是在 driver 端进行的，在 client 模式下 driver 运行于客户端处。
 
-#### 任务调度原理
+#### 4.任务调度原理
 
 ##### Spark 任务调度
 
@@ -227,23 +292,23 @@ Spark Streaming 任务是基于微批处理的，实际上每个批次都是一�
 	而 Spark Streaming 是每个批次都会根据数据本地性和资源情况进行调度，无固定的执行拓扑结构。
 	Flink 是数据在拓扑结构里流动执行，而 Spark Streaming 则是对数据缓存批次并行处理。
 
-#### 时间机制对比
+#### 5.时间机制对比
 
 ##### 流处理的时间
 
 流处理程序在时间概念上总共有三个时间概念：
-
-_处理时间_
-
-	处理时间是指每台机器的系统时间，当流程序采用处理时间时将使用运行各个运算符实例的机器时间。
-	处理时间是最简单的时间概念，不需要流和机器之间的协调，它能提供最好的性能和最低延迟。 
-	然而在分布式和异步环境中，处理时间不能提供消息事件的时序性保证，因为它受到消息传输延迟，消息在算子之间流动的速度等方面制约。
 
 _事件时间_
 
 	事件时间是指事件在其设备上发生的时间，这个时间在事件 进入 Flink 之前 已经嵌入事件，然后 Flink 可以提取该时间。
 	基于事件时间进行处理的流程序可以保证事件在处理的时候的顺序性，但是基于事件时间的应用程序必须要结合 watermark 机制(需指定)。 
 	基于事件时间的处理往往有一定的滞后性，因为它需要等待后续事件和处理无序事件，对于时间敏感的应用使用的时候要慎重考虑。
+
+_处理时间_
+
+	处理时间是指每台机器的系统时间，当流程序采用处理时间时将使用运行各个运算符实例的机器时间。
+	处理时间是最简单的时间概念，不需要流和机器之间的协调，它能提供最好的性能和最低延迟。 
+	然而在分布式和异步环境中，处理时间不能提供消息事件的时序性保证，因为它受到消息传输延迟，消息在算子之间流动的速度等方面制约。
 
 _注入时间_
 
@@ -265,15 +330,19 @@ Structured streaming 支持处理时间和事件时间，同时支持 watermark 
 
 Flink 支持三种时间机制：事件时间、注入时间、处理时间，同时支持 watermark 机制处理滞后数据。
 
+- timeWindow时间窗口
+- countWindow计数窗口:按元素数量来切分
+- SessionWindow会话窗口
+
 对于watermark，重启后，历史数据被覆盖（from 2018.11.18 Flink China 的分享）,解决方法：
 
-#### Kafka 动态分区检测
+#### 6.Kafka 动态分区检测
 
 对于有实时处理业务需求的企业，随着业务增长数据量也会同步增长，将导致原有的 Kafka 分区数不满足数据写入所需的并发度，需要扩展 Kafka 的分区或者增加 Kafka 的 topic，这时就要求实时处理程序。SparkStreaming（与 Kafka 0.10 版本结合支持动态分区检测）、Flink（创建一个线程，该线程会定期检测 Kafka 新增分区，然后将其添加到 kafkaFetcher 里） 都能动态发现新增topic分区并消费处理新增分区的数据。
 
 	Tips: Spark 无需做任何配置就可动态发现 Kafka 新增分区.而Flink需要将 flink.partition-discovery.interval-millis 该属性设置为大于 0 。
 
-#### 容错机制
+#### 7.容错机制
 
 ##### Structured Streaming
 
@@ -353,7 +422,7 @@ data source 保存了 Kafka 的 offset，之后把 checkpoint barrier 传递到�
 
 以上就是 Flink 实现恰一次处理的基本逻辑。
 
-#### Back pressure
+#### 8.Back pressure(备压)
 
 消费者消费的速度低于生产者生产的速度，为了使应用正常，消费者会反馈给生产者来调节生产者生产的速度，以使得消费者需要多少，生产者生产多少。Pull模式解决生产者生产过多导致内容及存储的挤压。（\*back pressure 后面一律称为背压。）
 
@@ -409,10 +478,23 @@ logTrace("Rate estimation skipped") None
 	- LOW: 0.10 < Ratio <= 0.5，表示有待观察；
 	- HIGH: 0.5 < Ratio <= 1，表示要处理了。
 
-### IV.Alibaba Cloud RealTimeCompute - Flink
 
+### IV.Solution
 
-### x.Ref
+1.零售与市场营销
 
+2.物联网
+
+3.视频实时识别
+
+4.流量分析与异常检测
+
+5.银行与金融分析
+
+风控与反欺诈
+
+### X.Ref
+
+- [Streaming Architecture]
 - [Stream SQL的执行原理与Flink的实现](https://io-meter.com/2019/03/16/streaming-incremental-sql-execution/)
 

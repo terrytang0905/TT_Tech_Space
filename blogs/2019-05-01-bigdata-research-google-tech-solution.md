@@ -30,7 +30,7 @@ Cassandra
 ![hbase_vs_cassandra](_includes/hbase_vs_cassandra.png)
 
 
-#### Google BigQuery(Dremel) - OLAP
+#### Google BigQuery(Dremel) in Google Cloud - OLAP
 
 Dremel多层次查询树架构
 
