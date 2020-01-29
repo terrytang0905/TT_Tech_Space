@@ -11,6 +11,7 @@ Big Data Architect/Data Platform Director(Over 10 IT work experience).
 
 - Data product architect,data platform architect/team driver.
 - Email: zhenjietang@hotmail.com
+- LinkedIn: https://www.linkedin.com/in/zhenjietang/
 
 ### Speciality
 
