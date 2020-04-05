@@ -56,7 +56,9 @@ TiDB 这些优势的代价是额外的部署和监视复杂性，有更多需要
 
 示例 Grafana 仪表板监视 TiDB 部署
 
+
 **TiDB 用例：MySQL 扩展性(为什么要选MySQL)**
+
 
 由于 TiDB 兼容 MySQL，它同时兼容 MySQL 连接协议和 MySQL 生态系统工具。比如 MyDumper 和 MyLoader，对于 MySQL 用户来说，这是解决问题的自然选择。我们需要清楚，TiDB 并非要取代 MySQL，相反，它是 MySQL 的补充。MySQL 仍然是很好的单实例数据库选择，所以如果你的数据大小或工作负载不大，那请继续使用 MySQL。但如果你还在头疼这些问题：
 
@@ -71,13 +73,16 @@ TiDB 和其他 MySQL 兼容数据库之间最主要的区别在于 TiDB 的分�
 
 **TiDB 用例：HTAP 实时分析(为什么不是HATP)**
 
+
 HTAP（混合事务和分析处理）是 Gartner 在 2014 年提出的一个术语，描述打破事务和分析数据工作之间隔阂的数据库架构。目标是给企业实时分析，这样就可以作出实时决策。其他行业分析公司有描述这个架构的专门术语：451 Research 的 HOAP（混合操作分析处理），Forrester 的 Translytical 以及 IDC 的 ATP（分析事务处理）。
 
 TiDB 通过解耦计算层和存储层，并使用不同的无状态 SQL 引擎（TiDB 和 TiSpark）来做不同的分析任务，打破了 OLTP(TiDB) 和 OLAP(TiSpark) 之间的隔阂。这两个引擎都连接到同一个持久数据存储（TiKV），让系统自然拥有实时分析和决策的能力。复杂的 ETL 过程被简单化，”t+1”延迟不复存在，TiDB 中存储的数据可以更有创造力地进行使用。
 
 服务于 5 百万用户的大型生鲜产品运送平台 Yiguo.com 在 TiDB 之上运行 Apache Spark（阅读 [Yiguo.com 案例](https://www.datanami.com/2018/02/22/hybrid-database-capturing-perishable-insights-yiguo/)） 来加速复杂的查询。通过从 SQL Server 升级其基础设施，并通过部署 TiDB 到其现有的 MySQL，Yiguo.com 可以高性能地在中国最大的在线购物节双 11 运行复杂的连接运算，进行实时决策。
 
+
 **TiDB 用例：统一数据存储(结构化数据的数据湖)**
+
 
 分布式、模块化、HTAP 数据库 TiDB 被设计为可以水平地扩展计算和存储容量，灵活地适应不同的工作负载，同时还是“唯一可信来源”。通过在键值存储之上提供可扩展的 SQL 服务，TiDB 旨在动态地降低基础设施栈中维护数据管理层的人力和技术成本。
 
@@ -100,7 +105,9 @@ PingCAP 开发的另一个项目是 TiDB Academy，这是自己制定进度的[�
 
 在互联网浪潮出现之前，企业的数据量普遍不大，特别是核心的业务数据，通常一个单机的数据库就可以保存。那时候的存储并不需要复杂的架构，所有的线上请求(OLTP, Online Transactional Processing) 和后台分析 (OLAP, Online Analytical Processing) 都跑在同一个数据库实例上。后来渐渐的业务越来越复杂，数据量越来越大，DBA 们再也优化不动 SQL 了。其中一个显著问题是：单机数据库支持线上的 TP 请求已经非常吃力，没办法再跑比较重的 AP 分析型任务。跑起来要么 OOM，要么影响线上业务，要么做了主从分离、分库分表之后很难实现业务需求。
 
+
 在这样的背景下，以 Hadoop 为代表的大数据技术开始蓬勃发展，它用许多相对廉价的 x86 机器构建了一个数据分析平台，用并行的能力破解大数据集的计算问题。所以从某种程度上说，大数据技术可以算是传统关系型数据库技术发展过程的一个分支(从根本上,大数据也是数据库)。当然在过程中大数据领域也发展出了属于自己的全新场景，诞生了许多新的技术，这个不深入提了。
+
 
 由此，架构师把存储划分成线上业务和数据分析两个模块。如下图所示，业务库的数据通过 ETL 工具抽取出来，导入专用的分析平台。业务数据库专注提供 TP 能力，分析平台提供 AP 能力，各施其职，看起来已经很完美了。但其实这个架构也有自己的不足。
 
@@ -120,6 +127,7 @@ TiDB 定位为一款 HTAP 数据库，希望同时解决 TP 和 AP 问题。我�
 ![what_is_tiflash](_includes/what_is_tiflash.jpg)
 图 2 What is TiFlash
 
+
 TiFlash 是 TiDB 的一个 AP 扩展。在定位上，它是与 TiKV 相对应的存储节点，与 TiKV 分开部署。它既可以存储数据，也可以下推一部分的计算逻辑。数据是通过 Raft Learner 协议，从 TiKV 同步过来的。**TiFlash 与 TiKV 最大的区别，一是原生的向量化模型，二是列式存储。 这是都是专门为 AP 场景做的优化**。TiFlash 项目借助了 Clickhouse 的向量化引擎，因此计算上继承了它高性能的优点。
 
 ![tiflash_arch](_includes/tiflash_arch.jpg)
@@ -133,8 +141,11 @@ TiFlash 是 TiDB 的一个 AP 扩展。在定位上，它是与 TiKV 相对应�
 
 对于一个数据库系统，TP 和 AP 是有系统设计上的冲突的。TP 场景我们关注的是事务正确性，性能指标是 QPS、延迟，它通常是点写、点查的场景；而 AP 更关心的吞吐量，是大批量数据的处理能力，处理成本。比如很多情况下 AP 的分析查询是需要扫描几百上千万条数据，join 十几张表，这种场景下系统的设计哲学和 TP 完全不同。TP 通常使用**行式存储**，例如 InnoDB，RocksDB 等；而 AP 系统通常使用**列式存储**。将这两个需求放在同一个系统里面实现，从设计上很难取舍，再加上 AP 的查询业务通常属于资源消耗型，隔离性做不好，很容易影响TP 业务。所以做一个 HTAP 系统是一件难度非常高的事情，很考验系统的工程设计能力。
 
+<<<<<<< HEAD
 	--Tips:行列混存是HTAP其中非常重要的设计难点。如何支持动态行存与列存切换?
 
+=======
+>>>>>>> 7668083b142ee260571d354b5d0811be9de82f4d
 _1. 列式存储_
 
 ![tiflash_row_based_column_based](_includes/tiflash_row_based_column_based.jpg)
@@ -148,7 +159,9 @@ _1. 列式存储_
 
 _2. 低成本数据复制_
 
+
 **数据复制永远是分布式系统的最重要的问题之一**。TiFlash 作为 TiDB 的另外一个存储层，需要实时同步 TiKV 的数据。我们采用的方案也很自然：既然 TiKV 节点内部使用 Raft 协议同步，那自然 TiKV 到 TiFlash 也是可以用 Raft 协议同步数据的。TiFlash 会把自己伪装成一个 TiKV 节点，加入 Raft Group。比较不一样的是，TiFlash 只会作为 Raft Learner，并不会成为 Raft Leader / Follower。原因是目前 TiFlash 还不支持来自 SQL 端（TiDB/ TiSpark）的直接写入，我们将在稍后支持这一特性。
+
 
 ![tidb_raft_learner_replication](_includes/tidb_raft_learner_replication.jpg)
 图 5 Raft Learner Replication
@@ -175,6 +188,7 @@ TiFlash 会同步 TiKV 上的表的所有变更，是两个异构的系统之间
 图 8 Update Support
 
 目前 TiFlash 的方案是，存储引擎使用类 LSM-Tree 的存储架构，并且使用 MVCC 来实现和 TiDB 一致的 SI 隔离级别。LSM-Tree 架构可以很好的处理 TP 类型的高频小 IO 写入；同时又有的一定的局部有序性，有利于做 Scan 优化。
+
 
 	--Tips:LSM-Tree的存储架构 数据稳定性风险
 
