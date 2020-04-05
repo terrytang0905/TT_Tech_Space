@@ -64,9 +64,12 @@ Presto具有的缺陷，F1 Query 分布式查询同样也有，比如：
 	- 没有 Fault-tolerance，对于一个涉及上千台 Worker 的查询，任何一台的重启都会导致查询失败。
 
 
-#### Spark DeltaLake-PrestoDB-F1 Query
+#### Apache Lens-PrestoDB-F1 Query
 
-Apache Lens
+
+
+#### Spark DeltaLake - Hudi
+
 
 ### III.Compute Engine详细
 

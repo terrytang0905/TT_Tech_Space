@@ -12,11 +12,11 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 ![大数据能力分布](blogs/_includes/bigdata_map_tt.png)
 
 
-* BigData -> Analytics -> AI
+**BigData -> Analytics -> AI**
 
 #### I.BigData & AI Solution Everything
 
-- *[大数据研究-AWS大数据解决方案-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-01-26-bigdata-research-aws-tech-solution.md)
+- *[大数据研究-云数仓解决方案-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-01-26-bigdata-research-cloud-dw-solution.md)
 - *[大数据研究-Google大数据解决方案-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)
 - *[大数据研究-通用大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-research-common-tech-solution.md)
 - *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
@@ -28,6 +28,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.BigData & All Distributed Research
 
+- *[数据库研究-TiDB HTAP DB](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-07-08-tidb-oltp-olap-design.md)
 - *[区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[大数据研究-数据处理-实时计算引擎分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
 - *[大数据研究-数据处理-混合计算架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
