@@ -26,9 +26,18 @@ title: Big Data Research Note - Fast Storage
 
 [Apache Hudi](https://github.com/apache/hudi)=Hadoop Upserts anD Incrementals
 
-- 读取优化的表（Read Optimized Table）和近实时表（Near-Realtime Table）。
+* 读取优化的表（Read Optimized Table）和近实时表（Near-Realtime Table）。
 
-使得您能在hadoop兼容的存储之上存储大量数据，同时它还提供两种原语，使得除了经典的批处理之外，还可以在数据湖上进行流处理。这两种原语分别是：
+- 可插拔式的索引支持快速Upsert / Delete。
+- 事务提交/回滚数据。
+- 支持捕获Hudi表的变更进行流式处理。
+- 支持Apache Hive，Apache Spark，Apache Impala和Presto查询引擎。
+- 内置数据提取工具，支持Apache Kafka，Apache Sqoop和其他常见数据源。
+- 通过管理文件大小，存储布局来优化查询性能。
+- 基于行存快速提取模式，并支持异步压缩成列存格式。
+- 用于审计跟踪的时间轴元数据。
+
+Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提供两种原语，使得除了经典的批处理之外，还可以在数据湖上进行流处理。这两种原语分别是：
 
 * Update/Delete记录：Hudi使用细粒度的文件/记录级别索引来支持Update/Delete记录，同时还提供写操作的事务保证。查询会处理最后一个提交的快照，并基于此输出结果。
 * 变更流：Hudi对获取数据变更提供了一流的支持：可以从给定的时间点获取给定表中已updated/inserted/deleted的所有记录的增量流，并解锁新的查询姿势（类别）。
