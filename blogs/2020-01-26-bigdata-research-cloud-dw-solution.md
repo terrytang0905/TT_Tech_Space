@@ -18,4 +18,6 @@ title: Big Data Research Note - Cloud Data Warehouse
 ### III.Snowflake
 
 
-### IV.AliCloud MaxCompute/Hologres
+### IV.AliCloud MaxCompute
+
+### V.AliCloud Hologres
