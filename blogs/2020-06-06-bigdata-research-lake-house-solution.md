@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata, tech, solution]
-title: Big Data Research Note - Fast Storage
+title: Big Data Research Note - LakeHouse
 ---
 
 ## 大数据研究-计算存储优化解决方案
@@ -15,11 +15,17 @@ title: Big Data Research Note - Fast Storage
 - HBASE:可以进行高效随机读写，却并不适用于基于SQL的数据分析方向，大批量数据获取时的性能较差。
 
 我们需要以下技术特性:
+
+- 事务支持：企业内部许多数据管道通常会并发读写数据。对ACID事务支持确保了多方可使用SQL并发读写数据。
+- 模式执行和治理（Schema enforcement and governance）：LakeHouse应该有一种可以支持模式执行和演进、支持DW模式的范式（如star/snowflake-schemas）。该系统应该能够推理数据完整性，并具有健壮的治理和审计机制。
+- 计算与存储分离+高可用:这意味着存储和计算使用单独的集群，因此这些系统能够支持更多用户并发和更大数据量。一些现代数据仓库也具有此属性。
 - 离线加速查询能力
 - 高效随机读写/OLAP分析查询
 - Update/Deleta数据更新能力
 - 行存与列存混合优化存储(资源优化/高压缩比)
-- 计算与存储分离+高可用
+- 支持从非结构化数据到结构化数据的多种数据类型：LakeHouse可用于存储、优化、分析和访问许多数据应用所需的包括图像、视频、音频、半结构化数据和文本等数据类型。
+- 支持各种工作负载：包括数据科学、机器学习以及SQL和分析。可能需要多种工具来支持这些工作负载，但它们底层都依赖同一数据存储库。
+- 批流一体
 
 
 ### I.Apache Hudi
