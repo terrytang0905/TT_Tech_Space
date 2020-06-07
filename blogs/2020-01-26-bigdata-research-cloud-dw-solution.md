@@ -20,4 +20,5 @@ title: Big Data Research Note - Cloud Data Warehouse
 
 ### IV.AliCloud MaxCompute
 
+
 ### V.AliCloud Hologres
