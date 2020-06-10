@@ -89,7 +89,7 @@ Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、
 
 ### II.Spark Delta Lake
 
-[Delta Lake](https://github.com/delta-io/delta)一个基于Spark和大数据workload,具有高可用和ACID事务特性的开源存储引擎,
+[Delta Lake](https://github.com/delta-io/delta):一个基于Spark和大数据workload,具有高可用和ACID事务特性的开源存储引擎,
 
 #### 2.1. Delta Lake特性
 
@@ -110,7 +110,7 @@ Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、
 
 ### III.Apache CarbonData
 
-[Apache CarbonData](https://github.com/apache/carbondata)是一个支持索引和物化视图的ACID数据湖的数据存储(计算与存储分离)优化解决方案
+[Apache CarbonData](https://github.com/apache/carbondata):是一个支持索引和物化视图的ACID数据湖的数据存储(计算与存储分离)优化解决方案
 
 #### 3.1. CarbonData特性
 
@@ -324,7 +324,7 @@ CarbonData提供了一种新的融合数据存储方案，以一份数据同时�
 
 ### IV.Apache Kudu
 
-[Apache Kudu](https://kudu.apache.org/)在更新更及时的基础上实现更快的数据分析
+[Apache Kudu](https://kudu.apache.org/):在更新更及时的基础上实现更快的数据分析的Hadoop数据存储方案
 
 Kudu不但提供了行级的插入、更新、删除API，同时也提供了接近Parquet性能的批量扫描操作。使用同一份存储，既可以进行随机读写，也可以满足数据分析的要求。
 
