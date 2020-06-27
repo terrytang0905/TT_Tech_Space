@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata, tech, solution]
-title: Big Data Research Note - HDFS File System
+title: Big Data Research Note - Storage Layer
 ---
 
-## 大数据研究-分布式文件系统HDFS
+## 大数据研究-分布式存储层设计
 ---------------------------------------------------
 
 
