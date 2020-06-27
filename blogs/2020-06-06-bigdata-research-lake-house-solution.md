@@ -14,6 +14,9 @@ title: Big Data Research Note - LakeHouse
 - HDFS:使用列式存储格式Apache Parquet，Apache ORC，适合离线分析，不支持单条纪录级别的update操作，随机读写性能差
 - HBASE:可以进行高效随机读写，却并不适用于基于SQL的数据分析方向，大批量数据获取时的性能较差。
 
+![datalake_define](_includes/datalake_define.png)
+
+
 我们需要以下技术特性:
 
 - 事务支持(分布式事务):企业内部许多数据管道通常会并发读写数据。对ACID事务支持确保了多方可使用SQL并发读写数据。
@@ -32,7 +35,11 @@ title: Big Data Research Note - LakeHouse
 
 [Apache Hudi](https://github.com/apache/hudi)=Hadoop Upserts anD Incrementals
 
+![hudi_arch](_includes/datalake_hudi_arch.png)
+
 #### 1.1. Hudi特性
+
+![hudi_define](_includes/datalake_hudi_define.png)
 
 * 读取优化的表（Read Optimized Table）和近实时表（Near-Realtime Table）。
 
@@ -52,9 +59,9 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 * 准实时表：使用列存储和行存储以提供对实时数据的查询
 
 
-#### 1.2. 存储类型
+#### 1.2. 存储引擎
 
-我们看一下 Hudi 的两种存储类型：
+*Hudi的两种存储类型:*
 
     - 写时复制（copy on write）：仅使用列式文件（parquet）存储数据。在写入/更新数据时，直接同步合并原文件，生成新版本的基文件（需要重写整个列数据文件，即使只有一个字节的新数据被提交）。此存储类型下，写入数据非常昂贵，而读取的成本没有增加，所以适合频繁读的工作负载，因为数据集的最新版本在列式文件中始终可用，以进行高效的查询。
     - 读时合并（merge on read）：使用列式（parquet）与行式（avro）文件组合，进行数据存储。在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。此存储类型适合频繁写的工作负载，因为新记录是以appending 的模式写入增量文件中。但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。
@@ -63,7 +70,26 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 	Tips: Hudi做的事情就是将批处理（copy-on-write storage）和流计算（merge-on-read storage）作业整合，并将计算结果存储在Hadoop中。对于Spark应用程序，依靠其同意的DAG模型可以将融入了Hudi库与Spark/Spark Steaming作业天然整合。对于非Spark处理系统（例如：Flink，Hive），处理过程可以在各自的系统中完成，然后以Kafka Topics 或者HDFS中间文件的形式发送到Hudi表中。
 
 
-#### 1.3. 视图
+*Hudi的存储引擎由三个不同的部分组成:*
+
+	- Metadata： Hudi以时间轴的形式将数据集上的各项操作对应的元数据维护起来，从而支持数据集的即时视图，这部分元数据存储于根目录下的元数据目录中。
+
+	Commits ：一个单独的 commit 包含对数据集之上一批数据的一次原子写入操作的相关信息。Commits 由单调递增的时间戳标识，表示写操作的开始；
+	Cleans：用于清除数据集中不再被查询所用到的旧版本文件的后台活动；
+	Compactions：协调 Hudi 中不同数据结构的后台活动，比如将基于行更新的文件转换成列式存储格式。
+
+	- Index： Hudi维护了一个索引，以便在记录键已经存在的情况下快速地将传入的记录键映射到field，索引实现是可插拔的，以下是目前可用的选项：
+
+	BloomFilter：存储在每个数据文件的页脚中，默认就是用这个，因为不依赖任何外部系统。数据和索引始终保持一致。
+	HBase：可高效的查找一小批key，在索引标记期间，这个索引实现可能会快几秒
+
+	- Data： Hudi以两种不同的存储格式存储所有摄入的数据。但实际使用的存储格式是可插拔的，但所选的存储格式需要以下特征：
+
+	扫描优化的列存储格式，默认是parquet
+	写优化: 列式是parquet; 行格式，默认是avro
+
+
+#### 1.3. 逻辑视图
 
 在了解这两种存储类型后，我们再看一下Hudi支持的存储数据的视图（也就是查询模式）：
 
@@ -82,22 +108,31 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 
 #### 1.4. 时间轴
 
-最后介绍一下 Hudi 的核心 —— **时间轴**。
+介绍一下 Hudi 的核心 —— **时间轴**。
 
 Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、合并等），均会带有一个时间戳。通过时间轴，可以实现在仅查询某个时间点之后成功提交的数据，或是仅查询某个时间点之前的数据。这样可以避免扫描更大的时间范围，并非常高效地只消费更改过的文件（例如在某个时间点提交了更改操作后，仅query某个时间点之前的数据，则仍可以query修改前的数据）。
 
- 
+
+#### 1.5 Hudi生态
+
+目前 Hudi 原生支持 Spark、Presto、MapReduce 以及 Hive 等大数据生态系统，Flink 的支持正在开发中。
+Hudi 目前还不支持使用 SQL 进行 DDL / DML 相关操作，不过社区已经有小伙伴提到这个东西了，具体参见 HUDI-388。
+
 
 ### II.Spark Delta Lake
 
-[Delta Lake](https://github.com/delta-io/delta):一个基于Spark和大数据workload,具有高可用和ACID事务特性的开源存储引擎,
+[Delta Lake](https://github.com/delta-io/delta):一个基于Spark和大数据workload,具有高可用和ACID事务特性的开源存储引擎.
 
 #### 2.1. Delta Lake特性
+
+![delta_define](_includes/datalake_datalake_delta_define.png)
+
+ACID 事务能力，其通过写和快照隔离之间的乐观并发控制（optimistic concurrency control），在写入数据期间提供一致性的读取，从而为构建在 HDFS 和云存储上的数据湖（data lakes）带来可靠性。
 
 - 支持ACID事务
 - 可扩展的元数据处理
 - 统一的流、批处理API接口(批流一体)
-- 更新、删除数据，实时读写（读是读当前的最新快照）/支持增量更新
+- 更新、删除数据，实时读写（读是读当前的最新snapshot, snapshot isolation）/支持增量更新
 - 数据版本控制，根据需要查看历史数据快照，可回滚数据
 - 自动处理schema变化，可修改表结构
 
@@ -108,6 +143,20 @@ Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、
 - 新数据的方式是新增文件，会造成文件数量过多，需要清理历史版本的数据，version最好不要保存太多
 - 乐观锁在多用户同时更新时并发能力较差，更适合写少读多的场景（或者only append写多更新少场景）
 
+
+#### 2.3.数据Merge策略-Delta vs Hudi
+
+Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候进行数据合并(Write On Merge)，它会获取需要更新的数据对应的文件，然后直接读取这些文件并使用 Spark 的 Join 进行计算产生新的文件。
+
+同理，Hudi 也是支持写入数据的时候进行合并，但是相比 Delta Lake，Hudi 还支持 Read On Merge 模式，也就是将增量数据写入到一个 delta 文件，然后默认情况下在更新完数据后会启动一个作业进行 compaction 操作。当然，这个也是可以关闭的，也就是更新的时候值负责数据的写入，合并操作可以单独用一个作业来跑。
+
+从功能上来说，这方面 Hudi 比 Delta Lake 设计的要好。在**多读少写**的情况下，Write On Merge 模式很不错；而在多写少读的情况下，Read On Merge 模式很不错，而 Delta Lake 目前还不支持 Read On Merge 模式。
+
+另外，Hudi 提供了索引机制，在数据合并的时候，可以使用索引的信息快速定位到某行数据所在的文件，从而加快数据更新的速度。
+
+#### 2.4. Spark Delta Process
+
+![datalake_spark_delta](_includes/datalake_spark_delta.png)
 
 ### III.Apache CarbonData
 
@@ -354,7 +403,7 @@ Kudu为用户提供了两种一致性模型。默认的一致性模型是snapsho
 
 #### 4.2.Kudu的架构
 
-与HDFS和HBase相似，Kudu使用单个的Master节点，用来管理集群的元数据，并且使用任意数量的Tablet Server节点用来存储实际数据。可以部署多个Master节点来提高容错性。
+Kudu与分布式文件系统抽象和HDFS完全不同，它自己的一组存储服务器通过RAFT相互通信。与HDFS和HBase相似，Kudu使用单个的Master节点，用来管理集群的元数据，并且使用任意数量的Tablet Server节点用来存储实际数据。可以部署多个Master节点来提高容错性。
 
 Kudu架构图
 
