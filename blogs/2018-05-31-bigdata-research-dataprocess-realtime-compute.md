@@ -134,6 +134,8 @@ _Stream Join 的语义_
 
 #### 2.Spark流处理
 
+* Structured Streaming & Spark Streaming
+
 Spark从2.3版本开始引入了持续流式处理模型，可将流处理延迟降低至毫秒级别，让 Structured Streaming 达到了一个里程碑式的高度；使用 Pandas UDF 提升 PySpark 的性能；为 Spark 应用程序提供 Kubernetes 原生支持。
 
 出于某些原因的考虑，Spark 引入 Structured Streaming 将微批次处理从高级 API 中解耦出去。首先，它简化了 API 的使用，API 不再负责进行微批次处理。其次，开发者可以将流看成是一个没有边界的表，并基于这些“表”运行查询。
@@ -184,7 +186,7 @@ Spark-2.3支持内连接和外连接，可用在大量的实时场景中。
 
 由于事件在源中可用时被处理并写入接收器，因此端到端延迟是几毫秒。
 
-##### 分布式快照Chandy-Lamport算法
+#### 分布式快照Chandy-Lamport算法
 
 * Apache Spark Streaming
 
