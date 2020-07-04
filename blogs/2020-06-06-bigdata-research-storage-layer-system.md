@@ -5,7 +5,7 @@ tags : [bigdata, tech, solution]
 title: Big Data Research Note - Storage Layer
 ---
 
-## 大数据研究-分布式存储文件格式
+## 大数据研究-分布式文件存储格式
 ---------------------------------------------------
 
 
