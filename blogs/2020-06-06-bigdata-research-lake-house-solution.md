@@ -472,10 +472,10 @@ MemRowSets是一个可以被并发访问并进行过锁优化的B-tree，主要�
 
 
 
-### V.AliCloud Hologres
+### V.AliCloud MaxCompute & Hologres
 
 
-#### 5.1. HOS
+#### 5.1. 存储优化
 
 
 #### 5.2. 行列混存
