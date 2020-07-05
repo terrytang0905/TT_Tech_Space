@@ -13,7 +13,7 @@ title: Big Data Research Note - LakeHouse
 
 - HDFS:使用列式存储格式Apache Parquet，Apache ORC，适合离线分析，不支持单条纪录级别的update操作，随机读写性能差
 - HBASE:可以进行高效随机读写，却并不适用于基于SQL的数据分析方向，大批量数据获取时的性能较差。
-- 数据库:便捷高效的访问与更新数据,符合ACID标准,并发读写
+- 数据库:便捷高效的访问与更新数据,符合ACID标准,并发读写,TableSchema
 
 我们需要LakeHouse以下技术特性:
 
@@ -40,32 +40,38 @@ title: Big Data Research Note - LakeHouse
 
 #### 1.1. Hudi特性
 
+Uber 团队在 Hudi 上同时实现了 Copy On Write 和 Merge On Read 的两种数据格式，其中 Merge On Read 就是为了解决他们的 fast upsert 而设计的。简单来说，就是每次把增量更新的数据都写入到一批独立的 delta 文件集，定期地通过 compaction 合并 delta 文件和存量的 data 文件。同时给上层分析引擎提供三种不同的读取视角：仅读取 delta 增量文件、仅读取 data 文件、合并读取 delta 和 data 文件。满足各种业务方对数据湖的流批数据分析需求。
+
 ![hudi_define](_includes/datalake_hudi_define.png)
 
-* 读取优化的表（Read Optimized Table）和近实时表（Near-Realtime Table）。
+##### 核心特性
 
 - 可插拔式的索引支持快速Upsert / Delete。
 - 事务提交/回滚数据。
 - 支持捕获Hudi表的变更进行流式处理。
-- 支持Apache Hive，Apache Spark，Apache Impala和Presto查询引擎。
+- 支持Apache Hive，Apache Spark，Apache Impala和Presto查询引擎。Flink已在需求列表中
 - 内置数据提取工具，支持Apache Kafka，Apache Sqoop和其他常见数据源。
 - 通过管理文件大小，存储布局来优化查询性能。
 - 基于行存快速提取模式，并支持异步压缩成列存格式。
 - 用于审计跟踪的时间轴元数据。
 
+##### Hudi原语
+
 Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提供两种原语，使得除了经典的批处理之外，还可以在数据湖上进行流处理。这两种原语分别是：
 
 * Update/Delete记录：Hudi使用细粒度的文件/记录级别索引来支持Update/Delete记录，同时还提供写操作的事务保证。查询会处理最后一个提交的快照，并基于此输出结果。
 * 变更流：Hudi对获取数据变更提供了一流的支持：可以从给定的时间点获取给定表中已updated/inserted/deleted的所有记录的增量流，并解锁新的查询姿势（类别）。
-* 准实时表：使用列存储和行存储以提供对实时数据的查询
+
+* 读取优化的表(Read Optimized Table)
+* 准实时表(Near-Realtime Table)：使用列存储和行存储以提供对实时数据的查询
 
 
 #### 1.2. 存储引擎
 
 *Hudi的两种存储类型:*
 
-    - 写时复制（Copy On Write表）：仅使用列式文件（parquet）存储数据。在写入/更新数据时，直接同步合并原文件，生成新版本的基文件（需要重写整个列数据文件，即使只有一个字节的新数据被提交）。此存储类型下，写入数据非常昂贵，而读取的成本没有增加，所以适合频繁读的工作负载，因为数据集的最新版本在列式文件中始终可用，以进行高效的查询。
-    - 读时合并（Merge On Read表）：使用列式（parquet）与行式（avro）文件组合，进行数据存储。在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。此存储类型适合频繁写的工作负载，因为新记录是以appending 的模式写入增量文件中。但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。
+    - 写时复制（Copy On Write表）：仅使用列式文件（parquet）存储数据。在写入/更新数据时，直接同步合并原文件，生成新版本的basefile,（parquet）不写log文件（需要重写整个列数据文件，即使只有一个字节的新数据被提交）。此存储类型下，写入数据非常昂贵，而读取的成本没有增加，所以适合频繁读的工作负载，因为数据集的最新版本在列式文件中始终可用，以进行高效的查询。
+    - 读时合并（Merge On Read表）：使用列式（parquet）与行式（avro）文件组合，进行数据存储。MOR表写数据时，记录首先会被快速的写进日志文件，稍后会使用时间轴上的压缩操作将其与基础文件合并。在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。此存储类型适合频繁写的工作负载，因为新记录是以appending的模式写入增量文件中。但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。
 
 
 	Tips: Hudi做的事情就是将批处理（copy-on-write storage）和流计算（merge-on-read storage）作业整合，并将计算结果存储在Hadoop中。对于Spark应用程序，依靠其同意的DAG模型可以将融入了Hudi库与Spark/Spark Steaming作业天然整合。对于非Spark处理系统（例如：Flink，Hive），处理过程可以在各自的系统中完成，然后以Kafka Topics 或者HDFS中间文件的形式发送到Hudi表中。
@@ -77,7 +83,7 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 
 	Commits ：一个单独的 commit 包含对数据集之上一批数据的一次原子写入操作的相关信息。Commits 由单调递增的时间戳标识，表示写操作的开始；
 	Cleans：用于清除数据集中不再被查询所用到的旧版本文件的后台活动；
-	Compactions：协调 Hudi 中不同数据结构的后台活动，比如将基于行更新的文件转换成列式存储格式。
+	Compactions：协调 Hudi 中不同数据结构的后台合并活动，比如将基于行更新的文件转换成列式存储格式。
 
 	- Index： Hudi维护了一个索引，以便在记录键已经存在的情况下快速地将传入的记录键映射到field，索引实现是可插拔的，以下是目前可用的选项：
 
@@ -94,7 +100,7 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 
 在了解这两种存储类型后，我们再看一下Hudi支持的存储数据的视图（也就是查询模式）：
 
-	- 读优化视图（Read Optimized view）：直接query 基文件（数据集的最新快照），也就是列式文件（如parquet）。相较于非Hudi列式数据集，有相同的列式查询性能
+	- 读优化视图（Read Optimized view）：直接query basefile文件（数据集的最新快照），也就是列式文件（如parquet）。相较于非Hudi列式数据集，有相同的列式查询性能
     - 增量视图（Incremental View）：仅query新写入数据集的文件，也就是指定一个commit/compaction，query此之后的新数据。
     - 实时视图（Real-time View）：query最新基文件与增量文件。此视图通过将最新的基文件（parquet）与增量文件（avro）进行动态合并，然后进行query。可以提供近实时的数据（会有几分钟的延迟）
 
