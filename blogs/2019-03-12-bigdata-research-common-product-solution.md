@@ -290,11 +290,10 @@ _MaxComputer技术栈_
 
 ![MaxCompute技术栈](_includes/maxcomputer_tech.png)
 
-**5.2.MaxCompute查询计算**
+#### 5.2.MaxCompute查询计算
 
 ![MaxCompute_lightning逻辑架构](_includes/maxcompute_lightning.png)
 
-![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
 
 _MaxCompute联合计算引擎平台_
 
@@ -334,7 +333,7 @@ _MaxCompute on OSS => Data Lake Analytics_
 基于Datalake的技术，把不同的数据源用类似的方式存储，用统一的方法计算。是同一SQL查询引擎.
 
 
-#### 5.2.数据架构设计
+#### 5.3.数据架构设计
 
 ![MaxCompute架构](_includes/maxcompute_arch.png)
 
@@ -363,6 +362,8 @@ AliORC/支持嵌套树型数据结构
 	- 面向企业的完整服务,跨集群数据容灾与调度系统(金融行业)
 	- 新查询语言叫做NewSQL，它是阿里巴巴定义的一套新的大数据语言，这套语言兼容传统SQL特性，同时又提供imperative与declarative优势。
 
+-[MaxCompute Ref](https://yq.aliyun.com/articles/78108)
+-[MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
 	Comments:
 	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
@@ -374,9 +375,6 @@ AliORC/支持嵌套树型数据结构
 	7.如何规划与实现MaxCompute的生态圈与合作伙伴?
 	8.MaxCompute与Spanner的差距到底在哪里?
 	9.华为FusionInsight方案为什么在外媒眼中更加受欢迎?
-
--[MaxCompute Ref](https://yq.aliyun.com/articles/78108)
--[MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
 
 #### Alibaba Cloud - AnalyticDB(OLAP)
@@ -393,9 +391,9 @@ AliORC/支持嵌套树型数据结构
 
 - [2018-AnalyticDB](https://yq.aliyun.com/articles/685491?spm=a2c4e.11153940.blogcont576159.16.14932338FEZZas)
 
-- PolarDB - 阿里
+#### Alibaba Cloud - PolarDB(OLTP)
 
-#### Alibaba Cloud - DRDS(Dritributed OLTP)
+Alibaba Cloud - DRDS(Dritributed OLTP)
 
 - 分布式SQL引擎
 - 分库分表
