@@ -2,13 +2,13 @@
 layout: post
 category : bigdata
 tags : [bigdata, tech, solution]
-title: Big Data Research Note - Common Solution
+title: Big Data Research Note - Common BigData Product Solution
 ---
 
-## 大数据研究-通用大数据解决方案
+## 大数据研究-通用大数据产品分析
 --------------------------------------------------------
 
-大数据通用解决方案 
+大数据通用解决方案 - 大数据产品分析
 
 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
 
@@ -40,26 +40,8 @@ title: Big Data Research Note - Common Solution
 	This use case concerns new data values, variants of data form and new relationships. It supports search, graph and other capabilities for discovering new information models.
 
 
-#### 1.Google BigQuery计算服务
 
-基于Dremel的GoogleBigQuery
-
-- Concept: distributed search engine design
-- Dremel provides a high-level, SQL-like language to express ad hoc queries without translating them into MR job.
-- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
-
-
-1.A high-performance storage layer is critical for in situ data management.
-2.Columnar storage proved successful for flat relational data but making it work for Google required adapting it to a nested data model.
-
-_Ref:_
-
-- [BigQuery](https://cloud.google.com/bigquery/)
-- [SQLonHadoop研究Note-Dremel](2017-04-04-olap-sqlonhadoop-research-note.md)
-
-
-
-#### 2.Huawei FusionInsight
+### 1.Huawei FusionInsight -> Huawei MRS
 
 
 华为FusionInsight大数据平台是集Hadoop生态发行版FusionInsight HD、大规模并行处理MPP数据库FusionInsight LibrA、大数据云服务(Hadoop、Hive、Spark、HBase、MPPDB、流计算等组件)于一体的融合数据处理与服务平台。它支持统一的SQL引擎,拥有端到端全生命周期的解决方案能力。除了以上能力外，还提供数据分析挖掘平台、数据服务平台，帮助用户实现从数据到知识，从知识到智慧的转换，进而帮助用户从海量数据中挖掘数据价值。它支持私有化部署，及华为公共云或合作伙伴的公共云环境中部署。 
@@ -86,7 +68,7 @@ _Ref:_
 
 
 
-##### Huawei FusionInsight HD(Hadoop)
+#### Huawei FusionInsight HD(Hadoop)
 
 针对离线处理场景，FusionInsight HD由如下组件来实现：HDFS负责存储所有数据；Yarn负责调度在离线平台上运行的所有任务，从数据加工、数据挖掘到数据分析；Mapreduce和Hive专门处理离线的具体任务，其中Mapreduce/Spark处理非SQL类、Hive/Spark SQL处理SQL类.借助上述组件，再加上数据采集组件,即可完成离线处理。
 
@@ -127,7 +109,7 @@ _Ref:_
 
 - [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
-##### Huawei FusionInsight LibrA(MPPDB)
+#### Huawei FusionInsight LibrA(MPPDB)
     
 FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)型数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
  
@@ -147,7 +129,7 @@ FusionInsight LibrA采用MPP(Massive Parallel Processing)架构，支持行存�
 	- SQL On Hadoop:无缝集成Hadoop，可通过标准SQL访问和处理Hadoop数据。
 
 
-#### 3.Transwarp Data Hub
+### 2.Transwarp Data Hub
 
 TDH主要提供6款核心产品:
 
@@ -159,7 +141,7 @@ TDH主要提供6款核心产品:
 	Transwarp Sophon则是支持图形化操作的深度学习平台
 
 
-##### Transwarp Inceptor - OLAP SQL查询分析数据库
+#### Transwarp Inceptor - OLAP SQL查询分析数据库
 
 在Inceptor中，您可以使用常见的数据库对象,包括数据库(database),表(table),视图(view)和函数(function)。您可以使用Inceptor SQL、Inceptor PL/SQL以及Inceptor SQL PL来操作这些数据库对象。
 
@@ -169,13 +151,13 @@ Transwarp Inceptor是基于Spark的分析引擎，从下往上有三层架构：
 	- 中间层是Spark计算引擎层，星环做了大量的改进保证引擎有超强的性能和高度的健壮性;
     - 最上层包括一个完整的SQL 99和PL/SQL编译器、统计算法库和机器学习算法库，提供完整的R语言访问接口。
 
-##### Inceptor执行计划:
+#### Inceptor执行计划:
 
 对SQL语句的执行需要交给Inceptor计算引擎，Inceptor主要由两类节点组成：主节点Inceptor Server，以及计算节点Executor。SQL语句由Inceptor Server解析执行，生成执行计划，最终RDD的变换执行过程组成Transwarp Spark DAG，RDD中不同的partition合理的分配给不同的计算节点Executor，每个partition对应于一个计算子任务，由Executor执行具体的计算处理。
 
 Inceptor Spark是重构自研下的定制Spark
 
-##### Inceptor编程模型:
+#### Inceptor编程模型:
 
 Inceptor提供两种编程模型：
 
@@ -183,7 +165,7 @@ Inceptor提供两种编程模型：
 	SQL解析器支持HiveQL解析器、SQL标准解析器和PL/SQL解析器 混合切换
 	二是基于数据挖掘编程模型，可以利用R语言或者Spark MLlib来做一些深度学习、数据挖掘等业务模型。
 
-##### Inceptor SQL Optimizer
+#### Inceptor SQL Optimizer
 
 *基于规则的优化器(Rule Based Optimizer)*
 
@@ -199,7 +181,7 @@ Inceptor提供两种编程模型：
 	- JOIN类型的选择
 	- 并发度的控制
 
-##### Inceptor 数据存储
+#### Inceptor 数据存储
 
 - Inceptor中数据库对象的元数据保存在Inceptor Metastore中
 - 数据库对象内的数据可以存放支持在：Holodesk表/HDFS/HBase/Hyperbase/RDBMS
@@ -235,19 +217,63 @@ Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建�
 	Comments:Spark执行引擎稳定性问题
 
 
-#### 4.Huawei FusionInsight vs Transwarp Inceptor
+### 3.Huawei FusionInsight vs Transwarp Inceptor
 
 
+### 4.Data as a Service on Cloud
 
-#### 5.Alibaba Cloud - MaxCompute
+Standard SQL -> OLTP 
 
-“新一代计算引擎”的底层技术主要有三个：MaxCompute（离线计算）、Flink（实时计算）、PAI（人工智能）。在它们之上，是用来统一调度各个技术模块的操作系统：DataWorks。
+Batch ETL -> OLAP analytics -> Online Service
+
+Data Develop and Data Governance Platform
+
+### 4.1.Snowflow:Elastic Data Warehouse 一夜暴富的背后
+
+Snowflake is a multi-tenant, transactional, secure, highly scalable and elastic system with full SQL support and built-in extensions for semi-structured and schema-less data.
+
+- SaaS,acid事务，关系型数据库，半结构，列式存储
+- MVCC,Snapshot
+
+1.3. Also, following a pure service principle, Snowflake requires no physical tuning, data grooming, manual gathering of table statistics, or table vacuuming on the part of users.
+
+2.1、parallel database system：redshift，share-nothing结构，需要数据迁移（A. Gupta et al. Amazon Redshift and the case for simpler datawarehouses. InProc. SIGMOD, 2015.）
+2.2、BigQuery sql-like语言，tricky for sql-based。tables are append-only and require schemas
+
+2.3、Document Stores and Big Data.Document storessuch as MongoDB, Couchbase Server, and ApacheCassandra ，challenge ：simple key-value and CRUD (create, read, update, and delete) APIof these systems is the difficulty to express more complexqueries.
+Additionally, many “Big Data” engines now support queries over nested data,for example Apache Hive, Apache Spark, ApacheDrill, Cloudera Impala , and Facebook Presto.We believe that this shows a real need for complex analyticsover schema-less and semi-structured data,
+
+When Snowflake was founded in 2012, the database worldwas fully focused onSQL on Hadoop, with over a dozensystems appearing within a short time span. At that time,the decision to work in a completely different direction, tobuild a “classic” data warehouse system for the cloud, seemeda contrarian and risky move. After 3 years of developmentwe are confident that it was the right one. Hadoop has notreplaced RDBMSs; it has complemented them. People stillwant a relational database, but one that is more efficient,flexible, and better suited for the cloud.
+
+
+### 4.2.Redshift Cloud DataWarehouse
+
+### 4.3.Google BigQuery Services
+
+基于Dremel的GoogleBigQuery
+
+- Concept: distributed search engine design
+- Dremel provides a high-level, SQL-like language to express ad-hoc queries without translating them into MR job.
+- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
+
+
+1.A high-performance storage layer is critical for in situ data management.
+2.Columnar storage proved successful for flat relational data but making it work for Google required adapting it to a nested data model.
+
+_Ref:_
+
+- [BigQuery](https://cloud.google.com/bigquery/)
+- [GCE BigQuery vs AWS Redshift vs AWS Athena](https://www.gab.lc/articles/bigquery-vs-redshift-vs-athena/)
+- [SQLonHadoop研究Note-Dremel](2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
+
+### 5.Alibaba Cloud - MaxCompute
+
+“新一代计算引擎”的底层技术主要有三个：MaxCompute(离线计算)、Hologres(交互式分析)、Flink(实时计算)、PAI(人工智能)。在它们之上，是用来统一调度各个技术模块的操作系统：DataWorks。
 
 MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
 
 
-
-**5.1.MaxCompute特点:**
+#### 5.1.MaxCompute特点
 
     - 大规模计算存储(海量离线计算)
     MaxCompute 适用于 100GB 以上规模的存储及计算需求，最大可达 EB 级别。
@@ -260,8 +286,6 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
     - AliORC文件格式
 
 
-![MaxCompute架构](_includes/maxcompute_arch.png)
-
 _MaxComputer技术栈_
 
 ![MaxCompute技术栈](_includes/maxcomputer_tech.png)
@@ -272,7 +296,7 @@ _MaxComputer技术栈_
 
 ![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
 
-_MaxCompute流计算引擎?_
+_MaxCompute联合计算引擎平台_
 
 _MaxCompute SQL Parser & SQL Optimizer_
 
@@ -284,6 +308,13 @@ _MaxCompute SQL Parser & SQL Optimizer_
 在编译器方面,基于AST的编译器模型,Visitor模型（Antlrv4），IDE IntelliSense，Warning支持完整的存储过程，LOOP/IFELSE判断等；
 
 在优化器方面，CBO基于代价的优化器，Volcano模型，展开各种可能等价的执行计划，然后依赖统计信息，计算这些等价执行计划的“代价”，最后最低的执行计划
+
+CBO代价模型
+
+• 由CPU、IO、Row Count、Memory、Network组成的五元 组
+• 每个operator关注于自身的Cost，整个plan的Cost由 引擎累积等到
+• Cost model力求能够反映客观的物理实现
+• Cost model不需要得到和真实一模一样，只需要能够选出较优的plan
 
 主要包括类型：RBO/CBO/HBO
 
@@ -298,19 +329,28 @@ HBO:在大流量、高并发场景中，每天都需要处理大量相似的查�
 在运行时方面，利用LLVM技术，在运行时生成较优的机器码，采用列式执行框架，提高CPU流水线的执行效率，并提高缓存命中率，使用SIMD。
 
 
-_Data Lake Analytics_
+_MaxCompute on OSS => Data Lake Analytics_
 
 基于Datalake的技术，把不同的数据源用类似的方式存储，用统一的方法计算。是同一SQL查询引擎.
 
 
+#### 5.2.数据架构设计
 
-**5.3.MaxCompute数据存储**
+![MaxCompute架构](_includes/maxcompute_arch.png)
 
-AliORC
+#### A.核心计算引擎
 
-**5.4.MaxCompute数据安全**
+#### B.数据存储结构
 
-_Ref:_
+#### C.MaxCompute数据存储
+
+AliORC/支持嵌套树型数据结构
+
+![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
+
+#### D.MaxCompute数据安全
+
+#### Ref
 
 -[MaxCompute2018]
 
@@ -355,7 +395,7 @@ _Ref:_
 
 - PolarDB - 阿里
 
-#### Alibaba Cloud - DRDS(OLTP)
+#### Alibaba Cloud - DRDS(Dritributed OLTP)
 
 - 分布式SQL引擎
 - 分库分表
@@ -368,9 +408,43 @@ _Ref:_
 - SQL审计与分析
 - 全局唯一数字ID
 
-#### 6.GBase+Informix
+### 6.GBase+Informix
 
 GBase 8a
+
+
+### All in Box - Cloud-Nativa Analytics Service 
+
+Cloud Analytics Data Warehouse is new Next Generation model for Analytics as a Service.
+
+#### 存算分离/弹性伸缩
+
+- 分布式存储加速
+- Alluxio/存储缓存加速
+- 数据湖OSS搭建的存算分离架构
+
+
+#### 多租户&资源隔离
+
+#### 批流一体与云端数据仓库
+
+- Lambda+Kappa->批流一体存储
+- LakeHouse数据格式
+- Flink流批一体
+- [LakeHouse技术研究](2020-06-06-bigdata-research-lake-house-solution.md)
+
+
+#### 分布式Transactional事务服务
+
+#### 非结构数据扩展支持
+
+#### 云端自动系统优化
+
+#### 大数据容灾备份
+
+- RPO=0
+- RTO=180
+
 
 
 #### X.技术思考
@@ -441,7 +515,6 @@ SCOPE
 查询优化非常好
 
 [CosmosDB](https://docs.microsoft.com/zh-cn/azure/cosmos-db/) 统一存储格式 + 不同数据库模型
-
 
 
 **Amazon AWS**

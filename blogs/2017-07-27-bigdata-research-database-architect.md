@@ -171,6 +171,12 @@ title: Big Data Research Note - Distributed Database Architect
 
 分布式数据架构的整个框架是非常稳定的,主流的数据架构都是由存储引擎,执行引擎,网络交互和查询优化器组成的
 
+主要用于以下4种分析场景
+- reporting/dashboard: 万级别query,ms延时,插入更新upsert数据多,实时,filters,aggregation类似操作
+- embedded statics: simply query & high query,百万级别/qps实时更新
+- monitoring: 内存时序分析/在线服务
+- ad-hoc analysis: 复杂查询在trillion data下即席查询分析,snowflake云端数据仓库
+
 #### A.分析型数据库设计-MPP
 
 *1.数据分析性需求对IT能力的要求包括:*
@@ -206,8 +212,9 @@ title: Big Data Research Note - Distributed Database Architect
 
 #### A+.Ad-hoc分析型MPP on Cloud
 
+*5.Snowflake-Cloud DataWarehouse*
 
-*5.AWS Redshift-Cloud DataWarehouse*
+*6.AWS Redshift-Cloud DataWarehouse*
 
 支持PB级别的OLAP数据库
 
@@ -216,12 +223,9 @@ title: Big Data Research Note - Distributed Database Architect
 	- 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
 
-*7.Snowflake-Cloud DataWarehouse*
+*7.Google BigQuery(Dremel)-Cloud Analytics Services*
 
-*8.Google BigQuery(Dremel)-Cloud Analytics Services*
-
-*9.AliCloud MaxCompute-Cloud Serveless DataWarehouse*
-
+*8.AliCloud MaxCompute-Cloud Serverless DataWarehouse*
 
 [云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
 
@@ -343,13 +347,15 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 DataStax维护
 
 
-#### C+.InMemory-KV数据库
+#### C+.InMemory-KV内存数据库
 
 *1.Redis*
 
 *2.Couchbase*
 
 *3.Ignite*
+
+*4.Monarch*
 
 
 #### D.Document文档数据库

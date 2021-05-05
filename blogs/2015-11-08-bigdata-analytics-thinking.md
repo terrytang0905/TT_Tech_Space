@@ -107,7 +107,7 @@ B._大数据分布式存储_:
 
 C.[分布式基础架构](2017-07-27-bigdata-research-architect-build.md)
 
-C.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
+D.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
 
 
 ### III.数据预处理

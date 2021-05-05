@@ -25,7 +25,7 @@ title: Big Data Analytics Note - SQL on Hadoop
 
 ![SQLOnHadoopQueryPerf](_includes/sql_on_hadoop_query_perf.png)
 
-> Dremel > Impala > SparkSQL > Presto > Hive
+MesaStore > Dremel > Impala > SparkSQL > Presto > Hive
 
 
 #### 1.PrestoDB
