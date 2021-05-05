@@ -86,7 +86,7 @@ Spark可以作为Kappa架构的一种实现,以解决Lambda Architecture一体�
 
 ### IV.Streaming Compute 
 
-- [实时计算数据框架](2017-07-27-bigdata-research-dataprocess-realtime-framework.md)
+- [实时计算数据框架](2017-07-29-bigdata-research-dataprocess-realtime-framework.md)
 
 - [流式数据处理技术](2018-05-31-bigdata-research-dataprocess-stream-compute.md)
 

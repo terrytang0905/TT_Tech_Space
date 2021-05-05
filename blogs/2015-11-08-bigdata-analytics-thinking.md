@@ -2,11 +2,18 @@
 layout: post
 category : datascience
 tags : [bigdata,datamining,algorithm]
-title: Bigdata Mining Deep Thinking
+title: Big Data Analytics Note - Data Deep Thinking
 ---
 
-## 大数据挖掘-深度随想
+## 大数据分析-深度数据随想
 -------------------------------------------------
+
+数据价值思考的起点
+
+- 数据=生产资料
+- 技术=生产力
+- 商业=生产关系
+
 
 ### Information,NLP,Mathematics
 
@@ -84,9 +91,11 @@ C. _独立型数据集市_
 
 #### 2.2.大数据&数据仓库技术选型
 
-A._分布式大数据查询_:
+A._分布式大数据分析_:
 
-> Hive / Dremel / PrestoDB / [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
+> Hive / Dremel / Spanner / MesaStore
+> [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)  <br />
+> [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
 > [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)
 
 B._大数据分布式存储_:
@@ -96,7 +105,9 @@ B._大数据分布式存储_:
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 > [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md)
 
-C.[分布式数据架构分析](2017-01-22-bigdata-research-database-architect.md)
+C.[分布式基础架构](2017-07-27-bigdata-research-architect-build.md)
+
+C.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
 
 
 ### III.数据预处理
@@ -144,8 +155,8 @@ E. _数据完整性验证_
 * ETL Kettle开源工具
 * 任务队列与任务规则
 * 基于SQL/存储过程/UDF数据处理组件
-* Hive/Spark/Storm/Flink数据处理
-* 大数据MQ-[Kafka应用](2017-01-10-kafka-research-note.md)
+* [Hive/Spark/Storm/Flink数据处理](2017-07-29-bigdata-research-dataprocess-development.md)
+* 大数据MQ-[Kafka应用](2017-07-29-bigdata-research-dataprocess-kafka-note.md)
 
 #### 3.4.异常检验与处理
 
@@ -246,7 +257,7 @@ OLAP与数据挖掘-机器学习的差异
 
 数据库领域主要关注OLAP相关技术演进
 
-- [OLAP数据分析引擎](2017-02-01-bigdata-analytics-olap-query-engine-design-note.md)
+- [OLAP数据分析引擎](2017-07-28-bigdata-analytics-olap-query-engine-design-note.md)
 
 
 ### V.数据挖掘-机器学习开发
