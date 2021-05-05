@@ -1,9 +1,10 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, tech, solution]
+tags : [bigdata,tech,solution]
 title: Big Data Research Note: Cloud Data Warehouse
 ---
+
 
 ## Cloud DataWarehouse - Next Generation Analytics
 ---------------------------------------------------
