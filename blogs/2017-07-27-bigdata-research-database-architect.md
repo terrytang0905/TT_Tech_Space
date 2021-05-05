@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata, database, architect]
-title: Big Data Research Note - Database Architect
+title: Big Data Research Note - Distributed Database Architect
 ---
 
 ## 大数据研究-分布式数据架构
@@ -171,7 +171,7 @@ title: Big Data Research Note - Database Architect
 
 分布式数据架构的整个框架是非常稳定的,主流的数据架构都是由存储引擎,执行引擎,网络交互和查询优化器组成的
 
-#### A.分析数据库设计-MPP
+#### A.分析型数据库设计-MPP
 
 *1.数据分析性需求对IT能力的要求包括:*
 
@@ -199,12 +199,15 @@ title: Big Data Research Note - Database Architect
 
 *3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)*
 
-
-#### A+.列式存储MPP
+	- 第一款成熟的开源分布式分析型数据库
 
 *4.[Vertica数据库结构]()*
 
-*5.Redshift*
+
+#### A+.Ad-hoc分析型MPP on Cloud
+
+
+*5.AWS Redshift-Cloud DataWarehouse*
 
 支持PB级别的OLAP数据库
 
@@ -212,29 +215,15 @@ title: Big Data Research Note - Database Architect
 	- 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
 	- 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
-*6.Google BigQuery(Dremel)*
 
-*7.ClickHouse*
+*7.Snowflake-Cloud DataWarehouse*
 
-	- 列式数据库
-	- 数据压缩
-	- 数据的磁盘存储
-	- 多核并行处理
-	- 多服务器分布式处理
-	- 支持基础SQL
-	- 向量引擎
-	- 实时的数据更新
-	- 索引
-	- 适合在线查询
-	- 支持近似计算
-	- 支持数据复制和数据完整性
-	- 没有完整的事物支持
-	- 缺少高频率，低延迟的修改或删除已存在数据的能力
-	- 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
+*8.Google BigQuery(Dremel)-Cloud Analytics Services*
 
-*8.OceanBase数据库特性*
+*9.AliCloud MaxCompute-Cloud Serveless DataWarehouse*
 
-OceanBase底层架构还未可知。LSM/ACID等特征
+
+[云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
 
 
 #### B.Hadoop-MapReduce批处理
@@ -325,11 +314,15 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 ![hawq_arch](_includes/hawq_architecture_components.png)
 
+    - OushuDB数据库是实现HAWQ架构的商业版
 
-*2.Huawei FusionInsight*
+*2.Huawei FusionInsight+GuassDB 200*
+
+- FusionInsight改名为Huawei MRS
+- GuassDB 200可以理解为Greenplum的商业改良版
 
 
-#### C.BigTable-KV数据库架构
+#### C.BigTable-KV数据存储架构
 
 *基础特征:*
 
@@ -349,6 +342,7 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 DataStax维护
 
+
 #### C+.InMemory-KV数据库
 
 *1.Redis*
@@ -357,7 +351,6 @@ DataStax维护
 
 *3.Ignite*
 
-*4.TiKV*
 
 #### D.Document文档数据库
 
@@ -384,17 +377,28 @@ DocumentDB的某些优势
 - 可编程性：两者都支持JavaScript，DocumentDB的.NET SDK对LINQ支持更好，不过对debug支持不好（主要没有本地模拟器）。
 - 其他不同：DocumentDB对聚合操作暂时有一定限制，无服务端排序，工具还不够丰富。MongoDB情况要稍好些。
 
-#### E.OLTP数据库
+#### E.Distributed OLTP-分布式关系型数据库
 
-#### F.Search搜索数据存储
+*1.Spanner*
 
-- 适合海量数据秒级查询
-- 支持多并发查询分析
-- 不适用于复杂的JOIN查询等关联分析
+Spanner是一个Google开发的支持分布式读写事务，只读事务的分布式存储系统，只读事务不加任何锁。和其他分布式存储系统一样，通过维护多副本来提高系统的可用性。
 
-- [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
+一份数据的多个副本组成一个paxos group，通过paxos协议维护副本之间的一致性。对于涉及到跨机的分布式事务，涉及到的每个paxos group中都会选出一个leader，来参与分布式事务的协调。这些个leader又会选出一个大leader，称为coordinator leader，作为两阶段提交的coordinator，记作coordinator leader。其他leader作为participant。
 
-#### G.Like-Mesa
+数据库事务系统的核心挑战之一是并发控制协议。Spanner的读写事务使用两阶段锁来处理。
+
+![two_phase_commit_explain]()
+
+*2.OceanBase分布式数据库*
+
+OceanBase底层架构实现LSM/ACID等特征
+
+*3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)*
+
+*4.TiKV分布式存储*
+
+
+#### F.Distributed OLAP-Google MesaStore
 
 *1.Mesa*
 
@@ -402,13 +406,13 @@ Mesa是Google开发的近实时分析型数据仓库
 
 	其通过预聚合合并Delta文件等方式减少查询的计算量，提升了并发能力。
 
-Mesa充分利用了现有的Google技术组件:使用BigTable来存储所有持久化的元数据，使用了Colossus(Google的分布式文件系统)来存储数据文件，使用MapReduce来处理连续的数据。
+Mesa充分利用了现有的Google技术组件:使用BigTable来存储所有持久化的元数据，使用了Colossus(Google的分布式文件系统)来存储数据文件，使用MapReduce来处理连续的数据。Paxos技术对元数据(metadata)实现存储和维护
 
 ![MesaDatabase](_includes/mesa_database.png)
 
 Mesa相关的开源产品为Clickhouse(2016年Yandex开源)和Palo(2017年百度开源)
 
-*2.Palo*
+*2.Palo(Doris的前身)*
 
 Palo没有完全照搬Mesa的架构设计的思路，其借助了Hadoop的批量处理能力，但将加工结果导入到了Palo自身存储，专注于联机查询场景，在联机查询部分主要借鉴了Impala技术。同时Palo没有复用已有的分布式文件系统和类BigTable系统，而是设计了独立的分布式存储引擎。虽然数据存储上付出了一定的冗余，但在联机查询的低延迟、高并发两方面都得到了很大的改善。
 
@@ -417,6 +421,34 @@ Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小�
 整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
 
 ![Palo](_includes/palo_database.jpg)
+
+*3.ClickHouse*
+
+	- 列式数据库
+	- 数据压缩
+	- 数据的磁盘存储
+	- 多核并行处理
+	- 多服务器分布式处理
+	- 支持基础SQL
+	- 向量引擎
+	- 实时的数据更新
+	- 索引
+	- 适合在线查询
+	- 支持近似计算
+	- 支持数据复制和数据完整性
+	- 没有完整的事物支持
+	- 缺少高频率，低延迟的修改或删除已存在数据的能力
+	- 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
+
+[云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
+
+#### G.Search搜索数据存储
+
+- 适合海量数据秒级查询
+- 支持多并发查询分析
+- 不适用于复杂的JOIN查询等关联分析
+
+- [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
 
 
 #### 数据库应用选择

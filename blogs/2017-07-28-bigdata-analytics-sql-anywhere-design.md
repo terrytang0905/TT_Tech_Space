@@ -22,8 +22,6 @@ title: Big Data Analytics Note - SQL AnyWhere Design
 
 ### SQL on Hadoop
 
-- [大数据交互式查询分析应用](2017-04-04-olap-sqlonhadoop-research-note.md)
-
 - [Hive分析与应用](2017-06-08-hive-programing-note.md)
 
 - [Hive SQL编译分析](2017-06-09-hive-sql-parser-note.md)
@@ -35,6 +33,8 @@ title: Big Data Analytics Note - SQL AnyWhere Design
 - [Impala实践与应用](2016-12-13-olap-distributed-impala-practice-note.md)
 
 - [PrestoDB实践](2017-04-03-olap-distributed-presto-practice-note.md)
+
+- [SQLonHadoop分析应用](2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
 
 ### SQL on Memory
 

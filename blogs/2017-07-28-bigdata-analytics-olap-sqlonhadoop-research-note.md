@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data OLAP Note - SQL on Hadoop
+title: Big Data Analytics Note - SQL on Hadoop
 ---
 
-## OLAP查询-大数据交互式查询研究Note
+## 大数据查询分析- SQL on Hadoop
 ------------------------------------------------------------
 
 ### BigQuery Interactive Query Engine
