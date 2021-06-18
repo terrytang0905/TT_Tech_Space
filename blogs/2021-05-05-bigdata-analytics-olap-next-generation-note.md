@@ -9,8 +9,6 @@ title: Big Data Analytics Note - Next Generation OLAP
 ------------------------------------------------------------
 
 
-### OLAP走向何方?
-
 ### I.分布式OLAP的核心思路
 
 ### 1.1.OLAP标准要求
@@ -653,10 +651,13 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 Presto | ClickHouse | Doris | Hologres
 
 
-### VI. OLAP on Cloud 
+Monarch：[Monarch谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
 
-### X.Monarch
 
-- [Monarch谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
+### VI. OLAP走向何方 - OLAP on Cloud ?
+
+Snowflake 是否真的能解决当前OLAP查询分析所面临之问题
+
+
 
 
