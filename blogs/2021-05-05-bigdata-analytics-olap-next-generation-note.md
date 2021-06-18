@@ -212,12 +212,10 @@ HSAP: A Cloud-Native Service for Hybrid Serving/Analytical Processing
 
 系统将会非常复杂。综上，HSAP则是包含了上述全部的能力，提供服务分析一体化的数据处理服务。
 
-![Hologres场景](_includes/hologres_arch.png)
-
 	
 #### 2.System Design系统设计
 
-![Hologres架构图](_includes/hsap_hologres_arch.png)
+![Hologres场景](_includes/hologres_arch.png)
 
 
 _系统架构概览_
