@@ -13,7 +13,7 @@ title: Big Data Analytics Note - Next Generation OLAP
 
 ### I.分布式OLAP的核心思路
 
-#### 1.1.OLAP标准要求
+### 1.1.OLAP标准要求
 
 1. Atomic Updates. 原子更新。
 一个用户的动作，比如一个点击行为，会被影响成百上千的视图的指标，比如影响推广计划、分网站、创意等等一系列具体报表，这个点击行为要么全部生效，要么全不生效，不能存在中间状态。
@@ -37,7 +37,7 @@ title: Big Data Analytics Note - Next Generation OLAP
 业务不断变化，对于schema的变更，包括加表、删表、加列、减列，新建索引，修改物化视图等的都必须不能停服的在线完成，而且不能影响数据更新和查询。
 
 
-#### 1.2.通用MPP并行计算平台技术
+### 1.2.通用MPP并行计算平台技术
 
 MPP并行计算平台用于存储管理信息数据并形成数据仓库，支持数据分析挖掘。主要技术特点有：
 
@@ -50,7 +50,7 @@ MPP并行计算平台用于存储管理信息数据并形成数据仓库，支�
 
 Ref:  [Greenplum Arch Design](2017-02-11-greenplum-arch-design-note.md)
 
-#### 1.3.MPP并行计算平台功能
+### 1.3.MPP并行计算平台功能
 
 **MPP(Massively Parallel Processing)**，即大规模并行处理，在非共享集群中，每个节点都有独立的磁盘存储系统和内存系统，业务数据根据数据库模型和应用特点划分到各个节点上，每台数据节点通过专用网络或者商业通用网络互相连接，彼此协同计算，作为整体提供数据库服务。非共享数据库集群有完全的可伸缩性、高可用、高性能、优秀的性价比、资源共享等优势。简单来说，MPP是将任务并行的分散到多个服务器和节点上，在每个节点计算完成后，将各自部分的结果汇总在一起得到最终的结果。
 基于Map-Reduce模式的Hadoop擅长数据批处理，不是特别符合即时查询的场景。而业界当前做大数据实时查询一般都采用MPP架构，即大规模并行处理系统。数据库架构设计中，目前主要有Shared Everthing、和Shared Storage、Shared Nothing这三种主流架构。
@@ -102,7 +102,7 @@ MPP并行计算平台在节点内采用SMP并行架构，在节点间采用MPP�
 
     Tips:多任务下混合负载是分布式OLAP常见问题之一
 
-#### 1.4.标准OLAP设计组件
+### 1.4.标准OLAP设计组件
 
 **A. Query Engine**
 
@@ -185,7 +185,7 @@ Mesa is a distributed, replicated, and highly available data processing, storage
 Mesa的存储是多副本的并且分区做sharding的，很好理解，分治策略几乎是分布式系统的必备元素。批量更新，包括大批量，小批量（mini-batch）。使用MVCC机制，每个更新都有个version。为实现跨DC工作，还需要一个分布式一致性技术支持，例如Paxos。
 
 
-#### 3.1.Doris产品特性
+### 3.1.Doris产品特性
 
 **分布式架构**
 DorisDB采用分布式架构，存储容量和计算能力可近似线性水平扩展。DorisDB集群的规模可扩展到数百节点，支持的数据规模可达到10PB级别。元数据和数据管理采用热备保证高可用， 能够自愈服务来保证数据安全可靠。
@@ -206,7 +206,7 @@ DorisDB支持智能的物化视图。用户可以通过创建物化视图，预�
 DorisDB支持两级分区和动态分区。首先， 第一级分区对数据做Range划分，  用户可以把分区作为管理目标， 动态增删分区。  其次， 为了解决分区内的数据倾斜问题，  对分区做第二级分桶， 对分区内的数据做Hash划分。 这种分区分桶的设计方法， 可以灵活管理用户数据，  比如可以设置分区的存储介质，副本数，分区的生存周期和分桶数量等等。 用户可以利用分区分桶的机制实现冷热数据分离等功能。
 
 
-#### 3.2.Doris架构
+### 3.2.Doris架构
 
 ![Doris架构](_includes/dorisdb_arch.png)
 
@@ -239,7 +239,7 @@ Hdfs Broker:  用于从Hdfs中导入数据到DorisDB集群，见数据导入章�
 HSAP: A Cloud-Native Service for Hybrid Serving/Analytical Processing
 
 
-#### 4.1.需求与思考
+### 4.1.需求与思考
 
 **A.融合分析处理与在线服务: Fusion of Analytical Processing and Serving.**
 
@@ -268,7 +268,7 @@ HSAP: A Cloud-Native Service for Hybrid Serving/Analytical Processing
 
 ![Hologres场景](_includes/hologres_hsap_scenario.png)
 
-#### 4.2.System Design系统设计
+### 4.2.System Design系统设计
 
 ![Hologres架构分层](_includes/hologres_arch.png)
 
@@ -287,7 +287,7 @@ _系统架构概览_
 - 分布式文件系统Pangu：快速的分布式存储(优化存储数据格式-AliORC)
 
 
-#### 4.3.核心技术解析
+### 4.3.核心技术解析
 
 **A. HSAP(hybrid serving/analytical processing) challenge**
 	
@@ -312,7 +312,7 @@ _系统架构概览_
         Tips: 执行上下文调度机制/HOS/自定义调度策略
 
 
-#### 4.4.存储引擎
+### 4.4.存储引擎
 
 Hologres中存在两种存储类型的表，行存表主要服务于延迟低的行数据点查场景，列存表则主要服务于复杂分析的高吞吐列扫描场景。
 
@@ -470,7 +470,7 @@ Hologres采用分级缓存机制，既降低了I/O成本，也降低了计算成
 
 
 
-#### 4.5.执行引擎与调度
+### 4.5.执行引擎与调度
 
 **4.5.1.高并行的查询**
 
