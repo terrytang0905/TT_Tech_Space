@@ -18,7 +18,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - *[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)
 - *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
-- *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
+- *[数据商业价值思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)
 - *[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)
 - *[数据应用-用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-data-usage-user-behavior-analysis-note.md)
 - *[数据应用-新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-data-usage-new-retail-analytics-design-note.md)
@@ -61,8 +61,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### III.DataCompute & DataAnalytics
 
-- *[大数据代码设计-CDP数据产品CodeDesign](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
-- *[大数据代码设计-分布式计算引擎CodeDesign](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs)
+- *[大数据分析-分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 - *[大数据分析-SQLonHadoop](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
 - *[大数据分析-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-olap-query-engine-design-note.md)
 - *[大数据分析-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-sql-anywhere-design.md)
