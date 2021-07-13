@@ -660,10 +660,10 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题
 
-Spanner
+- Spanner
 
 - [TiDB](2019-07-08-tidb-oltp-olap-design.md)
 
-Cockroachdb
+- Cockroachdb
 
-Monarch：[Monarch谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
+- [Monarch谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)

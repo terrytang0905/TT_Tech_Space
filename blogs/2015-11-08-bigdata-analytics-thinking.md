@@ -77,13 +77,13 @@ title: Big Data Analytics Note - Data Deep Thinking
 #### 2.1.BI数据仓库概念设计
 
 A. _Bill Inmon的企业信息化工厂_ <br />
-![imnon_model](datamodel_imnon.png)
+![imnon_model](_includes/datamodel_imnon.png)
 > 采用第三范式的格式 <br />
 > ETL -> 企业数据仓库 -> 数据集市(多维物理数据) -> 用户探索&挖掘 <br />
 
 
 B. _Ralph Kilmball维度数据仓库(多维数据分析)_ <br />
-![kimball_model](datamodel_kimball.png)
+![kimball_model](_includes/datamodel_kimball.png)
 > 多维模型–星型模型 <br />
 > ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域Cube) -> 用户探索&挖掘 <br />
 > 集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用 <br />
