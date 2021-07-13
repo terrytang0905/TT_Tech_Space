@@ -32,12 +32,11 @@ title: Big Data Analytics Note - Next Generation OLAP
 7. Online Data and Metadata Transformation. 在线的schema变更。
 业务不断变化，对于schema的变更，包括加表、删表、加列、减列，新建索引，修改物化视图等的都必须不能停服的在线完成，而且不能影响数据更新和查询。
 
-8. 
+8. Distributed ACID - Spanner
 
 ### I. New OLAP Engine Comparison
 
-Feature | Presto | ClickHouse | Doris | Hologres
-
+Feature | Greenplum | ClickHouse | Doris | Hologres
 
 
 ### II.分布式OLAP的核心思路
@@ -663,7 +662,7 @@ Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问
 
 Spanner
 
-TiDB
+- [TiDB](2019-07-08-tidb-oltp-olap-design.md)
 
 Cockroachdb
 

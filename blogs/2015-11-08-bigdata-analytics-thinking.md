@@ -77,11 +77,15 @@ title: Big Data Analytics Note - Data Deep Thinking
 #### 2.1.BI数据仓库概念设计
 
 A. _Bill Inmon的企业信息化工厂_ <br />
+![imnon_model](datamodel_imnon.png)
+> 采用第三范式的格式 <br />
 > ETL -> 企业数据仓库 -> 数据集市(多维物理数据) -> 用户探索&挖掘 <br />
-> 支持第三范式 <br />
+
 
 B. _Ralph Kilmball维度数据仓库(多维数据分析)_ <br />
-> ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域) -> 用户探索&挖掘 <br />
+![kimball_model](datamodel_kimball.png)
+> 多维模型–星型模型 <br />
+> ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域Cube) -> 用户探索&挖掘 <br />
 > 集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用 <br />
 > 维度格式 可直接访问 <br />
 
@@ -89,26 +93,34 @@ C. _独立型数据集市_
 > ETL -> 数据集市(关注维度/主题区域) -> 用户探索&挖掘 <br />
 > 脱离企业环境,只关注主题区域
 
-#### 2.2.大数据&数据仓库技术选型
+#### 2.2.大数据&数据仓库演进技术选型
 
-A._分布式大数据分析_:
-
-> Hive / Dremel / Spanner / MesaStore
-> [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)  <br />
-> [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
-> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)
+A.[分布式基础架构](2017-07-27-bigdata-research-architect-build.md)
 
 B._大数据分布式存储_:
 
-> [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
-> HDFS(GFS) / HBase(Google BigTable) / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
+> HDFS(GFS) / HBase(Google BigTable) / Kudu  <br />
+> LevelDB / RocksDB <br />
+> LSM / SSTable
+
+C.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
+
+D._分布式大数据分析_:
+
+> Hive 
+> [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)  <br />
+> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 > [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md)
+> Cassandra / Amazon Dynamo
 
-C.[分布式基础架构](2017-07-27-bigdata-research-architect-build.md)
+E._分布式OLAP分析_:
 
-D.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
-
+> Dremel / Spanner / MesaStore
+> [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
+> [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
+> HTAP: TiDB / OceanBase / Oushu Database(Apache HAWQ) / HashData
+> Doris / Clickhouse
 
 ### III.数据预处理
 
