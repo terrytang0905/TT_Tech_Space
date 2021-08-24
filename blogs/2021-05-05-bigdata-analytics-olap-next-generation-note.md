@@ -34,6 +34,7 @@ title: Big Data Analytics Note - Next Generation OLAP
 
 8. Distributed ACID - Spanner
 
+
 ### I. New OLAP Engine Comparison
 
 Feature | Greenplum | ClickHouse | Doris | Hologres
@@ -58,6 +59,16 @@ Ref:  [Greenplum Arch Design](2017-02-11-greenplum-arch-design-note.md)
 
 **MPP(Massively Parallel Processing)**，即大规模并行处理，在非共享集群中，每个节点都有独立的磁盘存储系统和内存系统，业务数据根据数据库模型和应用特点划分到各个节点上，每台数据节点通过专用网络或者商业通用网络互相连接，彼此协同计算，作为整体提供数据库服务。非共享数据库集群有完全的可伸缩性、高可用、高性能、优秀的性价比、资源共享等优势。简单来说，MPP是将任务并行的分散到多个服务器和节点上，在每个节点计算完成后，将各自部分的结果汇总在一起得到最终的结果。
 基于Map-Reduce模式的Hadoop擅长数据批处理，不是特别符合即时查询的场景。而业界当前做大数据实时查询一般都采用MPP架构，即大规模并行处理系统。数据库架构设计中，目前主要有Shared Everthing、和Shared Storage、Shared Nothing这三种主流架构。
+
+**Shard分片**
+A database shard is a horizontal partition(水平分区) of data in a database. Each individual partition is referred to as a shard or database shard. Each shard is held on a separete database server instance,to spread load.
+
+做shard的三个原则
+-尽可能大部分的业务逻辑都是根据分布键/均衡字段,至少百分之80%,更改分布式数据库中的均衡字段非常麻烦,必须一开始就规划号表的均衡字段
+-如果不能选择有效的均衡字段,这张表就不要进行Shard,作为全局表
+-如果业务选择不出有效率的均衡字段,那么进行分布式数据库的改造也将是徒劳的
+
+tips：shard一般用hash打散,平均的,如果没有打散就是均衡字段没选好,可以选择用多个字段作均衡字段
 
 **执行协调器**
 
@@ -653,7 +664,7 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 
 
-
+- [Hologres测试](https://help.aliyun.com/document_detail/252748.html)
 
 
 ### VI. OLAP走向何方 - OLAP on Cloud ?

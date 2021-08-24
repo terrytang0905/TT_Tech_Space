@@ -5,7 +5,7 @@ tags : [bigdata, tech, solution]
 title: Big Data Research Note - LakeHouse
 ---
 
-## 大数据研究-LakeHouse存储优化解决方案
+## 大数据研究-湖仓一体&存算分离解决方案
 ---------------------------------------------------
 
 
@@ -18,6 +18,12 @@ title: Big Data Research Note - LakeHouse
 我们需要LakeHouse以下技术特性:
 
 - ACID事务支持(分布式事务):企业内部许多数据管道通常会并发读写数据。对ACID事务支持确保了多方可使用SQL并发读写数据。
+
+	对数据湖来说三种隔离分别代表的含义：
+	- Serialization是说所有的reader和writer都必须串行执行；
+	- Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
+	- Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
+
 - Table Schema-模式执行和治理(Schema enforcement and governance)：LakeHouse应该有一种可以支持模式执行和演进、支持DW模式的范式（如star/snowflake-schemas）。该系统应该能够推理数据完整性，并具有健壮的治理和审计机制。
 - Upsert/Delete数据更新能力:细粒度的文件/记录级别索引来支持Update/Delete记录，同时还提供写操作的事务保证。查询会处理最后一个提交的快照，并基于此输出结果
 - 同时支持高效随机读写/OLAP分析查询
@@ -30,6 +36,20 @@ title: Big Data Research Note - LakeHouse
 
 
 ![datalake_define](_includes/datalake_define.png)
+
+
+_Copy On Write_: 在更新部分文件的场景中，当只需要重写其中的一部分文件时是很高效的，产生的数据是纯 append 的全量数据集，在用于数据分析的时候也是最快的
+
+_Merge On Read_: 将数据直接 append 到 存储文件 上，在merge的时候，把这些增量的数据按照一定的组织格式、一定高效的计算方式与全量的上一次数据进行一次 merge。这样的好处是支持近实时的导入和实时数据读取。
+
+### Iceberg, Hudi, DeltaLake - Table Format
+
+Iceberg 的设计初衷倾向于定义一个标准、开放且通用的数据组织格式，同时屏蔽底层数据存储格式上的差异，向上提供统一的操作 API，使得不同的引擎可以通过其提供的 API 接入；
+
+Hudi 的设计初衷更像是为了解决流式数据的快速落地，并能够通过 upsert 语义进行延迟数据修正；
+
+Delta Lake 作为 Databricks 开源的项目，更侧重于在 Spark 层面上解决 Parquet、ORC 等存储格式的固有问题，并带来更多的能力提升。
+
 
 
 ### I.Apache Hudi
@@ -70,8 +90,9 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 
 *Hudi的两种存储类型:*
 
-    - 写时复制（Copy On Write表）：仅使用列式文件（parquet）存储数据。在写入/更新数据时，直接同步合并原文件，生成新版本的basefile,（parquet）不写log文件（需要重写整个列数据文件，即使只有一个字节的新数据被提交）。此存储类型下，写入数据非常昂贵，而读取的成本没有增加，所以适合频繁读的工作负载，因为数据集的最新版本在列式文件中始终可用，以进行高效的查询。
-    - 读时合并（Merge On Read表）：使用列式（parquet）与行式（avro）文件组合，进行数据存储。MOR表写数据时，记录首先会被快速的写进日志文件，稍后会使用时间轴上的压缩操作将其与基础文件合并。在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。此存储类型适合频繁写的工作负载，因为新记录是以appending的模式写入增量文件中。但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。
+    - 写时复制（Copy On Write表）：仅使用列式文件（parquet）存储数据。在写入/更新数据时，直接同步合并原文件，生成新版本的basefile,（parquet）不写log文件（需要重写整个列数据文件，即使只有一个字节的新数据被提交）。此存储类型下，写入数据非常昂贵，而读取的成本没有增加，所以适合频繁Read读的工作负载，因为数据集的最新版本在列式文件中始终可用，以进行高效的查询。
+
+    - 读时合并（Merge On Read表）：使用列式（parquet）与行式（avro）文件组合，进行数据存储。MOR表写数据时，记录首先会被快速的写进日志文件，稍后会使用时间轴上的压缩操作将其与基础文件合并。在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。此存储类型适合频繁Write写的工作负载，因为新记录是以appending的模式写入增量文件中。但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。
 
 
 	Tips: Hudi做的事情就是将批处理（copy-on-write storage）和流计算（merge-on-read storage）作业整合，并将计算结果存储在Hadoop中。对于Spark应用程序，依靠其同意的DAG模型可以将融入了Hudi库与Spark/Spark Steaming作业天然整合。对于非Spark处理系统（例如：Flink，Hive），处理过程可以在各自的系统中完成，然后以Kafka Topics 或者HDFS中间文件的形式发送到Hudi表中。
@@ -115,7 +136,7 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 
 #### 1.4. 时间轴
 
-介绍一下 Hudi 的核心 —— **时间轴**。
+Hudi 的核心 —— **时间轴**。
 
 Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、合并等），均会带有一个时间戳。通过时间轴，可以实现在仅查询某个时间点之后成功提交的数据，或是仅查询某个时间点之前的数据。这样可以避免扫描更大的时间范围，并非常高效地只消费更改过的文件（例如在某个时间点提交了更改操作后，仅query某个时间点之前的数据，则仍可以query修改前的数据）。
 
@@ -157,13 +178,17 @@ Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候
 
 同理，Hudi 也是支持写入数据的时候进行合并，但是相比 Delta Lake，Hudi 还支持 Read On Merge 模式，也就是将增量数据写入到一个 delta 文件，然后默认情况下在更新完数据后会启动一个作业进行 compaction 操作。当然，这个也是可以关闭的，也就是更新的时候值负责数据的写入，合并操作可以单独用一个作业来跑。
 
-从功能上来说，这方面 Hudi 比 Delta Lake 设计的要好。在**多读少写**的情况下，Write On Merge 模式很不错；而在多写少读的情况下，Read On Merge 模式很不错，而 Delta Lake 目前还不支持 Read On Merge 模式。
+从功能上来说，这方面 Hudi 比 Delta Lake 设计的要好。在**多读少写**的情况下，Write On Merge 模式很不错；而在**多写少读**的情况下，Read On Merge 模式很不错，而 Delta Lake 目前还不支持 Read On Merge 模式。
 
 另外，Hudi 提供了索引机制，在数据合并的时候，可以使用索引的信息快速定位到某行数据所在的文件，从而加快数据更新的速度。
+
+	Tips: OpenSource Delta Lake 不支持快速CUDR与Pull增量。Databrick Delta Lake 支持。
 
 #### 2.4. Spark Delta Process
 
 ![datalake_spark_delta](_includes/datalake_spark_delta.png)
+
+**DeltaLake的核心优势在于批流一体与历史数据快照+回滚数据**
 
 ### III.Apache CarbonData
 
@@ -176,6 +201,7 @@ Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候
 详单查询：二级索引、BloomFilter索引、Lucene索引、空间索引、Segment级别MINMAX索引，实现PB级别秒级详单查询；
 复杂查询：物化视图、时序聚合、分桶索引，实现复杂查询秒级响应；
 海量索引管理：分布式内存索引缓存、并支持索引内存预加载；
+物化视图: ??
 
 - 数据湖能力：
 
@@ -185,8 +211,7 @@ Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候
 
 - ACID能力(snapshot isolation)：
 
-Insert、Update和Delete性能增强，支持Merge语法(Merge性能如何?)
-
+- Insert、Update和Delete性能增强，支持Merge语法(Comments: Merge性能估计一般)
 
 
 下面我们首先介绍CarbonData的愿景，其次通过示例介绍CarbonData的索引、物化视图、数据湖能力和ACID能力。
@@ -375,17 +400,36 @@ DELETE FROM person WHERE id = c002;
 数据Merge，支持批量查询、更新、删除。[语法可参考](https://github.com/apache/carbondata/blob/master/examples/spark/src/main/scala/org/apache/carbondata/examples/CDCExample.scala)
 
 
-结语
-CarbonData提供了一种新的融合数据存储方案，以一份数据同时支持多种应用场景，EB级别数据规模，查询性能秒级响应。可以看出CarbonData目前的架构和想法都十分先进.
+
+**总结:CarbonData提供了一种新的融合数据存储方案，以一份数据同时支持多种应用场景，EB级别数据规模，查询性能秒级响应。可以看出CarbonData目前的架构和想法都十分先进.**
 
 
-### IV.Apache Kudu
+
+### IV.Apache Iceberg
+
+
+#### Iceberg的特性:
+
+- ACID事务； 
+- 时间旅行（time travel），以访问之前版本的数据； 
+- 完备的自定义类型、分区方式和操作的抽象； 
+- 列和分区方式可以进化，而且进化对用户无感，即无需重新组织或变更数据文件； 
+- 隐式分区，使SQL不用针对分区方式特殊优化； 
+- 面向云存储的优化等；
+
+
+缺少upsert和compaction
+
+![datalake_iceberg](_includes/datalake_iceberg.png)
+
+
+### V.Apache Kudu
 
 [Apache Kudu](https://kudu.apache.org/):在更新更及时的基础上实现更快的数据分析的Hadoop数据存储方案
 
 Kudu不但提供了行级的插入、更新、删除API，同时也提供了接近Parquet性能的批量扫描操作。使用同一份存储，既可以进行随机读写，也可以满足数据分析的要求。
 
-#### 4.1.Kudu总览
+#### 5.1.Kudu总览
 
 Tables和Schemas
 
@@ -408,7 +452,7 @@ Kudu为用户提供了两种一致性模型。默认的一致性模型是snapsho
      - 在client之间传播timestamp token。在一个client完成一次写入后，会得到一个timestamp token，然后这个client把这个token传播到其他client，这样其他client就可以通过token取到最新数据了。不过这个方式的复杂度很高。
      - 通过commit-wait方式，这有些类似于Google的Spanner。但是目前基于NTP的commit-wait方式延迟实在有点高。不过Kudu相信，随着Spanner的出现，未来几年内基于real-time clock的技术将会逐渐成熟。
 
-#### 4.2.Kudu的架构
+#### 5.2.Kudu的架构
 
 Kudu与分布式文件系统抽象和HDFS完全不同，它自己的一组存储服务器通过RAFT相互通信。与HDFS和HBase相似，Kudu使用单个的Master节点，用来管理集群的元数据，并且使用任意数量的Tablet Server节点用来存储实际数据。可以部署多个Master节点来提高容错性。
 
@@ -477,22 +521,16 @@ MemRowSets是一个可以被并发访问并进行过锁优化的B-tree，主要�
 
 
 
-### V.数据湖一体化思考
+### VI.数据湖存储思考
 
+#### 行列混存优化
 
-#### 基础要求
+#### 分布式ACID(snapshot isolation)
 
-统一分布式文件系统+一份融合数据存储格式+多种计算引擎(批流一体)+跨源数据查询分析能力
+#### 快速Upsert/Delete
 
-#### 统一分布式文件系统
+#### 数据湖存储
 
-#### 新一代融合数据存储格式
-
-行列混存优化
-
-#### 数据湖-统一数据集成能力
-
-#### 计算存储分离
 
 
 
