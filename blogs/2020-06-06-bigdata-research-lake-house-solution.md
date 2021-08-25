@@ -15,41 +15,49 @@ title: Big Data Research Note - LakeHouse
 - HBASE:可以进行高效随机读写，却并不适用于基于SQL的数据分析方向，大批量数据获取时的性能较差。
 - 数据库:便捷高效的访问与更新数据,符合ACID标准,并发读写,TableSchema
 
+### LakeHouse 核心技术特征
+
 我们需要LakeHouse以下技术特性:
 
 - ACID事务支持(分布式事务):企业内部许多数据管道通常会并发读写数据。对ACID事务支持确保了多方可使用SQL并发读写数据。
-
-	对数据湖来说三种隔离分别代表的含义：
-	- Serialization是说所有的reader和writer都必须串行执行；
-	- Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
-	- Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
-
 - Table Schema-模式执行和治理(Schema enforcement and governance)：LakeHouse应该有一种可以支持模式执行和演进、支持DW模式的范式（如star/snowflake-schemas）。该系统应该能够推理数据完整性，并具有健壮的治理和审计机制。
-- Upsert/Delete数据更新能力:细粒度的文件/记录级别索引来支持Update/Delete记录，同时还提供写操作的事务保证。查询会处理最后一个提交的快照，并基于此输出结果
+- Upsert/Delete数据更新能力:细粒度的文件/记录级别索引来支持Update/Delete记录，同时还提供写操作的事务保证。查询会处理最后一个提交的快照，并基于此输出结果。
+- 实时离线任务一体化(批流一体)
 - 同时支持高效随机读写/OLAP分析查询
 - 计算与存储分离+高可用:这意味着存储和计算使用单独的集群，因此这些系统能够支持更多用户并发和更大数据量。一些现代数据仓库也具有此属性。
 - 离线加速查询能力
 - 行存与列存混合优化存储(资源优化/高压缩比)
 - 支持从非结构化数据到结构化数据的多种数据类型：LakeHouse可用于存储、优化、分析和访问许多数据应用所需的包括图像、视频、音频、半结构化数据和文本等数据类型。
 - 支持多种工作负载/分析引擎：包括数据科学、机器学习以及SQL和分析。可能需要多种工具来支持这些工作负载，但它们底层都依赖同一数据存储库。
-- 实时离线任务一体化(批流一体)
 
 
 ![datalake_define](_includes/datalake_define.png)
 
+#### Upsert 技术方案
 
 _Copy On Write_: 在更新部分文件的场景中，当只需要重写其中的一部分文件时是很高效的，产生的数据是纯 append 的全量数据集，在用于数据分析的时候也是最快的
 
+        * 列式文件存储，用于读多写少。
+        * 数据读到内存，进行行更新后替换原本文件
+        * 支持后续读数据快速，不存在小文件/Merge操作。写入/数据更新性能差
+        * 写时复制
+
 _Merge On Read_: 将数据直接 append 到 存储文件 上，在merge的时候，把这些增量的数据按照一定的组织格式、一定高效的计算方式与全量的上一次数据进行一次 merge。这样的好处是支持近实时的导入和实时数据读取。
 
-### Iceberg, Hudi, DeltaLake - Table Format
+        * 列式与行式文件组合存储。用于频繁写的工作负载场景
+        * 相关更新记录落地成Delta文件，读时进行合并
+        * 写速度快，会产生小文件合并merge问题
+        * 读时合并
+
+
+
+#### Iceberg, Hudi, DeltaLake - Table Format
 
 Iceberg 的设计初衷倾向于定义一个标准、开放且通用的数据组织格式，同时屏蔽底层数据存储格式上的差异，向上提供统一的操作 API，使得不同的引擎可以通过其提供的 API 接入；
 
 Hudi 的设计初衷更像是为了解决流式数据的快速落地，并能够通过 upsert 语义进行延迟数据修正；
 
-Delta Lake 作为 Databricks 开源的项目，更侧重于在 Spark 层面上解决 Parquet、ORC 等存储格式的固有问题，并带来更多的能力提升。
-
+Delta Lake 作为 Databricks 开源的项目，更侧重于在 Spark 层面上解决 Parquet、ORC 等存储格式的固有问题，高效使用增量数据append文件系统。
 
 
 ### I.Apache Hudi
@@ -66,8 +74,8 @@ Uber 团队在 Hudi 上同时实现了 Copy On Write 和 Merge On Read 的两种
 
 ##### 核心特性
 
-- 可插拔式的索引支持快速Upsert / Delete。
-- 事务提交/回滚数据。
+- 可插拔式的索引支持快速Upsert / Delete
+- ACID事务提交/回滚数据。
 - 支持捕获Hudi表的变更进行流式处理。
 - 支持Apache Hive，Apache Spark，Apache Impala和Presto查询引擎。Flink已在需求列表中
 - 内置数据提取工具，支持Apache Kafka，Apache Sqoop和其他常见数据源。
@@ -159,15 +167,15 @@ ACID 事务能力，其通过写和快照隔离之间的乐观并发控制（opt
 
 - 支持ACID事务
 - 可扩展的元数据处理
-- 统一的流、批处理API接口(批流一体)
+- 批流一体：统一的流、批处理API接口
 - 更新、删除数据，实时读写（读是读当前的最新snapshot, snapshot isolation）/支持增量更新
 - 数据版本控制，根据需要查看历史数据快照，可回滚数据
-- 自动处理schema变化，可修改表结构
+- 自动处理Table schema变化，可修改表结构
 
 
 #### 2.2. Delta Lake目前的不足
 
-- 更新操作很重，更新一条数据和更新一批数据的成本可能是一样的，所以不适合一条条的更新数据
+- 更新操作很重，更新一条数据和更新一批数据的成本可能是一样的，所以不适合一条条的更新数据 (Merge操作实现缺乏)
 - 新数据的方式是新增文件，会造成文件数量过多，需要清理历史版本的数据，version最好不要保存太多
 - 乐观锁在多用户同时更新时并发能力较差，更适合写少读多的场景（或者only append写多更新少场景）
 
@@ -182,7 +190,7 @@ Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候
 
 另外，Hudi 提供了索引机制，在数据合并的时候，可以使用索引的信息快速定位到某行数据所在的文件，从而加快数据更新的速度。
 
-	Tips: OpenSource Delta Lake 不支持快速CUDR与Pull增量。Databrick Delta Lake 支持。
+	Tips: OpenSource Delta Lake 不支持快速CUDR与Pull增量(更新操作很重)。Databrick Delta Lake 支持。
 
 #### 2.4. Spark Delta Process
 
@@ -211,7 +219,7 @@ Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候
 
 - ACID能力(snapshot isolation)：
 
-- Insert、Update和Delete性能增强，支持Merge语法(Comments: Merge性能估计一般)
+- Insert、Update和Delete数据更新性能增强，支持Merge语法
 
 
 下面我们首先介绍CarbonData的愿景，其次通过示例介绍CarbonData的索引、物化视图、数据湖能力和ACID能力。
@@ -385,7 +393,7 @@ AS SELECT country,count(id) FROM parquet_table GROUP BY country;
 ```
 SELECT country,count(id) FROM parquet_table GROUP BY country;
 ```
-#### 3.4. ACID - Update/Delete/Merge
+#### 3.4. Update/Delete数据更新-Merge
 
 CarbonData 2.0中深度优化了UPDATE、DELETE性能，并支持了Merge语法。
 
@@ -416,9 +424,7 @@ DELETE FROM person WHERE id = c002;
 - 列和分区方式可以进化，而且进化对用户无感，即无需重新组织或变更数据文件； 
 - 隐式分区，使SQL不用针对分区方式特殊优化； 
 - 面向云存储的优化等；
-
-
-缺少upsert和compaction
+- 缺少upsert和compaction
 
 ![datalake_iceberg](_includes/datalake_iceberg.png)
 
@@ -523,13 +529,27 @@ MemRowSets是一个可以被并发访问并进行过锁优化的B-tree，主要�
 
 ### VI.数据湖存储思考
 
-#### 行列混存优化
 
 #### 分布式ACID(snapshot isolation)
 
+
+对数据湖来说三种隔离分别代表的含义：
+- Serialization是说所有的reader和writer都必须串行执行；
+- Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
+- Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
+
 #### 快速Upsert/Delete
 
-#### 数据湖存储
+Copy on Write
+
+Merger on Read
+
+#### Table Schema
+
+#### 批流一体
+
+#### 行列混存优化
+
 
 
 
