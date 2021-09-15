@@ -33,6 +33,16 @@ title: Big Data Research Note - LakeHouse
 
 ![datalake_define](_includes/datalake_define.png)
 
+
+#### 分布式ACID
+
+对数据湖来说三种隔离分别代表的含义：
+    - Serialization是说所有的reader和writer都必须串行执行；
+    - Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
+    - Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
+
+_Snapshot Isolation_ 是现在大数据场景下最多的ACID隔离模式
+
 #### Upsert 技术方案
 
 _Copy On Write_: 在更新部分文件的场景中，当只需要重写其中的一部分文件时是很高效的，产生的数据是纯 append 的全量数据集，在用于数据分析的时候也是最快的
@@ -59,6 +69,8 @@ Hudi 的设计初衷更像是为了解决流式数据的快速落地，并能够
 
 Delta Lake 作为 Databricks 开源的项目，更侧重于在 Spark 层面上解决 Parquet、ORC 等存储格式的固有问题，高效使用增量数据append文件系统。
 
+
+![os_table_format](_includes/Delta+Hudi+Iceberg对比)
 
 ### I.Apache Hudi
 
@@ -530,13 +542,7 @@ MemRowSets是一个可以被并发访问并进行过锁优化的B-tree，主要�
 ### VI.数据湖存储思考
 
 
-#### 分布式ACID(snapshot isolation)
-
-
-对数据湖来说三种隔离分别代表的含义：
-- Serialization是说所有的reader和writer都必须串行执行；
-- Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
-- Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
+#### 分布式ACID进化
 
 #### 快速Upsert/Delete
 
@@ -544,9 +550,9 @@ Copy on Write
 
 Merger on Read
 
-#### Table Schema
+#### Table Schema扩展
 
-#### 批流一体
+#### 批流一体/流批一体实践
 
 #### 行列混存优化
 
