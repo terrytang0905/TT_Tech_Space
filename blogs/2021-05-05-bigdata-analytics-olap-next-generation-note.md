@@ -524,11 +524,101 @@ Figure 5: Workflow of Query Parallelization
     write fragment instance: 写分片实例中的非写的相关计算会被分配的Query WU中执行。写入的部分会产出一个写同步WU完成WAL的log持久化，然后产出多个写接收WU用于并行更新各个Tablet。
     query fragment instance: 产出Query WU。
     
-**5.5.2.向量化执行引擎**
+**5.5.2.SQL 计算引擎的优化**
+    
+经典 SQL 的计算引擎一个很大问题就是无论是 expression 还是 operator，其计算的时候都大量使用到虚函数，由于每行数据都需要经过这一系列的运算，导致计算框架开销比较大，而且由于虚函数的大量使用，也影响了编译器的优化空间。
 
-大规模使用向量化计算技术加速计算, 所有计算都是向量形式进行执行。例如:Select column1+column2 FROM TABLE，执行时会依次8192行的column1与8192行的column2进行向量加法, 充分利用CPU的SIMD指令集(例如: SSE指令集、AVX512指令集)。配合列式存储和异步执行框架, 从而达到极致性能。
+在减小框架开销方面，两个常用的方法就是
+    
+    均摊开销-向量化执行
+    消除开销-代码生成
+
+**A.向量化执行**
+
+向量化执行的思想就是均摊开销：假设每次通过 operator tree 生成一行结果的开销是 C 的话，经典模型的计算框架总开销就是 C * N，其中 N 为参与计算的总行数，如果把计算引擎每次生成一行数据的模型改为每次生成一批数据的话，因为每次调用的开销是相对恒定的，所以计算框架的总开销就可以减小到C * N / M，其中 M 是每批数据的行数，这样每一行的开销就减小为原来的 1 / M，当 M 比较大时，计算框架的开销就不会成为系统瓶颈了。
+
+除此之外，向量化执行还能给 compiler 带来更多的优化空间，因为引入向量化之后，实际上是将原来数据库运行时的一个大 for 循环拆成了两层 for 循环，内层的 for 循环通常会比较简单，对编译器来说也存在更大的优化可能性。举例来说，对于一个实现两个 int 相加的 expression，在向量化之前，其实现可能是这样的：
+
+```sql
+    class ExpressionIntAdd extends Expression {
+            Datum eval(Row input) {
+                    int left = input.getInt(leftIndex);
+                    int right = input.getInt(rightIndex);
+                    return new Datum(left+right);
+            }
+    }
+```
+在向量化之后，其实现可能会变为这样：
+
+```sql
+    class VectorExpressionIntAdd extends VectorExpression {
+            int[] eval(int[] left, int[] right) {
+                    int[] ret = new int[input.length];
+                    for(int i = 0; i < input.length; i++) {
+                            ret[i] = new Datum(left[i] + right[i]);
+                    }
+                    return ret;
+            }
+    }
+```
+显然对比向量化之前的版本，向量化之后的版本不再是每次只处理一条数据，而是每次能处理一批数据，而且这种向量化的计算模式在计算过程中也具有更好的数据局部性。
+
+**Hologres向量化执行引擎**
+
+编译执行引擎大规模使用向量化计算技术加速计算, 所有计算都是向量形式进行执行。
+
+例如:Select column1+column2 FROM TABLE，执行时会依次8192行的column1与8192行的column2进行向量加法,充分利用CPU的SIMD指令集(例如: SSE指令集、AVX512指令集)。配合列式存储和异步执行框架, 从而达到极致性能。
 
     Tips：SIMD(Single Instruction Multiple Data) 是指单条指令处理多条数据, 相对传统。SISD(Single Instruction Single Data) 单条指令处理单条数据性能会有几倍提升。
+
+**B.代码生成**
+
+代码生成的思想是消除开销。代码生成可以在两个层面上进行，一个是 expression 层面，一个是 operator 层面，当然也可以同时在 expression 与 operator 层面进行代码生成。
+
+经典 SQL 计算引擎的一大缺点就是各种虚函数调用不但会带来很多额外的开销，而且还挤压了 compiler 的优化空间。代码生成可以直观的理解为在 SQL plan build 好之后，将 plan 中的代码进行一次逻辑上的内联。如果实现的好，代码生成能够将CBO火山模型代码转换为类似于手动优化的代码，显然和向量化执行一样，代码生成后的新代码也给编译器带来了更多的优化机会。与向量化执行相比，代码生成之后数据库运行时仍然是一个 for 循环，只不过这个循环内部的代码从简单的一个虚函数调用plan.next()展开成了一系列具体的运算逻辑，这样数据就不用再各个 operator 之间进行传递，而且有些数据还可以直接被存放在寄存器中，进一步提升系统性能。
+
+当然为了获取这些好处代码生成也付出了一定的代价，代码生成需要在 SQL 编译器编译获得 plan 之后进行额外的 code gen + jit ，对应到具体的工程实现也比向量化执行的难度要高一些。 
+
+举例来说，对于下面这条 query:
+
+```sql
+    select *
+    from R1,
+        (select R2.y, count(*)
+        from R2
+        where R2.x=3
+        group by R2.y) R2
+    where R1.a=7 and R1.b=R2.y
+    通过代码生成技术，其执行过程会变成这样：
+
+    map<int, vector<Row>> hash_table_for_join;
+    map<int, int> hash_table_for_agg;
+    for(Row row in scanBuffer_R1) {
+            int a = row.getInt(0);
+            int b = row.getInt(1);
+            if (a == 7) {
+                    // ignore the case when the key `b` doesn't exists for simplicity
+                    hash_table_for_join[b].push_back(row);
+            }
+    }
+    for(Row row in scanBuffer_R2) {
+            int x = row.getInt(0);
+            int y = row.getInt(1);
+            if (x == 3) {
+                    // ignore the case when the key `y` doesn't exists for simplicity
+                    hash_table_for_agg[y] = hash_table_for_agg[y] + 1;
+            }
+    }
+    for (auto &v1 : hash_table_for_agg) {
+            for (auto &v2 : hash_table_for_join) {
+                    if (v1.first == v2.first) {
+                            // construct new row and send to the client
+                    }
+            }
+    }
+```
+
+相比于传统的火山模型，上述执行过程不再以 operator 为核心，而是以数据为核心，其最大特征是将单一 operator 的执行逻辑分散在多个代码块中，模糊了 operator 之间的执行边界，从而大大降低了 operator 之间数据传递的开销。
 
 **5.5.3.Execution Context(EC)**
 
