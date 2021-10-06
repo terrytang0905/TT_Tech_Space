@@ -5,7 +5,7 @@ tags : [datascience,bigdata,architect]
 title: Big Data Research Note - Architect Design
 ---
 
-## 大数据研究-底层架构
+## 大数据研究-基础架构解析
 -----------------------------------------------------------
 
 

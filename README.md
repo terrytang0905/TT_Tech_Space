@@ -12,7 +12,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 ![大数据能力分布](blogs/_includes/bigdata_map_tt.png)
 
 
-**BigData -> Analytics -> AI**
+**BigData -> Data Analytics -> BigDat+AI on Cloud**
 
 #### I.BigData & AI Solution Everything
 
@@ -33,6 +33,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.BigData & All Distributed Research
 
+- *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-infrastructure-build.md)
 - *[大数据研究-LakeHouse开源数据格式](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)
 - *[大数据研究-Google大数据解决方案-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)
 - *[大数据研究-通用大数据产品分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-research-common-product-solution.md)
@@ -42,7 +43,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - *[大数据研究-数据处理-混合计算架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-realtime-framework.md)
 - *[大数据研究-数据处理-Kafka分布式消息队列](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-kafka-note.md)
 - *[大数据研究-数据处理-通用开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-development.md)
-- *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-infrastructure-build.md)
 - *[大数据计算-Hive编程-SQLEngine分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - *[大数据计算-Hive编程-SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-performance-note.md)
 - *[大数据计算-Hive编程-设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
@@ -59,11 +59,11 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### III.DataCompute & DataAnalytics
 
+- *[大数据计算-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-compute-database-architect.md)
 - *[大数据分析-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-10-06-bigdata-analytics-olap-query-engine-design-note.md)
 - *[大数据分析-分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 - *[大数据分析-SQLonHadoop](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
 - *[大数据计算-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-compute-sql-anywhere-design.md)
-- *[大数据计算-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-compute-database-architect.md)
 - *[通用查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-query-optimizer-design-note.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
 - *[PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)
