@@ -182,7 +182,7 @@ title: Big Data Research Note - Distributed Database Architect
 
 #### A.Distributed OLTP-分布式关系型数据库
 
-*1.Spanner*
+- 1.Spanner
 
 Spanner是一个Google开发的支持分布式读写事务，只读事务的分布式存储系统，只读事务不加任何锁。和其他分布式存储系统一样，通过维护多副本来提高系统的可用性。
 
@@ -190,27 +190,27 @@ Spanner是一个Google开发的支持分布式读写事务，只读事务的分�
 
 数据库事务系统的核心挑战之一是并发控制协议(通用实现MVCC)。Spanner的读写事务使用两阶段锁来处理。
 
-*2.OceanBase分布式数据库*
+- 2.OceanBase分布式数据库
 
 OceanBase底层架构实现LSM/分布式ACID等特征
 
-*3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)*
+- 3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)
 
 基于Spanner的TrueTime机制来解决不同时区数据一致性问题
 
-*4.TiKV分布式存储*
+- 4.TiKV分布式存储
 
 
 #### B.分析型数据库设计-MPP
 
-*1.数据分析性需求对IT能力的要求包括:*
+- 1.数据分析性需求对IT能力的要求包括:
 
 	- 复杂分析查询能力
 	- 批量数据处理
 	- 一定的并发访问能力
 	- 大规模Sacle-Out数据扩展
 
-*2.OLAP场景下的分析型数据仓库*
+- 2.OLAP场景下的分析型数据仓库
 
 	- 一致性协调器(Paxos/Raft) - 类Zookeeper
 	- LSM-Tree&LSM映射存储
@@ -227,11 +227,11 @@ OceanBase底层架构实现LSM/分布式ACID等特征
 	- In-Database FullText Engine - 参考ELK
 	- Data mining support(UDF)
 
-*3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)*
+- 3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
 	- 第一款成熟的开源分布式分析型数据库
 
-*4.[Vertica数据库结构]()*
+- 4.[Vertica数据库结构]()
 
 #### C.Hadoop离线批处理(MapRedure->Spark)
 
@@ -242,11 +242,11 @@ Hadoop具备MPP所缺失的批量任务调整能力，数据的多副本存储�
 
 #### MPP并行计算 vs 批处理计算 
 
-*1.MPP设计*
+- 1.MPP设计
 
 MPP最开始的设计目的是为了消除共享资源的使用，即每个executor有独立的cpu、内存和磁盘等资源，每个executor一般不能访问其他executor的资源。但是有一种情况例外，那就是当数据必须要通过网络进行交换的时候(即Redistribute/shuffle)。
 
-*2.MPP的核心问题*
+- 2.MPP的核心问题
 
 	- 遇到的最大问题就是“落后者”(straggler)。
 	如果某个节点在执行任何任务时都比其他的节点慢，那么不管集群规模多大，整体的执行性能都会由这个“有问题”的节点决定了。
@@ -262,7 +262,7 @@ MPP和MapReduce批处理架构的另外一个显著不同则在于并发(concurr
 	- MPP对小查询的并发处理基本可用,原因在于查询时间短,对系统的负载要求较低.
 
 
-*3.批处理设计*
+- 3.批处理设计
 
 这类系统的主要思想是:原本在两个同步点之间是单task执行，现在则被切分成多个独立的“task”，而task的总数则和executor的总数无关。
 
@@ -279,13 +279,13 @@ MapReduce的同步点包括的job的启动、shuffle以及job的停止；对spar
 
 共享存储在处理一块数据,不需要让数据一定要存储在某个特定的节点，需要这块数据时，可以从集群中其他节点那里获取到。当然了,_Remote远程操作涉及网络和磁盘IO，有一定代价，所以计算框架会尝试优先处理本地存储的数据_。但是在“degraded”场景下，推测执行可以有效缓解性能下降问题。
 
-*4.批处理的问题*
+- 4.批处理的问题
 
 	- 如果在一个单独的executor中串行的处理不相关的task,就必须把中间结果写到本地磁盘上,以便下一个执行步骤能开始消费本步骤的数据。
 	- 而MPP中，不需要把中间结果写入磁盘，因为每个executor处理一个task，所以数据可以直接“流入”下一执行阶段进行处理，这就是所谓的pipeline执行,性能非常可观。
 
 
-*5.MPP&批处理的差异*
+- 5.MPP&批处理的差异
 
 	- MPP按照关系数据库行列表方式存储数据(有模式)，Hadoop按照文件切片方式分布式存储(无模式)
 
@@ -294,7 +294,7 @@ MapReduce的同步点包括的job的启动、shuffle以及job的停止；对spar
 	- 两者采用的数据分布机制不同，MPP采用Hash分布，计算节点和存储紧密耦合，数据分布粒度在记录级的更小粒度(一般在1k以下)；Hadoop FS按照文件切块后随机分配，节点和数据无耦合，数据分布粒度在文件块级（缺省64MB）。
 	- MPP采用SQL并行查询计划，Hadoop批处理多采用Mapreduce框架
 
-*6.MPP&批处理各自缺陷*
+- 6.MPP&批处理各自缺陷
 
 _MPP缺陷总结_
 
@@ -315,7 +315,7 @@ _批处理缺陷总结_
 
 #### B+C.MPP+Hadoop
 
-*1.[Apache HAWQ](http://hawq.incubator.apache.org/)*
+- 1.[Apache HAWQ](http://hawq.incubator.apache.org/)
 
 HAWQ is a Hadoop native SQL query engine that combines the key technological advantages of MPP database with the scalability and convenience of Hadoop. HAWQ reads data from and writes data to HDFS natively.
 
@@ -323,74 +323,74 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
     - OushuDB数据库是实现HAWQ架构的商业版
 
-*2.Huawei FusionInsight+GuassDB 200*
+- 2.Huawei FusionInsight+GuassDB 200
 
-- FusionInsight改名为Huawei MRS
-- GuassDB 200可以理解为Greenplum的商业改良版
+    FusionInsight改名为Huawei MRS
+    GuassDB 200可以理解为Greenplum的商业改良版
 
-*3.[Lakehouse on Cloud](2020-06-06-bigdata-research-lake-house-solution.md)*
+- 3.[Lakehouse on Cloud](2020-06-06-bigdata-research-lake-house-solution.md)
 
-*Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)*
+- Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)
 
 #### B&C.分析型OLAP on Cloud - Cloud DataWareHouse
  
-*1.Snowflake-Cloud DataWarehouse*
+- 1.Snowflake-Cloud DataWarehouse
 
-*2.AWS Redshift-Cloud DataWarehouse*
+- 2.AWS Redshift-Cloud DataWarehouse
 
-支持PB级别的OLAP数据库
+    支持PB级别的OLAP数据库
 
     - 列式数据存储：Amazon Redshift 以列组织数据，并非以一系列的行来存储数据。与适用于事务处理的基于行的系统不同，基于列的系统适用于数据仓库存储及分析，在此系统下，查询经常涉及到对大型数据集进行聚合。由于仅对涉及查询的列进行处理，且列式数据顺序存储在存储介质上，故基于列的系统所需的 I/O 要少得多，从而显著提高了查询性能。
     - 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
     - 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
 
-*3.Google BigQuery(Dremel)-Cloud Analytics Services*
+- 3.Google BigQuery(Dremel)-Cloud Analytics Services
 
-*4.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse*
+- 4.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse
 
-*5.[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)*
+- 5.[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 
 
 #### D.BigTable-KV数据存储架构
 
-*基础特征:*
+**基础特征:**
 
-- 大多基于LSM-Tree的大规模稀疏表 
-- 适合海量数据的KV类似查询
-- 支持多并发查询分析
+    - 大多基于LSM-Tree的大规模稀疏表 
+    - 适合海量数据的KV类似查询
+    - 支持多并发查询分析
 
-*1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)*
+- 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
 
-- 大数据量存储,大数据量高并发操作 
-- 需要对**数据随机读写操作**
-- 读写访问均是非常简单的操作
+    - 大数据量存储,大数据量高并发操作 
+    - 需要对**数据随机读写操作**
+    - 读写访问均是非常简单的操作
 
-MegaStore
+    MegaStore
 
-*2.DynamoDB-KV数据库(Amazon)*
+- 2.DynamoDB-KV数据库(Amazon)
 
-*3.Cassandra开源数据库(Facebook)*
+- 3.Cassandra开源数据库(Facebook)
 
-DataStax维护
+    DataStax维护
 
 
 #### D+.InMemory-KV内存数据库
 
-*1.Redis*
+- 1.Redis
 
-*2.Couchbase*
+- 2.Couchbase
 
-*3.Ignite*
+- 3.Ignite
 
-*4.Monarch*
+- 4.Monarch
 
 
 #### E.Document文档数据库
 
-*1.[MongoDB数据库](2015-10-11-mongodb3-major-release.md)*
+- 1.[MongoDB数据库](2015-10-11-mongodb3-major-release.md)
 
-*2.Azure DocumentDB数据库(Microsoft)*
+- 2.Azure DocumentDB数据库(Microsoft)
 
 #### MongoDB&DocumentDB对比
 
@@ -412,11 +412,11 @@ DocumentDB的某些优势
 
 #### F.Search搜索数据存储
 
-- 适合海量数据秒级查询
-- 支持多并发查询分析
-- 不适用于复杂的JOIN查询等关联分析
-
-*[ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)*
+- [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
+    
+    - 适合海量数据秒级查询
+    - 支持多并发查询分析
+    - 不适用于复杂的JOIN查询等关联分析
 
 
 #### 数据库应用选择
