@@ -12,7 +12,7 @@ title: Big Data Analytics Note - Data Deep Thinking
 
 - 数据=生产资料
 - 技术=生产力
-- 商业=生产关系
+- 商业模式=生产关系
 
 
 ### Information,NLP,Mathematics
@@ -81,13 +81,14 @@ A. _Bill Inmon的企业信息化工厂_ <br />
 > 采用第三范式的格式 <br />
 > ETL -> 企业数据仓库 -> 数据集市(多维物理数据) -> 用户探索&挖掘 <br />
 
-
 B. _Ralph Kilmball维度数据仓库(多维数据分析)_ <br />
 ![kimball_model](_includes/datamodel_kimball.png)
 > 多维模型–星型模型 <br />
 > ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域Cube) -> 用户探索&挖掘 <br />
 > 集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用 <br />
 > 维度格式 可直接访问 <br />
+
+    Tip:维度建模分析成为当前主流。
 
 C. _独立型数据集市_
 > ETL -> 数据集市(关注维度/主题区域) -> 用户探索&挖掘 <br />
@@ -269,7 +270,7 @@ OLAP与数据挖掘-机器学习的差异
 
 数据库领域主要关注OLAP相关技术演进
 
-- [OLAP数据分析引擎](2017-07-28-bigdata-analytics-olap-query-engine-design-note.md)
+- [OLAP数据分析引擎](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 
 
 ### V.数据挖掘-机器学习开发
