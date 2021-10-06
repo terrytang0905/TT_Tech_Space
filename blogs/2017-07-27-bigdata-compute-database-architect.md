@@ -87,6 +87,8 @@ title: Big Data Research Note - Distributed Database Architect
   
 **MVCC多版本并行控制**
 
+![two_phase_commit_explain](_includes/two_phase_commit_explain.png)
+
 **Bitmap**
 
 	- bitmap可以理解为通过一个bit数组来存储特定数据的一种数据结构，每一个bit位都能独立包含信息，bit是数据的最小存储单位
@@ -188,8 +190,6 @@ Spanner是一个Google开发的支持分布式读写事务，只读事务的分�
 
 数据库事务系统的核心挑战之一是并发控制协议(通用实现MVCC)。Spanner的读写事务使用两阶段锁来处理。
 
-![two_phase_commit_explain](_includes/two_phase_commit_explain.png)
-
 *2.OceanBase分布式数据库*
 
 OceanBase底层架构实现LSM/分布式ACID等特征
@@ -232,26 +232,6 @@ OceanBase底层架构实现LSM/分布式ACID等特征
 	- 第一款成熟的开源分布式分析型数据库
 
 *4.[Vertica数据库结构]()*
-
-
-#### B+.Ad-hoc分析型MPP on Cloud
-
-*5.Snowflake-Cloud DataWarehouse*
-
-*6.AWS Redshift-Cloud DataWarehouse*
-
-支持PB级别的OLAP数据库
-
-	- 列式数据存储：Amazon Redshift 以列组织数据，并非以一系列的行来存储数据。与适用于事务处理的基于行的系统不同，基于列的系统适用于数据仓库存储及分析，在此系统下，查询经常涉及到对大型数据集进行聚合。由于仅对涉及查询的列进行处理，且列式数据顺序存储在存储介质上，故基于列的系统所需的 I/O 要少得多，从而显著提高了查询性能。
-	- 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
-	- 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
-
-
-*7.Google BigQuery(Dremel)-Cloud Analytics Services*
-
-*8.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse*
-
-*Ref:[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)*
 
 #### C.Hadoop离线批处理(MapRedure->Spark)
 
@@ -351,6 +331,26 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 *3.[Lakehouse on Cloud](2020-06-06-bigdata-research-lake-house-solution.md)*
 
 *Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)*
+
+#### B&C.分析型OLAP on Cloud - Cloud DataWareHouse
+ 
+*1.Snowflake-Cloud DataWarehouse*
+
+*2.AWS Redshift-Cloud DataWarehouse*
+
+支持PB级别的OLAP数据库
+
+    - 列式数据存储：Amazon Redshift 以列组织数据，并非以一系列的行来存储数据。与适用于事务处理的基于行的系统不同，基于列的系统适用于数据仓库存储及分析，在此系统下，查询经常涉及到对大型数据集进行聚合。由于仅对涉及查询的列进行处理，且列式数据顺序存储在存储介质上，故基于列的系统所需的 I/O 要少得多，从而显著提高了查询性能。
+    - 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
+    - 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
+
+
+*3.Google BigQuery(Dremel)-Cloud Analytics Services*
+
+*4.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse*
+
+*5.[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)*
+
 
 #### D.BigTable-KV数据存储架构
 
