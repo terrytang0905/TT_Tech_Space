@@ -142,8 +142,9 @@ MPP并行计算平台在节点内采用SMP并行架构，在节点间采用MPP�
 Greenplum = Master + Slaver(分布式PG instance)  --最早的MPP分布式数据库设计
 
 | Source | OLTP | OLAP | MetaStore | File System |
+| ------ | ---- | ---- | --------- | ----------- |
 | Google | Spanner | Mesa | BigTable/MegaStore | Colossue |
-| OpenSource | TiDB | Doris/Clickhouse | HBase | HDFS |
+| OpenSource | TiDB | Doris/Clickhouse | HBase/Cassandra | HDFS |
 | Alibaba | OceanBase/PolarDB | ADB/Hologres | KVStore | Pangu |
 
 
