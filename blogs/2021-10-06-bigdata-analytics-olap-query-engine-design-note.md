@@ -338,7 +338,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.OLAP深度架构设计
 
-#### 5.1.实时OLAP架构优化
+#### 5.1.实时OLAP+Cube架构优化
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -392,4 +392,5 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 #### 5.2.计算引擎设计
 
 - [通用联合计算引擎Code设计](2019-03-18-bigdata-analytics-all-compute-engine-code-design.md)
+- [下一代OLAP引擎](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 

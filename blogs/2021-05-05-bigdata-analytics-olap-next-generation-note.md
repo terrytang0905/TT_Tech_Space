@@ -802,7 +802,7 @@ Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问
 
 - Spanner
 
-- [Database Architect](2017-07-27-bigdata-research-database-architect.md)
+- [Database Architect](2017-07-27-bigdata-compute-database-architect.md)
 
 - [TiDB](2019-07-08-tidb-oltp-olap-design.md)
 

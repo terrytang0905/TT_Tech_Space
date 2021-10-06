@@ -172,12 +172,36 @@ title: Big Data Research Note - Distributed Database Architect
 分布式数据架构的整个框架是非常稳定的,主流的数据架构都是由存储引擎,执行引擎,网络交互和查询优化器组成的
 
 主要用于以下4种分析场景
-- reporting/dashboard: 万级别query,ms延时,插入更新upsert数据多,实时,filters,aggregation类似操作
-- embedded statics: simply query & high query,百万级别/qps实时更新
-- monitoring: 内存时序分析/在线服务
+- reporting/dashboard: 百千级别query,ms延时,插入更新upsert数据多,实时,filters,aggregation类似操作
+- embedded statics/data service: 在线服务/simply query & high qps,百万级别/qps实时更新
 - ad-hoc analysis: 复杂查询在trillion data下即席查询分析,snowflake云端数据仓库
+- monitoring: 内存时序分析
 
-#### A.分析型数据库设计-MPP
+
+#### A.Distributed OLTP-分布式关系型数据库
+
+*1.Spanner*
+
+Spanner是一个Google开发的支持分布式读写事务，只读事务的分布式存储系统，只读事务不加任何锁。和其他分布式存储系统一样，通过维护多副本来提高系统的可用性。
+
+一份数据的多个副本组成一个paxos group，通过paxos协议维护副本之间的一致性。对于涉及到跨机的分布式事务，涉及到的每个paxos group中都会选出一个leader，来参与分布式事务的协调。这些个leader又会选出一个大leader，称为coordinator leader，作为两阶段提交的coordinator，记作coordinator leader。其他leader作为participant。
+
+数据库事务系统的核心挑战之一是并发控制协议(通用实现MVCC)。Spanner的读写事务使用两阶段锁来处理。
+
+![two_phase_commit_explain](_includes/two_phase_commit_explain.png)
+
+*2.OceanBase分布式数据库*
+
+OceanBase底层架构实现LSM/分布式ACID等特征
+
+*3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)*
+
+基于Spanner的TrueTime机制来解决不同时区数据一致性问题
+
+*4.TiKV分布式存储*
+
+
+#### B.分析型数据库设计-MPP
 
 *1.数据分析性需求对IT能力的要求包括:*
 
@@ -210,7 +234,7 @@ title: Big Data Research Note - Distributed Database Architect
 *4.[Vertica数据库结构]()*
 
 
-#### A+.Ad-hoc分析型MPP on Cloud
+#### B+.Ad-hoc分析型MPP on Cloud
 
 *5.Snowflake-Cloud DataWarehouse*
 
@@ -225,12 +249,11 @@ title: Big Data Research Note - Distributed Database Architect
 
 *7.Google BigQuery(Dremel)-Cloud Analytics Services*
 
-*8.AliCloud MaxCompute-Cloud Serverless DataWarehouse*
+*8.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse*
 
-[云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
+*Ref:[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)*
 
-
-#### B.Hadoop-MapReduce批处理
+#### C.Hadoop离线批处理(MapRedure->Spark)
 
 总的来说，其架构的着力点在于数据高吞吐处理能力，在事务方面相较MPP更简化，仅提供粗粒度的事务管理.
 
@@ -310,7 +333,7 @@ _批处理缺陷总结_
 
 	Tips:在大体相同的数据量和查询逻辑情况下,Impala并发效果会低于GPDB
 
-#### A+B.MPP+Hadoop
+#### B+C.MPP+Hadoop
 
 *1.[Apache HAWQ](http://hawq.incubator.apache.org/)*
 
@@ -325,8 +348,11 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 - FusionInsight改名为Huawei MRS
 - GuassDB 200可以理解为Greenplum的商业改良版
 
+*3.[Lakehouse on Cloud](2020-06-06-bigdata-research-lake-house-solution.md)*
 
-#### C.BigTable-KV数据存储架构
+*Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)*
+
+#### D.BigTable-KV数据存储架构
 
 *基础特征:*
 
@@ -340,14 +366,16 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 - 需要对**数据随机读写操作**
 - 读写访问均是非常简单的操作
 
-*2.Dynamo-KV数据库(Amazon)*
+MegaStore
 
-*3.Cassandra数据库(Facebook)*
+*2.DynamoDB-KV数据库(Amazon)*
+
+*3.Cassandra开源数据库(Facebook)*
 
 DataStax维护
 
 
-#### C+.InMemory-KV内存数据库
+#### D+.InMemory-KV内存数据库
 
 *1.Redis*
 
@@ -358,11 +386,9 @@ DataStax维护
 *4.Monarch*
 
 
-#### D.Document文档数据库
+#### E.Document文档数据库
 
-*1.MongoDB数据库*
-
-- [MongoDB相关](2015-10-11-mongodb3-major-release.md)
+*1.[MongoDB数据库](2015-10-11-mongodb3-major-release.md)*
 
 *2.Azure DocumentDB数据库(Microsoft)*
 
@@ -383,40 +409,14 @@ DocumentDB的某些优势
 - 可编程性：两者都支持JavaScript，DocumentDB的.NET SDK对LINQ支持更好，不过对debug支持不好（主要没有本地模拟器）。
 - 其他不同：DocumentDB对聚合操作暂时有一定限制，无服务端排序，工具还不够丰富。MongoDB情况要稍好些。
 
-#### E.Distributed OLTP-分布式关系型数据库
 
-*1.Spanner*
-
-Spanner是一个Google开发的支持分布式读写事务，只读事务的分布式存储系统，只读事务不加任何锁。和其他分布式存储系统一样，通过维护多副本来提高系统的可用性。
-
-一份数据的多个副本组成一个paxos group，通过paxos协议维护副本之间的一致性。对于涉及到跨机的分布式事务，涉及到的每个paxos group中都会选出一个leader，来参与分布式事务的协调。这些个leader又会选出一个大leader，称为coordinator leader，作为两阶段提交的coordinator，记作coordinator leader。其他leader作为participant。
-
-数据库事务系统的核心挑战之一是并发控制协议。Spanner的读写事务使用两阶段锁来处理。
-
-![two_phase_commit_explain]()
-
-*2.OceanBase分布式数据库*
-
-OceanBase底层架构实现LSM/分布式ACID等特征
-
-*3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)*
-
-基于Spanner的TrueTime机制来解决不同时区数据一致性问题
-
-*4.TiKV分布式存储*
-
-
-#### F.Distributed OLAP DW-分布式分析型数据库
-
-[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
-
-#### G.Search搜索数据存储
+#### F.Search搜索数据存储
 
 - 适合海量数据秒级查询
 - 支持多并发查询分析
 - 不适用于复杂的JOIN查询等关联分析
 
-- [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
+*[ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)*
 
 
 #### 数据库应用选择
@@ -430,7 +430,7 @@ OceanBase底层架构实现LSM/分布式ACID等特征
 
 #### 通用数据库架构分析
 
-[How does a relational database work](http://coding-geek.com/how-databases-work/)
+- [How does a relational database work](http://coding-geek.com/how-databases-work/)
 
 
 *1.合并排序算法*
@@ -661,6 +661,6 @@ n个元素的数组包含1个长度为n的子数组：{a0,a1,…,an-1}；
 - [BigTable](https://baike.baidu.com/item/BigTable/3707131?fr=aladdin)
 - [从架构特点到功能缺陷，重新认识分析型分布式数据库](https://mp.weixin.qq.com/s/O9sWvcHhrgafCWHSMiOMlA)
 - [对比MPP计算框架和批处理计算框架](https://blog.csdn.net/sinat_27545249/article/details/78943823)
-- [MesaDB](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
+- [Google Mesa - OLAP数据仓库](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
 - [built-databases-in-aws](https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html)
 
