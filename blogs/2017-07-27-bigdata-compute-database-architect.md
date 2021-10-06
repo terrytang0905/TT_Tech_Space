@@ -5,7 +5,7 @@ tags : [bigdata, database, architect]
 title: Big Data Research Note - Distributed Database Architect
 ---
 
-## 大数据研究-分布式数据架构
+## 大数据计算-分布式数据架构
 --------------------------------------------------------
 
 导读:A one size fits all database doesn't fit anyone
@@ -397,56 +397,18 @@ Spanner是一个Google开发的支持分布式读写事务，只读事务的分�
 
 *2.OceanBase分布式数据库*
 
-OceanBase底层架构实现LSM/ACID等特征
+OceanBase底层架构实现LSM/分布式ACID等特征
 
 *3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)*
+
+基于Spanner的TrueTime机制来解决不同时区数据一致性问题
 
 *4.TiKV分布式存储*
 
 
-#### F.Distributed OLAP-Google MesaStore
+#### F.Distributed OLAP DW-分布式分析型数据库
 
-*1.Mesa*
-
-Mesa是Google开发的近实时分析型数据仓库
-
-	其通过预聚合合并Delta文件等方式减少查询的计算量，提升了并发能力。
-
-Mesa充分利用了现有的Google技术组件:使用BigTable来存储所有持久化的元数据，使用了Colossus(Google的分布式文件系统)来存储数据文件，使用MapReduce来处理连续的数据。Paxos技术对元数据(metadata)实现存储和维护
-
-![MesaDatabase](_includes/mesa_database.png)
-
-Mesa相关的开源产品为Clickhouse(2016年Yandex开源)和Palo(2017年百度开源)
-
-*2.Palo(Doris的前身)*
-
-Palo没有完全照搬Mesa的架构设计的思路，其借助了Hadoop的批量处理能力，但将加工结果导入到了Palo自身存储，专注于联机查询场景，在联机查询部分主要借鉴了Impala技术。同时Palo没有复用已有的分布式文件系统和类BigTable系统，而是设计了独立的分布式存储引擎。虽然数据存储上付出了一定的冗余，但在联机查询的低延迟、高并发两方面都得到了很大的改善。
-
-Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小为一个数据加载批次，可以保证多表数据更新的一致性。
-
-整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
-
-![Palo](_includes/palo_database.jpg)
-
-*3.ClickHouse*
-
-	- 列式数据库
-	- 数据压缩
-	- 数据的磁盘存储
-	- 多核并行处理
-	- 多服务器分布式处理
-	- 支持基础SQL
-	- 向量引擎
-	- 实时的数据更新
-	- 索引
-	- 适合在线查询
-	- 支持近似计算
-	- 支持数据复制和数据完整性
-	- 没有完整的事物支持
-	- 缺少高频率，低延迟的修改或删除已存在数据的能力
-	- 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
-
-[云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
+[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 
 #### G.Search搜索数据存储
 
