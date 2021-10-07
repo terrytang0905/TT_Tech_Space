@@ -104,13 +104,13 @@ B._大数据分布式存储_:
 > LevelDB / RocksDB <br />
 > LSM / SSTable
 
-C.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
+C.[分布式数据架构分析](2017-07-27-bigdata-compute-database-architect.md)
 
 D._分布式大数据分析_:
 
 > Hive 
 > [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)  <br />
-> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)
+> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)  <br />
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
 > [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md) / Amazon DynamoDB / Cassandra
 
@@ -121,7 +121,7 @@ E._分布式OLAP分析_:
 > [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
 > HTAP: [TiDB](2019-07-08-tidb-oltp-olap-design.md) / OceanBase / Oushu Database(Apache HAWQ) / HashData <br />
 > Doris / Clickhouse <br />
-> [分布式OLAP的下一站](2021-05-05-bigdata-analytics-olap-next-generation-note.md) 
+
 
 ### III.数据预处理
 
@@ -168,7 +168,7 @@ E. _数据完整性验证_
 * ETL Kettle开源工具
 * 任务队列与任务规则
 * 基于SQL/存储过程/UDF数据处理组件
-* [Hive/Spark/Storm/Flink数据处理](2017-07-29-bigdata-research-dataprocess-development.md)
+* [Hive/Spark/Flink大数据处理](2017-07-29-bigdata-research-dataprocess-development.md)
 * 大数据MQ-[Kafka应用](2017-07-29-bigdata-research-dataprocess-kafka-note.md)
 
 #### 3.4.异常检验与处理
@@ -268,14 +268,13 @@ OLAP与数据挖掘-机器学习的差异
 
 #### 4.5.OLAP数据分析引擎
 
-数据库领域主要关注OLAP相关技术演进
+数据库领域主要关注分布式OLAP相关技术演进
 
-- [OLAP数据分析引擎](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
-
+> [分布式OLAP的下一站](2021-05-05-bigdata-analytics-olap-next-generation-note.md) 
 
 ### V.数据挖掘-机器学习开发
 
-- [机器学习Everything研究](2017-10-16-bigdata-ml-data-everything-note.md)
+> [机器学习Everything研究](2017-10-16-bigdata-ml-data-everything-note.md)
 
 #### 5.1.分析应用-用户画像分析
 
@@ -328,13 +327,11 @@ PLSA \ LDA \ HMM
 - 预测（响应,分类）模型
 - 主成分分析PCA
 
-[新零售分析模型设计](2017-04-16-data-usage-new-retail-analytics-design-note.md)
+> [新零售分析模型设计](2017-04-16-data-usage-new-retail-analytics-design-note.md)
 
 #### 6.2.互联网用户行为分析模型
 
-* GrowingIO
-* 诸葛IO
-* 神策数据
+数字化运营&增长黑客
 
 
 #### 6.3.数据可视化
@@ -431,13 +428,13 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 - [魔镜MagicWindow](http://wiki.yunat.com/pages/viewpage.action?pageId=46766678)
 - [QuickBI](http://wiki.yunat.com/pages/viewpage.action?pageId=46766762)
 
-*日志分析*
+*日志分析/数字化运营*
 
 - [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 - GrowingIO
 - 诸葛IO
 - Splunk
-
+- SLS
 
 #### 7.3.数据发现数据
 
