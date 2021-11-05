@@ -139,6 +139,8 @@ MPP并行计算平台在节点内采用SMP并行架构，在节点间采用MPP�
 
 ### II. New OLAP Engine Comparison
 
+![database_trend](_includes/database_trend.png)
+
 Greenplum = Master + Slaver(分布式PG instance)  --最早的MPP分布式数据库设计
 
 | Source | OLTP | OLAP | MetaStore | File System |

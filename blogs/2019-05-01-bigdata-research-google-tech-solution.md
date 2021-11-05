@@ -14,6 +14,8 @@ title: Big Data Research Note - Google Solution
 
 #### I.BigTable - HBase - MegaStore
 
+**BigTable**
+
 **HBase**
 
 	1.强一致性的读写：HBase不是一个最终一致性的存储。
@@ -24,8 +26,12 @@ title: Big Data Research Note - Google Solution
 	6.JAVA Client 以及Thrift/RESR API 访问；
 	7.Block Cache 以及Bloom filter；
 	8.操作管理
+ 
+**Megastore: Providing Scalable, Highly Available Storage for Interactive Services**
 
-#### DynamoDB - Cassandra
+#### II.DynamoDB - Cassandra
+
+**Dynamo: Amazon’s Highly Available Key-value Store**
 
 **Cassandra**
 
@@ -49,7 +55,9 @@ These make Procella suitable for many additional workloads (e.g high QPS reporti
 		While MapReduce is suitable for long-running batch processes such as data mining, BigQuery is the best choice for ad-hoc OLAP/BI queries that require results as fast as possible.
 
 
-#### III.分布式OLTP: F1 - Spanner
+#### III.Dremel实时化分析
+
+#### IV.分布式OLTP: F1 - Spanner
 
 Spanner有一种负责专门管理数据的spanserver，spanserver也是基于bigtable的tablet结构. Cloud Spanner是一款具备强一致性的全球分布式企业级数据库服务
 
@@ -92,9 +100,11 @@ F1支持层级表结构和protobuf复合数据域，示例如下：
     - global:同理可推global索引不包含root row,也不和被索引row在同一个spanserver里.这种索引一般被shard在多个spanserver上;当有事务需要更新一行数据时,因为索引的分布式,必须要2PC了.当需要更新很多行时,就是个灾难了,每插入一行都需要更新可能分布在多台机器上的索引,开销很大;所以建议插入行数少量多次.
 
 
-#### IV.分布式OLAP: Mesa
+#### V.分布式OLAP: Mesa
 
-#### V.分布式内存数据库: [Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
+**Mesa**
+
+#### VI.分布式内存数据库: [Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
 
 
 ### B.Apache Beam数据框架
@@ -110,7 +120,7 @@ Apache Beam主要由Beam SDK和Beam Runner组成，Beam SDK定义了开发分布
 
 
 
-### C.核心数据模型设计
+### C.核心数据架构设计
 
 
 Bigtable的Key-Value数据结构
@@ -119,8 +129,7 @@ Dremel嵌套列数据模型
 
 Spanner数据目录结构 - 虚拟桶
 
-
-
+Mesa
 
 ### X.Ref
 
