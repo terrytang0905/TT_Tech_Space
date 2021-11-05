@@ -243,9 +243,8 @@ Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小�
 
 整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
 
-![Palo-Doris](_includes/palo_database.jpg)
 
-[Impala：MPP SQL Engine on Kudu](2016-12-12-olap-distributed-impala-research-note.md)
+Ref:[Impala：MPP SQL Engine on Kudu](2016-12-12-olap-distributed-impala-research-note.md)
 
 ### 4.1.Doris产品特性
 
@@ -800,9 +799,9 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 ### VI. OLAP走向何方 - OLAP on Cloud ?
 
-Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题
+Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题?
 
-- Spanner
+- BigDataDB papers - HadoopDB/MegaStore/BigTable/Dynamo/Spanner/Dremel/Mesa
 
 - [Database Architect](2017-07-27-bigdata-compute-database-architect.md)
 
