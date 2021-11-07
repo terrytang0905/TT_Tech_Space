@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,olap,architect]
+tags : [bigdata,query,architect]
 title: Big Data Analytics Note - SQL on Hadoop
 ---
 

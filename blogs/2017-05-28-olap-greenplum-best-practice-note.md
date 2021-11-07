@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [bigdata,database,guide]
+tags : [database,olap,guide]
 title: Greenplum 4 Best Practice Note
 ---
 
@@ -174,7 +174,7 @@ Vacuum首先整理优化索引,接下来顺序的在每个segment节点上执行
 
 **2.3.ANALYZE**
 
-* 命令：analyze [talbe [(column,..)]]
+* 命令：analyze [table [(column,..)]]
 * 收集表内容的统计信息，以优化执行计划。如创建索引后，执行此命令，对于随即查询将会利用索引。
 * 自动统计信息收集
 * 在postgresql.conf中有控制自动收集的参数gp_autostats_mode设置，gp_autostats_mode三个值：none、no_change、on_no_stats（默认） 
@@ -262,7 +262,7 @@ Greenplum数据模型设计:
 	* Enhanced logical data model - AggregateResult/View
 	* The physical data model - DBTable
 
-![Data Models](_includes/data_models.png)
+![Data Models](_includes/olap_data_models.png)
 
 Entity|Attribute|Relationship|Constraint
 
@@ -274,7 +274,7 @@ Entity|Attribute|Relationship|Constraint
 
 Dimensional Approach in DW:Star and snowflake schemas are the most common in DW implementations.
 
-![Logical Data Models](_includes/logical_data_models.png)
+![Logical Data Models](_includes/olap_logical_data_models.png)
 
 *B.Physical Data Models-物理表模型*
 
@@ -285,7 +285,7 @@ Dimensional Approach in DW:Star and snowflake schemas are the most common in DW 
 * Select appropriate data type for your data
 * Define constraints on tables and columns 
 
-![KeyDesignConsiderations](_includes/key_design_consideration.png)
+![KeyDesignConsiderations](_includes/olap_key_design_consideration.png)
 
 **3.2.Table Compression**
 
@@ -352,15 +352,15 @@ gp_toolkit administrative schema offers two views:
 
 - Partitioning Table
 
-![Partition Table](_includes/partition_table.png)
+![Partition Table](_includes/gp_partition_table.png)
 
 - Table Partitioning BP
 
-![Table Partitioning BP](_includes/table_partitioning_best_practices.png)
+![Table Partitioning BP](_includes/gp_table_partitioning_best_practices.png)
 
 - Distribution and Partition
 
-![Distribution and Partition](_includes/distribution_and_partition.png)
+![Distribution and Partition](_includes/gp_distribution_and_partition.png)
 
 
 

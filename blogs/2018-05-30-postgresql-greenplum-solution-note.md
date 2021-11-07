@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [bigdata,database,guide]
+tags : [database,guide,solution]
 title: PostgreSQL&Greenplum Solution Practice Note
 ---
 

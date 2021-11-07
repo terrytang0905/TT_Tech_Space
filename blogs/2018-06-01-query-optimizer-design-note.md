@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [database, olap, develop]
+tags : [database, query, develop]
 title: Query Optimizer Design Note
 ---
 
@@ -400,8 +400,8 @@ _Other Optimization Enhancements:_
 
 _Ref:_
 
-- [PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
-- [PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
+-[PQO_Feature](https://gpdb.docs.pivotal.io/5100/admin_guide/query/topics/query-piv-opt-features.html)
+-[PQO_Doc](https://content.pivotal.io/blog/greenplum-database-adds-the-pivotal-query-optimizer)
 
 
 #### _Legacy Query Optimizer - Greenplum/PostgreSQL_

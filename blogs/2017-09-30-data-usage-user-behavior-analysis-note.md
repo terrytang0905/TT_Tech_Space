@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [datascience,datamining,development]
+tags : [datascience,datamining,usage]
 title: Data Usage - User Behavior Analysis Note
 ---
 

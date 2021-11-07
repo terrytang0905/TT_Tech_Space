@@ -1,7 +1,7 @@
 ---
 layout: post
-category : datascience
-tags : [thinking,product,datascience]
+category : digital
+tags : [data,thinking,datascience]
 title: BigData Business Value Thinking
 ---
 

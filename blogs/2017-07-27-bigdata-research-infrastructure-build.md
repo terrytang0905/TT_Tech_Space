@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [datascience,bigdata,architect]
+tags : [bigdata,architect,research]
 title: Big Data Research Note - Architect Design
 ---
 

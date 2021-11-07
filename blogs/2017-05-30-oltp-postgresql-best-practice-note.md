@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [bigdata,database,guide]
+tags : [database,oltp,guide]
 title: PostgreSQL Best Practice Note
 ---
 

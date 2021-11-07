@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, database, architect]
+tags : [bigdata, architect, database]
 title: Big Data Research Note - Distributed Database Architect
 ---
 
