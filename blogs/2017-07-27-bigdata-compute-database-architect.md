@@ -85,14 +85,28 @@ title: Big Data Research Note - Distributed Database Architect
 	Soft state软状态 状态可以有一段时间不同步，异步。
 	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
   
-**MVCC多版本并行控制**
+**并行化隔离算法:MVCC(MultiVersion Concurrency Control)多版本并发控制**
+
+    PostgreSQL实现基于MVCC的快照级别隔离(Snapshot isolation),支持读-提交级别隔离。
+    快照级别隔离的口号"读写互不干扰"
+
+**可串行化的快照隔离**
+
+**串行化隔离算法:two-phase locking,2PL**
+
+    2PL不仅在并发写操作之间互斥,读取也会和修改产生互斥。
+    性能下降:其事务吞吐量和查询响应时间相比于其他弱隔离级别下降非常多
+
+**分布式事务-共识算法:two-phase commit,2PC**
 
 ![two_phase_commit_explain](_includes/two_phase_commit_explain.png)
+
+    原子提交:一种在多节点之间实现事务原子提交的算法,用来确保所有节点要么全部提交    
 
 **Bitmap**
 
 	- bitmap可以理解为通过一个bit数组来存储特定数据的一种数据结构，每一个bit位都能独立包含信息，bit是数据的最小存储单位
-	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的,例如异常IP等
+	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据特征分类又不是很多的情况(10-100)。通常是用来判断某个数据存不存在的,例如异常IP等
 	- 统计一个对象的基数值(1亿)需要12M，如果统计10000个对象，就需要将近120G了，同样不能广泛用于大数据场景。
 
 **BloomFilter**
@@ -110,7 +124,7 @@ title: Big Data Research Note - Distributed Database Architect
 
 	- 根据经纬度计算GeoHash二进制编码
 
-**SkipList:跳跃表**
+**SkipList-跳跃表**
 
 **LSM树 & LSM映射**
 
@@ -152,7 +166,8 @@ title: Big Data Research Note - Distributed Database Architect
 
 	- SequenceFile
 	- RCFile 
-	- OptimizeRC=ORC 
+	- ApacheORC = OptimizeRC
+    - AliORC
 	- [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
 	- CarbonData(华为开源)
 

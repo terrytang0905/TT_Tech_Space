@@ -32,7 +32,8 @@ title: Big Data Analytics Note - Next Generation OLAP
 7. Online Data and Metadata Transformation. 在线的schema变更。
 业务不断变化，对于schema的变更，包括加表、删表、加列、减列，新建索引，修改物化视图等的都必须不能停服的在线完成，而且不能影响数据更新和查询。
 
-8. Distributed ACID. 分布式ACID-Spanner
+8. Distributed ACID. 分布式ACID
+分布式数据一致性的核心算法。Spanner-TrueTime实现
 
 ### I.分布式OLAP的核心思路
 
@@ -851,8 +852,10 @@ VolumeScanner、 DirectoryScanner and DiskChecker
 
 - [Database Architect](2017-07-27-bigdata-compute-database-architect.md)
 
-- [TiDB](2019-07-08-tidb-oltp-olap-design.md)
+- [TiDB](2019-07-08-newdb-tidb-design-note.md)
 
-- Cockroachdb/HashData
+- [Hologres](2021-11-06-bigdata-analytics-hologres-best-practice-note.md)
+
+- [HashData:MPP数据库动态增减节点](http://hashdata.cn/blog/qian-tan-mppshu-ju-ku-dong-tai-zeng-jian-jie-dian/)
 
 - [Monarch谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)

@@ -58,11 +58,11 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 #### III.DataCompute & DataAnalytics
 
 - *[数据库研究-TiDB HTAP DB](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-07-08-newdb-tidb-design-note.md)
-- *[大数据计算-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-compute-database-architect.md)
-- *[大数据分析-OLAP查询引擎设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-10-06-bigdata-analytics-olap-query-engine-design-note.md)
+- *[大数据分析-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-compute-database-architect.md)
 - *[大数据分析-分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-analytics-olap-next-generation-note.md)
+- *[大数据分析-OLAP查询引擎研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-10-06-bigdata-analytics-olap-query-engine-design-note.md)
 - *[大数据分析-SQLonHadoop](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
-- *[大数据计算-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-compute-sql-anywhere-design.md)
+- *[大数据分析-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-sql-anywhere-design.md)
 - *[通用查询优化器研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-01-query-optimizer-design-note.md)
 - *[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)
 - *[PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)

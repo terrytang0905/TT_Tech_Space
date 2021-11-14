@@ -68,7 +68,7 @@ title: Big Data Research Note - Common BigData Product Solution
 
 
 
-#### Huawei FusionInsight HD(Hadoop)
+#### Huawei FusionInsight HD-> Huawei Cloud MRS
 
 针对离线处理场景，FusionInsight HD由如下组件来实现：HDFS负责存储所有数据；Yarn负责调度在离线平台上运行的所有任务，从数据加工、数据挖掘到数据分析；Mapreduce和Hive专门处理离线的具体任务，其中Mapreduce/Spark处理非SQL类、Hive/Spark SQL处理SQL类.借助上述组件，再加上数据采集组件,即可完成离线处理。
 
@@ -109,13 +109,13 @@ _Ref:_
 
 - [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
-#### Huawei FusionInsight LibrA(MPPDB)
+#### Huawei FusionInsight LibrA-> Huawei Cloud DWS
     
-FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)型数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
+FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
  
 FusionInsight LibrA采用MPP(Massive Parallel Processing)架构，支持行存储与列存储，提供PB(Petabyte，250字节)级别数据量的处理能力。在核心技术上较传统数据库有巨大优势，能够解决不同行业用户的数据分析性能问题，可以为超大规模数据分析提供高性价比的方案，并可用于支撑各类数据仓库系统、数据集市、BI(Business Intelligence)系统和决策支持系统。
 
-![fusioninsight_librA](_includes/fusioninsight_librA.png)
+![fusioninsight_librA](_includes/huawei_fusioninsight_librA.png)
 
 **FusionInsight LibrA关键特性**
  

@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data Analytics Note - OLAP Query Engine Design
+title: Big Data Analytics Note - Common OLAP Query Engine Research
 ---
 
-## 大数据查询分析-分布式OLAP查询引擎设计
+## 大数据查询分析-分布式OLAP查询引擎研究
 -----------------------------------------------------------
 
 **Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
@@ -373,7 +373,6 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - 聚合感知(Cache)技术设计。在多维模型设计中,设计正确的聚合表也是很关键的,从适当的聚合表中提取数据。通过物化视图描述聚合 表来提高系统查询性能。
 - 数据预加载
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
-
 
 
 **大数据交互式查询OLAP设计(参考PrestDB)**
