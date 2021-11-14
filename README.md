@@ -32,7 +32,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.BigData & All Distributed Research
 
-- *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-infrastructure-build.md)
+- *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-26-bigdata-research-infrastructure-build.md)
 - *[大数据研究-LakeHouse开源数据格式](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)
 - *[大数据研究-Google大数据解决方案-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)
 - *[大数据研究-通用大数据产品分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-research-common-product-solution.md)
@@ -58,7 +58,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 #### III.DataCompute & DataAnalytics
 
 - *[数据库研究-TiDB HTAP DB](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-07-08-newdb-tidb-design-note.md)
-- *[大数据分析-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-compute-database-architect.md)
+- *[大数据分析-分布式数据架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-analytics-database-architect.md)
 - *[大数据分析-分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 - *[大数据分析-OLAP查询引擎研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-10-06-bigdata-analytics-olap-query-engine-design-note.md)
 - *[大数据分析-SQLonHadoop](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
@@ -74,9 +74,9 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [Greenplum数据分析应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-07-30-greenplum-analysis-function.md)
 - [Greenplum系统管理手册](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-15-greenplum-system-admin-guide.md)
 - *[OLAP-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-bigdata-analytics-distributed-presto-practice-note.md)
-- *[OLAP-Mondrian技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
-- *[OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
-- *[OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
+- [OLAP-Mondrian技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
+- [OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
+- [OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
 
 
 #### V.Cloud 
