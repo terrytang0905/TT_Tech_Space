@@ -13,22 +13,22 @@ title: Big Data Analytics Note - Next Generation OLAP
 
 1. Atomic Updates. 原子更新。
 一个用户的动作，比如一个点击行为，会被影响成百上千的视图的指标，比如影响推广计划、分网站、创意等等一系列具体报表，这个点击行为要么全部生效，要么全不生效，不能存在中间状态。
- 
+
 2. Consistency and Correctness. 一致性和正确性。
 强一致性必须保证，可重复读，即使是跨DC也需要保证读出来的一致，这么高的要求和广告系统的严谨性有直接关系。
- 
+
 3. Availability. 高可用。
 不能存在单点（SPOF），不能停服（downtime）。支持可容错性
- 
+
 4. Near RealTime Update Throughput. 近实时的高吞吐更新。
 系统要支持增量实时更新，吞吐要达到百万行/秒。增量在分钟级即可被查询到的queryability，这么高的要求和广告系统角度来说很必要，每秒钟Google都会有百万级别的广告展现，而广告主或者系统的其他模块需要更短的时间看到报表，辅助决策。
- 
+
 5. Query Performance. 高性能查询。
 系统既要支持低延迟的用户报表查询请求，也要支持高吞吐的Ad-hoc即席分析查询。低延迟要保证99分位平响在百毫秒。
- 
+
 6. Scalability. 高扩展。
 随着数据量和访问量增量，系统的能力可线性（linear）的增长。
- 
+
 7. Online Data and Metadata Transformation. 在线的schema变更。
 业务不断变化，对于schema的变更，包括加表、删表、加列、减列，新建索引，修改物化视图等的都必须不能停服的在线完成，而且不能影响数据更新和查询。
 
@@ -65,9 +65,9 @@ A database shard is a horizontal partition(水平分区) of data in a database. 
 
 tips：shard一般用hash打散,平均的,如果没有打散就是均衡字段没选好,可以选择用多个字段作均衡字段
 
-**执行协调器**
+**执行调度器**
 
-执行协调器主要职责是接收SQL请求，生成执行计划，汇聚最终结果。执行协调器组件是SQL的统一入口，对外接收客户端SQL语句，生成分布式执行计划，下发计划片段到各执行节点，各执行节点返回执行结果到执行协调器，执行协调器汇总处理后，返回给客户端。
+执行调度器主要职责是接收SQL请求，生成执行计划，汇聚最终结果。执行调度器组件是SQL的统一入口，对外接收客户端SQL语句，生成分布式执行计划，下发计划片段到各执行节点，各执行节点返回执行结果到执行协调器，执行协调器汇总处理后，返回给客户端。
 
 **SQL优化/执行**
 
@@ -148,7 +148,7 @@ Greenplum = Master + Slaver(分布式PG instance)  --最早的MPP分布式数据
 | ------ | ---- | ---- | --------- | ----------- |
 | Google | Spanner | Mesa | BigTable/MegaStore | Colossue |
 | OpenSource | TiDB | Doris/Clickhouse | HBase/Cassandra | HDFS |
-| Alibaba | OceanBase/PolarDB | ADB/Hologres | KVStore | Pangu |
+| Alibaba | OceanBase/PolarDB | Hologres/ADB | KVStore | Pangu |
 
 
 Mesa是Google开发的近实时分析型数据仓库
@@ -166,7 +166,7 @@ Mesa的存储是多副本的并且分区做sharding的，很好理解，分治�
 Mesa相关的开源产品为Clickhouse(2016年Yandex开源)和Doris(2017年百度开源)
 
 ### III.OLAP DW Design-Clickhouse有特色的"伪"大数据系统
-   
+
 ClickHouse产品能力描述
 
     ✓ Blazing fast
@@ -175,7 +175,7 @@ ClickHouse产品能力描述
     ✓ Hardware efficient
     ✓ Fault-tolerant
     ✓ Highly reliable
-
+    
     - 列式数据库
     - 数据压缩
     - 数据的磁盘存储
@@ -505,7 +505,7 @@ Column LSM-Tree：写入的数据扩展成<value_cols, LSN>结构。value_cols�
     最小的LSN > LSNread，意味着整个shard文件都是读之后写入的，该shard文件被pass
     最大的LSN <= LSNread，意味着整个shard文件都是读之前写的，全部命中，遍历LSN，产出LSN的bitmap
     其他情况，说明shard文件中部分数据是读之前写的，一部分数据命中。于是遍历这个shard文件数据块的LSN，并产出一个LSN的bitmap，用于标识该LSNread下哪些行是可见的
-    
+
 在找到了全部命中的数据集后开始以下操作：
 
 我们从多个shard文件中生成了多个LSN bitmap，记做A
@@ -562,7 +562,7 @@ Figure 5: Workflow of Query Parallelization
         然后，同步WU会产出多个读接收WU，并行执行内存表和shard文件的读取，并完成相关的数据处理工作(如udf)
     write fragment instance: 写分片实例中的非写的相关计算会被分配的Query WU中执行。写入的部分会产出一个写同步WU完成WAL的log持久化，然后产出多个写接收WU用于并行更新各个Tablet。
     query fragment instance: 产出Query WU。
-    
+
 **5.5.2.SQL 计算引擎的优化**
     
 经典 SQL 的计算引擎一个很大问题就是无论是 expression 还是 operator，其计算的时候都大量使用到虚函数，由于每行数据都需要经过这一系列的运算，导致计算框架开销比较大，而且由于虚函数的大量使用，也影响了编译器的优化空间。
@@ -724,7 +724,7 @@ query在Hologres中是异步执行的，Hologres内部描述了一种基于pull�
 	* 每个包含读取算子的子WU(如column scan请求)，将会从shard文件中读取一批数据，整合成多个<record_batch, EOS>结构返回给主WU。主WU可以并行接收多个子WU返回的数据以提高性能。
 	* record_batch就是一部分返回的数据
 	* EOS标识此WU是否已经完成了全部数据的返回
-    
+
 coordinator收到之前query的请求结果时，会校验全部的EOS标识。
 
 	* 如果该次请求全部结束，那么返回之前query对应的结果
