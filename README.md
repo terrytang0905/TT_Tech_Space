@@ -16,6 +16,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### I.BigData & AI Solution Everything
 
+- [Data Mesh的原则和逻辑架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-03-data-mesh-arch-research.md)
+- [从单体数据湖到分布式数据网格](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-02-from-datalake-to-data-mesh.md)
 - *[数据思考-商业价值变现](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)
 - *[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)
 - *[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-bigdata-ml-data-everything-note.md)
