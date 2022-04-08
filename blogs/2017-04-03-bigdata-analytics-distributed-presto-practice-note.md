@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data OLAP Note - PrestoDB OLAP
+title: Big Data Analytics Note - PrestoDB OLAP
 ---
 
-## OLAP引擎-PrestoDB实时OLAP分析
+## 大数据查询分析-PrestoDB实时OLAP分析
 ------------------------------------------------------------
 
 #### PrestoDB

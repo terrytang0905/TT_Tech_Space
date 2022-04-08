@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data Analytics Note - OLAP Query Engine Design
+title: Big Data Analytics Note - Common OLAP Query Engine Research
 ---
 
-## 大数据查询分析-分布式OLAP查询引擎设计
+## 大数据查询分析-分布式OLAP查询引擎研究
 -----------------------------------------------------------
 
 **Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
@@ -338,7 +338,7 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### 5.OLAP深度架构设计
 
-#### 5.1.实时OLAP架构优化
+#### 5.1.实时OLAP+Cube架构优化
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -375,7 +375,6 @@ ROLAP优化方式考虑创建索引视图而不创建表,实现逻辑CUBE数据�
 - JOIN联接查询影响系统性能(如何减少JOIN联接查询)
 
 
-
 **大数据交互式查询OLAP设计(参考PrestDB)**
 
 _其他OLAP设计(参考Druid/Pinot/ElastisSearch)_
@@ -392,4 +391,5 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 #### 5.2.计算引擎设计
 
 - [通用联合计算引擎Code设计](2019-03-18-bigdata-analytics-all-compute-engine-code-design.md)
+- [下一代OLAP引擎](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 

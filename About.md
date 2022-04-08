@@ -7,7 +7,7 @@ group: navigation
 
 ### Terry Tang
 
-Big Data Architect/Data Platform Director(Over 10 IT work experience). 
+Big Data Architect/Data Platform Director(Over 15 Data Driver work experience). 
 
 - Data product architect,data platform architect/team driver.
 - Email: zhenjietang@hotmail.com

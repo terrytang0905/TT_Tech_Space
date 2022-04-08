@@ -1,7 +1,7 @@
 ---
 layout: post
 category : blockchain
-tags : [thinking,database,development]
+tags : [thinking,blockchain,development]
 title: Block Chain Design&Usage Note
 ---
 

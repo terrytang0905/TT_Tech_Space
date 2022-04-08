@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,olap,architect]
+tags : [bigdata,query,architect]
 title: Big Data Analytics Note - SQL on Hadoop
 ---
 
@@ -25,7 +25,7 @@ title: Big Data Analytics Note - SQL on Hadoop
 
 ![SQLOnHadoopQueryPerf](_includes/sql_on_hadoop_query_perf.png)
 
-MesaStore > Dremel > Impala > SparkSQL > Presto > Hive
+Google Mesa > Google Dremel > Doris > Impala > SparkSQL > Presto > Hive
 
 
 #### 1.PrestoDB

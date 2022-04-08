@@ -12,7 +12,7 @@ title: Big Data Analytics Note - Data Deep Thinking
 
 - 数据=生产资料
 - 技术=生产力
-- 商业=生产关系
+- 商业模式=生产关系
 
 
 ### Information,NLP,Mathematics
@@ -77,37 +77,50 @@ title: Big Data Analytics Note - Data Deep Thinking
 #### 2.1.BI数据仓库概念设计
 
 A. _Bill Inmon的企业信息化工厂_ <br />
+![imnon_model](_includes/datamodel_imnon.png)
+> 采用第三范式的格式 <br />
 > ETL -> 企业数据仓库 -> 数据集市(多维物理数据) -> 用户探索&挖掘 <br />
-> 支持第三范式 <br />
 
 B. _Ralph Kilmball维度数据仓库(多维数据分析)_ <br />
-> ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域) -> 用户探索&挖掘 <br />
+![kimball_model](_includes/datamodel_kimball.png)
+> 多维模型–星型模型 <br />
+> ETL -> 维度数据仓库 -> 虚拟数据集市(逻辑主题区域Cube) -> 用户探索&挖掘 <br />
 > 集合数据集市DataMarts在维度数据仓库中 跨主题区域的关键企业维度的一致性使用 <br />
 > 维度格式 可直接访问 <br />
+
+    Tip:维度建模分析成为当前主流。
 
 C. _独立型数据集市_
 > ETL -> 数据集市(关注维度/主题区域) -> 用户探索&挖掘 <br />
 > 脱离企业环境,只关注主题区域
 
-#### 2.2.大数据&数据仓库技术选型
+#### 2.2.大数据&数据仓库演进技术选型
 
-A._分布式大数据分析_:
-
-> Hive / Dremel / Spanner / MesaStore
-> [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)  <br />
-> [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
-> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)
+A.[分布式基础架构解析](2017-07-27-bigdata-research-infrastructure-build.md)
 
 B._大数据分布式存储_:
 
-> [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
-> HDFS(GFS) / HBase(Google BigTable) / Kudu / Cassandra / Amazon Dynamo / LevelDB / RocksDB <br />
+> HDFS(GFS) / HBase(Google BigTable) / Kudu  <br />
+> LevelDB / RocksDB <br />
+> LSM / SSTable
+
+C.[分布式数据架构分析](2017-07-27-bigdata-compute-database-architect.md)
+
+D._分布式大数据分析_:
+
+> Hive 
+> [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)  <br />
+> [ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)  <br />
 > [MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
-> [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md)
+> [BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md) / Amazon DynamoDB / Cassandra
 
-C.[分布式基础架构](2017-07-27-bigdata-research-architect-build.md)
+E._分布式OLAP分析_:
 
-D.[分布式数据架构分析](2017-07-27-bigdata-research-database-architect.md)
+> Dremel / F1&Spanner / Mesa / [GoogleTech](2019-05-01-bigdata-research-google-tech-solution.md) <br />
+> [Impala&Kudu](2016-12-12-olap-distributed-impala-research-note.md)  <br />
+> [Greenplum](2017-02-11-greenplum-arch-design-note.md) / Vertica 分析型数据仓库 <br />
+> HTAP: [TiDB](2019-07-08-tidb-oltp-olap-design.md) / OceanBase / Oushu Database(Apache HAWQ) / HashData <br />
+> Doris / Clickhouse <br />
 
 
 ### III.数据预处理
@@ -155,7 +168,7 @@ E. _数据完整性验证_
 * ETL Kettle开源工具
 * 任务队列与任务规则
 * 基于SQL/存储过程/UDF数据处理组件
-* [Hive/Spark/Storm/Flink数据处理](2017-07-29-bigdata-research-dataprocess-development.md)
+* [Hive/Spark/Flink大数据处理](2017-07-29-bigdata-research-dataprocess-development.md)
 * 大数据MQ-[Kafka应用](2017-07-29-bigdata-research-dataprocess-kafka-note.md)
 
 #### 3.4.异常检验与处理
@@ -255,182 +268,21 @@ OLAP与数据挖掘-机器学习的差异
 
 #### 4.5.OLAP数据分析引擎
 
-数据库领域主要关注OLAP相关技术演进
+数据库领域主要关注分布式OLAP相关技术演进
 
-- [OLAP数据分析引擎](2017-07-28-bigdata-analytics-olap-query-engine-design-note.md)
-
+> [分布式OLAP的下一站](2021-05-05-bigdata-analytics-olap-next-generation-note.md) 
 
 ### V.数据挖掘-机器学习开发
 
-- 分类预测分析(监督学习)
-- 回归分析
-- 聚类分析(无监督学习)
-- 关联规则与推荐
-- 特征分析
-- 时间序列分析(指数平滑)
-- **机器学习**
-- **深度学习&神经网络**
+> [机器学习Everything研究](2017-10-16-bigdata-ml-data-everything-note.md)
 
-        Tips:主成分分析解决特征向量过多问题,选择主成分的特征向量
-
-
-#### 6.1.挖掘建模-预测响应(分类)
-
-分类是找出数据库中一组数据对象的共同特点并按照分类模式将其划分为不同的类，其目的是通过分类模型，将数据库中的数据项映射到某个给定的类别。它可以应用到客户的分类、客户的属性和特征分析、客户满意度分析、客户的购买趋势预测等
-
-A. _决策树归纳_
-
-- 构建分类模型
-- 最佳决策树:NP完全问题 <br />
-     多项式复杂程度的非确定性问题 <br />
-- 决策树时间复杂度O(w)
-- 大多数决策树采用自顶向下的递归划分方法
-
-- 决策树算法
-
-    1.CHAID:Chi-square Automatic Interaction Detector(卡方自动相互关系检测)<br />
-         依据局部最优原则,利用*卡方检验*来选择对因变量(Category)最有影响的自变量
-    2.CART: Classification and Regression Tree <br />
-         分类与回归树,检验标准为Gini等不纯度指标
-    3.ID3: Iterative Dichotomiser <br />你你你你你你
-         迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
-    4.C4.5: ID3的后继版 <br />
-         其自变量的挑选标准是基于信息增益率(GainRatio)
-
-        Tips:其核心的贪心算法指向局部最优选择，而非整体最优。
-        不适用于连续型变量。需用线性回归算法解决
-
-B. _模型过拟合OverFitting_ 
-
-    - 训练误差与泛化误差
-    - 模型拟合不足与模型过分拟合(model overfitting)
-    - 训练误差低(训练场景)/泛化误差高(真实场景)
-    - 一个假设在训练数据上能够获得比其他假设更好的拟合，但是在训练数据外的数据集 上却不能很好的拟合数据。此时我们就叫这个假设出现了overfit的现象。出现这种现象的主要原因是训练数据中存在噪音或者训练数据太少 <br />
-    - 过分拟合场景
-    - 解决决策树过分拟合(先剪枝/后剪枝)
-
-C._规则分类器与最近邻分类器_
-
-    - 规则分类与分组维度
-    - 计算测试样例和所有训练样例的距离(或相似度),以确定最近邻列表Dz
-    - 基于最近邻分类器的协同过滤推荐算法
-
-E. _Logistic Regression逻辑回归(离散值分类)_
-
-- 设计原理 <br />
-
-        构造预测函数
-        构造Cost函数
-        找到J(θ)函数的最小值 - 梯度下降法
-
-- 针对二元的目标变量,预测一组自变量数值相对应得因变量'是'的概率.确保二元目标变量的预测概率P是介于[0,1]之间的
-- 变量筛选方法:向前引入法,向后剔除法,逐步回归法
-
-F. _贝叶斯分类_
-
-- 基于概率统计的分类算法
-- 属性集与类变量的概率关系建模
-- 朴素贝叶斯分类器(属性间条件独立)
-- 检索算法Lucene - 权重定义
-
-G. _神经网络 / DeepLearning_
-
-- 感知器:多个输入结点/一个输出结点/隐藏层与隐藏结点
-- 前向型网络 <br />
-       从输入端传向输出端
-- Backpropagation反馈型网络 <br />
-       从输入端传向输出端 + 有回环或反馈存在
-- 大多数神经网络模型的学习过程,都是通过不断地改变权重来使误差达到总误差的最小绝对值
-
-H. _支持向量机算法(Support Vector Machine)_
-
-- 最大边缘超平面
-- 具有较大边缘的决策边界比那些具有较小边缘的决策边界具有更好的泛化误差
-- 最优分类线
-- 结构风险最小化SRM
-- 线性SVM-最大化决策边界边缘的线性分类器
-- 非线性SVM
-
-I. _组合方法_
-
-G. _细分建模_ 
-
-- 针对细分群体分别建模是建模过程中常用的,有效模型优化
-
-#### 6.2.挖掘建模-回归分析
-
-回归分析方法反映的是事务数据库中属性值在时间上的特征，产生一个将数据项映射到一个实值预测变量的函数，发现变量或属性间的依赖关系，其主要研究问题包括数据序列的趋势特征、数据序列的预测以及数据间的相关关系等。可以应用到市场营销的各个方面
-
-D. _Linear Regression线性回归_
-
-- y=ax+b
-
-
-#### 6.3.挖掘建模-关联规则分析
-
-关联规则是描述数据库中数据项之间所存在的关系的规则，即根据一个事务中某些项的出现可导出另一些项在同一事务中也出现，即隐藏在数据间的关联或相互关系。
-
-1. 找出所有 *频繁项集frequent itemset*
-2. 由频繁项集产生强 *关联规则assoiation rule*
-3. OLAP如何支持关联规则数据挖掘
-4. Apriori算法-频繁项集 <br />
-    基于支持度的剪枝技术
-5. 多层关联规则 <br />
-    支持度(有无意义)+置信度(相关可靠性): 衡量关联规则强度的重要指标 <br />
-    一致支持度（设置困难）<br />
-    多维关联规则 <br />
-
-
-关联分析与决策树/规则分析的差异
-
-    - 关联分析是多个项目的组合本身的情况(无分类相关),来分析项目间关联的紧密程度
-    - 决策树/规则分析是行为路径进行数据分类,先指定规则分类,后进行分析
-
-
-#### 6.4.挖掘建模-聚类分析
-
-聚类分析是把一组数据按照相似性和差异性分为几个类别，其目的是使得属于同一类别的数据间的相似性尽可能大，不同类别中的数据间的相似性尽可能小。它可以应用到客户群体的分类、客户背景分析、客户购买趋势预测、市场的细分。
-
-1. 针对目标群体进行多指标的群体划分,精细化运营,个性化运营 <br />
-2. 不同产品的价值组合进行探测,发现孤立点和异常值 <br />
-
-    - _划分方法(Partitioning Methods)_
-    - _K-Means聚类算法-数据平均值_ <br />
-      K个初始质心(中心点),K为所期望的cluster个数 <br />
-      在K-means中，我们将中心点取为当前cluster中所有数据点的平均值 <br />
-      二分K-Means <br />
-    - _K-Medoids算法_ <br />
-      从当前cluster中选取这样一个点——它到其他所有（当前cluster中的）点的距离之和最小——作为中心点 <br />
-    - _层次方法(Hierarchical Methods)_ <br />
-      凝聚层次聚类 <br />
-      分裂层次聚类 <br />
-    - _基于密度的方法(Density-Based Methods)_ <br />
-       DBSCAN - 基于中心的密度进行点分类
-    - _Cluster评估_
-    - _基于网格的方法(Grid-Based Methods)_
-
-3. 数据,Cluster和聚类算法的特性
-4. 基于原型的聚类
-5. 基于密度的聚类
-6. 基于图的聚类
-7. 可伸缩的聚类算法
-x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
-
-
-#### 6.5.特征分析
-
-特征分析是从数据库中的一组数据中提取出关于这些数据的特征式，这些特征式表达了该数据集的总体特征。
-
-矩阵的重要特性——特征向量。
-
-
-#### 6.6.分析应用-用户画像分析
+#### 5.1.分析应用-用户画像分析
 
 - 用户行为<->行为分类与特征提取<->用户特征属性关联
 - 用户特征与标签规则的关联概率(置信度)
 - 用户与属性标签的可信度矩阵
 
-#### 6.7.分析应用-文本分析算法
+#### 5.2.分析应用-文本分析算法
 
 根据语义分析算法与NLP分词策略,针对文本进行标签分析
 
@@ -466,52 +318,23 @@ PLSA \ LDA \ HMM
 - [相关文档](http://www.52nlp.cn/%E6%A6%82%E7%8E%87%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8F%98%E5%BD%A2%E7%B3%BB%E5%88%971-plsa%E5%8F%8Aem%E7%AE%97%E6%B3%95)
 
 
-#### 6.8.数据挖掘算法技术实现
 
-A. MATLAB
+### VI.业务数据建模应用
 
-利用其简单的矩阵语言加工具箱函数来实现数据挖掘算法的示例。<br />
-- Statistics Toolbox和Neural Networks Toolbox可以用来实现回归和分类；<br />
-- Optimization Toolbox和Genetic Algorithm and Direct Search Toolbox可以帮助聚类算法进行最优化运算；<br />
-- Fuzzy Logic Toolbox可以进行规则推理——这些都是显而易见的。<br />
-
-上述工具箱是一些通用的工具，而下面这几个函数的"挖掘味儿"则似乎更浓一些。<br />
-- kmeans() k-均值聚类 <br />
-- treefit() 决策树回归或分类 <br />
-- svmclassify() 支持向量机分类 <br />
-- knnclassify() k-近邻分类 <br />
-- crossvalind() 交叉验证试验 <br />
-
-B.Python
-
-C.R
-
-D.Spark
-
-
-### VI.大数据与机器学习
-
-Spark MLlib
-
-
-### VII.垂直业务数据建模
-
-#### 7.1.电商零售分析模型
+#### 6.1.电商零售分析模型
 
 - 目标客户特征分析
 - 预测（响应,分类）模型
 - 主成分分析PCA
 
-[新零售分析模型设计](2017-04-16-data-usage-new-retail-analytics-design-note.md)
+> [新零售分析模型设计](2017-04-16-data-usage-new-retail-analytics-design-note.md)
 
-#### 7.2.互联网用户行为分析模型
+#### 6.2.互联网用户行为分析模型
 
-* GrowingIO
-* 诸葛IO
-* 神策数据
+数字化运营&增长黑客
 
 
-### VII.数据可视化
+#### 6.3.数据可视化
 
 - selection: 删除或不突出某些对象和属性
 - 少量属性的可视化 - 单维图表
@@ -526,11 +349,11 @@ Spark MLlib
 
 
 
-### VIII.数据分析产品设计
+### VII.数据分析产品设计
 
-#### 8.1.常规分析产品设计
+#### 7.1.常规分析产品设计
 
-1. 数据提取 
+- 1. 数据提取 
 
     - 网络Scrapy <br />
     - 云平台数据API <br />
@@ -539,12 +362,12 @@ Spark MLlib
     - 实时数据处理 <br />
     - Deep Web表单处理 <br />
 
-2. 数据建模
+- 2. 数据建模
 
     - 数据表关联信息定义
     - Cube数据建模    
 
-3. 数据预处理 
+- 3. 数据预处理 
 
     - ETL + Data Cleaning(数据质量监控)
     - SQL/存储过程/UDF
@@ -554,22 +377,22 @@ Spark MLlib
     - 分布式实时流式计算 
     - 分布式批处理计算 
 
-> 当前数据分析产品将环节1,2,3打包进行敏捷可视化实现    
+    > 当前数据分析产品将环节1,2,3打包进行敏捷可视化实现    
 
-4. 大数据存储平台
+- 4. 大数据存储平台
 
     - 大数据平台Hadoop-HDFS&HBase等 / MPP(Greenplum&Vertica) / NoSQL数据库
     - 动态生成宽表
     - 数据库优化/Index创建/数据仓库设计
 
-5. OLAP查询分析
+- 5. OLAP查询分析
 
     - OLAP Query Engine (支持SQL查询) <br />
     - 交互式MPP计算 <br />
     - 内存计算 - Spark <br />
     - 缓存查询AggregateCache
 
-6. 数据可视化
+- 6. 数据可视化
 
     仪表盘设计 <br />
     可视化图表展示 <br />
@@ -577,7 +400,7 @@ Spark MLlib
     多维图表可视化 <br />
     [D3](https://d3js.org/) <br />
 
-7. 数据挖掘&建模预测
+- 7. 数据挖掘&建模预测
 
    - SQL / R / Python / Spark / Weka
    - 相关性分析等
@@ -587,13 +410,13 @@ Spark MLlib
    - 模型评估
    - 循环迭代
 
-8. [OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
+- 8. [OLAP架构优化设计](http://wiki.yunat.com/pages/viewpage.action?pageId=47520652)
 
-9. [NewBI技术架构](_includes/NewBI-Platform.png)
+- 9. [NewBI技术架构](_includes/NewBI-Platform.png)
 
 x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 
-#### 8.2.敏捷分析竞品分析
+#### 7.2.敏捷分析竞品分析
 
 *敏捷BI-行业数据分析*
 
@@ -605,15 +428,15 @@ x. [数据挖掘导图](_includes/DataMiningThinking.jpg)
 - [魔镜MagicWindow](http://wiki.yunat.com/pages/viewpage.action?pageId=46766678)
 - [QuickBI](http://wiki.yunat.com/pages/viewpage.action?pageId=46766762)
 
-*日志分析*
+*日志分析/数字化运营*
 
 - [SENSORS Analytics](https://sensorsdata.cn/?ch=itjuzi)
 - GrowingIO
 - 诸葛IO
 - Splunk
+- SLS
 
-
-#### 8.3.数据发现数据
+#### 7.3.数据发现数据
 
     1. 观察的存在和可用性
     2. 能够从观察中提取特征并对特征进行分类

@@ -1,11 +1,11 @@
 ---
 layout: post
-category : cloud
-tags : [bigdata, product, database]
+category : database
+tags : [database, product, htap]
 title: Database Research Note - TiDB HTAP DB
 ---
 
-## 数据库研究 - TiDB(HTAP数据库)
+## 数据库研究 - TiDB(NEW HTAP数据库)
 --------------------------------------------------------
 
 ### 分布式数据库TiDB是如何结合OLTP和OLAP的

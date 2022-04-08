@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [datascience,datamining,database]
+tags : [database,olap,guide]
 title: Greenplum5 Best Practice Note
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [datascience,bigdata,architect]
+tags : [bigdata,analytics,guide]
 title: Big Data Analytics Note - SQL AnyWhere Design
 ---
 

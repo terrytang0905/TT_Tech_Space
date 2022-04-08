@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [datascience,database,development]
+tags : [database,guide,development]
 title: PostgreSQL&Greenplum Index Note
 ---
 

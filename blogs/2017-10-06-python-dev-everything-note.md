@@ -52,3 +52,5 @@ Anaconda
 - [Python内容识别](2018-05-05-python-info-recognition-note.md)
 
 - Scrapy分布式爬虫
+
+### IV.Python Development - Jupyter

@@ -1,7 +1,7 @@
 ---
 layout: post
-category : sql
-tags : [database,datascience,sql]
+category : database
+tags : [database,sql,guide]
 title: Standard SQL Best Practice Note
 ---
 

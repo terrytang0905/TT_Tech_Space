@@ -1,11 +1,11 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, database, architect]
+tags : [bigdata, architect, database]
 title: Big Data Research Note - Distributed Database Architect
 ---
 
-## 大数据研究-分布式数据架构
+## 大数据计算-分布式数据架构
 --------------------------------------------------------
 
 导读:A one size fits all database doesn't fit anyone
@@ -85,12 +85,28 @@ title: Big Data Research Note - Distributed Database Architect
 	Soft state软状态 状态可以有一段时间不同步，异步。
 	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
   
-**MVCC多版本并行控制**
+**并行化隔离算法:MVCC(MultiVersion Concurrency Control)多版本并发控制**
+
+    PostgreSQL实现基于MVCC的快照级别隔离(Snapshot isolation),支持读-提交级别隔离。
+    快照级别隔离的口号"读写互不干扰"
+
+**可串行化的快照隔离**
+
+**串行化隔离算法:two-phase locking,2PL**
+
+    2PL不仅在并发写操作之间互斥,读取也会和修改产生互斥。
+    性能下降:其事务吞吐量和查询响应时间相比于其他弱隔离级别下降非常多
+
+**分布式事务-共识算法:two-phase commit,2PC**
+
+![two_phase_commit_explain](_includes/two_phase_commit_explain.png)
+
+    原子提交:一种在多节点之间实现事务原子提交的算法,用来确保所有节点要么全部提交    
 
 **Bitmap**
 
 	- bitmap可以理解为通过一个bit数组来存储特定数据的一种数据结构，每一个bit位都能独立包含信息，bit是数据的最小存储单位
-	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的,例如异常IP等
+	- bitmap就是用每一位来存放某种状态，适用于大规模数据，但数据特征分类又不是很多的情况(10-100)。通常是用来判断某个数据存不存在的,例如异常IP等
 	- 统计一个对象的基数值(1亿)需要12M，如果统计10000个对象，就需要将近120G了，同样不能广泛用于大数据场景。
 
 **BloomFilter**
@@ -108,7 +124,7 @@ title: Big Data Research Note - Distributed Database Architect
 
 	- 根据经纬度计算GeoHash二进制编码
 
-**SkipList:跳跃表**
+**SkipList-跳跃表**
 
 **LSM树 & LSM映射**
 
@@ -150,7 +166,8 @@ title: Big Data Research Note - Distributed Database Architect
 
 	- SequenceFile
 	- RCFile 
-	- OptimizeRC=ORC 
+	- ApacheORC = OptimizeRC
+    - AliORC
 	- [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
 	- CarbonData(华为开源)
 
@@ -172,21 +189,43 @@ title: Big Data Research Note - Distributed Database Architect
 分布式数据架构的整个框架是非常稳定的,主流的数据架构都是由存储引擎,执行引擎,网络交互和查询优化器组成的
 
 主要用于以下4种分析场景
-- reporting/dashboard: 万级别query,ms延时,插入更新upsert数据多,实时,filters,aggregation类似操作
-- embedded statics: simply query & high query,百万级别/qps实时更新
-- monitoring: 内存时序分析/在线服务
+- reporting/dashboard: 百千级别query,ms延时,插入更新upsert数据多,实时,filters,aggregation类似操作
+- embedded statics/data service: 在线服务/simply query & high qps,百万级别/qps实时更新
 - ad-hoc analysis: 复杂查询在trillion data下即席查询分析,snowflake云端数据仓库
+- monitoring: 内存时序分析
 
-#### A.分析型数据库设计-MPP
 
-*1.数据分析性需求对IT能力的要求包括:*
+#### A.Distributed OLTP-分布式关系型数据库
+
+- 1.Spanner
+
+Spanner是一个Google开发的支持分布式读写事务，只读事务的分布式存储系统，只读事务不加任何锁。和其他分布式存储系统一样，通过维护多副本来提高系统的可用性。
+
+一份数据的多个副本组成一个paxos group，通过paxos协议维护副本之间的一致性。对于涉及到跨机的分布式事务，涉及到的每个paxos group中都会选出一个leader，来参与分布式事务的协调。这些个leader又会选出一个大leader，称为coordinator leader，作为两阶段提交的coordinator，记作coordinator leader。其他leader作为participant。
+
+数据库事务系统的核心挑战之一是并发控制协议(通用实现MVCC)。Spanner的读写事务使用两阶段锁来处理。
+
+- 2.OceanBase分布式数据库
+
+OceanBase底层架构实现LSM/分布式ACID等特征
+
+- 3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)
+
+基于Spanner的TrueTime机制来解决不同时区数据一致性问题
+
+- 4.TiKV分布式存储
+
+
+#### B.分析型数据库设计-MPP
+
+- 1.数据分析性需求对IT能力的要求包括:
 
 	- 复杂分析查询能力
 	- 批量数据处理
 	- 一定的并发访问能力
 	- 大规模Sacle-Out数据扩展
 
-*2.OLAP场景下的分析型数据仓库*
+- 2.OLAP场景下的分析型数据仓库
 
 	- 一致性协调器(Paxos/Raft) - 类Zookeeper
 	- LSM-Tree&LSM映射存储
@@ -203,34 +242,13 @@ title: Big Data Research Note - Distributed Database Architect
 	- In-Database FullText Engine - 参考ELK
 	- Data mining support(UDF)
 
-*3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)*
+- 3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
 
 	- 第一款成熟的开源分布式分析型数据库
 
-*4.[Vertica数据库结构]()*
+- 4.[Vertica数据库结构]()
 
-
-#### A+.Ad-hoc分析型MPP on Cloud
-
-*5.Snowflake-Cloud DataWarehouse*
-
-*6.AWS Redshift-Cloud DataWarehouse*
-
-支持PB级别的OLAP数据库
-
-	- 列式数据存储：Amazon Redshift 以列组织数据，并非以一系列的行来存储数据。与适用于事务处理的基于行的系统不同，基于列的系统适用于数据仓库存储及分析，在此系统下，查询经常涉及到对大型数据集进行聚合。由于仅对涉及查询的列进行处理，且列式数据顺序存储在存储介质上，故基于列的系统所需的 I/O 要少得多，从而显著提高了查询性能。
-	- 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
-	- 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
-
-
-*7.Google BigQuery(Dremel)-Cloud Analytics Services*
-
-*8.AliCloud MaxCompute-Cloud Serverless DataWarehouse*
-
-[云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
-
-
-#### B.Hadoop-MapReduce批处理
+#### C.Hadoop离线批处理(MapRedure->Spark)
 
 总的来说，其架构的着力点在于数据高吞吐处理能力，在事务方面相较MPP更简化，仅提供粗粒度的事务管理.
 
@@ -239,11 +257,11 @@ Hadoop具备MPP所缺失的批量任务调整能力，数据的多副本存储�
 
 #### MPP并行计算 vs 批处理计算 
 
-*1.MPP设计*
+- 1.MPP设计
 
 MPP最开始的设计目的是为了消除共享资源的使用，即每个executor有独立的cpu、内存和磁盘等资源，每个executor一般不能访问其他executor的资源。但是有一种情况例外，那就是当数据必须要通过网络进行交换的时候(即Redistribute/shuffle)。
 
-*2.MPP的核心问题*
+- 2.MPP的核心问题
 
 	- 遇到的最大问题就是“落后者”(straggler)。
 	如果某个节点在执行任何任务时都比其他的节点慢，那么不管集群规模多大，整体的执行性能都会由这个“有问题”的节点决定了。
@@ -259,7 +277,7 @@ MPP和MapReduce批处理架构的另外一个显著不同则在于并发(concurr
 	- MPP对小查询的并发处理基本可用,原因在于查询时间短,对系统的负载要求较低.
 
 
-*3.批处理设计*
+- 3.批处理设计
 
 这类系统的主要思想是:原本在两个同步点之间是单task执行，现在则被切分成多个独立的“task”，而task的总数则和executor的总数无关。
 
@@ -276,13 +294,13 @@ MapReduce的同步点包括的job的启动、shuffle以及job的停止；对spar
 
 共享存储在处理一块数据,不需要让数据一定要存储在某个特定的节点，需要这块数据时，可以从集群中其他节点那里获取到。当然了,_Remote远程操作涉及网络和磁盘IO，有一定代价，所以计算框架会尝试优先处理本地存储的数据_。但是在“degraded”场景下，推测执行可以有效缓解性能下降问题。
 
-*4.批处理的问题*
+- 4.批处理的问题
 
 	- 如果在一个单独的executor中串行的处理不相关的task,就必须把中间结果写到本地磁盘上,以便下一个执行步骤能开始消费本步骤的数据。
 	- 而MPP中，不需要把中间结果写入磁盘，因为每个executor处理一个task，所以数据可以直接“流入”下一执行阶段进行处理，这就是所谓的pipeline执行,性能非常可观。
 
 
-*5.MPP&批处理的差异*
+- 5.MPP&批处理的差异
 
 	- MPP按照关系数据库行列表方式存储数据(有模式)，Hadoop按照文件切片方式分布式存储(无模式)
 
@@ -291,7 +309,7 @@ MapReduce的同步点包括的job的启动、shuffle以及job的停止；对spar
 	- 两者采用的数据分布机制不同，MPP采用Hash分布，计算节点和存储紧密耦合，数据分布粒度在记录级的更小粒度(一般在1k以下)；Hadoop FS按照文件切块后随机分配，节点和数据无耦合，数据分布粒度在文件块级（缺省64MB）。
 	- MPP采用SQL并行查询计划，Hadoop批处理多采用Mapreduce框架
 
-*6.MPP&批处理各自缺陷*
+- 6.MPP&批处理各自缺陷
 
 _MPP缺陷总结_
 
@@ -310,9 +328,9 @@ _批处理缺陷总结_
 
 	Tips:在大体相同的数据量和查询逻辑情况下,Impala并发效果会低于GPDB
 
-#### A+B.MPP+Hadoop
+#### B+C.MPP+Hadoop
 
-*1.[Apache HAWQ](http://hawq.incubator.apache.org/)*
+- 1.[Apache HAWQ](http://hawq.incubator.apache.org/)
 
 HAWQ is a Hadoop native SQL query engine that combines the key technological advantages of MPP database with the scalability and convenience of Hadoop. HAWQ reads data from and writes data to HDFS natively.
 
@@ -320,51 +338,74 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
     - OushuDB数据库是实现HAWQ架构的商业版
 
-*2.Huawei FusionInsight+GuassDB 200*
+- 2.Huawei FusionInsight+GuassDB 200
 
-- FusionInsight改名为Huawei MRS
-- GuassDB 200可以理解为Greenplum的商业改良版
+    FusionInsight改名为Huawei MRS
+    GuassDB 200可以理解为Greenplum的商业改良版
 
+- 3.[Lakehouse on Cloud](2020-06-06-bigdata-research-lake-house-solution.md)
 
-#### C.BigTable-KV数据存储架构
+- Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)
 
-*基础特征:*
+#### B&C.分析型OLAP on Cloud - Cloud DataWareHouse
+ 
+- 1.Snowflake-Cloud DataWarehouse
 
-- 大多基于LSM-Tree的大规模稀疏表 
-- 适合海量数据的KV类似查询
-- 支持多并发查询分析
+- 2.AWS Redshift-Cloud DataWarehouse
 
-*1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)*
+    支持PB级别的OLAP数据库
 
-- 大数据量存储,大数据量高并发操作 
-- 需要对**数据随机读写操作**
-- 读写访问均是非常简单的操作
-
-*2.Dynamo-KV数据库(Amazon)*
-
-*3.Cassandra数据库(Facebook)*
-
-DataStax维护
+    - 列式数据存储：Amazon Redshift 以列组织数据，并非以一系列的行来存储数据。与适用于事务处理的基于行的系统不同，基于列的系统适用于数据仓库存储及分析，在此系统下，查询经常涉及到对大型数据集进行聚合。由于仅对涉及查询的列进行处理，且列式数据顺序存储在存储介质上，故基于列的系统所需的 I/O 要少得多，从而显著提高了查询性能。
+    - 高级压缩：与基于行的数据存储相比，列式数据存储可进行更大程度的压缩，因为类似的数据是按顺序存储在硬盘上。Amazon Redshift 拥有多种压缩技术，与传统的关系数据存储相比，经常可进行很大程度的压缩。此外，与传统的关系数据库系统相比，Amazon Redshift 不需要索引或具体化视图，因此使用的空间较少。将数据加载到空表中时，Amazon Redshift 自动对您的数据进行采样并选择最合适的压缩方案。
+    - 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
 
-#### C+.InMemory-KV内存数据库
+- 3.Google BigQuery(Dremel)-Cloud Analytics Services
 
-*1.Redis*
+- 4.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse
 
-*2.Couchbase*
-
-*3.Ignite*
-
-*4.Monarch*
+- 5.[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
 
 
-#### D.Document文档数据库
+#### D.BigTable-KV数据存储架构
 
-*1.MongoDB数据库*
+**基础特征:**
 
-- [MongoDB相关](2015-10-11-mongodb3-major-release.md)
+    - 大多基于LSM-Tree的大规模稀疏表 
+    - 适合海量数据的KV类似查询
+    - 支持多并发查询分析
 
-*2.Azure DocumentDB数据库(Microsoft)*
+- 1.[BigTable&HBase分析笔记](2017-03-12-bigtable&hbase-analysis-note.md)
+
+    - 大数据量存储,大数据量高并发操作 
+    - 需要对**数据随机读写操作**
+    - 读写访问均是非常简单的操作
+
+    MegaStore
+
+- 2.DynamoDB-KV数据库(Amazon)
+
+- 3.Cassandra开源数据库(Facebook)
+
+    DataStax维护
+
+
+#### D+.InMemory-KV内存数据库
+
+- 1.Redis
+
+- 2.Couchbase
+
+- 3.Ignite
+
+- 4.Monarch
+
+
+#### E.Document文档数据库
+
+- 1.[MongoDB数据库](2015-10-11-mongodb3-major-release.md)
+
+- 2.Azure DocumentDB数据库(Microsoft)
 
 #### MongoDB&DocumentDB对比
 
@@ -383,78 +424,14 @@ DocumentDB的某些优势
 - 可编程性：两者都支持JavaScript，DocumentDB的.NET SDK对LINQ支持更好，不过对debug支持不好（主要没有本地模拟器）。
 - 其他不同：DocumentDB对聚合操作暂时有一定限制，无服务端排序，工具还不够丰富。MongoDB情况要稍好些。
 
-#### E.Distributed OLTP-分布式关系型数据库
 
-*1.Spanner*
-
-Spanner是一个Google开发的支持分布式读写事务，只读事务的分布式存储系统，只读事务不加任何锁。和其他分布式存储系统一样，通过维护多副本来提高系统的可用性。
-
-一份数据的多个副本组成一个paxos group，通过paxos协议维护副本之间的一致性。对于涉及到跨机的分布式事务，涉及到的每个paxos group中都会选出一个leader，来参与分布式事务的协调。这些个leader又会选出一个大leader，称为coordinator leader，作为两阶段提交的coordinator，记作coordinator leader。其他leader作为participant。
-
-数据库事务系统的核心挑战之一是并发控制协议。Spanner的读写事务使用两阶段锁来处理。
-
-![two_phase_commit_explain]()
-
-*2.OceanBase分布式数据库*
-
-OceanBase底层架构实现LSM/ACID等特征
-
-*3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)*
-
-*4.TiKV分布式存储*
-
-
-#### F.Distributed OLAP-Google MesaStore
-
-*1.Mesa*
-
-Mesa是Google开发的近实时分析型数据仓库
-
-	其通过预聚合合并Delta文件等方式减少查询的计算量，提升了并发能力。
-
-Mesa充分利用了现有的Google技术组件:使用BigTable来存储所有持久化的元数据，使用了Colossus(Google的分布式文件系统)来存储数据文件，使用MapReduce来处理连续的数据。Paxos技术对元数据(metadata)实现存储和维护
-
-![MesaDatabase](_includes/mesa_database.png)
-
-Mesa相关的开源产品为Clickhouse(2016年Yandex开源)和Palo(2017年百度开源)
-
-*2.Palo(Doris的前身)*
-
-Palo没有完全照搬Mesa的架构设计的思路，其借助了Hadoop的批量处理能力，但将加工结果导入到了Palo自身存储，专注于联机查询场景，在联机查询部分主要借鉴了Impala技术。同时Palo没有复用已有的分布式文件系统和类BigTable系统，而是设计了独立的分布式存储引擎。虽然数据存储上付出了一定的冗余，但在联机查询的低延迟、高并发两方面都得到了很大的改善。
-
-Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小为一个数据加载批次，可以保证多表数据更新的一致性。
-
-整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
-
-![Palo](_includes/palo_database.jpg)
-
-*3.ClickHouse*
-
-	- 列式数据库
-	- 数据压缩
-	- 数据的磁盘存储
-	- 多核并行处理
-	- 多服务器分布式处理
-	- 支持基础SQL
-	- 向量引擎
-	- 实时的数据更新
-	- 索引
-	- 适合在线查询
-	- 支持近似计算
-	- 支持数据复制和数据完整性
-	- 没有完整的事物支持
-	- 缺少高频率，低延迟的修改或删除已存在数据的能力
-	- 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
-
-[云端数据仓库分析](2020-01-26-bigdata-research-cloud-dw-solution.md)
-
-#### G.Search搜索数据存储
-
-- 适合海量数据秒级查询
-- 支持多并发查询分析
-- 不适用于复杂的JOIN查询等关联分析
+#### F.Search搜索数据存储
 
 - [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
+    
+    - 适合海量数据秒级查询
+    - 支持多并发查询分析
+    - 不适用于复杂的JOIN查询等关联分析
 
 
 #### 数据库应用选择
@@ -468,7 +445,7 @@ Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小�
 
 #### 通用数据库架构分析
 
-[How does a relational database work](http://coding-geek.com/how-databases-work/)
+- [How does a relational database work](http://coding-geek.com/how-databases-work/)
 
 
 *1.合并排序算法*
@@ -699,6 +676,6 @@ n个元素的数组包含1个长度为n的子数组：{a0,a1,…,an-1}；
 - [BigTable](https://baike.baidu.com/item/BigTable/3707131?fr=aladdin)
 - [从架构特点到功能缺陷，重新认识分析型分布式数据库](https://mp.weixin.qq.com/s/O9sWvcHhrgafCWHSMiOMlA)
 - [对比MPP计算框架和批处理计算框架](https://blog.csdn.net/sinat_27545249/article/details/78943823)
-- [MesaDB](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
+- [Google Mesa - OLAP数据仓库](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
 - [built-databases-in-aws](https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html)
 
