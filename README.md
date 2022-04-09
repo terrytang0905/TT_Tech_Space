@@ -1,4 +1,4 @@
-TT Tech Space - 大数据研究博客
+TT Tech Space - 大数据&AI研究博客
 --------------------------
 
 ### Welcome to TT Big Data Research Pages.
@@ -9,7 +9,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### Data Content Map
 
-![大数据能力分布](blogs/_includes/bigdata_map_tt.png)
+![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
 
 **BigData -> Data Analytics -> BigDat+AI on Cloud**
