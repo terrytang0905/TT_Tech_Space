@@ -11,15 +11,15 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 ![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
-
 **BigData -> Data Analytics -> BigDat+AI on Cloud**
+
+*[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)
 
 #### I.BigData & AI Solution Everything
 
 - [Data Mesh的原则和逻辑架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-03-data-mesh-arch-research.md)
 - [从单体数据湖到分布式数据网格](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-02-from-datalake-to-data-mesh.md)
 - *[数据思考-商业价值变现](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)
-- *[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)
 - *[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-bigdata-ml-data-everything-note.md)
 - *[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)
 - *[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)
@@ -36,7 +36,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - *[大数据研究-基础架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-26-bigdata-research-infrastructure-build.md)
 - *[大数据研究-LakeHouse开源数据格式](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)
-- *[大数据研究-Google大数据解决方案-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)
+- *[大数据研究-Google大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)
 - *[大数据研究-通用大数据产品分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-research-common-product-solution.md)
 - *[区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - *[大数据研究-数据处理-实时计算引擎分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
