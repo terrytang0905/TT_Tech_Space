@@ -16,11 +16,11 @@ title: AliCloud MaxCompute Best Practice Note
 
 #### 3.MaxCompute 最佳实践&实操
 
-#### 4.云端大数据产品横向分析
+#### 4.MaxCompute 生态与Functions
 
-**<u>BigQuery</u>**
+#### 5.云端大数据产品横向分析
 
-Dremel
+[Google BigData&BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)
 
 **<u>Snowflake vs Redshift</u>**
 
@@ -76,9 +76,6 @@ Redshift支持表级别的数据恢复从之前的某个snapshot切片，不过�
 总结
 
   首先, 通过很长时间的磨练，Redshift终于向更优秀的架构来演进了。当我以为已经到达终点的时刻，它实际上还需继续向前进一步。Redshift RA3本身就是基于S3存储之上的云数仓服务，为什么暂停释放一个空集群需要5分钟？为什么在执行暂停操作前一定要创建一个snapshot? 虽然AWS Redshift已是一个很不错的产品，但是Snowflake可能是更好的分析数据仓库产品选择，能为DBA/开发人员提供更强大的能力。
-
-
-#### 5.MaxCompute 生态与Functions
 
 #### 6.云上智能数仓发展
 

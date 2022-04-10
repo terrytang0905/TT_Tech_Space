@@ -10,8 +10,6 @@ title: Big Data Research Note - Google Solution
 
 ### A.Google大数据
 
-#### 分布式文件存储
-
 #### I.BigTable - HBase - MegaStore
 
 **BigTable**
@@ -26,7 +24,7 @@ title: Big Data Research Note - Google Solution
 	6.JAVA Client 以及Thrift/RESR API 访问；
 	7.Block Cache 以及Bloom filter；
 	8.操作管理
- 
+
 **Megastore: Providing Scalable, Highly Available Storage for Interactive Services**
 
 #### II.DynamoDB - Cassandra
@@ -37,25 +35,57 @@ title: Big Data Research Note - Google Solution
 
 ![hbase_vs_cassandra](_includes/hbase_vs_cassandra.png)
 
-#### II.Google BigQuery(Dremel) in Google Cloud Services
+#### III.Google BigQuery(Dremel) in Google Cloud Services
 
-Dremel = BigTable+Spanner (多层次查询树架构)
+BigQuery is truly a Serverless database from GCP. BigQuery = Dremel + Colossus + Borg + Jupiter
 
 There are significant design differences, for example, 
 
-- extensive use of stateful caching(Dremel is mostly stateless), 
-- separate instances where each is optimized for different use cases (Dremel is a global shared service across all users)
-- use of indexable columnar formats optimized for lookups (Capacitor, unlike Artus, does not have indexes), etc.
+	- extensive use of stateful caching (Dremel is mostly stateless), 
+	- Execution model-Volcano / Exchange Operator(Parallel Database)
+	- separate instances where each is optimized for different use cases (Dremel is a global shared service across all users)
+	- Nested type->column store
+	- use of indexable columnar formats optimized for lookups (Capacitor, unlike Artus, does not have indexes), etc.
+	- Storage Format, Capacitor and Parquet
 
 These make Procella suitable for many additional workloads (e.g high QPS reporting and lookup queries)
 
-- bigquery: adhoc,trival-and-error分析  tens of seconds 35billion rows
+- BigQuery: adhoc,trival-and-error analytics tens of seconds 35billion rows
 		
 		full scan: 不需要Indices和pre-aggregation in-memory/flash,columar storage,parallel disk IO.
 		While MapReduce is suitable for long-running batch processes such as data mining, BigQuery is the best choice for ad-hoc OLAP/BI queries that require results as fast as possible.
 
+#### BigQuery背后的技术 
 
-#### III.Dremel实时化分析
+![dremel_arch](_includes/dremel_arch.png)
+
+**Dremel - The Execution Engine**
+Dremel将你的SQL语句转化成执行树。执行树的叶子节点被称为'slots'-槽位。大规模数据计算并从Colossus读取数据，槽位可读取千亿行数据并对每行做正则表达式的check。
+
+这执行树的分支被称为'mixers'-混合器, 它将用于聚合aggregation。 In between is ‘shuffle’, which takes advantage of Google’s *Jupiter network* to move data extremely rapidly from one place to another. The mixers and slots are all run by *Borg*, which doles out hardware resources.
+
+Dremel dynamically apportions slots to queries on an as needed basis, maintaining fairness amongst multiple users who are all querying at once. A single user can get thousands of slots to run their queries.
+
+Dremel is widely used at Google — from search to ads, from youtube to gmail — so there’s great emphasis on continuously making Dremel better. BigQuery users get the benefit of continuous improvements in performance, durability, efficiency and scalability, without downtime and upgrades associated with traditional technologies.
+
+**Colossus: Distributed Storage**
+BigQuery relies on *Colossus*, Google’s latest generation distributed file system. Each Google datacenter has its own Colossus cluster, and each Colossus cluster has enough disks to give every BigQuery user thousands of dedicated disks at a time. Colossus also handles replication, recovery (when disks crash) and distributed management (so there is no single point of failure). Colossus is fast enough to allow BigQuery to provide similar performance to many in-memory databases, but leveraging much cheaper yet highly parallelized, scalable, durable and performant infrastructure.
+
+BigQuery leverages the *ColumnIO columnar storage format* and compression algorithm to store data in Colossus in the most optimal way for reading large amounts of structured data.Colossus allows BigQuery users to scale to dozens of Petabytes in storage seamlessly, without paying the penalty of attaching much more expensive compute resources — typical with most traditional databases.
+
+[Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
+
+**Borg - 分布式资源调度, K8s的原型**
+To give you thousands of CPU cores dedicated to processing your task, BigQuery takes advantage of Borg, Google’s large-scale cluster management system. Borg clusters run on dozens of thousands of machines and hundreds of thousands of cores, so your query which used 3300 CPUs only used a fraction of the capacity reserved for BigQuery, and BigQuery’s capacity is only a fraction of the capacity of a Borg cluster. Borg assigns server resources to jobs; the job in this case is the Dremel cluster.
+
+Machines crash, power supplies fail, network switches die, and a myriad of other problems can occur while running a large production datacenter. Borg routes around it, and the software layer is abstracted. At Google-scale, thousands of servers will fail every single day, and Borg protects us from these failures. Someone unplugs a rack in the datacenter in the middle of running your query, and you’ll never notice the difference.
+
+**Jupiter: The Network**
+Besides obvious needs for resource coordination and compute resources, Big Data workloads are often throttled by networking throughput. Google’s Jupiter network can deliver 1 Petabit/sec of total bisection bandwidth, allowing us to efficiently and quickly distribute large workloads.
+
+Jupiter networking infrastructure might be the single biggest differentiator in Google Cloud Platform. It provides enough bandwidth to allow 100,000 machines to communicate with any other machine at 10 Gbs. The networking bandwidth needed to run our query would use less than 0.1% of the total capacity of the system. This full-duplex bandwidth means that locality within the cluster is not important. If every machine can talk to every other machine at 10 Gbps, racks don’t matter.
+
+Traditional approaches to separation of storage and compute include keeping data in an object store like Google Cloud Storage or AWS S3 and loading that data on-demand to VMs. This approach is often more efficient than co-tenant architectures like HDFS, but is subject to local VM and object storage throughput limits. Jupiter allows us to bypass this process entirely and read terabytes of data in seconds directly from storage, for every SQL query.
 
 #### IV.分布式OLTP: F1 - Spanner
 
@@ -104,7 +134,9 @@ F1支持层级表结构和protobuf复合数据域，示例如下：
 
 **Mesa**
 
-#### VI.分布式内存数据库: [Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
+#### VI.分布式内存数据库: 
+
+[Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
 
 
 ### B.Apache Beam数据框架
@@ -125,7 +157,7 @@ Apache Beam主要由Beam SDK和Beam Runner组成，Beam SDK定义了开发分布
 
 Bigtable的Key-Value数据结构
 
-Dremel嵌套列数据模型
+Dremel嵌套列数据模型-Nest Types
 
 Spanner数据目录结构 - 虚拟桶
 
@@ -142,5 +174,7 @@ Mesa
 - [Spanner: Google’s Globally-Distributed Database]
 - [Spanner: Becoming a SQL System]
 - [GOOGLE分布式数据库技术演进研究--从Bigtable、Dremel到Spanner](https://blog.csdn.net/x802796/article/details/18802733)
+- [Anatomy of a BigQuery Query](https://cloud.google.com/blog/products/bigquery/anatomy-of-a-bigquery-query) 
+- [BigQuery under the hood](https://cloud.google.com/blog/products/bigquery/bigquery-under-the-hood)
 
 
