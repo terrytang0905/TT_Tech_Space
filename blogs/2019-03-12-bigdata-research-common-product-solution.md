@@ -12,6 +12,10 @@ title: Big Data Research Note - Common BigData Product Solution
 
 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
 
+首先我们分享一下-通用数据基础架构
+
+![通用数据基础架构](_includes/unified_data_infra_arch.png)
+
 ### 核心能力定义
 
 **Core Capibility**
