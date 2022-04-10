@@ -5,11 +5,7 @@ tags : [bigdata, tech, solution]
 title: Big Data Research Note - LakeHouse
 ---
 
-<<<<<<< HEAD
-## 大数据研究-数据湖仓存算分离解决方案
-=======
 ## 大数据研究-数据湖仓存算分离技术研究
->>>>>>> c693634952afeab0275b9dba8e2abe0d492c7cd8
 ---------------------------------------------------
 
 

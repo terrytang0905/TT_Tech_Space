@@ -39,6 +39,12 @@ title: Big Data Research Note - Google Solution
 
 BigQuery is truly a Serverless database from GCP. BigQuery = Dremel + Colossus + Borg + Jupiter
 
+基于Dremel的GoogleBigQuery
+
+- Concept: distributed search engine design
+- Dremel provides a high-level, SQL-like language to express ad-hoc queries without translating them into MR job.
+- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
+
 There are significant design differences, for example, 
 
 	- extensive use of stateful caching (Dremel is mostly stateless), 
@@ -177,4 +183,5 @@ Mesa
 - [Anatomy of a BigQuery Query](https://cloud.google.com/blog/products/bigquery/anatomy-of-a-bigquery-query) 
 - [BigQuery under the hood](https://cloud.google.com/blog/products/bigquery/bigquery-under-the-hood)
 
-
+- [GCE BigQuery vs AWS Redshift vs AWS Athena](https://www.gab.lc/articles/bigquery-vs-redshift-vs-athena/)
+- [SQLonHadoop研究Note-Dremel](2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)

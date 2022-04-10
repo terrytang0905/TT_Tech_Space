@@ -8,7 +8,7 @@ title: Big Data Analytics Note - Common OLAP Query Engine Research
 ## 大数据查询分析-分布式OLAP查询引擎研究
 -----------------------------------------------------------
 
-**Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + FileSystem(HDFS/GFS/S3)**
+**Bigdata OLAP Product= Cube + OLAP(QueryParser+QueryOptimizer+QueryEngine) + Storage System(HDFS/GFS/S3)**
 
 
 OLAP     | Type 	| Link 					   | Desc
