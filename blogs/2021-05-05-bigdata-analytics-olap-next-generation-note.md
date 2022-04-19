@@ -792,33 +792,41 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 **公式中SG_share_j / SG_share_avg_j 表示预分配的share和真实的用于runnable的share的比例，这个比例的倒数就是资源利用率。两个公式合并起来，其实就是 (△CPU_time_i / EC_share_i) * 资源利用率，得出来的就是单位share有效的CPU使用时长。优先调度该时长低的EC来执行**。
 
-
-
 - [Hologres测试](https://help.aliyun.com/document_detail/252748.html)
 
 
 ### VI. OLAP走向何方 - OLAP on Cloud ?
 
-Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题?
-
 #### A.云端数据仓库-存算分离/弹性伸缩
 
+Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题?
+
 - 分布式存储加速
-- Alluxio/存储缓存加速
+- 智能Caching: Alluxio/存储缓存加速
 - 数据湖OSS搭建的存算分离架构
 
-#### B.多租户+混合负载&资源隔离
+#### B.多租户隔离+混合负载&资源隔离
 
-#### C.批流一体与离线实时一体
+#### C.数据湖分析
+
+AWS Redshift specturm on S3
+
+BigQuery on 
+
+Hologres+DLF+OSS 
+
+#### D.批流一体与离线实时一体
 
 - Lambda+Kappa->批流一体存储
 - LakeHouse数据格式
 - Flink流批一体
 - [LakeHouse技术研究](2020-06-06-bigdata-research-lake-house-solution.md)
 
-#### D.分布式Transactional事务服务-原子钟
+#### E.分布式Transactional事务服务-TrueTime
 
-#### E.云端自动系统运维与优化
+分布式一致性
+
+#### F.云端自动系统运维与优化
 
 _大数据容灾备份_
 

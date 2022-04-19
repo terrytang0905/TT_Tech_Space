@@ -79,7 +79,7 @@ BigQuery relies on *Colossus*, Google’s latest generation distributed file sys
 
 BigQuery leverages the *ColumnIO columnar storage format* and compression algorithm to store data in Colossus in the most optimal way for reading large amounts of structured data.Colossus allows BigQuery users to scale to dozens of Petabytes in storage seamlessly, without paying the penalty of attaching much more expensive compute resources — typical with most traditional databases.
 
-[Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
+BigQuery Storage = [Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
 
 **Borg - 分布式资源调度, K8s的原型**
 To give you thousands of CPU cores dedicated to processing your task, BigQuery takes advantage of Borg, Google’s large-scale cluster management system. Borg clusters run on dozens of thousands of machines and hundreds of thousands of cores, so your query which used 3300 CPUs only used a fraction of the capacity reserved for BigQuery, and BigQuery’s capacity is only a fraction of the capacity of a Borg cluster. Borg assigns server resources to jobs; the job in this case is the Dremel cluster.
@@ -93,7 +93,37 @@ Jupiter networking infrastructure might be the single biggest differentiator in 
 
 Traditional approaches to separation of storage and compute include keeping data in an object store like Google Cloud Storage or AWS S3 and loading that data on-demand to VMs. This approach is often more efficient than co-tenant architectures like HDFS, but is subject to local VM and object storage throughput limits. Jupiter allows us to bypass this process entirely and read terabytes of data in seconds directly from storage, for every SQL query.
 
-#### IV.分布式OLTP: F1 - Spanner
+#### IV.Google Cloud Services
+
+![img](https://storage.googleapis.com/gweb-cloudblog-publish/images/2_Open_interface.max-2800x2800.jpg)
+
+**Dataplex** - Data Lake Formation
+
+利用 Dataplex 的智能数据结构摆脱数据孤岛，使组织能够通过一致的控制集中管理、监控和治理跨数据湖、数据仓库和数据集市的数据，提供对可信数据的访问并支持大规模分析。
+
+##### 集中式安全和治理
+
+对数据授权和分类进行集中的政策管理、监控和审核。分布式数据所有权，可跨数据和相关工件（如机器学习模型）进行全球范围的监控和治理。
+
+##### 元数据管理
+
+借助内置数据智能，对数据孤岛中的结构化、半结构化和非结构化数据自动执行数据发现、数据分类、架构检测、元数据收集和注册。您可以通过各种分析和数据科学工具轻松访问这些数据。
+
+##### 数据质量
+
+自动处理分布式数据中的数据质量，实现对可信数据的开箱即用访问。使数据质量成为 DataOps 不可或缺的一部分。
+
+##### 数据生命周期管理
+
+使用 Dataplex 数据湖和数据可用区，将跨多个存储服务的数据按逻辑整理为特定业务领域。只需点击一下，即可轻松管理、挑选、分层和归档数据。
+
+##### 专为分布式数据构建
+
+统一数据，避免移动或重复。使数据保留在原地，最大限度地降低费用并提高性能。
+
+
+
+#### V.分布式OLTP: F1 - Spanner
 
 Spanner有一种负责专门管理数据的spanserver，spanserver也是基于bigtable的tablet结构. Cloud Spanner是一款具备强一致性的全球分布式企业级数据库服务
 
@@ -136,13 +166,14 @@ F1支持层级表结构和protobuf复合数据域，示例如下：
     - global:同理可推global索引不包含root row,也不和被索引row在同一个spanserver里.这种索引一般被shard在多个spanserver上;当有事务需要更新一行数据时,因为索引的分布式,必须要2PC了.当需要更新很多行时,就是个灾难了,每插入一行都需要更新可能分布在多台机器上的索引,开销很大;所以建议插入行数少量多次.
 
 
-#### V.分布式OLAP: Mesa
+#### VI.分布式OLAP: Mesa
 
 **Mesa**
 
-#### VI.分布式内存数据库: 
+#### VII.分布式内存数据库: 
 
 [Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
+
 
 
 ### B.Apache Beam数据框架
