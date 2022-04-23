@@ -5,17 +5,70 @@ tags : [bigdata, tech, solution]
 title: Big Data Research Note - LakeHouse
 ---
 
-## 大数据研究-数据湖仓存算分离技术研究
+## 大数据研究-开源数据湖存算分离技术研究
 ---------------------------------------------------
 
+### I.存算分离之上的数据湖仓思考
 
-大数据存储，我们能想到的技术有很多，比如HDFS，以及在HDFS上的列式存储技术Apache Parquet，Apache ORC，还有以KV形式存储半结构化数据的Apache HBase和Apache Cassandra。但因为众所周知的以下原因:
+#### 1.从大数据看数据湖仓的存算分离
 
-- HDFS:使用列式存储格式Apache Parquet，Apache ORC，适合离线分析，不支持单条纪录级别的update操作，随机读写性能差
-- HBASE:可以进行高效随机读写，却并不适用于基于SQL的数据分析方向，大批量数据获取时的性能较差。
-- 数据库:便捷高效的访问与更新数据,符合ACID标准,并发读写,TableSchema
+**云端存算分离*
 
-### LakeHouse 核心技术特征
+**快速Upsert/Delete* --LakeHouse
+
+依赖Copy on Write/Merger on Read
+
+**Table Schema扩展*
+
+**批流一体/流批一体实践*
+
+**行列混存优化*
+
+#### 2.存储计算分离技术实现
+
+一个维度是将**存储集群和计算集群支持独立部署/弹性扩缩容**，另一个维度是指**计算服务系统与存储服务系统完全独立提供业务服务**。其需要额外的技术保证：
+
+**Caching能力** 是存储计算分离的必选项。业界流行的是Alluxio技术（有一个闭源企业版本），阿里巴巴有自研的**近线Caching**用于湖仓一体，以及**JindoFS**技术用于EMR数据湖加速。
+
+**基于硬件的网络加速** - 通过定制化硬件增强单机的网络能力，将一二层网络转换、部分存储系统访问逻辑offload到异构硬件里面，能显著提升网络效率，降低瓶颈发生的概率。
+   存储计算分离架构和混部技术肩负着资源复用与技术探索的重要使命，解决机型采购与预算、成本、提高调度效率三大问题，目前核心阿里在存算分离技术达到世界领先水平，成功支撑双11电商混部在线流量洪峰offload到异构硬件里面，能显著提升网络效率，降低瓶颈发生的概率。
+
+**需求决定是否要实现存算分离**(公共云/私有化部署)。
+
+- 技术决定可行性，需求决定必要性。
+
+分布式云原生数据库采用存算分离架构的需求来自两方面：利用“云”的优势和提升数据库能力，也就是降低数据库替换中的代价。了解存算分离能解决哪些问题及解决方法，对是否需要以存算分离以及如何规划构建存算分离方案意义重大。
+
+
+#### 3.存算分离需求&能力解藕
+
+- [系统态]计算节点集群与存储节点集群分离, 分别支持独立弹性扩缩容物理集群节点
+
+- [系统态]计算层无状态，支持热升级 / 存储层数据无需重分布(盘古支持自动数据重分布)
+- [用户态]用户可配置计算与资源资源成本计费分拆，精细化成本核算优化。
+- [用户态]用户可配置计算资源与存储资源独立弹性扩缩容。公共云以分时Quota能力体现
+- [用户态]非独占的统一共享存储系统服务。多源数据存放在共享存储服务, 资源优化利用。提供统一存储访问接口,支持可访问可查询可分析/默认多副本
+- [用户态]多种计算引擎查询访问此统一存储系统服务。计算引擎可访问多种开放存储系统服务(OSS/S3/Azure)。
+- [用户态]统一计算资源管控,细粒度资源单位拆分，按照细资源单元做弹性扩缩容
+
+
+#### 4.典型存算分离数据产品
+
+- 数据库存算分离: AWS Aurora / AliCloud PolarDB / GaussDB for MySQL 
+- 数据仓库存算分离: Snowflake / Redshift / MaxCompute/ Hologres / AnalyticDB /HashData
+- 大数据存算分离: Databricks DeltaLake / EMR+OSS (本文主要讨论的重点)
+
+
+
+### II.JindoFS数据湖加速技术
+
+
+
+### III.Alluxio开源数据湖缓存技术
+
+
+
+### IV.LakeHouse 核心技术特征
 
 我们需要LakeHouse以下技术特性:
 
@@ -70,15 +123,15 @@ Hudi 的设计初衷更像是为了解决流式数据的快速落地，并能够
 Delta Lake 作为 Databricks 开源的项目，更侧重于在 Spark 层面上解决 Parquet、ORC 等存储格式的固有问题，高效使用增量数据append文件系统。
 
 
-![os_table_format](_includes/Delta+Hudi+Iceberg对比)
+![os_table_format](_includes/Delta+Hudi+Iceberg对比.png)
 
-### I.Apache Hudi
+#### 4.1.Apache Hudi
 
 [Apache Hudi](https://github.com/apache/hudi)=Hadoop Upserts anD Incrementals
 
 ![hudi_arch](_includes/datalake_hudi_arch.png)
 
-#### 1.1. Hudi特性
+#### A. Hudi特性
 
 Uber 团队在 Hudi 上同时实现了 Copy On Write 和 Merge On Read 的两种数据格式，其中 Merge On Read 就是为了解决他们的 fast upsert 而设计的。简单来说，就是每次把增量更新的数据都写入到一批独立的 delta 文件集，定期地通过 compaction 合并 delta 文件和存量的 data 文件。同时给上层分析引擎提供三种不同的读取视角：仅读取 delta 增量文件、仅读取 data 文件、合并读取 delta 和 data 文件。满足各种业务方对数据湖的流批数据分析需求。
 
@@ -106,7 +159,7 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 * 准实时表(Near-Realtime Table)：使用列存储和行存储以提供对实时数据的查询
 
 
-#### 1.2. 存储引擎
+#### B. 存储引擎
 
 *Hudi的两种存储类型:*
 
@@ -137,7 +190,7 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 	写优化: 列式是parquet; 行格式，默认是avro
 
 
-#### 1.3. 逻辑视图
+#### C. 逻辑视图
 
 在了解这两种存储类型后，我们再看一下Hudi支持的存储数据的视图（也就是查询模式）：
 
@@ -154,24 +207,24 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
 
  
 
-#### 1.4. 时间轴
+#### D. 时间轴
 
 Hudi 的核心 —— **时间轴**。
 
 Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、合并等），均会带有一个时间戳。通过时间轴，可以实现在仅查询某个时间点之后成功提交的数据，或是仅查询某个时间点之前的数据。这样可以避免扫描更大的时间范围，并非常高效地只消费更改过的文件（例如在某个时间点提交了更改操作后，仅query某个时间点之前的数据，则仍可以query修改前的数据）。
 
 
-#### 1.5 Hudi生态
+#### E. Hudi生态
 
 目前 Hudi 原生支持 Spark、Presto、MapReduce 以及 Hive 等大数据生态系统，Flink 的支持正在开发中。
 Hudi 目前还不支持使用 SQL 进行 DDL / DML 相关操作，不过社区已经有小伙伴提到这个东西了，具体参见 HUDI-388。
 
 
-### II.Spark Delta Lake
+#### 4.2.Spark Delta Lake
 
 [Delta Lake](https://github.com/delta-io/delta):一个基于Spark和大数据workload,具有高可用和ACID事务特性的开源存储引擎.
 
-#### 2.1. Delta Lake特性
+#### A. Delta Lake特性
 
 ![delta_define](_includes/datalake_delta_define.png)
 
@@ -185,14 +238,14 @@ ACID 事务能力，其通过写和快照隔离之间的乐观并发控制（opt
 - 自动处理Table schema变化，可修改表结构
 
 
-#### 2.2. Delta Lake目前的不足
+#### B. Delta Lake目前的不足
 
 - 更新操作很重，更新一条数据和更新一批数据的成本可能是一样的，所以不适合一条条的更新数据 (Merge操作实现缺乏)
 - 新数据的方式是新增文件，会造成文件数量过多，需要清理历史版本的数据，version最好不要保存太多
 - 乐观锁在多用户同时更新时并发能力较差，更适合写少读多的场景（或者only append写多更新少场景）
 
 
-#### 2.3.数据Merge策略-Delta vs Hudi
+#### C.数据Merge策略-Delta vs Hudi
 
 Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候进行数据合并(Write On Merge)，它会获取需要更新的数据对应的文件，然后直接读取这些文件并使用 Spark 的 Join 进行计算产生新的文件。
 
@@ -204,17 +257,35 @@ Delta Lake 支持对存储的数据进行更新，并且仅支持写入的时候
 
 	Tips: OpenSource Delta Lake 不支持快速CUDR与Pull增量(更新操作很重)。Databrick Delta Lake 支持。
 
-#### 2.4. Spark Delta Process
+#### D. Spark Delta Process
 
 ![datalake_spark_delta](_includes/datalake_spark_delta.png)
 
 **DeltaLake的核心优势在于批流一体与历史数据快照+回滚数据**
 
-### III.Apache CarbonData
+#### 4.3.Apache Iceberg
+
+
+#### Iceberg的特性:
+
+- ACID事务； 
+- 时间旅行（time travel），以访问之前版本的数据； 
+- 完备的自定义类型、分区方式和操作的抽象； 
+- 列和分区方式可以进化，而且进化对用户无感，即无需重新组织或变更数据文件； 
+- 隐式分区，使SQL不用针对分区方式特殊优化； 
+- 面向云存储的优化等；
+- 缺少upsert和compaction
+
+![datalake_iceberg](_includes/datalake_iceberg.png)
+
+
+### 
+
+#### 4.4.Apache CarbonData
 
 [Apache CarbonData](https://github.com/apache/carbondata):是一个支持索引和物化视图的ACID数据湖的数据存储(计算与存储分离)优化解决方案
 
-#### 3.1. CarbonData特性
+#### 4.4.1. CarbonData特性
 
 - 索引和物化视图能力：
 
@@ -258,7 +329,7 @@ Spark、Hive等   | 存储成本低	| 查询相对慢
 
 接下来的内容，我们将重点介绍如何体验CarbonData 2.0 RC2中的索引、物化视图、ACID能力。
 
-#### 3.1. 快速安装CarbonData
+#### 4.4.2. 快速安装CarbonData
 
 准备1台Linux弹性云服务器
 
@@ -272,7 +343,7 @@ curl -k -O http://carbondata-publish.obs.myhuaweicloud.com/quick_start_carbondat
 source quick_start_carbondata.sh
 ```
 
-#### 3.2. CarbonData索引和物化视图
+#### 4.4.3. CarbonData索引和物化视图
 
 CarbonData 2.0 提供了丰富的索引能力，笔者总结了CarbonData提供的不同索引能力和适用场景。如下表所示。
 
@@ -357,7 +428,7 @@ SELECT * FROM person WHERE address = 'china sz';
 SELECT * FROM person WHERE TEXT_MATCH('skill:*computer*')
 ```
 
-#### 3.3. 数据湖
+#### 4.4.4. 数据湖
 
 CarbonData在体现性能优势的同时，需要回答如何将历史数据搬迁到CarbonData的问题，CarbonData 2.0交出了如下的答卷：
 
@@ -405,7 +476,7 @@ AS SELECT country,count(id) FROM parquet_table GROUP BY country;
 ```
 SELECT country,count(id) FROM parquet_table GROUP BY country;
 ```
-#### 3.4. Update/Delete数据更新-Merge
+#### 4.4.5. Update/Delete数据更新-Merge
 
 CarbonData 2.0中深度优化了UPDATE、DELETE性能，并支持了Merge语法。
 
@@ -424,21 +495,6 @@ DELETE FROM person WHERE id = c002;
 **总结:CarbonData提供了一种新的融合数据存储方案，以一份数据同时支持多种应用场景，EB级别数据规模，查询性能秒级响应。可以看出CarbonData目前的架构和想法都十分先进.**
 
 
-
-### IV.Apache Iceberg
-
-
-#### Iceberg的特性:
-
-- ACID事务； 
-- 时间旅行（time travel），以访问之前版本的数据； 
-- 完备的自定义类型、分区方式和操作的抽象； 
-- 列和分区方式可以进化，而且进化对用户无感，即无需重新组织或变更数据文件； 
-- 隐式分区，使SQL不用针对分区方式特殊优化； 
-- 面向云存储的优化等；
-- 缺少upsert和compaction
-
-![datalake_iceberg](_includes/datalake_iceberg.png)
 
 
 ### V.Apache Kudu
@@ -535,59 +591,6 @@ MemRowSets是一个可以被并发访问并进行过锁优化的B-tree，主要�
 **分区**
 
 和许多分布式存储系统一样，Kudu的table是水平分区的。BigTable只提供了range分区，Cassandra只提供hash分区，而Kudu提供了较为灵活的分区方式。当用户创建一个table时，可以同时指定table的的partition schema，partition schema会将primary key映射为partition key。一个partition schema包括0到多个hash-partitioning规则和一个range-partitioning规则。通过灵活地组合各种partition规则，用户可以创造适用于自己业务场景的分区方式。
-
-
-
-### VI.存算分离之上的数据湖仓思考
-
-#### 1.从大数据看数据湖仓的存算分离
-
-**分布式ACID进化*
-
-**快速Upsert/Delete*
-
-依赖Copy on Write/Merger on Read
-
-**Table Schema扩展*
-
-**批流一体/流批一体实践*
-
-**行列混存优化*
-
-#### 2.存储计算分离技术实现
-一个维度是将**存储集群和计算集群支持独立部署/弹性扩缩容**，另一个维度是指**计算服务系统与存储服务系统完全独立提供业务服务**。其需要额外的技术保证：
-
-**Caching能力** 是存储计算分离的必选项。业界流行的是Alluxio技术（有一个闭源企业版本），阿里巴巴有自研的**近线Caching**用于湖仓一体，以及**JindoFS**技术用于EMR数据湖加速。
-
-**智能Caching** 面对数据湖的海量数据，caching策略相当关键。传统LRU策略面对大数据workload，效率不高，需要考虑采用基于Learning的智能化Caching策略。
-
-**基于硬件的网络加速** - 通过定制化硬件增强单机的网络能力，将一二层网络转换、部分存储系统访问逻辑offload到异构硬件里面，能显著提升网络效率，降低瓶颈发生的概率。
-   存储计算分离架构和混部技术肩负着资源复用与技术探索的重要使命，解决机型采购与预算、成本、提高调度效率三大问题，目前核心阿里在存算分离技术达到世界领先水平，成功支撑双11电商混部在线流量洪峰offload到异构硬件里面，能显著提升网络效率，降低瓶颈发生的概率。
-
-**需求决定是否要实现存算分离**(公共云/私有化部署)。
-
-- 技术决定可行性，需求决定必要性。
-
-分布式云原生数据库采用存算分离架构的需求来自两方面：利用“云”的优势和提升数据库能力，也就是降低数据库替换中的代价。了解存算分离能解决哪些问题及解决方法，对是否需要以存算分离以及如何规划构建存算分离方案意义重大。
-
-
-#### 3.存算分离需求&能力解藕
-
-- [系统态]计算节点集群与存储节点集群分离, 分别支持独立弹性扩缩容物理集群节点
-
-- [系统态]计算层无状态，支持热升级 / 存储层数据无需重分布(盘古支持自动数据重分布)
-- [用户态]用户可配置计算与资源资源成本计费分拆，精细化成本核算优化。
-- [用户态]用户可配置计算资源与存储资源独立弹性扩缩容。公共云以分时Quota能力体现
-- [用户态]非独占的统一共享存储系统服务。多源数据存放在共享存储服务, 资源优化利用。提供统一存储访问接口,支持可访问可查询可分析/默认多副本
-- [用户态]多种计算引擎查询访问此统一存储系统服务。计算引擎可访问多种开放存储系统服务(OSS/S3/Azure)。
-- [用户态]统一计算资源管控,细粒度资源单位拆分，按照细资源单元做弹性扩缩容
-
-
-#### 4.典型存算分离数据产品
-
-- 数据库存算分离: AWS Aurora / AliCloud PolarDB / GaussDB for MySQL 
-- 数据仓库存算分离: Snowflake / Redshift / MaxCompute/ Hologres / AnalyticDB /HashData
-- 大数据存算分离: Databricks DeltaLake / EMR+OSS 
 
 
 

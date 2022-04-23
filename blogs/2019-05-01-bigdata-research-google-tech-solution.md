@@ -93,6 +93,10 @@ Jupiter networking infrastructure might be the single biggest differentiator in 
 
 Traditional approaches to separation of storage and compute include keeping data in an object store like Google Cloud Storage or AWS S3 and loading that data on-demand to VMs. This approach is often more efficient than co-tenant architectures like HDFS, but is subject to local VM and object storage throughput limits. Jupiter allows us to bypass this process entirely and read terabytes of data in seconds directly from storage, for every SQL query.
 
+**BigQuery Omni**
+
+
+
 #### IV.Google Cloud Services
 
 ![img](https://storage.googleapis.com/gweb-cloudblog-publish/images/2_Open_interface.max-2800x2800.jpg)
