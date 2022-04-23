@@ -37,7 +37,7 @@ title: Big Data Analytics Note - Next Generation OLAP
 
 ### I.分布式OLAP的核心思路
 
-### 2.1.通用MPP并行计算平台技术
+### 1.1.通用MPP并行计算平台技术
 
 MPP并行计算平台用于存储管理信息数据并形成数据仓库，支持数据分析挖掘。主要技术特点有：
 
@@ -50,7 +50,7 @@ MPP并行计算平台用于存储管理信息数据并形成数据仓库，支�
 
 Ref:  [Greenplum Arch Design](2017-02-11-greenplum-arch-design-note.md)
 
-### 2.2.MPP并行计算平台功能
+### 1.2.MPP并行计算平台功能
 
 **MPP(Massively Parallel Processing)**，即大规模并行处理，在非共享集群中，每个节点都有独立的磁盘存储系统和内存系统，业务数据根据数据库模型和应用特点划分到各个节点上，每台数据节点通过专用网络或者商业通用网络互相连接，彼此协同计算，作为整体提供数据库服务。非共享数据库集群有完全的可伸缩性、高可用、高性能、优秀的性价比、资源共享等优势。简单来说，MPP是将任务并行的分散到多个服务器和节点上，在每个节点计算完成后，将各自部分的结果汇总在一起得到最终的结果。
 基于Map-Reduce模式的Hadoop擅长数据批处理，不是特别符合即时查询的场景。而业界当前做大数据实时查询一般都采用MPP架构，即大规模并行处理系统。数据库架构设计中，目前主要有Shared Everthing、和Shared Storage、Shared Nothing这三种主流架构。
@@ -112,7 +112,34 @@ MPP并行计算平台在节点内采用SMP并行架构，在节点间采用MPP�
 
     Tips:多任务下混合负载是分布式OLAP常见问题之一
 
-### 2.3.标准OLAP设计组件
+
+
+### 1.3.MPP架构和Job Execution架构比较
+
+
+大数据目前的主流技术架构为MPP（代表为Greenplum、Hologres）和Job Execution（代表为Hadoop、Maxcompute）两种。
+
+**MPP**是从数据库生态向分布式演进而来，在数据库集群中，首先每个节点都有独立的磁盘存储系统和cpu内存系统（share nothing），其次业务数据根据数据库模型和应用特点划分到各个节点上，计算时MPP将任务并行的分散到多个服务器和节点上，计算节点是预拉起服务实例模式，在每个节点上计算完成后，将各自部分的结果汇总在一起得到最终的结果，主要靠**网络shuffle**。
+
+	MPP解决了单个SQL数据库不能存放海量数据的问题，但是也存在一些问题，例如：当节点数达到100左右时，MPP仍会遇到SQLScalability的问题，速度变慢，或者不稳定。Query隔离粒度粗，通常靠快慢队列。Failover代价较大，通常 Query 会失败或需要整体重新运行。
+
+因此MPP架构更适合做交互式数据分析，大规模数据处理的规模、稳定性相对Job Execution弱。当增加或者删除节点的时候，需要的维护工作仍然比较大，集群会遇到数据迁移和重新平衡的问题。此外因为MPP一般用作交互式分析，为了进一步提升响应和并发性能需要依赖内存等硬件加速，通常需要配置大内存和高速 SSD，成本高，存储容量小。
+
+**Job Execution**起源于谷歌老三篇论文的分布式存储、计算和NoSQL等思想，架构上包括分布式资源管理，分布式任务管理（Shared Everything）。资源管理将集群中的存储资源、计算资源横向池化，向任务管理提供存算资源。任务管理将用户的作业，转变成资源可执行的DAG中的stage阶段的分布式进程，每个进程按需申请和使用资源，使用完释放给其他进程使用。任务中如果某个分布式进程失败了,重新启动一个换另外一台机器的资源再跑，通过磁盘shuffle 及reduce阶段合并最后结果。（mpp如果采用传统架构Shared Nothing的话，计算要靠近数据节点，在一个独立的节点上执行，随着规模增大，失败的可能性也增大，如果每次计算都有台带着必须数据的机器存在故障，任务指定到这部分数据失败，其他节点就要等待，而不能换台机器继续跑，同时这个问题也限制了可扩展性）。
+Job Execution可以做到非常大的规模；资源管理和任务隔离更灵活，可以按照资源组或按 Query 设置 Job 优先级；而且不依赖数据库的引擎，还可以用代码进行非结构、半结构化数据的计算；架构上分层清晰，开原生态活跃诞生了开放的多种可替换的引擎。最后Job Execution的离线处理对硬件要求低，内存需求不高，通常使用 SATA 盘。
+	
+	Job Execution也有一些缺点：例如  一开始架构上对事务支持的放弃，造成再支持数据库OLTP级别的事务比较麻烦，会损害大数据的能力（数据湖deltalake hudi等也在突破这个能力）。
+
+Job Execution的计算模式不适合高并发交互式低延时的分析和流式处理，OLAP查询性能不如MPP， 但是大数据的多引擎中一些查询引擎也采用了MPP的架构，并且通过底层存储共享（Share Storage），解决节点数据隔离的问题。
+
+简而言之，MPP在每台机器上放个数据库，然后把结果通过网络合并。传统数据库的内存管理比较复杂，主要是内外存交互，这样的架构决定了mpp在小数据量的时候，响应时延可以做的比较小，但是在大数据量的时候，并发吞吐量做不上去，因为节点互相独立，因为短板效应，faileover代价较大，通常 Query 会失败或需要整体重新运行。
+而Job Execution ，Job没有太多精细的内存管理，统一交给资源管理器把存储、计算资源横向池化，Job按需申请资源，各个stage都可以并发，这样的架构导致并发吞吐量很大，但是总时延高，资源和和数据分布更均衡，failover影响小、稳定。
+
+当集群规模大的时候，用户一般会追求很大的throughput，用mpp那种传统的内存管理，大批量的计算反而会慢，而且更加占资源。所以mpp更适合交互式查询，且两种架构正在互补，MPP和Job Execution各自成为一个统一平台上面向不同场景的查询引擎。
+
+### II. New OLAP Engine Design Thinking
+
+### 2.1.标准OLAP设计组件
 
 **A. Query Engine**
 
@@ -138,7 +165,7 @@ MPP并行计算平台在节点内采用SMP并行架构，在节点间采用MPP�
 - 实时人群筛选/实时搜索推荐/算法策略计算
 
 
-### II. New OLAP Engine Comparison
+### 2.2.New OLAP Engine Comparison
 
 ![database_trend](_includes/database_trend.png)
 
@@ -175,22 +202,22 @@ ClickHouse产品能力描述
     ✓ Hardware efficient
     ✓ Fault-tolerant
     ✓ Highly reliable
-    
-    - 列式数据库
-    - 数据压缩
-    - 数据的磁盘存储
-    - 多核并行处理
-    - 多服务器分布式处理
-    - 支持基础SQL
-    - 向量引擎
-    - 实时的数据更新
-    - 索引
-    - 适合在线查询
-    - 支持近似计算
-    - 支持数据复制和数据完整性
-    - 没有完整的事物支持
-    - 缺少高频率，低延迟的修改或删除已存在数据的能力
-    - 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
+
+   - 列式数据库
+   - 数据压缩
+   - 数据的磁盘存储
+   - 多核并行处理
+   - 多服务器分布式处理
+   - 支持基础SQL
+   - 向量引擎
+   - 实时的数据更新
+   - 索引
+   - 适合在线查询
+   - 支持近似计算
+   - 支持数据复制和数据完整性
+   - 没有完整的事物支持
+   - 缺少高频率，低延迟的修改或删除已存在数据的能力
+   - 稀疏索引使得ClickHouse不适合通过其键检索单行的点查询
 
 
 正规的数据库产品里分2部分:
@@ -200,9 +227,9 @@ ClickHouse产品能力描述
 
 Compiler一般是Parse, Syntax check, Binding, Semantic check.
 
-- Parse会用Parser generator比如说YACC或者ANTLR来通过文法产生，得到一棵AST(Abstract Syntax Tree），
-- 之后的Syntax check检查语法，Binding解决每个词到底是什么，是column name， table name 还是function name等等。
-- Semantic Check会做语义检查，最后AST被转化成Logical Operator Tree。
+	- Parse会用Parser generator比如说YACC或者ANTLR来通过文法产生，得到一棵AST(Abstract Syntax Tree），
+	- 之后的Syntax check检查语法，Binding解决每个词到底是什么，是column name， table name 还是function name等等。
+	- Semantic Check会做语义检查，最后AST被转化成Logical Operator Tree。
 
 Clickhouse的compiler很特别。Parser是手写的，Parser干了很多活，后面接一个Interpreter。后者干了一半Compiler一半Optimizer的活。
 
@@ -243,7 +270,6 @@ Palo没有完全照搬Mesa的架构设计的思路，其借助了Hadoop的批量
 Palo在事务管理上与Hadoop体系类似，数据更新的原子粒度最小为一个数据加载批次，可以保证多表数据更新的一致性。
 
 整体架构由Frontend和Backend两部分组成，查询编译、查询执行协调器和存储引擎目录管理被集成到Frontend；查询执行器和数据存储被集成到Backend。Frontend负载较轻，通常配置下，几个节点即可满足要求；而Backend作为工作负载节点会大幅扩展到几十至上百节点。数据处理部分与Mesa相同采用了物化Rollup（上卷表）的方式实现预计算。
-
 
 Ref:[Impala：MPP SQL Engine on Kudu](2016-12-12-olap-distributed-impala-research-note.md)
 
