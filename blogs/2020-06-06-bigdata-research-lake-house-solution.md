@@ -12,23 +12,18 @@ title: Big Data Research Note - LakeHouse
 
 #### 1.从大数据看数据湖仓的存算分离
 
-**云端存算分离*
-
-**快速Upsert/Delete* --LakeHouse
-
-依赖Copy on Write/Merger on Read
-
-**Table Schema扩展*
-
-**批流一体/流批一体实践*
-
-**行列混存优化*
+		-云端存算分离
+		-快速Upsert/Delete --LakeHouse
+		-依赖Copy on Write/Merger on Read
+		-Table Schema扩展
+		-批流一体/流批一体实践
+		-行列混存优化
 
 #### 2.存储计算分离技术实现
 
 一个维度是将**存储集群和计算集群支持独立部署/弹性扩缩容**，另一个维度是指**计算服务系统与存储服务系统完全独立提供业务服务**。其需要额外的技术保证：
 
-**Caching能力** 是存储计算分离的必选项。业界流行的是Alluxio技术（有一个闭源企业版本），阿里巴巴有自研的**近线Caching**用于湖仓一体，以及**JindoFS**技术用于EMR数据湖加速。
+**Caching能力** 是存储计算分离的必选项。业界流行的是_Alluxio技术_（有一个闭源企业版本），阿里巴巴有自研的_近线Caching_用于湖仓一体，以及_JindoFS_技术用于EMR数据湖加速。
 
 **基于硬件的网络加速** - 通过定制化硬件增强单机的网络能力，将一二层网络转换、部分存储系统访问逻辑offload到异构硬件里面，能显著提升网络效率，降低瓶颈发生的概率。
    存储计算分离架构和混部技术肩负着资源复用与技术探索的重要使命，解决机型采购与预算、成本、提高调度效率三大问题，目前核心阿里在存算分离技术达到世界领先水平，成功支撑双11电商混部在线流量洪峰offload到异构硬件里面，能显著提升网络效率，降低瓶颈发生的概率。
@@ -43,7 +38,6 @@ title: Big Data Research Note - LakeHouse
 #### 3.存算分离需求&能力解藕
 
 - [系统态]计算节点集群与存储节点集群分离, 分别支持独立弹性扩缩容物理集群节点
-
 - [系统态]计算层无状态，支持热升级 / 存储层数据无需重分布(盘古支持自动数据重分布)
 - [用户态]用户可配置计算与资源资源成本计费分拆，精细化成本核算优化。
 - [用户态]用户可配置计算资源与存储资源独立弹性扩缩容。公共云以分时Quota能力体现
@@ -59,12 +53,19 @@ title: Big Data Research Note - LakeHouse
 - 大数据存算分离: Databricks DeltaLake / EMR+OSS (本文主要讨论的重点)
 
 
+### II.JindoData数据湖存储加速套件
 
-### II.JindoFS数据湖加速技术
 
 
+Fluid+JindoRuntime+ACK
 
 ### III.Alluxio开源数据湖缓存技术
+
+
+
+### JindoFS VS Aullixo技术研究与学习
+
+
 
 
 
@@ -168,7 +169,7 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
     - 读时合并（Merge On Read表）：使用列式（parquet）与行式（avro）文件组合，进行数据存储。MOR表写数据时，记录首先会被快速的写进日志文件，稍后会使用时间轴上的压缩操作将其与基础文件合并。在更新记录时，更新到增量文件中（avro），然后进行异步（或同步）的compaction，创建列式文件（parquet）的新版本。此存储类型适合频繁Write写的工作负载，因为新记录是以appending的模式写入增量文件中。但是在读取数据集时，需要将增量文件与旧文件进行合并，生成列式文件。
 
 
-	Tips: Hudi做的事情就是将批处理（copy-on-write storage）和流计算（merge-on-read storage）作业整合，并将计算结果存储在Hadoop中。对于Spark应用程序，依靠其同意的DAG模型可以将融入了Hudi库与Spark/Spark Steaming作业天然整合。对于非Spark处理系统（例如：Flink，Hive），处理过程可以在各自的系统中完成，然后以Kafka Topics 或者HDFS中间文件的形式发送到Hudi表中。
+		Tips: Hudi做的事情就是将批处理（copy-on-write storage）和流计算（merge-on-read storage）作业整合，并将计算结果存储在Hadoop中。对于Spark应用程序，依靠其同意的DAG模型可以将融入了Hudi库与Spark/Spark Steaming作业天然整合。对于非Spark处理系统（例如：Flink，Hive），处理过程可以在各自的系统中完成，然后以Kafka Topics 或者HDFS中间文件的形式发送到Hudi表中。
 
 
 *Hudi的存储引擎由三个不同的部分组成:*
