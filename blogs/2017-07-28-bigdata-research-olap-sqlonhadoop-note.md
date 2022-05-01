@@ -27,6 +27,10 @@ title: Big Data Research Note - SQL on Hadoop
 
 Google Mesa > Google Dremel > Doris > Impala > SparkSQL > Presto > Hive
 
+其他类似大数据分析数据库:
+	[ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)  <br />
+	[MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
+	[BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md) / Amazon DynamoDB / Cassandra
 
 #### 1.PrestoDB
 

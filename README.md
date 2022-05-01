@@ -19,7 +19,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - [Data Mesh的原则和逻辑架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-03-data-mesh-arch-research.md)
 - [从单体数据湖到分布式数据网格](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-02-from-datalake-to-data-mesh.md)
-- **[数据思考-商业价值变现](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-29-data-business-value-thinking-note.md)**
 - **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-bigdata-ml-data-everything-note.md)**
 - **[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)**
 - **[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)**
@@ -41,7 +40,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - **[大数据研究-数据湖仓存算分离技术研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)**
 - **[大数据研究-分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-research-olap-next-generation-note.md)**
 - **[大数据研究-Google大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)**
-
 - [区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - [大数据研究-数据处理-实时计算引擎分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
 - [大数据研究-数据处理-混合计算架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-realtime-framework.md)
@@ -67,7 +65,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [OLAP-Mondrian技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
 - [OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
 - [OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
-
 - **[通用SQL最佳实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-20-sql-best-practice.md)**
 - [PostgreSQL&Greenplum解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-30-postgresql-greenplum-solution-note.md)
 - [PostgreSQL&Greenplum索引笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-16-postgresql-greenplum-index-note.md)
