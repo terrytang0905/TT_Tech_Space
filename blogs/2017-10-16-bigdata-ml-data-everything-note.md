@@ -531,7 +531,7 @@ TensorFlow可被用于语音识别或图像识别等多项机器深度学习领�
 **B.PyTorch**
 
 - [PyTorch](http://pytorch.org/tutorials/)
-- [Pytorch handbook]https://github.com/zergtant/pytorch-handbook
+- [Pytorch handbook](https://github.com/zergtant/pytorch-handbook)
 
 It’s a Python based scientific computing package targeted at two sets of audiences:
 
