@@ -5,7 +5,7 @@ tags : [bigdata, architect, database]
 title: Big Data Research Note - Distributed Database Architect
 ---
 
-## 大数据计算-分布式数据架构
+## 大数据研究-分布式数据架构
 --------------------------------------------------------
 
 导读:A one size fits all database doesn't fit anyone
@@ -77,14 +77,14 @@ title: Big Data Research Note - Distributed Database Architect
 **CAP定理&BASE模型**
 
 	Consistency/Availability/Partition tolerance
-
+	
 	Partition tolerance:网络分区的情况下，被分隔的节点仍能正常对外服务
-
+	
 	BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性：
 	Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)
 	Soft state软状态 状态可以有一段时间不同步，异步。
 	Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。
-  
+
 **并行化隔离算法:MVCC(MultiVersion Concurrency Control)多版本并发控制**
 
     PostgreSQL实现基于MVCC的快照级别隔离(Snapshot isolation),支持读-提交级别隔离。
@@ -167,7 +167,7 @@ title: Big Data Research Note - Distributed Database Architect
 	- SequenceFile
 	- RCFile 
 	- ApacheORC = OptimizeRC
-    - AliORC
+	- AliORC
 	- [Parquet文件格式](https://parquet.apache.org/documentation/latest/)
 	- CarbonData(华为开源)
 
@@ -317,7 +317,7 @@ _MPP缺陷总结_
 		无论集群规模多大，批处理的整体执行速度都由Straggler决定，其他节点上的任务执行完毕后则进入空闲状态等待Straggler，而无法分担其工作
 	- 多并发的性能瓶颈(对OLTP支持不好)
 		由于MPP的“完全对称性”，即当查询开始执行时，每个节点都在并行的执行完全相同的任务，这意味着MPP支持的并发数和集群的节点数完全无关。
-
+	
 	Tips:为了规避MPP并发访问上的缺陷以及批量任务对联机查询的影响,通常会将数据按照应用粒度拆分到不同的单体OLTP数据库(PostgreSQL)或小型MPP数据库中以支持联机并发查询。即多个OLTP(PostgerSQL)+1个OLAP(Greenplum)
 
 _批处理缺陷总结_
@@ -325,7 +325,7 @@ _批处理缺陷总结_
 	- 批量加工效率较低(需要不停阶段性写磁盘)
 	- 不能无缝衔接EDW实施方法论(不容易增量更新)
 	- 联机查询(SQL on Hadoop)并发能力不足(对OLTP场景支持不好)
-
+	
 	Tips:在大体相同的数据量和查询逻辑情况下,Impala并发效果会低于GPDB
 
 #### B+C.MPP+Hadoop
@@ -348,7 +348,7 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 - Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)
 
 #### B&C.分析型OLAP on Cloud - Cloud DataWareHouse
- 
+
 - 1.Snowflake-Cloud DataWarehouse
 
 - 2.AWS Redshift-Cloud DataWarehouse
@@ -428,7 +428,7 @@ DocumentDB的某些优势
 #### F.Search搜索数据存储
 
 - [ElasticSearch研究](2017-01-06-elastic-search-engine-architect-note.md)
-    
+  
     - 适合海量数据秒级查询
     - 支持多并发查询分析
     - 不适用于复杂的JOIN查询等关联分析
@@ -565,44 +565,44 @@ SQL优化器的后置组件
 
 	* 数据库的主要瓶颈是磁盘 I/O。通过CacheManager提高性能,包括数据库IO写入性能/数据库查询性能<br/>
 	* 缓冲池是从内存读取数据显著地提升数据库性能。
-
+	
 	* 预读
-
+	
 		- 当查询执行器处理它的第一批数据时
 		- 会告诉缓存管理器预先装载第二批数据
 		- 当开始处理第二批数据时
 		- 告诉缓存管理器预先装载第三批数据，并且告诉缓存管理器第一批可以从缓存里清掉了
-
+	
 	* 缓冲区置换策略-LRU算法
-
+	
 		- LRU-K页面置换算法
 		- 2Q（类LRU-K算法）
 		- CLOCK（类LRU-K算法）
 		- MRU（最新使用的算法，用LRU同样的逻辑但不同的规则）
 		- LRFU（Least Recently and Frequently Used，最近最少使用最近最不常用）
-
+	
 	* 写缓冲区
-
+	
 		缓冲区保存的是页Page(最小的数据单位)而不是行 
 
 *12.事务管理器*
 
 	* ACID/ 并发控制/ 锁管理器/ 悲观锁/ 死锁
 	* 事务日志WAL/ 日志缓冲区/ STEAL 和 FORCE 策略/ 关于恢复
-
+	
 	* WAL规则
-
+	
 		1)每个对数据库的修改都产生一条日志记录，在数据写入磁盘之前日志记录必须写入事务日志。
 		2)日志记录必须按顺序写入；记录 A 发生在记录 B 之前，则 A 必须写在 B 之前。
 		3)当一个事务提交时，在事务成功之前，提交顺序必须写入到事务日志。
-
+	
 	* ARIES数据库恢复原型算法(Algorithms for Recovery and Isolation Exploiting Semantics) 
-
+	
 		1) 写日志的同时保持良好性能
 		2) 快速和可靠的数据恢复
-
+	
 	* 日志结构
-
+	
 		- LSN：一个唯一的日志序列号（Log Sequence Number）。LSN是按时间顺序分配的 * ，这意味着如果操作 A 先于操作 B，log A 的 LSN 要比 log B 的 LSN 小。
 		- TransID：产生操作的事务ID。
 		- PageID：被修改的数据在磁盘上的位置。磁盘数据的最小单位是页，所以数据的位置就是它所处页的位置。
@@ -611,13 +611,13 @@ SQL优化器的后置组件
 			比如，如果操作是一次更新，UNDO将或者保存元素更新前的值/状态（物理UNDO），或者回到原来状态的反向操作(逻辑UNDO)。
 		- REDO：重复本次操作的方法。 同样的，有 2 种方法：或者保存操作后的元素值/状态，或者保存操作本身以便重复。
 		- …:(供您参考，一个 ARIES 日志还有 2 个字段：UndoNxtLSN 和 Type）
-
+	
 	* ARIES从崩溃中恢复有三个阶段
-
+	
 		1) 分析阶段：恢复进程读取全部事务日志，来重建崩溃过程中所发生事情的时间线，决定哪个事务要回滚（所有未提交的事务都要回滚）、崩溃时哪些数据需要写盘。
 		2) Redo阶段：这一关从分析中选中的一条日志记录开始，使用 REDO 来将数据库恢复到崩溃之前的状态。
 		3) Undo阶段：这一阶段回滚所有崩溃时未完成的事务。回滚从每个事务的最后一条日志开始，并且按照时间倒序处理UNDO日志（使用日志记录的PrevLSN）。
-
+	
 	ARIES提出了一个概念:检查点check point,就是不时地把事务表和脏页表的内容,还有此时最后一条LSN写入磁盘 
 
 
