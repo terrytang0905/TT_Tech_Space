@@ -45,12 +45,9 @@ Anaconda
 ### III.Python Data Mining
 
 
-- [机器学习Everything&Python](2017-10-16-ml-data-everything-note.md)
-
+- [机器学习Everything研究笔记](2017-10-16-bigdata-ml-data-everything-note.md)
+- [数学与信息应用研究](2017-05-10-information-mathmatic-thinking.md)
+- [数据挖掘算法](2015-12-01-data-mining-algorithm-note.md)
 - [GBDT机器学习](2017-12-25-gbdt-xgboost-ml-note.md)
-
-- [Python内容识别](2018-05-05-python-info-recognition-note.md)
-
-- Scrapy分布式爬虫
 
 ### IV.Python Development - Jupyter

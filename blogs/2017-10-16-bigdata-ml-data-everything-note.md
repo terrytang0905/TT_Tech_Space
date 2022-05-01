@@ -2,7 +2,7 @@
 layout: post
 category : datascience
 tags : [datascience,datamining,development]
-title: Machine Learning Everything Notes
+title: Machine Learning&AI Everything Study Notes
 ---
 
 ## 机器学习Everything研究笔记
@@ -37,7 +37,7 @@ title: Machine Learning Everything Notes
 - **深度学习&神经网络**
 
         Tips:主成分分析解决特征向量过多问题,选择主成分的特征向量
-        
+    
 
 ![MachineLearningAlgorMap](_includes/Categories_of_algorithmsnon_exhaustive.png)
 
@@ -169,7 +169,7 @@ _过拟合(over fitting)&结构风险_
 
     一味追求提高对训练数据的预测能力,所选模型的复杂度则往往会比真模型更高,这种现象被称为过拟合(over fitting)
     该问题会导致训练数据的结果过于完美(特征提取过多),在真实场景下无法生效,需裁剪部分无关的特征来解决。
-
+    
     引入结构风险以防止过拟合
 
 
@@ -188,7 +188,7 @@ _经验风险最小化与结构风险最小化->模型最优解_
 **贝叶斯分类(概率规则)**
 
 贝叶斯分类是一类分类算法的总称，这类算法均以贝叶斯定理为基础，故统称为贝叶斯分类。贝叶斯分类是统计学的分类方法，其分析方法的特点是使用概率来表示所有形式的不确定性，学习或推理都要用概率规则来实现。
- 
+
 
 #### G. 神经网络 / DeepLearning
 
@@ -302,7 +302,7 @@ x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
     
     2.置信度(Confidence)
     Confidence(X→Y) = P(Y|X)  = P(X,Y) / P(X) = P(XUY) / P(X) 
-
+    
     3.提升度(Lift)
     Lift(X→Y) = P(Y|X) / P(Y)
 
@@ -334,7 +334,7 @@ x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
 
 
 
-#### 2.6.时间序列
+#### 2.6.时间序列分析
 
 时间序列（或称动态数列）是指将同一统计指标的数值按其发生的时间先后顺序排列而成的数列。时间序列分析的主要目的是根据已有的历史数据对未来进行预测。
 
@@ -350,7 +350,6 @@ x. 数据标准化是聚类分析中最重要的一个数据预处理步骤
     平均数时间序列是指由一系列同类平均指标按时间先后顺序排列的时间序列。
 
 保证序列中各期指标数值的可比性
-    
     (一)时期长短最好一致
     (二)总体范围应该一致
     (三)指标的经济内容应该统一
@@ -440,7 +439,7 @@ PyMC 的核心是贝叶斯统计和模型拟合的大量算法（包括Markov Ch
 
 **Python相关**
 
-- [Python信息识别分析](2018-05-05-python-info-recognition-note.md)
+- [Python数据分析应用](2017-10-06-python-dev-everything-note.md)
 
 **其他相关组件**
 
