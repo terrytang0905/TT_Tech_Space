@@ -2,7 +2,7 @@
 layout: post
 category : datascience
 tags : [bigdata,datamining,algorithm]
-title: Big Data Analytics Note - Data Deep Thinking
+title: Big Data Analytics Note - Data Thinking Deep Dive
 ---
 
 ## 大数据分析-深度数据随想
@@ -229,9 +229,9 @@ title: Big Data Analytics Note - Data Deep Thinking
 
 ### II.数据探索篇-AI机器学习开发
 
-> [机器学习Everything研究](2017-10-16-bigdata-ml-data-everything-note.md)
-> [机器学习&Python数据挖掘](2017-10-16-ml-data-everything-note.md)
-> [Python信息识别技术](2018-05-05-python-info-recognition-note.md)
+- [机器学习Everything研究](2017-10-16-bigdata-ml-data-everything-note.md)
+- [机器学习&Python数据挖掘](2017-10-16-ml-data-everything-note.md)
+- [Python信息识别技术](2018-05-05-python-info-recognition-note.md)
 
 #### 2.1.机器学习&人工智能
 
@@ -537,7 +537,7 @@ C. _独立型数据集市_
 
 **洞察应用和自动化应用**
 
-![数据应用类型](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/data_use_type.png)
+![数据应用类型](_includes/data_use_type.png)
 
 *洞察应用*
 
@@ -585,15 +585,12 @@ _头部流量-场景驻留-广告曝光变现_
 	5.售后服务
 	6.CRM客户分析-老客促活
 
+
+![DMP vs CDP](_includes/dmp_cdp_graphic.jpg)
 **DMP vs CDP**
 
-![DMP vs CDP](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/dmp_cdp_graphic.jpg)
-
+![crm dmp cdp data struct](_includes/dmp_cdp_crm_data_struct.jpg)
 **DMP->CDP<-CRM**
-
-![crm dmp cdp data struct](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/dmp_cdp_crm_data_struct.jpg)
-
-- [DMP&CDP架构设计](2019-03-19-data-product-cdp-code-design.md)
 
 
 #### 6.产业大数据驱动转型(核心)
