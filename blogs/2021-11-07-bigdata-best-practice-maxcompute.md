@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,analytics,guide]
-title: AliCloud MaxCompute Best Practice Note
+title: Product Best Practice Note - AliCloud MaxCompute Best Practice
 ---
 
 ## 阿里云MaxCompute-SaaS级智能数仓最佳实践
@@ -250,13 +250,10 @@ MaxCompute支持多用户共享集群资源，支持基于配额的存储和计�
 -大数据数据仓库实践_MaxCompute数仓建设规范管理指南
 -[基于MaxCompute的拉链表设计](
 https://developer.aliyun.com/article/542146)
-
-[SQL常见命令 SET操作](
+-[SQL常见命令 SET操作](
 https://help.aliyun.com/document_detail/96004.html#section-937-f6z-num)
-
-[SQL计算优化](
+-[SQL计算优化](
 https://help.aliyun.com/document_detail/100461.html)
-
 
 **7.2.MaxCompute数据治理&元仓**
 

@@ -223,8 +223,9 @@ Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建�
 
 ### 3.Alibaba Cloud Compute Platform
 
+#### **[MaxComputeBestPractice](2021-11-07-bigdata-best-practice-maxcompute.md)**
 
-#### **[MaxComputeBestPractice](2021-11-07-bigdata-analytics-maxcompute-best-practice-note.md)**
+**[Hologres BigQuery Product](2021-11-06-bigdata-best-practice-hologres.md)**
 
 
 #### Alibaba Cloud - AnalyticDB(OLAP)
@@ -252,7 +253,9 @@ Batch ETL -> OLAP analytics -> Online Service
 
 Data Develop and Data Governance Platform
 
-### 4.1.Snowflow:Elastic Data Warehouse 一夜暴富的背后
+#### 云端大数据产品横向分析
+
+**<u>4.1.Snowflow:Elastic Data Warehouse 一夜暴富的背后</u>**
 
 Snowflake is a multi-tenant, transactional, secure, highly scalable and elastic system with full SQL support and built-in extensions for semi-structured and schema-less data.
 
@@ -269,11 +272,7 @@ Additionally, many “Big Data” engines now support queries over nested data,f
 
 When Snowflake was founded in 2012, the database worldwas fully focused onSQL on Hadoop, with over a dozensystems appearing within a short time span. At that time,the decision to work in a completely different direction, tobuild a “classic” data warehouse system for the cloud, seemeda contrarian and risky move. After 3 years of developmentwe are confident that it was the right one. Hadoop has notreplaced RDBMSs; it has complemented them. People stillwant a relational database, but one that is more efficient,flexible, and better suited for the cloud.
 
-### 4.2云端大数据产品横向分析
-
-**[Google BigData&BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)**
-
-**<u>Snowflake vs Redshift</u>**
+**<u>4.2.Snowflake vs Redshift</u>**
 
 Snowflake的核心产品能力: 完全存算分离/工作负载隔离/极致性能。但是随着Redshift RA3新集群的出现提供成本更低与更便捷的竞对产品方案,这一切是否会有改变？
 
@@ -328,37 +327,7 @@ Redshift支持表级别的数据恢复从之前的某个snapshot切片，不过�
 
   首先, 通过很长时间的磨练，Redshift终于向更优秀的架构来演进了。当我以为已经到达终点的时刻，它实际上还需继续向前进一步。Redshift RA3本身就是基于S3存储之上的云数仓服务，为什么暂停释放一个空集群需要5分钟？为什么在执行暂停操作前一定要创建一个snapshot? 虽然AWS Redshift已是一个很不错的产品，但是Snowflake可能是更好的分析数据仓库产品选择，能为DBA/开发人员提供更强大的能力。
 
-
-
-### X.技术思考
-
-**1.数据治理(数据清洗/)智能算法**
-
-智能数据清洗与识别补充缺失值
-
-客户ID-Merge算法/关系图谱 - Graph图计算应用
-
-例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
-
-**2.大数据查询优化设计+联合计算**
-
-Calcite -> Spark Catalyst -> Dremel查询优化
-
-**3.DataModel数据模型设计优化**
-
-面向Document的数据模型结构
-```
-message Document {
-  required int64 DocId;
-  optional group Links {
-    repeated int64 Backward;
-    repeated int64 Forward; }
-  repeated group Name {
-    repeated group Language {
-      required string Code;
-      optional string Country; }
-    optional string Url; }}
-```
+**[Google BigData&BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)**
 
 
 

@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata, framework, design]
-title: BigDataDesign - Federated Compute Engine Code Design
+title: BigDataDesign - All Compute Engine Code Design
 ---
 
 ## 大数据设计-分布式联合查询计算引擎
@@ -115,6 +115,8 @@ CodeGen
 常量折叠、函数变换、表达式转换、函数类型推断、常量推断、语义去重等功能, 以生成最优的执行计划。
 
 #### 1.Calcite
+
+- [查询优化器设计](2018-06-01-query-optimizer-design-note.md)
 
 #### 2.Druid SQL Parser
 
@@ -244,8 +246,8 @@ Presto-ROLAP查询引擎
 Ignite分布式内存库应用分析
 
 	1.Ignite应用设计
-
+	
 	2.分布式数据库缓存层-MyBatis
-
+	
 	3.Hadoop加速器
 
