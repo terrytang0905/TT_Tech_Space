@@ -284,6 +284,7 @@ Mesa数据存储引擎
 - [Why BigQuery Omni is a Big Deal](https://medium.com/dataseries/why-bigquery-omni-is-a-big-deal-e7e696b4cd60)
 - [GCE BigQuery vs AWS Redshift vs AWS Athena](https://www.gab.lc/articles/bigquery-vs-redshift-vs-athena/)
 - [SQLonHadoop研究Note-Dremel](2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
+- [Google Mesa - OLAP数据仓库](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
 - [Bigtable: A Distributed Storage System for Structured Data]
 - [Dynamo: Amazon’s Highly Available Key-value Store]
 - [Dremel: Interactive Analysis of Web-Scale Datasets]

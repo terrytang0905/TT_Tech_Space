@@ -209,7 +209,7 @@ Spanner是一个Google开发的支持分布式读写事务，只读事务的分�
 
 OceanBase底层架构实现LSM/分布式ACID等特征
 
-- 3.[TiDB分布式数据库](2019-07-08-tidb-oltp-olap-design.md)
+- 3.[TiDB分布式数据库](2019-07-08-newdb-tidb-design-note.md)
 
 基于Spanner的TrueTime机制来解决不同时区数据一致性问题
 
@@ -243,9 +243,8 @@ OceanBase底层架构实现LSM/分布式ACID等特征
 	- Data mining support(UDF)
 
 - 3.[Greenplum架构解析](2017-02-11-greenplum-arch-design-note.md)
-
 	- 第一款成熟的开源分布式分析型数据库
-
+	
 - 4.[Vertica数据库结构]()
 
 #### C.Hadoop离线批处理(MapRedure->Spark)
@@ -343,9 +342,11 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
     FusionInsight改名为Huawei MRS
     GuassDB 200可以理解为Greenplum的商业改良版
 
-- 3.[Lakehouse on Cloud](2020-06-06-bigdata-research-lake-house-solution.md)
+- 3.[SQLonHadoop大数据分析](2017-07-28-bigdata-research-olap-sqlonhadoop-note.md)
 
-- Ref:[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)
+- 4.[数据湖存算分离技术](2020-06-06-bigdata-research-lake-house-solution.md)
+
+    
 
 #### B&C.分析型OLAP on Cloud - Cloud DataWareHouse
 
@@ -360,11 +361,9 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
     - 大规模并行处理 (MPP)：Amazon Redshift 在所有节点之间自动分配数据及查询负载。Amazon Redshift 可轻松将节点添加至您的数据仓库，而且随着您的数据仓库规模的扩大，仍能维持快速的查询性能。
 
 
-- 3.Google BigQuery(Dremel)-Cloud Analytics Services
-
-- 4.AliCloud MaxCompute+Hologres-Cloud Serverless DataWarehouse
-
-- 5.[下一代OLAP引擎思考](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
+- 3.[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)
+- 4.[Google Cloud Platform BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)
+- 5.[下一代OLAP引擎思考](2021-05-05-bigdata-research-olap-next-generation-note.md)
 
 
 #### D.BigTable-KV数据存储架构
@@ -434,7 +433,7 @@ DocumentDB的某些优势
     - 不适用于复杂的JOIN查询等关联分析
 
 
-#### 数据库应用选择
+#### 数据库多种应用选择
 
 ![database_type_all](_includes/database_all.png)
 
@@ -676,6 +675,5 @@ n个元素的数组包含1个长度为n的子数组：{a0,a1,…,an-1}；
 - [BigTable](https://baike.baidu.com/item/BigTable/3707131?fr=aladdin)
 - [从架构特点到功能缺陷，重新认识分析型分布式数据库](https://mp.weixin.qq.com/s/O9sWvcHhrgafCWHSMiOMlA)
 - [对比MPP计算框架和批处理计算框架](https://blog.csdn.net/sinat_27545249/article/details/78943823)
-- [Google Mesa - OLAP数据仓库](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/42851.pdf)
 - [built-databases-in-aws](https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html)
 

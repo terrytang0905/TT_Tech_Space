@@ -41,11 +41,11 @@ HSAP-Hologres: A Cloud-Native Service for Hybrid Serving/Analytical Processing
 系统将会非常复杂。综上，HSAP则是包含了上述全部的能力，提供服务分析一体化的数据处理服务。
 
 
-![Hologres场景](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/hologres_hsap_scenario.png)
+![Hologres场景](_includes/hologres_hsap_scenario.png)
 
 ### 2.System Design系统设计
 
-![Hologres架构分层](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/hologres_arch.png)
+![Hologres架构分层](_includes/hologres_arch.png)
 
 _系统架构概览_
 
@@ -105,7 +105,7 @@ Hologres的存储引擎名为(Blackhole，黑洞),完全自研的存储计算引
   + 实时in-memory compaction
 
 
-![LSM数据结构sample](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/lsm_data_struct.png)
+![LSM数据结构sample](_includes/lsm_data_struct.png)
 
 - 行存(KV cache)：支持低延迟查询,对点查询和批量scan更友好(应用Hbase类简单场景)
 - 列存(AliORC优化)：按列做聚合更高效，压缩更高效，适合OLAP分析型场景(应用Impala场景)
@@ -121,7 +121,7 @@ Hologres的存储引擎名为(Blackhole，黑洞),完全自研的存储计算引
 
 **4.1.数据模型**
 
-![Hologres场景](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/hologres_table_group.png)
+![Hologres场景](_includes/hologres_table_group.png)
 
 **4.2.TableGroupShard-表组分片**
 
@@ -255,7 +255,7 @@ Hologres采用分级缓存机制，既降低了I/O成本，也降低了计算成
 
 Figure 5: Workflow of Query Parallelization
 
-![Hologres并行计算流程](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/hologres_workflow_query_parallelization.png)
+![Hologres并行计算流程](_includes/hologres_workflow_query_parallelization.png)
 
 一次请求的全部执行过程如上图所示。
 

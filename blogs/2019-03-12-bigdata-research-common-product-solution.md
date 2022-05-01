@@ -33,13 +33,13 @@ title: Big Data Research Note - Common BigData Product Solution
 
 **ADW Utility**
 
--Traditional Data Warehouse
--Real-Time Data Warehouse(adhoc querying and data mining)
--Logical Data Warehouse
+- Traditional Data Warehouse
+- Real-Time Data Warehouse(adhoc querying and data mining)
+- Logical Data Warehouse
 
 	This use case manages data variety and volume of data for both structured and other content data types.
 
--Context-Independent Data Warehouse
+- Context-Independent Data Warehouse
 
 	This use case concerns new data values, variants of data form and new relationships. It supports search, graph and other capabilities for discovering new information models.
 
@@ -223,9 +223,9 @@ Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建�
 
 ### 3.Alibaba Cloud Compute Platform
 
-#### **[MaxComputeBestPractice](2021-11-07-bigdata-best-practice-maxcompute.md)**
+- **[MaxCompute BigQuery Product BestPractice](2021-11-07-bigdata-best-practice-maxcompute.md)**
 
-**[Hologres BigQuery Product](2021-11-06-bigdata-best-practice-hologres.md)**
+- **[Hologres OLAP Product](2021-11-06-bigdata-best-practice-hologres.md)**
 
 
 #### Alibaba Cloud - AnalyticDB(OLAP)
@@ -335,6 +335,8 @@ Redshift支持表级别的数据恢复从之前的某个snapshot切片，不过�
 
 **Microsoft Azure**
 
+[CosmosDB](https://docs.microsoft.com/zh-cn/azure/cosmos-db/) 统一存储格式 + 不同数据库模型
+
  Dryad 有向无环图
  DryadLINQ
 
@@ -349,18 +351,6 @@ SCOPE
 类似Pig的高级数据流语言
 自动代码生成技术
 查询优化非常好
-
-[CosmosDB](https://docs.microsoft.com/zh-cn/azure/cosmos-db/) 统一存储格式 + 不同数据库模型
-
-
-**Amazon AWS**
-
-	DynamoDB
-	Elastic MapReduce
-	Redshift/Snowflake 云端弹性数据仓库
-	Aurora Serverless(论文)
-	Amazon Athena - Presto
-	AWS Glue - ETL
 
 
 

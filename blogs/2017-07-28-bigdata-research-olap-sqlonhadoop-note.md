@@ -223,7 +223,7 @@ _Presto Cost-based Query Optimization_
 
 _Dremel Optimizer_
 
-Ref:[查询优化器研究](2018-06-01-query-optimizer-design-note.md)
+Ref:[查询优化器研究](code/2018-06-01-query-optimizer-design-note.md)
 
 
 #### 4.执行效率
