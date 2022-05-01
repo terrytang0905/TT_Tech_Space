@@ -30,7 +30,9 @@ Google Mesa > Google Dremel > Doris > Impala > SparkSQL > Presto > Hive
 
 #### 1.PrestoDB
 
-[PrestoDB交互式OLAP查询](2017-04-03-olap-distributed-presto-practice-note.md)
+[PrestoDB交互式OLAP产品](2017-04-03-bigdata-best-practice-distributed-presto-note.md)
+
+[From Presto to Trino in 2020](https://trino.io/blog/2020/12/27/announcing-trino.html)
 
 #### Presto引擎对比
 
@@ -46,13 +48,9 @@ Google Mesa > Google Dremel > Doris > Impala > SparkSQL > Presto > Hive
 
 基于HDFS的MPP架构的SQL引擎
 
-[Impala交互式OLAP查询](2016-12-13-olap-distributed-impala-practice-note.md)
+[Impala交互式OLAP产品](2016-12-13-olap-distributed-impala-practice-note.md)
 
-#### 4.Phoenix
-
-执行在HBase之上的SQL引擎
-
-#### 5.Dremel(Google BigQuery)
+#### 4.Dremel(Google BigQuery Query Engine)
 
 ![dremel_page](_includes/dremel_page.jpg)
 
@@ -103,7 +101,7 @@ message Document {
 
 
 
-#### 6.Drill(MapR)
+#### 5.Drill(MapR)
 
 开源版Dremel: Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 

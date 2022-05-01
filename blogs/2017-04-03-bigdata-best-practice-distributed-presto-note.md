@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,olap,architect]
-title: Big Data Analytics Note - PrestoDB OLAP
+title: Product Best Practice Note - PrestoDB OLAP
 ---
 
-## 大数据查询分析-PrestoDB实时OLAP分析
+## 大数据分析引擎产品-PrestoDB实时OLAP
 ------------------------------------------------------------
 
 #### PrestoDB
@@ -246,5 +246,4 @@ presto-orc hive连接器读取hdfs的orc文件，
 
 - [Presto New Optimizer](https://github.com/prestodb/presto/wiki/New-Optimizer)
 - [Introduce to presto CBO](https://www.starburstdata.com/technical-blog/introduction-to-presto-cost-based-optimizer/)
-
 
