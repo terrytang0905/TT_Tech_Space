@@ -10,9 +10,7 @@ title: Big Data Research Note - Google Solution
 
 ### I.Google大数据的遗产
 
-#### 1.1.BigTable - HBase - MegaStore
-
-**BigTable**
+#### 1.1.Google BigTable - HBase - MegaStore
 
 **HBase**
 
@@ -25,15 +23,13 @@ title: Big Data Research Note - Google Solution
 	7.Block Cache 以及Bloom filter；
 	8.操作管理
 
+**[BigTable&HBase Research](2017-03-12-bigtable&hbase-analysis-note.md)**
+
 **Megastore: Providing Scalable, Highly Available Storage for Interactive Services**
 
 #### 1.2.DynamoDB - Cassandra
 
 **Dynamo: Amazon’s Highly Available Key-value Store**
-
-**HBase vs Cassandra**
-
-![hbase_vs_cassandra](_includes/hbase_vs_cassandra.png)
 
 ### II. Google Cloud Services - Google BigQuery
 
