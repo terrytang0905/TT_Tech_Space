@@ -48,8 +48,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - **[大数据研究-Google大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)**
 
-  
-
 - [区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 
 - [大数据研究-数据处理-实时计算引擎分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
@@ -71,7 +69,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - **[大数据产品实践-Hologres](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-11-06-bigdata-best-practice-hologres.md)**
 - **[数据库研究-TiDB HTAP DB](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-07-08-newdb-tidb-design-note.md)**
 - **[大数据分析-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-08-01-bigdata-analytics-sql-anywhere-design.md)**
-- [大数据产品实践-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-bigdata-best-practice-distributed-presto-note.md)
+- **[大数据产品实践-分布式-Presto技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-bigdata-best-practice-distributed-presto-note.md)**
 - [大数据产品实践-Hive编程-SQLEngine分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-09-hive-sql-parser-note.md)
 - [大数据产品实践-Hive编程-SQL性能优化](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-10-hive-sql-performance-note.md)
 - [大数据产品实践-Hive编程-设计开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-06-08-hive-programing-note.md)
