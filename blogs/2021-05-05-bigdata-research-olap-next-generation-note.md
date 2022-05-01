@@ -783,7 +783,8 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
 ### X. Ref
 
 - BigDataDB papers - HadoopDB/MegaStore/BigTable/Dynamo/Spanner/Dremel/Mesa
-- [Database Architect](2017-07-27-bigdata-compute-database-architect.md)
+- [Database Architect](2017-07-27-bigdata-research-database-architect.md)
+- [Mesa](https://research.google.com/pubs/archive/42851.pdf)
 - [TiDB](2019-07-08-newdb-tidb-design-note.md)
 - [HashData:MPP数据库动态增减节点](http://hashdata.cn/blog/qian-tan-mppshu-ju-ku-dong-tai-zeng-jian-jie-dian/)
 
