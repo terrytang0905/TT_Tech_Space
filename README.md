@@ -55,7 +55,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - **[大数据产品实践-MaxCompute](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-11-07-bigdata-best-practice-maxcompute.md)**
 - **[大数据产品实践-Hologres](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-11-06-bigdata-best-practice-hologres.md)**
-- **[大数据产品实践-Google大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-research-google-tech-solution.md)**
+- **[大数据产品实践-Google大数据解决方案](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-05-01-bigdata-best-practice-google-tech-solution.md)**
 - **[数据库研究-TiDB HTAP DB](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-07-08-newdb-tidb-design-note.md)**
 - **[大数据分析-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-08-01-bigdata-analytics-sql-anywhere-design.md)**
 - **[大数据产品实践-PrestoDB技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-bigdata-best-practice-distributed-presto-note.md)**
