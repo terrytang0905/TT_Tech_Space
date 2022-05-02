@@ -97,7 +97,7 @@ The Lambda architecture: principles for architecting realtime Big Data systems.
 | Kafka    | Hadoop/MapReduce | HDFS            | SQL       |
 |          | Storm/Spark      | HBase/Cassandra |           |
 
-![Lambda样例](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/lambda_arch_sample.png)
+![Lambda样例](_includes/lambda_arch_sample.png)
 
 ```java
 query = function(all data)
@@ -113,7 +113,7 @@ The premise behind the Lambda architecture is you should be able to run ad-hoc q
 
 The Lambda architecture is split into three layers, the batch layer, the serving layer, and the speed layer.
 
-![Lambda架构](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/lambda_arch.png)
+![Lambda架构](_includes/lambda_arch.png)
 
 - Batch Layer,HDFS+Spark Core,实时增量数据加载到HDFS中,使用SparkCore批量处理全量数据
 - Speed Layer,SparkStreaming处理实时的增量数据,以较低的时延生成实时数据
@@ -145,7 +145,7 @@ In essence the speed layer is the same as the batch layer in that it computes vi
 
 Whilst the batch layer is designed to continuously recompute the batch views from scratch/Kafka, the speed layer uses an incremental model whereby the realtime views are incremented as and when new data is received. Whats clever about the speed layer is the realtime views are intended to be transient and as soon as the data propagates through the batch and serving layers the corresponding results in the realtime views can be discarded. This is referred to as “complexity isolation” in the book, meaning that the most complex part of the architecture is pushed into the layer whose results are only temporary.
 
-![实时增量计算](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/realtime_query.png)
+![实时增量计算](_includes/realtime_query.png)
 
 _storm-hbase connector_
 
@@ -195,7 +195,7 @@ Kappa架构的核心思想包括以下三点：
 - 当需要全量重新计算时，重新起一个流计算实例Instance，从Log Offset设置点(可以是0)开始读取数据进行处理，并输出到一个新的结果存储中。
 - 当新的实例Instance做完后，停止老的流计算实例Instance，并把老的一些结果删除。
 
-![kappa架构](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/Kappa_arch.png)
+![kappa架构](_includes/Kappa_arch.png)
 
 与 Lambda 架构不同的是，Kappa 架构去掉了批处理层这一体系结构,只保留了速度层。只需要在业务逻辑改变又或是代码更改的时候进行数据的重新处理。
 
@@ -210,7 +210,7 @@ Kappa架构的核心思想包括以下三点：
 
 * NewYork纽约时报Kappa架构应用
 
-![kappa_arch_sample](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/kappa_arch_sample_newyork.png)
+![kappa_arch_sample](_includes/kappa_arch_sample_newyork.png)
 
 	Tips:
 	Kappa架构适合非超大量数据的实时计算,可以使用一个代码架构同时实现实时与离线数据处理架构
@@ -219,7 +219,7 @@ Kappa架构的核心思想包括以下三点：
 
 * Lambda&Kappa架构比较
 
-![lambda&kappa架构比较](/Users/zhenjie.tzj/Documents/!BigDataResearch/TT_Tech_Space/blogs/_includes/lambda_kappa_compare.jpg)
+![lambda&kappa架构比较](_includes/lambda_kappa_compare.jpg)
 
 
 
@@ -228,3 +228,4 @@ Kappa架构的核心思想包括以下三点：
 - [实时计算引擎](2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
 - [ElaticSearch搜索架构](2017-01-06-elasticsearch-search-engine-architect-note.md)
 - ClickHouse
+- OLAP的下一站

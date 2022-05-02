@@ -24,7 +24,7 @@ title: Big Data Research Note - Storage Layer
 
 关系型数据的列式存储，可以将每一列的值直接排列下来，不用引入其他的概念，也不会丢失数据。关系型数据的列式存储比较好理解，而嵌套类型数据的列存储则会遇到一些麻烦。如图 1 所示，我们把嵌套数据类型的一行叫做一个记录（record)，嵌套数据类型的特点是一个 record 中的 column 除了可以是 Int, Long, String 这样的原语（primitive）类型以外，还可以是 List, Map, Set 这样的复杂类型。在行式存储中一行的多列是连续的写在一起的，在列式存储中数据按列分开存储，例如可以只读取 A.B.C 这一列的数据而不去读 A.E 和 A.B.D，那么如何根据读取出来的各个列的数据重构出一行记录呢？
 
-![https://static001.infoq.cn/resource/image/aa/8f/aa97051362914f12f85fae4b58ff7d8f.png](https://static001.infoq.cn/resource/image/aa/8f/aa97051362914f12f85fae4b58ff7d8f.png)
+![行式存储&列式存储](https://static001.infoq.cn/resource/image/aa/8f/aa97051362914f12f85fae4b58ff7d8f.png)
 
 图 1 行式存储和列式存储
 
@@ -66,7 +66,7 @@ Parquet 是语言无关的，而且不与任何一种数据处理框架绑定在
 
 这里需要注意的是 Avro, Thrift, Protocol Buffers 都有他们自己的存储格式，但是 Parquet 并没有使用他们，而是使用了自己在 [parquet-format](https://github.com/apache/parquet-format) 项目里定义的存储格式。所以如果你的应用使用了 Avro 等对象模型，这些数据序列化到磁盘还是使用的 [parquet-mr](https://github.com/apache/parquet-mr) 定义的转换器把他们转换成 Parquet 自己的存储格式。
 
-![https://static001.infoq.cn/resource/image/3a/8a/3a45e21ff01a71d2d94bf018e6f7d68a.png](https://static001.infoq.cn/resource/image/3a/8a/3a45e21ff01a71d2d94bf018e6f7d68a.png)
+![Parquet数据结构](https://static001.infoq.cn/resource/image/3a/8a/3a45e21ff01a71d2d94bf018e6f7d68a.png)
 
 图 2 Parquet 项目的结构
 
@@ -95,7 +95,7 @@ repeated group contacts {
 
 Parquet 格式的数据类型没有复杂的 Map, List, Set 等，而是使用 repeated fields 和 groups 来表示。例如 List 和 Set 可以被表示成一个 repeated field，Map 可以表示成一个包含有 key-value 对的 repeated field，而且 key 是 required 的。
 
-![https://static001.infoq.cn/resource/image/88/d6/88155fb13bdca0f50de2d1f10b997ad6.png](https://static001.infoq.cn/resource/image/88/d6/88155fb13bdca0f50de2d1f10b997ad6.png)
+![AddressBook树结构](https://static001.infoq.cn/resource/image/88/d6/88155fb13bdca0f50de2d1f10b997ad6.png)
 
 图 3 AddressBook 的树结构表示
 
@@ -105,13 +105,13 @@ Parquet 格式的数据类型没有复杂的 Map, List, Set 等，而是使用 r
 
 在 Parquet 格式的存储中，一个 schema 的树结构有几个叶子节点，实际的存储中就会有多少 column。例如上面这个 schema 的数据存储实际上有四个 column，如图 4 所示。
 
-![https://static001.infoq.cn/resource/image/47/f8/47a47d6a31c82a8181f2a7904eeab6f8.png](https://static001.infoq.cn/resource/image/47/f8/47a47d6a31c82a8181f2a7904eeab6f8.png)
+![AddressBook实际存储的列](https://static001.infoq.cn/resource/image/47/f8/47a47d6a31c82a8181f2a7904eeab6f8.png)
 
 图 4 AddressBook 实际存储的列
 
 Parquet 文件在磁盘上的分布情况如图 5 所示。所有的数据被水平切分成 Row group，一个 Row group 包含这个 Row group 对应的区间内的所有列的 column chunk。一个 column chunk 负责存储某一列的数据，这些数据是这一列的 Repetition levels, Definition levels 和 values（详见后文）。一个 column chunk 是由 Page 组成的，Page 是压缩和编码的单元，对数据模型来说是透明的。一个 Parquet 文件最后是 Footer，存储了文件的元数据信息和统计信息。Row group 是数据读写时候的缓存单元，所以推荐设置较大的 Row group 从而带来较大的并行度，当然也需要较大的内存空间作为代价。一般情况下推荐配置一个 Row group 大小 1G，一个 HDFS 块大小 1G，一个 HDFS 文件只含有一个块。
 
-![https://static001.infoq.cn/resource/image/12/bc/1283b695c3f342abf9a6e9930a6f86bc.png](https://static001.infoq.cn/resource/image/12/bc/1283b695c3f342abf9a6e9930a6f86bc.png)
+![Parquet文件格式](https://static001.infoq.cn/resource/image/12/bc/1283b695c3f342abf9a6e9930a6f86bc.png)
 
 图 5 Parquet 文件格式在磁盘的分布
 
@@ -134,7 +134,7 @@ Parquet 文件在磁盘上的分布情况如图 5 所示。所有的数据被水
 
 对于每个 column 的最大的 Repetion Level 和 Definition Level 如图 6 所示。
 
-![https://static001.infoq.cn/resource/image/2f/ad/2fec516b63c54873fa8bf325b8ee89ad.png](https://static001.infoq.cn/resource/image/2f/ad/2fec516b63c54873fa8bf325b8ee89ad.png)
+![AddressBook的Max Definition Level和Max Repetition Level](https://static001.infoq.cn/resource/image/2f/ad/2fec516b63c54873fa8bf325b8ee89ad.png)
 
 图 6 AddressBook 的 Max Definition Level 和 Max Repetition Level
 
