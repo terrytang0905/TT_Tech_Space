@@ -1,17 +1,17 @@
 TT Tech Space - 大数据&AI研究博客
 --------------------------
 
-### Welcome to TT Big Data Research Pages.
+### Welcome to TT BigData&AI Research Pages.
 Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
 Currently he focuses on everything about big data included bi,olap,mpp,hadoop,solution,machine learning and AI.Welcome to contact with him and discuss any tech topic with him.
 
 ### TT Tech Blog Site
 
-#### Data Content Map
+#### Data Eco Map
 
 ![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
-**BigData -> Data Analytics -> BigDat+AI on Cloud**
+**BigData -> Data Analytics -> BigData+AI on Cloud**
 
 - **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**
 
