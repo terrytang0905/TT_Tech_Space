@@ -103,9 +103,9 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
    - SQL / R / Python / Spark / Weka
    - 相关性分析等
    - 特征提取
-   - 设计建模
-   - 数据训练
-   - 模型评估
+   - 特征工程&设计建模
+   - **数据AI训练**
+   - **模型评估**
    - 循环迭代
 
 #### 2.2.数据建模规则
@@ -133,11 +133,11 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
 
 - 通过维度环境使事实具有实际意义
 
- a. 用于过滤查询或报表 <br />
- b. 用于控制聚集事实的范围 <br />
- c. 用于确定信息的顺序与排序 <br />
- d. 与事实一起构成提供报表的环境 <br />
- f. 用于定义主从结构,分组,分类汇总,汇总等 <br />
+ 		a. 用于过滤查询或报表 <br />
+ 		b. 用于控制聚集事实的范围 <br />
+ 		c. 用于确定信息的顺序与排序 <br />
+ 		d. 与事实一起构成提供报表的环境 <br />
+ 		f. 用于定义主从结构,分组,分类汇总,汇总等 <br />
 
 - 雪花模式及支架表 
 
@@ -146,7 +146,6 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
 - 分析型环境,预先计算和存储这些冗余数据元素具有三个优点:性能，可用性和一致性
 
 - 事实表粒度设计/宽表设计
-
 
 #### 2.3.多维数据分析定义
 
@@ -203,47 +202,41 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
 核心在于用户特定行为的深度分析/数字化运营/增长黑客
 
 - 数据指标开发
-
-  * 网络行为数据指标
-  * 电商交易数据指标
-  * 服务内行为数据指标
+		
+		*网络行为数据指标
+		*电商交易数据指标
+		*服务内行为数据指标
 
 - 流量数据分析
-
 - 分类数据排名分析
-
 - 历史数据趋势分析
-
 - 基于内容分类数据的行为预测分析
 
-  * 识别数据规则
-  * 数据分类与详细信息
-  * 有效分类行为数据采集
-  * 基于分类数据的行为预测分析
+		*识别数据规则
+		*数据分类与详细信息
+		*有效分类行为数据采集
+		*基于分类数据的行为预测分析
 
 - 点击率建模(click modeling)
-
 - 分配规划(planning)
-
   
 
 ### II.数据探索篇-AI机器学习开发
 
 - [机器学习Everything研究](2017-10-16-bigdata-ml-data-everything-note.md)
-- [机器学习&Python数据挖掘](2017-10-16-ml-data-everything-note.md)
-- [Python信息识别技术](2018-05-05-python-info-recognition-note.md)
+- [机器学习&Python数据挖掘应用](2017-10-06-python-dev-everything-note.md)
+- [数据与信息应用识别技术](2018-05-05-python-info-recognition-note.md)
 
 #### 2.1.机器学习&人工智能
 
-- 内容数据标签开发
-- 数据智能清洗-识别数据规则&异常数据过滤
-		* 数据清洗安全脱敏
-		* 基于已标记范例的学习:有监督的学习
-		* 借助神经网络的多重增强学习,实现海量数据有效过滤
-	
-		comments:基于海量数据的不确定性特征,高效的数据清洗与过滤算法非常有价值
+- 数据智能标注-识别数据规则&异常数据过滤
+  	* 数据清洗安全脱敏
+  	* 基于已标记范例的学习:有监督的学习
+  	* 借助神经网络的多重增强学习,实现海量数据有效过滤
 
-#### 2.2.分析应用-文本分析算法
+  	comments:基于海量数据的不确定性特征,高效的数据清洗与过滤算法非常有价值
+
+#### 2.2.分析应用-NLP分析算法
 
 根据语义分析算法与NLP分词策略,针对文本进行标签分析
 
@@ -255,16 +248,21 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
 
 #### 2.3.标签开发-用户画像分析
 
+- 内容数据标签开发
+
 - [用户特征信息库](2018-06-06-data-usage-user-label-profile-note.md)
 
   - 用户访问行为采集
   - 用户交易行为采集
 
 - [用户行为分析深度-数据驱动](2017-09-30-data-usage-user-behavior-analysis-note.md)
+
 - [区块链技术设计](2018-03-06-block-chain-design-note.md)
 
 - 用户行为<->行为分类与特征提取<->用户特征属性关联
+
 - 用户特征与标签规则的关联概率(置信度)
+
 - 用户与属性标签的可信度矩阵
 
 	1. 系列指标 
@@ -334,7 +332,7 @@ B. _数据转换_ <br />
 C. _数据筛选/特征筛选_ <br />
      R平方 <br />
      卡方检验(Chi-Square Statistics):适用于类别型变量的检验 <br />
-     数据降维:主成分分析和变量聚类 <br />
+     **数据降维:主成分分析和变量聚类** <br />
 
 D. _共线性问题_ <br />
      自变量间存在较强的，甚至完全的线性相关关系 <br />
@@ -344,29 +342,19 @@ E. _数据完整性验证_
 
 **设计独立数据质量监控组件**
 
-#### 3.5.数据处理方案
+#### 3.5.数据处理开发方案
 
-* ETL Kettle开源工具
-* 任务队列与任务规则
-* 基于SQL/存储过程/UDF数据处理组件
-* [Hive/Spark/Flink大数据处理](2017-07-29-bigdata-research-dataprocess-development.md)
-* 大数据MQ-[Kafka应用](2017-07-29-bigdata-research-dataprocess-kafka-note.md)
-
-#### 3.6.大数据处理开发
-
-- ETL数据处理&数据同步 -Kettle/Sqoop/DataX/gphdfs
-- [大数据处理-通用开发](2017-07-28-bigdata-research-bigdata-development.md)
-- [大数据处理-实时数据计算](2017-07-27-bigdata-research-realtime-process.md)
-- [大数据处理-流数据计算](2018-05-31-bigdata-research-dataprocess-stream-compute.md)
+- 批量数据 - ETL - DataWarehouse
+- 数据集成&数据同步 -Sqoop/DataX/gphdfs
+- 基于传统数据仓库,批处理离线数据分析-[大数据处理-通用开发Hive/Spark/Flink](2017-07-29-bigdata-research-dataprocess-development.md)
+- [大数据处理-消息中间件Kafka应用](2017-07-29-bigdata-research-dataprocess-kafka-note.md)
+- 基于实时大数据处理,敏捷商务智能BI-[大数据处理-实时数据计算](2018-05-31-bigdata-research-dataprocess-realtime-compute.md)
+- 数据开发-任务队列与任务规则(ETL Kettle开源工具)
 - [大数据查询-SQL Anywhere应用](2017-07-28-bigdata-analytics-sql-anywhere-design.md)
+- 基于SQL/存储过程/UDF数据处理组件
 - 数据质量分析&数据监测(数据异常的验证非常重要)
 
-- 基于传统数据仓库,批处理离线数据分析
-- 基于实时大数据处理,敏捷商务智能BI
-- 批量数据 - ETL - DataWarehouse
-- 实时数据 - 信息交换 - OPDM 操作型数据集市
-
-#### 3.7.大数据&数据仓库演进技术选型
+#### 3.6.大数据&数据仓库演进技术选型
 
 A._[分布式基础架构解析](2017-07-27-bigdata-research-infrastructure-build.md)_
 

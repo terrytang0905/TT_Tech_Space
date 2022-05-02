@@ -22,27 +22,18 @@ title: Big Data Analytics Note - SQL AnyWhere Design
 
 ### SQL on Hadoop
 
+- [SQLonHadoop大数据分析应用](2017-07-28-bigdata-research-olap-sqlonhadoop-note.md)
 - [Hive分析与应用](2017-06-08-hive-programing-note.md)
-
 - [Hive SQL编译分析](2017-06-09-hive-sql-parser-note.md)
-
 - [Hive SQL性能优化](2017-06-10-hive-sql-performance-note.md)
-
-- SparkSQL
-
+- [Spark大数据计算](2017-03-29-spark-bigdata-arch-note.md)
+- [PrestoDB实践](2017-04-03-bigdata-best-practice-distributed-presto-note.md)
 - [Impala实践与应用](2016-12-13-olap-distributed-impala-practice-note.md)
-
-- [PrestoDB实践](2017-04-03-olap-distributed-presto-practice-note.md)
-
-- [SQLonHadoop分析应用](2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
-
-### SQL on Memory
-
 - Ignite
 
 ### SQL on Search
 
-- ElasticSearch SQL
+- [ElasticSearch SQL](2017-01-06-elastic-search-engine-architect-note.md)
 
 ### Data Query Optimize Usage
 
@@ -61,7 +52,3 @@ title: Big Data Analytics Note - SQL AnyWhere Design
 
 Partition分区替代索引,以提高查询性能
 
-
-### Query Parser&Query Optimizer
-
-- [查询优化器分析](2018-06-01-query-optimizer-design-note.md)

@@ -6,9 +6,7 @@ title: Big Data Research Note - Common BigData Product Solution
 ---
 
 ## 大数据研究-通用大数据产品分析
---------------------------------------------------------
-
-大数据通用解决方案 - 大数据产品分析
+### BigData Product Requirement
 
 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
 
@@ -221,9 +219,10 @@ Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建�
 	Comments:Spark执行引擎稳定性问题
 
 
+
 ### 3.Alibaba Cloud Compute Platform
 
-- **[MaxCompute BigQuery Product BestPractice](2021-11-07-bigdata-best-practice-maxcompute.md)**
+- **[MaxCompute BigQuery Product](2021-11-07-bigdata-best-practice-maxcompute.md)**
 
 - **[Hologres OLAP Product](2021-11-06-bigdata-best-practice-hologres.md)**
 
@@ -327,11 +326,7 @@ Redshift支持表级别的数据恢复从之前的某个snapshot切片，不过�
 
   首先, 通过很长时间的磨练，Redshift终于向更优秀的架构来演进了。当我以为已经到达终点的时刻，它实际上还需继续向前进一步。Redshift RA3本身就是基于S3存储之上的云数仓服务，为什么暂停释放一个空集群需要5分钟？为什么在执行暂停操作前一定要创建一个snapshot? 虽然AWS Redshift已是一个很不错的产品，但是Snowflake可能是更好的分析数据仓库产品选择，能为DBA/开发人员提供更强大的能力。
 
-**[Google BigData&BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)**
-
-
-
-### Y.技术研究
+**[Google BigData&BigQuery Product](2019-05-01-bigdata-best-practice-google-tech-solution.md)**
 
 **Microsoft Azure**
 

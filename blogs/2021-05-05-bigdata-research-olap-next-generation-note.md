@@ -216,10 +216,10 @@ Example of New OLAP Engine on Cloud
 | Alibaba | OceanBase/PolarDB | Hologres/ADB | OTS | Pangu | MaxCompute |
 
 
-- [SQLonHadoop技术分析](2017-04-04-olap-sqlonhadoop-research-note.md)
+- [SQLonHadoop技术分析](2017-07-28-bigdata-research-olap-sqlonhadoop-note.md)
 - [Impala](2016-12-12-olap-distributed-impala-research-note.md)
-- [PrestoDB](2017-04-03-olap-distributed-presto-practice-note.md)
-- [Google Cloud BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)
+- [PrestoDB](2017-04-03-bigdata-best-practice-distributed-presto-note.md)
+- [Google Cloud BigQuery](2019-05-01-bigdata-best-practice-google-tech-solution.md)
 - [MaxCompute BigQuery Product](2021-11-07-bigdata-best-practice-maxcompute.md)
 - [Hologres BigQuery Product](2021-11-06-bigdata-best-practice-hologres.md)
 - Amazon Redshift

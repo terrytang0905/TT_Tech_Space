@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,database,hadoop]
-title: Hive Programing Design Note3 - SQL Performance
+title: Data Compute - Hive SQL Performance Note3 
 ---
 
 ## HiveQL Performance Tuning Note
@@ -79,11 +79,11 @@ copy阶段是把文件从map端copy到reduce端。默认情况下在5%的map完�
 
     _mapred.reduce.slowstart.completed.maps_去调整，他的默认值就是5%。
     如果觉得这么做会减慢reduce端copy的进度，可以把copy过程的线程增大。
-
+    
     _tasktracker.http.threads_可以决定作为server端的map用于提供数据传输服务的线程，
     _mapred.reduce.parallel.copies_可以决定作为client端的reduce同时从map端拉取数据
     的并行度(一次同时从多少个map拉数据),修改参数的时候这两个注意协调一下,server端能处理client端的请求即可。
-
+    
     另外,在shuffle阶段可能会出现的OOM问题,原因比较复杂,一般认为是内存分配不合理,GC无法及时释放内存导致。对于这个问题,可以尝试调低shuffle buffer的控制参数
     _mapred.job.shuffle.input.buffer.percent_这个比例值,默认值0.7,即shuffle buffer占到reduce task heap size的70%。另外也可以直接尝试增加reduce数量。
 
@@ -187,7 +187,7 @@ select count(*) from index_test_table where id = 10;
 处理分布式join，一般有两种方法:
 
 	- replication join：把其中一个表复制到所有节点，这样另一个表在每个节点上面的分片就可以跟这个完整的表join了；
-    - repartition join：把两份数据按照join key进行hash重分布，让每个节点处理hash值相同的join key数据，也就是做局部的join。
+	- repartition join：把两份数据按照join key进行hash重分布，让每个节点处理hash值相同的join key数据，也就是做局部的join。
 
 这两种方式在M/R Job中分别对应了map side join和reduce side join。在一些MPP数据库中，数据可以按照某列字段预先进行hash分布，这样在跟这个表以这个字段为join key进行join的时候，该表肯定不需要做数据重分布了。这种功能是以HDFS作为底层文件系统的hive所没有的，即使是hive中的bucket也只能到文件级别的hash，而非节点级别的hash。
 
