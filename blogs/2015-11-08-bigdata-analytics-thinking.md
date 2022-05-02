@@ -163,7 +163,7 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
 - 切片(Slicing)和切块(dicing) - 穿透/查看明细
 - 上卷(roll up)和下钻(drill down): 与聚集相关(基于维度的钻取)
 
-#### 2.4.Summary Statistics汇总统计
+#### 2.4.分析应用-Summary Statistics汇总统计
 
 - 频率与众数 <br />
       `frequency(Vi)=属性值Vi的对象数/m` <br />
@@ -179,7 +179,7 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
       `correlation matrix相关矩阵` <br />
       `值集的倾斜度(skewness)` <br />
 
-#### 2.5.分析应用-客户划分-电商零售模型
+#### 2.5.挖掘应用-客户划分-电商零售模型
 
 - 客户RFM模型
     消费新鲜度 (Recency)
@@ -197,7 +197,7 @@ title: Big Data Analytics Note - Data Thinking Deep Dive
 - 预测（响应,分类）模型
 - 主成分分析PCA
 
-#### 2.6.分析应用-客户划分-流量分析模型
+#### 2.6.挖掘应用-客户划分-流量分析模型
 
 核心在于用户特定行为的深度分析/数字化运营/增长黑客
 
@@ -288,7 +288,7 @@ PLSA \ LDA \ HMM:  [概率语言模型及其变形系列-PLSA及EM算法](http:/
 
 
 
-### III.平台技术篇-大数据处理
+### III.技术篇-大数据平台处理
 
 #### 3.1.解决方案思考:
 
@@ -373,7 +373,7 @@ D._[分布式OLAP的下一站](2021-05-05-bigdata-analytics-olap-next-generation
 > HTAP: [TiDB](2019-07-08-newdb-tidb-design-note.md) / OceanBase / Oushu Database(Apache HAWQ) / HashData <br />
 > Doris / Clickhouse <br />
 
-#### 3.9.BI数据仓库概念设计
+#### 3.7.BI数据仓库概念设计
 
 A. _Bill Inmon的企业信息化工厂_ <br />
 ![imnon_model](_includes/datamodel_imnon.png)
@@ -396,7 +396,7 @@ C. _独立型数据集市_
 
 
 
-### IV.数据产品设计
+### IV.数据产品篇-数据价值变现手段
 
 #### 4.1.常规分析产品设计
 
@@ -488,7 +488,7 @@ C. _独立型数据集市_
 
 
 
-### V.数据商业化
+### V.业务篇-数据价值变现商业化
 
 #### 1.大数据生意的关键点
 
@@ -572,7 +572,6 @@ _头部流量-场景驻留-广告曝光变现_
 	4.线上/线下协调改造
 	5.售后服务
 	6.CRM客户分析-老客促活
-
 
 ![DMP vs CDP](_includes/dmp_cdp_graphic.jpg)
 **DMP vs CDP**
