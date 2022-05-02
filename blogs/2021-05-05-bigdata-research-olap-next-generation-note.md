@@ -646,47 +646,39 @@ These sorting orders are used by the TopNMetricSpec, SearchQuery, GroupByQuery's
 
 ### IV. OLAP走向何方 - OLAP on Cloud ?
 
-#### A.云端数据仓库-存算分离/弹性伸缩
+#### A.云端数据湖仓-存算分离/弹性伸缩
 
-Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题?
-
-- 分布式存储加速
+- 分布式存储加速/HDFS缓存
 - 智能Caching: Alluxio/存储缓存加速
-- 数据湖OSS搭建的存算分离架构
+- 网络架构扩展&RDMA
+- [数据湖存算分离技术架构](2020-06-06-bigdata-research-lake-house-solution.md)
+
+_典型云端数据产品_
+- Snowflake 云上数仓是否真的能解决当前OLAP查询分析所面临之问题?
+- BigQuery on Google Cloud Storage
+- AWS Redshift specturm on S3
+- MaxCompute/Hologres+DLF+OSS 
 
 #### B.多租户隔离+混合负载&资源隔离
 
-#### C.数据湖分析
+#### C.分布式Transactional事务服务-TrueTime
 
-AWS Redshift specturm on S3
-
-BigQuery on 
-
-Hologres+DLF+OSS 
+分布式一致性
 
 #### D.批流一体与离线实时一体
 
 - Lambda+Kappa->批流一体存储
 - LakeHouse数据格式
 - Flink流批一体
-- [LakeHouse技术研究](2020-06-06-bigdata-research-lake-house-solution.md)
 
-#### E.分布式Transactional事务服务-TrueTime
-
-分布式一致性
-
-#### F.云端自动系统运维与优化
+#### E.云端自动系统运维与优化
 
 _大数据容灾备份_
 
 - RPO=0
 - RTO=180
 
-#### G.非结构数据扩展支持
-
-### V.OLAP Design Deep Dive
-
-#### 1.NewOLAPDW存储结构设计
+#### F.NewOLAPDW存储结构设计
 
 design memory and disk-based column store
 
@@ -696,16 +688,15 @@ Dremel NESTED COLUMNAR STORAGE
 
 LSM数据结构-HDFS/GFS设计差异,定制化文件系统
 
-HDFS缓存
-
 VolumeScanner、 DirectoryScanner and DiskChecker
 
 共享数据的高可用性
 
 例如:MapR Network File System (NFS)
 
+#### G.非结构数据扩展支持
 
-#### 2.实时OLAP+Cube架构优化
+#### H.实时OLAP+Cube架构优化
 
 	- 多数据源数据接入
 	- 逻辑建模与数据预处理(数据Load)
@@ -768,9 +759,6 @@ RTOLAP将日期维度信息直接倒排Index进行数据存储,以提高系统�
         optional string Country; }
       optional string Url; }}
   ```
-
-
-
 
 **其他:数据处理(数据清洗)智能算法**
 

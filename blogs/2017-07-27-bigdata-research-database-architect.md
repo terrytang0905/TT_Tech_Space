@@ -362,7 +362,7 @@ HAWQ is a Hadoop native SQL query engine that combines the key technological adv
 
 
 - 3.[云端大数据产品分析](2019-03-12-bigdata-research-common-product-solution.md)
-- 4.[Google Cloud Platform BigQuery](2019-05-01-bigdata-research-google-tech-solution.md)
+- 4.[Google Cloud Platform BigQuery](2019-05-01-bigdata-best-practice-google-tech-solution.md)
 - 5.[下一代OLAP引擎思考](2021-05-05-bigdata-research-olap-next-generation-note.md)
 
 
