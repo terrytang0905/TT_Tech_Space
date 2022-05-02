@@ -55,39 +55,40 @@ These make Procella suitable for many additional workloads (e.g high QPS reporti
 - BigQuery: adhoc,trival-and-error analytics tens of seconds 35billion rows
 		
 		full scan全表扫描: 不需要Indices和pre-aggregation in-memory/flash,columar storage,parallel disk IO.
-		While MapReduce is suitable for long-running batch processes such as data mining, BigQuery is the best choice for ad-hoc OLAP/BI queries that require results as fast as possible.
+		虽然 MapReduce 适用于数据挖掘等长时间运行的批处理过程，但 BigQuery 是需要尽快获得结果的即席 OLAP/BI 查询的最佳选择。
 
 #### 2.1.BigQuery背后的技术 
 
 ![dremel_arch](_includes/dremel_arch.png)
 
 **Dremel: The Execution Engine**
-Dremel将你的SQL语句转化成执行树。执行树的叶子节点被称为'slots'-槽位。大规模数据计算并从Colossus读取数据，槽位可读取千亿行数据并对每行做正则表达式的check。
+Dremel将你的SQL语句转化成执行树。执行树的叶子节点被称为'slots'-插槽。大规模数据计算并从Colossus读取数据，插槽可读取千亿行数据并对每行做正则表达式的check。
 
 这执行树的分支被称为'mixers'-混合器, 它将用于聚合aggregation。 在shuffle过程中, 借助Google’s *Jupiter network*的技术优势可迅速准确地在多节点间迁移数据。混合器mixers与槽位slots都运行在Borg资源调度器内,并分配信息到硬件上。
 
-Dremel dynamically apportions slots to queries on an as needed basis, maintaining fairness amongst multiple users who are all querying at once. A single user can get thousands of slots to run their queries.
+Dremel 根据需求动态地将插槽slot分配给查询，从而在同时查询的多个用户之间保持公平。单个用户可以获得_数千个插槽slot_来运行他们的查询。
 
-Dremel is widely used at Google — from search to ads, from youtube to gmail — so there’s great emphasis on continuously making Dremel better. BigQuery users get the benefit of continuous improvements in performance, durability, efficiency and scalability, without downtime and upgrades associated with traditional technologies.
+Dremel 在 Google 被广泛使用——从搜索到广告ads，从 youtube 到 gmail——内部客户使用导致其非常重视且不断改进 Dremel。 BigQuery 用户受益于性能、耐用性、效率和可扩展性的持续改进，而无需停机和与传统技术相关的升级。
 
 **Colossus: Distributed Storage**
-BigQuery relies on *Colossus*, Google’s latest generation distributed file system. Each Google datacenter has its own Colossus cluster, and each Colossus cluster has enough disks to give every BigQuery user thousands of dedicated disks at a time. Colossus also handles replication, recovery (when disks crash) and distributed management (so there is no single point of failure). Colossus is fast enough to allow BigQuery to provide similar performance to many in-memory databases, but leveraging much cheaper yet highly parallelized, scalable, durable and performant infrastructure.
+BigQuery 依赖于 Google 最新一代的分布式文件系统 *Colossus*。每个 Google 数据中心都有自己的 Colossus 集群，每个 Colossus 集群都有足够的磁盘来一次为每个 BigQuery 用户提供数千个专用磁盘。 Colossus 还处理复制、恢复（当磁盘崩溃时）和分布式高可用管理（因此没有单点故障）。 Colossus 的速度足以让 BigQuery 为许多内存数据库提供类似的性能，但利用了更便宜但高度并行化、可扩展、持久和高性能的基础架构。
 
-BigQuery leverages the *ColumnIO columnar storage format* and compression algorithm to store data in Colossus in the most optimal way for reading large amounts of structured data.Colossus allows BigQuery users to scale to dozens of Petabytes in storage seamlessly, without paying the penalty of attaching much more expensive compute resources — typical with most traditional databases.
+BigQuery 利用 *ColumnIO 列式存储格式* 和压缩算法以最佳方式将数据存储在 Colossus 中，以读取大量结构化数据。Colossus 允许 BigQuery 用户无缝扩展到数十 PB 的存储空间，而无需支付附加费用更昂贵的计算资源——相比典型的大多数传统数据库。
 
 BigQuery Storage = [Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
 
 **Borg: 分布式资源调度, K8s的原型**
-To give you thousands of CPU cores dedicated to processing your task, BigQuery takes advantage of Borg, Google’s large-scale cluster management system. Borg clusters run on dozens of thousands of machines and hundreds of thousands of cores, so your query which used 3300 CPUs only used a fraction of the capacity reserved for BigQuery, and BigQuery’s capacity is only a fraction of the capacity of a Borg cluster. Borg assigns server resources to jobs; the job in this case is the Dremel cluster.
+为了给用户提供数以千计的专用于处理任务的 CPU 内核，BigQuery 充分利用了 Google 的大型集群资源管理系统 Borg。 Borg 集群运行在数十万台机器和数十万个内核上，因此使用 3300 个 CPU 的查询只使用了 BigQuery所保留的容量的一小部分，而 BigQuery 的容量只是 Borg 集群容量的一小部分。 Borg 将服务器资源分配给作业任务；在这种情况下，作业任务执行在 Dremel 集群上。
 
-Machines crash, power supplies fail, network switches die, and a myriad of other problems can occur while running a large production datacenter. Borg routes around it, and the software layer is abstracted. At Google-scale, thousands of servers will fail every single day, and Borg protects us from these failures. Someone unplugs a rack in the datacenter in the middle of running your query, and you’ll never notice the difference.
+运行大型生产数据中心时可能会出现机器崩溃、电源故障、网络交换机死机以及无数其他问题。 Borg 绕着它走，软件层被抽象了。在 Google 规模上，每天都会有数千台服务器出现故障，而 Borg 保护内部免受这些故障的影响。有人在运行查询的过程中拔掉了数据中心的机架，而您永远不会注意到其中的差异。
 
 **Jupiter: The Network**
-Besides obvious needs for resource coordination and compute resources, Big Data workloads are often throttled by networking throughput. Google’s Jupiter network can deliver 1 Petabit/sec of total bisection bandwidth, allowing us to efficiently and quickly distribute large workloads.
 
-Jupiter networking infrastructure might be the single biggest differentiator in Google Cloud Platform. It provides enough bandwidth to allow 100,000 machines to communicate with any other machine at 10 Gbs. The networking bandwidth needed to run our query would use less than 0.1% of the total capacity of the system. This full-duplex bandwidth means that locality within the cluster is not important. If every machine can talk to every other machine at 10 Gbps, racks don’t matter.
+除了明显的资源调度与计算资源需求, 大数据负载往往受到网络throughput的控制与节制。Google’s Jupiter网络支持整个对半带宽(bisection bandwidth)传输1Pb/s数据, 允许高效且迅速分发大负载数据。
 
-Traditional approaches to separation of storage and compute include keeping data in an object store like Google Cloud Storage or AWS S3 and loading that data on-demand to VMs. This approach is often more efficient than co-tenant architectures like HDFS, but is subject to local VM and object storage throughput limits. Jupiter allows us to bypass this process entirely and read terabytes of data in seconds directly from storage, for every SQL query.
+Jupiter网络基础设施可能是GCP中单独最大的差异点。它提供足够带宽来支持100000台机器以10Gbs的带宽来互相访问。其网络带宽要求查询语句只使用少于整个系统容量的0.1%资源。全双工带宽(full-duplex bandwidth)意味着整个集群的地理位置不在重要。如果每个机器都能以10 Gbps网络带宽访问集群中其他机器,机架不在重要。
+
+典型的存储和计算分离的解决方案包括将数据保存在像 Google Cloud Storage 或 AWS S3 这样的对象存储中，并将数据按需加载到 VM。这种方法通常比 HDFS 等共租户架构更有效，但会受到本地 VM 和对象存储吞吐量限制。Jupiter 允许我们完全绕过这个过程，并在几秒钟内直接从存储中读取 TB 的数据，用于每个 SQL 查询。
 
 ### III.Google Cloud Services - Big Query Product Series
 
@@ -116,7 +117,6 @@ Traditional approaches to separation of storage and compute include keeping data
 ##### 专为分布式数据构建
 
 统一数据，避免移动或重复。使数据保留在原地，最大限度地降低费用并提高性能。
-
 
 
 ### IV.Google Cloud Services - Open Platform for Mult-Cloud
@@ -153,7 +153,6 @@ Gartner最近对云采用情况进行的一项调查显示，使用公共云的�
 那么Anthos的下一步是什么？ 显而易见的答案是扩展产品线以支持其他数据库：Cloud SQL，Dataproc，BigTable和Spanner。 就个人而言，我对Google如何使用Looker来吸引用户寻找AWS Quicksight或Azure PowerBI的替代解决方案感兴趣。 另一个有趣的途径是将Firebase扩展到移动开发，并利用现有的生态系统来扩展“中间件”市场。 最后，最大的问题是该策略是否还会加速AI / ML技术的广泛采用。 Google被广泛视为这一领域的领导者，将BigQuery Omni与现有的AI平台产品(即[kubeflow](https://gitcode.net/mirrors/kubeflow/pipelines?utm_source=csdn_github_accelerator) ， [TensorFlow](https://www.tensorflow.org/) ， AI集线器/托管的Jupyter Notebook([Vertex AI](https://cloud.google.com/vertex-ai))和[Kaggle](https://www.kaggle.com/) )相集成可能是帮助企业采用AI / ML。
 
 **_Anthos-Open Platform based on K8s_**
-
 
 
 ### V.分布式OLTP: F1 - Spanner
@@ -244,7 +243,6 @@ Example of Compaction Policy
 #### **分布式内存数据库**
 
 [Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
-
 
 
 ### VII.Apache Beam数据框架
