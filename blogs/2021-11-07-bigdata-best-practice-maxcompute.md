@@ -18,15 +18,14 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
 
 - 大规模计算存储(海量离线计算): MaxCompute 适用于 100GB 以上规模的存储及计算需求，最大可达 EB 级别
 - 自研大数据计算引擎: 支持多种计算模型, MaxCompute 支持 SQL、Spark、MapReduce、Graph 等计算类型及 MPI 迭代类算法
-- 单集群万台物理机计算: 大数据计算平台能力单集群支持10000台物理服务器并行作业
-- 全局异构计算调度: 全局调度CPU，GPU等异构计算资源 
-- 全局资源弹性扩容缩容: 支持按照Qutoa细粒度资源扩缩容 
-- 全局资源安全隔离: 提供网络隔离手段,全局统筹规划云资源的安全访问能力 
-- 统一控制集群管理跨地域计算中心: 通过全局控制集群，统一管理多地的多数据中心Region 
-- 统一EB级数据资源池: 统一数据资源池容量达到1EB  
-- 大数据系统全局自适应动态优化: 通过自动化的方式管理大数据平台，能参照运行时数据优化平台运营
-- 全局无缝调度计算任务: 在全局范围内，将大数据计算任务分配给跨地域的计算中心协同运行
-- 全局协同调度数据存储: 在全局范围内, 实现数据分布存储优化
+- [资源调度]单集群万台物理机计算: 大数据计算平台能力单集群支持10000台物理服务器并行作业
+- [资源调度]全局异构计算调度: 全局调度CPU，GPU等异构计算资源 
+- [资源调度]全局资源弹性扩容缩容: 支持按照Qutoa细粒度资源扩缩容 
+- [资源调度]全局资源安全隔离: 提供网络隔离手段,全局统筹规划云资源的安全访问能力 
+- [资源调度]统一EB级数据资源池: 统一数据资源池容量达到1EB  
+- [计算调度]大数据系统全局自适应动态优化: 通过自动化的方式管理大数据平台，能参照运行时数据优化平台运营
+- [计算调度]全局无缝调度计算任务: 在全局范围内，将大数据计算任务分配给跨地域Region的计算中心协同运行
+- [资源调度]全局协同调度数据存储: 在全局范围内, 实现数据分布存储优化
 - 大数据高可用：支持大数据集群同城双活 / 异地备份
 - 全局统一数据资产管理能力：在全局范围内，对数据开发处理，数据质量等进行统一管理
 - 强数据安全：提供多层沙箱防护及监控，支持表和字段级数据安全防护能力
@@ -41,7 +40,7 @@ _MaxComputer技术栈_
 
 ![maxc_arch](_includes/maxc_arch.png)
 
-通过以上MaxCompute架构抽象看, 我们可以看到当前所有的大数据系统架构都如以下9个系统分层。 当前我们主要讨论围绕着 多种计算引擎能力 / 分布式调度 / 分布式存储 及 安全与隐私保护 4个核心部分。
+通过以上MaxCompute架构抽象看, 我们可以看到当前所有的大数据系统架构都如以下9个系统分层。 当前我们主要讨论围绕着 **多种计算引擎能力 / 分布式调度 / 分布式存储 及 安全与隐私保护** 4个核心部分。
 
 ![大数据系统分层.png](_includes/大数据系统分层.png)
 
@@ -132,7 +131,7 @@ MaxC计算和存储在的深度结合可在计算过程中使用network shuffler
 
 上面是一个简单的 join 的例子，目的是获取 60 岁以上用户花费大于 1000 的详细 信息，由于年纪和花费在两张表中，所以此时需要做一次 join。一般来说 join 有两 种实现方式: 
 一是 **Sorted Merge Join**(如下图左侧的所示):也就是对于 a 和 b 两个子句执行 后的数据按照 join key (userid) 进行分区，然后在下游节点按照相同的 key 进行 Merge Join 操作，实现 Merge Join 需要对两张表都要做 shuffle 操作——也就是 进行一次数据交换，特别的如果有数据倾斜(例如某个 userid 对应的交易记录特别多)，这时候 MergeJoin 过程就会出现长尾，影响执行效率; 
-二是 **Map join (Hash join) **的方式(如下图右侧所示):上述 sql 中如果 60 岁以 上的用户信息较少，数据可以放到一个计算节点的内存中，那对于这个超小表可 以不做 shuffle，而是直接将其全量数据 broadcast 到每个处理大表的分布式计算 节点上，大表不用进行 shuffle 操作，通过在内存中直接建立 hash 表，完成 join 操作，由此可见 map join 优化能大量减少 (大表) shuffle 同时避免数据倾斜，能 够提升作业性能。但是如果选择了 map join 的优化，执行过程中发现小表数据量 超过了内存限制(大于 60 岁的用户很多)，这个时候 query 执行就会由于 oom 而失败，只能重新执行 
+二是 **Map join (Hash join)**的方式(如下图右侧所示):上述 sql 中如果 60 岁以 上的用户信息较少，数据可以放到一个计算节点的内存中，那对于这个超小表可 以不做 shuffle，而是直接将其全量数据 broadcast 到每个处理大表的分布式计算 节点上，大表不用进行 shuffle 操作，通过在内存中直接建立 hash 表，完成 join 操作，由此可见 map join 优化能大量减少 (大表) shuffle 同时避免数据倾斜，能 够提升作业性能。但是如果选择了 map join 的优化，执行过程中发现小表数据量 超过了内存限制(大于 60 岁的用户很多)，这个时候 query 执行就会由于 oom 而失败，只能重新执行 
 
  ![maxc_sql_merge_map_join](_includes/maxc_sql_merge_map_join.png)
 
@@ -196,7 +195,7 @@ MaxCompute、OSS等飞天产品基于盘古分布式存储之上。盘古支持E
 ![maxc_storage_tuning](_includes/maxc_storage_tuning.png)
 
 _a.行化编码技术_
-如果大家对AliORC的数字编码技术有所了解，应该知道目前AliORC使用了**RLE（Run Length Encoding，游程编码）编码算法**。RLE是一种非常简单的编码技术，可以比较好的压缩等差数列。例如，以下一个数列:
+如果大家对AliORC的数字编码技术有所了解，应该知道目前AliORC使用了**RLE（Run Length Encoding，游程编码) 编码算法**。RLE是一种非常简单的编码技术，可以比较好的压缩等差数列。例如，以下一个数列:
 	0, 2, 4, 6, 8, 10, 12, 14
 可以被看成一个run，并编码成为（0, 2, 8），其中0是base number，2是delta，8表示这个run总共有8个数字。这种编码方法虽然简单，但是缺点也是明显的。如果输入数字没有存在等差关系，则编码效率非常差，比如，一个乱序的数列:
 	3, 5, 6, 9
@@ -246,13 +245,14 @@ MaxCompute支持多用户共享集群资源，支持基于配额的存储和计�
 ### 7.MaxCompute 最佳实践&实操 
 
 **7.1.MaxCompute-数据研发实践(SQL)**
--大数据平台MaxCompute/EMR数据规范_cn_zh-CN
--大数据数据仓库实践_MaxCompute数仓建设规范管理指南
--[基于MaxCompute的拉链表设计](
+
+	- 大数据平台MaxCompute/EMR数据规范_cn_zh-CN
+	- 大数据数据仓库实践_MaxCompute数仓建设规范管理指南
+	- [基于MaxCompute的拉链表设计](
 https://developer.aliyun.com/article/542146)
--[SQL常见命令 SET操作](
+	- [SQL常见命令 SET操作](
 https://help.aliyun.com/document_detail/96004.html#section-937-f6z-num)
--[SQL计算优化](
+	- [SQL计算优化](
 https://help.aliyun.com/document_detail/100461.html)
 
 **7.2.MaxCompute数据治理&元仓**
@@ -317,7 +317,7 @@ DBA或将被淘汰？
 
 ### x.Ref
 
--[MaxCompute2018]
+- [MaxCompute2018]
 
 	- 超大规模的大数据计算服务
 	- 通过计算下推来实现的*联合计算*
@@ -328,8 +328,8 @@ DBA或将被淘汰？
 	- 面向企业的完整服务,跨集群数据容灾与调度系统(金融行业)
 	- 新查询语言叫做NewSQL，它是阿里巴巴定义的一套新的大数据语言，这套语言兼容传统SQL特性，同时又提供imperative与declarative优势。
 
--[MaxCompute Ref](https://yq.aliyun.com/articles/78108)
--[MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
+- [MaxCompute Ref](https://yq.aliyun.com/articles/78108)
+- [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
 	Comments:
 	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
@@ -342,4 +342,3 @@ DBA或将被淘汰？
 	8.MaxCompute与Spanner的差距到底在哪里?
 	9.华为FusionInsight方案为什么在外媒眼中更加受欢迎?
 
--[自动冷热存储分层]( https://topic.atatech.org/articles/162202)
