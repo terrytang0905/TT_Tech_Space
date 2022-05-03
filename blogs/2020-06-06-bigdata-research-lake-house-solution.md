@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata, tech, solution]
-title: Big Data Research Note - LakeHouse
+title: Big Data Research Note - DataLakeHouse
 ---
 
-## 大数据研究-开源数据湖存算分离技术研究
+## 大数据研究-数据湖存算分离技术研究
 ---------------------------------------------------
 
 ### I.存算分离之上的数据湖仓思考
