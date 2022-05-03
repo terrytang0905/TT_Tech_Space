@@ -513,15 +513,11 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 **公式中SG_share_j / SG_share_avg_j 表示预分配的share和真实的用于runnable的share的比例，这个比例的倒数就是资源利用率。两个公式合并起来，其实就是 (△CPU_time_i / EC_share_i) * 资源利用率，得出来的就是单位share有效的CPU使用时长。优先调度该时长低的EC来执行**。
 
-- 
-
 #### 3.Hologres 最佳实践&实操
 
 ​		[Hologres测试](https://help.aliyun.com/document_detail/252748.html)
 
 #### 4.Hologres 应用对比
 
-#### 6.云上实时数仓
-
-#### x.Ref
+#### X.Ref
 
