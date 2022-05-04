@@ -521,3 +521,4 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 #### X.Ref
 
+- [湖仓一体，Hologres加速云数据湖DLF技术原理解析](https://developer.aliyun.com/article/889051)
