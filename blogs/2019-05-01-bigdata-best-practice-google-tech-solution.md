@@ -6,40 +6,15 @@ title: Big Data Research Note - Google Solution
 ---
 
 ## 大数据研究-GoogleCloud产品解决方案
----------------------------------------------------
+### I. Google Cloud Product - BigQuery
 
-### I.Google大数据的遗产
+BigQuery作为GCP的主力大数据分析产品, 其事实上一个云上Serverless database的GCP产品.  
 
-#### 1.1.Google BigTable - HBase - MegaStore
+其中BigQuery最核心组件是基于Dremel分析引擎:
 
-**HBase**
-
-	1.强一致性的读写：HBase不是一个最终一致性的存储。
-	2.自动sharding：HBase的table在集群种被分布在各个region，region可以做自动切分。
-	3.regionserver的failover；
-	4.Hadoop/HDFS的集成；
-	5.MapReduce：支持大数据的并行处理；
-	6.JAVA Client 以及Thrift/RESR API 访问；
-	7.Block Cache 以及Bloom filter；
-	8.操作管理
-
-**[BigTable&HBase Research](2017-03-12-bigtable&hbase-analysis-note.md)**
-
-**Megastore: Providing Scalable, Highly Available Storage for Interactive Services**
-
-#### 1.2.DynamoDB - Cassandra
-
-**Dynamo: Amazon’s Highly Available Key-value Store**
-
-### II. Google Cloud Services - Google BigQuery
-
-BigQuery is truly a Serverless database from GCP.  BigQuery = Dremel + Colossus + Borg + Jupiter
-
-基于Dremel的GoogleBigQuery
-
-- Concept: distributed search engine design
-- Dremel provides a high-level, SQL-like language to express ad-hoc queries without translating them into MR job.
-- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
+- 概念-Concept: distributed search engine design
+- 定义-Dremel provides a high-level, SQL-like language to express ad-hoc queries without translating them into MR job.
+- 存储-Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
 
 There are significant design differences, for example, 
 
@@ -52,16 +27,17 @@ There are significant design differences, for example,
 
 These make Procella suitable for many additional workloads (e.g high QPS reporting and lookup queries)
 
-- BigQuery: adhoc,trival-and-error analytics tens of seconds 35billion rows
+- 查询-adhoc,trival-and-error analytics tens of seconds 35billion rows
 		
 		full scan全表扫描: 不需要Indices和pre-aggregation in-memory/flash,columar storage,parallel disk IO.
 		虽然 MapReduce 适用于数据挖掘等长时间运行的批处理过程，但 BigQuery 是需要尽快获得结果的即席 OLAP/BI 查询的最佳选择。
 
-#### 2.1.BigQuery背后的技术 
+**BigQuery背后的技术-Dremel + Colossus + Borg + Jupiter**
 
 ![dremel_arch](_includes/dremel_arch.png)
 
-**Dremel: The Execution Engine**
+***Dremel: The Execution Engine***
+
 Dremel将你的SQL语句转化成执行树。执行树的叶子节点被称为'slots'-插槽。大规模数据计算并从Colossus读取数据，插槽可读取千亿行数据并对每行做正则表达式的check。
 
 这执行树的分支被称为'mixers'-混合器, 它将用于聚合aggregation。 在shuffle过程中, 借助Google’s *Jupiter network*的技术优势可迅速准确地在多节点间迁移数据。混合器mixers与槽位slots都运行在Borg资源调度器内,并分配信息到硬件上。
@@ -70,19 +46,21 @@ Dremel 根据需求动态地将插槽slot分配给查询，从而在同时查询
 
 Dremel 在 Google 被广泛使用——从搜索到广告ads，从 youtube 到 gmail——内部客户使用导致其非常重视且不断改进 Dremel。 BigQuery 用户受益于性能、耐用性、效率和可扩展性的持续改进，而无需停机和与传统技术相关的升级。
 
-**Colossus: Distributed Storage**
+***Colossus: Distributed Storage***
+
 BigQuery 依赖于 Google 最新一代的分布式文件系统 *Colossus*。每个 Google 数据中心都有自己的 Colossus 集群，每个 Colossus 集群都有足够的磁盘来一次为每个 BigQuery 用户提供数千个专用磁盘。 Colossus 还处理复制、恢复（当磁盘崩溃时）和分布式高可用管理（因此没有单点故障）。 Colossus 的速度足以让 BigQuery 为许多内存数据库提供类似的性能，但利用了更便宜但高度并行化、可扩展、持久和高性能的基础架构。
 
 BigQuery 利用 *ColumnIO 列式存储格式* 和压缩算法以最佳方式将数据存储在 Colossus 中，以读取大量结构化数据。Colossus 允许 BigQuery 用户无缝扩展到数十 PB 的存储空间，而无需支付附加费用更昂贵的计算资源——相比典型的大多数传统数据库。
 
 BigQuery Storage = [Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
 
-**Borg: 分布式资源调度, K8s的原型**
+***Borg: 分布式资源调度, K8s的原型***
+
 为了给用户提供数以千计的专用于处理任务的 CPU 内核，BigQuery 充分利用了 Google 的大型集群资源管理系统 Borg。 Borg 集群运行在数十万台机器和数十万个内核上，因此使用 3300 个 CPU 的查询只使用了 BigQuery所保留的容量的一小部分，而 BigQuery 的容量只是 Borg 集群容量的一小部分。 Borg 将服务器资源分配给作业任务；在这种情况下，作业任务执行在 Dremel 集群上。
 
 运行大型生产数据中心时可能会出现机器崩溃、电源故障、网络交换机死机以及无数其他问题。 Borg 绕着它走，软件层被抽象了。在 Google 规模上，每天都会有数千台服务器出现故障，而 Borg 保护内部免受这些故障的影响。有人在运行查询的过程中拔掉了数据中心的机架，而您永远不会注意到其中的差异。
 
-**Jupiter: The Network**
+***Jupiter: The Network***
 
 除了明显的资源调度与计算资源需求, 大数据负载往往受到网络throughput的控制与节制。Google’s Jupiter网络支持整个对半带宽(bisection bandwidth)传输1Pb/s数据, 允许高效且迅速分发大负载数据。
 
@@ -90,7 +68,7 @@ Jupiter网络基础设施可能是GCP中单独最大的差异点。它提供足�
 
 典型的存储和计算分离的解决方案包括将数据保存在像 Google Cloud Storage 或 AWS S3 这样的对象存储中，并将数据按需加载到 VM。这种方法通常比 HDFS 等共租户架构更有效，但会受到本地 VM 和对象存储吞吐量限制。Jupiter 允许我们完全绕过这个过程，并在几秒钟内直接从存储中读取 TB 的数据，用于每个 SQL 查询。
 
-### III.Google Cloud Services - Big Query Product Series
+### II.Google Cloud Product -  BigData Product Series
 
 ![img](https://storage.googleapis.com/gweb-cloudblog-publish/images/2_Open_interface.max-2800x2800.jpg)
 
@@ -119,7 +97,7 @@ Jupiter网络基础设施可能是GCP中单独最大的差异点。它提供足�
 统一数据，避免移动或重复。使数据保留在原地，最大限度地降低费用并提高性能。
 
 
-### IV.Google Cloud Services - Open Platform for Mult-Cloud
+### III.Google Cloud Product -  Open Platform for Mult-Cloud
 
 Google Cloud’s bet on an open platform is starting to materialize with Anthos and BigQuery Omni.
 
@@ -150,12 +128,35 @@ Gartner最近对云采用情况进行的一项调查显示，使用公共云的�
 
 从这个角度来看，Google Cloud的竞争对手可能实际上是IBM，而不是AWS和Azure。 IBM在2019年以340亿美元的价格收购了Red Hat，押注与流行的企业Kubernetes平台OpenShift相同的开放式混合云战略。 Google作为创建者显然在Kubernetes中具有优势(更不用说它在运行Borg方面的15年以上的经验了，Borg是Kubernetes所基于的Google原始容器管理系统)，并且继续通过对Kubernetes，Istio和容器的积极贡献来扩大其领先地位。技术。 结合Kurian在Oracle上运行融合中间件产品的经验，Google似乎有条件将Anthos和BigQuery Omni成为云中的下一个大规模中间件产品。
 
-那么Anthos的下一步是什么？ 显而易见的答案是扩展产品线以支持其他数据库：Cloud SQL，Dataproc，BigTable和Spanner。 就个人而言，我对Google如何使用Looker来吸引用户寻找AWS Quicksight或Azure PowerBI的替代解决方案感兴趣。 另一个有趣的途径是将Firebase扩展到移动开发，并利用现有的生态系统来扩展“中间件”市场。 最后，最大的问题是该策略是否还会加速AI / ML技术的广泛采用。 Google被广泛视为这一领域的领导者，将BigQuery Omni与现有的AI平台产品(即[kubeflow](https://gitcode.net/mirrors/kubeflow/pipelines?utm_source=csdn_github_accelerator) ， [TensorFlow](https://www.tensorflow.org/) ， AI集线器/托管的Jupyter Notebook([Vertex AI](https://cloud.google.com/vertex-ai))和[Kaggle](https://www.kaggle.com/) )相集成可能是帮助企业采用AI / ML。
-
 **_Anthos-Open Platform based on K8s_**
 
+那么Anthos的下一步是什么？ 显而易见的答案是扩展产品线以支持其他数据库：Cloud SQL，Dataproc，BigTable和Spanner。 就个人而言，我对Google如何使用Looker来吸引用户寻找AWS Quicksight或Azure PowerBI的替代解决方案感兴趣。 另一个有趣的途径是将Firebase扩展到移动开发，并利用现有的生态系统来扩展“中间件”市场。 最后，最大的问题是该策略是否还会加速AI / ML技术的广泛采用。 Google被广泛视为这一领域的领导者，将BigQuery Omni与现有的AI平台产品(即[kubeflow](https://gitcode.net/mirrors/kubeflow/pipelines?utm_source=csdn_github_accelerator) ， [TensorFlow](https://www.tensorflow.org/) ， AI集线器/托管的Jupyter Notebook([Vertex AI](https://cloud.google.com/vertex-ai))和[Kaggle](https://www.kaggle.com/) )相集成可能是帮助企业采用AI / ML。
 
-### V.分布式OLTP: F1 - Spanner
+### IV.Google BigData - 大数据遗产
+
+#### 4.1.Google BigTable - HBase - MegaStore
+
+**HBase**
+
+	1.强一致性的读写：HBase不是一个最终一致性的存储。
+	2.自动sharding：HBase的table在集群种被分布在各个region，region可以做自动切分。
+	3.regionserver的failover；
+	4.Hadoop/HDFS的集成；
+	5.MapReduce：支持大数据的并行处理；
+	6.JAVA Client 以及Thrift/RESR API 访问；
+	7.Block Cache 以及Bloom filter；
+	8.操作管理
+
+**[BigTable&HBase Research](2017-03-12-bigtable&hbase-analysis-note.md)**
+
+**Megastore: Providing Scalable, Highly Available Storage for Interactive Services**
+
+#### 4.2.DynamoDB - Cassandra
+
+**Dynamo: Amazon’s Highly Available Key-value Store**
+
+
+### V.Google BigData - 分布式OLTP: F1&Spanner
 
 Spanner有一种负责专门管理数据的spanserver，spanserver也是基于bigtable的tablet结构. Cloud Spanner是一款具备强一致性的全球分布式企业级数据库服务
 
@@ -198,7 +199,7 @@ F1支持层级表结构和protobuf复合数据域，示例如下：
     - global:同理可推global索引不包含root row,也不和被索引row在同一个spanserver里.这种索引一般被shard在多个spanserver上;当有事务需要更新一行数据时,因为索引的分布式,必须要2PC了.当需要更新很多行时,就是个灾难了,每插入一行都需要更新可能分布在多台机器上的索引,开销很大;所以建议插入行数少量多次.
 
 
-### VI.分布式OLAP: Mesa
+### VI.Google BigData -分布式OLAP: Mesa
 
 Mesa是Google开发的近实时分析型数据仓库
 
@@ -245,7 +246,7 @@ Example of Compaction Policy
 [Monarch: 谷歌的全球级内存时序数据库](https://mp.weixin.qq.com/s/JUxZGF0q69HcF1uCit9TYw)
 
 
-### VII.Apache Beam数据框架
+### VII.Google BigData - Apache Beam数据框架
 
 Apache Beam主要由Beam SDK和Beam Runner组成，Beam SDK定义了开发分布式数据处理任务业务逻辑的API接口，生成的的分布式数据处理任务Pipeline交给具体的Beam Runner执行引擎。Apache Beam目前支持的API接口是由Java语言实现的，Python版本的API正在开发之中。Apache Beam支持的底层执行引擎包括Apache Flink，Apache Spark以及Google Cloud Platform，此外Apache Storm，Apache Hadoop，Apache Gearpump等执行引擎的支持也在讨论或开发当中。其基本架构如下图所示
 
@@ -258,7 +259,7 @@ Apache Beam主要由Beam SDK和Beam Runner组成，Beam SDK定义了开发分布
 
 
 
-### VIII.核心数据架构设计
+### VIII.Google BigData -核心数据架构设计
 
 Bigtable的Key-Value数据结构
 
