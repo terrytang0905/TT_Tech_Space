@@ -59,7 +59,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - **[数据库研究-TiDB HTAP DB](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-07-08-newdb-tidb-design-note.md)**
 - **[大数据分析-SQL Anywhere应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-08-01-bigdata-analytics-sql-anywhere-design.md)**
 - **[大数据产品实践-PrestoDB技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-03-bigdata-best-practice-distributed-presto-note.md)**
-- **[大数据产品实践-ElasticSearch分布式搜索](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elasticsearch-search-engine-architect-note.md)**
+- **[大数据产品实践-ElasticSearch分布式搜索](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-06-elastic-search-engine-architect-note.md)**
 - [OLAP-Mondrian技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-01-31-olap-mondrian-note.md)
 - [OLAP-分布式-Impala技术实践](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-13-olap-distributed-impala-practice-note.md)
 - [OLAP-分布式-ImpalaResearchNote(EN)](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-12-12-olap-distributed-impala-research-note.md)
