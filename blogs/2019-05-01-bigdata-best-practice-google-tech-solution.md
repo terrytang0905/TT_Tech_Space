@@ -16,7 +16,7 @@ BigQuery作为GCP的主力大数据分析产品, 其事实上一个云上Serverl
 - 定义-Dremel provides a high-level, SQL-like language to express ad-hoc queries without translating them into MR job.
 - 存储-Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
 
-There are significant design differences, for example, 
+其中有明显的设计差异, 例如:
 
 	- extensive use of stateful caching (Dremel is mostly stateless), 
 	- Execution model-Volcano / Exchange Operator(Parallel Database)
@@ -25,7 +25,7 @@ There are significant design differences, for example,
 	- use of indexable columnar formats optimized for lookups (Capacitor, unlike Artus, does not have indexes), etc.
 	- Storage Format, Capacitor and Parquet
 
-These make Procella suitable for many additional workloads (e.g high QPS reporting and lookup queries)
+以上这些差异使 Procella 适用于许多额外的工作负载 (e.g high QPS reporting and lookup queries)
 
 - 查询-adhoc,trival-and-error analytics tens of seconds 35billion rows
 		
@@ -99,11 +99,11 @@ Jupiter网络基础设施可能是GCP中单独最大的差异点。它提供足�
 
 ### III.Google Cloud Product -  Open Platform for Mult-Cloud
 
-Google Cloud’s bet on an open platform is starting to materialize with Anthos and BigQuery Omni.
+Google Cloud 在开放平台上的赌注开始通过 Anthos 和 BigQuery Omni 实现。
 
 **_BigQuery Omni-Multi-Cloud Data Analytics_**
 
-Google宣布了[BigQuery Omn](https://cloud.google.com/blog/products/data-analytics/introducing-bigquery-omni) ，这是一种多云分析解决方案，可以在Google Cloud，AWS和Azure上运行BigQuery(即将推出)。 现在，无论数据存储在何处，客户都可以使用相同的BigQuery UI或API来运行SQL查询并构建BigQuery ML模型。 更重要的是，BigQuery Omni在Anthos上运行，并揭示了Kurian和Google Cloud的战略，以扩大其可寻址市场。 最初，Anthos是“简单”的混合和多云应用程序平台，利用其强大的Kubernetes主干网将本地和现有AWS / Azure应用程序迁移到GCP上。 Google希望通过BigQuery Omni将整个云基础设施商品化，并使用Anthos作为中间件来赢得市场份额。 从本质上讲，谷歌将赌注押在其卓越的容器和AI / ML技术上，以在不断发展的多云世界中竞争，就像它通过搜索使互联网时代的基础操作系统商品化一样。
+Google宣布了[BigQuery Omni](https://cloud.google.com/blog/products/data-analytics/introducing-bigquery-omni) ，这是一种多云分析解决方案，可以在Google Cloud，AWS和Azure上运行BigQuery(即将推出)。 现在，无论数据存储在何处，客户都可以使用相同的BigQuery UI或API来运行SQL查询并构建BigQuery ML模型。 更重要的是，BigQuery Omni在Anthos上运行，并揭示了Kurian和Google Cloud的战略，以扩大其可寻址市场。 最初，Anthos是“简单”的混合和多云应用程序平台，利用其强大的Kubernetes主干网将本地和现有AWS / Azure应用程序迁移到GCP上。 Google希望通过BigQuery Omni将整个云基础设施商品化，并使用Anthos作为中间件来赢得市场份额。 从本质上讲，谷歌将赌注押在其卓越的容器和AI / ML技术上，以在不断发展的多云世界中竞争，就像它通过搜索使互联网时代的基础操作系统商品化一样。
 
 **_BigQuery Omni Deep-dive_**
 
