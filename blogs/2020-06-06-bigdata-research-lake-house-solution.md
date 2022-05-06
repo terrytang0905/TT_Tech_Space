@@ -56,17 +56,87 @@ _技术决定可行性，场景需求决定必要性_
 - 大数据存算分离: Databricks DeltaLake / EMR+OSS (本文主要讨论的重点)
 
 
-### II.开源云端存储加速技术
+### II.阿里云数据湖存储加速技术-JindoData
 
 ![数据湖存算分离](_includes/数据湖存算分离架构分解.png)
 
 #### 2.1.JindoData数据湖存储加速套件
 
+**A.JindoFSx存储加速系统**
+
+-第一种 jindo sdk直接对接oss, 跟aws差不多，但是可以打开cache --ready
+
+**B.JindoFS&OSS-HDFS服务**
+
+-第二种oss-hdfs服务化， 相当于全托管的lblock模式， 也可以使用cache --ready
+
+**C.云原生缓存JindoRuntime on K8s**
+
 Fluid+JindoRuntime+ACK
+
+_1.什么是Fluid_
+
+Fluid是一个开源的Kubernetes原生的分布式数据集编排和加速引擎，主要服务于云原生场景下的数据密集型应用，例如大数据应用、AI应用等。通过定义数据集资源的抽象，实现如下功能：  
+
+![fluid_on_k8s.png](_includes/fluid_on_k8s.png)
+
+	1、数据集抽象原生支持
+	2、将数据密集型应用所需基础支撑能力功能化，实现数据高效访问并降低多维管理成本
+	3、云上数据预热与加速:Fluid通过使用分布式缓存引擎（如JindoFS）为云上应用提供数据预热与加速，同时可以保障缓存数据的可观测性，可迁移性和自动化的水平扩展
+	4、数据应用协同编排
+	5、在云上调度应用和数据时候，同时考虑两者特性与位置，实现协同编排，提升性能
+	6、多命名空间管理支持:用户可以创建和管理不同namespace的数据集
+
+_2、什么是JindoRuntime_
+
+首先介绍Dataset的概念，数据集是逻辑上相关的一组数据的集合，会被运算引擎使用，比如大数据的Spark，AI场景的TensorFlow，而关于数据集智能的应用和调度会创造工业界的核心价值。Dataset的管理实际上也有多个维度，比如安全性，版本管理和数据加速。我们希望从数据加速出发，对于数据集的管理提供支持。在Dataset上面我们通过定义Runtime这样一个执行引擎来实现数据集安全性，版本管理和数据加速等能力，Runtime定义了一系列生命周期的接口，可以通过实现这些接口来支持数据集的管理和加速。其中JindoRuntime来源于阿里云社区EMR自研JindoFS分布式系统，是支撑Dataset数据管理和缓存的执行引擎实现。Fluid通过管理和调度Jindo Runtime实现数据集的可见性，弹性伸缩， 数据迁移，计算加速等。在Fluid上使用和部署JindoRuntime流程简单，兼容原生k8s环境，可以开箱即用。深度结合对象存储特性，使用navite框架优化性能，并支持免密，checksum校验等云上数据安全功能
+
+ _3、JindoRuntime可以做什么_
+
+JindoRuntime提供对Aliyun OSS对象存储服务的访问和加速能力，提供NoCache和Cache模式，并且利用**FUSE的POSIX文件系统接口**实现，使用JindoFuse可以像本地磁盘一样轻松使用OSS上的海量文件
+
+![fuse_high_level_arch.png](_includes/fuse_high_level_arch.png)
+ 
+		1、NoCache模式：该模式通过Jindo native层OSS API提供对OSS的直接访问能力，深度优化list/delete/rename等接口
+
+		2、**Cache模式**：该模式兼容现有的OSS文件系统，用户可以通过OSS访问原有的目录结构以及文件，同时提供数据以及元数据的缓存，加速用户读写数据的性能
+
+JindoRuntime对大量小文件读取场景进行优化、支持单TB级文件缓存和读取、STS免密访问、深度结合OSS进行读写效率和稳定性的增强，在大规模AI训练和数据湖场景实测中表现相比ossfs等工具有突出的性能优势
+ 
+
+_4、JindoRuntime性能怎么样_
+
+我们使用[ImageNet](http://www.image-net.org/)数据集基于Kubernetes集群并使用[Arena](https://github.com/kubeflow/arena)在此数据集上训练ResNet-50模型，在不同的job和gpu个数情况下，基于jindofs的JindoRuntime性能均大幅度优于ossfs，最高可到3倍的加速效果
+
 
 #### 2.2.Alluxio开源数据湖缓存技术
 
+**Alluxio是面向基于云的数据分析和人工智能的开源的[数据编排技术](https://www.alluxio.io/blog/data-orchestration-the-missing-piece-in-the-data-world/)**
 
+![alluxio_for_cloud.png](_includes/alluxio_for_cloud.png)                               
+
+**优势**
+
+通过简化应用程序访问其数据的方式（无论数据是什么格式或位置），Alluxio 能够帮助克服从数据中提取信息所面临的困难。Alluxio 的优势包括：
+
+- **内存速度 I/O**：Alluxio 能够用作分布式共享缓存服务，这样与 Alluxio 通信的计算应用程序可以透明地缓存频繁访问的数据（尤其是从远程位置），以提供内存级 I/O 吞吐率。此外，Alluxio的层次化存储机制能够充分利用内存、固态硬盘或者磁盘，降低具有弹性扩张特性的数据驱动型应用的成本开销。
+
+- **简化云存储和对象存储接入**：与传统文件系统相比，云存储系统和对象存储系统使用不同的语义，这些语义对性能的影响也不同于传统文件系统。在云存储和对象存储系统上进行常见的文件系统操作（如列出目录和重命名）通常会导致显著的性能开销。当访问云存储中的数据时，应用程序没有节点级数据本地性或跨应用程序缓存。将 Alluxio 与云存储或对象存储一起部署可以缓解这些问题，因为这样将从 Alluxio 中检索读取数据，而不是从底层云存储或对象存储中检索读取。
+
+- **简化数据管理**：Alluxio 提供对多数据源的单点访问。除了连接不同类型的数据源之外，Alluxio 还允许用户同时连接同一存储系统的不同版本，如多个版本的 HDFS，并且无需复杂的系统配置和管理。
+
+- **应用程序部署简易**：Alluxio 管理应用程序和文件或对象存储之间的通信，将应用程序的数据访问请求转换为底层存储接口的请求。Alluxio 与 Hadoop 生态系统兼容，现有的数据分析应用程序，如 Spark 和 MapReduce 程序，无需更改任何代码就能在 Alluxio 上运行。
+
+**技术创新**
+
+Alluxio 将三个关键领域的创新结合在一起，提供了一套独特的功能。
+
+1. **全局命名空间**：Alluxio 能够对多个独立存储系统提供单点访问，无论这些存储系统的物理位置在何处。这提供了所有数据源的统一视图和应用程序的标准接口。有关详细信息，请参阅[统一命名空间文档](https://docs.alluxio.io/os/user/stable/cn/core-services/Unified-Namespace.html)。
+2. **智能多层级缓存**：Alluxio 集群能够充当底层存储系统中数据的读写缓存。可配置自动优化数据放置策略，以实现跨内存和磁盘（SSD/HDD）的性能和可靠性。缓存对用户是透明的，使用缓冲来保持与持久存储的一致性。有关详细信息，请参阅 [缓存功能文档](https://docs.alluxio.io/os/user/stable/cn/core-services/Caching.html)。
+
+3. **服务器端 API 翻译转换**：Alluxio支持工业界场景的API接口，例如HDFS API, S3 API, FUSE API, REST API。它能够透明地从标准客户端接口转换到任何存储接口。Alluxio 负责管理应用程序和文件或对象存储之间的通信，从而消除了对复杂系统进行配置和管理的需求。文件数据可以看起来像对象数据，反之亦然。
+
+[Alluxio Ref](https://docs.alluxio.io/os/user/stable/cn/Overview.html)
 
 #### 2.3.JindoFS VS Aullixo技术研究与学习
 
