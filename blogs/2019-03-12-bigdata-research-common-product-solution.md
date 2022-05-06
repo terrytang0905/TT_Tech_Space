@@ -246,9 +246,7 @@ Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建�
 
 Cloud Analytics Data Warehouse is new Next Generation model for Analytics as a Service.
 
-Standard SQL -> OLTP 
-
-Batch ETL -> OLAP analytics -> Online Service
+Standard SQL -> OLTP -> Data Ingest -> Batch ETL -> OLAP analytics -> Online Data Service
 
 Data Develop and Data Governance Platform
 
@@ -256,20 +254,38 @@ Data Develop and Data Governance Platform
 
 **<u>4.1.Snowflow:Elastic Data Warehouse 一夜暴富的背后</u>**
 
-Snowflake is a multi-tenant, transactional, secure, highly scalable and elastic system with full SQL support and built-in extensions for semi-structured and schema-less data.
+Snowflake 是一个多租户、事务性、安全、高度可扩展和弹性数据仓库系统。具有完整的 SQL 支持和半结构化和无模式数据的内置扩展。
 
-- SaaS,acid事务，关系型数据库，半结构，列式存储
-- MVCC,Snapshot
+- SaaS-Severless数据仓库, ACID事务，关系型数据库，半结构，列式存储
+- MVCC多版本并发控制, Snapshot隔离
 
 1.3. Also, following a pure service principle, Snowflake requires no physical tuning, data grooming, manual gathering of table statistics, or table vacuuming on the part of users.
 
 2.1、parallel database system：redshift，share-nothing结构，需要数据迁移（A. Gupta et al. Amazon Redshift and the case for simpler datawarehouses. InProc. SIGMOD, 2015.）
+
 2.2、BigQuery sql-like语言，tricky for sql-based。tables are append-only and require schemas
 
 2.3、Document Stores and Big Data.Document storessuch as MongoDB, Couchbase Server, and ApacheCassandra ，challenge ：simple key-value and CRUD (create, read, update, and delete) APIof these systems is the difficulty to express more complexqueries.
 Additionally, many “Big Data” engines now support queries over nested data,for example Apache Hive, Apache Spark, ApacheDrill, Cloudera Impala , and Facebook Presto.We believe that this shows a real need for complex analyticsover schema-less and semi-structured data,
 
 When Snowflake was founded in 2012, the database worldwas fully focused onSQL on Hadoop, with over a dozensystems appearing within a short time span. At that time,the decision to work in a completely different direction, tobuild a “classic” data warehouse system for the cloud, seemeda contrarian and risky move. After 3 years of developmentwe are confident that it was the right one. Hadoop has notreplaced RDBMSs; it has complemented them. People stillwant a relational database, but one that is more efficient,flexible, and better suited for the cloud.
+
+**System Performance Tuning Best Practice**
+
+Clearly data caching makes a massive difference to Snowflake query performance, but what can you do to ensure maintain the performance when you cannot change the cache?
+
+Here's a few best practice tips:-
+
+- Auto-Suspend:  
+
+  By default, Snowflake will auto-suspend a virtual warehouse (the compute resources with the SSD cache after 10 minutes of idle time.  Best practice?  Leave this alone.  Keep in mind, you should be trying to balance the cost of providing compute resources with fast query performance.  To illustrate the point, consider these two extremes:
+
+  1. **Suspend after 60 seconds:**  When the warehouse is re-started, it will (most likely) start with a clean cache, and will take a few queries to hold the relevant cached data in memory.  (Note:  Snowflake will try to restore the same cluster, with the cache intact, but this is not guaranteed).
+  2. **Suspend Never:**  And your cache will always be *warm*, but you will pay for compute resources, even if nobody is running any queries.  However, provided you set up a script to shut down the server when  not being used, it may make sense.
+
+- **Scale up for large data volumes:**  If you have a sequence of large queries to perform against massive (multi-terabyte) size data volumes, you can improve query performance by scaling up.  Simple execute a SQL statement to increase the virtual warehouse size, and new queries will start on the larger (faster) cluster.  While this will start with a clean (empty) cache, you should normally find performance doubles at each size, and this extra performance boost will more than out-weigh the cost of refreshing the cache.
+
+- **Scale down - but not too soon:**  Once your large task has completed, you could reduce costs by scaling down or even suspending the virtual warehouse.  Be aware again however, the cache will start again clean on the smaller cluster.  By all means tune the warehouse size dynamically, but don't keep adjusting it, or you'll lose the benefit.
 
 **<u>4.2.Snowflake vs Redshift</u>**
 
@@ -350,4 +366,6 @@ SCOPE
 
 
 ### Z.技术趋势
+
+云端大数据分析作为主流技术趋势，有哪些差异优势？下一步数据湖仓融合？？
 
