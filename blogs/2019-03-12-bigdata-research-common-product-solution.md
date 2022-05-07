@@ -258,25 +258,25 @@ Snowflake 是一个多租户、事务性、安全、高度可扩展和弹性数�
 
 - SaaS-Severless数据仓库, ACID事务，关系型数据库，半结构，列式存储
 - MVCC多版本并发控制, Snapshot隔离
+- 跟进纯粹的服务化原则, Snowflake 不需要用户进行物理调整、数据梳理、手动收集表统计信息或清空表。
 
-1.3. Also, following a pure service principle, Snowflake requires no physical tuning, data grooming, manual gathering of table statistics, or table vacuuming on the part of users.
+4.1.1、并行数据库系统：redshift，share-nothing结构，需要数据迁移（A. Gupta et al. Amazon Redshift and the case for simpler datawarehouses. InProc. SIGMOD, 2015.）
 
-2.1、parallel database system：redshift，share-nothing结构，需要数据迁移（A. Gupta et al. Amazon Redshift and the case for simpler datawarehouses. InProc. SIGMOD, 2015.）
+4.1.2、BigQuery sql-like语言，tricky for sql-based。tables are append-only and require schemas
 
-2.2、BigQuery sql-like语言，tricky for sql-based。tables are append-only and require schemas
+4.1.3、文档存储和大数据. Document stores such as MongoDB, Couchbase Server, and ApacheCassandra ，challenge ：simple key-value and CRUD (create, read, update, and delete) APIof these systems is the difficulty to express more complexqueries.
 
-2.3、Document Stores and Big Data.Document storessuch as MongoDB, Couchbase Server, and ApacheCassandra ，challenge ：simple key-value and CRUD (create, read, update, and delete) APIof these systems is the difficulty to express more complexqueries.
 Additionally, many “Big Data” engines now support queries over nested data,for example Apache Hive, Apache Spark, ApacheDrill, Cloudera Impala , and Facebook Presto.We believe that this shows a real need for complex analyticsover schema-less and semi-structured data,
 
 When Snowflake was founded in 2012, the database worldwas fully focused onSQL on Hadoop, with over a dozensystems appearing within a short time span. At that time,the decision to work in a completely different direction, tobuild a “classic” data warehouse system for the cloud, seemeda contrarian and risky move. After 3 years of developmentwe are confident that it was the right one. Hadoop has notreplaced RDBMSs; it has complemented them. People stillwant a relational database, but one that is more efficient,flexible, and better suited for the cloud.
 
-**System Performance Tuning Best Practice**
+**Snowflake: System Performance Tuning Best Practice**
 
 Clearly data caching makes a massive difference to Snowflake query performance, but what can you do to ensure maintain the performance when you cannot change the cache?
 
 Here's a few best practice tips:-
 
-- Auto-Suspend:  
+- **Auto-Suspend**:  
 
   By default, Snowflake will auto-suspend a virtual warehouse (the compute resources with the SSD cache after 10 minutes of idle time.  Best practice?  Leave this alone.  Keep in mind, you should be trying to balance the cost of providing compute resources with fast query performance.  To illustrate the point, consider these two extremes:
 
