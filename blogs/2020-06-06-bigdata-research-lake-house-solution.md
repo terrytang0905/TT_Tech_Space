@@ -64,7 +64,7 @@ _技术决定可行性，场景需求决定必要性_
 
 **A.JindoFSx存储加速系统**
 
--第一种 jindo sdk直接对接oss, 跟aws差不多，但是可以打开cache --ready
+-第一种 [jindo sdk直接对接oss](https://github.com/aliyun/alibabacloud-jindodata/blob/master/docs/user/4.x/oss/hadoop/jindosdk_on_hadoop.md?spm=a2c4g.11186623.0.0.413c79949OQrRO&file=jindosdk_on_hadoop.md), 跟aws差不多，但是可以打开cache --ready
 
 **B.JindoFS&OSS-HDFS服务**
 
@@ -96,13 +96,13 @@ _2、什么是JindoRuntime_
 JindoRuntime提供对Aliyun OSS对象存储服务的访问和加速能力，提供NoCache和Cache模式，并且利用**FUSE的POSIX文件系统接口**实现，使用JindoFuse可以像本地磁盘一样轻松使用OSS上的海量文件
 
 ![fuse_high_level_arch.png](_includes/fuse_high_level_arch.png)
- 
-		1、NoCache模式：该模式通过Jindo native层OSS API提供对OSS的直接访问能力，深度优化list/delete/rename等接口
 
+		1、NoCache模式：该模式通过Jindo native层OSS API提供对OSS的直接访问能力，深度优化list/delete/rename等接口
+	
 		2、**Cache模式**：该模式兼容现有的OSS文件系统，用户可以通过OSS访问原有的目录结构以及文件，同时提供数据以及元数据的缓存，加速用户读写数据的性能
 
 JindoRuntime对大量小文件读取场景进行优化、支持单TB级文件缓存和读取、STS免密访问、深度结合OSS进行读写效率和稳定性的增强，在大规模AI训练和数据湖场景实测中表现相比ossfs等工具有突出的性能优势
- 
+
 
 _4、JindoRuntime性能怎么样_
 

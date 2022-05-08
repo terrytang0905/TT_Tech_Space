@@ -8,13 +8,17 @@ title: Product Best Practice Note - AliCloud MaxCompute Best Practice
 ## 阿里云MaxCompute-SaaS级智能数仓最佳实践
 -------------------------------------------------------
 
-### 1.MaxCompute架构概述
+### 1.从开源到自研大数据产品思考
 
 “新一代计算引擎”的底层技术主要有三个：MaxCompute(离线计算)、Hologres(交互式分析)、Flink(实时计算)、PAI(人工智能)。在它们之上，是用来统一调度各个技术模块的操作系统：DataWorks。
 
 MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
 
-#### MaxCompute核心特点
+#### 开源与自研大数据平台的选择
+
+![hadoop&maxc_compare.png](_includes/hadoop&maxc_compare.png)
+
+#### 对比开源-MaxCompute核心产品特征
 
 - 大规模计算存储(海量离线计算): MaxCompute 适用于 100GB 以上规模的存储及计算需求，最大可达 EB 级别
 - 自研大数据计算引擎: 支持多种计算模型, MaxCompute 支持 SQL、Spark、MapReduce、Graph 等计算类型及 MPI 迭代类算法
@@ -30,19 +34,24 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
 - 全局统一数据资产管理能力：在全局范围内，对数据开发处理，数据质量等进行统一管理
 - 强数据安全：提供多层沙箱防护及监控，支持表和字段级数据安全防护能力
 
+### 2.大数据分析产品架构设计
 
-_MaxComputer技术栈_
+我们可以看到当前所有的大数据系统架构都如以下9个系统分层。 当前我们主要讨论围绕着 **多种计算引擎能力 / 分布式调度 / 分布式存储 及 安全与隐私保护** 4个核心部分。
 
-![MaxCompute技术栈](_includes/maxcomputer_tech.png)
+![大数据系统分层.png](_includes/大数据系统分层.png)
 
-
-### 2.数据产品架构设计
+**以下MaxCompute产品详细架构** 
 
 ![maxc_arch](_includes/maxc_arch.png)
 
-通过以上MaxCompute架构抽象看, 我们可以看到当前所有的大数据系统架构都如以下9个系统分层。 当前我们主要讨论围绕着 **多种计算引擎能力 / 分布式调度 / 分布式存储 及 安全与隐私保护** 4个核心部分。
+**MaxComputer技术栈分解**
 
-![大数据系统分层.png](_includes/大数据系统分层.png)
+- 计算力
+- 平台框架/存储/元数据服务
+- 生态能力扩展
+- 智能化
+
+![MaxCompute技术栈](_includes/maxcomputer_tech.png)
 
 ### 3.MaxCompute计算引擎能力
 
@@ -273,12 +282,14 @@ MC元仓记录内容包括:
 
 ### 8.MaxCompute 生态开放扩展
 
-
+![MaxC_Eco_open_framework.png](_includes/MaxC_Eco_open_framework.png)
 
 
 ### 9.云上智能数仓发展
 
-MaxCompute技术趋势
+![bigdata_trend_2021.png](_includes/bigdata_trend_2021.png)
+
+**MaxCompute技术趋势**
 
 _1.新硬件的发展_
 
@@ -295,7 +306,7 @@ _2.非关系型计算领域(图计算)有很多机会_
 	Comments:基于MaxGraph的知识图谱+用户画像模型设计.这些能力应用在哪里?
 			 GraphCompute依托于MaxGraph的图数据库
 
-_3.非结构化数据将变成大数据的主流_
+_3.非结构化数据&IoT数据计算将变成大数据的主流_
 
 越来越多的短视频、图片、语音类数据，并随着IoT的发展，可能占据80%的数据量，由于这类数据的特性在于结构各不相同，且数据非常大但是单位价值不高（相比传统结构化数据），如何快速高效的解析和处理非结构化数据，是计算平台的关键挑战。
 
@@ -317,28 +328,18 @@ DBA或将被淘汰？
 
 ### x.Ref
 
-- [MaxCompute2018]
-
-	- 超大规模的大数据计算服务
-	- 通过计算下推来实现的*联合计算*
-		如何实现联动多个存储和计算系统?
-		如何实现最终的数据统一计算?
-		联合计算的计算性能提升到底有多少?
-	- Auto Data Warehouse数据自动驾驶
-	- 面向企业的完整服务,跨集群数据容灾与调度系统(金融行业)
-	- 新查询语言叫做NewSQL，它是阿里巴巴定义的一套新的大数据语言，这套语言兼容传统SQL特性，同时又提供imperative与declarative优势。
-
 - [MaxCompute Ref](https://yq.aliyun.com/articles/78108)
+
 - [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
 
-	Comments:
-	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
-	2.缺少全球化的TechWriter,以支持非中国区客户
-	3.MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
-	4.超大规模的大数据计算服务(多租户体系)的核心应用场景在哪里?除了阿里和城市大脑。独立的大数据计算平台是不是更适合企业?
-	5.MaxCompute面对企业客户如何设置ROI(低成本是如何定义的),如何合理定价来确保MaxCompute成本与收益?
-	6.2019年MaxCompute面对的最大问题与挑战是什么? 如何面向国际化?
-	7.如何规划与实现MaxCompute的生态圈与合作伙伴?
-	8.MaxCompute与Spanner的差距到底在哪里?
-	9.华为FusionInsight方案为什么在外媒眼中更加受欢迎?
+  Comments:
+  1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
+  2.缺少全球化的TechWriter,以支持非中国区客户
+  3.MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
+  4.超大规模的大数据计算服务(多租户体系)的核心应用场景在哪里?除了阿里和城市大脑。独立的大数据计算平台是不是更适合企业?
+  5.MaxCompute面对企业客户如何设置ROI(低成本是如何定义的),如何合理定价来确保MaxCompute成本与收益?
+  6.2019年MaxCompute面对的最大问题与挑战是什么? 如何面向国际化?
+  7.如何规划与实现MaxCompute的生态圈与合作伙伴?
+  8.MaxCompute与Spanner的差距到底在哪里?
+  9.华为FusionInsight方案为什么在外媒眼中更加受欢迎?
 
