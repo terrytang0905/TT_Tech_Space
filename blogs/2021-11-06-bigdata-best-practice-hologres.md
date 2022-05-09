@@ -62,10 +62,9 @@ _系统架构概览_
 - 分布式文件系统Pangu：快速的分布式存储(优化存储数据格式-AliORC)
 
 
-### 3.核心技术解析
+### 3.Hologres核心技术解析
 
 **A. HSAP(hybrid serving/analytical processing) challenge**
-	
 
 - High-Concurrency Hybrid Query Workload:混合负载(在线服务&实时OLAP)是完全动态变化的,以应对突然的暴增。系统要求弹性且可扩展能力.处理查询负载远高于传统OLAP系统
 - High-Throughput Real-Time Data Ingestion:在处理高并发查询负载的同时,此系统依然需要保持高吞吐的实时数据写入能力。实时数据写入能力在秒级上下是为了实现实时在线服务与分析任务。
@@ -237,7 +236,7 @@ Column LSM-Tree：写入的数据扩展成<value_cols, LSN>结构。value_cols�
     delete包含一个key，这个key可以快速定位到shard文件和文件中要删除的行。写入到deletion map，field是这个shard文件的id，bitmap是行号
     update与insert类似，首先会根据key找到shard文件来读取本行的全部列，还原本行。然后将此行的行号写入deletion map，意味着此行删除。之后根据update的value值更新这一行对应的列值，然后整行重新写回内存表
 
-**5.4.5.分层缓存Cache**
+**4.5.分层缓存Cache**
 
 Hologres采用分级缓存机制，既降低了I/O成本，也降低了计算成本。
 根据上文介绍，每个talet都有一系列shard文件与之关联，持久化到分布式文件系统中。**总共有三层缓存：本地磁盘缓存、块缓存和行缓存**。
@@ -513,12 +512,14 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 **公式中SG_share_j / SG_share_avg_j 表示预分配的share和真实的用于runnable的share的比例，这个比例的倒数就是资源利用率。两个公式合并起来，其实就是 (△CPU_time_i / EC_share_i) * 资源利用率，得出来的就是单位share有效的CPU使用时长。优先调度该时长低的EC来执行**。
 
-#### 3.Hologres 最佳实践&实操
+### 6.Hologres 最佳实践&实操
 
-​		[Hologres测试](https://help.aliyun.com/document_detail/252748.html)
-
-#### 4.Hologres 应用对比
+- [使用实践- OOM排查指南](https://developer.aliyun.com/article/899342?spm=a2c6h.12873639.article-detail.67.45d91c48fbyERb)
+- [使用实践- Fixed Plan加速SQL执行](https://developer.aliyun.com/article/876983?spm=a2c6h.12873639.article-detail.76.1fc9cec7CvrmfF&accounttraceid=cc5c7325c2304cada708b538b05c9cd2qlyd)
+- [湖仓一体，Hologres加速云数据湖DLF技术原理解析](https://developer.aliyun.com/article/889051)
+- [基于MaxCompute+Hologres的人群圈选和数据服务实践](https://developer.aliyun.com/article/792500?accounttraceid=7f03fbd733924474b86bc049e447ac0ckywl)
+- [使用实践- 对接Flink常见问题诊断](https://developer.aliyun.com/article/873276?spm=a2c6h.13262185.profile.87.2ecc3b60Xt0P36)
+- [Hologres测试评估](https://help.aliyun.com/document_detail/252748.html)
 
 #### X.Ref
 
-- [湖仓一体，Hologres加速云数据湖DLF技术原理解析](https://developer.aliyun.com/article/889051)
