@@ -46,13 +46,57 @@ Dremel 根据需求动态地将插槽slot分配给查询，从而在同时查询
 
 Dremel 在 Google 被广泛使用——从搜索到广告ads，从 youtube 到 gmail——内部客户使用导致其非常重视且不断改进 Dremel。 BigQuery 用户受益于性能、耐用性、效率和可扩展性的持续改进，而无需停机和与传统技术相关的升级。
 
-***Colossus: Distributed Storage***
+***Colossus: Distributed Storage System***
 
 BigQuery 依赖于 Google 最新一代的分布式文件系统 *Colossus*。每个 Google 数据中心都有自己的 Colossus 集群，每个 Colossus 集群都有足够的磁盘来一次为每个 BigQuery 用户提供数千个专用磁盘。 Colossus 还处理复制、恢复（当磁盘崩溃时）和分布式高可用管理（因此没有单点故障）。 Colossus 的速度足以让 BigQuery 为许多内存数据库提供类似的性能，但利用了更便宜但高度并行化、可扩展、持久和高性能的基础架构。
 
 BigQuery 利用 *ColumnIO 列式存储格式* 和压缩算法以最佳方式将数据存储在 Colossus 中，以读取大量结构化数据。Colossus 允许 BigQuery 用户无缝扩展到数十 PB 的存储空间，而无需支付附加费用更昂贵的计算资源——相比典型的大多数传统数据库。
 
-BigQuery Storage = [Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
+***Capacitor: 列式数据存储优化格式***
+
+BigQuery Storage Format= [Inside Capacitor, BigQuery’s next-generation columnar storage format](https://cloud.google.com/blog/products/bigquery/inside-capacitor-bigquerys-next-generation-columnar-storage-format)
+
+Capacitor — BigQuery的存储格式, 大量建立在这项研究的基础上, 并采用了这些技术的变体和进步。T为了展示 Capacitor 提升最先进技术的一个示例, 我们将回顾输入行的重排问题。这是研究中较少涉及的问题之一 (see [this paper](http://arxiv.org/abs/1207.2189) for some background)。 为了说明这个问题，让我们考虑下面的 3 列输入示例：
+
+```
+  c1 c2 c3
+--------
+b  1  x 
+a  2  z
+b  1  y
+a  2  x
+b  3  z
+a  1  x
+b  3  y
+```
+
+如果我们用 **RLE编码算法** 对这些数据进行编码，那将不是非常理想的，因为在每一列中，每个值都不会重复一次以上，, 因此所有的 [run lengths](https://en.wikipedia.org/wiki/Run-length_encoding) 都是1, 我们最终会得到 21 次运行.
+
+但是，如果输入行重新排列为以下:
+
+```
+ c1 c2 c3             c1       c2      c3
+--------    RLE      ----------------------
+a  2  z     ====>    (3, a)   (2, 2)  (1, z)
+a  2  x              (4, b)   (3, 1)  (3, x)
+a  1  x                       (2, 3)  (2, y)
+b  1  x                               (1, z)
+b  1  y
+b  3  y
+b  3  z
+```
+
+我们将能够充分利用 RLE，最终总共运行 9 次。这种排列是给定输入的最佳解决方案，它比任何列组合的字典排序产生更好的结果。 不幸的是，找到最优解在计算机科学中被称为[NP-complete problem](https://en.wikipedia.org/wiki/NP-completeness) , 这意味着找到最优解是不切实际的，甚至对于少量的输入行, 这意味着找到最优解是不切实际的，甚至对于少量的输入行，更不用说数百万和数十亿行的 BigQuery 典型输入内容。 更复杂的是，我们应该注意到并非所有的列都是生来平等的。有些可能是很长的字符串，其中较短的 RLE 运行比短整数列上的较长运行更有效果。最后，我们必须考虑实际使用情况：某些列比其他列更可能在查询中被选中，而某些列更可能被用作过滤器，例如在 WHERE 子句中。Capacitor 建立了一个近似模型，该模型考虑了所有相关因素并提出了合理的解决方案。评估此模型的运行时间是有限制的，因为我们不希望将数据导入 BigQuery 的时间很长！
+
+在对每一列进行编码时，Capacitor 和 BigQuery 会收集有关数据的各种统计信息——这些统计信息会被持久化，然后在查询执行期间使用——它们都输入查询规划器以帮助编译最佳计划，并输入动态运行时以选择最有效的所需运算符的运行时算法。
+
+一旦对所有列数据进行编码后，将其写入 Google 的分布式文件系统 — [Colossus](https://cloud.google.com/files/storage_architecture_and_challenges.pdf). 此时必须做出更多决策，其中最重要的是如何对输入数据进行分片shard。shard是查询时的处理单元。 我们不想要太少的分片shard，因为我们希望利用 BigQuery 的分布式处理能力，使用可能有数千台机器并行处理一个表——每台机器都读取单独的分片shard。但是我们也不想要太多的分片shard，因为每个存储和处理单元都有固定的开销。未来的查询模式也会影响分片shard策略。将读取大量列的查询可能会受益于较小的分片shard，但只读取很少的查询可能会更好地使用较大的分片shard。同样，BigQuery有一个模型可以评估所有不同的因素，并提出理想数量的分片shard。
+
+当数据被发送到 Colossus 进行永久存储时，所有数据都会被加密。 [谷歌云平台](https://cloud.google.com/)中针对未经授权的访问有很多层级的防御，100%静态加密的数据就是其中之一。
+
+Colossus 是一个可靠且容错的文件系统，利用技术例如 [Reed Solomon codes](https://en.wikipedia.org/wiki/Reed–Solomon_error_correction) 确保数据永不丢失。此外，在将数据写入 Colossus 后，BigQuery 立即启动异地复制过程，将所有数据镜像到指定管辖范围内的不同数据中心, US or EU. 将数据放在多个数据中心可以实现最高可用性，以防一个数据中心暂时不可用，并且还有助于查询负载平衡。
+
+BigQuery 有后台进程，不断查看所有存储的数据并检查是否可以进一步优化。也许最初数据是以小块的形式加载的，在没有看到所有数据的情况下，一些决策并不是全局最优的。又或许系统的某些参数发生了变化，存储重组有了新的机会。或者Capacitor模型得到了更多的训练和调整，并且可以增强现有数据。无论是哪种情况，当系统检测到改进存储的机会时，它都会启动数据转换任务。这些任务不与资源查询竞争，它们完全并行运行，并且不会降低查询性能。新的优化存储完成后，它会自动替换旧的存储数据，而不会干扰正在运行的查询。旧数据稍后将被垃圾收集。
 
 ***Borg: 分布式资源调度, K8s的原型***
 

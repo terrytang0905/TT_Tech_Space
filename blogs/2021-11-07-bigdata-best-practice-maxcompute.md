@@ -108,7 +108,80 @@ _Spark_on_MaxCompute最佳实践_
 
 _MaxCompute联合计算引擎平台_
 
-### 4. 分布式资源调度
+
+
+### 4.统一分布式文件系统-Pangu
+
+_MaxCompute on Pangu(内部存储) + MaxCompute on OSS(外部存储) 湖仓一体_
+
+**1. 数据存储可靠性**
+
+大数据计算服务底层采用分布式文件系统(Pangu)-1.5倍存储，数据存储可达到三副本可靠性。副本能够有效确保数据安全，数据丢失会发⽣在某Object的replica所在的硬盘和机器在replication做完之前都发顺坏，在正常的硬件故障率情况，3份replica通过计算得到持久性数字是11个9，能够充分保障数据不丢，这也是HDFS和其他分布式⽂件系统默认选择3†replica的原因。2副本不到5个9. 
+
+**2. 自研EC技术**
+MaxCompute、OSS等飞天产品基于盘古分布式存储之上。盘古支持EC技术，先使用三副本机制，再使用EC，能把存储降到原始数据量的1倍多，不是单副本的三倍。
+将冷表用EC的方式存储，热表的3备份中一倍份放到OSS等加速硬件上实现。 从而达到降低集群的存储空间，优化集群IO负载，提升热表查询效率的作用。
+
+### 5.MaxCompute Storage Format
+
+**1. 自动冷热存储分层&Maxcompute TieredStorage**
+
+存储分层: 主要是根据MC元仓中收集表的被访问频次信息，比如最近一周高频访问的表为热表，超过7天为被访问的为冷表。  
+
+**2. 数据存储文件格式优化-AliORC**
+
+- AliORC/支持嵌套树型数据结构
+  ![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
+
+- 数据存储上持采用AliORC文件格式等高效存储压缩算法
+  MaxCompute数据存储格式全面升级为AliORC。本文通过TPC-DS测试数据对AliORC、Apache ORC和Apache Parquet进行测试对比，为您提供MaxCompute数据存储性能参照
+  --数据集（即24张测试表)测试结果对比数据如下
+
+  
+
+- 支持数据的生命周期管理。
+  ODPS本身⽀持较好的列式存储与数据压缩技术，依据数据特点不同压缩比可以达到20:1到3:1，如标准测试集10TB TPCDS数据，在MaxCompute中存放压缩后仅为2.3TB，加上3副本也不到原始数据的三分之一。软件本身已经做了较好的压缩存储，节省存储空间。(AliORC压缩存储算法)
+
+**A. 存储格式技术优势-AliORC**
+
+![maxc_storage_tuning](_includes/maxc_storage_tuning.png)
+
+_a.行化编码技术_
+如果大家对AliORC的数字编码技术有所了解，应该知道目前AliORC使用了**RLE（Run Length Encoding，游程编码) 编码算法**。RLE是一种非常简单的编码技术，可以比较好的压缩等差数列。例如，以下一个数列:
+	0, 2, 4, 6, 8, 10, 12, 14
+可以被看成一个run，并编码成为（0, 2, 8），其中0是base number，2是delta，8表示这个run总共有8个数字。这种编码方法虽然简单，但是缺点也是明显的。如果输入数字没有存在等差关系，则编码效率非常差，比如，一个乱序的数列:
+	3, 5, 6, 9
+编码成为了4个run，(3, 0, 1), (5, 0, 1), (6, 0, 1), (9, 0, 1)，RLE对这种literal可以做一些优化，但编码效果还是不理想，甚至有时候比直接存储的成本还要更高。
+
+此外，RLE编码为了找出来Run，只能对数列顺序处理，且有很多分支判断，并不适合CPU做并行化处理。基于这些考虑，我们在FastPFor的基础上，引入了并行化的数字编码技术。
+FastPFor是加拿大教授Daniel Lemire等人提出来的并行化的数字编码技术[4]。这个算法也经历了几个版本的迭代，从FOR，到PFor，再到FastPFor。其核心思想很简单，对于大多数的32位数，都是用不到32个比特，可以把前面的0全部去掉，pack在一起。例如，以下6个32位数，在内存中占用24个字节，但每个数只需要4个位来表示，只需要24个bit存储，这也称之为Bit Packing：
+
+此外，在一个整数系列里面，可能出现一两个特别大的数，这时候我们仍然可以做Bit Packing，只不过需要把这个大的数字作为Exception，区别对待。如下所示：
+
+对比RLE，这个基本的bit packing算法很多情况下可以工作的很好。特别是，在MaxCompute的场景下，很多整形数并不存在等差规律，使用这个算法的效果远远好于RLE。此外，除了第一次需要顺序扫描输入找出来合适的packing bits，接下来的packing，以及后续的unpacking都可以非常方便的并行化执行，充分利用现代CPU的SIMD指令集，大大提升数据编码、解码效率。
+
+在把这个算法运用到MaxCompute当中，我们也做了几方面重要的增强和改进：
+	1.	64位支持
+			原有的FastPFor实现只支持32位整数编码，这是很大的一个限制。Parquet在使用的时候，会把一个64位数，拆成两个32位进行编码，但这大大影响了算法的效率。我们把整个算法扩展到了64位，并把这个重要改进贡献到了开源社区（超过1万行C++代码）[5]。
+	2.	递增、递减数列的支持
+			可以看到FastPFor对于随机顺序的数字可以支持得很好，但是，如果数据本身存在规律则没有能很好运用数字的规律进行编码。比如下面这个例子，如果按照传统FastPFor的算法，每个数字我们需要16位。但是，考虑到这是个递增数列，如果我们做一个delta encoding，然后再做bit packing，则压缩效率会高很多
+
+_b.异步化数据读写_
+AliORC协程架构的引入，在实现异步化数据读写的同时，也为内部进一步推进异步并行化IO打下了基础。如下图所示，在传统的同步读取逻辑中，AliOrc通过顺序执行的方式分别对文件中的每一个column进行数据读取，由于所有的IO读取操作全都是同步操作，造成了大量的IO等待。
+
+![aliorc_sequence.png](_includes/aliorc_sequence.png)
+
+为了解决同步IO等待带来的性能问题，AliOrc1.0引入了异步预读，在读取数据之前提前将所有Column对应的IO请求同时发出，大大降低了IO等待时间。然而AliOrc 1.0的异步预读中，虽然实现了并发IO，Column的数据处理操作仍然是顺序执行的，由于请求数据大小，盘古chunk server IO队列以及网络带宽等种种因素等影响，不同IO请求的等待时间存在非常大的抖动。如下图所示，AliOrc reader 在同一时刻发出了不同column的IO请求，然而Column 4的IO请求要比Column1的IO请求快得多，在这样的情形下，由于数据顺序执行的限制，AliOrc Reader无法及时对Column 4对IO请求进行响应。
+
+![aliorc_async.png](_includes/aliorc_async.png)
+
+为了解决上述由于顺序执行而引入的IO等待开销，我们需要一个并行化的IO处理机制，其中最直观的解决方案是多线程。然而AliOrc作为一个Columnar 格式，一个AliOrc文件中可能会有上百个Column，每个Column又可能会有三到四个stream，如果每个stream由独立的线程负责IO处理，则读取单个AliOrc文件需要开启上千个线程，这是无法接受的资源消耗。相比于线程，协程在资源占用上要轻量得多，因此协程的引入可以很好地解决上述的问题，数据读取的过程中，AliOrc 为每一个Columnar 内部的stream分配一个协程，所有的数据读取逻辑在协程中执行。IO等待时，协程调度器根据IO返回的先后顺序对ColumnReader进行调度，将顺序执行的Column读取逻辑转换成IO事件驱动的读取逻辑。如下图所示，在同时发出IO请求后，Column 4的IO请求率先返回，于是协程调度器唤醒Column 4对应的ColumnReader，执行相应的数据读取逻辑。其他的Column也分别按照IO请求返回的先后顺序执行数据读取。与前面AliOrc 1.0中的数据读取逻辑相比，IO等待时间被进一步压缩。
+
+![aliorc_column_reader](_includes/aliorc_column_reader.png)
+
+
+
+### 6. 分布式资源调度
 
 Fuxi2.0全区域数据排布、去中心化调度、在线离线混合部署、动态计算等方面全方位满足新业务场景下的调度需求
 
@@ -164,79 +237,7 @@ DAG 2.0 通过逻辑图和物理图的清晰分层，可扩展的状态机管理
 
 同时基于DAG2.0对动态数据的收集，MaxC也优化了shuffle过程，将传统基于磁盘的shuffle优化成，动态根据数据碎片粒度，磁盘io util，网络带宽，mem util等物理资源情况，动态选择最优的shuffe方式，以提升shuffle效率。从而整体提升集群调度效率。
 
-
-### 5.分布式数据存储
-
-_MaxCompute on Pangu(内部存储) + MaxCompute on OSS(外部存储) 湖仓一体_
-
-#### 5.1.分布式存储系统-Pangu
-
-**1. 数据存储可靠性**
-
-大数据计算服务底层采用分布式文件系统(Pangu)-1.5倍存储，数据存储可达到三副本可靠性。副本能够有效确保数据安全，数据丢失会发⽣在某Object的replica所在的硬盘和机器在replication做完之前都发顺坏，在正常的硬件故障率情况，3份replica通过计算得到持久性数字是11个9，能够充分保障数据不丢，这也是HDFS和其他分布式⽂件系统默认选择3†replica的原因。2副本不到5个9. 
-
-**2. 自研EC技术**
-MaxCompute、OSS等飞天产品基于盘古分布式存储之上。盘古支持EC技术，先使用三副本机制，再使用EC，能把存储降到原始数据量的1倍多，不是单副本的三倍。
-将冷表用EC的方式存储，热表的3备份中一倍份放到OSS等加速硬件上实现。 从而达到降低集群的存储空间，优化集群IO负载，提升热表查询效率的作用。
-
-#### 5.2.MaxCompute存储引擎
-
-**1. 自动冷热存储分层&Maxcompute TieredStorage**
-
-存储分层: 主要是根据MC元仓中收集表的被访问频次信息，比如最近一周高频访问的表为热表，超过7天为被访问的为冷表。  
-
-**2. 数据存储文件格式优化-AliORC**
-
-- AliORC/支持嵌套树型数据结构
-  ![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
-
-- 数据存储上持采用AliORC文件格式等高效存储压缩算法
-  MaxCompute数据存储格式全面升级为AliORC。本文通过TPC-DS测试数据对AliORC、Apache ORC和Apache Parquet进行测试对比，为您提供MaxCompute数据存储性能参照
-  --数据集（即24张测试表)测试结果对比数据如下
-
-  
-
-- 支持数据的生命周期管理。
-  ODPS本身⽀持较好的列式存储与数据压缩技术，依据数据特点不同压缩比可以达到20:1到3:1，如标准测试集10TB TPCDS数据，在MaxCompute中存放压缩后仅为2.3TB，加上3副本也不到原始数据的三分之一。软件本身已经做了较好的压缩存储，节省存储空间。(AliORC压缩存储算法)
-
-**A. AliORC存储技术优势**
-
-![maxc_storage_tuning](_includes/maxc_storage_tuning.png)
-
-_a.行化编码技术_
-如果大家对AliORC的数字编码技术有所了解，应该知道目前AliORC使用了**RLE（Run Length Encoding，游程编码) 编码算法**。RLE是一种非常简单的编码技术，可以比较好的压缩等差数列。例如，以下一个数列:
-	0, 2, 4, 6, 8, 10, 12, 14
-可以被看成一个run，并编码成为（0, 2, 8），其中0是base number，2是delta，8表示这个run总共有8个数字。这种编码方法虽然简单，但是缺点也是明显的。如果输入数字没有存在等差关系，则编码效率非常差，比如，一个乱序的数列:
-	3, 5, 6, 9
-编码成为了4个run，(3, 0, 1), (5, 0, 1), (6, 0, 1), (9, 0, 1)，RLE对这种literal可以做一些优化，但编码效果还是不理想，甚至有时候比直接存储的成本还要更高。
-
-此外，RLE编码为了找出来Run，只能对数列顺序处理，且有很多分支判断，并不适合CPU做并行化处理。基于这些考虑，我们在FastPFor的基础上，引入了并行化的数字编码技术。
-FastPFor是加拿大教授Daniel Lemire等人提出来的并行化的数字编码技术[4]。这个算法也经历了几个版本的迭代，从FOR，到PFor，再到FastPFor。其核心思想很简单，对于大多数的32位数，都是用不到32个比特，可以把前面的0全部去掉，pack在一起。例如，以下6个32位数，在内存中占用24个字节，但每个数只需要4个位来表示，只需要24个bit存储，这也称之为Bit Packing：
-
-此外，在一个整数系列里面，可能出现一两个特别大的数，这时候我们仍然可以做Bit Packing，只不过需要把这个大的数字作为Exception，区别对待。如下所示：
-
-对比RLE，这个基本的bit packing算法很多情况下可以工作的很好。特别是，在MaxCompute的场景下，很多整形数并不存在等差规律，使用这个算法的效果远远好于RLE。此外，除了第一次需要顺序扫描输入找出来合适的packing bits，接下来的packing，以及后续的unpacking都可以非常方便的并行化执行，充分利用现代CPU的SIMD指令集，大大提升数据编码、解码效率。
-
-在把这个算法运用到MaxCompute当中，我们也做了几方面重要的增强和改进：
-	1.	64位支持
-			原有的FastPFor实现只支持32位整数编码，这是很大的一个限制。Parquet在使用的时候，会把一个64位数，拆成两个32位进行编码，但这大大影响了算法的效率。我们把整个算法扩展到了64位，并把这个重要改进贡献到了开源社区（超过1万行C++代码）[5]。
-	2.	递增、递减数列的支持
-			可以看到FastPFor对于随机顺序的数字可以支持得很好，但是，如果数据本身存在规律则没有能很好运用数字的规律进行编码。比如下面这个例子，如果按照传统FastPFor的算法，每个数字我们需要16位。但是，考虑到这是个递增数列，如果我们做一个delta encoding，然后再做bit packing，则压缩效率会高很多
-
-_b.异步化数据读写_
-AliORC协程架构的引入，在实现异步化数据读写的同时，也为内部进一步推进异步并行化IO打下了基础。如下图所示，在传统的同步读取逻辑中，AliOrc通过顺序执行的方式分别对文件中的每一个column进行数据读取，由于所有的IO读取操作全都是同步操作，造成了大量的IO等待。
-
-![aliorc_sequence.png](_includes/aliorc_sequence.png)
-
-为了解决同步IO等待带来的性能问题，AliOrc1.0引入了异步预读，在读取数据之前提前将所有Column对应的IO请求同时发出，大大降低了IO等待时间。然而AliOrc 1.0的异步预读中，虽然实现了并发IO，Column的数据处理操作仍然是顺序执行的，由于请求数据大小，盘古chunk server IO队列以及网络带宽等种种因素等影响，不同IO请求的等待时间存在非常大的抖动。如下图所示，AliOrc reader 在同一时刻发出了不同column的IO请求，然而Column 4的IO请求要比Column1的IO请求快得多，在这样的情形下，由于数据顺序执行的限制，AliOrc Reader无法及时对Column 4对IO请求进行响应。
-
-![aliorc_async.png](_includes/aliorc_async.png)
-
-为了解决上述由于顺序执行而引入的IO等待开销，我们需要一个并行化的IO处理机制，其中最直观的解决方案是多线程。然而AliOrc作为一个Columnar 格式，一个AliOrc文件中可能会有上百个Column，每个Column又可能会有三到四个stream，如果每个stream由独立的线程负责IO处理，则读取单个AliOrc文件需要开启上千个线程，这是无法接受的资源消耗。相比于线程，协程在资源占用上要轻量得多，因此协程的引入可以很好地解决上述的问题，数据读取的过程中，AliOrc 为每一个Columnar 内部的stream分配一个协程，所有的数据读取逻辑在协程中执行。IO等待时，协程调度器根据IO返回的先后顺序对ColumnReader进行调度，将顺序执行的Column读取逻辑转换成IO事件驱动的读取逻辑。如下图所示，在同时发出IO请求后，Column 4的IO请求率先返回，于是协程调度器唤醒Column 4对应的ColumnReader，执行相应的数据读取逻辑。其他的Column也分别按照IO请求返回的先后顺序执行数据读取。与前面AliOrc 1.0中的数据读取逻辑相比，IO等待时间被进一步压缩。
-
-![aliorc_column_reader](_includes/aliorc_column_reader.png)
-
-### 6.MaxCompute安全
+### 7.MaxCompute安全
 
 大数据系统层面安全体系包括系统安全与数据安全等多个维度。
 
@@ -251,20 +252,18 @@ MaxCompute支持多用户共享集群资源，支持基于配额的存储和计�
 	e)所有计算在受限的沙箱中运行，多层次的应用沙箱、系统沙箱配合请求鉴权管理机制，保证数据的安全；
 	f)系统级、Project级和表级的IP访问白名单设置Hadoop在这方面的支持比较弱，仅某些Hadoop发行版的少量组件提供了上述部分安全特性。
 
-### 7.MaxCompute 最佳实践&实操 
+### 8.MaxCompute 最佳实践&实操 
 
-**7.1.MaxCompute-数据研发实践(SQL)**
+**8.1.MaxCompute-数据研发实践(SQL)**
 
 	- 大数据平台MaxCompute/EMR数据规范_cn_zh-CN
 	- 大数据数据仓库实践_MaxCompute数仓建设规范管理指南
-	- [基于MaxCompute的拉链表设计](
-https://developer.aliyun.com/article/542146)
+	- [基于MaxCompute的拉链表设计](https://developer.aliyun.com/article/542146)
 	- [SQL常见命令 SET操作](
-https://help.aliyun.com/document_detail/96004.html#section-937-f6z-num)
+	https://help.aliyun.com/document_detail/96004.html#section-937-f6z-num)
 	- [SQL计算优化](
-https://help.aliyun.com/document_detail/100461.html)
-
-**7.2.MaxCompute数据治理&元仓**
+	https://help.aliyun.com/document_detail/100461.html)
+**8.2.MaxCompute数据治理&元仓**
 
 高效管理ODPS任务，科学分析所需计算资源
 资源抢占问题分析
@@ -278,14 +277,14 @@ MC元仓记录内容包括:
 		找出频繁访问的热表（用缓存技术加速）
 		找出很久不被访问的冷数据表，进行ec格式的进一步压缩，或者删除等
 
-**7.3..Data Modeling & Design-数据模型与设计**
+**8.3.Data Modeling & Design-数据模型与设计**
 
-### 8.MaxCompute 生态开放扩展
+### 9.MaxCompute 生态开放扩展
 
 ![MaxC_Eco_open_framework.png](_includes/MaxC_Eco_open_framework.png)
 
 
-### 9.云上智能数仓发展
+### 10.云上智能数仓发展
 
 ![bigdata_trend_2021.png](_includes/bigdata_trend_2021.png)
 
