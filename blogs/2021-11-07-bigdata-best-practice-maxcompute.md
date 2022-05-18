@@ -34,7 +34,7 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
 - 全局统一数据资产管理能力：在全局范围内，对数据开发处理，数据质量等进行统一管理
 - 强数据安全：提供多层沙箱防护及监控，支持表和字段级数据安全防护能力
 
-### 2.大数据分析产品架构设计
+### 2.MaxC大数据分析产品设计
 
 我们可以看到当前所有的大数据系统架构都如以下9个系统分层。 当前我们主要讨论围绕着 **多种计算引擎能力 / 分布式调度 / 分布式存储 及 安全与隐私保护** 4个核心部分。
 
@@ -53,6 +53,18 @@ MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海
 
 ![MaxCompute技术栈](_includes/maxcomputer_tech.png)
 
+**2. MaxCompute云端数仓产品思考**
+
+**数据仓库能力评估**
+
+![img](_includes/数据仓库能力评估1.png)
+
+![img](_includes/数据仓库能力评估2.png)
+
+**MaxCompute产品定位**
+
+![img](_includes/maxc_product_position.png)	
+
 ### 3.MaxCompute计算引擎能力
 
 计算引擎在兼容开源体系基础上和存储层在设计，接口，协议上保持保证兼容性和一致性，在性能优化，扩展性，兼容性上完全做到了自主可控。在功能升级时快速高效。计算引擎直接集成高效的数据格式算法及压缩解压SDK及接口，使得在压缩膨胀系数达到1：10甚至更高压缩比的情况下具有较强的数据处理能力。
@@ -70,7 +82,8 @@ MaxCompute离线计算提供基于SQL的数据处理模式，支持Java/Python U
 	e)MaxCompute提供了准实时SQL引擎，中间数据不落磁盘，使用内存和网络进行加速，相对于MaxCompute离线SQL有2～5倍的性能提升。
 	f)以DML支持分区动态过滤，有效减少数据量读取，提高计算效率，可使万台规模集群的CPU利用率达到80%-90% （对比开源技术的40%-50%利用率）
 	g）MaxCompute 支持 SQL、Spark、MapReduce、Graph 等计算类型及 MPI 迭代类算法
-	h)提供Java语言级别和系统级别的应用沙箱
+	h) 支持类似Hadoop-MapReduce编程框架，提供Java语言级别和系统级别的应用沙
+	箱，保障系统和数据安全。
 
 #### 3.2.MaxCompute查询引擎解析
 
@@ -104,10 +117,25 @@ _计算引擎查询Archive数据表_
 
 计算引擎层和数据组织层的数据备份有机结合，计算引擎能够直接读取已经ARCHIVE的表数据，充分发挥在⼀个系统中做数据组织及⽣命周期管理的优势。
 
-_Spark_on_MaxCompute最佳实践_
+_SQL查询引擎优化进行中_
 
-_MaxCompute联合计算引擎平台_
+	- Adaptive Hash Join
+	- Dynamic Filter
+	- Adaptive PartialHash Aggregator
+	- Adaptive Sorter
+	- 表达式计算
+	- Dynamic Partition Shuffle优化
+	- 针对OuterJoin场景的Enhanced Dynamic Filter优化
+	- StreamLine Null RLE Encoding等优化
+	- FPGA支持热表压缩
+	- 内置函数下推
+	- Singleton优化
+	- 渐进计算
 
+
+#### 3.3.MaxCompute SQL优化指南
+
+https://yuque.antfin-inc.com/pssg23/bnei10/clxb46
 
 
 ### 4.统一分布式文件系统-Pangu
@@ -146,6 +174,8 @@ MaxCompute、OSS等飞天产品基于盘古分布式存储之上。盘古支持E
 
 ![maxc_storage_tuning](_includes/maxc_storage_tuning.png)
 
+AliORC支持基于CPU并行指令集的数据编码，异步化、高并发的IO层，FPGA加速的智能化自适应压缩等
+
 _a.行化编码技术_
 如果大家对AliORC的数字编码技术有所了解，应该知道目前AliORC使用了**RLE（Run Length Encoding，游程编码) 编码算法**。RLE是一种非常简单的编码技术，可以比较好的压缩等差数列。例如，以下一个数列:
 	0, 2, 4, 6, 8, 10, 12, 14
@@ -181,9 +211,9 @@ AliORC协程架构的引入，在实现异步化数据读写的同时，也为�
 
 
 
-### 6. 分布式资源调度
+### 6. 分布式资源调度系统-Fuxi
 
-Fuxi2.0全区域数据排布、去中心化调度、在线离线混合部署、动态计算等方面全方位满足新业务场景下的调度需求
+Fuxi全区域数据排布、去中心化调度、在线离线混合部署、动态计算等方面全方位满足新业务场景下的调度需求
 
 ![maxc_fuxi_2.png](_includes/maxc_fuxi_2.png)
 
@@ -195,7 +225,9 @@ YARN和Kubernetes成为代表性的开源调度框架。YARN提出的双层调�
 3. **计算调度** - 每个job抽象成一个DAG（有向无环图），图中的节点有前后依赖关系。随着阿里大数据业务的增长和新计算模型的提出，DAG框架需要更好的动态性，以更灵活的适应数据和资源的变化。此外，计算调度和Shuffle系统需要对不同规模都给出最优的调度效果和执行性能。
 4. **单机调度** - 大量的任务实例在物理机器上实际运行时，需要单机上的隔离保护机制，以有效保障不同任务对物理资源的需求，确保高低优先级不要互相影响。同时还需要保护物理机器，避免进入过载状态，保障整机的可用性。
 
-阿里巴巴Fuxi2.0核心优势:
+![img](_includes/fuxi_capability.png)
+
+阿里巴巴新一代Fuxi核心优势:
 
 - 业内首创跨地域多数据中心的数据调度方案-Yugong（[VLDB2019](http://www.cse.cuhk.edu.hk/~jcheng/papers/yugong_vldb19.pdf)），通过**3%**的冗余存储，节省**80%**的跨地域网络带宽--跨级群数据缓存策略
 - 业内领先的去中心化资源调度架构，单集群支持**数万**服务器***数万**并发job的高频调度
@@ -251,6 +283,8 @@ MaxCompute支持多用户共享集群资源，支持基于配额的存储和计�
 	d)对于安全等级较高的数据，提供项目保护模式，防止数据泄露；
 	e)所有计算在受限的沙箱中运行，多层次的应用沙箱、系统沙箱配合请求鉴权管理机制，保证数据的安全；
 	f)系统级、Project级和表级的IP访问白名单设置Hadoop在这方面的支持比较弱，仅某些Hadoop发行版的少量组件提供了上述部分安全特性。
+
+在阿里巴巴最佳实践中，一套几万台集群规模的MaxCompute服务支持上千个project和万级别的用户规模，不同业务部门可以方便安全的进行存储/计算的隔离和共享，并提供了金融级别的数据保护机制。
 
 ### 8.MaxCompute 最佳实践&实操 
 

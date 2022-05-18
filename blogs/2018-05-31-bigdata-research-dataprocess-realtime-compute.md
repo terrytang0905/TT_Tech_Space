@@ -256,7 +256,7 @@ Flink 与 Kafka 结合是事件驱动，所以Flink 内部对 Poll 出来的数�
 	2.编写运行逻辑；
 	3.注册数据 sink。
 	4.调用 env.execute 执行逻辑
-
+	
 	Compare:相比于 Spark Streaming 少了设置批处理时间，还有一个显著的区别是 flink 的所有算子都是 lazy 形式的，调用 env.execute 会构建 jobgraph。
 	client 端负责 Jobgraph 生成并提交它到集群运行；而 Spark Streaming的操作算子分 action 和 transform，其中仅有 transform 是 lazy 形式，而且 DAG 生成、stage 划分、任务调度是在 driver 端进行的，在 client 模式下 driver 运行于客户端处。
 
@@ -424,7 +424,7 @@ data source 保存了 Kafka 的 offset，之后把 checkpoint barrier 传递到�
 
 以上就是 Flink 实现恰一次处理的基本逻辑。
 
-#### 8.Back pressure(备压)
+#### 8.Back Pressure(反压)
 
 消费者消费的速度低于生产者生产的速度，为了使应用正常，消费者会反馈给生产者来调节生产者生产的速度，以使得消费者需要多少，生产者生产多少。Pull模式解决生产者生产过多导致内容及存储的挤压。（\*back pressure 后面一律称为背压。）
 
