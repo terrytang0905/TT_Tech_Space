@@ -163,11 +163,12 @@ _TODO_
 **分布式ACID**
 
 对数据湖来说三种隔离分别代表的含义：
-    - Serialization是说所有的reader和writer都必须串行执行；
-    - Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
-    - Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
 
-_Snapshot Isolation_ 是现在大数据场景下最多的ACID隔离模式
+- Serialization是说所有的reader和writer都必须串行执行；
+- Write Serialization: 是说多个writer必须严格串行，reader和writer之间则可以同时跑；
+- Snapshot Isolation: 是说如果多个writer写的数据无交集，则可以并发执行；否则只能串行。Reader和writer可以同时跑。
+
+		Snapshot Isolation是现在大数据场景下最多的ACID隔离模式
 
 **Upsert 技术方案**
 
