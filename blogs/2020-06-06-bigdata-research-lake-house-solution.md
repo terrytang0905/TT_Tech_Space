@@ -174,7 +174,7 @@ _TODO_
 
 _Copy On Write_: 在更新部分文件的场景中，当只需要重写其中的一部分文件时是很高效的，产生的数据是纯 append 的全量数据集，在用于数据分析的时候也是最快的
 
-        * 列式文件存储，用于读多写少。
+        * 列式文件存储，用于读多写少。日志Log append
         * 数据读到内存，进行行更新后替换原本文件
         * 支持后续读数据快速，不存在小文件/Merge操作。写入/数据更新性能差
         * 写时复制
@@ -186,8 +186,7 @@ _Merge On Read_: 将数据直接 append 到 存储文件 上，在merge的时候
         * 写速度快，会产生小文件合并merge问题
         * 读时合并
 
-
-** Iceberg, Hudi, DeltaLake - Data Table Format**
+**Iceberg, Hudi, DeltaLake - Data Table Format**
 
 Iceberg 的设计初衷倾向于定义一个标准、开放且通用的数据组织格式，同时屏蔽底层数据存储格式上的差异，向上提供统一的操作 API，使得不同的引擎可以通过其提供的 API 接入；
 
@@ -274,9 +273,9 @@ Hudi使得能在hadoop兼容的存储之上存储大量数据，同时它还提�
  写时复制 | 读优化 + 增量 
  读时合并 | 读优化 + 增量 + 近实时 
 
-#### Hudi-时间轴
+#### Hudi-TimeTravel
 
-Hudi 的核心 —— **时间轴**。
+Hudi 的核心 —— **TimeTravel时间轴**。
 
 Hudi 会维护一个时间轴，在每次执行操作时（如写入、删除、合并等），均会带有一个时间戳。通过时间轴，可以实现在仅查询某个时间点之后成功提交的数据，或是仅查询某个时间点之前的数据。这样可以避免扫描更大的时间范围，并非常高效地只消费更改过的文件（例如在某个时间点提交了更改操作后，仅query某个时间点之前的数据，则仍可以query修改前的数据）。
 
@@ -584,7 +583,7 @@ DELETE FROM person WHERE id = c002;
 数据Merge，支持批量查询、更新、删除。[语法可参考](https://github.com/apache/carbondata/blob/master/examples/spark/src/main/scala/org/apache/carbondata/examples/CDCExample.scala)
 
 
-**总结:CarbonData提供了一种新的融合数据存储方案，以一份数据同时支持多种应用场景，EB级别数据规模，查询性能秒级响应。可以看出CarbonData目前的架构和想法都十分先进.**
+**总结: CarbonData提供了一种新的融合数据存储方案，以一份数据同时支持多种应用场景，EB级别数据规模，查询性能秒级响应。虽然CarbonData架构与想法都十分先进, 但由于缺少足够的开源生态开展，导致未有实际真实落地应用。**
 
 ### IV.LakeHouse技术最佳实践
 
