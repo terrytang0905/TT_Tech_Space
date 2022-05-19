@@ -133,9 +133,8 @@ _SQL查询引擎优化进行中_
 	- 渐进计算
 
 
-#### 3.3.MaxCompute SQL优化指南
+#### 3.3.[MaxCompute SQL优化指南](https://yuque.antfin-inc.com/pssg23/bnei10/clxb46)
 
-https://yuque.antfin-inc.com/pssg23/bnei10/clxb46
 
 
 ### 4.统一分布式文件系统-Pangu
@@ -362,16 +361,15 @@ DBA或将被淘汰？
 ### x.Ref
 
 - [MaxCompute Ref](https://yq.aliyun.com/articles/78108)
-
 - [MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
-
-  Comments:
-  1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
-  2.缺少全球化的TechWriter,以支持非中国区客户
+- [MaxCompute进阶课程](https://developer.aliyun.com/article/706368?spm=a2c6h.14164896.0.0.464e2b67b3uuue)
+- 2019的Comments:
+  1.多个数据仓库产品功能重叠( AnalyticDB / Hologres, BigQuery / MaxCompute , PolarDB / OceanBase)
+  2.缺少全球化的TechWriter,以支持非中国区客户的产品内容分享。
   3.MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
   4.超大规模的大数据计算服务(多租户体系)的核心应用场景在哪里?除了阿里和城市大脑。独立的大数据计算平台是不是更适合企业?
   5.MaxCompute面对企业客户如何设置ROI(低成本是如何定义的),如何合理定价来确保MaxCompute成本与收益?
-  6.2019年MaxCompute面对的最大问题与挑战是什么? 如何面向国际化?
+  6.MaxCompute与阿里云大数据产品的面对的最大问题与挑战是什么? 如何面向国际化?
   7.如何规划与实现MaxCompute的生态圈与合作伙伴?
   8.MaxCompute与Spanner的差距到底在哪里?
   9.华为FusionInsight方案为什么在外媒眼中更加受欢迎?
