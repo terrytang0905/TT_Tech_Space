@@ -133,9 +133,9 @@ _SQL查询引擎优化进行中_
 	- 渐进计算
 
 
-#### 3.3.[MaxCompute SQL优化指南](https://yuque.antfin-inc.com/pssg23/bnei10/clxb46)
+#### 3.3.[MaxCompute SQL优化指南]()
 
-
+[MaxComputeSQL优化](https://help.aliyun.com/document_detail/92299.html?spm=a2c6h.12873639.article-detail.16.12351e70kNw6bI)
 
 ### 4.统一分布式文件系统-Pangu
 
