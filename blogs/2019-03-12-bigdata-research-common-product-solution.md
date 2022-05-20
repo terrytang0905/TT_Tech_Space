@@ -6,11 +6,13 @@ title: Big Data Research Note - Common BigData Product Solution
 ---
 
 ## 大数据研究-通用大数据产品分析
---------------------------------------------------------
-
-大数据通用解决方案 - 大数据产品分析
+### BigData Product Requirement
 
 主要是研究当前业内主流基于海量数据分析的大数据平台及行业解决方案,整合MPP与Hadoop特性,来解决海量数据的分析查询应用问题。
+
+首先我们分享一下-通用数据基础架构
+
+![通用数据基础架构](_includes/unified_data_infra_arch.png)
 
 ### 核心能力定义
 
@@ -29,13 +31,13 @@ title: Big Data Research Note - Common BigData Product Solution
 
 **ADW Utility**
 
--Traditional Data Warehouse
--Real-Time Data Warehouse(adhoc querying and data mining)
--Logical Data Warehouse
+- Traditional Data Warehouse
+- Real-Time Data Warehouse(adhoc querying and data mining)
+- Logical Data Warehouse
 
 	This use case manages data variety and volume of data for both structured and other content data types.
 
--Context-Independent Data Warehouse
+- Context-Independent Data Warehouse
 
 	This use case concerns new data values, variants of data form and new relationships. It supports search, graph and other capabilities for discovering new information models.
 
@@ -110,15 +112,15 @@ _Ref:_
 - [CarbonData数据格式](https://www.cnblogs.com/happenlee/p/9202236.html)
 
 #### Huawei FusionInsight LibrA-> Huawei Cloud DWS
-    
+
 FusionInsight LibrA是华为公司研发的OLAP(Online Analytical Processing)数据库，旨在为您提供轻松、可靠的企业数仓、数据集市和大数据SQL结构化数据分析解决方案。
- 
+
 FusionInsight LibrA采用MPP(Massive Parallel Processing)架构，支持行存储与列存储，提供PB(Petabyte，250字节)级别数据量的处理能力。在核心技术上较传统数据库有巨大优势，能够解决不同行业用户的数据分析性能问题，可以为超大规模数据分析提供高性价比的方案，并可用于支撑各类数据仓库系统、数据集市、BI(Business Intelligence)系统和决策支持系统。
 
 ![fusioninsight_librA](_includes/huawei_fusioninsight_librA.png)
 
 **FusionInsight LibrA关键特性**
- 
+
 	- 专业的TD、Oracle迁移工具:支持平滑迁移，业务敏捷上线。
 	- 数据入库快:支持并行数据导入，日入库达数百TB。
 	- 查询响应快:全并行计算引擎，满足PB级业务所需。行列混和存储引擎，同时满足点查、复杂分析等混合业务场景。
@@ -149,7 +151,7 @@ Transwarp Inceptor是基于Spark的分析引擎，从下往上有三层架构：
 
 	- 最下面是存储层，包含分布式内存列式存储（Transwarp Holodesk），可建在内存或者SSD上;
 	- 中间层是Spark计算引擎层，星环做了大量的改进保证引擎有超强的性能和高度的健壮性;
-    - 最上层包括一个完整的SQL 99和PL/SQL编译器、统计算法库和机器学习算法库，提供完整的R语言访问接口。
+	- 最上层包括一个完整的SQL 99和PL/SQL编译器、统计算法库和机器学习算法库，提供完整的R语言访问接口。
 
 #### Inceptor执行计划:
 
@@ -217,118 +219,12 @@ Holodesk中创建一个Cube额外消耗的时间和空间是固定的，创建�
 	Comments:Spark执行引擎稳定性问题
 
 
-### 3.Alibaba Cloud Compute Platform- MaxCompute+Hologres
 
-“新一代计算引擎”的底层技术主要有三个：MaxCompute(离线计算)、Hologres(交互式分析)、Flink(实时计算)、PAI(人工智能)。在它们之上，是用来统一调度各个技术模块的操作系统：DataWorks。
+### 3.Alibaba Cloud Compute Platform
 
-MaxCompute主要服务于批量结构化数据的存储和计算,可以提供海量数据仓库的离线计算解决方案以及针对大数据的分析建模服务。
+- **[MaxCompute BigQuery Product](2021-11-07-bigdata-best-practice-maxcompute.md)**
 
-
-#### 3.1.MaxCompute特点
-
-    - 大规模计算存储(海量离线计算)
-    MaxCompute 适用于 100GB 以上规模的存储及计算需求，最大可达 EB 级别。
-    - 多种计算模型 - NewSQL
-    MaxCompute 支持 SQL、MapReduce、Graph 等计算类型及 MPI 迭代类算法。
-    - 强数据安全
-    MaxCompute已稳定支撑阿里全部离线分析业务7年以上，提供多层沙箱防护及监控。
-    - 低成本
-    与企业自建私有云相比，MaxCompute的计算存储更高效，可以降低20%-30%的采购成本。
-    - AliORC文件格式
-
-
-_MaxComputer技术栈_
-
-![MaxCompute技术栈](_includes/maxcomputer_tech.png)
-
-#### 3.2.MaxCompute查询计算
-
-![MaxCompute_lightning逻辑架构](_includes/maxcompute_lightning.png)
-
-
-_MaxCompute联合计算引擎平台_
-
-_MaxCompute SQL Parser & SQL Optimizer_
-
-	- 基于Volcano火山模型的CBO
-	- Vectorized Execution Engine in MaxCompute 2.0
-	- 优化规则
-	- RBO&CBO&HBO模型
-
-在编译器方面,基于AST的编译器模型,Visitor模型（Antlrv4），IDE IntelliSense，Warning支持完整的存储过程，LOOP/IFELSE判断等；
-
-在优化器方面，CBO基于代价的优化器，Volcano模型，展开各种可能等价的执行计划，然后依赖统计信息，计算这些等价执行计划的“代价”，最后最低的执行计划
-
-CBO代价模型
-
-• 由CPU、IO、Row Count、Memory、Network组成的五元 组
-• 每个operator关注于自身的Cost，整个plan的Cost由 引擎累积等到
-• Cost model力求能够反映客观的物理实现
-• Cost model不需要得到和真实一模一样，只需要能够选出较优的plan
-
-主要包括类型：RBO/CBO/HBO
-
-RBO是基于规则的优化器，在早期的MaxCompute中使用，是一种过时的优化器框架，它只认规则，对数据不敏感。优化是局部贪婪，容易陷入局部优化但全局差的场景，容易受应用规则的顺序而生产迥异的执行计划，往往结果不是最优的。
-
-CBO是基于代价的优化器，它实际上是Volcano模型，可以展开各种可能等价的执行计划，然后依赖数据的统计信息，计算这些等价执行计划的代价，最后从中选用Cost最低的执行计划。
-
-分布式场景的优化有别于单机优化。上图是在两张表上进行Join操作的简单案例，假设表T1已经按照a，b进行了分区；表T2按照a进行了分区。如果在单机系统中，分区问题不会出现；在分布式系统中，因为分区的出现可能会产生两个不同的执行计划：第一个执行计划是将T1按照a进行重新分区，之后再和T2进行Join；另一种执行计划是假设T1很大，而T2相对没那么大，此时不对T1重新进行分区，而是将T2数据广播给T1的每个分区。两种执行计划在不同的环境各具优势。
-
-HBO:在大流量、高并发场景中，每天都需要处理大量相似的查询，这就给优化器带来了巨大机会。HBO优化器是基于历史优化的优化器，对每天提交的查询进行聚类，把以前运行数据作为Hint来帮助未来的相似的查询上。
-
-在运行时方面，利用LLVM技术，在运行时生成较优的机器码，采用列式执行框架，提高CPU流水线的执行效率，并提高缓存命中率，使用SIMD。
-
-
-_MaxCompute on OSS => Data Lake Analytics_
-
-基于Datalake的技术，把不同的数据源用类似的方式存储，用统一的方法计算。是同一SQL查询引擎.
-
-
-#### 3.3.数据架构设计
-
-![MaxCompute架构](_includes/maxcompute_arch.png)
-
-#### A.核心计算引擎
-
-#### B.数据存储结构
-
-#### C.MaxCompute数据存储
-
-AliORC/支持嵌套树型数据结构
-
-![MaxCompute数据格式支持](_includes/maxcompute_datasource.png)
-
-#### D.MaxCompute数据安全
-
-#### Ref
-
--[MaxCompute2018]
-
-	- 超大规模的大数据计算服务
-	- 通过计算下推来实现的*联合计算*
-		如何实现联动多个存储和计算系统?
-		如何实现最终的数据统一计算?
-		联合计算的计算性能提升到底有多少?
-	- Auto Data Warehouse数据自动驾驶
-	- 面向企业的完整服务,跨集群数据容灾与调度系统(金融行业)
-	- 新查询语言叫做NewSQL，它是阿里巴巴定义的一套新的大数据语言，这套语言兼容传统SQL特性，同时又提供imperative与declarative优势。
-
--[MaxCompute Ref](https://yq.aliyun.com/articles/78108)
--[MaxCompute 2.0](https://yq.aliyun.com/articles/656158?spm=a2c4e.11153940.blogcont78108.63.4f88123cEqWDsN)
-
-	Comments:
-	1.多个数据仓库产品功能重叠(HybridDB / AnalyticDB / PolarDB / MaxCompute / OceanBase)
-	2.缺少全球化的TechWriter,以支持非中国区客户
-	3.MaxCompute从大数据技术工具整合阿里数据提供深度数据模型分析服务。数据+技术=数据价值商业呈现(数据变现思考)
-	4.超大规模的大数据计算服务(多租户体系)的核心应用场景在哪里?除了阿里和城市大脑。独立的大数据计算平台是不是更适合企业?
-	5.MaxCompute面对企业客户如何设置ROI(低成本是如何定义的),如何合理定价来确保MaxCompute成本与收益?
-	6.2019年MaxCompute面对的最大问题与挑战是什么? 如何面向国际化?
-	7.如何规划与实现MaxCompute的生态圈与合作伙伴?
-	8.MaxCompute与Spanner的差距到底在哪里?
-	9.华为FusionInsight方案为什么在外媒眼中更加受欢迎?
-
-
-#### Alibaba Cloud - Hologres(HSAP)
+- **[Hologres OLAP Product](2021-11-06-bigdata-best-practice-hologres.md)**
 
 
 #### Alibaba Cloud - AnalyticDB(OLAP)
@@ -346,95 +242,111 @@ AliORC/支持嵌套树型数据结构
 - [2018-AnalyticDB](https://yq.aliyun.com/articles/685491?spm=a2c4e.11153940.blogcont576159.16.14932338FEZZas)
 
 
-
-### 4.Huawei MRS vs Transwarp TDH vs AliCloud BigData
-
-
-### 5.All in Box - Cloud-Nativa Analytics Service 
+### 4.All in Box - Cloud-Nativa Analytics Service 
 
 Cloud Analytics Data Warehouse is new Next Generation model for Analytics as a Service.
 
-Standard SQL -> OLTP 
-
-Batch ETL -> OLAP analytics -> Online Service
+Standard SQL -> OLTP -> Data Ingest -> Batch ETL -> OLAP analytics -> Online Data Service
 
 Data Develop and Data Governance Platform
 
-### 4.1.Snowflow:Elastic Data Warehouse 一夜暴富的背后
+#### 云端大数据产品横向分析
 
-Snowflake is a multi-tenant, transactional, secure, highly scalable and elastic system with full SQL support and built-in extensions for semi-structured and schema-less data.
+**<u>4.1.Snowflow:Elastic Data Warehouse 一夜暴富的背后</u>**
 
-- SaaS,acid事务，关系型数据库，半结构，列式存储
-- MVCC,Snapshot
+Snowflake 是一个多租户、事务性、安全、高度可扩展和弹性数据仓库系统。具有完整的 SQL 支持和半结构化和无模式数据的内置扩展。
 
-1.3. Also, following a pure service principle, Snowflake requires no physical tuning, data grooming, manual gathering of table statistics, or table vacuuming on the part of users.
+- SaaS-Severless数据仓库, ACID事务，关系型数据库，半结构，列式存储
+- MVCC多版本并发控制, Snapshot隔离
+- 跟进纯粹的服务化原则, Snowflake 不需要用户进行物理调整、数据梳理、手动收集表统计信息或清空表。
 
-2.1、parallel database system：redshift，share-nothing结构，需要数据迁移（A. Gupta et al. Amazon Redshift and the case for simpler datawarehouses. InProc. SIGMOD, 2015.）
-2.2、BigQuery sql-like语言，tricky for sql-based。tables are append-only and require schemas
+4.1.1、并行数据库系统：redshift，share-nothing结构，需要数据迁移（A. Gupta et al. Amazon Redshift and the case for simpler datawarehouses. InProc. SIGMOD, 2015.）
 
-2.3、Document Stores and Big Data.Document storessuch as MongoDB, Couchbase Server, and ApacheCassandra ，challenge ：simple key-value and CRUD (create, read, update, and delete) APIof these systems is the difficulty to express more complexqueries.
+4.1.2、BigQuery sql-like语言，tricky for sql-based。tables are append-only and require schemas
+
+4.1.3、文档存储和大数据. Document stores such as MongoDB, Couchbase Server, and ApacheCassandra ，challenge ：simple key-value and CRUD (create, read, update, and delete) APIof these systems is the difficulty to express more complexqueries.
+
 Additionally, many “Big Data” engines now support queries over nested data,for example Apache Hive, Apache Spark, ApacheDrill, Cloudera Impala , and Facebook Presto.We believe that this shows a real need for complex analyticsover schema-less and semi-structured data,
 
 When Snowflake was founded in 2012, the database worldwas fully focused onSQL on Hadoop, with over a dozensystems appearing within a short time span. At that time,the decision to work in a completely different direction, tobuild a “classic” data warehouse system for the cloud, seemeda contrarian and risky move. After 3 years of developmentwe are confident that it was the right one. Hadoop has notreplaced RDBMSs; it has complemented them. People stillwant a relational database, but one that is more efficient,flexible, and better suited for the cloud.
 
+**Snowflake: System Performance Tuning Best Practice**
 
-### 4.2.Redshift Cloud DataWarehouse
+Clearly data caching makes a massive difference to Snowflake query performance, but what can you do to ensure maintain the performance when you cannot change the cache?
 
-### 4.3.Google BigQuery Services
+Here's a few best practice tips:-
 
-基于Dremel的GoogleBigQuery
+- **Auto-Suspend**:  
 
-- Concept: distributed search engine design
-- Dremel provides a high-level, SQL-like language to express ad-hoc queries without translating them into MR job.
-- Dremel uses a column-striped storage representation, which enables it to read less data from secondary storage and reduce CPU cost due to cheaper compression
+  By default, Snowflake will auto-suspend a virtual warehouse (the compute resources with the SSD cache after 10 minutes of idle time.  Best practice?  Leave this alone.  Keep in mind, you should be trying to balance the cost of providing compute resources with fast query performance.  To illustrate the point, consider these two extremes:
 
+  1. **Suspend after 60 seconds:**  When the warehouse is re-started, it will (most likely) start with a clean cache, and will take a few queries to hold the relevant cached data in memory.  (Note:  Snowflake will try to restore the same cluster, with the cache intact, but this is not guaranteed).
+  2. **Suspend Never:**  And your cache will always be *warm*, but you will pay for compute resources, even if nobody is running any queries.  However, provided you set up a script to shut down the server when  not being used, it may make sense.
 
-1.A high-performance storage layer is critical for in situ data management.
-2.Columnar storage proved successful for flat relational data but making it work for Google required adapting it to a nested data model.
+- **Scale up for large data volumes:**  If you have a sequence of large queries to perform against massive (multi-terabyte) size data volumes, you can improve query performance by scaling up.  Simple execute a SQL statement to increase the virtual warehouse size, and new queries will start on the larger (faster) cluster.  While this will start with a clean (empty) cache, you should normally find performance doubles at each size, and this extra performance boost will more than out-weigh the cost of refreshing the cache.
 
-_Ref:_
+- **Scale down - but not too soon:**  Once your large task has completed, you could reduce costs by scaling down or even suspending the virtual warehouse.  Be aware again however, the cache will start again clean on the smaller cluster.  By all means tune the warehouse size dynamically, but don't keep adjusting it, or you'll lose the benefit.
 
-- [BigQuery](https://cloud.google.com/bigquery/)
-- [GCE BigQuery vs AWS Redshift vs AWS Athena](https://www.gab.lc/articles/bigquery-vs-redshift-vs-athena/)
-- [SQLonHadoop研究Note-Dremel](2017-07-28-bigdata-analytics-olap-sqlonhadoop-research-note.md)
+**<u>4.2.Snowflake vs Redshift</u>**
 
+Snowflake的核心产品能力: 完全存算分离/工作负载隔离/极致性能。但是随着Redshift RA3新集群的出现提供成本更低与更便捷的竞对产品方案,这一切是否会有改变？
 
+Redshift RA3新集群开始全新支持计算与存储资源独立弹性伸缩。这从2013年AWS作为Game Changer,发布云端Redshift以来的第一次重大升级。Redshift产品本身基于ParAcell 数据库技术,它就是云平台之上的MPP数据库。总结上说,
+Redshift是一个部署在云端的MPP数据库,能够处理TB级数据如同GB级,支持分析/管理数据,云原生,可在小时级内按需资源扩容,使用纯SQL,把这些能力放在一起,确实是个吸引人的创新产品。但是由于历史的局限,导致Redshift主要以On-Premise(本地部署)架构为主。不过随着云上数仓越发定制，发展迅速，存在2个较大缺陷, 1是存储与计算的耦合,2是扩展伸缩现有的困难性与破坏性。主要问题在于很多公司存储资源与计算资源存在错配, 例如数据存储较大,但不需要计算资源，或者需要大量机器计算的ETL任务, 但非固定的吞吐量弹性扩展。Redshift的share-nothing architecture事实上会共享部分资源。
 
-#### X.技术思考
+**典型MPP数据库(Redshift)水平扩展的计算性能慢且是真正的管理员任务。这一定需要数据复制/数据重分布, 增长存储能力需要更多磁盘+更多的服务器, 这样意味着存储本是不再便宜**
 
-**1.数据治理(数据清洗/)智能算法**
+Redshift最近以来新产品升级: Redshift Spectrum 2017上线/Redshift Elastic Resize 2018上线。Redshift RA3 Cluster新机型现在开始支持存算分离, 其整体费用逐步下降, 更加让客户可接受。
 
-智能数据清洗与识别补充缺失值
+但是Snowflake依然有着很大的产品优势,在完全的存算分离,线性且秒级弹性伸缩,完全独立多租户数据处理等全新的技术。
 
-客户ID-Merge算法/关系图谱 - Graph图计算应用
+- Scales Seamlessly within Seconds.
+- Scales Linearly, Saves You Time
+- Seamless Time-Travel
+- Near-Realtime Pipeline (Snowpipe)
+- Cluster isolation
 
-例如:Cloudera Navigator(for data governance).国内的数据治理可能难度更多,更有本地化优化的空间
+**Snowflake vs Redshift详细对比内容**
 
-**2.大数据查询优化设计+联合计算**
+1-惯例成本
 
-Calcite -> Spark Catalyst -> Dremel查询优化
+Redshift最小消费$2.4/hour / Snowflake 消费$2.5/hour。产品费用接近。
 
-**3.DataModel数据模型设计优化**
+2-Auto-Suspend and Auto-Resume能力: 
 
-面向Document的数据模型结构
+ Snowflake拥有最顺畅的自动挂起和自动恢复能力.如果设置*alter warehouse suspend*，当suspend, 将计算Cost恢复为0。如果你忘记suspend,  Snowflake会根据设置时间来自动挂起, 可以按照每个Cluster来独立设置。相比之下，Redshift RA3的暂停和恢复距离无缝连接的体验较大。例如1个空的xlplus 2-node cluster 需要花费1m30s开始且暂停需要5分钟。这是一个非常重要的可用性能力, 一个典型公司在夜晚释放资源，却无法自动恢复当用户要重新查询，因为需要更多的时间来挂起和恢复。这个能力上Snowflake完胜。
+
+3-Scaling伸缩性
+
+ 对于MPP数据库来说, 另一个重要的Feature在于不间断的弹性伸缩。其用户案例非常明显:如果你在执行ETL,可能你需要一个巨大的集群,因为你在处理海量数据,但当这些数据使用完之后,只需要一个很小的集群来使用。Snowflake对于资源的释放是非常迅速且不间断的。你可能在当前查询的过程中, 当你scale up到一个更大的集群, 下一个查询SQL可以直接使用。当然你也可以在暂停的状态下重新调整你的集群规模,  以至于下一个查询可以按照新的集群规格来执行。另一个Scaling的模式是"多集群"的水平扩展, 将你的集群"自我复制"成多集群以适应更大的工作负载，这可以手工触发or自动触发。再次,Redshift RA3又是一个完全不同的故事。Scaling伸缩性离丝滑顺畅比较远,它需要使用Console or API访问才能实现, 其最接近的对比选项是弹性规格变更,只支持双倍扩展现有集群，而且还需要5 minutes。这个能力上Snowflake明显有优势。
+
+4-工作负载隔离
+
+AWS Redshift有个明显的缺陷在于工作负载隔离。分析师尝试有非常重的查询,则大多数时候这些查询都是针对特定策略下主动的即席ad-hoc查询。缺少优秀的工作负载资源管理(WLM)设置, 一次又一次, 我们看到这些分析查询SQL导致Redshift集群的halt挂起。WLM管理难度很大,无论你如何方式, 总会有遗漏。
+
+Redshift RA3到现在为止还未解决这个问题, 分析与ETL工作负载仍然在同一计算资源池内共享资源。Snowflake拥有非常完备的工作资源隔离能力。用户随时可以衍生出很多新的集群，所有的集群都会被完全互相隔离开来。典型场景是,你可以分别单独创立 分析集群/ETL集群/Reporting集群 3个独立集群，而且可以讲计算资源独立设置，并跟踪其资源消耗情况。Snowflake再胜一城
+
+5-自动化数据脱敏
+
+数据安全对于每个公司来说都非常重要, 其中数据脱敏扮演重要的部分。你需要确定你使用高效访问控制方式来限制任何个人隐私数据。关于Redshift, 我总是用我自己的安全架构, 其配置通过一层的Views来驱动并实现数据脱敏。另外也可以通过付费插件方式来实现，例如 [DataSunrise](https://aws.amazon.com/blogs/big-data/protect-and-audit-pii-data-in-amazon-redshift-with-datasunrise-security/)。Snowflake的确做得更加简洁，用它的动态列脱敏 [dynamic data masking](https://docs.snowflake.com/en/user-guide/security-column-ddm-use.html)。
+
+另外还有些比较暖心的设计，当然不能上升为技术评估决定的因素。例如**Timetravel**,Snowflake支持非常顺滑的时间旅行功能。
+
 ```
-message Document {
-  required int64 DocId;
-  optional group Links {
-    repeated int64 Backward;
-    repeated int64 Forward; }
-  repeated group Name {
-    repeated group Language {
-      required string Code;
-      optional string Country; }
-    optional string Url; }}
+select from table at(timestamp => '2020-13-31 12:01');
 ```
 
+Redshift支持表级别的数据恢复从之前的某个snapshot切片，不过这是个管理员级别的操作。而Snowflake以undrop table命令来恢复之前删除的表。自动化数据提取/外表加载 2个数据库都支持。
 
+总结
 
-#### Y.技术研究
+  首先, 通过很长时间的磨练，Redshift终于向更优秀的架构来演进了。当我以为已经到达终点的时刻，它实际上还需继续向前进一步。Redshift RA3本身就是基于S3存储之上的云数仓服务，为什么暂停释放一个空集群需要5分钟？为什么在执行暂停操作前一定要创建一个snapshot? 虽然AWS Redshift已是一个很不错的产品，但是Snowflake可能是更好的分析数据仓库产品选择，能为DBA/开发人员提供更强大的能力。
+
+**[Google BigData&BigQuery Product](2019-05-01-bigdata-best-practice-google-tech-solution.md)**
 
 **Microsoft Azure**
+
+[CosmosDB](https://docs.microsoft.com/zh-cn/azure/cosmos-db/) 统一存储格式 + 不同数据库模型
 
  Dryad 有向无环图
  DryadLINQ
@@ -451,57 +363,9 @@ SCOPE
 自动代码生成技术
 查询优化非常好
 
-[CosmosDB](https://docs.microsoft.com/zh-cn/azure/cosmos-db/) 统一存储格式 + 不同数据库模型
 
 
-**Amazon AWS**
+### Z.技术趋势
 
-	DynamoDB
-	Elastic MapReduce
-	Redshift/Snowflake 云端弹性数据仓库
-	Aurora Serverless(论文)
-	Amazon Athena - Presto
-	AWS Glue - ETL
-
-
-
-#### Z.技术趋势
-
-MaxCompute技术趋势
-
-_1.新硬件的发展_
-
-计算层面越来越与新硬件的创新紧密结合，硬件会带来平台革命。例如芯片类的CPU(AVX、SIMD)、ARM众核架构、GPU，FPGA，ASIC，存储类的NVM、SSD、SRM，网络类的智能网卡和RDMA等新硬件的发展，新硬件与软件的配合是值得关注的发展方向。
-
-	Comments:硬件提升大数据计算性能提升
-
-_2.非关系型计算领域(图计算)有很多机会_
-
-大数据现在还是在关系型的处理层面，包括流和批都是基于关系型数据的计算，事实上，现在非关系的计算越来越流行了，包括知识图谱、画像等越来越有价值，这些数据组织不是关系型表达，而是以点边的形式用图的方式表达，更符合物理抽象，比如人和货的关系，在风控层面，知识图谱层面，用来描述物理实体的关系更合适。
-
-明年初将会推出MaxCompute的图计算系统MaxGraph，支持图存储、查询、模式匹配和GraphEmbedding等机器学习运算。
-
-	Comments:基于MaxGraph的知识图谱+用户画像模型设计.这些能力应用在哪里?
-			 GraphCompute依托于MaxGraph的图数据库
-
-_3.非结构化数据将变成大数据的主流_
-
-越来越多的短视频、图片、语音类数据，并随着IoT的发展，可能占据80%的数据量，由于这类数据的特性在于结构各不相同，且数据非常大但是单位价值不高（相比传统结构化数据），如何快速高效的解析和处理非结构化数据，是计算平台的关键挑战。
-
-去年的时候MaxCompute发布了一个非结构化数据处理模块，能够用户自定义的方式处理包括视频音频在内的数据。
-
-	Comments:对非结构化数据处理(视频/音频)的意义在哪里? 视频/音频等内容数据的监测分析,用户的视频镜头偏好
-			 针对非结构化数据的向量解析
-
-_4.AI for Everything(also for BigData)_
-
-DBA或将被淘汰？
-
-大数据的特点是大，不仅仅是包括数据的处理规模，还包括了整个的海量数据的管理和优化。传统数据库领域依靠DBA人力去管理的模式将不再适用。
-
-用AI优化数据分布、数据管理、做计算优化和成本优化(例如自动SubQuery合并,智能索引建立等)。“让大数据无人驾驶”，这也是未来的趋势。
-
-	Comments:AI对大数据的影响与互补如何具体落地? 大数据+AI协同工作
-
-
+云端大数据分析作为主流技术趋势，有哪些差异优势？下一步数据湖仓融合？？
 

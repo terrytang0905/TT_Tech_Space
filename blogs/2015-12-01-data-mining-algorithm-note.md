@@ -26,6 +26,12 @@ C4.5算法是机器学习算法中的一种分类决策树算法,其核心算法
 
 C4.5算法有如下优点：产生的分类规则易于理解，准确率较高。其缺点是：在构造树的过程中，需要对数据集进行多次的顺序扫描和排序，因而导致算法的低效。
 
+    Tips:其核心的贪心算法指向局部最优选择，而非整体最优。
+    不适用于连续型变量。需用线性回归算法解决
+
+#### ID3: Iterative Dichotomiser
+
+​     迭代的二分器,其自变量的挑选标准是基于信息增益度量，即选择具有最高信息增益的属性作为结点的分裂属性
 
 #### 2. The k-means algorithm 即K-Means算法
 
@@ -101,3 +107,7 @@ CART, Classification and Regression Trees。 <br/>
 
 - a. 决策树
 - b. 逻辑回归
+
+#### CHAID:Chi-square Automatic Interaction Detector(卡方自动相互关系检测)
+
+​     依据局部最优原则,利用*卡方检验*来选择对因变量(Category)最有影响的自变量

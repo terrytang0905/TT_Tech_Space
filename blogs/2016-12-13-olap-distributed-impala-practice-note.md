@@ -55,7 +55,7 @@ title: Big Data OLAP Note - Impala Practice
 ##### 4.2.Unable to execute the Impala Query with More than one Distinct Values in an Query
 
 	Exception:AnalysisException: all DISTINCT aggregate functions need to have the same set of parameters as count(DISTINCT color_key); deviating function: count(DISTINCT id)
-
+	
 	Impala当前版本(2.7.0)不支持超过一个Distinct关键字查询
 
 ##### 4.3.set APPX_COUNT_DISTINCT=true 与 ndv()函数是一样的,都只是估值
@@ -74,7 +74,7 @@ title: Big Data OLAP Note - Impala Practice
 	import sys
 	reload(sys)
 	sys.setdefaultencoding('utf-8')
-
+	
 	然后修改：
 	query = self.imp_client.create_beeswax_query("select %s" % args,self.set_query_options)
 	为
@@ -251,7 +251,7 @@ Join order have a large impact for query optimization.
 	Understanding Impala Query Performance
 	Using the SUMMARY Report for Performance Tuning
 	Using the Query Profile for Performance Tuning
-
+	
 	参考:http://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_performance.html
 
 **d.Impala查询能力分析**
@@ -277,4 +277,4 @@ Join order have a large impact for query optimization.
 
 ### x.Reference
 
-- [Impala&Kudu research note](2016-12-12-impala-rtolap-research-note.md)
+- [Impala&Kudu research note](2016-12-12-olap-distributed-impala-research-note.md)

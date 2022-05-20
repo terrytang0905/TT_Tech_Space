@@ -24,7 +24,7 @@ title: Big Data Research Note - Storage Layer
 
 关系型数据的列式存储，可以将每一列的值直接排列下来，不用引入其他的概念，也不会丢失数据。关系型数据的列式存储比较好理解，而嵌套类型数据的列存储则会遇到一些麻烦。如图 1 所示，我们把嵌套数据类型的一行叫做一个记录（record)，嵌套数据类型的特点是一个 record 中的 column 除了可以是 Int, Long, String 这样的原语（primitive）类型以外，还可以是 List, Map, Set 这样的复杂类型。在行式存储中一行的多列是连续的写在一起的，在列式存储中数据按列分开存储，例如可以只读取 A.B.C 这一列的数据而不去读 A.E 和 A.B.D，那么如何根据读取出来的各个列的数据重构出一行记录呢？
 
-![https://static001.infoq.cn/resource/image/aa/8f/aa97051362914f12f85fae4b58ff7d8f.png](https://static001.infoq.cn/resource/image/aa/8f/aa97051362914f12f85fae4b58ff7d8f.png)
+![行式存储&列式存储](https://static001.infoq.cn/resource/image/aa/8f/aa97051362914f12f85fae4b58ff7d8f.png)
 
 图 1 行式存储和列式存储
 
@@ -66,7 +66,7 @@ Parquet 是语言无关的，而且不与任何一种数据处理框架绑定在
 
 这里需要注意的是 Avro, Thrift, Protocol Buffers 都有他们自己的存储格式，但是 Parquet 并没有使用他们，而是使用了自己在 [parquet-format](https://github.com/apache/parquet-format) 项目里定义的存储格式。所以如果你的应用使用了 Avro 等对象模型，这些数据序列化到磁盘还是使用的 [parquet-mr](https://github.com/apache/parquet-mr) 定义的转换器把他们转换成 Parquet 自己的存储格式。
 
-![https://static001.infoq.cn/resource/image/3a/8a/3a45e21ff01a71d2d94bf018e6f7d68a.png](https://static001.infoq.cn/resource/image/3a/8a/3a45e21ff01a71d2d94bf018e6f7d68a.png)
+![Parquet数据结构](https://static001.infoq.cn/resource/image/3a/8a/3a45e21ff01a71d2d94bf018e6f7d68a.png)
 
 图 2 Parquet 项目的结构
 
@@ -95,7 +95,7 @@ repeated group contacts {
 
 Parquet 格式的数据类型没有复杂的 Map, List, Set 等，而是使用 repeated fields 和 groups 来表示。例如 List 和 Set 可以被表示成一个 repeated field，Map 可以表示成一个包含有 key-value 对的 repeated field，而且 key 是 required 的。
 
-![https://static001.infoq.cn/resource/image/88/d6/88155fb13bdca0f50de2d1f10b997ad6.png](https://static001.infoq.cn/resource/image/88/d6/88155fb13bdca0f50de2d1f10b997ad6.png)
+![AddressBook树结构](https://static001.infoq.cn/resource/image/88/d6/88155fb13bdca0f50de2d1f10b997ad6.png)
 
 图 3 AddressBook 的树结构表示
 
@@ -105,13 +105,13 @@ Parquet 格式的数据类型没有复杂的 Map, List, Set 等，而是使用 r
 
 在 Parquet 格式的存储中，一个 schema 的树结构有几个叶子节点，实际的存储中就会有多少 column。例如上面这个 schema 的数据存储实际上有四个 column，如图 4 所示。
 
-![https://static001.infoq.cn/resource/image/47/f8/47a47d6a31c82a8181f2a7904eeab6f8.png](https://static001.infoq.cn/resource/image/47/f8/47a47d6a31c82a8181f2a7904eeab6f8.png)
+![AddressBook实际存储的列](https://static001.infoq.cn/resource/image/47/f8/47a47d6a31c82a8181f2a7904eeab6f8.png)
 
 图 4 AddressBook 实际存储的列
 
 Parquet 文件在磁盘上的分布情况如图 5 所示。所有的数据被水平切分成 Row group，一个 Row group 包含这个 Row group 对应的区间内的所有列的 column chunk。一个 column chunk 负责存储某一列的数据，这些数据是这一列的 Repetition levels, Definition levels 和 values（详见后文）。一个 column chunk 是由 Page 组成的，Page 是压缩和编码的单元，对数据模型来说是透明的。一个 Parquet 文件最后是 Footer，存储了文件的元数据信息和统计信息。Row group 是数据读写时候的缓存单元，所以推荐设置较大的 Row group 从而带来较大的并行度，当然也需要较大的内存空间作为代价。一般情况下推荐配置一个 Row group 大小 1G，一个 HDFS 块大小 1G，一个 HDFS 文件只含有一个块。
 
-![https://static001.infoq.cn/resource/image/12/bc/1283b695c3f342abf9a6e9930a6f86bc.png](https://static001.infoq.cn/resource/image/12/bc/1283b695c3f342abf9a6e9930a6f86bc.png)
+![Parquet文件格式](https://static001.infoq.cn/resource/image/12/bc/1283b695c3f342abf9a6e9930a6f86bc.png)
 
 图 5 Parquet 文件格式在磁盘的分布
 
@@ -134,7 +134,7 @@ Parquet 文件在磁盘上的分布情况如图 5 所示。所有的数据被水
 
 对于每个 column 的最大的 Repetion Level 和 Definition Level 如图 6 所示。
 
-![https://static001.infoq.cn/resource/image/2f/ad/2fec516b63c54873fa8bf325b8ee89ad.png](https://static001.infoq.cn/resource/image/2f/ad/2fec516b63c54873fa8bf325b8ee89ad.png)
+![AddressBook的Max Definition Level和Max Repetition Level](https://static001.infoq.cn/resource/image/2f/ad/2fec516b63c54873fa8bf325b8ee89ad.png)
 
 图 6 AddressBook 的 Max Definition Level 和 Max Repetition Level
 
@@ -281,3 +281,98 @@ Avro provides:
 
 
 ### II.基础数据存储引擎
+
+### Apache Kudu
+
+[Apache Kudu](https://kudu.apache.org/):在更新更及时的基础上实现更快的数据分析的Hadoop数据存储方案
+
+Kudu不但提供了行级的插入、更新、删除API，同时也提供了接近Parquet性能的批量扫描操作。使用同一份存储，既可以进行随机读写，也可以满足数据分析的要求。
+
+#### 3.5.1.Kudu总览
+
+Tables和Schemas
+
+从用户角度来看，Kudu是一种存储结构化数据表的存储系统。在一个Kudu集群中可以定义任意数量的table，每个table都需要预先定义好schema。每个table的列数是确定的，每一列都需要有名字和类型，每个表中可以把其中一列或多列定义为主键。这么看来，Kudu更像关系型数据库，而不是像HBase、Cassandra和MongoDB这些NoSQL数据库。不过Kudu目前还不能像关系型数据一样支持二级索引。
+Kudu使用确定的列类型，而不是类似于NoSQL的“everything is byte”。这可以带来两点好处：
+
+     - 确定的列类型使Kudu可以进行类型特有的编码。
+     - 可以提供 SQL-like 元数据给其他上层查询工具，比如BI工具。
+
+**读写操作**
+
+用户可以使用 Insert，Update和Delete API对表进行写操作。不论使用哪种API，都必须指定主键。但批量的删除和更新操作需要依赖更高层次的组件（比如Impala、Spark）。Kudu目前还不支持多行事务。
+而在读操作方面，Kudu只提供了Scan操作来获取数据。用户可以通过指定过滤条件来获取自己想要读取的数据，但目前只提供了两种类型的过滤条件：主键范围和列值与常数的比较。由于Kudu在硬盘中的数据采用列式存储，所以只扫描需要的列将极大地提高读取性能。
+
+**一致性模型**
+
+Kudu为用户提供了两种一致性模型。默认的一致性模型是snapshot consistency。这种一致性模型保证用户每次读取出来的都是一个可用的快照，但这种一致性模型只能保证单个client可以看到最新的数据，但不能保证多个client每次取出的都是最新的数据。另一种一致性模型external consistency可以在多个client之间保证每次取到的都是最新数据，但是Kudu没有提供默认的实现，需要用户做一些额外工作。
+为了实现external consistency，Kudu提供了两种方式：
+
+     - 在client之间传播timestamp token。在一个client完成一次写入后，会得到一个timestamp token，然后这个client把这个token传播到其他client，这样其他client就可以通过token取到最新数据了。不过这个方式的复杂度很高。
+     - 通过commit-wait方式，这有些类似于Google的Spanner。但是目前基于NTP的commit-wait方式延迟实在有点高。不过Kudu相信，随着Spanner的出现，未来几年内基于real-time clock的技术将会逐渐成熟。
+
+#### 3.5.2.Kudu的架构
+
+Kudu与分布式文件系统抽象和HDFS完全不同，它自己的一组存储服务器通过RAFT相互通信。与HDFS和HBase相似，Kudu使用单个的Master节点，用来管理集群的元数据，并且使用任意数量的Tablet Server节点用来存储实际数据。可以部署多个Master节点来提高容错性。
+
+Kudu架构图
+
+
+***Master***
+
+Kudu的master节点负责整个集群的元数据管理和服务协调。它承担着以下功能：
+
+作为catalog manager，master节点管理着集群中所有table和tablet的schema及一些其他的元数据。
+作为cluster coordinator，master节点追踪着所有server节点是否存活，并且当server节点挂掉后协调数据的重新分布。
+作为tablet directory，master跟踪每个tablet的位置。
+
+**Catalog Manager**
+
+Kudu的master节点会持有一个单tablet的table——catalog table，但是用户是不能直接访问的。master将内部的catalog信息写入该tablet，并且将整个catalog的信息缓存到内存中。随着现在商用服务器上的内存越来越大，并且元数据信息占用的空间其实并不大，所以master不容易存在性能瓶颈。catalog table保存了所有table的schema的版本以及table的状态（创建、运行、删除等）。
+
+**Cluster Coordination**
+
+Kudu集群中的每个tablet server都需要配置master的主机名列表。当集群启动时，tablet server会向master注册，并发送所有tablet的信息。tablet server第一次向master发送信息时会发送所有tablet的全量信息，后续每次发送则只会发送增量信息，仅包含新创建、删除或修改的tablet的信息。
+作为cluster coordination，master只是集群状态的观察者。对于tablet server中tablet的副本位置、Raft配置和schema版本等信息的控制和修改由tablet server自身完成。master只需要下发命令，tablet server执行成功后会自动上报处理的结果。
+
+**Tablet Directory**
+
+因为master上缓存了集群的元数据，所以client读写数据的时候，肯定是要通过master才能获取到tablet的位置等信息。但是如果每次读写都要通过master节点的话，那master就会变成这个集群的性能瓶颈，所以client会在本地缓存一份它需要访问的tablet的位置信息，这样就不用每次读写都从master中获取。
+因为tablet的位置可能也会发生变化（比如某个tablet server节点crash掉了），所以当tablet的位置发生变化的时候，client会收到相应的通知，然后再去master上获取一份新的元数据信息。
+
+**Tablet存储**
+
+在数据存储方面，Kudu选择完全由自己实现，而没有借助于已有的开源方案。tablet存储主要想要实现的目标为：
+
+	- 快速的列扫描。
+	- 低延迟的随机读写。
+	- 一致性的性能。
+
+**RowSets**
+
+在Kudu中，tablet被细分为更小的单元，叫做RowSets。一些RowSet仅存在于内存中，被称为MemRowSets，而另一些则同时使用内存和硬盘，被称为DiskRowSets。任何一行未被删除的数据都只能存在于一个RowSet中。
+无论任何时候，一个tablet仅有一个MemRowSet用来保存最新插入的数据，并且有一个后台线程会定期把内存中的数据flush到硬盘上。
+当一个MemRowSet被flush到硬盘上以后，一个新的MemRowSet会替代它。而原有的MemRowSet会变成一到多个DiskRowSet。flush操作是完全同步进行的，在进行flush时，client同样可以进行读写操作。
+
+**MemRowSet**
+
+MemRowSets是一个可以被并发访问并进行过锁优化的B-tree，主要是基于MassTree来设计的，但存在几点不同：
+
+	- Kudu并不支持直接删除操作，由于使用了MVCC，所以在Kudu中删除操作其实是插入一条标志着删除的数据，这样就可以推迟删除操作。
+	- 类似删除操作，Kudu也不支持原地更新操作。
+	- 将tree的leaf链接起来，就像B+-tree。这一步关键的操作可以明显地提升scan操作的性能。
+	- 没有实现字典树（trie树），而是只用了单个tree，因为Kudu并不适用于极高的随机读写的场景。
+
+与Kudu中其他模块中的数据结构不同，MemRowSet中的数据使用行式存储。因为数据都在内存中，所以性能也是可以接受的，而且Kudu对在MemRowSet中的数据结构进行了一定的优化。
+
+**DiskRowSet**
+
+当MemRowSet被flush到硬盘上，就变成了DiskRowSet。当MemRowSet被flush到硬盘的时候，每32M就会形成一个新的DiskRowSet，这主要是为了保证每个DiskRowSet不会太大，便于后续的增量compaction操作。Kudu通过将数据分为base data和delta data，来实现数据的更新操作。Kudu会将数据按列存储，数据被切分成多个page，并使用B-tree进行索引。除了用户写入的数据，Kudu还会将主键索引存入一个列中，并且提供布隆过滤器来进行高效查找。
+
+**Compaction**
+
+为了提高查询性能，Kudu会定期进行compaction操作，合并delta data与base data，对标记了删除的数据进行删除，并且会合并一些DiskRowSet。
+
+**分区**
+
+和许多分布式存储系统一样，Kudu的table是水平分区的。BigTable只提供了range分区，Cassandra只提供hash分区，而Kudu提供了较为灵活的分区方式。当用户创建一个table时，可以同时指定table的的partition schema，partition schema会将primary key映射为partition key。一个partition schema包括0到多个hash-partitioning规则和一个range-partitioning规则。通过灵活地组合各种partition规则，用户可以创造适用于自己业务场景的分区方式。

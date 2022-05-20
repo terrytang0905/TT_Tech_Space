@@ -5,7 +5,7 @@ tags : [bigdata,olap,architect]
 title: Big Data OLAP Note - OLAP Mondrian Note
 ---
 
-## OLAP查询-Mondrian框架Note
+## OLAP查询-Mondrian建模框架Note
 ------------------------------------------------------------
 
 
@@ -438,5 +438,4 @@ RolapEvaluator会被创建。创建过程中，它会从每个hierarchy中获取
 
 
 ### 5.Mondrian深度优化
-
 

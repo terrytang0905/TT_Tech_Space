@@ -1,5 +1,5 @@
 ---
-layout: post
+  layout: post
 category : database
 tags : [database,oltp,guide]
 title: PostgreSQL Best Practice Note
@@ -1598,5 +1598,4 @@ https://www.citusdata.com/
 30、《PostgreSQL 如何判断idle in transaction的事务中有没有东西要提交》
 
 31、《PostgreSQL 商用版本EPAS(阿里云ppas) 自动(postgresql.conf)参数计算与适配功能》
-
 

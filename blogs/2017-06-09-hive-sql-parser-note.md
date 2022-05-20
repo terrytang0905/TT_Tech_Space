@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,database,hadoop]
-title: Hive Programing Design Note2 - SQL Parser&Optimizer
+title: Data Compute - Hive Programing SQL Parser&Optimizer
 ---
 
 ## HiveQL Parser&Optimizer Note
@@ -499,7 +499,7 @@ MapJoin简单说就是在Map阶段将小表读入内存，顺序扫描大表完�
 上图是Hive MapJoin的原理图，出自Facebook工程师Liyin Tang的一篇介绍Join优化的slice，从图中可以看出MapJoin分为两个阶段：
 
     1.通过MapReduce Local Task，将小表读入内存，生成HashTableFiles上传至Distributed Cache中，这里会对HashTableFiles进行压缩。
-
+    
     2.MapReduce Job在Map阶段，每个Mapper从Distributed Cache读取HashTableFiles到内存中，顺序扫描大表，在Map阶段直接进行Join，将数据传递给下一个MapReduce任务。
 
 ![hive_map_join_process](_includes/hive_map_join_process.png)
@@ -563,14 +563,14 @@ Hive+Tez+LLAP
 
     Apache Tez将默认的Hive执行引擎。通过有向无环图(DAG)和数据传输原语的表达式
     Tez可以将多个有依赖的作业转换为一个作业（这样只需写一次HDFS，且中间节点较少).从而大大提升DAG作业的性能
- 
+
 2.设计影响安全性的更改
 3.HDFS权限更改
 4.交易处理变更
 
     -成熟版本的ACID事务处理和LLAP(LiveLongAndProcess)
     -简化的应用程序开发,具有更强事务保证的操作,以及更简单的SQL命令语义
-  
+
 5.物化视图重写
 6.自动查询缓存
 7.Spark目录更改

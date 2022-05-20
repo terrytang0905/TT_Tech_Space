@@ -5,7 +5,7 @@ tags : [bigdata, dataprocess, develop]
 title: Big Data Research Note - DataProcess(Kafka MessageQueue)
 ---
 
-## 大数据研究-数据处理-Kafka MessageQueue
+## 大数据研究-数据处理-Kafka消息中间件
 ---------------------------------------------------------
 
 ### 1.Kafka生成原因
@@ -296,7 +296,7 @@ Product API 是给两个底层生产者的再封装 -kafka.producer.SyncProducer
 2	   int partition(T key, int numPartitions);
 3	}
 ```
-	
+
 	分区API根据相关的键值以及系统中具有的代理分区的数量返回一个分区id。将该id用作索引，在broker_id和partition组成的经过排序的列表中为相应的生产者请求找出一个代理分区。缺省的分区策略是hash(key)%numPartitions。如果key为null，那就进行随机选择。使用partitioner.class这个配置参数也可以插入自定义的分区策略。
 
 _Consumer API_
@@ -452,7 +452,7 @@ _消费者重新负载均衡的算法_
    7. 将从i*N到(i+1)*N - 1的分区分配给消费者Ci 
    8. 将Ci当前所拥有的分区从分区拥有者注册表中删除
    9. 将新分配的分区加入到分区拥有者注册表中.(我们可能需要多次尝试才能让原先的分区拥有者释放其拥有权）
-       
+      
 
 在触发了一个消费者要重新进行负载均衡时，同一小组内的其它消费者也会几乎在同时被触发重新进行负载均衡。
 

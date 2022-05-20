@@ -2,10 +2,10 @@
 layout: post
 category : bigdata
 tags : [bigdata,query,architect]
-title: Big Data Analytics Note - SQL on Hadoop
+title: Big Data Research Note - SQL on Hadoop
 ---
 
-## 大数据查询分析- SQL on Hadoop
+## 大数据研究 - SQL on Hadoop产品分析
 ------------------------------------------------------------
 
 ### BigQuery Interactive Query Engine
@@ -27,10 +27,16 @@ title: Big Data Analytics Note - SQL on Hadoop
 
 Google Mesa > Google Dremel > Doris > Impala > SparkSQL > Presto > Hive
 
+其他类似大数据分析数据库:
+	[ElasticSearch](2017-01-06-elastic-search-engine-architect-note.md)  <br />
+	[MongoDB](2016-02-28-mongodb-internal.md) / Couchbase / Redis <br />
+	[BigTable&HBase分析](2017-03-12-bigtable&hbase-analysis-note.md) / Amazon DynamoDB / Cassandra
 
 #### 1.PrestoDB
 
-[PrestoDB交互式OLAP查询](2017-04-03-olap-distributed-presto-practice-note.md)
+[PrestoDB交互式OLAP产品](2017-04-03-bigdata-best-practice-distributed-presto-note.md)
+
+[From Presto to Trino in 2020](https://trino.io/blog/2020/12/27/announcing-trino.html)
 
 #### Presto引擎对比
 
@@ -46,13 +52,9 @@ Google Mesa > Google Dremel > Doris > Impala > SparkSQL > Presto > Hive
 
 基于HDFS的MPP架构的SQL引擎
 
-[Impala交互式OLAP查询](2016-12-13-olap-distributed-impala-practice-note.md)
+[Impala交互式OLAP产品](2016-12-13-olap-distributed-impala-practice-note.md)
 
-#### 4.Phoenix
-
-执行在HBase之上的SQL引擎
-
-#### 5.Dremel(Google BigQuery)
+#### 4.Dremel(Google BigQuery Query Engine)
 
 ![dremel_page](_includes/dremel_page.jpg)
 
@@ -103,7 +105,7 @@ message Document {
 
 
 
-#### 6.Drill(MapR)
+#### 5.Drill(MapR)
 
 开源版Dremel: Schema-free SQL Query Engine for Hadoop, NoSQL and Cloud Storage
 
@@ -115,7 +117,7 @@ message Document {
 	- Scalable data source(连接器连接): 支持多种数据源, 包括HDFS,HBase,Hive等表,RDBMS等
 	- 支持跨多数据源的并行数据查询与分析
 	- 自动推导和识别MetaData信息
-
+	
 	Comments:大数据量查询下的查询性能较差,好用却不高效
 
 _Ref:_
@@ -223,7 +225,7 @@ _Presto Cost-based Query Optimization_
 
 _Dremel Optimizer_
 
-Ref:[查询优化器研究](2018-06-01-query-optimizer-design-note.md)
+Ref:[查询优化器研究](code/2018-06-01-query-optimizer-design-note.md)
 
 
 #### 4.执行效率
@@ -319,7 +321,7 @@ ORCFile顾名思义,是在RCFile的基础之上改造的。RCFile虽然号称列
 
 	* 块过滤与块统计:每一列按照固定行数或大小进一步切分,对于切分出来的每一个数据单元,预先计算好这些单元的min/max/sum/count/null值,min/max用于在过滤数据的时候直接跳过数据单元,而所有这些统计值则可以在做聚合操作的时候直接采用,而不必解开这个数据单元做进一步的计算。
 	* 更高效的编码方式:RCFile中没有标注每一列的类型,事实上当知道数据类型时,可以采取特定的编码方式,本身就能很大程度上进行数据的压缩。常见的针对列存储的编码方式有RLE（大量重复数据）,字典（字符串）,位图（数字且基数不大）,级差（排序过的数据,比如日志中用户访问时间）等等。
-	
+
 ORCFile的结构如下图,数据先按照默认256M分为row group,也叫strip。每个strip配一个index,存放每个数据单元（默认10000行）的min/max值用于过滤;数据按照上面提到的编码方式序列化成stream,然后再进行snappy或gz压缩。<br/>
 footer提供读取stream的位置信息,以及更多的统计值如sum/count等。尾部的file footer和post script提供全局信息,如每个strip的行数,各列数据类型,压缩参数等。
 
@@ -367,7 +369,7 @@ _CarbonData_
 
 	- 多数据源查询:Presto支持从mysql,cassandra,甚至kafka中去读取数据,这就大大减少了数据整合时间,不需要放到HDFS里才能查询。Impala和Hive也支持查询hbase。Spark SQL也在1.2版本开始支持External Datasource。国内也有类似的工作,如秒针改造Impala使之能查询postgres(是不是意味着Impala可以查询GP了?)。
 	- 近似查询:count distinct(基数估计)一直是sql性能杀手之一,如果能接受一定误差的话可以采用近似算法。Impala中已经实现了近似算法(ndv),Presto则是请blinkDB合作完成。两者都是采用了HyperLogLog Counting(Kylin也采用了该技术)。当然,不仅仅是count distinct可以使用近似算法,其他的如取中位数之类的也可以用。
-	
+
 
 #### 8.进一步
 
@@ -376,5 +378,4 @@ _CarbonData_
 * 增加分析函数,复杂数据类型,SQL语法集的扩展。
 * 对于已经成形的技术也在不断的改进,如列存储还可以增加更多的encoding方式。
 * 甚至对于像CBO这样的领域,开源界拿出来的东西还算是刚刚起步,相比HAWQ中的[ORCA](_includes/Orca_arch.png)这种商业系统提供的优化器还差的很多。
-
 

@@ -275,7 +275,9 @@ TableInputFormat -> TableMapper -> TableReducer -> TableOutputFormat
 - 数据源与数据流向
 - 自定义处理
 
+#### 8.HBase vs Cassandra
 
+![hbase_vs_cassandra](_includes/hbase_vs_cassandra.png)
 
 
 ### Ref

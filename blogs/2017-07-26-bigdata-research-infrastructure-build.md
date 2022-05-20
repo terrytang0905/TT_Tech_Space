@@ -338,7 +338,7 @@ _写入模型_
 
 	- HDFS 在考虑写入模型时做了一个简化，就是同一时刻只允许一个写入者或append追加。在这个模型下同一个文件同一个时刻只允许一个客户端写入或追加。 
 	- GFS 则允许同一时刻多个客户端并发写入或追加同一文件。
-
+	
 	Tips:允许并发写入带来了更复杂的一致性问题
 
 _写入流程_
@@ -364,7 +364,7 @@ _垃圾回收GC_
 
 	- GFS垃圾回收采用惰性回收策略，即master并不会立即回收程序所删除的文件资源。GFS选择以一种特定的形式标记删除文件
 	- HDFS直接使用JVM垃圾回收GC策略
-
+	
 	Tips:
 	CMS(Concurrent Mark Sweep): -XX:+UseConcMarkSweepGC,此时可同时使用-XX:+UseParNewGC将并行收集作用于年轻代
 	并行／吞吐优先收集器Parallel/Throughput Collector:  -XX:+UseParallelGC
@@ -582,11 +582,7 @@ Hadoop平台提供快速的读写访问，廉价的存储，批处理流程，�
 
 #### 3.5.架构-MPP并行计算
 
-相关MPP分布式计算的详细分析,可参见:
-
-- Ref:[分布式OLAP引擎](2021-05-05-bigdata-analytics-olap-next-generation-note.md)
-
-#### 重点:[分布式数据架构](2017-07-27-bigdata-analytics-database-architect.md)
+相关MPP相关分布式计算的详细分析,属于Shard-nothing架构。被广泛使用在海量数据OLAP分析场景下。
 
 #### 3.6.架构-Lambda架构(批量管道+实时流式计算)
 
@@ -607,7 +603,7 @@ Lambda Architecture核心是我们最乐意快速粗略作答的，但我想在�
 另外一种解决慢数据管道的方式，称之为Kappa框架。起初我以为这个架构名称不对，现在我不太确定。不管它是什么，我叫它流数据平台，其实这个已经有人这么叫了。
 
 
-- Ref:[实时计算架构](2017-07-29-bigdata-research-dataprocess-realtime-framework.md)
+- [实时计算架构](2017-07-29-bigdata-research-dataprocess-realtime-framework.md)
 
 #### 3.7.架构-实时流式计算架构(Spark/Flink)
 

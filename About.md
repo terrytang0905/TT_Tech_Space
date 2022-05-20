@@ -37,7 +37,12 @@ Big Data Architect/Data Platform Director(Over 15 Data Driver work experience).
 ### Work Experience
 
 || Time 			 || Company  		|| Position 						        ||   <br/>
-|| 2015/10--2017/05.     || *Shuyun*        || Data Product Architect & Technical leader     ||
+
+|| 2019/07--Now.     || *AliCloud*        || Data Product Architect Leader     ||
+
+|| 2017/05--2019/07.     || *iResearch*        || Data Product Managing Director    ||
+
+|| 2015/10--2017/05.     || *Shuyun*        || Data Product Architect & Technical Leader     ||
 
 - Product: Agile BI data product based on big data - The best CRM data analysis product for e-commerce in China
 - Responsibility: 

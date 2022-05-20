@@ -2,7 +2,7 @@
 layout: post
 category : bigdata
 tags : [bigdata,database,hadoop]
-title: Hive Programing Design Note - Programing Design
+title: Data Compute - Hive Programing Design Note
 ---
 
 ## Hive Programing Design Note
@@ -123,7 +123,7 @@ hive> FROM staged_employees se;
 hive>INSERT OVERWRITE LOCAL DIRECTORY '/tmp/ca_employees' SELECT name, salary, address
 hive>FROM employees
 hive>WHERE se.state = 'CA';
-``` 
+```
 
 #### 3.2.HiveQL: Queries & Views
 
@@ -255,7 +255,7 @@ insert into table tablename partition (dt= ....)
 select .... from C
 WHERE ...; 
 
-``` 
+```
 
 #### 5.HiveQL查询优化设置
 
@@ -315,7 +315,7 @@ reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个�
 	- set hive.map.aggr=true;
 	- set hive.skewjoin.key=100000; --这个是join的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置
 	- set hive.optimize.skewjoin=true; --如果是join 过程出现倾斜 应该设置为true
- 
+
 
 6) 善用multi insert,union all
 
