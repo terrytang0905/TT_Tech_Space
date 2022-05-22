@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [database, product, htap]
+tags : [product, database, htap]
 title: Database Research Note - TiDB HTAP DB
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-category : thinking
-tags : [thinking,database,development]
+category : blockchain
+tags : [blockchain, voice, guide]
 title: Voice Chain Design Note
 ---
 
@@ -54,7 +54,6 @@ Voiceweb 基金会致力于为智能化的物联网世界建立一个语音万�
 发行代币
 
 ### 语音链应用架构
-
 
 
 

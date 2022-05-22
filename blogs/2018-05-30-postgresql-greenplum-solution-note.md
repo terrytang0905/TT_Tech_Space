@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [database,guide,solution]
+tags : [product, database, solution]
 title: PostgreSQL&Greenplum Solution Practice Note
 ---
 
@@ -95,5 +95,4 @@ Postgres-XL is a horizontally scalable open source SQL database cluster, flexibl
 - [Greenplum架构设计研究](2017-02-11-greenplum-arch-design-note.md)
 - [Greenplum最佳实践](2017-05-28-greenplum-best-practice-note.md)
 - [Greenplum5最佳实践](2017-12-03-greenplum5-best-practice-note.md)
-
 

@@ -91,7 +91,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [Java多线程与并发-java.util.concurrent API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_api_note.md)
 - [Java多线程与并发-Lock-free无锁编程](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-11-java_lock_free_program_note.md)
 - [Java多线程与并发-Concurrent Analysis Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-11-java_concurrent_analysis_note.md)
-- [Java多线程与并发-Concurrent Analysis Index](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-09-java_concurrent_analysis_map.md)
+- [Java多线程与并发-Concurrent Tech Analysis Map](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-09-java_concurrent_tech_analysis_map.md)
 - [程序员的职业素养-读书笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-07-professional-programmer.md)
 - [Go语言研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-12-go-language-design.md)
 - [Linux系统管理](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-06-30-linux-system-management.md)

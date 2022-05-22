@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [datascience,bigdata,architect]
+tags : [development, bigdata,architect]
 title: Big Data Research Note - DataProcess Design
 ---
 

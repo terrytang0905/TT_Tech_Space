@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, tech, solution]
+tags : [product, bigdata, solution]
 title: Big Data Research Note - Google Solution
 ---
 

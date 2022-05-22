@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata, tech, solution]
+tags : [research, bigdata, lakehouse]
 title: Big Data Research Note - DataLakeHouse
 ---
 
