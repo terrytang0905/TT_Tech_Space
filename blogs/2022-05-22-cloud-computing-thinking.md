@@ -1,6 +1,6 @@
 ---
 layout: post    
-category : cloud
+category : thinking
 tags : [cloud,analytics,guide]
 title: Cloud Computing Thinking
 

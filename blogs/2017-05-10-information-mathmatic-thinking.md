@@ -8,7 +8,7 @@ title: Information&NLP&Mathematics Thinking
 ## 信息处理与数学应用研究
 -----------------------------------------------
 
-### 1Information,NLP,Mathematics
+### 1.Information,NLP,Mathematics
 
 **NLP**
 

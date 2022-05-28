@@ -185,6 +185,7 @@ _Merge On Read_: 将数据直接 append 到 存储文件 上，在merge的时候
         * 相关更新记录落地成Delta文件，读时进行合并
         * 写速度快，会产生小文件合并merge问题
         * 读时合并
+        * Hudi支持Merge on Read(Upsert),Iceberg不支持 
 
 **Iceberg, Hudi, DeltaLake - Data Table Format**
 
@@ -293,27 +294,26 @@ Iceberg最初由Netflix发布，旨在解决在S3上存储大型Hive分区数据
 
 Iceberg定位是在计算引擎之下，又在存储之上。其次，它是一种数据存储格式，Delta Lake称其为"storage layer"，而Iceberg则称其为"table format"。这类技术是介于计算引擎和数据存储格式中间的数据组织格式。通过特定的方式将数据和元数据组织起来，因此称之为数据组织格式更为合理，而Iceberg将其定义为表格式也直观地反映出了它的定位和功能。ACID是表格式的基本能力，Delta Lake、Hudi和Iceberg都提供了ACID能力，由ACID能力所衍生出来的row level update/delete更是这些表格式最吸引人的特性。Iceberg提供了锁的机制来提供ACID的能力，在每次元数据更新时它会从Hive metastore中获取锁并进行更新。同时Iceberg保证了线性一致性（Serializable isolation），确保表的修改操作是原子性的，读操作永远不会读到部分或是没有commit的数据。Iceberg提供了乐观锁的机制降低锁的影响，并且使用冲突回退和重试机制来解决并发写所造成的冲突问题。基于ACID的能力，Iceberg提供了类似于MVCC的读写分离能力：每次写操作都会产生一个新的快照（snapshot），快照始终是往后线性递增，确保了线性一致性。而读操作只会读取已经存在了的快照，对于正在生成的快照读操作是不可见的。每一个快照拥有表在那一时刻所有的数据和元数据，因此提供了用户回溯（time travel）表数据的能力。利用Iceberg的time travel能力，用户可以读取那一时刻的数据，同时也提供了用户快照回滚和数据重放的能力。
 
-相比于Hudi，Delta Lake，**Iceberg**提供了更为完整的表格式的能力、类型的定义和操作的抽象，并与上层数据处理引擎和底层数据存储格式的解耦。
+相比于Hudi，Delta Lake，**Iceberg**提供了更为完整的表格式**Schema Evolution**的能力、类型的定义和操作的抽象，并与上层数据处理引擎和底层数据存储格式的解耦。
 
 - 对接上层，Iceberg提供了丰富的表操作接口，使得它非常容易与上层数据处理引擎对接，现已支持的包括Spark（Spark2和Spark3），Presto，Pig，社区正在做的是Hive和Flink的适配。其中Iceberg对于Spark的支持最好，它同时支持Spark2的Data Source V2 API和Spark3 的Data Source V2 API（包括multiple catalog支持），同时对于Spark的谓词下推能力有全面的支持。
 
 - 对接下层，Iceberg屏蔽了底层数据存储格式的差异，提供对于Parquet，ORC和Avro格式的支持。Iceberg起到了中间桥梁的能力，将上层引擎的能力传导到下层的存储格式。相比于Hudi，Delta Lake，Iceberg在设计之初并没有绑定某种特定的存储引擎，同时避免了与上层引擎之间的相互调用，使得Iceberg可以非常容易地扩展到对于不同引擎的支持。
 
-- Iceberg支持如下这些schema修改操作：
+- Iceberg支持如下这些**Schema Evolution**操作(确保schema evolution是独立且没有副作用的)：
 
 		1).Add - 在表中或是在嵌套结构中新增column。
 		2).Drop - 在表中或是在嵌套结构中移除已有的column。
 		3).Rename - 在表中或是在嵌套结构中修改column的名字。
 		4).Update - 提升数据的类型，支持column，struct field，map key，map value和list中的元素。
 		5).Reorder - 调整表中说是嵌套结构中的column顺序。
-		同时Iceberg确保schema evolution是独立且没有副作用的。
 
 Iceberg支持Spark的读和写，包括Spark的结构化流。Trino (PrestoSQL) 也支持读取，但对删除的支持有限。同时支持Flink的读和写。最后，Iceberg为Hive提供了读支持。仅支持写时复制的方式，包含需要更新记录的文件会立即被重写。Iceberg的优势在于包含大量分区的表的读取性能很高。解决存储可用性问题: 更好的schema管理方式、时间旅行、多版本回滚支持等。  基于MVCC(Multi Version Concurrency Control)的机制,默认读取文件会从最新的的版本, 每次写入都会产生一个新的快照, 读写相互不干扰。基于多版本的机制可以实现回滚和时间旅行的功能, 读取或者回滚任意版本的快照数据。Iceberg还有许多其他的优势，比如对象存储友好的数据组织方式，在数据存储格式之上的统一的向量化读取(基于Arrow实现)，完备的算子下推等等关于表结构的核心能力。
 
 #### Iceberg的特性:
 
 - ACID事务； 
-- 时间旅行（time travel），以访问之前版本的数据； 
+- 时间旅行(Time Travel)，以访问之前版本的数据； 
 - 完备的自定义类型、分区方式和操作的抽象； 
 - 列和分区方式可以进化，而且进化对用户无感，即无需重新组织或变更数据文件； 
 - 隐式分区，使SQL不用针对分区方式特殊优化； 

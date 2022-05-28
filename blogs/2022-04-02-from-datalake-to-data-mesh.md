@@ -1,6 +1,6 @@
 ---
 layout: post
-category : bigdata
+category : thinking
 tags : [bigdata,analytics,guide]
 title: Data Mesh Principles and Logical Architecture
 

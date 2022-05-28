@@ -5,8 +5,10 @@ tags : [datascience,datamining,development]
 title: Data Usage - User Label Profile Note
 ---
 
-## 数据应用-用户标签特征与画像
+## 数据应用-受众定向标签特征
 -------------------------------------------------
+
+受众定向标签可以分成用户标签，上下文标签和广告主定制化标签。
 
 ### I.用户标签画像
 
