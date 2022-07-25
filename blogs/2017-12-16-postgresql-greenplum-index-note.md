@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [database,guide,development]
+tags : [product, database, guide]
 title: PostgreSQL&Greenplum Index Note
 ---
 
@@ -327,5 +327,4 @@ select count(*) from table where col = a and col = b and col2=xxx;
 
 - gptext.search() 
 - [GPText2.3.1](http://gptext.docs.pivotal.io/230/topics/indexes.html)
-
 

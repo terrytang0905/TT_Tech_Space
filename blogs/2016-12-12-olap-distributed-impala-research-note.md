@@ -191,7 +191,7 @@ Join order have a large impact for query optimization.
 
 
 ### Kudu Bigdata Storage
- 
+
 Kudu is the hybrid architecture in order to replace HBase + HDFS-Parquet storage architect.
 
 #### 1.Kudu Feature:

@@ -1,6 +1,6 @@
 ---
 layout: post
-category : bigdata
+category : database
 tags : [bigdata,olap,architect]
 title: Big Data OLAP Note - OLAP Mondrian Note
 ---

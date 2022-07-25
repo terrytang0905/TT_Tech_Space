@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,realtime,develop]
+tags : [research, bigdata, realtime]
 title: Big Data Research Note - DataProcess(RealTime Compute Research)
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 category : datascience
-tags : [datascience,datamining,development]
+tags : [datascience,datamining,ml]
 title: GBDT & XGBoost Machine Learning Note
 ---
 
@@ -64,16 +64,17 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 
 1) 初始化弱学习器
 		
+	
 		f0(x)=argmin⏟c∑i=1mL(yi,c)
-
+	
 2) 对迭代轮数t=1,2,...T有：
 
 		a)对样本i=1,2，...m，计算负梯度
-
+	
 		rti=−[∂L(yi,f(xi)))∂f(xi)]f(x)=ft−1(x)
-
+	
 		b)利用(xi,rti)(i=1,2,..m), 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为Rtj,j=1,2,...,J。其中J为回归树t的叶子节点的个数。
-
+	
 		c) 对叶子区域j =1,2,..J,计算最佳拟合值
 
 	ctj=argmin⏟c∑xi∈RtjL(yi,ft−1(xi)+c)
@@ -159,17 +160,17 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 对于**回归算法**,常用损失函数有如下4种:
 
     a)均方差，这个是最常见的回归损失函数了
-	L(y,f(x))=(y−f(x))2
+    L(y,f(x))=(y−f(x))2
     b)绝对损失，这个损失函数也很常见
-	L(y,f(x))=|y−f(x)|
+    L(y,f(x))=|y−f(x)|
     对应负梯度误差为：sign(yi−f(xi))
     c)Huber损失，它是均方差和绝对损失的折衷产物，对于远离中心的异常点，采用绝对损失，而中心附近的点采用均方差。这个界限一般用分位数点度量。损失函数如下：
-	L(y,f(x))={12(y−f(x))2δ(|y−f(x)|−δ2)|y−f(x)|≤δ|y−f(x)|>δ
+    L(y,f(x))={12(y−f(x))2δ(|y−f(x)|−δ2)|y−f(x)|≤δ|y−f(x)|>δ
         对应的负梯度误差为：
     r(yi,f(xi))={yi−f(xi)δsign(yi−f(xi))|yi−f(xi)|≤δ|yi−f(xi)|>δ
     d) 分位数损失。它对应的是分位数回归的损失函数，表达式为
-	L(y,f(x))=∑y≥f(x)θ|y−f(x)|+∑y<f(x)(1−θ)|y−f(x)|
-	    其中θ为分位数，需要我们在回归前指定。对应的负梯度误差为：
+    L(y,f(x))=∑y≥f(x)θ|y−f(x)|+∑y<f(x)(1−θ)|y−f(x)|
+        其中θ为分位数，需要我们在回归前指定。对应的负梯度误差为：
     r(yi,f(xi))={θθ−1yi≥f(xi)yi<f(xi)
     对于Huber损失和分位数损失，主要用于健壮回归，也就是减少异常点对损失函数的影响。
 
@@ -184,7 +185,7 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 	fk(x)=fk−1(x)+νhk(x)
 　　　　ν的取值范围为0<ν≤1。对于同样的训练集学习效果，较小的ν意味着我们需要更多的弱学习器的迭代次数。通常我们用步长和迭代最大次数一起来决定算法的拟合效果。
 
- 
+
 2.正则化的方式是通过子采样比例（subsample）。取值为(0,1]。注意这里的子采样和随机森林不一样，随机森林使用的是放回抽样，而这里是不放回抽样。如果取值为1，则全部样本都使用，等于没有使用子采样。如果取值小于1，则只有一部分样本会去做GBDT的决策树拟合。选择小于1的比例可以减少方差，即防止过拟合，但是会增加样本拟合的偏差，因此取值不能太低。推荐在[0.5, 0.8]之间。
 
 　　使用了子采样的GBDT有时也称作随机梯度提升树(Stochastic Gradient Boosting Tree, SGBT)。由于使用了子采样，程序可以通过采样分发到不同的任务去做boosting的迭代过程，最后形成新树，从而减少弱学习器难以并行学习的弱点。
@@ -194,7 +195,7 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 
 
 #### 6. GBDT思考
-　
+
 　　　GBDT终于讲完了，GDBT本身并不复杂，不过要吃透的话需要对集成学习的原理，决策树原理和各种损失函树有一定的了解。由于GBDT的卓越性能，只要是研究机器学习都应该掌握这个算法，包括背后的原理和应用调参方法。目前GBDT的算法比较好的库是xgboost。当然scikit-learn也可以。
 
 最后总结下GBDT的优缺点。
@@ -217,7 +218,7 @@ XGBoost 是 “Extreme Gradient Boosting” 的缩写，其中 “Gradient Boost
 #### XGBoost特性
 
 - 支持线性分类器
-    
+  
     这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归(回归问题)
 
 - xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。
@@ -231,7 +232,7 @@ XGBoost 是 “Extreme Gradient Boosting” 的缩写，其中 “Gradient Boost
 XGBoost的loss function可以拆解为两个部分:
 
     - 第一部分是X/Y配对的建模
-	- 第二部分是基于X/Y建模的loss function的设计。
+    - 第二部分是基于X/Y建模的loss function的设计。
 
 
 在XGBoost的实现中，对算法进行了模块化的拆解，几个重要的部分分别是：

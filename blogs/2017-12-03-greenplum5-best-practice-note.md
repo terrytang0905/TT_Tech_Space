@@ -1,7 +1,7 @@
 ---
 layout: post
 category : database
-tags : [database,olap,guide]
+tags : [product, database, olap]
 title: Greenplum5 Best Practice Note
 ---
 

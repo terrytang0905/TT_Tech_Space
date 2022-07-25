@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,analytics,guide]
+tags : [product, bigdata, analytics]
 title: Product Best Practice Note - AliCloud Hologres Best Practice
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-category : datascience
-tags : [datascience,datamining,development]
+category : AI
+tags : [datascience,datamining,ml]
 title: Machine Learning&AI Everything Study Notes
 ---
 

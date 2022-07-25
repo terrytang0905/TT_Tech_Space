@@ -1,7 +1,7 @@
 ---
 layout: post
 category : bigdata
-tags : [bigdata,olap,architect]
+tags : [research, bigdata, olap]
 title: Big Data Research Note - Next Generation OLAP Product
 ---
 
