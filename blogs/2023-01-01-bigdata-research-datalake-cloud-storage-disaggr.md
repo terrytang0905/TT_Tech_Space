@@ -1,12 +1,12 @@
 ---
 layout: post    
-category : thinking
+category : big data
 tags : [cloud,datalake,thought]
-title: DataLake Cloud Storage Disaggra
+title:  Big Data Research Note - DataLake Cloud Storage Disaggra
 
 ---
 
-## 大数据上云存算分离演进思考与探讨-2022
+## 大数据研究-大数据上云存算分离演进思考与探讨2022
 
 ## 写在前面
 

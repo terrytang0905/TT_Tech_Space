@@ -5,7 +5,7 @@ tags : [cloud,analytics,thought]
 title: Cloud Computing Thinking
 ---
 
-## Data Business Thinking on Cloud Computing 2022
+## Data Business Thinking on Cloud Computing2022
 
 ### I. Definition: Cloud Computing Internel-什么是云计算
 
@@ -61,22 +61,29 @@ What changes should be made to the design of future applications software, infra
 
 _**云计算架构优势与特点**_
 
-1.**资源标准池化**：存算网池化、底层大资源池、产品/应用共池、服务规格;
+-	1.**资源标准池化**：存算网池化、底层大资源池、产品/应用共池、服务规格;
 	不同租户隔离与共享：租户/SP隔离、云产品/应用共池、高超卖比、离在线混部;
-2.**按需弹性服务**：分层解耦服务化、服务规格、On-Demand、应用/Xaas的弹性、IAC基线强规划、按需调API、应用智能运维、平台固化原则;
+	
+-	2.**按需弹性服务**：分层解耦服务化、服务规格、On-Demand、应用/Xaas的弹性、IAC基线强规划、按需调API、应用智能运维、平台固化原则;
 	Autoscaling in response to changes in load to scale up or down the system.
-3.**敏捷自动调度**：在线自助扩缩容、云/人/规划多脑协同、编排调度闭环;
+	
+-	3.**敏捷自动调度**：在线自助扩缩容、云/人/规划多脑协同、编排调度闭环;
 	动态Instance漂移: Migration to new instances as they become available.
-4.**实时计量计费**：服务化成本归集、市场化服务定价、分钟/小时级别实时计量;
-5.**随时随地接入**：云边端网络、混合云网络、SDWAN、CDN、资源/服务/网络上云;
-6.**默认高可用**: Redundancy for availability, so that a single machine failure doesn’t take down the service. 
-	跨地域分布容灾: Geographic distribution of redundant copies to preserve the service in case of disaster.
-7.**负载均衡&软路由**: Load balancing and request routing to efficiently utilize resources.
-8.**智能运维德升级优化**
 
- * 全链路监控&高性能运行: Monitoring to make sure the service is still running well.
- * 日志管理&性能调优: Logging to record messages needed for debugging or performance tuning. 
- * 系统升级&安全补丁: System upgrades, including security patching.
+-	4.**实时计量计费**：服务化成本归集、市场化服务定价、分钟/小时级别实时计量;
+	
+-	5.**随时随地接入**：云边端网络、混合云网络、SDWAN、CDN、资源/服务/网络上云;
+	
+-	6.**默认高可用**: Redundancy for availability, so that a single machine failure doesn’t take down the service. 
+	跨地域分布容灾: Geographic distribution of redundant copies to preserve the service in case of disaster.
+	
+-	7.**负载均衡&软路由**: Load balancing and request routing to efficiently utilize resources.
+	
+-	8.**智能运维德升级优化**
+
+ 	* 全链路监控&高性能运行: Monitoring to make sure the service is still running well.
+ 	* 日志管理&性能调优: Logging to record messages needed for debugging or performance tuning. 
+ 	* 系统升级&安全补丁: System upgrades, including security patching.
 
 _**云计算原则**_
 
@@ -96,11 +103,11 @@ _**云计算原则**_
 
 首先, 我们综合对比三家国际云公司(AWS/Azure/GCP)的业绩报告可以发现几个重要事实。
 
-其一，亚马逊AWS、微软云、谷歌云2021年依旧维持着高增长，其收入增速甚至超过疫情前。与此相反，中国云厂商收入增速在2021年开始下滑。
+_**其一**_，亚马逊AWS、微软云、谷歌云2021年依旧维持着高增长，其收入增速甚至超过疫情前。与此相反，中国云厂商收入增速在2021年开始下滑。
 
-其二，微软云正在缩小和亚马逊AWS在公共云市场的距离。微软云收入规模、利润率均高于亚马逊AWS。由于在传统IT市场积淀多年，微软云的产业布局也比亚马逊AWS更完整。
+_**其二**_，微软云正在缩小和亚马逊AWS在公共云市场的距离。微软云收入规模、利润率均高于亚马逊AWS。由于在传统IT市场积淀多年，微软云的产业布局也比亚马逊AWS更完整。
 
-其三，亚马逊AWS、微软云的利润率远高于中国云厂商，且不可复制。国内云厂商在中国市场特殊性、政企/金融客户倾向私有化部署、大型客户定制化需求繁多等因素的影响下，无法简单模仿海外企业的路径。
+_**其三**_，亚马逊AWS、微软云的利润率远高于中国云厂商，且不可复制。国内云厂商在中国市场特殊性、政企/金融客户倾向私有化部署、大型客户定制化需求繁多等因素的影响下，无法简单模仿海外企业的路径。
 
 		Tips: 中国区市场在未来很长时间内,私有云or混合云的产品部署与定制化需求依然强烈!如何有效提高ROI是拿下对应市场的关键胜负手
 
@@ -108,7 +115,7 @@ _**云计算原则**_
 
 		Tips: 云计算的营收主要来自IaaS云基础产品,PaaS层云产品要么依赖云端IaaS层产品来强化其云计算能力,要么统一按照全托管产品形态来输出。
 
-**亚马逊AWS**在公共云市场具有绝对优势，产品包括云、数据库等，但PaaS、SaaS层较单薄，主要依靠SAP、Salesforce等平台层合作伙伴补足。亚马逊AWS还被认为在垂直行业缺少积淀。
+_**亚马逊AWS**_在公共云市场具有绝对优势，产品包括云、数据库等，但PaaS、SaaS层较单薄，主要依靠SAP、Salesforce等平台层合作伙伴补足。亚马逊AWS还被认为在垂直行业缺少积淀。
 
 		Tips:相比AWS的情况,阿里云在国内市场PaaS层产品依然较大优势！
 
@@ -118,7 +125,7 @@ _**云计算原则**_
 
 ![云厂商行业头部客户](_includes/市场-云厂商行业头部客户.png)
 
-**微软云**（智能云+生产力与业务流程）2021年总营收为800亿美元。微软云规模不输与亚马逊AWS是三方面因素决定的。一是业务布局，二是客户关系，三是行业积淀。
+_**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿美元。微软云规模不输与亚马逊AWS是三方面因素决定的。一是业务布局，二是客户关系，三是行业积淀。
 
 从**业务布局**的角度看，微软从传统IT和传统软件阶段开始，用数十年构建了一条完整的To B产业链，具备公共云、混合云、私有云，集成、咨询及服务能力。微软还在PaaS和SaaS层形成了“Teams+Office365+Dynamic+Power Platform+Linkedin”的完整应用布局。
 
@@ -136,7 +143,7 @@ _**云计算原则**_
 
 		Tips:华为云的打法类似微软(当然华为ToB软件开发能力远不及微软),其依赖于其多年的ToB行业积淀与成熟的渠道生态策略打法,在很多非互联网相关行业包括运营商、金融、政府、制造等领域,在产品能力一般的情况(在逐步改进中),依然在国内市场有较大优势。
 
-#### 2.2.Customer:云计算目标客户分群
+#### 2.2.Customer: 云计算目标客户分群
 
 互联网巨头 ：混合云 / 多云部署
 
@@ -162,7 +169,7 @@ _**云计算原则**_
 
 **核心思考**
 
-云计算业务 公共云业务增长应与机器数量资源扩展挂钩
+云计算业务: 公共云业务增长应与机器数量资源扩展挂钩
 
 - 1.IT搬站上云
 - 2.云计算关键是弹性 1台顶5台-核心效率提升
@@ -175,7 +182,7 @@ _**云计算原则**_
 
 #### 3.1.[云计算]通用成本优化策略
 
- [稳定] / [弹性] /  [算力]  / [降本] 
+ [稳定] / [弹性] /  [算力]  / [降本性价比] 
 
 高可用、容灾和多活
 

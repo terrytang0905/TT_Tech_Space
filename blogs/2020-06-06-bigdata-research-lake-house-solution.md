@@ -5,7 +5,7 @@ tags : [research, bigdata, lakehouse]
 title: Big Data Research Note - DataLakeHouse
 ---
 
-## 大数据研究-数据湖存算分离技术研究
+## 大数据研究-数据湖存算分离技术研究2020
 ---------------------------------------------------
 
 ### I.存算分离之上的数据湖仓思考
@@ -594,5 +594,4 @@ DELETE FROM person WHERE id = c002;
 
 
 ### Ref
-
 
