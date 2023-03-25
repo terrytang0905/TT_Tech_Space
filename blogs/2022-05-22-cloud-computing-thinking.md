@@ -210,9 +210,7 @@ Versatility: Both structured and semi-structured data can be stored in CDW (comp
 
 _**Ref:[通用数据产品的商业化](2015-11-08-bigdata-analytics-thinking.md)**_
 
-需要关注的是数据产品本身的商业化与基于云服务之上的云产品的商业化不是简单的业务模式重复。而是完全新形态的云原生产品商业化模式。云产品的PMF具体会落在哪些层面, 客户一定会为产品能力买单?
-
-![数据应用商业化](_includes/数据应用商业化.png)
+需要关注的是数据产品本身的商业化与基于云服务之上的云产品的商业化不是简单的业务模式重复。而是完全新形态的云原生产品商业化模式。云产品的PMF具体会落在哪些层面, 客户一定会为产品价值能力买单? 
 
 #### 3.4.[变革]通用AI智能应用商业化
 
@@ -226,7 +224,7 @@ ChatGPT
 
 ### IV.TechTrend: 云计算-大数据&AI的行业技术趋势及影响
 
-![cloud_process](/Users/zhenjie.tzj/Documents/!BigData&AIResearch/TT_Tech_Space/blogs/_includes/cloud_process.png)
+![cloud_process](_includes/cloud_process.png)
 
 - 05年左右，我们还处在物理服务器时代，无论是机房、实体服务器、网络、软件授权等，还是专门的运维人员，对企业而言，都需要大量的支出，而实际的资源利用率却很低。
 
@@ -603,5 +601,3 @@ XC绕不开的话题-政府大数据&科研AI
 * paper_berkeley_view_of_system_challenges_forAI_2017
 * [The New Business of AI (and How It’s Different From Traditional Software)](https://future.com/new-business-ai-different-traditional-software/)
 * [The Empty Promise of Data Moats](https://a16z.com/2019/05/09/data-network-effects-moats/)
-* 阿里云专有云飞天企业版整体架构介绍
-* 行业业务分析材料-政企/金融/零售/智能制造(汽车)/媒体游戏/海外等
