@@ -145,21 +145,25 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 #### 2.2.Customer: 云计算目标客户分群
 
-互联网巨头 ：混合云 / 多云部署
+**互联网头部** ：混合云 / 多云部署 / 定制服务
 
-**泛娱乐&游戏公司**
+**互联网-泛娱乐&游戏公司**
 
-**新零售&电商公司**
+**互联网-营销&交易公司**
 
-**金融科技**
+**新零售&消费科技**
 
-**政企KA**
+**金融科技&互联网金融**
 
-**医疗**
+**智能制造&汽车智能**
 
-**智能制造**
+**政企KA&电信**
 
-非互联网：流程规范 / 安全体系建设
+**能源电力**
+
+**医疗科技**
+
+互联网与非互联网的差异：流程规范 / 安全体系建设
 
 #### 2.3.Cost: 云计算厂商的盈亏平衡点
 
@@ -181,7 +185,7 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 **核心思考**
 
-云计算业务: 公共云业务增长应与机器数量资源扩展挂钩
+云计算业务: 公共云业务增长应与机器数量资源扩展挂钩 (资源规模化替代营收增长)
 
 - 1.IT搬站上云
 - 2.云计算关键是弹性 1台顶5台-核心效率提升
@@ -190,7 +194,10 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 ### III.Value: 云计算+数据AI价值产品商业化，路径在哪里？
 
-第一是业务永续，也就是数据库的高可用、容灾和多活。第二是弹性，业务进行营销活动或者流量突然增长的时候数据库能及时扩容上去扛住流量。这两点做不好对业务就意味着资损。第三是性价比，在满足前两个需求下数据库的费用尽可能的便宜。在未来几年里，CIO们对降本增强的呼声会越来越强烈。
+- 第一是业务永续，也就是PaaS产品/云上产品的高可用、容灾和多活。
+- 第二是无限弹性资源伸缩，业务进行营销活动或者流量突然增长的时候数据库能及时扩容上去扛住流量。这两点做不好对业务就意味着资损。
+- 第三是极致性价比，在满足前两个需求下数据库的费用尽可能的便宜。在未来几年里，CIO们对降本增强的呼声会越来越强烈。--阿里云2023年北京云峰会已发布大降价
+- 第四是极简易用性，基于云计算的X as a Service的产品理念，帮助用户以最简洁的方式实现云上数据分析计算存储的工作。
 
 #### 3.1.[云计算]通用成本优化策略
 
@@ -201,7 +208,7 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 #### 3.2.[APaaS]云原生数据产品的商业进化-如何变现
 
-Snowflake的Data-Warehouse-as-a-Service的商业化之路
+参考Snowflake的Data-Warehouse-as-a-Service的商业化之路
 
 ![snowflake_stock](_includes/snowflake_stock.png)
 
@@ -209,10 +216,10 @@ Snowflake的Data-Warehouse-as-a-Service的商业化之路
 
 Cloud Data Warehouses are pushing this software category to a whole new level:
 
-Business model: No upfront cost, pay as you go.
-Scalability: Separation of storage and compute, tapping into the cloud almost infinite scalability.
-Integration: CDWs are cloud databases. Third party providers can easily access their API and read their data, as shown in Snowflake’s partner list.
-Versatility: Both structured and semi-structured data can be stored in CDW (companies can ELT instead of ETL their data).
+- Business model商业模式: No upfront cost, pay as you go.
+- Scalability弹性: Separation of storage and compute, tapping into the cloud almost infinite scalability.
+- Integration集成能力: CDWs are cloud databases. Third party providers can easily access their API and read their data, as shown in Snowflake’s partner list.
+- Versatility多功能性: Both structured and semi-structured data can be stored in CDW (companies can ELT instead of ETL their data).
 
 #### 3.3.[价值]通用数据应用商业化论
 
@@ -222,11 +229,11 @@ Versatility: Both structured and semi-structured data can be stored in CDW (comp
 
 _**Ref:[通用数据产品的商业化](2015-11-08-bigdata-analytics-thinking.md)**_
 
-需要关注的是数据产品本身的商业化与基于云服务之上的云产品的商业化不是简单的业务模式重复。而是完全新形态的云原生产品商业化模式。云产品的PMF具体会落在哪些层面, 客户一定会为产品价值能力买单? 
+需重点关注的是数据产品本身的商业化与基于云服务之上的云产品的商业化不是简单的业务模式重复。而是完全新形态的云原生产品商业化模式。云产品的PMF具体会落在哪些层面, 客户一定会为产品价值能力买单? 
 
 #### 3.4.[变革]通用AI智能应用商业化
 
-ChatGPT
+LLM-ChatGPT
 
 #### 3.5.国内外云计算商业化差异
 
@@ -252,9 +259,8 @@ ChatGPT
 - 弹性伸缩-存算分离到湖仓一体融合
 - 云原生资源池化-K8s容器化资源管理
 - 实时数据湖-实时数仓到流批一体
-- 智能运维-从人工运维到自动化运维服务
-- ServerlessComputing Product Design-智能运维形态
-- DataArchDesign on Cloud: DataMesh vs DataFabric
+- ServerlessComputing Product Design-智能运维形态-从人工运维到自动化运维服务
+- DataArchDesign on Cloud: DataFabric vs DataMesh
 - 数据合规&数据隐私安全技术
 - 多云跨域数据计算Multi-CloudComputing
 - 大数据+AI一体参考架构
@@ -350,26 +356,31 @@ _C.MaxCompute Serverless DataWarehouse_
 
 _**ServerlessComputing总结**_
 
-ServerlessComputing无服务器计算代表着对PaaS层与之前模式的巨大的创新。更好的自动资源弹性伸缩, 强大的资源隔离,平台本身灵活性及服务生态化的支持。很多应用希望使用serverless computing的关键原因是在于细粒度的自动弹性伸缩, 使得资源利用率与每个应用程序的不同需求紧密匹配。--云原生容器化是云计算进化阶段的关键优势
+ServerlessComputing无服务器计算代表着对PaaS层与之前模式的巨大的创新。更好的自动资源弹性伸缩, 强大的资源隔离,平台本身灵活性及服务生态化的支持。很多应用希望使用serverless computing的关键原因是在于细粒度的自动弹性伸缩, 使得资源利用率与每个应用程序的不同需求紧密匹配。--云原生容器化是云计算进化阶段的关键优势。
 
-#### 4.4.DataArchDesign on Cloud
+Serverless的根本是实现无处不在的
 
-**以开放作为竞争基础：**
+#### 4.7.DataArchDesign on Cloud
+
+**以开放作为技术竞争基础：**
+
 - 没有用户希望被锁定 – 自主能力、议价能力、持续发展……
 - 选择合适的技术分层设计(解藕) --这一点非常重要
 - 支持生态和客户发展来证明开放性和有效性
 
 **选择合理的技术分层，维持业务功能的开放性和可移植性：**
+
 - 有事实标准可循的服务不破坏功能兼容性，给客户迁入迁出的自由，封装服务时多强调功能的共性  而不是差异性
 - 选择合适的技术分层接口，遵从或共建行业标准，如Kubernetes
 - 通过架构设计屏蔽外部技术能力差异的影响，如数据库封装层等设计，最简单的未必是最好和最有效的
 - 选择有潜力的合作伙伴和客户，以长期投入培养标杆
 
 **做最难的事情，在非功能性上体现技术实力和实质性差异：**
-非功能性产品需求定义
-  ○ 定义IT系统应该支持的期望或特征；
-  ○ 可能是运行时(例如：性能或可用性)，也可能是非运行时(例如：可伸缩性或可维护性)
-  ○ 倾向于“规定性的”或“定量的”。
+
+- 非功能性产品需求定义
+    ○ 定义IT系统应该支持的期望或特征；
+    ○ 可能是运行时(例如：性能或可用性)，也可能是非运行时(例如：可伸缩性或可维护性)
+    ○ 倾向于“规定性的”或“定量的”。
 
 - 没有技术难度可能同时意味着难以建立技术壁垒
 - 拉高标准化接口的层次，留出足够的技术发挥空间，寻找底层跨领域优化的空间和机会，如软硬件一体化全堆栈优化等
@@ -388,7 +399,7 @@ Gartner给Data Fabric(数据编织)的定义如下：
 
 	Data Fabric is a design concept that serves as an integrated layer of data and connecting processes.
 
-Data Fabric数据编织是一个设计概念，表示数据和连接进程的统一跨环境的集成层。
+Data Fabric数据编织是一个设计概念，表示数据和连接进程的统一跨环境的集成层。从设计概念入手
 
 Forrester给出Data Mesh(数据网格)的定义如下：
 
@@ -429,16 +440,16 @@ Data Mesh 允许分布式团队在遵守共同的治理规定的前提下按照�
 
 #### 4.8.数据合规&数据隐私安全
 
-#### 4.6.多云跨域大数据计算Multi-Cloud
+#### 4.9.多云跨域大数据计算Multi-Cloud
 
 	* 多云Snowflake / BigQuery-Onmi多云架构 / Confluent
 	* 跨云数据共享方案
 
-GCP BigQuery
+[GCP BigQuery产品分享](https://developer.aliyun.com/article/907194)
 
 ### V.云计算形态差异分析
 
-#### 2.3.公共云与混合云的核心差异到底在哪里？
+#### 公共云与混合云的核心差异到底在哪里？
 
 技术改变商业模式的典范-VMWare。云计算也算是技术+商业模式变革的典范, 但在绝大多数情况找到一个清晰有效的市场比什么都更有价值。Product Market Fit出处, 市场赛道优先+产品差异化优势加强。
 
@@ -462,7 +473,7 @@ _**混合云/私有云/专属云/行业云是不是值得投入**_
 
 由于国内非互联网客户对软件产品的理解不成熟, 导致云厂商需要为客户部署私有云、混合云，并更多扮演集成商角色，面临更分散、个性的市场需求。这些需求标准化程度低，难以简单复用。经营成本远高于海外云厂商。事实上, 中国市场和国际市场需求截然不同，双方原本就是两个土壤、两种需求。从多年的数据智能行业的市场探索, 笔者的判断在未来的很长一段时间, 在中国的商业土壤上, 混合云/私有云/行业云等多种非公共云的云产品形态将在非互联网行业普遍存在且存在较多商业营收机会。基于最初公共云设想的“水电煤”自助服务，在中国市场变成了贴身服务, 无论是公共云与混合云。其背后的问题原因很多。
 
-哪些行业客户需要专属行业的混合云云计算服务：金融 / 政企(烟草) / 数据敏感类行业(汽车)
+哪些行业客户需要专属行业的混合云云计算服务：金融 / 政企头部(烟草) / 数据合规类行业(汽车)
 
 混合云or私有云受到国内客户青睐有多种原因, 其最主要的原因来自数据安全与隐私保护的诉求, 数据资产的自主管理。另外产品自研的迷思(特别是有了开源大数据技术火热), 导致国内客户普遍对开源技术有预期过高与困难准备不足的错误认知。此现状短时间内无法彻底扭转。那么问题就转化到如何在混合云or私有云的架构下实现云计算的核心产品能力是需要持续关注的。
 
@@ -493,13 +504,13 @@ _**行业云or专属云对政企金融等特定客户很有吸引力**_
 
 
 
-### V.KeyStep: 关键步骤-克服困难、到达未来PMF
+### VI.KeyStep: 关键步骤-克服困难、实现未来PMF
 
-#### 5.1.思考模式
+#### 6.1.思考模式
 
 信息-外部输入/算力-自身能力/算法-方法论/Learn from best的思考模式
 
-#### 5.2.PMF and IPD
+#### 6.2.PMF and IPD
 
 Product Market Fit是产品和市场达到最佳的契合点，产品和市场需求匹配。
 产品设计不仅服务于用户体验，一款产品的成功不可用单一的用户数据来衡量，要以能否找到PMF作为重要标杆。你所提供的产品正好满足市场的需求，令客户满意。
@@ -524,7 +535,7 @@ B端PMF的评价指标：
 
 B端PMF的产品定价
 
-#### 5.3.产品能力建设&关键问题障碍
+#### 6.3.产品能力建设&关键问题障碍
 
 A.Serverless Product -> 用户体验易用性&交互性
 
@@ -539,7 +550,7 @@ C.大数据+AI一体参考架构
 
 _云原生容器化实现大数据与AI融合_
 
-_HPC+AI & DPU_
+_AI+HPC & DPU_
 
 Flink/Hologres on OSS 
 
@@ -549,18 +560,14 @@ D.软硬一体融合架构
 非功能性产品能力
 
 	1.OpenAPI需要解决什么问题?
-	
 	2.数据迁移&数据入湖出湖为什么那么重要?
-	
 	3.产品部署交付Automation
-	
 	4.产品智能运维
-	
 	5.研发效能: CICD / MLOps / DataOps
 
 每个障碍都会阻止一些人迁移到你的产品上。反过来看，只要你消除一个障碍，你的销售额就会翻番。
 
-#### 5.4.从产品商业化到市场普遍认可
+#### 6.4.从产品商业化到市场普遍认可
 
 
 #### 关于当初Excel与Lotus123的竞争与破局
@@ -582,7 +589,13 @@ D.软硬一体融合架构
 
 这样人们才会涌入，尝试你的业务。
 
-### VI.Practice: 大数据&AI产品云业务的最佳实践
+
+
+### VII.Conclusion
+
+软硬一体的思考
+
+### Practice: 大数据&AI产品云业务的最佳实践
 
 提出证据-案例，如何落地，梦想照进现实
 
@@ -593,6 +606,7 @@ D.软硬一体融合架构
 智能制造+新能源与自动驾驶
 
 XC绕不开的话题-政府大数据&科研AI
+
 - 政策导向
 
 零售，供应链，物流，精细化运营
@@ -600,10 +614,6 @@ XC绕不开的话题-政府大数据&科研AI
 全球化竞争与海外云PK
 
 通用数据分析产品的行业优势
-
-### VII.Conclusion
-
-软硬一体的思考
 
 ### Reference
 * paper_berkeley_view_AboveTheClouds_2009

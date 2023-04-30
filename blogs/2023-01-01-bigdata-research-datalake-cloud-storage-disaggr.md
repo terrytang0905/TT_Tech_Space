@@ -1,6 +1,6 @@
 ---
 layout: post    
-category : big data
+category : bigdata
 tags : [cloud,datalake,thought]
 title:  Big Data Research Note - DataLake Cloud Storage Disaggra
 
@@ -544,7 +544,7 @@ Serverless云数据仓库产品是面向云计算发展方向的解决极致扩�
 - 大数据存算分离的技术核心主要来自于统一存储(分层存储)/统一资源调度(混部)/在线离线计算引擎协同的建设。其他皆是围绕其展开的。
 - 大数据存算分离的产品表现形态各有差异，不能一概而论。**开放生态的数据湖存算分离**与**Serverless稳定高效的云数据仓库存算分离**，产品能力各有千秋。随着数据湖与数据仓库技术融合趋势凸显，数据湖仓的技术整合会越来越被关注。
 
-
+以上[文章](https://xie.infoq.cn/article/de0971c840628b7b467a110dc)已发布InfoQ.
 
 ## 参考内容
 
