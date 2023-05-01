@@ -188,6 +188,8 @@ title: Big Data Research Note - Distributed Database Architect
 
 分布式数据架构的整个框架是非常稳定的,主流的数据架构都是由存储引擎,执行引擎,网络交互和查询优化器组成的
 
+![design_cdp_data_arch](_includes/design_cdp_data_arch.png)
+
 主要用于以下4种分析场景
 - reporting/dashboard: 百千级别query,ms延时,插入更新upsert数据多,实时,filters,aggregation类似操作
 - embedded statics/data service: 在线服务/simply query & high qps,百万级别/qps实时更新
@@ -216,7 +218,7 @@ OceanBase底层架构实现LSM/分布式ACID等特征
 - 4.TiKV分布式存储
 
 
-#### B.分析型数据库设计-MPP
+#### B.分析型数据库设计-MPP(Distributed OLAP)
 
 - 1.数据分析性需求对IT能力的要求包括:
 
