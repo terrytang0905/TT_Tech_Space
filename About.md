@@ -7,9 +7,10 @@ group: navigation
 
 ### Terry Tang
 
-Big Data Architect/Data Platform Director(Over 15 Data Driver work experience). 
+**Data+AI Engineer/Product Architect**
 
-- Data product architect,data platform architect/team driver.
+- Data Platform Director(Over 15 Data Driver work experience). 
+- Data+AI product architect,data platform architect/team driver.
 - Email: zhenjietang@hotmail.com
 - LinkedIn: https://www.linkedin.com/in/zhenjietang/
 
@@ -25,9 +26,10 @@ Big Data Architect/Data Platform Director(Over 15 Data Driver work experience).
 
 ### Technology skills
 
-- Data analysis product design: OLAP (Mondriad / Druid / ElasticSearch) / DataMining(数据挖掘算法) 
+- Data+AI Product Design / Product Solution
+- Data Analysis Product Design: OLAP (Mondriad / Druid / ElasticSearch) / DataScience & DataMining 
 - Database & data storage: Impala&Kudu / Greenplum / MongoDB / Couchbase / PrestoDB / MySQL / HBase
-- BigData solution: Hadoop&HDFS / Hive / Kafka / Storm / Spark / Sqoop 
+- BigData Tech Solution: Hadoop&HDFS / Hive / Kafka / Storm / Spark / Sqoop 
 - Java/J2EE/Python, automation testing and performance analysis/tuning.
 - Open Source Tech: Lucene,Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx,Docker.
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.
@@ -38,7 +40,7 @@ Big Data Architect/Data Platform Director(Over 15 Data Driver work experience).
 
 || Time 			 || Company  		|| Position 						        ||   <br/>
 
-|| 2019/07--Now.     || *AliCloud*        || Data Product Architect Leader     ||
+|| 2019/07--Now.     || *AliCloud*        || Data&AI Product Architect Leader     ||
 
 || 2017/05--2019/07.     || *iResearch*        || Data Product Managing Director    ||
 

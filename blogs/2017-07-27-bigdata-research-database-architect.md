@@ -5,7 +5,7 @@ tags : [bigdata, architect, database]
 title: Big Data Research Note - Distributed Database Architect
 ---
 
-## 大数据研究-分布式数据架构
+## 大数据研究-分布式数据架构解析
 --------------------------------------------------------
 
 导读:A one size fits all database doesn't fit anyone

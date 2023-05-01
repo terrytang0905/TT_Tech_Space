@@ -2,14 +2,14 @@
 layout: post
 category : bigdata
 tags : [research, bigdata, storage]
-title: Big Data Research Note - Storage Layer
+title: Big Data Research Note - Storage Layer Post
 ---
 
-## 大数据研究-分布式文件存储格式
+## 大数据研究-分布式数据存储格式对比
 ---------------------------------------------------
 
 
-### I.基础存储数据格式
+### I.基础数据存储格式概述
 
 
 ### **列式存储**

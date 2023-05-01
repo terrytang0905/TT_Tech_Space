@@ -589,9 +589,7 @@ DELETE FROM person WHERE id = c002;
 
 ![datalake_lakehouse_arch.png](_includes/datalake_lakehouse_arch.png)
 
-
-
-
-
 ### Ref
+
+- [The Future of Data Engineer](2023-02-01-Lakehouse-The-Future-of-Data-Engineering.md)
 
