@@ -7,10 +7,11 @@ group: navigation
 
 ### Terry Tang
 
-**Data+AI Engineer/Product Architect**
+**Data+AI Product Architect/Product Business Owner**
 
+- Data AI Product Solution Leader for all over the world.
 - Data Platform Director(Over 15 Data Driver work experience). 
-- Data+AI product architect,data platform architect/team driver.
+- Serial Entrepreneurs.
 - Email: zhenjietang@hotmail.com
 - LinkedIn: https://www.linkedin.com/in/zhenjietang/
 

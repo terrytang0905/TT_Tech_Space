@@ -11,13 +11,11 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 ![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
-**BigData -> Data Analytics -> BigData+AI on Cloud**
+**BigData -> Data Analytics -> Data+AI Everything**
 
 - **[云计算下半场的思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-05-22-cloud-computing-thinking.md)**
-- **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**
 - **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-bigdata-ml-data-everything-note.md)**
-
-
+- **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**
 
 #### I.BigData+AI Solution Everything
 
@@ -36,6 +34,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 #### II.BigDataTech & All Distributed Research
 
 - **[大数据研究-大数据上云存算分离演进思考与探讨2022](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-01-01-bigdata-research-datalake-cloud-storage-disaggr.md)**
+- [大数据研究-数据湖仓:数据工程的未来](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-02-01-Lakehouse-The-Future-of-Data-Engineering.md)**
 - **[大数据研究-数据湖仓存算分离技术研究2020](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)**
 - **[大数据研究-APaaS:分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-research-olap-next-generation-note.md)**
 - **[大数据研究-IPaaS:分布式数据存储格式对比](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-storage-layer-system.md)**
@@ -106,10 +105,10 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 - [Principle原则-阅读笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-04-principle-read-note.md)
 - [GitHub Page Website](http://terrytang0905.github.io/TT_Tech_Space/)
-- [About TT](About.md) 
+- [About TerryTang Profile](About.md) 
 
 ### Authors and Contributors
-Since 2012, TerryTang ([@terrytang0905](https://github.com/terrytang0905)) created post on GitHub. 
+Since 2012, TerryTang ([@terrytang0905](https://github.com/terrytang0905)) created posts on GitHub. 
 
 
 ### Support or Contact

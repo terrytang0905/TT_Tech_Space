@@ -17,15 +17,16 @@ What is Cloud Computing, and how is it different from previous paradigm shifts s
 
 ###### Why is Cloud Computing poised to take off now, whereas previous attempts have foundered?
 
-​	为什么云计算现在腾飞了，而之前的尝试却失败了？ --IT基础设施的平台化与软件服务化成为企业科技费用的核心部分
+​	为什么云计算现在腾飞了，而之前的尝试却失败了？
+​	IT基础设施的平台化与软件服务化成为企业科技费用的核心部分
 
-What does it take to become a Cloud Computing provider, and why would a company consider becoming one?
+###### What does it take to become a Cloud Computing provider, and why would a company consider becoming one?
 	成为云计算提供商需要什么？为什么公司会考虑成为云计算提供商？
 
-What new opportunities are either enabled by or potential drivers of Cloud Computing?
+###### What new opportunities are either enabled by or potential drivers of Cloud Computing?
 	云计算带来了哪些新机遇或潜在驱动因素？
 
-How might we classify current Cloud Computing offerings across a spectrum, and how do the technical and business challenges differ depending on where in the spectrum a particular offering lies?
+###### How might we classify current Cloud Computing offerings across a spectrum, and how do the technical and business challenges differ depending on where in the spectrum a particular offering lies?
 	我们如何在一个范围内对当前的云计算产品进行分类，以及技术和业务挑战如何根据特定产品在范围内的位置而有所不同？
 
 #### Cloud Business Step-云计算商业化进程
@@ -91,7 +92,7 @@ _**云计算原则**_
 - 平台固化原则：内置几套标准规则算法，自动分配调度资源 ,追求大资源池下整体最优;
 - 多脑协同原则：云脑为主、多个人/云脑协同、闭环编排调度，有A-CMP无I-CMP;
 - 动态解耦原则：资源动态申请绑定，物理机基线强规划-->All on天宫ECS;
-- 架构统一原则：公共/专有云基础技术和架构原则统一、量变引质变、康威定律;
+- 架构统一原则：公共云/行业云/本地部署云基础技术和架构原则统一、量变引质变、康威定律;
 - 一云多芯原则：X86、ARM基线&版本统一，一云多Region/多AZ/多集群、集群内混部。
 
 
@@ -143,7 +144,7 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 		Tips:华为云的打法类似微软(当然华为ToB软件开发能力远不及微软),其依赖于其多年的ToB行业积淀与成熟的渠道生态策略打法,在很多非互联网相关行业包括运营商、金融、政府、制造等领域,在产品能力一般的情况(在逐步改进中),依然在国内市场有较大优势。
 
-#### 2.2.Customer: 云计算目标客户分群
+#### 2.2.Customer: 云计算+数字化的目标客户分群
 
 **互联网头部** ：混合云 / 多云部署 / 定制服务
 
@@ -153,17 +154,21 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 **新零售&消费科技**
 
-**金融科技&互联网金融**
+**金融科技&数字金融**
 
 **智能制造&汽车智能**
 
 **政企KA&电信**
 
-**能源电力**
+**新能源电力**
 
 **医疗科技**
 
-互联网与非互联网的差异：流程规范 / 安全体系建设
+_2.2.1. 互联网与非互联网的差异_
+
+	- 是商业模式的一部分还是IT技术工具的升级
+	- 流程规范的不同
+	- 安全体系建设
 
 #### 2.3.Cost: 云计算厂商的盈亏平衡点
 
@@ -185,12 +190,14 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 **核心思考**
 
-云计算业务: 公共云业务增长应与机器数量资源扩展挂钩 (资源规模化替代营收增长)
+_**云计算服务本身是一种基于互联网的商业模式。因此云计算业务 其公共云业务增长应与虚拟资源扩展数量挂钩 ,其非公共云与机器资源台数增长挂钩。**_
+
+_**以资源用量规模化替代营收增长。**_
 
 - 1.IT搬站上云
-- 2.云计算关键是弹性 1台顶5台-核心效率提升
-- 3.数据+智能 需要持续优化计算算力ROI -软件附加值
-- 4.**Back to Basic** 云计算行业核心基本功
+- 2.云计算关键是弹性资源：1台顶5台-核心效率提升
+- 3.数据+AI智能 需要持续优化计算算力ROI -智能SaaS服务的附加值
+- 4.**Back to Basic** 云计算行业核心基本功-产品差异化优势
 
 ### III.Value: 云计算+数据AI价值产品商业化，路径在哪里？
 
@@ -201,9 +208,11 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 #### 3.1.[云计算]通用成本优化策略
 
- [稳定] / [弹性] /  [算力]  / [降本性价比] 
+性价比
 
-高可用、容灾和多活
+ [稳定] / [弹性] /  [持续算力]  / [高可用&容灾] / [云原生]
+
+
 
 
 #### 3.2.[APaaS]云原生数据产品的商业进化-如何变现
@@ -304,7 +313,7 @@ Edge computing边缘计算是 后PC 时代云计算的合作伙伴，虽然我�
 
 #### 4.3.弹性伸缩-存算分离到湖仓一体融合
 
-表格优化
+TableFormat优化
 
 #### 4.4.实时数据湖-实时数仓到流批一体
 
@@ -554,7 +563,7 @@ _AI+HPC & DPU_
 
 Flink/Hologres on OSS 
 
-D.软硬一体融合架构
+D.智能计算: 软硬一体融合架构
 
 
 非功能性产品能力
