@@ -9,28 +9,25 @@ group: navigation
 
 **Data+AI Product Architect/Product Business Owner**
 
-- Data AI Product Solution Leader for all over the world.
-- Data Platform Director(Over 15 Data Driver work experience). 
-- Serial Entrepreneurs.
+- Data+AI Product Solution Leader in Aliyun.
+- Data Platform Director(Over 15 Data Driver engineer work experience). 
+- Serial Entrepreneurs for TNT.
 - Email: zhenjietang@hotmail.com
 - LinkedIn: https://www.linkedin.com/in/zhenjietang/
 
 ### Speciality
 
-- Big data platform design & management
-- Big data product design(agile BI) & data mining tech solution (NewBI product)
-- Product development management and team driver
+- Data+AI Product Solution Designer & Data Product Commercialization. 
+- Data Product Design(agile BI) & data mining tech solution (NewBI product) / Development team management 
 - Full-text content search engine solution (xPlore search engine owned by EMC/Lenovo search engine)
 - Distributed database product research and utilization.
 - Content Management Enterprise Product design and implementation (Documentum /Lenovo SuperNote)
-- Internet mobile product design and system architecture
 
 ### Technology skills
 
-- Data+AI Product Design / Product Solution
 - Data Analysis Product Design: OLAP (Mondriad / Druid / ElasticSearch) / DataScience & DataMining 
-- Database & data storage: Impala&Kudu / Greenplum / MongoDB / Couchbase / PrestoDB / MySQL / HBase
-- BigData Tech Solution: Hadoop&HDFS / Hive / Kafka / Storm / Spark / Sqoop 
+- Database & data storage: Hologres / Greenplum /  Impala&Kudu / MongoDB / Couchbase / PrestoDB / MySQL / HBase
+- BigData Tech Solution: MaxCompute / Hadoop&HDFS / Hive / Kafka / Storm / Spark / Sqoop 
 - Java/J2EE/Python, automation testing and performance analysis/tuning.
 - Open Source Tech: Lucene,Anltr,Spring,MyBatis,Maven,JBoss,Tomcat,Jetty,Nginx,Docker.
 - W3C Tech: XML,XQuery,XPath,XSLT,JSON.

@@ -11,13 +11,14 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 ![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
-**BigData -> Data Analytics -> Data+AI Everything**
+**BigData -> Data Analytics -> AIGC+LLM**
 
+- [AIGC&LLM Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-aigc-tech-study.md)
 - **[云计算下半场的思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-05-22-cloud-computing-thinking.md)**
 - **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-bigdata-ml-data-everything-note.md)**
 - **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**
 
-#### I.BigData+AI Solution Everything
+#### I.Data+AI All Solution Everything
 
 - [Data Mesh的原则和逻辑架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-03-data-mesh-arch-research.md)
 - [从单体数据湖到分布式数据网格](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-02-from-datalake-to-data-mesh.md)
@@ -31,10 +32,10 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [数据科学-数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
-#### II.BigDataTech & All Distributed Research
+#### II.BigDataTech & Distributed System Research
 
 - **[大数据研究-大数据上云存算分离演进思考与探讨2022](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-01-01-bigdata-research-datalake-cloud-storage-disaggr.md)**
-- [大数据研究-数据湖仓:数据工程的未来](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-02-01-Lakehouse-The-Future-of-Data-Engineering.md)**
+- [大数据研究-数据湖仓:数据工程的未来-ChatGPT](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-02-01-Lakehouse-The-Future-of-Data-Engineering.md)**
 - **[大数据研究-数据湖仓存算分离技术研究2020](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)**
 - **[大数据研究-APaaS:分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-research-olap-next-generation-note.md)**
 - **[大数据研究-IPaaS:分布式数据存储格式对比](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-storage-layer-system.md)**
