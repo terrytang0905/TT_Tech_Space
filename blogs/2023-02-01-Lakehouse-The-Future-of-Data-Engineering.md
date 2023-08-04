@@ -1,6 +1,6 @@
 ---
 layout: post
-category : thinking
+category : biodata
 tags : [bigdata,analytics,guide]
 title: Lakehouse:The Future of Data Engineering
 

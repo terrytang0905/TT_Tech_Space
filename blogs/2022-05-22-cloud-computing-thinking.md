@@ -1,6 +1,6 @@
 ---
 layout: post    
-category : thinking
+category : cloud
 tags : [cloud,analytics,thought]
 title: Cloud Computing Thinking
 ---
@@ -80,7 +80,7 @@ _**云计算架构优势与特点**_
 	
 -	7.**负载均衡&软路由**: Load balancing and request routing to efficiently utilize resources.
 	
--	8.**智能运维德升级优化**
+-	8.**智能运维的升级优化**
 
  	* 全链路监控&高性能运行: Monitoring to make sure the service is still running well.
  	* 日志管理&性能调优: Logging to record messages needed for debugging or performance tuning. 
