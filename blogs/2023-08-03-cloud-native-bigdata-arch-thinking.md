@@ -10,7 +10,7 @@ title: Cloud Native BigData Architect Thinking
 
 ## 导读:
 
-作者：振策, 20230805
+作者：振策-阿里云计算平台产品解决方案, 20230805
 
 本文将分享当前云原生大数据架构的发展历程/架构定义/核心能力/应用场景及趋势思考。主要包括以下四个部分：
 
@@ -232,4 +232,5 @@ N是云原生数据架构详细能力建设。分别是
 - Book: Designing Cloud Data Platforms 
 - Paper: Cloud Programming Simplified:A Berkeley View on Serverless Computing in 2019
 - https://cloud.google.com/docs/open-tutorials
+- https://help.aliyun.com/zh/ack/ack-managed-and-ack-dedicated/user-guide/overview-of-hybrid-deployment?spm=a2c4g.11186623.0.0.58173d462rEmRV
 
