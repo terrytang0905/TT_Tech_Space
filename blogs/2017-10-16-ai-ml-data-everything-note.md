@@ -2,10 +2,10 @@
 layout: post
 category : AI
 tags : [datascience,datamining,ml]
-title: Machine Learning&AI Everything Study Notes
+title: AI & MachineLearning Everything Study Notes
 ---
 
-## 机器学习Everything研究笔记
+## AI机器学习Everything研究笔记
 -------------------------------------------------------
 
 ### I.统计学习方法-机器学习基础

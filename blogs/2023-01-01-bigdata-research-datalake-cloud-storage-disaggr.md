@@ -484,13 +484,13 @@ Serverless云数据仓库产品是面向云计算发展方向的解决极致扩�
 
 #### ServerlessDW对比开源存算分离的核心优势
 
-﻿![image.png](_includes/maxcompute_datawarehouse.png)
+![image.png](_includes/maxcompute_datawarehouse.png)
 
 #### ServerlessDW对比开源存算分离的核心优势
 
 - **MaxCompute产品优势**
 
-### ![image](https://ucc.alicdn.com/images/lark/0/2022/png/228199/1671981655753-4dd29ff0-854a-4bf5-8747-8dff74d165a3.png)
+![image](https://ucc.alicdn.com/images/lark/0/2022/png/228199/1671981655753-4dd29ff0-854a-4bf5-8747-8dff74d165a3.png)
 
 - **MaxCompute存算分离能力演进**
 
@@ -510,7 +510,6 @@ Serverless云数据仓库产品是面向云计算发展方向的解决极致扩�
 **存算分离2.2:MaxCompute开放存储 - StorageService**
 
 **存算分离3.0:实时离线一体架构演进- 统一调度**
-
 
 
 ### 6.4.云原生数仓与开源数据湖的能力对比

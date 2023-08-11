@@ -11,16 +11,16 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 ![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
-**BigData -> Data Analytics -> AIGC+LLM**
+**BigDataArch -> Data Analytics -> AIGC+LLM**
 
-- [AIGC&LLM Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-aigc-tech-study.md)
-- **[云计算下半场的思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-05-22-cloud-computing-thinking.md)**
-- **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-bigdata-ml-data-everything-note.md)**
+- **[AI DL Develop Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-05-03-ai-deeplearing-develop-note.md)**
+- **[AIGC&LLM Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-aigc-llm-tech-study.md)**
+- **[云计算下半场的商业化思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-05-22-cloud-computing-thinking.md)**
+- **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ai-ml-data-everything-note.md)**
 - **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**
 
-#### I.Data+AI All Solution Everything
+#### I.DataScience-Data+AI Solution
 
-- [云原生大数据架构思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-08-03-cloud-native-bigdata-arch-thinking.md)
 - [Data Mesh的原则和逻辑架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-03-data-mesh-arch-research.md)
 - [从单体数据湖到分布式数据网格](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-02-from-datalake-to-data-mesh.md)
 - **[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)**
@@ -33,8 +33,9 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [数据科学-数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
-#### II.BigDataTech & Distributed System Research
+#### II.BigDataArchitecture-BigData Distributed System Research
 
+- **[云原生大数据架构思考-DataFunTalk2023](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-08-03-cloud-native-bigdata-arch-thinking.md)**
 - **[大数据研究-大数据上云存算分离演进思考与探讨2022](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-01-01-bigdata-research-datalake-cloud-storage-disaggr.md)**
 - [大数据研究-数据湖仓:数据工程的未来-ChatGPT](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-02-01-Lakehouse-The-Future-of-Data-Engineering.md)**
 - **[大数据研究-数据湖仓存算分离技术研究2020](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)**
@@ -56,7 +57,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [FullTextSearch研究思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2014-12-20-fulltext-search-design-thinking.md)
 
 
-#### III.DataComputeProduct & DataAnalytics	
+#### III.Product-DataCompute & DataAnalytics	
 
 - **[大数据产品实践-通用大数据产品分析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2019-03-12-bigdata-research-common-product-solution.md)**
 - **[大数据产品实践-MaxCompute](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-11-07-bigdata-best-practice-maxcompute.md)**
@@ -91,7 +92,7 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### VI.Programming
 
-- *[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)
+- **[高并发高可用架构设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-03-25-scalable-web-architect-note.md)**
 - [移动产品开发设计笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-01-08-cloud-product-design-note.md)
 - [Java多线程与并发-BlockingQueue API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_blocking_queue_note.md)
 - [Java多线程与并发-java.util.concurrent API](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2016-04-27-java_concurrent_api_note.md)
