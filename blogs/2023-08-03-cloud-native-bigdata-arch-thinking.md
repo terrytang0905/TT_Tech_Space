@@ -226,7 +226,6 @@ N是云原生数据架构详细能力建设。分别是
 
 
 ## 参考内容
-- https://ata.alibaba-inc.com/articles/213633
 - https://cn.pingcap.com/blog/new-trend-of-database-development
 - https://mp.weixin.qq.com/s/8LIwihRXolhoOyZ22l23iQ
 - Book: Designing Cloud Data Platforms 
