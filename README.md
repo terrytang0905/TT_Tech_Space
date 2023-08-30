@@ -13,8 +13,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 **BigDataArch -> Data Analytics -> AIGC+LLM**
 
-- **[AI DL Develop Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-05-03-ai-deeplearing-develop-note.md)**
-- **[AIGC&LLM Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-aigc-llm-tech-study.md)**
+- **[AI DeepLearing Development Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-05-03-ai-deeplearing-develop-note.md)**
+- **[AIGC&LLM Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-ai-aigc-llm-tech-study.md)**
 - **[云计算下半场的商业化思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-05-22-cloud-computing-thinking.md)**
 - **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ai-ml-data-everything-note.md)**
 - **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**

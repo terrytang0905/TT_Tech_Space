@@ -176,6 +176,28 @@ Gartner最近对云采用情况进行的一项调查显示，使用公共云的�
 
 那么Anthos的下一步是什么？ 显而易见的答案是扩展产品线以支持其他数据库：Cloud SQL，Dataproc，BigTable和Spanner。 就个人而言，我对Google如何使用Looker来吸引用户寻找AWS Quicksight或Azure PowerBI的替代解决方案感兴趣。 另一个有趣的途径是将Firebase扩展到移动开发，并利用现有的生态系统来扩展“中间件”市场。 最后，最大的问题是该策略是否还会加速AI / ML技术的广泛采用。 Google被广泛视为这一领域的领导者，将BigQuery Omni与现有的AI平台产品(即[kubeflow](https://gitcode.net/mirrors/kubeflow/pipelines?utm_source=csdn_github_accelerator) ， [TensorFlow](https://www.tensorflow.org/) ， AI集线器/托管的Jupyter Notebook([Vertex AI](https://cloud.google.com/vertex-ai))和[Kaggle](https://www.kaggle.com/) )相集成可能是帮助企业采用AI / ML。
 
+### Google Cloud Product - Google Smart Analytics Platform
+
+![Google_Smart_Analytics_Platform](_includes/Google_Smart_Analytics_Platform.png)
+
+__BigQuery以下重点featuers_：
+
+	1) 交互式分析和批量分析：支持SQL、cmd、api和多语言SDK。
+	2）数据来源非常丰富，总共可以支持27种数据来源，包含本地文件、GCS、外部数据源，支持加载跨云数据源（通过bg omni），支持公共数据集和共享数据集。
+	3）采用三层模型，即project>dataset>table。
+	4）支持数据迁移服务，支持周期性同步。
+	5）支持实时流式写入，写入方式多样，包含Storage write API，dataflow，datastream，bq connector for sap，pub/sub等。
+	6）支持定时查询（最短15分钟）。
+	7）支持数据交换，可以发布和订阅数据集，包含相关权限控制。
+	8）支持代码库功能，有版本控制和环境控制等功能，可以配置工作流。支持连接第三方代代码库。
+	9）支持作业迁移，批量转换SQL的能力，转化的语言支持非常丰富。
+	10）支持BI engine（高速内存分析服务），对接各种BI工具。
+	11）支持跨云分析查询。
+	12）结合Google map，地理分析能力很强。
+	13）日志分析和搜索非常完善，例如更好的支持json和搜索。
+	14）BQ为了简化sql加入了qualify来对窗口统计结果进行过滤。其他语法和MC类似。
+	15）支持行级授权。
+
 ### IV.Google BigData - 大数据遗产
 
 #### 4.1.Google BigTable - HBase - MegaStore

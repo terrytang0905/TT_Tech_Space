@@ -2,21 +2,39 @@
 layout: post
 category : AI
 tags : [datascience,AI,ml]
-title: AI Deeplearing Development Notes
+title: AI Practice Note - AI Deeplearing Development Notes
 
 ---
 
 ## AI DeepLearning Development Notes
 
-### 
+### 1.AI深度学习开发场景
 
-### 机器学习工程平台
+![image-20230812173742466](_includes/AWS_user_usage.png)
 
-AliCloud PAI机器学习平台
+**For BA Engineer**
 
-火山引擎-机器学习平台
+![AWS_BA](_includes/AWS_BA_Ops.png)
 
-AWS SegaMaker
+**For DS Engineer**
+
+![AWS_DS](_includes/AWS_DS_Ops.png)
+
+**For ML Engineer**
+
+![AWS_ML](_includes/AWS_ML_Ops.png)
+
+### 2.AI机器学习开发最佳实践
+
+统一Workflow
+
+### 3.机器学习工程平台
+
+_**AliCloud PAI机器学习平台**_
+
+![阿里云PAI平台](_includes/阿里云PAI平台.png)
+
+_**AWS SegaMaker**_
 
 ![AWS_AIGC](_includes/AWS_AIGC.jpg)
 
@@ -24,9 +42,13 @@ AWS SegaMaker
 
 ![AWS_分布式训练](_includes/AWS_分布式训练.jpg)
 
+_**火山引擎-机器学习平台**_
+
+![火山引擎机器学习](_includes/火山引擎_机器学习平台.png)
+
 DeepSpeed Megatron-LM
 
-### ModelaaS
+### 3.ModelaaS
 
 阿里云AI服务
 - 模型广场-ModelScope
@@ -59,11 +81,11 @@ M3Exam 有三个特征：
 
 机器学习模型的数字化
 
-### 统一Workflow
+### 5.AI+HPC
 
-### AI+HPC
+How to design HPC Cluster
 
-### LLM Ecosystem-LangChain
+### 6.LLM Ecosystem-LangChain
 
 
 
