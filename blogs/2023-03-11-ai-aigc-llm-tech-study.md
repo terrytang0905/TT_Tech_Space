@@ -5,7 +5,13 @@ tags : [datascience,AI,ml]
 title: AI Practice Note - AIGC&LLM Tech Notes
 ---
 
-## 
+## AIGC&LLM Tech Business Notes
+
+#### AGI商业化-云平台
+
+![AGI商业花](_includes/AGI商业化-云平台.jpg)
+
+#### 商业化的思考
 
 客户需求在哪里(行业) / 产品场景全链路 / 商业化定价与模式如何
 
@@ -25,4 +31,11 @@ AI机器学习平台 / AI生态应用工具 / LLM行业应用 --如何做到差�
 --低价策略背后能够沉淀什么？产品能力 VS 业务商务能力 营销策略如何？
 --黑天鹅-安全可信合规
 
+#### LLM Demo开发
+
 https://github.com/aigc-apps/LLM_Solution
+
+
+
+
+
