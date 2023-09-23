@@ -87,6 +87,8 @@ How to design HPC Cluster
 
 ### 6.LLM Ecosystem-LangChain
 
+https://github.com/aigc-apps/LLM_Solution
+
 
 
 ### Ref
