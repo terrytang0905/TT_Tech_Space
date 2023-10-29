@@ -3,6 +3,7 @@ layout: post
 category : bigdata
 tags : [product, bigdata, analytics]
 title: Product Best Practice Note - AliCloud MaxCompute Best Practice
+release: v0.2 - updated on 2023.10.16
 ---
 
 ## 阿里云MaxCompute-SaaS级智能数仓最佳实践

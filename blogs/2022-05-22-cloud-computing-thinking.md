@@ -5,7 +5,7 @@ tags : [cloud,analytics,thought]
 title: Cloud Computing Thinking
 ---
 
-## Data Business Thinking on Cloud Computing2022
+## Data Business Thinking on Cloud Computing2023
 
 ### I. Definition: Cloud Computing Internel-什么是云计算
 

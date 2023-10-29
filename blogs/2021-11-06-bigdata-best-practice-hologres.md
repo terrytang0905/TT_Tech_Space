@@ -3,6 +3,7 @@ layout: post
 category : bigdata
 tags : [product, bigdata, analytics]
 title: Product Best Practice Note - AliCloud Hologres Best Practice
+release: v0.2 - updated on 2023.10.16
 ---
 
 ## 阿里云Hologres - 实时数仓最佳实践
@@ -505,8 +506,6 @@ SG在一段时间间隔内被分配的CPU数量，取决于以下两个因素
 
 
 将SG_j中的EC_i历史分配的资源量记做_Virtual Runtime_, EC_i最后一次被分配的真实的CPU时长记做△CPU_time_i。那么本次需要分配给EC_i的资源量增量△vruntime_i可以表示为
-
-
 
 当选择要执行EC时，最小的△vruntime的EC将会首先被调度。
 
