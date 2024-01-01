@@ -260,7 +260,7 @@ _**以算力资源用量规模化替代营收利润增长的**_
 
 ##### Databricks
 
-
+![Databricks_picture](_includes/databricks_pic.png)
 
 Cloud Data Warehouses are pushing this software category to a whole new level:
 
@@ -271,7 +271,7 @@ Cloud Data Warehouses are pushing this software category to a whole new level:
 
 #### 3.3. [价值]通用数据应用商业化论
 
-首先我们需要大数据+AI应该在哪些行业场景上能产生核心的业务价值。没有价值，所有技术能力都是空谈。
+首先我们需要大数据+AI应该在哪些行业场景上能产生核心的业务价值。没有实际价值，所有技术能力都是空谈。
 
 ![data_business_usage_2022](_includes/data_business_usage_2022.png)
 
@@ -281,9 +281,9 @@ _**Ref:[通用数据产品的商业化](2015-11-08-bigdata-analytics-thinking.md
 
 #### 3.4. [变革]通用AI智能应用商业化
 
-随着ChatGPT
+随着ChatGPT的火爆出世, AGI的通用AI智能走向商业化速度迅速换成的现实。无数人愿意投入其中去尝试其未知的可能性，我们需要做的就是不断探索和挖掘AGI在千行百业的场景应用。
 
-_**Ref:[AIGC&LLM](2023-03-11-aigc-llm-tech-study.md)**_
+_**Ref:[AIGC&LLM Tech Business Notes](2023-03-11-aigc-llm-tech-study.md)**_
 
 #### 3.5. 国内外云计算产品商业化差异
 
