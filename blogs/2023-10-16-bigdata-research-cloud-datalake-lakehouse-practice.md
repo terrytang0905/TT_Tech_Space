@@ -23,21 +23,7 @@ title:  Big Data Research Note - Cloud LakeHouse Best Practice
 
 #### 主流LakeTableFormat能力对比分析
 
-| **对比项**              |   **DeltaLake**   |     **Apache Hudi**     |   **Apache Iceberg**    |         **Apache Paimon**          | **MaxCompute ACID2.0** |
-| ----------------------- | :---------------: | :---------------------: | :---------------------: | :--------------------------------: | :--------------------: |
-| ***Upsert/Delete\***    |                   |                         |                         |                                    |                        |
-| ***文件合并\***         |     Manually      |        Automatic        |        Manually         |             Automatic              |       Automatic        |
-| ***历史数据清理\***     |     Automatic     |        Automatic        |        Manually         |             Automatic              |       Automatic        |
-| ***文件格式\***         |      Parquet      |     Parquet / Avro      |  Parquet / Avro / ORC   |           Parquet / ORC            |         AliORC         |
-| ***计算引擎\***         | Hive/Spark/Presto | Hive/Spark/Presto/Flink | Hive/Spark/Presto/Flink | Spark Presto/Trino Starrocks/Doris |       Hive/Spark       |
-| ***存储引擎\***         |   HDFS/S3/Azure   |  HDFS/S3/Azure/Aullxio  |       HDFS/S3/OSS       |            HDFS/S3/OSS             |         Pangu          |
-| ***SQL DML\***          |                   |                         |                         |                                    |                        |
-| ***ACID Transaction\*** |                   |                         |                         |                                    |                        |
-| ***TimeTravel\***       |                   |                         |                         |                                    |                        |
-| ***索引\***             |                   |                         |                         |                                    |                        |
-| ***可扩展元数据存储\*** |                   |                         |                         |                                    |                        |
-| ***Schema约束与演化\*** |                   |                         |                         |                                    |                        |
-|                         |                   |                         |                         |                                    |                        |
+![lake_table_format_compare](_includes/lake_table_format_compare.png)
 
 ## 1.Apache Iceberg TableFormat技术分析
 
