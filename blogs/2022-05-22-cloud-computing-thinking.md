@@ -9,29 +9,32 @@ title: Cloud Computing Thinking
 
 ### I. Definition: Cloud Computing Internel-什么是云计算
 
-What is Cloud Computing, and how is it different from previous paradigm shifts such as Software as a Service (SaaS)?
+#### 1.1. What is Cloud Computing
+
+		How is it different from previous paradigm shifts such as Software as a Service (SaaS)?
 
 **云计算**是计算机系统资源，尤其是数据存储（云存储）和计算能力的按需可用性，无需用户直接主动管理。该术语通常用于描述 Internet 上可供许多用户使用的数据中心。今天占主导地位的大型Cloud Service通常具有从中央服务器分布在多个不同空间位置的能力。如果与用户的连接比较近，则可以指定为边缘服务器。
 
 **效用计算**或计算机效用，是一种服务供应模型，在这种模型中，服务提供商根据需要向客户提供计算资源和基础设施管理，并按特定用途收费，而不是按固定费率收费。与其他类型的按需计算（例如网格计算）一样，本实用新型寻求最大化资源的有效使用和/或最小化相关成本。实用程序是将系统资源（例如计算、存储和服务）打包为计量服务。这种模式的优点是获取计算机资源的初始成本很低或没有；相反，资源基本上是租用的。
 
-###### Why is Cloud Computing poised to take off now, whereas previous attempts have foundered?
+##### A. Why is Cloud Computing poised to take off now, whereas previous attempts have foundered?
 
 ​	为什么云计算现在腾飞了，而之前的尝试却失败了？
 ​	IT基础设施的平台化与软件服务化成为企业科技费用的核心部分
 
-###### What does it take to become a Cloud Computing provider, and why would a company consider becoming one?
+##### B. What does it take to become a Cloud Computing provider, and why would a company consider becoming one?
 	成为云计算提供商需要什么？为什么公司会考虑成为云计算提供商？
 
-###### What new opportunities are either enabled by or potential drivers of Cloud Computing?
+##### C. What new opportunities are either enabled by or potential drivers of Cloud Computing?
 	云计算带来了哪些新机遇或潜在驱动因素？
 
-###### How might we classify current Cloud Computing offerings across a spectrum, and how do the technical and business challenges differ depending on where in the spectrum a particular offering lies?
+##### D. How might we classify current Cloud Computing offerings across a spectrum, and how do the technical and business challenges differ depending on where in the spectrum a particular offering lies?
 	我们如何在一个范围内对当前的云计算产品进行分类，以及技术和业务挑战如何根据特定产品在范围内的位置而有所不同？
 
-#### Cloud Business Step-云计算商业化进程
+#### 1.2. Cloud Business Step-云计算商业化进程
 
 _**Cloud Computing Economics**_
+
 What,if any,are the new economic models enabled by Cloud Computing,and how can a service operator decide whether to move to the cloud or stay in a private datacenter?
 	云计算带来了哪些新的经济模式(如果有的话)，IT服务商如何决定是迁移到云端还是留在私有数据中心？
 	 Tips: 成本ROI / 架构升级带来的多路复用 / 高可用的稳定性 / 安全性 / 云原生(K8s/DataOps/MLOps)? 
@@ -58,9 +61,39 @@ _**From Traditional Infrastructure System to Cloud Computing Architure**_
 What changes should be made to the design of future applications software, infrastructure software, and hardware to match the needs and opportunities of Cloud Computing?
 未来应用软件、IaaS基础设施软件和硬件的设计应该做出哪些改变，以匹配云计算的需求和机遇？
 
-云计算的技术本质是计算、存储、网络、PaaS产品的**虚拟化**，**软件服务化**。
+云计算的技术本质是计算、存储、网络、PaaS产品的**虚拟化**，**组件化**, **软件Serverless服务化**。
 
-_**云计算架构优势与特点**_
+
+#### 1.3. 云计算的价值主张
+
+源引十年前当时还是AWS SVP的Andy Jassy(现在是Amazon CEO)的回答:
+
+_**通用云计算的价值主张**_
+
+	*用CapEx(capital expenditures)替换OpEx(operating expenses)。
+	*降低 IT 总成本。
+	*利用云弹性资源，无需容量规划。
+	*更快的敏捷速度以促进企业创新。
+	*专注能带来市场竞争力的工作。
+	*全球化布局
+
+十年过去之后，云计算的价值主张核心依然没有变化。或者说即使过了十年，大多数参与云计算的从业者无法真正理解或者无法找到比当年Andy Jassy更好的云计算价值定义。云计算作为新的技术载体发展了十几年之后, 如何摆脱“那些互联网企业才使用的技术供应商”这个标签，进军企业市场，一直是不容易的转型。AWS更偏互联网, Azure微软云更偏企业。阿里云作为国内Top1的云厂商来自互联网背景，在政企行业举步维艰, 更别说最新的CEO吴妈提出的"AI驱动,公共云优先"。这也说明互联网与面向广大企业的云计算价值主张存在较大差异。
+
+![benefit_cloud_computing](_includes/benefits_cloud_computing.png)
+
+_**企业云计算的价值主张**_
+
+	*用CapEx(capital expenditures)替换OpEx(operating expenses)。
+	*降低 IT 总成本。--企业必要需求
+	*面向企业的IT基础设施服务,易用,稳定,可运维
+	*提供能带来市场竞争力与效率提升的产品工具。
+	*达成企业数据安全合规管理的最佳实践
+	*利用云弹性资源，无需容量规划。--成熟企业增长可预期,对弹性资源需求有限
+	*全球化行业布局
+
+互联网云原生与企业IT数据化转型的差异将长期存在, 如同在云计算如此广阔的市场下,一定存在不同差异化云服务商。在之后的第三章会有具体阐述。
+
+_**云计算应用优势与特点**_
 
 -	1.**资源标准池化**：存算网池化、底层大资源池、产品/应用共池、服务规格;
 	不同租户隔离与共享：租户/SP隔离、云产品/应用共池、高超卖比、离在线混部;
@@ -86,7 +119,7 @@ _**云计算架构优势与特点**_
  	* 日志管理&性能调优: Logging to record messages needed for debugging or performance tuning. 
  	* 系统升级&安全补丁: System upgrades, including security patching.
 
-_**云计算原则**_
+#### 1.4. 云计算架构原则
 
 - API FIRST原则：云产品功能变化不能绕过API在控制台/CMP实现;
 - 平台固化原则：内置几套标准规则算法，自动分配调度资源 ,追求大资源池下整体最优;
@@ -98,7 +131,7 @@ _**云计算原则**_
 
 ### II.Thinking: 如何预测云计算未来, 赢家和输家?
 
-#### 2.1.Market: 充分竞争的市场
+#### 2.1. Market: 充分竞争的市场
 
 ![全球云基础设施服务市场份额变化](_includes/市场-全球云基础设施服务市场份额变化.png)
 
@@ -144,26 +177,29 @@ _**微软云**_（智能云+生产力与业务流程）2021年总营收为800亿
 
 		Tips:华为云的打法类似微软(当然华为ToB软件开发能力远不及微软),其依赖于其多年的ToB行业积淀与成熟的渠道生态策略打法,在很多非互联网相关行业包括运营商、金融、政府、制造等领域,在产品能力一般的情况(在逐步改进中),依然在国内市场有较大优势。
 
-#### 2.2.Customer: 云计算+数字化的目标客户分群
+#### 2.2. Customer: 云计算+数字化的目标客户分群
 
 随着云计算与数字化广泛应用，且中国互联网渗透率80+%。云计算逐渐成为企业数字化上云的首选，但因为数据本身的安全合规特征，导致很多政企金融客户不信任公共云，而非公共云本地化部署无法真正发挥云计算的核心优势。因此我们很确定地认知到云计算无法优先支撑千行百业。从多年的业务实践发现, 以下行业客户重点拥抱云计算。
 
-- **互联网-泛娱乐&游戏公司**
-- **互联网-营销&交易公司**
-- **金融科技&数字金融**
-- **消费科技&智能制造&汽车智能**
-- **新能源电力**
-- **生物医疗科技**
-- **政企KA&电信**
-- **全球化**
+**互联网**
+	- 互联网-泛娱乐&游戏公司
+	- 互联网-营销&交易公司
 
-_2.2.1. 互联网与非互联网的差异_
+**政企500强**
+	- 金融科技&数字金融
+	- 消费科技&汽车智能&智能制造
+	- 电力&新能源
+	- 生物医疗科技
+	- 政企KA&电信运营商
 
-	- 是商业模式的一部分还是IT技术工具的升级
-	- 流程规范的不同
-	- 安全体系建设
+**全球化**
+	- 全球化布局与国际化
 
-#### 2.3.Cost: 云计算厂商的盈亏平衡点
+**互联网与政企在云计算的差异**
+
+从互联网行业看云计算是IT技术升级, 是弹性资源扩展与运维自动化,解放技术生产力。而相比之下, 企业上云却是不同另一种商业模式, 企业业务增长是可预期的，对特定弹性资源的扩展需求有限, 但企业对流程规范的要求高，账号权限/安全体系管理/稳定性/高可用/灾难恢复/资源部署运维/自动化工具对接/监控可观测性/日志审计这些能力是企业级云产品所必备的。从互联网走向全企业云应用的道路依然漫长而艰辛。
+
+#### 2.3. Cost: 云计算厂商的盈亏平衡点
 
 据某云厂商高管所说, 云厂商的成本结构通常包含两部分。
 
@@ -181,7 +217,7 @@ _2.2.1. 互联网与非互联网的差异_
 
 微软智能云的经营利润率比亚马逊AWS高14%，核心原因是，**微软高附加值的软件产品占比大。此外微软可以把现有客户转化为微软云客户**，不同于亚马逊AWS要组建新团队“打新单”，微软成本更低,因为存量软件客户的Upsell。专业大数据产品团队需要优先在于完善PaaS产品关键能力与关注存量客户留存率/续约率/Upsell, 特别是混合云大客户。而不是还未产品还没成熟的情况下,不断的'打新单'。
 
-_**核心思考：云计算服务本身是一种基于互联网的商业模式。虚拟化是提供云计算服务的技术实现的一种手段。因此云计算业务 其公共云业务增长应与虚拟资源扩展数量挂钩 ,其非公共云(本地化部署)与机器资源台数增长挂钩。云计算服务重点应在产品竞争力提升, 明显与企业本地化部署(开源部署)软件形成足够的产品差异，同时对于SLA稳定性承诺有足够的担当。**_
+_**核心思考：云计算服务本身是一种基于互联网的商业模式。虚拟化是提供云计算服务的技术实现的一种手段。因此云计算业务 其公共云业务增长应与虚拟资源扩展数量挂钩 ,其企业上云(混合云/本地化部署)与机器资源台数增长挂钩。云计算服务重点应在产品竞争力提升, 明显与企业本地化部署(开源部署)软件形成足够的产品差异，同时对于SLA稳定性承诺有足够的担当。**_
 
 _**以算力资源用量规模化替代营收利润增长的**_
 
@@ -193,19 +229,23 @@ _**以算力资源用量规模化替代营收利润增长的**_
 
 ### III.Value: 云计算+数据AI价值产品商业化，路径在哪里？
 
-- 第一是业务永续，也就是PaaS产品/云上产品的高可用、容灾和多活。
-- 第二是无限弹性资源伸缩，业务进行营销活动或者流量突然增长的时候数据库能及时扩容上去扛住流量。这两点做不好对业务就意味着资损。
-- 第三是极致性价比，在满足前两个需求下数据库的费用尽可能的便宜。在未来几年里，CIO们对降本增强的呼声会越来越强烈。--阿里云2023年北京云峰会已发布大降价
-- 第四是极简易用性，基于云计算的X as a Service的产品理念，帮助用户以最简洁的方式实现云上数据分析计算存储的工作。
+本章是
 
-#### 3.1.[云计算]通用成本优化策略
+	- 第一是业务永续，也就是PaaS产品/云上产品的高可用、容灾&灾难恢复和多活。
+	- 第二是极致性价比(CapEx->OpEx)，在满足前两个需求下数据库的费用尽可能的便宜。在未来几年里，CIO们对降本增强的呼声会越来越强烈。--阿里云2023年北京云峰会已发布大降价
+	- 第三是无限弹性资源伸缩，业务进行营销活动或者流量突然增长的时候数据库能及时扩容上去扛住流量。这两点做不好对业务就意味着资损。
+	- 第四是极简易用性，基于云计算的X as a Service的产品理念，帮助用户以最简洁的方式实现云上数据分析计算存储的工作。
 
- [稳定] / [资源弹性] /  [持续算力]  / [高可用&容灾] / [云原生]
+随着云计算的深入发展, 多云统一管控与开源技术广大应用, 未来的云计算的价值是更多提供IaaS基础能力来无限算力支撑, PaaS产品的差异在逐步缩短, 企业级产品能力建设与提升2B客户的付费意愿成为提升云计算产品价值的重要路径。从现在看, 我们对云原生产品的认知还是需要进一步加强。
+
+#### 3.1. [云计算]通用成本优化策略
+
+ [稳定性]  /   [性价比]  / [资源弹性] /  [持续算力] /  [云原生] / [高可用&容灾] 
 
 **云计算性价比是基于持续稳定系统之下的投入产出比**
 
 
-#### 3.2.[APaaS]云原生数据产品的商业进化-如何变现
+#### 3.2. [APaaS]云原生数据产品的商业进化-如何变现
 
 参考Snowflake的Data-Warehouse-as-a-Service的商业化之路
 
@@ -220,7 +260,7 @@ Cloud Data Warehouses are pushing this software category to a whole new level:
 - Integration集成能力: CDWs are cloud databases. Third party providers can easily access their API and read their data, as shown in Snowflake’s partner list.
 - Versatility多功能性: Both structured and semi-structured data can be stored in CDW (companies can ELT instead of ETL their data).
 
-#### 3.3.[价值]通用数据应用商业化论
+#### 3.3. [价值]通用数据应用商业化论
 
 首先我们需要大数据+AI应该在哪些行业场景上能产生核心的业务价值。没有价值，所有技术能力都是空谈。
 
@@ -230,16 +270,17 @@ _**Ref:[通用数据产品的商业化](2015-11-08-bigdata-analytics-thinking.md
 
 需重点关注的是数据产品本身的商业化与基于云服务之上的云产品的商业化不是简单的业务模式重复。而是完全新形态的云原生产品商业化模式。云产品的PMF具体会落在哪些层面, 客户一定会为产品价值能力买单? 
 
-#### 3.4.[变革]通用AI智能应用商业化
+#### 3.4. [变革]通用AI智能应用商业化
 
 _**Ref:[AIGC&LLM](2023-03-11-aigc-llm-tech-study.md)**_
 
 
-#### 3.5.国内外云计算商业化差异
+#### 3.5. 国内外云计算商业化差异
 
 产品价值+服务
 
 人力投入
+
 
 ### IV.TechTrend: 云计算-大数据&AI的行业技术趋势及影响
 
@@ -251,19 +292,19 @@ _**Ref:[AIGC&LLM](2023-03-11-aigc-llm-tech-study.md)**_
 
 - 15年左右，进入云计算时代，公有云厂商提供虚拟机或容器服务，企业不用再购买任何物理服务器及系统软件，同时节省了更多的运维人员成本。公有云厂商多租户的售卖整个资源池，综合来看，提升了云计算资源的整体平均利用率。
 
-- 20年左右，Serverless Computing（无服务计算）模式将成为未来云计算的主流模式，开发者只需要关注自己的业务代码，其余的事情都交给无服务计算厂商。企业不仅不用关心弹性扩容问题，而且只为代码调用执行的次数付费，运维的成本也再次降低，服务厂商能够更有效率的使用计算资源。**Serverless Computing = Cloud Computing ???**
+- 20年左右，Serverless Computing(无服务化计算)模式将成为未来云计算的主流模式，开发者只需要关注自己的业务代码，其余的事情都交给无服务计算厂商。企业不仅不用关心弹性扩容问题，而且只为代码调用执行的次数付费，运维的成本也再次降低，服务厂商能够更有效率的使用计算资源。**Serverless Computing = Cloud Computing ???**
 
 那么推动云计算技术发展的主要底层因素到底是什么呢？我们总结发现，是降本增效与资源有效利用！无论是对供给方还是需求方，技术的推动力都带来巨大的降本增效的社会价值。虚拟化技术提升了资源的综合利用率，公有云服务又大幅降低了企业的运维成本，容器技术提升了业务开发迭代的效率，而无服务计算最终将业务开发及创新的效率又推向了新的极致
 
-- Serverless VS Serverful Computing
-- 弹性伸缩-存算分离到湖仓一体融合
-- 云原生资源池化-K8s容器化资源管理
-- 实时数据湖-实时数仓到流批一体
-- ServerlessComputing Product Design-智能运维形态-从人工运维到自动化运维服务
-- DataArchDesign on Cloud: DataFabric vs DataMesh
-- 数据合规&数据隐私安全技术
-- 多云跨域数据计算Multi-CloudComputing
-- 大数据+AI一体参考架构
+	- Serverless VS Serverful Computing
+	- 弹性伸缩-存算分离到湖仓一体融合
+	- 云原生资源池化-K8s容器化资源管理
+	- 实时数据湖-实时数仓到流批一体
+	- ServerlessComputing Product Design-智能运维形态-从人工运维到自动化运维服务
+	- DataArchDesign on Cloud: DataFabric vs DataMesh
+	- 数据合规&数据隐私安全技术
+	- 多云跨域数据计算Multi-CloudComputing
+	- 大数据+AI一体参考架构
 
 #### 4.1.Serverless VS Serverful Computing
 
@@ -312,7 +353,7 @@ TableFormat优化
 
 #### 4.6.ServerlessComputing Product Design
 
-**Serverless Computing = Function as a Service + Backend as a Service.**
+##### Serverless Computing = Function as a Service + Backend as a Service.
 
 	- 存算分离 / 自动资源分配 / 按使用量付费AutoSuspend
 	- 全托管(做重-普遍客户)与半托管(做轻-成熟技术型客户)的目标人群差异
@@ -330,7 +371,7 @@ _阿里云数据产品公共云的Base Cloud Platform Capability_
 
 _阿里云数据产品的Base Cloud Platform Capability_
 
-_**Serverless Product Thinking**_
+##### Serverless Product Thinking
 
 哪些大数据&AI产品可以做成全托管Serverless or 半托管 or Serverful Product
 
@@ -340,21 +381,21 @@ _**Serverless Product Thinking**_
 
 数据安全问题 / 调试与监控困难 / 供应商绑定风险
 
-_A.ServerlessDB无服务器化数据库的挑战_
+##### A.ServerlessDB无服务器化数据库的挑战
 
 	- 没有内置的持久化存储
 	- 面向连接的协议的C/S架构
 	- 不支持共享内存
 
-_B.为什么PolarDB云端数据库的ServerlessDB很有特色_
+##### B.为什么PolarDB云端数据库的ServerlessDB很有特色
 
 PolarDB Serverless在业内率先提出了将DDC（Disaggregated Data Centers）架构结合到数据库中，实现数据库内CPU，内存，存储等资源的完全分离，实现了基于分布式内存池（内存弹性）和多点可写（CPU弹性），资源多维度独立弹性的下一代云原生数据库架构。
 
 PolarDB Serverless构建了一个全新的数据库形态，即DCaaDB（Datacenter as a Database）。整个IDC形成一个多租户的大数据库，其全部的CPU，内存，存储构成三个独立的资源池。在资源池未耗尽的情况下，任何一个用户（租户）都可能任意的弹性扩展任何一种资源到任何一个规格，用户为其SQL动态消耗的CPU、内存和存储买单，不需要预置任何的规格。这种情况下，CPU和内存资源因其池化其使用率将会大幅度提升，云原生数据的成本将会远低于自建和RDS等一体化数据库，云原生技术的价值将会得到充分的体现，数据库市场将会重新洗牌。
 
-_C.MaxCompute Serverless DataWarehouse_
+##### C.MaxCompute Serverless DataWarehouse
 
-_**ServerlessComputing总结**_
+##### ServerlessComputing总结
 
 ServerlessComputing无服务器计算代表着对PaaS层与之前模式的巨大的创新。更好的自动资源弹性伸缩, 强大的资源隔离,平台本身灵活性及服务生态化的支持。很多应用希望使用serverless computing的关键原因是在于细粒度的自动弹性伸缩, 使得资源利用率与每个应用程序的不同需求紧密匹配。--云原生容器化是云计算进化阶段的关键优势。
 
@@ -362,34 +403,34 @@ Serverless的根本是实现无处不在的
 
 #### 4.7.DataArchDesign on Cloud
 
-**以开放作为技术竞争基础：**
+_**以开放作为技术竞争基础：**_
 
-- 没有用户希望被锁定 – 自主能力、议价能力、持续发展……
-- 选择合适的技术分层设计(解藕) --这一点非常重要
-- 支持生态和客户发展来证明开放性和有效性
+	- 没有用户希望被锁定 – 自主能力、议价能力、持续发展……
+	- 选择合适的技术分层设计(解藕) --这一点非常重要
+	- 支持生态和客户发展来证明开放性和有效性
 
-**选择合理的技术分层，维持业务功能的开放性和可移植性：**
+_**选择合理的技术分层，维持业务功能的开放性和可移植性：**_
 
-- 有事实标准可循的服务不破坏功能兼容性，给客户迁入迁出的自由，封装服务时多强调功能的共性  而不是差异性
-- 选择合适的技术分层接口，遵从或共建行业标准，如Kubernetes
-- 通过架构设计屏蔽外部技术能力差异的影响，如数据库封装层等设计，最简单的未必是最好和最有效的
-- 选择有潜力的合作伙伴和客户，以长期投入培养标杆
+	- 有事实标准可循的服务不破坏功能兼容性，给客户迁入迁出的自由，封装服务时多强调功能的共性  而不是差异性
+	- 选择合适的技术分层接口，遵从或共建行业标准，如Kubernetes
+	- 通过架构设计屏蔽外部技术能力差异的影响，如数据库封装层等设计，最简单的未必是最好和最有效的
+	- 选择有潜力的合作伙伴和客户，以长期投入培养标杆
 
-**做最难的事情，在非功能性上体现技术实力和实质性差异：**
+_**做最难的事情，在非功能性上体现技术实力和实质性差异：**_
 
-- 非功能性产品需求定义
-    ○ 定义IT系统应该支持的期望或特征；
-    ○ 可能是运行时(例如：性能或可用性)，也可能是非运行时(例如：可伸缩性或可维护性)
-    ○ 倾向于“规定性的”或“定量的”。
+	- 非功能性产品需求定义
+		○ 定义IT系统应该支持的期望或特征；
+		○ 可能是运行时(例如：性能或可用性)，也可能是非运行时(例如：可伸缩性或可维护性)
+		○ 倾向于“规定性的”或“定量的”。
+	- 没有技术难度可能同时意味着难以建立技术壁垒
+	- 拉高标准化接口的层次，留出足够的技术发挥空间，寻找底层跨领域优化的空间和机会，如软硬件一体化全堆栈优化等
+	- 在开放的接口下层分析清楚空间，做长期技术投入，不破坏接口稳定性和开放性
+	- 做好长期持久战准备，软件需要长时间的积累和大量用户和场景的检验才能真正成熟，核心价值-的体现会更多在软件领域
+	- 我们在软件上的大规模长期持续投入的价值需要充分体现
+	- 形成顺畅的价值传导体系，推动厂商无关的参考架构，注入我们的最佳实践持续积累与演进
 
-- 没有技术难度可能同时意味着难以建立技术壁垒
-- 拉高标准化接口的层次，留出足够的技术发挥空间，寻找底层跨领域优化的空间和机会，如软硬件一体化全堆栈优化等
-- 在开放的接口下层分析清楚空间，做长期技术投入，不破坏接口稳定性和开放性
-- 做好长期持久战准备，软件需要长时间的积累和大量用户和场景的检验才能真正成熟，核心价值-的体现会更多在软件领域
-- 我们在软件上的大规模长期持续投入的价值需要充分体现
-- 形成顺畅的价值传导体系，推动厂商无关的参考架构，注入我们的最佳实践持续积累与演进
 
-#### **[DataArch: from DataLake to DataMesh](2022-04-02-from-datalake-to-data-mesh.md)**
+#### [DataArch: from DataLake to DataMesh](2022-04-02-from-datalake-to-data-mesh.md)
 
 _**DataFabric vs DataMesh**_
 
@@ -438,18 +479,21 @@ Data Mesh 允许分布式团队在遵守共同的治理规定的前提下按照�
 
 参阅[DataMesh Reference参考](https://developer.aliyun.com/article/881487)
 
-#### 4.8.数据合规&数据隐私安全
+#### 4.8. 多云Multi-Cloud数据计算与管理走向主流
 
-#### 4.9.多云跨域大数据计算Multi-Cloud
+![software_cloud_next](_includes/software_cloud_next.png)
 
 	* 多云Snowflake / BigQuery-Onmi多云架构 / Confluent
 	* 跨云数据共享方案
 
 [GCP BigQuery产品分享](https://developer.aliyun.com/article/907194)
 
+#### 4.9. 数据合规&数据隐私安全
+
+
 ### V.云计算形态差异分析
 
-#### 公共云与的核心差异到底在哪里？
+#### 5.1. 公共云与的核心差异到底在哪里？
 
 技术改变商业模式的典范-VMWare。云计算也算是技术+商业模式变革的典范, 但在绝大多数情况找到一个清晰有效的市场比什么都更有价值。Product Market Fit出处, 市场赛道优先+产品差异化优势加强。
 
@@ -471,7 +515,7 @@ _**Base Cloud Platform Capability**_
 
 _**混合云/私有云/专属云/行业云是不是值得投入**_
 
-由于国内非互联网客户对软件产品的理解不成熟, 导致云厂商需要为客户部署私有云、混合云，并更多扮演集成商角色，面临更分散、个性的市场需求。这些需求标准化程度低，难以简单复用。经营成本远高于海外云厂商。事实上, 中国市场和国际市场需求截然不同，双方原本就是两个土壤、两种需求。从多年的数据智能行业的市场探索, 笔者的判断在未来的很长一段时间, 在中国的商业土壤上, 混合云/私有云/行业云等多种非公共云的云产品形态将在非互联网行业普遍存在且存在较多商业营收机会。基于最初公共云设想的“水电煤”自助服务，在中国市场变成了贴身服务, 无论是公共云与专有云。其背后的问题原因很多。
+由于国内政企领域(非互联网客户)对软件产品的理解不成熟, 导致云厂商需要为客户部署私有云、混合云，并更多扮演集成商角色，面临更分散、个性的市场需求。这些需求标准化程度低，难以简单复用。经营成本远高于海外云厂商。事实上, 中国市场和国际市场需求截然不同，双方原本就是两个土壤、两种需求。从多年的数据智能行业的市场探索, 笔者的判断在未来的很长一段时间, 在中国的商业土壤上, 混合云/私有云/行业云等多种非公共云的云产品形态将在非互联网行业普遍存在且存在较多商业营收机会。基于最初公共云设想的“水电煤”自助服务，在中国市场变成了贴身服务, 无论是公共云与专有云。其背后的问题原因很多。
 
 哪些行业客户需要专属行业的非公共云下的云计算服务：金融 / 政府央企(烟草) / 数据合规类行业(汽车)
 
@@ -503,14 +547,13 @@ _**行业云or专属云对政企金融等特定客户的吸引力如何有待考
 包括金融云/视频云/合规云/交易云
 
 
-
 ### VI.KeyStep: 关键步骤-克服困难、实现未来PMF
 
-#### 6.1.思考模式
+#### 6.1. 思考模式
 
 信息-外部输入/算力-自身能力/算法-方法论/Learn from best的思考模式
 
-#### 6.2.PMF and IPD
+#### 6.2. PMF and IPD
 
 Product Market Fit是产品和市场达到最佳的契合点，产品和市场需求匹配。
 产品设计不仅服务于用户体验，一款产品的成功不可用单一的用户数据来衡量，要以能否找到PMF作为重要标杆。你所提供的产品正好满足市场的需求，令客户满意。
@@ -615,7 +658,9 @@ XC绕不开的话题-政府大数据&科研AI
 
 通用数据分析产品的行业优势
 
+
 ### Reference
+
 * paper_berkeley_view_AboveTheClouds_2009
 * paper_berkeley_view_cloud_programming_2019
 * paper_serverless_computing_2019
