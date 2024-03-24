@@ -9,7 +9,7 @@ title:  Big Data Research Note - Cloud LakeHouse Best Practice
 
 ## 写在前面
 
-作者：振策-阿里云计算平台产品解决方案
+作者：Zhenjie振策
 
 ## 0.Cloud LakeTableFormat数据格式的技术演进
 
@@ -48,7 +48,7 @@ Iceberg 提供一个开放通用的表格式（Table Format）实现方案，不
 
 Iceberg 上游组件将数据写入完成后，下游组件及时可读，可查询。可以满足实时场景。并且 Iceberg 同时提供了流/批读接口、流/批写接口。可以在同一个流程里，同时处理流数据和批数据，大大简化了ETL链路。
 
-#### *1.1.3.[Compaction]自动化数据治理待优化。包括Upsert和Compaction操作*
+#### *1.1.3.[Compaction]自动化数据治理管理。包括Upsert和Compaction操作*
 
 由于
 
@@ -128,7 +128,7 @@ Iceberg还有许多其他的优势，比如对象存储友好的数据组织方�
 
 ### 1.2.Iceberg存储结构
 
-### ![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1697155643762-3efb4f98-077d-4f22-948e-91cade5d89ff.png)
+![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1697155643762-3efb4f98-077d-4f22-948e-91cade5d89ff.png)
 
 Merge On Read 简称，是一种行级更新技术，本质上是 out-of-place update, 更新 和删除不直接修改历史数据，而是单独记录数据变更，在读取的时候再合并历 史数据和变更得到修改后的值。这种方式更新的时候代价较小，读取的时候代价较大。 
 
@@ -425,22 +425,6 @@ Paimon 作为一个流批一体的数据湖存储，提供流写流读、批写�
 
 LakeTableFormat(Apache Iceberg / Paimon / Hudi / MaxCompute ACID2.0) 技术能力测试验证
 
-| **No.1**                                                     | **测试项目**             | **测试方式**                                                 | **性能指标** | **性能对比差异** |
-| ------------------------------------------------------------ | ------------------------ | ------------------------------------------------------------ | ------------ | ---------------- |
-|                                                              |                          |                                                              |              |                  |
-| 1                                                            | 数据加载性能             | 将3TB Parquet格式的TPC-DS数据集加载到Delta、Iceberg CoW、Hudi CoW、Paimon格式的表中，记录各自数据加载的时间 | 加载时间     |                  |
-| 2                                                            | 数据治理小文件Compaction |                                                              | 资源消耗时间 |                  |
-| 3                                                            | 查询性能                 | 对Delta、Iceberg、Hudi、Paimon格式的表数据，分别执行TPC-DS 99个query三次，取平均值 | 查询时间     |                  |
-| 4                                                            | 更新性能                 | 1. 加载100G Parquet格式的TPC-DS数据集到Delta、Iceberg、Hudi、Paimon格式的表中，记录各自数据加载的时间 | 加载时间     |                  |
-| 2. 执行TPC DS 5个SQL（Q3, Q9, Q34,Q42, Q59）各三次，取平均值 | 查询时间                 |                                                              |              |                  |
-| 3. 使用MERGE INTO执行10次更新操作（每次更新3%的原始数据）    | 更新时间                 |                                                              |              |                  |
-| 4. 执行TPC DS 5个SQL（Q3, Q9, Q34,Q42, Q59）各三次，取平均值 | 查询时间                 |                                                              |              |                  |
-| 5                                                            | 更新性能                 | 1.使用LHBench Microbench，生成一张表，并对表中的数据进行不同行数（1万行、10万行、100万行）的更新 | 更新时间     |                  |
-| 2. 对更新后的表进行查询                                      | 查询时间                 |                                                              |              |                  |
-| 6                                                            | 元数据处理性能           | 1. 选取TPC-DS store_sales table表，将其以10MB大小的文件块进行存储，按不同大小得到包含1k、50k、100k、200k文件数的表 | -            |                  |
-| 2. 执行三种SQL：a. 查询某列select limit 1；b. 查询某个分区filter by partition；c. 过滤某个列值filter by value；执行三次取平均值 | -                        |                                                              |              |                  |
-| 3. 获取查询启动时间（查询启动时间定义为提交查询到第一个数据扫描job开始执行之间的时间） | 查询时间                 |                                                              |              |                  |
-| 4. 获取查询执行时间                                          | 查询时间                 |                                                              |              |                  |
 
 ## 6.总结与思考
 

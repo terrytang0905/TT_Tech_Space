@@ -7,6 +7,8 @@ title: Cloud Computing Thinking
 
 ## Data Business Thinking on Cloud Computing2023
 
+作者：Zhenjie振策
+
 ### I. Definition: Cloud Computing Internel-什么是云计算
 
 #### 1.1. What is Cloud Computing
@@ -37,7 +39,7 @@ _**Cloud Computing Economics**_
 
 What,if any,are the new economic models enabled by Cloud Computing,and how can a service operator decide whether to move to the cloud or stay in a private datacenter?
 	云计算带来了哪些新的经济模式(如果有的话)，IT服务商如何决定是迁移到云端还是留在私有数据中心？
-	 Tips: 成本ROI / 架构升级带来的多路复用 / 高可用的稳定性 / 安全性 / 云原生(K8s/DataOps/MLOps)? 
+	 Tips: 成本ROI/ 架构升级带来的多路复用 / 高可用的稳定性 / 安全性 / 云原生(K8s/DataOps/MLOps)? 
 
 _**Top 10 Obstacles and Opportunities for Cloud Computing**_
 
@@ -47,15 +49,15 @@ What are the top 10 obstacles to the success of Cloud Computing—and the corres
 ![top10obstacles&opp](_includes/top10obstacles&opp.png)
 
 - 1.高可用需求
-- 2.Data Lock-In 
-- 3.数据隐私与数据审计-数据合规要求 
-- 4.数据传输瓶颈 
+- 2.Data Lock-In - 标准化APIs
+- 3.数据隐私与数据审计 - 数据合规要求 
+- 4.数据传输瓶颈 - 网络间数据传输 
 - 5.性能不可预测性 
 - 6.可弹性计算存储资源
 - 7.分布式系统的稳定性 
-- 8.极致弹性扩缩容 
+- 8.极致弹性扩缩容 - 自动化Scaling
 - 9.信誉守护服务 
-- 10.付费模式的进阶
+- 10.付费模式的进阶 - 按量付费
 
 _**From Traditional Infrastructure System to Cloud Computing Architure**_
 What changes should be made to the design of future applications software, infrastructure software, and hardware to match the needs and opportunities of Cloud Computing?
@@ -71,7 +73,7 @@ What changes should be made to the design of future applications software, infra
 _**通用云计算的价值主张**_
 
 	*用CapEx(capital expenditures)替换OpEx(operating expenses)。
-	*降低 IT 总成本。
+	*降低 IT 总成本 -降本增效。
 	*利用云弹性资源，无需容量规划。
 	*更快的敏捷速度以促进企业创新。
 	*专注能带来市场竞争力的工作。
@@ -674,8 +676,9 @@ XC绕不开的话题-政府大数据&科研AI
 * paper_berkeley_view_AboveTheClouds_2009
 * paper_berkeley_view_cloud_programming_2019
 * paper_serverless_computing_2019
+* [Data Fabric Architecture is Key to Modernizing Data Management and Integration](https://www.gartner.com/smarterwithgartner/data-fabric-architecture-is-key-to-modernizing-data-management-and-integration)
 * Data Mesh - Delivering Data-Driven Value at Scale
 * paper_berkeley_view_of_system_challenges_forAI_2017
-* AWS CTO云服务一个个的基础组件(primitives) https://www.protocol.com/enterprise/amazon-aws-werner-vogels
+* [AWS CTO云服务一个个的基础组件(primitives)](https://www.protocol.com/enterprise/amazon-aws-werner-vogels)
 * [The New Business of AI (and How It’s Different From Traditional Software)](https://future.com/new-business-ai-different-traditional-software/)
 * [The Empty Promise of Data Moats](https://a16z.com/2019/05/09/data-network-effects-moats/)

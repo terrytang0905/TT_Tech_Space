@@ -35,15 +35,17 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 #### II.BigDataArchitecture-BigData Distributed System Research
 
-- **[云原生大数据架构思考-DataFunTalk2023](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-08-03-cloud-native-bigdata-arch-thinking.md)**
+- **[大数据研究-云上湖仓一体正当时](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-10-16-bigdata-research-cloud-datalake-lakehouse-practice.md)**
+- **[大数据研究-云原生大数据架构思考-DataFunTalk2023](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-08-03-bigdata-research-cloud-native-bigdata-arch-thinking.md)**
 - **[大数据研究-大数据上云存算分离演进思考与探讨2022](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-01-01-bigdata-research-datalake-cloud-storage-disaggr.md)**
 - [大数据研究-数据湖仓:数据工程的未来-ChatGPT](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-02-01-Lakehouse-The-Future-of-Data-Engineering.md)**
 - **[大数据研究-数据湖仓存算分离技术研究2020](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-lake-house-solution.md)**
 - **[大数据研究-APaaS:分布式OLAP引擎的下一站](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2021-05-05-bigdata-research-olap-next-generation-note.md)**
-- **[大数据研究-IPaaS:分布式数据存储格式对比](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-storage-layer-system.md)**
-- **[大数据研究-IPaaS:基础架构解析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-26-bigdata-research-infrastructure-build.md)**
 - **[大数据研究-APaaS:分布式数据架构解析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-27-bigdata-research-database-architect.md)**
 - **[大数据研究-APaaS:SQLonHadoop](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-olap-sqlonhadoop-note.md)**
+- [大数据研究-IPaaS:分布式数据存储格式对比](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-storage-layer-system.md)**
+- **[大数据研究-IPaaS:基础架构解析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-26-bigdata-research-infrastructure-build.md)**
+
 - [区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - [大数据研究-数据处理-通用开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-development.md)
 - [大数据研究-数据处理-Kafka分布式消息队列](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-kafka-note.md)
