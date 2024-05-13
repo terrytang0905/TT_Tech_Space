@@ -9,11 +9,11 @@ title:  Big Data Research Note - Cloud LakeHouse Best Practice
 
 ## 写在前面
 
-作者：Zhenjie振策
+作者：Zhenjie
 
 ## 0.Cloud LakeTableFormat数据格式的技术演进
 
-云原生湖仓一体LakeHouse技术如火如荼, 之前我写过一篇关于大数据存算分离的技术架构的文章。主流的三大开源TableFormat(DeltaLake,**Hudi**,**Iceberg**)已被广泛使用，而阿里云也提出了包括Apache Paimon/MaxCompute ACID2.0的改进湖数据格式引擎。LakeTableFormat作为湖仓一体LakeHouse的主要组件, 在数据湖之上提供类似数仓的ACID数据管理能力。本文主要是尝试从技术应用角度分析基于大数据存储之上的表格存储技术对比，与大家共同探讨。
+云原生湖仓一体LakeHouse技术如火如荼, 之前我写过一篇关于大数据存算分离的技术架构的文章。主流的三大开源TableFormat(Apache DeltaLake,**Iceberg**,**Hudi**)已被广泛使用，而阿里云也提出了包括**Apache Paimon** / **MaxCompute ACID2.0** 的改进湖数据格式引擎。LakeTableFormat作为湖仓一体LakeHouse的主要组件, 在数据湖之上提供类似数仓的ACID数据管理能力。本文主要是尝试从技术应用角度分析基于大数据存储之上的表格存储技术对比，与大家共同探讨。
 
 #### LakeTableFormat整体介绍
 
@@ -29,18 +29,20 @@ title:  Big Data Research Note - Cloud LakeHouse Best Practice
 
 Iceberg定位是在计算引擎之下，又在存储之上。其次，它是一种数据存储格式，Delta Lake称其为"storage layer"，而Iceberg则称其为"table format"。这类技术是介于计算引擎和数据存储格式中间的数据组织格式。通过特定的方式将数据和元数据组织起来，因此称之为数据组织格式更为合理，而Iceberg将其定义为表格式也直观地反映出了它的定位和功能。
 
+![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699505397459-90ccd10e-6d48-49e7-b07b-4ff1f3331a5a.png)
+
 相比于Hudi，Delta Lake，***Iceberg提供了更为完整的表格式Schema Evolution的能力、类型的定义和操作的抽象***，并与上层数据处理引擎和底层数据存储格式的解耦。
 
 -  对接上层，Iceberg提供了丰富的表操作接口，使得它非常容易与上层数据处理引擎对接，现已支持的包括Spark（Spark2和Spark3），Presto，Pig，社区正在做的是Hive和Flink的适配。其中Iceberg对于Spark的支持最好，它同时支持Spark2的Data Source V2 API和Spark3 的Data Source V2 API（包括multiple catalog支持），同时对于Spark的谓词下推能力有全面的支持。 
 -  对接下层，Iceberg屏蔽了底层数据存储格式的差异，提供对于Parquet，ORC和Avro格式的支持。Iceberg起到了中间桥梁的能力，将上层引擎的能力传导到下层的存储格式。相比于Hudi，Delta Lake，Iceberg在设计之初并没有绑定某种特定的存储引擎，同时避免了与上层引擎之间的相互调用，使得Iceberg可以非常容易地扩展到对于不同引擎的支持。 
 
-### 1.1.Iceberg的核心特性
-
-![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1702245726992-be56ea96-a867-41ae-a9fb-de9dde1c5d85.png)
+### 1.1. Iceberg的核心特性
 
 #### *1.1.1.[系统架构]架构解耦：数据存储、计算引擎插件化*
 
 Iceberg 提供一个开放通用的表格式（Table Format）实现方案，不和特定的数据存储、计算引擎绑定。目前大数据领域的常见数据存储（HDFS、S3…），计算引擎（Flink、Spark…）都可以接入 Iceberg。
+
+![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1702245726992-be56ea96-a867-41ae-a9fb-de9dde1c5d85.png)
 
 在生产环境中，可选择不同的组件搭使用。甚至可以不通过计算引擎，直接读取存在文件系统上的数据。Iceberg支持Spark的读和写，包括Spark的结构化流。Trino (PrestoSQL) 也支持读取，但对删除的支持有限。同时支持Flink的读和写。最后，Iceberg为Hive提供了读支持。仅支持写时复制的方式，包含需要更新记录的文件会立即被重写。Iceberg的优势在于包含大量分区的表的读取性能很高。解决存储可用性问题: 更好的schema管理方式、时间旅行、多版本回滚支持等。
 
@@ -48,9 +50,12 @@ Iceberg 提供一个开放通用的表格式（Table Format）实现方案，不
 
 Iceberg 上游组件将数据写入完成后，下游组件及时可读，可查询。可以满足实时场景。并且 Iceberg 同时提供了流/批读接口、流/批写接口。可以在同一个流程里，同时处理流数据和批数据，大大简化了ETL链路。
 
-#### *1.1.3.[Compaction]自动化数据治理管理。包括Upsert和Compaction操作*
+#### *1.1.3.[Compaction]手工数据治理管理。
 
-由于
+维护Iceberg Table的更新一直是非常复杂的工作
+
+
+[Maintaining iceberg table](https://www.dremio.com/blog/maintaining-iceberg-tables-compaction-expiring-snapshots-and-more/)
 
 #### *1.1.4.[ACID]事务能力优化：ACID事务*
 
@@ -64,7 +69,7 @@ Iceberg提供了锁的机制来提供ACID的能力，在每次元数据更新时
 
 基于ACID的能力，Iceberg提供了类似于MVCC的读写分离能力：每次写操作都会产生一个新的快照（snapshot），快照始终是往后线性递增，确保了线性一致性。而读操作只会读取已经存在了的快照，对于正在生成的快照读操作是不可见的。每一个快照拥有表在那一时刻所有的数据和元数据，因此提供了用户回溯（time travel）表数据的能力。利用Iceberg的time travel能力，用户可以读取那一时刻的数据，同时也提供了用户快照回滚和数据重放的能力。Iceberg 提供了查询表历史某一时间点数据镜像（snapshot）的能力。通过该特性可以将最新的SQL逻辑，应用到历史数据上。
 
-#### *1.1.6.[Format]完备的自定义类型、分区方式和操作的抽象*
+#### *1.1.6.[TableFormat]完备的自定义类型、分区方式和操作的抽象*
 
 - ***数据表演化（Table Evolution）***
 
@@ -122,39 +127,39 @@ Iceberg 的分区信息并不需要人工维护，它可以被隐藏起来。不
 
 Iceberg 的元数据里面提供了每个数据文件的一些统计信息，比如最大值，最小值，Count 计数等等。因此，查询 SQL 的过滤条件除了常规的分区，列过滤，甚至可以下推到文件级别，大大加快了查询效率。
 
-#### *1.1.9.面向云存储的其他优势等*
+#### *1.1.9.[Storage]面向云存储的其他优势等*
 
 Iceberg还有许多其他的优势，比如对象存储友好的数据组织方式，在数据存储格式之上的统一的向量化读取(基于Arrow实现)，完备的算子下推等等关于表结构的核心能力。
 
-### 1.2.Iceberg存储结构
+### 1.2.Iceberg存储结构-StorageStructure
 
 ![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1697155643762-3efb4f98-077d-4f22-948e-91cade5d89ff.png)
 
 Merge On Read 简称，是一种行级更新技术，本质上是 out-of-place update, 更新 和删除不直接修改历史数据，而是单独记录数据变更，在读取的时候再合并历 史数据和变更得到修改后的值。这种方式更新的时候代价较小，读取的时候代价较大。 
 
-#### 1.2.1 数据文件 Data files
+#### 1.2.1 MetaData元数据文件 metadata file
 
-数据文件是 Apache Iceberg 表真实存储数据的文件，一般是在表的数据存储目录的 data 目录下，如果我们的文件格式选择的是 parquet,那么文件是以 .parquet 结尾。
 
-例如：00000-0-atguigu_20230203160458_22ee74c9-643f-4b27-8fc1-9cbd5f64dad4-job_1675409881387_0007-00001.parquet 就是一个数据文件。
 
-Iceberg 每次更新会产生多个数据文件（data files）。
-
-#### 1.2.2 表快照 Snapshot
+#### 1.2.2 表快照文件 Snapshot
 
 快照代表一张表在某个时刻的状态。每个快照里面会列出表在某个时刻的所有 data file 列表。data file 存储在不同的 manifest file 里面，manifest file 存储在一个 Manifest list文 件里面，而一个 Manifest list 文件代表一个快照。
 
 #### 1.2.3 清单列表 Manifest list
 
-manifest list 是一个元数据文件，列出构建表快照（Snapshot）的清单（Manifest file）。这个元数据文件中存储的是 Manifest file 列表，每个 Manifest file 占据一行。每行中存储了 Manifest file 的路径、其存储数据文件（data files）的分区范围，增加了几个数文件、删除了几个数据文件等信息，这些信息可以用来在查询时提供过滤，加快速度。
+manifest list 是一个元数据文件，列出构建表快照（Snapshot）的数据文件（data file）的列表信息。这个元数据文件中存储的是 Manifest file 列表，每个 Manifest file 占据一行。每行中存储了 Manifest file 的路径、其存储数据文件（data files）的分区范围，增加了几个数文件、删除了几个数据文件等信息，这些信息可以用来在查询时提供过滤，加快速度。每行都是每个数据文件的详细描述，包括数据文件的状态、文件路径、分区信息、列级别的统计信息（比如每列的最大最小值、空值数等）、文件的大小以及文件里面数据行数等信息。其中列级别的统计信息可以在扫描表数据时过滤掉不必要的文件。
 
-例如：snap-6746266566064388720-1-52f2f477-2585-4e69-be42-bbad9a46ed17.avro 就是一个 Manifest List 文件。
+#### 1.2.4 清单列表 Manifest file
 
-#### 1.2.4 清单文件 Manifest file
+		Manifest file 是以 avro 格式进行存储的，以 .avro 后缀结尾。例如：snap-6746266566064388720-1-52f2f477-2585-4e69-be42-bbad9a46ed17.avro 就是一个 Manifest List 文件。
 
-Manifest file 也是一个元数据文件，它列出组成快照（snapshot）的数据文件（data file）的列表信息。每行都是每个数据文件的详细描述，包括数据文件的状态、文件路径、分区信息、列级别的统计信息（比如每列的最大最小值、空值数等）、文件的大小以及文件里面数据行数等信息。其中列级别的统计信息可以在扫描表数据时过滤掉不必要的文件。
+#### 1.2.5 数据文件 Data files
 
-Manifest file 是以 avro 格式进行存储的，以 .avro 后缀结尾，例如：52f2f477-2585-4e69-be42-bbad9a46ed17-m0.avro。
+数据文件是 Apache Iceberg 表真实存储数据的文件，一般是在表的数据存储目录的 data 目录下，如果我们的文件格式选择的是 parquet,那么文件是以 .parquet 结尾。
+
+		例如：00000-0-atguigu_20230203160458_22ee74c9-643f-4b27-8fc1-9cbd5f64dad4-job_1675409881387_0007-00001.parquet 就是一个数据文件。
+
+Iceberg 每次更新会产生多个数据文件（data files）。
 
 ![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699504106326-cf1fe709-20e0-48b5-b5d8-54aefd603cdb.png)
 
@@ -216,7 +221,7 @@ Tunnel SDK提供的数据写入接口目前支持upsert和delete两种数据格�
 
 对于Clustering和Compaction操作也会产生新的数据文件，但并没有增加新的逻辑数据行，因此这些新文件都不会作为新增数据的语义，增量查询做了专门设计优化，会剔除掉这些文件，也比较贴合用户使用场景。
 
-#### 2.1.3.  [Compaction]小数据文件合并
+#### 2.1.3.  [Compaction]自动化数据治理管理,小数据文件合并
 
 由于UTTable 本身支持分钟级近实时增量数据导入，高流量场景下可能会导致增量小文件数量膨胀，从而引发存储访问压力大、成本高，并且大量的小文件还会引发meta更新以及分析执行慢，数据读写IO效率低下等问题，因此需要设计合理的小文件合并服务, 即Clustering服务来自动优化此类场景。
 
@@ -244,7 +249,7 @@ Compaction服务也需要和Meta Service进行交互，流程和Clustering类似
 
 Compaction服务通过消除数据中间历史状态，可节省计算和存储成本，极大加速全量快照查询场景的效率，但也不是频率越高越好，首先执行一次也要读取一遍全量数据进行Merge，极大消耗计算和IO资源，并且生成的新base file也会占据额外的存储成本，而老的delta file文件可能需要用于支持timetravel查询，因此不能很快删除，依然会有存储成本，所以Compaction操作需要用户根据自己的业务场景和数据特征来合理选择执行的频率，通常来说，对于Update / Delete格式的记录较多，并且全量查询次数也较多的场景，可以适当增加compaction的频率来加速查询。
 
-#### 2.1.4. [ACID]事务管理
+#### 2.1.4. [ACID]LakeHouse事务管理-主动管理Snapshot与数据文件
 
 以上主要介绍了典型的数据更新操作，而它们的事务并发管理都会统一由Meta Service进行控制。
 
@@ -285,74 +290,12 @@ TimeTravel可根据timestamp和version两种版本形态进行查询，除了直
 
 对其它一些接入工具，比如Kafka等，后续也在陆续规划支持中。
 
-### 2.2.MaxCompute ACID2.0存储结构
+### 2.2.MaxCompute ACID2.0存储结构-StorageService
 
-### 2.3.MaxCompute ACID2.0与Iceberg对比分析:
+主动StorageService
 
-以下对比主要基于开源Iceberg的技术框架，叠加对一些竞品对于Iceberg的改造优化，来进行一部分feature对比分析，不一定周全，甚至有可能分析错误。
 
-#### 2.3.1.数据实时入湖-Upsert写入链路分析:
-
-- MaxCompute: 写入并发可以横向扩展，并且MC Flink Connector做了专门优化，数据会按照primary key (PK)进行分组，因此相同PK的数据会发送给同一个Flink Sink节点进行写入，并且最终也会存储在同一个数据文件中。因此整个写入E2E链路，数据处理和网络传输的效率可以做到最优，每个sink的内存使用可以最小化以及尽可能稳定。最大的好处在于数据文件的存储方式非常适合后续的compaction和查询性能最优化。
-- Iceberg: 写入并发也可以横向扩展，但E2E整体链路并没有按照primary key做专门的优化处理。
-
-![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699504228022-f3ab7753-d26b-4111-8399-bb2c4e090ec5.png)
-
-小文件数量膨胀：数据完全随机的写入到iceberg存储中，会导致数据文件碎片比较严重，尤其在海量分区场景会更加恶化。
-
-数据实时写入分布不合理导致查询性能低下。数据传输效率也不高，虽然性能可能满足需求，但整体写入吞吐的稳定性和资源使用不是很有保障。
-
-写入的存储文件可能会给其他的操作，比如小文件compaction问题，无效文件cleaning，以及查询等服务造成很大的计算成本消耗以及性能低下。
-
-元数据文件数目的膨胀引起的性能降低。
-
-数据本身缺乏生命周期管理。
-
-![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699504485506-66c6ef9c-de45-4ea6-9ccd-4d6e9a466e7c.png)
-
-#### 2.3.2.小文件合并Compaction分析:
-
-- MaxCompute：由于数据是按照PK列进行分桶的，因此可以按照桶粒度并发执行，每个桶内的数据文件合并即可，并且数据本身是有序的，并且merge合并效率非常高，并且在合并生成新的数据文件后会立马删除老的数据文件，不会引发额外的存储成本。
-- Iceberg: 因为存在数据文件和Delete文件，不仅仅需要合并数据文件，还需要把每一个历史Delete文件跟所有历史数据文件合并来消除Delete记录，计算和IO读写开销都非常大，并且任务的稳定性也会有影响，而且由于Delete文件和数据文件是一样多的，并且分钟级别生成，因此合并代价更大，如果数据没有按照PK进行组织排布优化的话(如果有，也需要比较大的代价进行数据排布优化)，那就是全量数据进行整体合并，那情况会进一步恶化。此外，合并后生成新的数据文件，老的数据文件也不是即时删除，需要单独的Cleaning服务来管理和删除，也会带来额外的存储开销和资源开销。
-
-**CompactionService**
-
-![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699505397459-90ccd10e-6d48-49e7-b07b-4ff1f3331a5a.png)
-
-#### 2.3.3.自动化数据治理服务对比
-
-- MaxCompute: 用户只需要关注写入和查询逻辑，其他任何后台的服务，包括sort/compact/clean服务等，都是系统后台异步根据系统负载智能自动化运行，也完全解决了事务冲突，不会对用户读写操作产生任何影响。因此任何后台服务都不会对用户收费，没有任何计算成本，完全由全托管的MC平台提供。
-- Iceberg: 开源版本是没有自动化数据服务的，需要用户侧来同步触发，这会引发很大的时延问题，稳定性问题，以及资源保障问题。部分商业化系统对iceberg进行了改造，也支持后台异步触发一些后台服务，但在upsert海量分区流式写入场景下，后台的服务的效率和瓶颈也受限于上面提到的小文件合并等操作。此外，后台服务的资源保障大概率是需要用户来提供的。
-
-#### 2.3.4.数据存储成本分析:
-
-- MaxCompute: 只有数据文件，并且每一条upsert写入的数据只会写一行，数据是列式存储，并且按照PK进行排序，因此数据压缩率最高，存储成本最小化，并且读写查询效率最大化。
-- Iceberg: 对于upsert写入场景，存在数据文件，equality-delete 文件，以及manifest等元信息文件。每次写入一条upsert数据，需要拆分出来一条insert记录存入数据文件中，另一条包含PK列的Delete记录存入equality-delete 文件中，因此多出来的Delete文件会增加不少的存储成本，此外也会导致小文件数量变成双倍，无论的存储访问的稳定性，读写效率，查询效率等数据操作都会产生很大负面影响。
-
-#### 2.3.5.数据存储组织方式分析：
-
-- MaxCompute：PK事务表的数据文件是按照PK进行分桶存储的，并且在数据导入时就已经分好桶了，因此针对数据的任何操作，比如compact或者查询，都可以每个桶为粒度进行并发执行，计算吞吐和读写效率非常高，基本就是为PK事务表量身定做的组织结构
-- Iceberg: 数据时随机写入，因此写入的数据文件没有基于PK做组织优化，后续需要单独clustering操作对数据进行重新排布，计算代价比较大，也会引发一些事务并发冲突问题，同时导致很多无效文件增加，存储成本增加等
-
-#### 2.3.6.数据存储效率分析:
-
-- MaxCompute：基于内部非常稳定的分布式存储服务，无论是稳定性和效率上都完全有保障
-- Iceberg: 取决于使用的分布式服务，如果是开源的HDFS，那效率就很一般了
-
-#### 2.3.7.文件管理对比:
-
-- MaxCompute: 只有数据文件，并且对应的元数据直接存储在统一的MetaServer中，管理非常高效，成本也低
-- Iceberg: 需要同时管理数据文件，delete文件，manifest文件，以及无效文件等生命周期，并且删除不及时，都会引入额外的存储成本，以及管理开销。
-
-## 3.Apache Hudi核心概念解析
-
-AWS-Hudi / 小鹏汽车 / 任意门
-
-https://yuque.antfin-inc.com/odps/xzg0zk/tcwrlp
-
-https://yuque.antfin-inc.com/odps/cupid/oldpl7#ouxFc	 
-
-## 4.Apache Paimon StreamingLakeFormation
+## 3.Apache Paimon StreamingLakeFormation
 
 ![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699481988215-c89619db-9bc8-4c01-b00d-ab73e753b021.png)
 
@@ -368,7 +311,7 @@ Paimon 采用开放的数据格式和技术理念，可以与 Apache Flink / Spa
 
 Paimon 以湖存储的方式基于[分布式文件系统](https://so.csdn.net/so/search?q=分布式文件系统&spm=1001.2101.3001.7020)管理元数据，并采用开放的 ORC、Parquet、Avro 文件格式，支持各大主流计算引擎，包括 Flink、Spark、Hive、Trino、Presto。未来会对接更多引擎，包括 Doris 和 Starrocks。
 
-### 4.1.与其他数据湖的优势对比
+### 3.1.数据湖格式的优势对比
 
 - 阿里云在 Flink 社区主导，长期投入，与Flink配合最好。
 - 得益于 LSM 数据结构的追加写能力，Paimon 在大规模的更新数据输入的场景中提供了出色的性能。
@@ -381,6 +324,10 @@ Paimon 创新的结合了 湖存储 + LSM + 列式格式 (ORC, Parquet)，为湖
 - 高性能合并：LSM 的有序合并效率非常高
 - 高性能查询：LSM 的 基本有序性，保障查询可以基于主键做文件的 Skipping
 - 简单高效的流入数据湖
+
+#### 3.1.1. [Format]统一的数据文件组织格式
+
+
 
 在最新的版本中，Paimon 集成了 Flink CDC，通过 Flink DataStream 提供了两个核心能力：
 
@@ -421,6 +368,62 @@ Paimon 作为一个流批一体的数据湖存储，提供流写流读、批写�
 
 如果你觉得成本过大，你也可以解耦 Commit 和 Changelog 生成，通过 Full-Compaction 和对应较大的时延，以非常低的成本生成 Changelog。 
 
+## 4.LakeFormat对比分析: MaxCompute ACID2.0与Iceberg
+
+以下对比主要基于开源Iceberg的技术框架，叠加对一些竞品对于Iceberg的改造优化，来进行一部分feature对比分析，不一定周全，甚至有可能分析错误。
+
+核心产品能力问题
+
+	- 小文件数量膨胀：数据完全随机的写入到iceberg存储中，会导致数据文件碎片比较严重，尤其在海量分区场景会更加恶化。
+	- 数据实时写入分布不合理导致查询性能低下。数据传输效率也不高，虽然性能可能满足需求，但整体写入吞吐的稳定性和资源使用不是很有保障。
+	- 写入的存储文件可能会给其他的操作，比如小文件compaction问题，无效文件cleaning，以及查询等服务造成很大的计算成本消耗以及性能低下。
+	- 元数据文件数目的膨胀引起的性能降低。
+	- 数据本身缺乏生命周期管理。
+
+### 4.1.数据实时入湖-Upsert写入链路分析:
+
+-- MaxCompute: 写入并发可以横向扩展，并且MC Flink Connector做了专门优化，数据会按照primary key (PK)进行分组，因此相同PK的数据会发送给同一个Flink Sink节点进行写入，并且最终也会存储在同一个数据文件中。因此整个写入E2E链路，数据处理和网络传输的效率可以做到最优，每个sink的内存使用可以最小化以及尽可能稳定。最大的好处在于数据文件的存储方式非常适合后续的compaction和查询性能最优化。
+-- Iceberg: 写入并发也可以横向扩展，但E2E整体链路并没有按照primary key做专门的优化处理。
+-- Paimon: 
+
+![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699504228022-f3ab7753-d26b-4111-8399-bb2c4e090ec5.png)
+
+
+### 4.2.小文件合并Compaction分析:
+
+- MaxCompute：由于数据是按照PK列进行分桶的，因此可以按照桶粒度并发执行，每个桶内的数据文件合并即可，并且数据本身是有序的，并且merge合并效率非常高，并且在合并生成新的数据文件后会立马删除老的数据文件，不会引发额外的存储成本。
+- Iceberg: 因为存在数据文件和Delete文件，不仅仅需要合并数据文件，还需要把每一个历史Delete文件跟所有历史数据文件合并来消除Delete记录，计算和IO读写开销都非常大，并且任务的稳定性也会有影响，而且由于Delete文件和数据文件是一样多的，并且分钟级别生成，因此合并代价更大，如果数据没有按照PK进行组织排布优化的话(如果有，也需要比较大的代价进行数据排布优化)，那就是全量数据进行整体合并，那情况会进一步恶化。此外，合并后生成新的数据文件，老的数据文件也不是即时删除，需要单独的Cleaning服务来管理和删除，也会带来额外的存储开销和资源开销。
+
+**CompactionService**
+
+### 4.3.自动化数据治理服务对比
+
+- MaxCompute: 用户只需要关注写入和查询逻辑，其他任何后台的服务，包括sort/compact/clean服务等，都是系统后台异步根据系统负载智能自动化运行，也完全解决了事务冲突，不会对用户读写操作产生任何影响。因此任何后台服务都不会对用户收费，没有任何计算成本，完全由全托管的MC平台提供。
+- Iceberg: 开源版本是没有自动化数据服务的，需要用户侧来同步触发，这会引发很大的时延问题，稳定性问题，以及资源保障问题。部分商业化系统对iceberg进行了改造，也支持后台异步触发一些后台服务，但在upsert海量分区流式写入场景下，后台的服务的效率和瓶颈也受限于上面提到的小文件合并等操作。此外，后台服务的资源保障大概率是需要用户来提供的。
+
+![img](https://intranetproxy.alipay.com/skylark/lark/0/2023/png/228199/1699504485506-66c6ef9c-de45-4ea6-9ccd-4d6e9a466e7c.png)
+
+
+### 4.4.数据存储成本分析:
+
+- MaxCompute: 只有数据文件，并且每一条upsert写入的数据只会写一行，数据是列式存储，并且按照PK进行排序，因此数据压缩率最高，存储成本最小化，并且读写查询效率最大化。
+- Iceberg: 对于upsert写入场景，存在数据文件，equality-delete 文件，以及manifest等元信息文件。每次写入一条upsert数据，需要拆分出来一条insert记录存入数据文件中，另一条包含PK列的Delete记录存入equality-delete 文件中，因此多出来的Delete文件会增加不少的存储成本，此外也会导致小文件数量变成双倍，无论的存储访问的稳定性，读写效率，查询效率等数据操作都会产生很大负面影响。
+
+### 4.5.数据存储组织方式分析：
+
+- MaxCompute：PK事务表的数据文件是按照PK进行分桶存储的，并且在数据导入时就已经分好桶了，因此针对数据的任何操作，比如compact或者查询，都可以每个桶为粒度进行并发执行，计算吞吐和读写效率非常高，基本就是为PK事务表量身定做的组织结构
+- Iceberg: 数据时随机写入，因此写入的数据文件没有基于PK做组织优化，后续需要单独clustering操作对数据进行重新排布，计算代价比较大，也会引发一些事务并发冲突问题，同时导致很多无效文件增加，存储成本增加等
+
+### 4.6.数据存储效率分析:
+
+- MaxCompute：基于内部非常稳定的分布式存储服务，无论是稳定性和效率上都完全有保障
+- Iceberg: 取决于使用的分布式服务，如果是开源的HDFS，那效率就很一般了
+
+### 4.7.文件管理对比:
+
+- MaxCompute: 只有数据文件，并且对应的元数据直接存储在统一的MetaServer中，管理非常高效，成本也低
+- Iceberg: 需要同时管理数据文件，delete文件，manifest文件，以及无效文件等生命周期，并且删除不及时，都会引入额外的存储成本，以及管理开销。
+
 ## 5.LakeTableFormat数据技术验证Benchmark
 
 LakeTableFormat(Apache Iceberg / Paimon / Hudi / MaxCompute ACID2.0) 技术能力测试验证
@@ -429,6 +432,10 @@ LakeTableFormat(Apache Iceberg / Paimon / Hudi / MaxCompute ACID2.0) 技术能�
 ## 6.总结与思考
 
 ### 6.1.共性技术能力构建
+
+TableFormat
+
+StorageService
 
 ### 6.2.差异化技术选型与建议
 
@@ -442,7 +449,7 @@ LakeTableFormat(Apache Iceberg / Paimon / Hudi / MaxCompute ACID2.0) 技术能�
 - Analyzing and Comparing Lakehouse Storage Systems: [www.cidrdb.org/cidr2023/papers/p92-jain.pdf](https://ata.atatech.org/articles/11020132028)
 - Hudi, Delta lake和Iceberg对比：https://www.onehouse.ai/blog/apache-hudi-vs-delta-lake-vs-apache-iceberg-lakehouse-feature-comparison
 - Apache Hudi vs Delta Lake - Transparent TPC-DS Data Lakehouse Performance Benchmarks：https://www.onehouse.ai/blog/apache-hudi-vs-delta-lake-transparent-tpc-ds-lakehouse-performance-benchmarks
-- Apache Iceberg技术调研&在各大公司的实践应用大总结https://zhuanlan.zhihu.com/p/428739980
+- Apache Iceberg技术调研&在各大公司的实践应用大总结. https://zhuanlan.zhihu.com/p/428739980
 
 
 
