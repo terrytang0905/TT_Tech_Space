@@ -119,6 +119,7 @@ _**云计算应用优势与特点**_
 -	8.**智能运维的升级优化**：自动化运维管理，改善与简化运维复杂度
 
 		* 全链路监控&高性能运行: Monitoring to make sure the service is still running well.
+
  		* 日志管理&性能调优: Logging to record messages needed for debugging or performance tuning. 
  		* 系统升级&安全补丁: System upgrades, including security patching.
 
