@@ -431,10 +431,11 @@ PolarDB Serverless构建了一个全新的数据库形态，即DCaaDB（Datacent
 
 ![software_cloud_next](_includes/software_cloud_next.png)
 
-	* 多云Snowflake / BigQuery-Onmi多云架构 / Confluent
-	* 跨云数据共享方案 / 跨云数据复制方案
+	* Snowflake多云部署 / BigQuery-Onmi多云架构 / Databricks Multi-Cloud
+	* Confluent跨云数据中转 
+	* Databricks 跨云数据共享方案 / 跨云数据复制方案
 
-[GCP BigQuery产品分享](https://developer.aliyun.com/article/907194)
+_**Ref: [GCP BigQuery产品分享](https://developer.aliyun.com/article/907194)**_
 
 #### 4.9. 数据合规&数据隐私安全
 
