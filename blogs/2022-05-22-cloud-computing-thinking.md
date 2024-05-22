@@ -2,7 +2,7 @@
 layout: post    
 category : cloud
 tags : [cloud,analytics,thought]
-title: Cloud Computing Thinking
+title: Data Business Thinking on Cloud Computing2023
 ---
 
 ## Data Business Thinking on Cloud Computing2023
@@ -286,7 +286,7 @@ Cloud Data Warehouses are pushing this software category to a whole new level:
 
 首先我们需要大数据+AI应该在哪些行业场景上能产生核心的业务价值。没有实际价值，所有技术能力都是空谈。
 
-![data_business_usage_2022](_includes/data_business_usage_2022.png)
+![数据AI行业场景分析](_includes/数据AI行业场景分析.png)
 
 从以上的图表可以看出, 在互联网/金融科技/零售/智能制造/能源电力/生物医疗/科研教育等多个领域中大数据+AI技术应用广泛。介于大数据AI产品复杂多变, 我们把其应用场景分类为业务BI分析 / 海量数据计算&数据资产沉淀 / 实时计算分析 / 大数据搜推广 / 行业数据AI应用 等5大场景。需重点关注的是数据产品本身的商业化与基于云服务之上的云产品的商业化不是简单的业务模式重复。而是完全新形态的云原生产品商业化模式。云产品的PMF具体会落在哪些层面, 客户一定会为产品价值能力买单? 
 
@@ -440,8 +440,6 @@ PolarDB Serverless构建了一个全新的数据库形态，即DCaaDB（Datacent
 
 数据合规与数据隐私保护 随着云计算的普及而成为头等大事。原先有企业自身管理的数据，变由云厂商托管的服务来存储数据，那么云供应商如何实现数据合规和数据隐私保护就成为企业评估业务是否能够上云的核心指标之一。
 
-
-
 #### 4.10.DataArchDesign on Cloud 云数据架构的进化
 
 ##### 基于云产品基础的DataArch
@@ -542,9 +540,9 @@ Data Fabric统一了跨环境的数据管理，依靠主动元数据、知识图
 
 Data Mesh 允许分布式团队在遵守共同的治理规定的前提下按照自己的方式管理数据，而 Data Fabric 是在分布式数据之上构建单个的跨环境虚拟管理层。Data Mesh 希望能纠正数据湖和数据仓库之间的不一致性问题。
 
-参阅材料：
-*  [DataMesh Reference参考](https://developer.aliyun.com/article/881487)
-* [DataArch: from DataLake to DataMesh](2022-04-02-from-datalake-to-data-mesh.md)
+_**Ref:**_：
+_**[DataMesh Reference参考](https://developer.aliyun.com/article/881487)**_
+_**[DataArch: from DataLake to DataMesh](2022-04-02-from-datalake-to-data-mesh.md)**_
 
 _**DataFabric最终胜出**_
 
@@ -708,11 +706,11 @@ _**D.存算一体: 智能计算融合架构**_
 
 从产品维度上看，云计算产品的标准是稳定，成本，性能，安全。PaaS产品的好坏取决于云计算四大‘标准’的实现与其利用消耗资源的程度。程度越深，则产品在云计算形态下越重要，对客户，对自身。数据库/大数据/AI平台作为PaaS产品都是值得持续投入的产品方向，Copilot / AI Agent则已经开始赋能企业SaaS产品形态。PaaS产品+SaaS产品的未来发展，因为AI大模型的出现, 将会有更多未知的可能出现，其变化将改变云计算底层产品形态。例如AI智算的存算一体架构等。
 
+![数据AI行业焦点](_includes/数据AI行业焦点.png)
+
 2023年作为AI智能的元年，AI技术与应用层出不穷。可以想见未来一定是云计算+AI & 个人终端+AI的世界。云计算+AI改变企业生产效率的模式创新，而个人终端+AI改变个体生产效率的模式创新。云计算的未来十年，一定会以超出我们想象的速度变革整个行业。AWS CEO突然换帅，Azure因all in AI与SaaS软件基础，大放异彩。是激进突破，是稳扎稳打，得看手上的牌有哪些，与AI会产生怎样的化学反应。唯一必须要做到的是always on the table. 
 
 ### Practice: 大数据&AI产品云业务的最佳实践
-
-![数据AI行业焦点](_includes/数据AI行业焦点.png)
 
 - 提出事实证据-案例，如何执行落地，最终效果如何？梦想照进现实
 - 行业分析-互联网/金融/政府/能源/汽车/零售/企业上云
@@ -721,8 +719,6 @@ _**D.存算一体: 智能计算融合架构**_
 		智能制造+新能源与自动驾驶
 		XC绕不开的话题-政府大数据&科研AI
 		零售，供应链，物流，精细化运营
-
-![数据AI行业场景分析](_includes/数据AI行业场景分析.png)
 
 - 面向全球化云计算布局与国际三大云厂商PK
 - 通用数据分析产品的行业优势
