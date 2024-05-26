@@ -298,7 +298,7 @@ _**Ref:[通用数据产品的商业化](2015-11-08-bigdata-analytics-thinking.md
 
 随着ChatGPT的火爆出世, AGI的通用AI智能走向商业化速度迅速换成的现实。无数人愿意投入其中去尝试其未知的可能性，我们需要做的就是不断探索和挖掘AGI在千行百业的场景应用。
 
-_**Ref:[AIGC&LLM Tech Business Notes](2023-03-11-aigc-llm-tech-study.md)**_
+_**Ref: [AIGC&LLM Tech Business Notes](2023-03-11-aigc-llm-tech-study.md)**_
 
 #### 3.5. 国内外云计算产品商业化差异
 
@@ -306,11 +306,17 @@ _**差异1: 企业IT产品价值的认知差异**_
 
 国外企业对IT技术的认知相对比较高，愿意使用云计算产品来提高企业效率。而国内企业虽然也对提高企业效率有诉求，但大多更加期望云计算产品能够帮助企业提升业务价值。这从侧面证明国内企业体系的成熟度还有待加强，期望除了企业效率以外的业务效果提升。
 
-_**差异2: 互联网行业特征的认知差异**_
+_**差异2: 互联网行业特征的应用差异**_
 
-国外互联网客户技术成熟度高，OpenAPI的深度依赖，帮助企业利用云计算
+国外互联网客户技术相对成熟度高，基于成熟OpenAPI的深度应用，帮助海外企业利用云计算编排IT自动化体系。而国内互联网公司普遍业务发展迅速以及急切的心态，因此IT自动化的诉求明显落后于国外同行。
 
-_**差异3: 人力服务比技术服务的认知差异**_
+_**差异3: 人力服务与技术服务的现实差异**_
+
+国内对就业友好的行业相对不多，让大多数就业者对996/内卷习以为常。因此有更多的人力资源出现，相比使用技术付费服务，人力资源服务成本更低且更加有效。但随着劳动力成本的增长，技术付费服务的需求也变得越发重要。
+
+_**差异4: 企业2B SaaS产品与云计算SaaS的价值差异**_
+
+企业2B市场的SaaS业务发展的过去十年，一直很难称得上蓬勃发展。其原因在于国内市场的过度竞争与企业特征相关，SaaS产品本身是用于解决企业业务效率问题的重要工具，其售卖方式往往无法满足企业业务增长的需求。而且2B业务在国内市场面临的复杂因素过多，云计算与SaaS厂商的配合存在值得改进的方面。
 
 
 ### IV.TechTrend: 云计算-大数据&AI的行业技术趋势及影响
@@ -718,12 +724,11 @@ _**关键障碍解决-做难而正确的事**_
 
 - 提出事实证据-案例，如何执行落地，最终效果如何？梦想照进现实
 - 行业分析-互联网/金融/政府/能源/汽车/零售/企业上云
-		
 		行业云-政企金融核心系统转型
 		智能制造+新能源与自动驾驶
 		XC绕不开的话题-政府大数据&科研AI
 		零售，供应链，物流，精细化运营
-
+	
 - 面向全球化云计算布局与国际三大云厂商PK
 - 通用数据分析产品的行业优势
 - Data+AI成为确定性的数据技术未来
@@ -733,7 +738,7 @@ _**关键障碍解决-做难而正确的事**_
 
 * paper_berkeley_view_AboveTheClouds_2009
 * paper_berkeley_view_cloud_programming_2019
-* paper_serverless_computing_2019
+* paper_berkeley_serverless_computing_2019
 * [Data Fabric Architecture is Key to Modernizing Data Management and Integration](https://www.gartner.com/smarterwithgartner/data-fabric-architecture-is-key-to-modernizing-data-management-and-integration)
 * Data Mesh - Delivering Data-Driven Value at Scale
 * paper_berkeley_view_of_system_challenges_forAI_2017
