@@ -25,12 +25,12 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - [数据应用-新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-data-usage-new-retail-analytics-design-note.md)
 - [数据应用-社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
 
-#### II.BigDataArch-BigData Distributed System Research
-- **[AI-AIGC&LLMTech Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-ai-aigc-llm-tech-study.md)**
-- **[AI-DeepLearing Development Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-05-03-ai-deeplearing-develop-note.md)**
-- **[AI-机器学习Everything Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ai-ml-data-everything-note.md)**
+#### I.AI-DataScience&AI Research
+- **[AI-AIGC&LLMTech Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2023-03-11-ai-aigc-llm-tech-study.md)**
+- **[AI-DeepLearing Development Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2023-05-03-ai-deeplearing-develop-note.md)**
+- **[AI-机器学习Everything Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2017-10-16-ai-ml-data-everything-note.md)**
 - **[数据科学-Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-06-python-dev-everything-note.md)**
-- **[数据科学-GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-xgboost-ml-note.md)**
+- **[数据科学-GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2017-12-25-gbdt-xgboost-ml-note.md)**
 - [数据科学-数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - **[数据科学-数学与信息应用思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)** 
 
