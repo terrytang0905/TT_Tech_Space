@@ -29,8 +29,8 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - **[AI-AIGC&LLMTech Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2023-03-11-ai-aigc-llm-tech-study.md)**
 - **[AI-DeepLearing Development Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2023-05-03-ai-deeplearing-develop-note.md)**
 - **[AI-机器学习Everything Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2017-10-16-ai-ml-data-everything-note.md)**
-- **[数据科学-Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-06-python-dev-everything-note.md)**
-- **[数据科学-GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2017-12-25-gbdt-xgboost-ml-note.md)**
+- [数据科学-GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/ai/2017-12-25-gbdt-xgboost-ml-note.md)
+- [数据科学-Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-06-python-dev-everything-note.md)
 - [数据科学-数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
 - **[数据科学-数学与信息应用思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)** 
 
@@ -46,7 +46,6 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 - **[大数据研究-APaaS:SQLonHadoop](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-28-bigdata-research-olap-sqlonhadoop-note.md)**
 - [大数据研究-IPaaS:分布式数据存储格式对比](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2020-06-06-bigdata-research-storage-layer-system.md)**
 - **[大数据研究-IPaaS:基础架构解析](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-26-bigdata-research-infrastructure-build.md)**
-
 - [区块链技术-基础研究-TODO](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-03-06-block-chain-design-note.md)
 - [大数据研究-数据处理-通用开发](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-development.md)
 - [大数据研究-数据处理-Kafka分布式消息队列](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-29-bigdata-research-dataprocess-kafka-note.md)
