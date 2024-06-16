@@ -5,7 +5,7 @@ tags : [datascience,datamining,ml]
 title: AI & MachineLearning Everything Study Notes
 ---
 
-## AI机器学习Everything研究笔记
+## AI Research-机器学习Everything研究笔记
 -------------------------------------------------------
 
 ### I.统计学习方法-机器学习基础
@@ -25,6 +25,8 @@ title: AI & MachineLearning Everything Study Notes
 
 ### II.机器学习算法分类
 
+![机器学习基础原理](../_includes/AI-机器学习基础原理.png)
+
 - **分类预测分析(监督学习)**:决策树与随机森林/xgboost/逻辑回归/PCA与SVD/支持向量机
 
 - 回归分析:线性回归
@@ -42,7 +44,7 @@ title: AI & MachineLearning Everything Study Notes
         Tips:主成分分析解决特征向量过多问题,选择主成分的特征向量
     
 
-![MachineLearningAlgorMap](_includes/Categories_of_algorithmsnon_exhaustive.png)
+![MachineLearningAlgorMap](../_includes/Categories_of_algorithmsnon_exhaustive.png)
 
 分类或预测是机器学习的基石
 
@@ -64,7 +66,7 @@ Rule 30
 	> 30000 Examples
 	Changes > 0.1% in accuracy 
 
-**_[数据挖掘算法笔记](2015-12-01-data-mining-algorithm-note.md)_**
+- [数据挖掘算法笔记](../2015-12-01-data-mining-algorithm-note.md)_**
 
 ### III.机器学习算法应用研究
 
@@ -87,7 +89,7 @@ Rule 30
 
 分类树（决策树）是一种十分常用的分类方法。他是一种监管学习，所谓监管学习就是给定一堆样本，每个样本都有一组属性和一个类别，这些类别是事先确定的，那么通过学习得到一个分类器，这个分类器能够对新出现的对象给出正确的分类。这样的机器学习就被称之为监督学习。
 
-- [GBDT&XGBoost算法](2017-12-25-gbdt-xgboost-ml-note.md)
+- [GBDT&XGBoost算法](../2017-12-25-gbdt-xgboost-ml-note.md)
 
 _最小化损失函数，就用梯度下降法_
 _最大化似然函数，就用梯度上升法_
@@ -171,10 +173,10 @@ _经验风险最小化与结构风险最小化->模型最优解_
     Tips:各种有样本的机器学习算法基本上都是在各种模型的假设空间内求解结构风险最小值的过程
 
 
-**正则化与交叉验证**
+** 正则化与交叉验证*
 
 
-**贝叶斯分类(概率规则)**
+** 贝叶斯分类(概率规则)*
 
 贝叶斯分类是一类分类算法的总称，这类算法均以贝叶斯定理为基础，故统称为贝叶斯分类。贝叶斯分类是统计学的分类方法，其分析方法的特点是使用概率来表示所有形式的不确定性，学习或推理都要用概率规则来实现。
 
@@ -619,7 +621,7 @@ _5.4.1.[数据与信息应用识别](2017-05-10-information-mathmatic-thinking.m
 
 _5.4.2.域名识别分类_
 
-![域名行为数据挖掘](_includes/domain_analysis.png)
+![域名行为数据挖掘](../_includes/domain_analysis.png)
 
     - 基于K-means聚类的域名合并分类
     - 基于历史域名分类训练
@@ -647,9 +649,7 @@ ID智能匹配-图计算
 
 信息指纹是通过伪随机数产生的
 
-- [区块链技术应用](2018-03-06-block-chain-design-note.md)
-
-
+- [区块链技术应用](../2018-03-06-block-chain-design-note.md)
 
 
 ### Ref

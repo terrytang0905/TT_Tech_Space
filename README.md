@@ -1,7 +1,7 @@
-TT Tech Space - 大数据&AI研究博客
+TT Tech Space - Data+AI Research Blog
 --------------------------
 
-### Welcome to TT BigData&AI Research Pages.
+### Welcome to TT Data+AI Research Pages.
 Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
 Currently he focuses on everything about big data included bi,olap,mpp,hadoop,solution,machine learning and AI.Welcome to contact with him and discuss any tech topic with him.
 
@@ -11,29 +11,30 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 ![数据科学能力分布](blogs/_includes/bigdata_map_tt.png)
 
-**BigDataArch -> Data Analytics -> AIGC+LLM**
+**BigDataArch -> Data Analytics -> AI-AIGC+LLM**
 
-- **[AI DeepLearing Development Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-05-03-ai-deeplearing-develop-note.md)**
-- **[AIGC&LLM Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-ai-aigc-llm-tech-study.md)**
+#### Data+AI Solution & Business
+
 - **[云计算下半场的商业化思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-05-22-cloud-computing-thinking.md)**
-- **[数据科学-机器学习Everything](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ai-ml-data-everything-note.md)**
 - **[大数据分析深度随想-一切的起点](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-11-08-bigdata-analytics-thinking.md)**
-
-#### I.DataScience-Data+AI Solution
-
 - [Data Mesh的原则和逻辑架构](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-03-data-mesh-arch-research.md)
 - [从单体数据湖到分布式数据网格](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2022-04-02-from-datalake-to-data-mesh.md)
 - **[数据应用-用户标签特征与画像](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2018-06-06-data-usage-user-label-profile-note.md)**
 - **[数据应用-计算广告营销应用](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-07-01-data-usage-compute-advertise-design-note.md)**
 - [数据应用-用户行为分析路径](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-09-30-data-usage-user-behavior-analysis-note.md)
 - [数据应用-新零售分析模型](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-04-16-data-usage-new-retail-analytics-design-note.md)
+- [数据应用-社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
+
+#### II.BigDataArch-BigData Distributed System Research
+- **[AI-AIGC&LLMTech Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-03-11-ai-aigc-llm-tech-study.md)**
+- **[AI-DeepLearing Development Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-05-03-ai-deeplearing-develop-note.md)**
+- **[AI-机器学习Everything Notes](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-16-ai-ml-data-everything-note.md)**
 - **[数据科学-Python开发all笔记](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-10-06-python-dev-everything-note.md)**
-- **[数据科学-数学与信息应用思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)** 
 - **[数据科学-GBDT&XGBoost算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-12-25-gbdt-xgboost-ml-note.md)**
 - [数据科学-数据挖掘算法研究](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-12-01-data-mining-algorithm-note.md)
-- [社交推荐功能设计](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2015-05-13-sns-recommendation-design.md)
+- **[数据科学-数学与信息应用思考](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2017-05-10-information-mathmatic-thinking.md)** 
 
-#### II.BigDataArchitecture-BigData Distributed System Research
+#### II.BigDataArch-BigData Distributed System Research
 
 - **[大数据研究-云上湖仓一体正当时](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-10-16-bigdata-research-cloud-datalake-lakehouse-practice.md)**
 - **[大数据研究-云原生大数据架构思考-DataFunTalk2023](https://github.com/terrytang0905/TT_Tech_Space/blob/resource/blogs/2023-08-03-bigdata-research-cloud-native-bigdata-arch-thinking.md)**

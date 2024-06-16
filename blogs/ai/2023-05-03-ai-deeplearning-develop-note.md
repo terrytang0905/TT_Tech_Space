@@ -1,28 +1,29 @@
 ---
 layout: post
 category : AI
-tags : [datascience,AI,ml]
+tags : [AI,ml,deeplearning]
 title: AI Practice Note - AI Deeplearing Development Notes
 
 ---
 
-## AI DeepLearning Development Notes
+## AI Research-AI DeepLearning Development Notes
+---------------------------------------------
 
 ### 1.AI深度学习开发场景
 
-![image-20230812173742466](_includes/AWS_user_usage.png)
+![image-20230812173742466](../_includes/AWS_user_usage.png)
 
 **For BA Engineer**
 
-![AWS_BA](_includes/AWS_BA_Ops.png)
+![AWS_BA](../_includes/AWS_BA_Ops.png)
 
 **For DS Engineer**
 
-![AWS_DS](_includes/AWS_DS_Ops.png)
+![AWS_DS](../_includes/AWS_DS_Ops.png)
 
 **For ML Engineer**
 
-![AWS_ML](_includes/AWS_ML_Ops.png)
+![AWS_ML](../_includes/AWS_ML_Ops.png)
 
 ### 2.AI机器学习开发最佳实践
 
@@ -32,19 +33,19 @@ title: AI Practice Note - AI Deeplearing Development Notes
 
 _**AliCloud PAI机器学习平台**_
 
-![阿里云PAI平台](_includes/阿里云PAI平台.png)
+![阿里云PAI平台](../_includes/阿里云PAI平台.png)
 
 _**AWS SegaMaker**_
 
-![AWS_AIGC](_includes/AWS_AIGC.jpg)
+![AWS_AIGC](../_includes/AWS_AIGC.jpg)
 
-![AIGC_客户分类](_includes/AWS_AIGC_客户分类.jpg)
+![AIGC_客户分类](../_includes/AWS_AIGC_客户分类.jpg)
 
-![AWS_分布式训练](_includes/AWS_分布式训练.jpg)
+![AWS_分布式训练](../_includes/AWS_分布式训练.jpg)
 
 _**火山引擎-机器学习平台**_
 
-![火山引擎机器学习](_includes/火山引擎_机器学习平台.png)
+![火山引擎机器学习](../_includes/火山引擎_机器学习平台.png)
 
 DeepSpeed Megatron-LM
 
@@ -63,6 +64,7 @@ M3Exam 有三个特征：
 火山方舟-大模型服务平台
 - 模型广场-HuggingFace
 - 模型推理
+
 	Lego算子优化
 	ByteTransformer
 	LightSeq训练加速引擎

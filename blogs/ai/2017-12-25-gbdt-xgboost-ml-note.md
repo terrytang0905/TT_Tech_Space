@@ -5,7 +5,7 @@ tags : [datascience,datamining,ml]
 title: GBDT & XGBoost Machine Learning Note
 ---
 
-## GBDT & XGBoost决策树算法
+## AI Research-GBDT & XGBoost决策树算法
 ---------------------------------------------
 
 ### GBDT概述
@@ -70,11 +70,11 @@ GBDT(Gradient Boosting Decision Tree)有很多简称
 2) 对迭代轮数t=1,2,...T有：
 
 		a)对样本i=1,2，...m，计算负梯度
-	
+		
 		rti=−[∂L(yi,f(xi)))∂f(xi)]f(x)=ft−1(x)
-	
+		
 		b)利用(xi,rti)(i=1,2,..m), 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为Rtj,j=1,2,...,J。其中J为回归树t的叶子节点的个数。
-	
+		
 		c) 对叶子区域j =1,2,..J,计算最佳拟合值
 
 	ctj=argmin⏟c∑xi∈RtjL(yi,ft−1(xi)+c)
