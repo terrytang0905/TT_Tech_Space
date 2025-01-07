@@ -48,13 +48,13 @@ What are the top 10 obstacles to the success of Cloud Computing—and the corres
 
 ![top10obstacles&opp](_includes/top10obstacles&opp.png)
 
-- 1.高可用需求
+- 1.**核心需求**-高可用需求 
 - 2.Data Lock-In - 标准化APIs
 - 3.数据隐私与数据审计 - 数据合规要求 
 - 4.数据传输瓶颈 - 网络间数据传输 
 - 5.性能不可预测性 
 - 6.可弹性计算存储资源
-- 7.分布式系统的稳定性 
+- 7.**核心需求**-分布式系统的稳定性 
 - 8.极致弹性扩缩容 - 自动化Scaling
 - 9.信誉守护服务 
 - 10.付费模式的进阶 - 按量付费

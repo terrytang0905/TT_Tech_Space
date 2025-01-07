@@ -57,5 +57,5 @@ LLM最重要的文件是这篇关于Transformer模型的学术论文，标题为
 
 这篇论文对自然语言处理（NLP）领域产生了深远的影响，Transformer模型已成为许多后续研究和应用的基础，特别是在机器翻译、文本生成和其他序列到序列任务中。
 
-
+[The Illustrated Transformer Notes]()
 

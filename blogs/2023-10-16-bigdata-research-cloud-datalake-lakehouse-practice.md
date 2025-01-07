@@ -13,7 +13,7 @@ title:  Big Data Research Note - Cloud LakeHouse Best Practice
 
 ## 0.Cloud LakeTableFormat数据格式的技术演进
 
-云原生湖仓一体LakeHouse技术如火如荼, 之前我写过一篇关于大数据存算分离的技术架构的文章。主流的三大开源TableFormat(Apache DeltaLake,**Iceberg**,**Hudi**)已被广泛使用，而阿里云也提出了包括**Apache Paimon** / **MaxCompute ACID2.0** 的改进湖数据格式引擎。LakeTableFormat作为湖仓一体LakeHouse的主要组件, 在数据湖之上提供类似数仓的ACID数据管理能力。本文主要是尝试从技术应用角度分析基于大数据存储之上的表格存储技术对比，与大家共同探讨。
+云原生湖仓一体LakeHouse技术如火如荼, 之前我写过一篇关于大数据存算分离的技术架构的文章。主流的三大开源TableFormat(Apache DeltaLake,**Iceberg**,Hudi)已被广泛使用，而阿里云也提出了包括**Apache Paimon** / **MaxCompute DeltaTable** 的改进湖数据格式引擎。LakeTableFormat作为湖仓一体LakeHouse的主要组件, 在数据湖之上提供类似数仓的ACID数据管理能力。本文主要是尝试从技术应用角度分析基于大数据存储之上的表格存储技术对比，与大家共同探讨。
 
 #### LakeTableFormat整体介绍
 
@@ -52,8 +52,7 @@ Iceberg 上游组件将数据写入完成后，下游组件及时可读，可查
 
 #### *1.1.3.[Compaction]手工数据治理管理。
 
-维护Iceberg Table的更新一直是非常复杂的工作
-
+维护Iceberg Table的数据更新一直是非常复杂的工作。
 
 [Maintaining iceberg table](https://www.dremio.com/blog/maintaining-iceberg-tables-compaction-expiring-snapshots-and-more/)
 
@@ -253,7 +252,7 @@ Paimon 作为一个流批一体的数据湖存储，提供流写流读、批写�
 
 如果你觉得成本过大，你也可以解耦 Commit 和 Changelog 生成，通过 Full-Compaction 和对应较大的时延，以非常低的成本生成 Changelog。 
 
-## 3.MaxCompute DeltaTableService-对比开源
+## 3.MaxCompute DeltaTableService-自研增量处理引擎
 
 ### 3.1. MaxCompute近实时增量处理技术架构
 
@@ -261,13 +260,15 @@ Paimon 作为一个流批一体的数据湖存储，提供流写流读、批写�
 
 MaxCompute近实时增量处理整体架构的设计改动主要集中在五个模块：数据接入、计算引擎、数据优化服务，元数据管理，数据文件组织。其他部份直接复用MaxCompute已有的架构和计算流程，比如数据的分布式存储直接集成了阿里云基础设施-盘古存储服务。
 
-- 数据接入主要支持各种数据源全量和近实时增量导入功能。MaxCompute联合相关产品定制开发多种数据接入工具，例如MaxCompute定制开发的Flink Connector，DataWorks的数据集成等，用来支持高效的近实时增量数据导入。这些工具会对接MaxCompute的数据通道服务Tunnel Server，主要支持高并发分钟级增量数据写入。此外，也支持MaxCompute SQL，以及其它一些接口用于支持全量数据高效写入。
-- 计算引擎主要包含MC自研的SQL引擎，负责Timetravel和增量场景下的SQL DDL/DML/DQL的语法解析,优化和执行链路。此外，MaxCompute内部集成的Spark等引擎也在设计开发支持中。
-- 数据优化服务主要由MaxCompute的Storage Service来负责智能的自动管理增量数据文件，其中包括小文件合并Clustering，数据Compaction，数据排序等优化服务。对于其中部分操作，Storage Service会根据数据特征，时序等多个维度综合评估，自动执行数据优化任务，尽可能保持健康高效的数据存储和计算状态。
-- 元数据管理主要负责增量场景下数据版本管理，Timetravel管理，事务并发冲突管理，元数据更新和优化等。
-- 数据文件组织主要包含对全量和增量数据文件格式的管理以及读写相关的模块。
+- 实时数据接入：主要支持各种数据源全量和近实时增量导入功能。MaxCompute联合相关产品定制开发多种数据接入工具，例如MaxCompute定制开发的Flink Connector，DataWorks的数据集成等，用来支持高效的近实时增量数据导入。这些工具会对接MaxCompute的数据通道服务Tunnel Server，主要支持高并发分钟级增量数据写入。此外，也支持MaxCompute SQL，以及其它一些接口用于支持全量数据高效写入。
+- 自研计算引擎: 主要包含MC自研的SQL引擎，负责Timetravel和增量场景下的SQL DDL/DML/DQL的语法解析,优化和执行链路。此外，MaxCompute内部集成的Spark等引擎也在设计开发支持中。
+- 自动数据优化服务: 主要由MaxCompute的Storage Service来负责智能的自动管理增量数据文件，其中包括小文件合并Clustering，数据Compaction，数据排序等优化服务。对于其中部分操作，Storage Service会根据数据特征，时序等多个维度综合评估，自动执行数据优化任务，尽可能保持健康高效的数据存储和计算状态。
+- 元数据管理: 主要负责增量场景下数据版本管理，Timetravel管理，事务并发冲突管理，元数据更新和优化等。
+- 数据文件组织: 主要包含对全量和增量数据文件格式的管理以及读写相关的模块。
 
 #### 3.1.1. [Format]统一的数据文件组织格式
+
+![MC_ACID_表数据结构](_includes/MC_ACID_表数据结构.png)
 
 要支持全量和增量处理一体化架构首先需要设计统一的表类型以及对应的数据组织格式，这里称为upsertable transactional table，简称UTTable，基本可以支持普通表的所有功能，同时支持增量处理链路的新场景，包括timetravel查询、upsert操作等。
 
@@ -301,7 +302,11 @@ Tunnel SDK提供的数据写入接口目前支持upsert和delete两种数据格�
 
 对于Clustering和Compaction操作也会产生新的数据文件，但并没有增加新的逻辑数据行，因此这些新文件都不会作为新增数据的语义，增量查询做了专门设计优化，会剔除掉这些文件，也比较贴合用户使用场景。
 
-#### 3.1.3.  [Compaction]自动化数据治理管理,小数据文件合并
+#### 3.1.3.  [DataGoverance]统一的表数据治理服务
+
+![MC_ACID_统一数据治理](_includes/MC_ACID_统一数据治理.png)
+
+**[Compaction]自动化数据治理管理-小数据文件合并**
 
 由于UTTable 本身支持分钟级近实时增量数据导入，高流量场景下可能会导致增量小文件数量膨胀，从而引发存储访问压力大、成本高，并且大量的小文件还会引发meta更新以及分析执行慢，数据读写IO效率低下等问题，因此需要设计合理的小文件合并服务, 即Clustering服务来自动优化此类场景。
 
@@ -317,7 +322,7 @@ Clustering服务需要和Meta Service进行交互，获取需要执行此操作�
 
 Clustering服务可以很好的解决大文件数量膨胀引发的一系列效率低下的读写问题，但不是频率越高越好，执行一次也会消耗计算和IO资源，至少数据都要全部读写一遍，存在一定的读写放大问题。因此执行策略的选择尤其重要，所以目前暂时不会开放给用户手动执行，而是引擎根据系统状态智能自动触发执行，可保障Clustering服务执行的高效率。
 
-#### 数据文件Compaction
+** 数据文件Compaction **
 
 除了小文件膨胀问题需要解决外，依然还有一些典型场景存在其它问题。UTTable支持update、delete格式的数据写入，如果存在大量此格式的数据写入，会造成中间状态的冗余记录太多，引发存储和计算成本增加，查询效率低下等问题。因此需要设计合理的数据文件compaction服务优化此类场景。
 
@@ -329,7 +334,11 @@ Compaction服务也需要和Meta Service进行交互，流程和Clustering类似
 
 Compaction服务通过消除数据中间历史状态，可节省计算和存储成本，极大加速全量快照查询场景的效率，但也不是频率越高越好，首先执行一次也要读取一遍全量数据进行Merge，极大消耗计算和IO资源，并且生成的新base file也会占据额外的存储成本，而老的delta file文件可能需要用于支持timetravel查询，因此不能很快删除，依然会有存储成本，所以Compaction操作需要用户根据自己的业务场景和数据特征来合理选择执行的频率，通常来说，对于Update / Delete格式的记录较多，并且全量查询次数也较多的场景，可以适当增加compaction的频率来加速查询。
 
-#### 3.1.4. [ACID]LakeHouse事务管理-主动管理Snapshot与数据文件
+#### 3.1.4. [MetaService]统一元数据服务
+
+![MC_ACID_统一元数据服务](_includes/MC_ACID_统一元数据服务.png)
+
+**[ACID]LakeHouse事务管理-主动管理Snapshot与数据文件**
 
 以上主要介绍了典型的数据更新操作，而它们的事务并发管理都会统一由Meta Service进行控制。
 
@@ -337,7 +346,7 @@ Compaction服务通过消除数据中间历史状态，可节省计算和存储�
 
 此外，各种数据文件信息以及快照版本也需要有效的管理，其中包含数据版本、统计信息、历史数据、生命周期等等。对于TimeTravel和增量查询，Meta层面专门进行了设计开发优化，支持高效的查询历史版本和文件信息。
 
-#### 3.1.5.  [Snapshot]TimeTravel查询
+** [Snapshot]TimeTravel查询**
 
 基于UTTable，计算引擎可高效支持典型的业务场景TimeTravel查询，即查询历史版本的数据，可用于回溯历史状态的业务数据，或数据出错时，用来恢复历史状态数据进行数据纠正，当然也支持直接使用restore操作恢复到指定的历史版本。
 
@@ -351,13 +360,13 @@ Compaction服务通过消除数据中间历史状态，可节省计算和存储�
 
 TimeTravel可根据timestamp和version两种版本形态进行查询，除了直接指定一些常量和常用函数外，我们还额外开发了get_latest_timestamp和get_latest_version两个函数，第二个参数代表它是最近第几次commit，方便用户获取我们内部的数据版本进行精准查询，提升用户体验。
 
-#### 历史版本数据回收
+**历史版本数据回收**
 
 由于Timetravel和增量查询都会查询数据的历史状态，因此需要保存一定的时间，可通过表属性acid.data.retain.hours来配置保留的时间范围。如果历史状态数据存在的时间早于配置值，系统会开始自动回收清理，一旦清理完成，TimeTravel就查询不到对应的历史状态了。回收的数据主要包含操作日志和数据文件两部分。
 
 同时，也会提供purge命令，用于特殊场景下手动触发强制清除历史数据。
 
-#### 3.1.6. 数据接入生态集成现状
+#### 3.1.5. 数据接入生态集成现状
 
 初期上线支持接入UTTable的工具主要包括：
 
@@ -443,7 +452,7 @@ Catalog在多引擎架构中起着至关重要的作用，它们通过支持原�
 
 适用于所有引擎的标准化catalog协议可实现多引擎互操作性，幸运的是Apache Iceberg 社区已为 REST 协议创建了开源规范。由于此 REST API 规范可实现互操作性，越来越多的开源和商业引擎和catalog正在增加对此 REST API 规范的支持。
 
-Polaris Catalog 实现了 Iceberg 的开放 REST API，目前支持的引擎包含Apache Doris、Apache Flink、Apache Spark、PyIceberg、StarRocks、Trino和Dremio，当然你也可以使用Snowflake 通过 Polaris Catalog 读取和写入 Iceberg 表。
+Polaris Catalog 实现了 Iceberg 的开放 REST API，目前支持的引擎包含Apache Doris、Apache Flink、Apache Spark、PyIceberg、StarRocks、Trino和Dremio，当然你也可以使用Snowflake通过Polaris Catalog读取和写入 Iceberg 表。
 
 ![polaris-diagram](https://www.snowflake.com/wp-content/uploads/2024/06/polaris-diagram_1@3x-1.jpg)
 
@@ -453,7 +462,7 @@ Polaris Catalog 实现了 Iceberg 的开放 REST API，目前支持的引擎包�
 
 ### 5.3. PolarisCatalog与Snowflake Horizon
 
-一旦将Snowflake Horizon 与 Polaris Catalog集成后，Snowflake Horizon 的治理和发现功能（column masking policies, row access policies, object tagging和sharing）便可在 Polaris Catalog 上运行。因此无论 Iceberg 表是由 Snowflake 还是其他引擎（如 Flink 或 Spark）在 Polaris Catalog 中创建的，你都可以将 Snowflake Horizon 的功能扩展到这些表，就像它们是原生 Snowflake 对象一样。
+一旦将Snowflake Horizon 与 Polaris Catalog集成后，Snowflake Horizon 的治理和发现功能 (column masking policies, row access policies, object tagging和sharing）便可在 Polaris Catalog 上运行。因此无论 Iceberg 表是由 Snowflake 还是其他引擎（如 Flink 或 Spark）在 Polaris Catalog 中创建的，你都可以将 Snowflake Horizon 的功能扩展到这些表，就像它们是原生 Snowflake 对象一样。
 
 
 - [SnowflakePolarisCatalog](https://www.snowflake.com/blog/introducing-polaris-catalog/?utm_cta=website-polaris-end-cta)
