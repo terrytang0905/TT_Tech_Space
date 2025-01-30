@@ -9,39 +9,61 @@ title: AI Practice Note - AI Deeplearing Development Notes
 ## AI Research-AI DeepLearning Reading List 30 IIya 
 ---------------------------------------------
 
-https://aman.ai/primers/ai/top-30-papers/#:~:text=Ilya Sutskever’s Top 30 Reading List 1 The,Order Matters%3A Sequence to Sequence for Sets
+## Ilya Sutskever’s Top 30 Reading List
 
-- **The Annotated Transformer.** Sasha Rush, et al. [[Blog\]](https://nlp.seas.harvard.edu/annotated-transformer/) [[Code\]](https://github.com/harvardnlp/annotated-transformer/)
-- **The First Law of Complexodynamics.** Scott Aaronson. [[Blog\]](https://scottaaronson.blog/?p=762)
-- **The Unreasonable Effectiveness of Recurrent Neural Networks.** Andrej Karpathy. [[Blog\]](https://karpathy.github.io/2015/05/21/rnn-effectiveness/) [[Code\]](https://github.com/karpathy/char-rnn)
-- **Understanding LSTM Networks.** Christopher Olah. [[Blog\]](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
-- **Recurrent Neural Network Regularization.** Wojciech Zaremba, et al. [[ArXiv\]](https://arxiv.org/abs/1409.2329) [[pdf\]](https://arxiv.org/pdf/1409.2329) [[Code\]](https://github.com/wojzaremba/lstm)
-- **Keeping Neural Networks Simple by Minimizing the Description Length of the Weights.** Geoffrey E. Hinton and Drew van Camp. [[Paper\]](https://dl.acm.org/doi/10.1145/168304.168306) [[pdf\]](https://www.cs.toronto.edu/~hinton/absps/colt93.pdf)
-- **Pointer Networks.** Oriol Vinyals, et al. [[Paper\]](https://papers.nips.cc/paper/5866-pointer-networks) [[pdf\]](https://arxiv.org/pdf/1506.03134)
-- **ImageNet Classification with Deep Convolutional Neural Networks.** Alex Krizhevsky, et al. [[Paper\]](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks) [[pdf\]](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
-- **Order Matters: Sequence to sequence for sets.** Oriol Vinyals, et al. [[ArXiv\]](https://arxiv.org/abs/1511.06391) [[pdf\]](https://arxiv.org/pdf/1511.06391)
-- **GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism.** Yanping Huang, et al. [[ArXiv\]](https://arxiv.org/abs/1811.06965) [[pdf\]](https://arxiv.org/pdf/1811.06965)
-- **Deep Residual Learning for Image Recognition.** Kaiming He, et al.
-- **Multi-Scale Context Aggregation by Dilated Convolutions.** Fisher Yu and Vladlen Koltun.
-- **Neural Message Passing for Quantum Chemistry.** Justin Gilmer, et al.
-- **Attention Is All You Need.** Ashish Vaswani, et al.
-- **Neural Machine Translation by Jointly Learning to Align and Translate.** Dzmitry Bahdanau, et al.
-- **Identity Mappings in Deep Residual Networks.** Kaiming He, et al.
-- **A simple neural network module for relational reasoning.** Adam Santoro, et al.
-- **Variational Lossy Autoencoder.** Xi Chen, et al.
-- **Relational recurrent neural networks.** Adam Santoro, et al.
-- **Quantifying the Rise and Fall of Complexity in Closed Systems: The Coffee Automaton.** Scott Aaronson, et al.
-- **Neural Turing Machines.** Alex Graves, et al.
-- **Deep Speech 2: End-to-End Speech Recognition in English and Mandarin.** Dario Amodei, et al.
-- **Scaling Laws for Neural Language Models.** Jared Kaplan, et al.
-- **A Tutorial Introduction to the Minimum Description Length Principle.** Peter Grunwald.
-- **Machine Super Intelligence.** Shane Legg.
-- **Kolmogorov Complexity and Algorithmic Randomness.** A.Shen, V. A. Uspensky, and N. Vereshchagin.
-- **CS231n: Convolutional Neural Networks for Visual Recognition.**
+- Ilya Sutskever shared a list of 30 papers with John Carmack and said, “If you really learn all of these, you’ll know 90% of what matters today”. Below we will review these [papers/resources](https://arc.net/folder/D0472A20-9C20-4D3F-B145-D2865C0A9FEE).
+
+- Ilya Sutskever’s Top 30 Reading List
+  - **The Annotated Transformer.** Sasha Rush, et al. [[Blog\]](https://nlp.seas.harvard.edu/annotated-transformer/) [[Code\]](https://github.com/harvardnlp/annotated-transformer/)
+  - [The First Law of Complexodynamics](https://aman.ai/primers/ai/top-30-papers/#the-first-law-of-complexodynamics) / **The First Law of Complexodynamics.** Scott Aaronson. [[Blog\]](https://scottaaronson.blog/?p=762)
+  - [The Unreasonable Effectiveness of Recurrent Neural Networks](https://aman.ai/primers/ai/top-30-papers/#the-unreasonable-effectiveness-of-recurrent-neural-networks) / **The Unreasonable Effectiveness of Recurrent Neural Networks.** Andrej Karpathy. [[Blog\]](https://karpathy.github.io/2015/05/21/rnn-effectiveness/) [[Code\]](https://github.com/karpathy/char-rnn)
+  - [Understanding LSTM Networks](https://aman.ai/primers/ai/top-30-papers/#understanding-lstm-networks) /**Understanding LSTM Networks.** Christopher Olah. [[Blog\]](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+  - [Recurrent Neural Network Regularization](https://aman.ai/primers/ai/top-30-papers/#recurrent-neural-network-regularization) / **Recurrent Neural Network Regularization.** Wojciech Zaremba, et al. [[ArXiv\]](https://arxiv.org/abs/1409.2329) [[pdf\]](https://arxiv.org/pdf/1409.2329) [[Code\]](https://github.com/wojzaremba/lstm)
+  - [Keeping Neural Networks Simple by Minimizing the Description Length of the Weights](https://aman.ai/primers/ai/top-30-papers/#keeping-neural-networks-simple-by-minimizing-the-description-length-of-the-weights) /**Keeping Neural Networks Simple by Minimizing the Description Length of the Weights.** Geoffrey E. Hinton and Drew van Camp. [[Paper\]](https://dl.acm.org/doi/10.1145/168304.168306) [[pdf\]](https://www.cs.toronto.edu/~hinton/absps/colt93.pdf)
+  - [Pointer Networks](https://aman.ai/primers/ai/top-30-papers/#pointer-networks) / **Pointer Networks.** Oriol Vinyals, et al. [[Paper\]](https://papers.nips.cc/paper/5866-pointer-networks) [[pdf\]](https://arxiv.org/pdf/1506.03134)
+  - [ImageNet Classification with Deep Convolutional Neural Networks](https://aman.ai/primers/ai/top-30-papers/#imagenet-classification-with-deep-convolutional-neural-networks)
+  - [Order Matters: Sequence to Sequence for Sets](https://aman.ai/primers/ai/top-30-papers/#order-matters-sequence-to-sequence-for-sets) / **Order Matters: Sequence to sequence for sets.** Oriol Vinyals, et al. [[ArXiv\]](https://arxiv.org/abs/1511.06391) [[pdf\]](https://arxiv.org/pdf/1511.06391)
+  - [GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism](https://aman.ai/primers/ai/top-30-papers/#gpipe-easy-scaling-with-micro-batch-pipeline-parallelism) / **GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism.** Yanping Huang, et al. [[ArXiv\]](https://arxiv.org/abs/1811.06965) [[pdf\]](https://arxiv.org/pdf/1811.06965)
+  - [Deep Residual Learning for Image Recognition](https://aman.ai/primers/ai/top-30-papers/#deep-residual-learning-for-image-recognition) /**Deep Residual Learning for Image Recognition.** Kaiming He, et al.
+  - [Multi-Scale Context Aggregation by Dilated Convolutions](https://aman.ai/primers/ai/top-30-papers/#multi-scale-context-aggregation-by-dilated-convolutions) / **Multi-Scale Context Aggregation by Dilated Convolutions.** Fisher Yu and Vladlen Koltun.
+  - [Neural Message Passing for Quantum Chemistry](https://aman.ai/primers/ai/top-30-papers/#neural-message-passing-for-quantum-chemistry) / **Neural Message Passing for Quantum Chemistry.** Justin Gilmer, et al.
+  - [Attention is All You Need](https://aman.ai/primers/ai/top-30-papers/#attention-is-all-you-need) / **Attention Is All You Need.** Ashish Vaswani, et al.
+  - [Neural Machine Translation by Jointly Learning to Align and Translate](https://aman.ai/primers/ai/top-30-papers/#neural-machine-translation-by-jointly-learning-to-align-and-translate) / **Neural Machine Translation by Jointly Learning to Align and Translate.** Dzmitry Bahdanau, et al.
+  - [Identity Mappings in Deep Residual Networks](https://aman.ai/primers/ai/top-30-papers/#identity-mappings-in-deep-residual-networks) / **Identity Mappings in Deep Residual Networks.** Kaiming He, et al.
+  - [A Simple Neural Network Module for Relational Reasoning](https://aman.ai/primers/ai/top-30-papers/#a-simple-neural-network-module-for-relational-reasoning) / **A simple neural network module for relational reasoning.** Adam Santoro, et al.
+  - [Variational Lossy Autoencoder](https://aman.ai/primers/ai/top-30-papers/#variational-lossy-autoencoder) / **Variational Lossy Autoencoder.** Xi Chen, et al.
+  - [Relational Recurrent Neural Networks](https://aman.ai/primers/ai/top-30-papers/#relational-recurrent-neural-networks) / **Relational recurrent neural networks.** Adam Santoro, et al.
+  - [Quantifying the Rise and Fall of Complexity in Closed Systems: the Coffee Automaton](https://aman.ai/primers/ai/top-30-papers/#quantifying-the-rise-and-fall-of-complexity-in-closed-systems-the-coffee-automaton) / **Quantifying the Rise and Fall of Complexity in Closed Systems: The Coffee Automaton.** Scott Aaronson, et al.
+  - [Neural Turing Machines](https://aman.ai/primers/ai/top-30-papers/#neural-turing-machines) /**Neural Turing Machines.** Alex Graves, et al.
+  - [Deep Speech 2: End-to-End Speech Recognition in English and Mandarin](https://aman.ai/primers/ai/top-30-papers/#deep-speech-2-end-to-end-speech-recognition-in-english-and-mandarin) / **Deep Speech 2: End-to-End Speech Recognition in English and Mandarin.** Dario Amodei, et al.
+  - [Scaling Laws for Neural Language Models](https://aman.ai/primers/ai/top-30-papers/#scaling-laws-for-neural-language-models) / **Scaling Laws for Neural Language Models.** Jared Kaplan, et al.
+  - [A Tutorial Introduction to the Minimum Description Length Principle](https://aman.ai/primers/ai/top-30-papers/#a-tutorial-introduction-to-the-minimum-description-length-principle) / **A Tutorial Introduction to the Minimum Description Length Principle.** Peter Grunwald.
+  - [Machine Super Intelligence](https://aman.ai/primers/ai/top-30-papers/#machine-super-intelligence) / **Machine Super Intelligence.** Shane Legg.
+  - [Kolmogorov Complexity and Algorithmic Randomness](https://aman.ai/primers/ai/top-30-papers/#kolmogorov-complexity-and-algorithmic-randomness) / **Kolmogorov Complexity and Algorithmic Randomness.** A.Shen, V. A. Uspensky, and N. Vereshchagin.
+  - [Stanford’s CS231n Convolutional Neural Networks for Visual Recognition](https://aman.ai/primers/ai/top-30-papers/#stanfords-cs231n-convolutional-neural-networks-for-visual-recognition) / **CS231n: Convolutional Neural Networks for Visual Recognition.**
+  
+- Meta
+  - Better & Faster Large Language Models Via Multi-token Prediction
+    - [Key Takeaways:](https://aman.ai/primers/ai/top-30-papers/#key-takeaways)
+  - Dense Passage Retrieval for Open-Domain Question Answering
+    - [Dense Passage Retriever (DPR):](https://aman.ai/primers/ai/top-30-papers/#dense-passage-retriever-dpr)
+  - [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://aman.ai/primers/ai/top-30-papers/#retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks)
+  
+- HuggingFace
+  - [Zephyr: Direct Distillation of LM Alignment](https://aman.ai/primers/ai/top-30-papers/#zephyr-direct-distillation-of-lm-alignment)
+  
+- Stanford
+  - [Lost in the Middle: How Language Models Use Long Contexts](https://aman.ai/primers/ai/top-30-papers/#lost-in-the-middle-how-language-models-use-long-contexts)
+  
+- Misc
+  - [Precise Zero-Shot Dense Retrieval Without Relevance Labels](https://aman.ai/primers/ai/top-30-papers/#precise-zero-shot-dense-retrieval-without-relevance-labels)
+  - [ALCUNA: Large Language Models Meet New Knowledge](https://aman.ai/primers/ai/top-30-papers/#alcuna-large-language-models-meet-new-knowledge)
+  - [The Perils & Promises of Fact-checking with Large Language Models](https://aman.ai/primers/ai/top-30-papers/#the-perils--promises-of-fact-checking-with-large-language-models)
+  
+
+## Ilya Sutskever 阅读清单列表 30 篇
 
 近日，网上流传一份ilya推荐给John Carmack的阅读清单，该清单包含了当今与AI相关30篇顶级文章，并称如果真的将它们读完，就能理解当下90%的AI技术。
-
-!https://s4.51cto.com/oss/202405/22/86b87c65863c257eab936909b1a8ad265ce7cb.png
 
 下面笔者带大家速览这40篇文章内容概要。
 
@@ -136,3 +158,7 @@ https://aman.ai/primers/ai/top-30-papers/#:~:text=Ilya Sutskever’s Top 30 Read
 提升深度神经网络的计算容量已证明是提高多种机器学习任务中模型性能的有效办法。然而，在很多情况下，增加模型的计算力以超越单个加速设备的内存限制，通常需要开发专门的算法或基础架构。这些方案往往依赖于特定的硬件架构，且难以应用于其他任务。为了应对这种对于高效且与任务无关的模型并行性需求，文中介绍了GPipe，这是一个实现流水线并行化的库，它能使任何可以表示为层序列的网络进行规模化扩展。利用GPipe，通过在不同加速设备上对不同的层子序列进行流水线作业，可以灵活且高效地扩大各种网络的规模至巨大程度。此外，GPipe采用了一种创新的批处理分流算法，在将模型分配到多个加速设备时，几乎可实现线性的加速效果。通过在具有不同网络架构的两项不同任务上训练大规模神经网络来展示GPipe的优势：一是图像分类，训练了一个参数量达到5.57亿的AmoebaNet模型，在ImageNet-2012数据集上获得了84.4%的top-1准确率；二是多语言神经机器翻译，训练了一个包含128层Transformer结构、6亿参数量，覆盖超过100种语言的巨型模型，其表现超越了所有双语模型。
 
 地址：https://arxiv.org/pdf/1811.06965
+
+## 参考Reference
+
+[Top30 Paper](https://aman.ai/primers/ai/top-30-papers/#:~:text=Ilya Sutskever’s Top 30 Reading List 1 The,Order Matters%3A Sequence to Sequence for Sets)
