@@ -29,7 +29,7 @@ title: AI Practice Note - AIGC&LLM Tech Notes
 	--低价策略背后能够沉淀什么？产品能力 VS 业务商务能力 营销策略如何？
 	--黑天鹅-安全可信合规
 
-## 2.**NLP的突破-Transformer 模型**
+## 2.**NLP的突破-Transformer模型**
 
 LLM最重要的文件是这篇关于Transformer模型的学术论文，标题为"Attention Is All You Need"。该论文由Ashish Vaswani等人撰写，首次提出了一种全新的神经网络架构——Transformer，它完全基于注意力机制（Attention Mechanisms），摒弃了传统的循环神经网络（RNNs）和卷积神经网络（CNNs）中的循环和卷积操作。以下是该论文的核心内容概述：
 

@@ -338,4 +338,3 @@ Follow-up works:
 
 Thanks to [Illia Polosukhin](https://twitter.com/ilblackdragon), [Jakob Uszkoreit](http://jakob.uszkoreit.net/), [Llion Jones](https://www.linkedin.com/in/llion-jones-9ab3064b) , [Lukasz Kaiser](https://ai.google/research/people/LukaszKaiser), [Niki Parmar](https://twitter.com/nikiparmar09), and [Noam Shazeer](https://dblp.org/pers/hd/s/Shazeer:Noam) for providing feedback on earlier versions of this post.
 
-Please hit me up on [Twitter](https://twitter.com/JayAlammar) for any corrections or feedback.
