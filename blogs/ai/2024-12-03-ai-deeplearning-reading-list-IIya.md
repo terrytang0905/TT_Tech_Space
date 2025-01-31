@@ -161,4 +161,4 @@ title: AI Practice Note - AI Deeplearing Development Notes
 
 ## 参考Reference
 
-[Top30 Paper](https://aman.ai/primers/ai/top-30-papers/#:~:text=Ilya Sutskever’s Top 30 Reading List 1 The,Order Matters%3A Sequence to Sequence for Sets)
+- [Top30 Paper](https://aman.ai/primers/ai/top-30-papers/#deep-residual-learning-for-image-recognition)
