@@ -1,0 +1,8 @@
+{"answerable":true,"query_id":"Q-D-001","query_type":"paraphrase","relevance":{"SCN-021":3,"SCN-022":3},"text":"找出有施工隔离物引导车辆跨过原车道线的记录"}
+{"answerable":true,"query_id":"Q-D-002","query_type":"two-condition","relevance":{"SCN-036":3},"text":"什么情况下前向成像设备被泥点遮住后需要降级"}
+{"answerable":true,"query_id":"Q-D-003","query_type":"three-condition","relevance":{"SCN-037":3},"text":"查找湿滑夜间高速上融合目标位置来回跳动的案例"}
+{"answerable":true,"query_id":"Q-D-004","query_type":"paraphrase","relevance":{"SCN-006":3},"text":"强光让交通信号颜色难以确认"}
+{"answerable":true,"query_id":"Q-D-005","query_type":"exact","relevance":{"SCN-001":1,"SCN-023":3},"text":"积水覆盖道路凹陷"}
+{"answerable":true,"query_id":"Q-D-006","query_type":"two-condition","relevance":{"SCN-027":3},"text":"找一个匝道正常礼让汇入车辆的情况"}
+{"answerable":false,"query_id":"Q-D-007","query_type":"hard-negative","relevance":{},"text":"冰雹中无人机降落到车顶"}
+{"answerable":false,"query_id":"Q-D-008","query_type":"out-of-scope","relevance":{},"text":"整理本周市场营销会议纪要"}
