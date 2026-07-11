@@ -5,3 +5,4 @@
 prd/01-scenario-library-mvp/.cache/
 prd/01-scenario-library-mvp/artifacts/*.json
 prd/01-scenario-library-mvp/artifacts/*.jsonl
+prd/01-scenario-library-mvp/artifacts/*.md
