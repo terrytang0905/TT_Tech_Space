@@ -2,3 +2,6 @@
 *.iml
 .DS_Store
 .worktrees/
+prd/01-scenario-library-mvp/.cache/
+prd/01-scenario-library-mvp/artifacts/*.json
+prd/01-scenario-library-mvp/artifacts/*.jsonl
