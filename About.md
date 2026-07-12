@@ -7,9 +7,10 @@ group: navigation
 
 ### Terry Tang
 
-**Data+AI Product Architect/Product Business Owner**
+**AI Data Product Architect/AI Product Business Owner**
 
-- Data+AI Product Solution Leader in Aliyun.
+- AI Search Product Owner in AliCloud.
+- Data+AI Product Solution Leader in AliCloud.
 - Data Platform Director(Over 15 Data Driver engineer work experience). 
 - Serial Entrepreneurs for TNT.
 - Email: zhenjietang@hotmail.com
@@ -38,7 +39,9 @@ group: navigation
 
 || Time 			 || Company  		|| Position 						        ||   <br/>
 
-|| 2019/07--Now.     || *AliCloud*        || Data&AI Product Architect Leader     ||
+|| 2024/01--Now.     || *AliCloud*        || AI Product Owner     ||
+
+|| 2019/07--2024/01.     || *AliCloud*        || Data&AI Product Architect Leader     ||
 
 || 2017/05--2019/07.     || *iResearch*        || Data Product Managing Director    ||
 
