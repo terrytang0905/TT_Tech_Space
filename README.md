@@ -5,6 +5,18 @@ TT Tech Space - Data+AI Research Blog
 Here is terrytang's personal tech resource pages,builded by GitHub. For the last many years, he has always worked in the field of software and internet.
 Currently he focuses on everything about big data included bi,olap,mpp,hadoop,solution,machine learning and AI.Welcome to contact with him and discuss any tech topic with him.
 
+### Current Code Project
+
+**Enterprise Multimodal Scenario Knowledge Agent MVP** is the active code-backed portfolio project in this repository.
+
+- Project: [prd/01-scenario-library-mvp](prd/01-scenario-library-mvp/)
+- Portfolio brief: [portfolio.md](prd/01-scenario-library-mvp/portfolio.md)
+- PRD: [prd.md](prd/01-scenario-library-mvp/prd.md)
+- Evidence report: [reports/w2-retrieval-ablation-report.md](prd/01-scenario-library-mvp/reports/w2-retrieval-ablation-report.md)
+- Verification entry: `make check`
+
+The MVP uses 40 synthetic driving-test scenarios, 8 development queries, and 36 frozen golden queries to compare BM25, Dense, structured Dense, and Dense+Sparse retrieval. The verified W2 decision is to keep structured scenario units plus Dense retrieval as P0, while leaving Dense+Sparse and automatic abstention as later validation items.
+
 ### TT Tech Blog Site
 
 #### Data Eco Map

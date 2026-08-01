@@ -1,6 +1,10 @@
 .idea/
 *.iml
 .DS_Store
+.Rhistory
+private.key
+*.pem
+*.key
 .worktrees/
 prd/01-scenario-library-mvp/.cache/
 prd/01-scenario-library-mvp/artifacts/*.json

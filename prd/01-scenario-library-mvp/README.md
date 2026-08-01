@@ -21,6 +21,34 @@
 
 B/C 只改变数据表示；C/D 只增加 Sparse 融合。Dense 维度固定为 1024，D 组混合权重只能从 `0.5/0.7/0.8` 中通过开发集选择。
 
+## 架构链路
+
+```mermaid
+flowchart TD
+  A["data/*.jsonl<br/>40 scenes + 8 dev + 36 golden"] --> B["schemas.py<br/>record validation"]
+  B --> C["corpus.py<br/>raw chunks / structured scene units"]
+  C --> D["Arm A<br/>BM25"]
+  C --> E["Arm B/C<br/>Dense retrieval"]
+  C --> F["Arm D<br/>Dense + Sparse retrieval"]
+  E --> G["bailian_client.py<br/>text-embedding-v4 + local cache"]
+  F --> G
+  D --> H["experiment.py<br/>four-arm evaluation"]
+  E --> H
+  F --> H
+  H --> I["metrics.py<br/>Recall, MRR, nDCG, FAR, latency, cost"]
+  I --> J["artifacts/<br/>manifest, query results, metrics, error analysis"]
+  J --> K["reports/w2-retrieval-ablation-report.md"]
+  K --> L["prd.md / portfolio.md<br/>product decision evidence"]
+```
+
+## 设计决策
+
+- **零第三方依赖**：实验框架只使用 Python 标准库，降低作品集复现门槛。
+- **真实 API 默认跳过**：离线单元测试不产生百炼调用费用；只有显式设置 `RUN_BAILIAN_INTEGRATION=1` 才执行真实集成测试。
+- **向量缓存不进 Git**：`.cache/embeddings/` 只保存本地复用数据，避免把运行态产物混入证据代码。
+- **产物可只读复核**：`--verify-only` 校验 manifest、指标和逐查询结果，让报告引用的证据可以复查。
+- **PRD 不夸大结论**：W2 只证明原型方向，不把合成数据结果表述为生产道路安全效果。
+
 ## 运行要求
 
 - Python 3.9 或更高版本；
@@ -34,6 +62,9 @@ API Key 只能通过环境变量传入，不会进入代码、日志、缓存或
 从本目录运行：
 
 ```bash
+# 从仓库根目录执行完整离线检查
+make check
+
 # 全部离线测试；真实 API 测试默认跳过
 python3 -m unittest discover -s tests -v
 
