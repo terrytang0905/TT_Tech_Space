@@ -9,13 +9,17 @@ Currently he focuses on everything about big data included bi,olap,mpp,hadoop,so
 
 **Enterprise Multimodal Scenario Knowledge Agent MVP** is the active code-backed portfolio project in this repository.
 
+- Status: W4 portfolio prototype ready for local demo; W2 evidence is frozen and reproducible.
 - Project: [prd/01-scenario-library-mvp](prd/01-scenario-library-mvp/)
 - Portfolio brief: [portfolio.md](prd/01-scenario-library-mvp/portfolio.md)
 - PRD: [prd.md](prd/01-scenario-library-mvp/prd.md)
+- Interactive prototype: [prototype/index.html](prd/01-scenario-library-mvp/prototype/index.html)
 - Evidence report: [reports/w2-retrieval-ablation-report.md](prd/01-scenario-library-mvp/reports/w2-retrieval-ablation-report.md)
 - Verification entry: `make check`
 
 The MVP uses 40 synthetic driving-test scenarios, 8 development queries, and 36 frozen golden queries to compare BM25, Dense, structured Dense, and Dense+Sparse retrieval. The verified W2 decision is to keep structured scenario units plus Dense retrieval as P0, while leaving Dense+Sparse and automatic abstention as later validation items.
+
+Portfolio reviewers can start from the prototype, then read the PRD and W2 report to trace the product decision back to reproducible retrieval evidence.
 
 ### TT Tech Blog Site
 

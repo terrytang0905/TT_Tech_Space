@@ -106,3 +106,25 @@ python3 -m src.experiment --data-dir data --artifact-dir artifacts --price-per-1
 - `error-analysis.md`：每组至少三个失败或低 nDCG 薄弱案例。
 
 缓存和原始 JSON/JSONL 运行产物默认不纳入 Git。正式证据报告只引用通过 `--verify-only` 校验的产物。
+
+## W4 交互原型
+
+`prototype/index.html` 是作品集演示入口，直接打开即可演示：
+
+- 从 36 条冻结黄金查询中选择或搜索问题；
+- 对比 A/B/C/D 四组检索方案的核心指标；
+- 查看 Top 5 命中场景、结构化字段、风险和证据片段；
+- 展示从 W2 实验到 W4 原型的产品决策链。
+
+建议展示顺序：
+
+1. 先打开原型说明“用户如何检索一个复杂场景”；
+2. 切换 A/B/C/D 方案，解释为什么 C 组进入 P0；
+3. 展开 Top 5 结果，展示证据片段和人工复核入口；
+4. 回到 `portfolio.md` 和 `prd.md`，说明产品边界、拒答策略和下一轮验证。
+
+重新生成原型：
+
+```bash
+python3 scripts/build_prototype.py
+```
